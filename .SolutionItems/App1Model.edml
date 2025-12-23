@@ -1,0 +1,150 @@
+﻿<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="App1.Data.Shared.Entities.Store" Alias="Self" ProviderManifestToken="" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:devart="http://devart.com/schemas/edml/StorageSchemaExtensions/1.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="EntitiesStoreContainer" />
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="App1.Data.Shared.Entities" Alias="Self" d4p1:ViewGeneration="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:devart="http://devart.com/schemas/edml/ConceptualSchemaExtensions/1.0" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" annotation:UseStrongSpatialTypes="false" xmlns:d4p1="http://devart.com/schemas/edml/ConceptualSchemaExtensions/1.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" ed:Guid="75d54061-caae-4484-aecf-ac7d1ad76289">
+          <EntitySet Name="Organizations" EntityType="App1.Data.Shared.Entities.Organization" />
+          <EntitySet Name="AppUsers" EntityType="App1.Data.Shared.Entities.AppUser" />
+          <EntitySet Name="Permissions" EntityType="App1.Data.Shared.Entities.Permission" />
+          <EntitySet Name="Roles" EntityType="App1.Data.Shared.Entities.Role" />
+          <AssociationSet Name="Organization_AppUserSet" Association="App1.Data.Shared.Entities.Organization_AppUser">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="AppUsers" EntitySet="AppUsers" />
+          </AssociationSet>
+          <AssociationSet Name="Organization_RoleSet" Association="App1.Data.Shared.Entities.Organization_Role">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="AppUser_PermissionSet" Association="App1.Data.Shared.Entities.AppUser_Permission">
+            <End Role="AppUsers" EntitySet="AppUsers" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="Role_PermissionSet" Association="App1.Data.Shared.Entities.Role_Permission">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Organization" ed:Namespace="Foo.Bar" ed:Guid="054ac3bf-f9c3-4a1c-9ef6-a5974025ceab" ed:Auditable="True" ed:InclRowVersion="True">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="44ddd3de-140e-43d5-96ae-496a0be81ea5" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" ed:ValidateMaxLength="100" ed:ValidateRequired="true" ed:Guid="b181fff5-7443-4208-b6ec-d588fba510db" />
+          <Property Name="BillingExternalId" Type="String" Nullable="false" MaxLength="100" ed:ValidateMaxLength="100" ed:ValidateRequired="false" ed:Guid="ee5ee5d8-f758-4560-a7c7-2d8bcc367632" />
+          <Property Name="Status" Type="App1.Data.Shared.Entities.OrganizationStatus" Nullable="false" ed:ValidateRequired="true" ed:Guid="fe14be16-731f-4358-8d9b-cbcabcf607cf" />
+          <Property Name="DefaultTimeZone" Type="String" Nullable="false" MaxLength="100" ed:ValidateMaxLength="100" ed:ValidateRequired="true" ed:Guid="bff296df-2d88-43c1-aa5c-21da0c436858" />
+          <Property Name="DefaultLocale" Type="String" Nullable="false" MaxLength="100" ed:ValidateMaxLength="100" ed:ValidateRequired="true" ed:Guid="2a78326b-3ee4-426f-ba86-325c2dfe13ec" />
+          <Property Name="IsSystem" Type="Boolean" Nullable="false" DefaultValue="False" ed:ValidateRequired="true" ed:Guid="cc49e22f-1956-4f47-be55-1da8371e0e88" />
+          <NavigationProperty Name="AppUsers" Relationship="App1.Data.Shared.Entities.Organization_AppUser" FromRole="Organization" ToRole="AppUsers" ed:Guid="dfa1900c-b300-49fa-a09f-fc1ae95e3ee8" />
+          <NavigationProperty Name="Roles" Relationship="App1.Data.Shared.Entities.Organization_Role" FromRole="Organization" ToRole="Roles" ed:Guid="eb51b910-ad60-4955-a2f3-367bcc726e5a" />
+        </EntityType>
+        <EntityType Name="AppUser" ed:Guid="2e6da80f-5022-49e5-a1c6-b9a851e7498c" ed:Auditable="True">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="3199ec2c-c931-4493-9c97-3006f1323b27" />
+          <Property Name="FirstName" Type="String" MaxLength="50" ed:ValidateMaxLength="50" ed:ValidateRequired="false" ed:Guid="f89129d8-5673-4e85-b3ec-66b9653600a8" ed:IsIndexed="True" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" ed:ValidateMaxLength="50" ed:ValidateRequired="true" ed:Guid="fda107e1-bcb6-4634-96c6-474094932eab" ed:IsIndexed="True" />
+          <Property Name="Email" Type="String" MaxLength="200" ed:ValidateMaxLength="200" ed:ValidateRequired="false" ed:Guid="a78bbad5-5d01-44c8-9e62-8b68d26f86a1" ed:IsIndexed="True" />
+          <Property Name="Status" Type="App1.Data.Shared.Entities.AppUserStatus" Nullable="false" ed:ValidateRequired="true" ed:Guid="42362074-21af-43b4-baae-f50fbb74e761" />
+          <Property Name="OrganizationId" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="9d4084df-ec32-42e0-b815-ffb011456ee2" />
+          <NavigationProperty Name="Permissions" Relationship="App1.Data.Shared.Entities.AppUser_Permission" FromRole="AppUsers" ToRole="Permissions" ed:Guid="19e6f727-c0af-4067-8572-f6c6846adf0f" />
+        </EntityType>
+        <EntityType Name="Permission" ed:Guid="3f70ba13-25b7-4515-b533-a90661d70f2c">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="7a9d9f4f-ffb5-42a7-aedb-e8487e1fcdaf" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" ed:ValidateMaxLength="50" ed:ValidateRequired="true" ed:Guid="090f54b5-dfb8-4122-8a63-426eafcfa84e" />
+          <NavigationProperty Name="AppUsers" Relationship="App1.Data.Shared.Entities.AppUser_Permission" FromRole="Permissions" ToRole="AppUsers" ed:Guid="f0e99ebf-d91d-4a17-b2c4-6dead3c92ef9" />
+          <NavigationProperty Name="Roles" Relationship="App1.Data.Shared.Entities.Role_Permission" FromRole="Permissions" ToRole="Roles" ed:Guid="85e7a73e-4aa3-40a3-800c-37bdba43883e" />
+        </EntityType>
+        <EntityType Name="Role" ed:Guid="aa494d1a-af4a-44d4-b48e-8c13aa32961d">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" ed:ValidateRequired="true" ed:Guid="b24ad404-a662-49f9-89ff-c4d2b3bdd6d4" />
+          <Property Name="Name" Type="Int32" ed:ValidateRequired="false" ed:Guid="2aba7f43-574e-4ee0-b789-8ed3aaeecdea" />
+          <Property Name="AppUserId" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="bad9044b-a425-4d12-adc5-8f3e1e5ebe80" />
+          <Property Name="OrganizationId" Type="Guid" Nullable="false" ed:ValidateRequired="true" ed:Guid="c1ae4af7-8910-43e9-ae9d-34eed2544aae" />
+          <NavigationProperty Name="Permissions" Relationship="App1.Data.Shared.Entities.Role_Permission" FromRole="Roles" ToRole="Permissions" ed:Guid="ecf9a6c1-7c55-45c6-8e05-960c14d1e1b6" />
+        </EntityType>
+        <EnumType Name="OrganizationStatus" d5p1:ExternalTypeName="OrganizationStatus" IsFlags="true" UnderlyingType="Int16" ed:Guid="449bd3f7-d35b-4b74-af66-a0da7150b44b" xmlns:d5p1="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Member Name="Active" ed:Guid="67a73ec9-4bf3-4e29-afb5-64c07c40e491" />
+          <Member Name="Suspended" ed:Guid="184a8d94-4e36-4c60-af62-ac0b2b601c03" />
+          <Member Name="Deleted" ed:Guid="20d8a635-16bc-495d-9085-c6270a6f30ea" />
+        </EnumType>
+        <EnumType Name="AppUserStatus" d5p1:ExternalTypeName="AppUserStatus" UnderlyingType="Int16" ed:Guid="fd029be5-eefd-4a7f-9cb9-f769edae7273" xmlns:d5p1="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <Member Name="Active" ed:Guid="4bc44822-bdb8-41fd-8d29-074edf589ba2" />
+          <Member Name="Disabled" ed:Guid="a93d3d4a-95b1-4e4e-86c9-c06f8ac66b38" />
+          <Member Name="Locked" ed:Guid="defbc150-3da0-454e-b985-fc5477146069" />
+          <Member Name="Deleted" ed:Guid="aae8eaaa-c0df-4193-9570-857e03b248a0" />
+        </EnumType>
+        <Association Name="Organization_AppUser" ed:Guid="9bf30869-5ec2-4af8-9271-009ea994bde0">
+          <End Role="Organization" Type="App1.Data.Shared.Entities.Organization" Multiplicity="1" />
+          <End Role="AppUsers" Type="App1.Data.Shared.Entities.AppUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppUsers">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Organization_Role" ed:Guid="a41bf097-f781-4ee9-8730-549eac4de5e7">
+          <End Role="Organization" Type="App1.Data.Shared.Entities.Organization" Multiplicity="1" />
+          <End Role="Roles" Type="App1.Data.Shared.Entities.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AppUser_Permission" ed:Guid="5bd61748-fec3-4154-ae91-e6f88d84497e">
+          <End Role="AppUsers" Type="App1.Data.Shared.Entities.AppUser" Multiplicity="*" />
+          <End Role="Permissions" Type="App1.Data.Shared.Entities.Permission" Multiplicity="*" />
+        </Association>
+        <Association Name="Role_Permission" ed:Guid="27fc59c8-506e-4353-8bb5-2e1d9afbd479">
+          <End Role="Roles" Type="App1.Data.Shared.Entities.Role" Multiplicity="*" />
+          <End Role="Permissions" Type="App1.Data.Shared.Entities.Permission" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- MSL content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EntitiesStoreContainer" CdmEntityContainer="Entities" />
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="CopyToOutputDirectory" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <edmx:Diagrams>
+      <Diagram Name="Main" />
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

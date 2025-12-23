@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="/.SolutionItems/App1Model.edml" />
+  </Folder>
+  <Project Path="GenIt/GenIt.csproj" />
+  <Project Path="EdmlModelReader/EdmlModelReader.csproj" Id="d2ce088d-578d-4bc1-88da-ab2b72f773e4" />
+</Solution>
