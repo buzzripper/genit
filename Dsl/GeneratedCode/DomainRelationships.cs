@@ -115,14 +115,14 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for SourceMultiplicity
 		/// </summary>
-		private Multiplicity sourceMultiplicityPropertyStorage = Multiplicity.Many;
+		private Multiplicity sourceMultiplicityPropertyStorage = Multiplicity.One;
 		
 		/// <summary>
 		/// Gets or sets the value of SourceMultiplicity domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/SourceMultiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/SourceMultiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(Multiplicity.Many)]
+		[global::System.ComponentModel.DefaultValue(Multiplicity.One)]
 		[DslModeling::DomainObjectId("7f3fc48a-1968-44e9-91aa-ee8d93c10f89")]
 		public Multiplicity SourceMultiplicity
 		{

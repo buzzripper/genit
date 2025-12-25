@@ -199,7 +199,7 @@
       <Notes>This is the abstract base relationship of the several kinds of association between Classes.
       It defines the Properties that are attached to each association.</Notes>
       <Properties>
-        <DomainProperty Id="7f3fc48a-1968-44e9-91aa-ee8d93c10f89" Description="" Name="SourceMultiplicity" DisplayName="Source Multiplicity" DefaultValue="Many">
+        <DomainProperty Id="7f3fc48a-1968-44e9-91aa-ee8d93c10f89" Description="" Name="SourceMultiplicity" DisplayName="Source Multiplicity" DefaultValue="One">
           <Type>
             <DomainEnumerationMoniker Name="Multiplicity" />
           </Type>

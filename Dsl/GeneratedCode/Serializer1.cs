@@ -9193,7 +9193,7 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<Multiplicity>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "One") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "Many") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "sourceMultiplicity", serializedPropValue);
 					}
