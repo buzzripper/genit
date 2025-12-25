@@ -1,1 +1,28 @@
-﻿ 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<genItDiagram dslVersion="1.0.0.0" Id="029897d8-f82b-4ea1-bcfd-4fc9f0b798e8" absoluteBounds="0, 0, 11, 8.5" name="Test">
+  <modelRootMoniker name="/" />
+  <nestedChildShapes>
+    <classShape Id="d24bd48f-cf92-4e47-94d2-63dc9d9bafac" absoluteBounds="1, 1, 1.5, 0.91877929687500015">
+      <modelClassMoniker name="//ModelClass1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a6506c20-7d1d-4045-809a-8d494bfa4a46" absoluteBounds="1.015, 1.31, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="42129630-cc06-49c0-a888-c6fcc21da8e5" absoluteBounds="1.015, 1.5693896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8fc11b7e-bf54-48d5-9ff5-9576bbce0281" absoluteBounds="5.25, 5.5, 1.5, 0.91877929687499993">
+      <modelClassMoniker name="//ModelClass2" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7b704362-7517-4ec6-b97c-efee99522396" absoluteBounds="5.265, 5.8100000000000005, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a71f3bf2-251a-441a-ae7c-b24e038820ad" absoluteBounds="5.265, 6.0693896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <aggregationConnector Id="94f337f8-daa7-4bb0-b1c3-6155a914855a" edgePoints="[(1.75 : 1.918779296875); (1.75 : 5.9593896484375); (5.25 : 5.9593896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <aggregationMoniker Id="2a8cc526-bdaf-426d-9853-36f3cdddbfab" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="d24bd48f-cf92-4e47-94d2-63dc9d9bafac" />
+        <classShapeMoniker Id="8fc11b7e-bf54-48d5-9ff5-9576bbce0281" />
+      </nodes>
+    </aggregationConnector>
+  </nestedChildShapes>
+</genItDiagram>

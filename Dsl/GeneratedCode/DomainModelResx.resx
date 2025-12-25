@@ -945,13 +945,13 @@
     <value></value>
     <comment>Description for EnumerationLiteral &apos;Sealed&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroMany.DisplayName" xml:space="preserve">
-    <value>ZeroMany</value>
-    <comment>Display name for EnumerationLiteral &apos;ZeroMany&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/Many.DisplayName" xml:space="preserve">
+    <value>Many</value>
+    <comment>Display name for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroMany.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.Multiplicity/Many.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for EnumerationLiteral &apos;ZeroMany&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Multiplicity/One.DisplayName" xml:space="preserve">
     <value>One</value>
@@ -961,21 +961,13 @@
     <value></value>
     <comment>Description for EnumerationLiteral &apos;One&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
-    <value>ZeroOne</value>
-    <comment>Display name for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/ZeroOrOne.DisplayName" xml:space="preserve">
+    <value>ZeroOrOne</value>
+    <comment>Display name for EnumerationLiteral &apos;ZeroOrOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.Multiplicity/ZeroOrOne.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Multiplicity/OneMany.DisplayName" xml:space="preserve">
-    <value>OneMany</value>
-    <comment>Display name for EnumerationLiteral &apos;OneMany&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Multiplicity/OneMany.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;OneMany&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+    <comment>Description for EnumerationLiteral &apos;ZeroOrOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Sequential.DisplayName" xml:space="preserve">
     <value>Sequential</value>

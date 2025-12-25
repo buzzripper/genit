@@ -1262,10 +1262,9 @@
   <!-- Enum Multiplicity -->
   <xsd:simpleType name="Multiplicity">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="ZeroMany"/>
+      <xsd:enumeration value="Many"/>
       <xsd:enumeration value="One"/>
-      <xsd:enumeration value="ZeroOne"/>
-      <xsd:enumeration value="OneMany"/>
+      <xsd:enumeration value="ZeroOrOne"/>
     </xsd:restriction>
   </xsd:simpleType>
   
