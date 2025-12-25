@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9d433ece-11d0-4cbc-9a3b-82824193f347" Description="Description for Dyvenix.GenIt.GenIt" Name="GenIt" DisplayName="Class Diagrams" Namespace="Dyvenix.GenIt" ProductName="GenIt" CompanyName="Dyvenix" PackageGuid="3aa8cbb2-f0c4-4628-bc99-158569733469" PackageNamespace="Dyvenix.GenIt" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="9913cfeb-b29a-4eb0-aba0-2e8c046b87e0" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt">
@@ -537,7 +537,6 @@
         <EnumerationLiteral Description="" Name="Many" Value="0" />
         <EnumerationLiteral Description="" Name="One" Value="1" />
         <EnumerationLiteral Description="" Name="ZeroOrOne" Value="2" />
-        
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="OperationConcurrency" Namespace="Dyvenix.GenIt" Description="">
@@ -585,7 +584,7 @@
     <ImageShape Id="b71ffedb-27f9-4861-8810-75cde60d5b6d" Description="" Name="MultipleAssociationShape" DisplayName="Multiple Association Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Multiple Association Shape" InitialHeight="1" OutlineThickness="0.01" Image="Resources\Relation.emf" />
   </Shapes>
   <Connectors>
-    <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" GeneratesDoubleDerived="true" Namespace="Dyvenix.GenIt" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
+    <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
       <ConnectorHasDecorators Position="TargetBottom" OffsetFromShape="0" OffsetFromLine="0">
         <TextDecorator Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultText="TargetMultiplicity" />
       </ConnectorHasDecorators>
@@ -1410,4 +1409,3 @@
     <ExplorerBehaviorMoniker Name="GenIt/GenItExplorer" />
   </Explorer>
 </Dsl>
-

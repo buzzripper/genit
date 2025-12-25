@@ -3,7 +3,7 @@
   <types>
     <modelClass Id="b878f4ea-0af0-4153-a1cd-94d44ff4e594" name="ModelClass1">
       <unidirectionalTargets>
-        <unidirectionalAssociation Id="64a1989f-5936-4897-b5a3-0c134b5af960" sourceMultiplicity="1" targetMultiplicity="*">
+        <unidirectionalAssociation Id="9ca36ed0-1c37-4864-b703-10c501771add" sourceMultiplicity="1" targetMultiplicity="*">
           <modelClassMoniker name="//ModelClass2" />
         </unidirectionalAssociation>
       </unidirectionalTargets>

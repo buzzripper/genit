@@ -9,15 +9,15 @@
         <elementListCompartment Id="9aeeb2b5-0acb-49b3-9422-1c2bed75a559" absoluteBounds="0.8899999999999999, 1.8193896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="68b7f259-aa24-4156-8cbb-41f6327f41c8" absoluteBounds="3.625, 3.25, 1.5, 0.91877929687499993">
+    <classShape Id="68b7f259-aa24-4156-8cbb-41f6327f41c8" absoluteBounds="3.625, 3.625, 1.5, 0.91877929687499993">
       <modelClassMoniker name="//ModelClass2" />
       <nestedChildShapes>
-        <elementListCompartment Id="c94905e2-ce2d-41e2-803f-d6568b4c7f9c" absoluteBounds="3.6400000000000006, 3.5599999999999987, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="268d32c0-b271-4910-8e4e-2fcd65b449f5" absoluteBounds="3.6400000000000006, 3.8193896484375003, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="c94905e2-ce2d-41e2-803f-d6568b4c7f9c" absoluteBounds="3.6400000000000006, 3.9349999999999987, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="268d32c0-b271-4910-8e4e-2fcd65b449f5" absoluteBounds="3.6400000000000006, 4.1943896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <unidirectionalConnector Id="5bb7d399-53a1-4275-93fa-b7a9de5604a4" edgePoints="[(1.625 : 2.168779296875); (1.625 : 3.7093896484375); (3.625 : 3.7093896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <unidirectionalAssociationMoniker Id="64a1989f-5936-4897-b5a3-0c134b5af960" />
+    <unidirectionalConnector Id="067af934-bc1e-4498-9eb6-9e14a6898212" edgePoints="[(1.625 : 2.168779296875); (1.625 : 4.0843896484375); (3.625 : 4.0843896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <unidirectionalAssociationMoniker Id="9ca36ed0-1c37-4864-b703-10c501771add" />
       <relativeChildShapes />
       <nodes>
         <classShapeMoniker Id="eba32a9f-f64e-461a-b086-3803f0dd8860" />
