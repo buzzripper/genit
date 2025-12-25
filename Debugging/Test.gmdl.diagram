@@ -16,13 +16,5 @@
         <elementListCompartment Id="268d32c0-b271-4910-8e4e-2fcd65b449f5" absoluteBounds="3.6400000000000006, 4.1943896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <unidirectionalConnector Id="067af934-bc1e-4498-9eb6-9e14a6898212" edgePoints="[(1.625 : 2.168779296875); (1.625 : 4.0843896484375); (3.625 : 4.0843896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <unidirectionalAssociationMoniker Id="9ca36ed0-1c37-4864-b703-10c501771add" />
-      <relativeChildShapes />
-      <nodes>
-        <classShapeMoniker Id="eba32a9f-f64e-461a-b086-3803f0dd8860" />
-        <classShapeMoniker Id="68b7f259-aa24-4156-8cbb-41f6327f41c8" />
-      </nodes>
-    </unidirectionalConnector>
   </nestedChildShapes>
 </genItDiagram>

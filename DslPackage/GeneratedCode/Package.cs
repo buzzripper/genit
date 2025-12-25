@@ -110,37 +110,13 @@ namespace Dyvenix.GenIt
 					0xff00ff,
 					Index = 9)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@MultipleAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.MultipleAssociationToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"MultipleAssociationF1Keyword", 
-					"@MultipleAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 10)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@MultipleAssociationRoleToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.MultipleAssociationRoleToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"MultipleAssociationRoleF1Keyword", 
-					"@MultipleAssociationRoleToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 11)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@AssociationClassRelationshipToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.AssociationClassRelationshipToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"AssociationClassRelationshipF1Keyword", 
-					"@AssociationClassRelationshipToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 12)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"CommentF1Keyword", 
 					"@CommentToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 13)]
+					Index = 10)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentsReferenceTypesToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentsReferenceTypesToolboxItem", 
@@ -148,7 +124,7 @@ namespace Dyvenix.GenIt
 					"CommentsReferenceTypesF1Keyword", 
 					"@CommentsReferenceTypesToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 14)]
+					Index = 11)]
 	[VSShell::ProvideEditorFactory(typeof(GenItEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(GenItEditorFactory), "." + Constants.DesignerFileExtension, 50)]
 	[VSShell::ProvideEditorLogicalView(typeof(GenItEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer

@@ -159,11 +159,6 @@
         <DomainClassMoniker Name="Operation" />
       </BaseClass>
     </DomainClass>
-    <DomainClass Id="a82a0c27-346e-4853-b917-fcb7e4df4ed6" Description="" Name="MultipleAssociation" DisplayName="Multiple Association" Namespace="Dyvenix.GenIt">
-      <BaseClass>
-        <DomainClassMoniker Name="ModelType" />
-      </BaseClass>
-    </DomainClass>
     <DomainClass Id="ac123494-47dc-4b1b-991a-a5c0493a0c99" Description="" Name="ModelType" DisplayName="Model Type" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt">
       <BaseClass>
         <DomainClassMoniker Name="ClassModelElement" />
@@ -362,50 +357,6 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="432668ae-9c9b-4421-aa1b-783cb9b57fe4" Description="Links a MultipleAssociation to one of the classes it associates." Name="MultipleAssociationRole" DisplayName="Multiple Association Role" Namespace="Dyvenix.GenIt">
-      <Properties>
-        <DomainProperty Id="c27a2c95-9e41-4a84-90c2-1ebffa2273aa" Description="" Name="Multiplicity" DisplayName="Multiplicity" DefaultValue="Many">
-          <Type>
-            <DomainEnumerationMoniker Name="Multiplicity" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="bf8d315f-a90f-459a-bbdb-6190a4773d19" Description="" Name="RoleName" DisplayName="RoleName" DefaultValue="">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-      </Properties>
-      <Source>
-        <DomainRole Id="977e308e-e788-4ea3-b91c-9fac3171ffda" Description="" Name="MultipleAssociation" DisplayName="Multiple Association" PropertyName="Types" PropertyDisplayName="Types">
-          <RolePlayer>
-            <DomainClassMoniker Name="MultipleAssociation" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="63687ce5-1a4b-4ff6-93e5-eaddeed20f5d" Description="" Name="Type" DisplayName="Type" PropertyName="MultipleAssociations" PropertyDisplayName="Multiple Associations">
-          <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
-    <DomainRelationship Id="b790228f-2a88-4e78-8d6b-df4ab58eec6c" Description="Identifies a MultipleAssociation with a Class, so that it can have attributes." Name="AssociationClassRelationship" DisplayName="Association Class Relationship" Namespace="Dyvenix.GenIt">
-      <Source>
-        <DomainRole Id="a45b9289-eab1-4203-a4aa-908bfcd799bf" Description="" Name="MultipleAssociation" DisplayName="Multiple Association" PropertyName="AssociationClass" Multiplicity="ZeroOne" PropertyDisplayName="Association Class">
-          <RolePlayer>
-            <DomainClassMoniker Name="MultipleAssociation" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="5313814b-df6d-4c0d-a6f0-c458505f706e" Description="" Name="AssociationClass" DisplayName="Association Class" PropertyName="MultipleAssociation" Multiplicity="ZeroOne" PropertyDisplayName="Multiple Association">
-          <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
     <DomainRelationship Id="dc82326e-8d7b-4d53-b330-45c82c456b67" Description="" Name="Aggregation" DisplayName="Aggregation" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
       <BaseRelationship>
         <DomainRelationshipMoniker Name="Association" />
@@ -581,7 +532,6 @@
         <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
       </ShapeHasDecorators>
     </GeometryShape>
-    <ImageShape Id="b71ffedb-27f9-4861-8810-75cde60d5b6d" Description="" Name="MultipleAssociationShape" DisplayName="Multiple Association Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Multiple Association Shape" InitialHeight="1" OutlineThickness="0.01" Image="Resources\Relation.emf" />
   </Shapes>
   <Connectors>
     <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
@@ -618,15 +568,6 @@
         <ConnectorMoniker Name="AssociationConnector" />
       </BaseConnector>
     </Connector>
-    <Connector Id="0c99d905-0d35-42f1-981c-fee510a8ac0a" Description="" Name="MultipleAssociationRoleConnector" DisplayName="Multiple Association Role Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Multiple Association Role Connector" Color="113, 111, 110" Thickness="0.01">
-      <ConnectorHasDecorators Position="TargetBottom" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultText="TargetMultiplicity" />
-      </ConnectorHasDecorators>
-      <ConnectorHasDecorators Position="TargetTop" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="TargetRoleName" DisplayName="Target Role Name" DefaultText="TargetRoleName" />
-      </ConnectorHasDecorators>
-    </Connector>
-    <Connector Id="f233d87b-3c82-405d-8512-46659a44d1cb" Description="" Name="AssociationClassConnector" DisplayName="Association Class Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Association Class Connector" Color="DarkGray" DashStyle="Dash" Thickness="0.01" />
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
@@ -678,20 +619,6 @@
       <XmlClassData TypeName="InterfaceHasOperation" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceHasOperationMoniker" ElementName="interfaceHasOperation" MonikerTypeName="InterfaceHasOperationMoniker">
         <DomainRelationshipMoniker Name="InterfaceHasOperation" />
       </XmlClassData>
-      <XmlClassData TypeName="MultipleAssociationRole" MonikerAttributeName="" SerializeId="true" MonikerElementName="multipleAssociationRoleMoniker" ElementName="multipleAssociationRole" MonikerTypeName="MultipleAssociationRoleMoniker">
-        <DomainRelationshipMoniker Name="MultipleAssociationRole" />
-        <ElementData>
-          <XmlPropertyData XmlName="multiplicity">
-            <DomainPropertyMoniker Name="MultipleAssociationRole/Multiplicity" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="roleName">
-            <DomainPropertyMoniker Name="MultipleAssociationRole/RoleName" />
-          </XmlPropertyData>
-        </ElementData>
-      </XmlClassData>
-      <XmlClassData TypeName="AssociationClassRelationship" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationClassRelationshipMoniker" ElementName="associationClassRelationship" MonikerTypeName="AssociationClassRelationshipMoniker">
-        <DomainRelationshipMoniker Name="AssociationClassRelationship" />
-      </XmlClassData>
       <XmlClassData TypeName="ModelRootHasTypes" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasTypesMoniker" ElementName="modelRootHasTypes" MonikerTypeName="ModelRootHasTypesMoniker">
         <DomainRelationshipMoniker Name="ModelRootHasTypes" />
       </XmlClassData>
@@ -741,9 +668,6 @@
           </XmlRelationshipData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="compositionTargets">
             <DomainRelationshipMoniker Name="Composition" />
-          </XmlRelationshipData>
-          <XmlRelationshipData RoleElementName="targets">
-            <DomainRelationshipMoniker Name="Association" />
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
@@ -811,17 +735,6 @@
       <XmlClassData TypeName="InterfaceOperation" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceOperationMoniker" ElementName="interfaceOperation" MonikerTypeName="InterfaceOperationMoniker">
         <DomainClassMoniker Name="InterfaceOperation" />
       </XmlClassData>
-      <XmlClassData TypeName="MultipleAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="multipleAssociationMoniker" ElementName="multipleAssociation" MonikerTypeName="MultipleAssociationMoniker">
-        <DomainClassMoniker Name="MultipleAssociation" />
-        <ElementData>
-          <XmlRelationshipData UseFullForm="true" RoleElementName="types">
-            <DomainRelationshipMoniker Name="MultipleAssociationRole" />
-          </XmlRelationshipData>
-          <XmlRelationshipData RoleElementName="associationClass">
-            <DomainRelationshipMoniker Name="AssociationClassRelationship" />
-          </XmlRelationshipData>
-        </ElementData>
-      </XmlClassData>
       <XmlClassData TypeName="ModelType" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelTypeMoniker" ElementName="modelType" MonikerTypeName="ModelTypeMoniker">
         <DomainClassMoniker Name="ModelType" />
       </XmlClassData>
@@ -854,9 +767,6 @@
       <XmlClassData TypeName="CommentBoxShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentBoxShapeMoniker" ElementName="commentBoxShape" MonikerTypeName="CommentBoxShapeMoniker">
         <GeometryShapeMoniker Name="CommentBoxShape" />
       </XmlClassData>
-      <XmlClassData TypeName="MultipleAssociationShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="multipleAssociationShapeMoniker" ElementName="multipleAssociationShape" MonikerTypeName="MultipleAssociationShapeMoniker">
-        <ImageShapeMoniker Name="MultipleAssociationShape" />
-      </XmlClassData>
       <XmlClassData TypeName="AssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationConnectorMoniker" ElementName="associationConnector" MonikerTypeName="AssociationConnectorMoniker">
         <ConnectorMoniker Name="AssociationConnector" />
       </XmlClassData>
@@ -871,12 +781,6 @@
       </XmlClassData>
       <XmlClassData TypeName="CompositionConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="compositionConnectorMoniker" ElementName="compositionConnector" MonikerTypeName="CompositionConnectorMoniker">
         <ConnectorMoniker Name="CompositionConnector" />
-      </XmlClassData>
-      <XmlClassData TypeName="MultipleAssociationRoleConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="multipleAssociationRoleConnectorMoniker" ElementName="multipleAssociationRoleConnector" MonikerTypeName="MultipleAssociationRoleConnectorMoniker">
-        <ConnectorMoniker Name="MultipleAssociationRoleConnector" />
-      </XmlClassData>
-      <XmlClassData TypeName="AssociationClassConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationClassConnectorMoniker" ElementName="associationClassConnector" MonikerTypeName="AssociationClassConnectorMoniker">
-        <ConnectorMoniker Name="AssociationClassConnector" />
       </XmlClassData>
       <XmlClassData TypeName="GeneralizationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationConnectorMoniker" ElementName="generalizationConnector" MonikerTypeName="GeneralizationConnectorMoniker">
         <ConnectorMoniker Name="GeneralizationConnector" />
@@ -1006,44 +910,6 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="MultipleAssociationRoleBuilder">
-      <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="MultipleAssociationRole" />
-        <SourceDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="MultipleAssociation" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </SourceDirectives>
-        <TargetDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </TargetDirectives>
-      </LinkConnectDirective>
-    </ConnectionBuilder>
-    <ConnectionBuilder Name="AssociationClassRelationshipBuilder">
-      <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="AssociationClassRelationship" />
-        <SourceDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="MultipleAssociation" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </SourceDirectives>
-        <TargetDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </TargetDirectives>
-      </LinkConnectDirective>
-    </ConnectionBuilder>
     <ConnectionBuilder Name="CommentReferencesSubjectsBuilder">
       <LinkConnectDirective>
         <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
@@ -1063,11 +929,6 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="ModelInterface" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="MultipleAssociation" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -1156,13 +1017,6 @@
           </PropertyDisplayed>
         </DecoratorMap>
         <GeometryShapeMoniker Name="CommentBoxShape" />
-      </ShapeMap>
-      <ShapeMap>
-        <DomainClassMoniker Name="MultipleAssociation" />
-        <ParentElementPath>
-          <DomainPath>ModelRootHasTypes.ModelRoot/!ModelRoot</DomainPath>
-        </ParentElementPath>
-        <ImageShapeMoniker Name="MultipleAssociationShape" />
       </ShapeMap>
     </ShapeMaps>
     <ConnectorMaps>
@@ -1311,30 +1165,6 @@
         </DecoratorMap>
       </ConnectorMap>
       <ConnectorMap>
-        <ConnectorMoniker Name="MultipleAssociationRoleConnector" />
-        <DomainRelationshipMoniker Name="MultipleAssociationRole" />
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="MultipleAssociationRoleConnector/TargetMultiplicity" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="MultipleAssociationRole/Multiplicity" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="MultipleAssociationRoleConnector/TargetRoleName" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="MultipleAssociationRole/RoleName" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
-      </ConnectorMap>
-      <ConnectorMap>
-        <ConnectorMoniker Name="AssociationClassConnector" />
-        <DomainRelationshipMoniker Name="AssociationClassRelationship" />
-      </ConnectorMap>
-      <ConnectorMap>
         <ConnectorMoniker Name="CommentConnector" />
         <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
       </ConnectorMap>
@@ -1385,15 +1215,6 @@
       </ConnectionTool>
       <ConnectionTool Name="Generalization" ToolboxIcon="resources\generalizationtool.bmp" Caption="Inheritance" Tooltip="Create a Generalization or Implementation link" HelpKeyword="GeneralizationF1Keyword" ReversesDirection="true">
         <ConnectionBuilderMoniker Name="GenIt/GeneralizationBuilder" />
-      </ConnectionTool>
-      <ElementTool Name="MultipleAssociation" ToolboxIcon="resources\multipleassociationtool.bmp" Caption="Multiple Association" Tooltip="Create a Multiple Association element" HelpKeyword="MultipleAssociationF1Keyword">
-        <DomainClassMoniker Name="MultipleAssociation" />
-      </ElementTool>
-      <ConnectionTool Name="MultipleAssociationRole" ToolboxIcon="Resources\AssociationLinkTool.bmp" Caption="Multiple Association Link" Tooltip="Create a Multiple Association link" HelpKeyword="MultipleAssociationRoleF1Keyword">
-        <ConnectionBuilderMoniker Name="GenIt/MultipleAssociationRoleBuilder" />
-      </ConnectionTool>
-      <ConnectionTool Name="AssociationClassRelationship" ToolboxIcon="Resources\AssociationClassTool.bmp" Caption="Association Class" Tooltip="Identify a Multiple Association with a Class" HelpKeyword="AssociationClassRelationshipF1Keyword">
-        <ConnectionBuilderMoniker Name="GenIt/AssociationClassRelationshipBuilder" />
       </ConnectionTool>
       <ElementTool Name="Comment" ToolboxIcon="resources\commenttool.bmp" Caption="Comment" Tooltip="Create a Comment" HelpKeyword="CommentF1Keyword">
         <DomainClassMoniker Name="Comment" />

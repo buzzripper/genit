@@ -1,13 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="70ee625f-9a00-4071-aa2e-4cdb7b99c3fc" name="" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
   <types>
-    <modelClass Id="b878f4ea-0af0-4153-a1cd-94d44ff4e594" name="ModelClass1">
-      <unidirectionalTargets>
-        <unidirectionalAssociation Id="9ca36ed0-1c37-4864-b703-10c501771add" sourceMultiplicity="1" targetMultiplicity="*">
-          <modelClassMoniker name="//ModelClass2" />
-        </unidirectionalAssociation>
-      </unidirectionalTargets>
-    </modelClass>
+    <modelClass Id="b878f4ea-0af0-4153-a1cd-94d44ff4e594" name="ModelClass1" />
     <modelClass Id="6e3d6ed4-cf8a-49e9-9f79-e5871c8ab45f" name="ModelClass2" />
   </types>
 </modelRoot>

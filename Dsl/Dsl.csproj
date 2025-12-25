@@ -163,9 +163,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DslDefinition.dsl.diagram">
-      <DependentUpon>DslDefinition.dsl</DependentUpon>
-    </None>
     <None Include="GeneratedCode\ConnectionBuilders.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ConnectionBuilders.cs</LastGenOutput>

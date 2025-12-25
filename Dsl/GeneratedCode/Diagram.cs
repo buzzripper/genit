@@ -300,12 +300,6 @@ namespace Dyvenix.GenIt
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Dyvenix.GenIt.MultipleAssociation)
-			{
-				global::Dyvenix.GenIt.MultipleAssociationShape newShape = new global::Dyvenix.GenIt.MultipleAssociationShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
 			if(element is global::Dyvenix.GenIt.BidirectionalAssociation)
 			{
 				global::Dyvenix.GenIt.BidirectionalConnector newShape = new global::Dyvenix.GenIt.BidirectionalConnector(this.Partition);
@@ -330,16 +324,6 @@ namespace Dyvenix.GenIt
 			{
 				global::Dyvenix.GenIt.CommentBoxShape newShape = new global::Dyvenix.GenIt.CommentBoxShape(this.Partition);
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.MultipleAssociationRole)
-			{
-				global::Dyvenix.GenIt.MultipleAssociationRoleConnector newShape = new global::Dyvenix.GenIt.MultipleAssociationRoleConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.AssociationClassRelationship)
-			{
-				global::Dyvenix.GenIt.AssociationClassConnector newShape = new global::Dyvenix.GenIt.AssociationClassConnector(this.Partition);
 				return newShape;
 			}
 			if(element is global::Dyvenix.GenIt.CommentReferencesSubjects)
@@ -375,7 +359,6 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.BidirectionalConnector.DecoratorsInitialized += BidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.AggregationConnector.DecoratorsInitialized += AggregationConnectorDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.CompositionConnector.DecoratorsInitialized += CompositionConnectorDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.MultipleAssociationRoleConnector.DecoratorsInitialized += MultipleAssociationRoleConnectorDecoratorMap.OnDecoratorsInitialized;
 		}
 		
 		/// <summary>
@@ -561,27 +544,6 @@ namespace Dyvenix.GenIt
 			}
 		}
 		
-		/// <summary>
-		/// Class containing decorator path traversal methods for MultipleAssociationRoleConnector.
-		/// </summary>
-		internal static partial class MultipleAssociationRoleConnectorDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for MultipleAssociationRoleConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.MultipleAssociationRole.MultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.MultipleAssociationRole.RoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetRoleName").AssociateValueWith(shape.Store, propertyInfo);
-			}
-		}
-		
 		#endregion
 		
 		#region Connect actions
@@ -591,8 +553,6 @@ namespace Dyvenix.GenIt
 		private global::Dyvenix.GenIt.AggregationConnectAction aggregationConnectAction;
 		private global::Dyvenix.GenIt.CompositionConnectAction compositionConnectAction;
 		private global::Dyvenix.GenIt.GeneralizationConnectAction generalizationConnectAction;
-		private global::Dyvenix.GenIt.MultipleAssociationRoleConnectAction multipleAssociationRoleConnectAction;
-		private global::Dyvenix.GenIt.AssociationClassRelationshipConnectAction associationClassRelationshipConnectAction;
 		private global::Dyvenix.GenIt.CommentsReferenceTypesConnectAction commentsReferenceTypesConnectAction;
 		/// <summary>
 		/// Virtual method to provide a filter when to select the mouse action
@@ -660,24 +620,6 @@ namespace Dyvenix.GenIt
 						this.generalizationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
 					}
 					action = this.generalizationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.MultipleAssociationRoleFilterString))
-				{
-					if (this.multipleAssociationRoleConnectAction == null)
-					{
-						this.multipleAssociationRoleConnectAction = new global::Dyvenix.GenIt.MultipleAssociationRoleConnectAction(this);
-						this.multipleAssociationRoleConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.multipleAssociationRoleConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.AssociationClassRelationshipFilterString))
-				{
-					if (this.associationClassRelationshipConnectAction == null)
-					{
-						this.associationClassRelationshipConnectAction = new global::Dyvenix.GenIt.AssociationClassRelationshipConnectAction(this);
-						this.associationClassRelationshipConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.associationClassRelationshipConnectAction;
 				} 
 				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.CommentsReferenceTypesFilterString))
 				{
@@ -770,16 +712,6 @@ namespace Dyvenix.GenIt
 						this.generalizationConnectAction.Dispose();
 						this.generalizationConnectAction = null;
 					}
-					if(this.multipleAssociationRoleConnectAction != null)
-					{
-						this.multipleAssociationRoleConnectAction.Dispose();
-						this.multipleAssociationRoleConnectAction = null;
-					}
-					if(this.associationClassRelationshipConnectAction != null)
-					{
-						this.associationClassRelationshipConnectAction.Dispose();
-						this.associationClassRelationshipConnectAction = null;
-					}
 					if(this.commentsReferenceTypesConnectAction != null)
 					{
 						this.commentsReferenceTypesConnectAction.Dispose();
@@ -841,14 +773,11 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.MultipleAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Aggregation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Composition), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.MultipleAssociationRole), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.AssociationClassRelationship), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
@@ -874,10 +803,6 @@ namespace Dyvenix.GenIt
 				if(childElement is global::Dyvenix.GenIt.ModelInterface)
 				{
 					parentElement = GetParentForModelInterface((global::Dyvenix.GenIt.ModelInterface)childElement);
-				} else
-				if(childElement is global::Dyvenix.GenIt.MultipleAssociation)
-				{
-					parentElement = GetParentForMultipleAssociation((global::Dyvenix.GenIt.MultipleAssociation)childElement);
 				} else
 				if(childElement is global::Dyvenix.GenIt.Comment)
 				{
@@ -907,13 +832,6 @@ namespace Dyvenix.GenIt
 				return result;
 			}
 			public static global::Dyvenix.GenIt.ModelRoot GetParentForComment( global::Dyvenix.GenIt.Comment root )
-			{
-				// Segments 0 and 1
-				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
-				if ( result == null ) return null;
-				return result;
-			}
-			public static global::Dyvenix.GenIt.ModelRoot GetParentForMultipleAssociation( global::Dyvenix.GenIt.ModelType root )
 			{
 				// Segments 0 and 1
 				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
@@ -1361,7 +1279,6 @@ namespace Dyvenix.GenIt
 		/// so we can update the decorator host's bounds.
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.MultipleAssociationRole), InitiallyDisabled=true)]
 		internal sealed class DecoratorPropertyChanged : DslModeling::ChangeRule
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
@@ -1461,22 +1378,6 @@ namespace Dyvenix.GenIt
 						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Composition.DomainClassId);
 					}
 				}
-				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.MultipleAssociationRole.MultiplicityDomainPropertyId)
-				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.MultipleAssociationRoleConnector.FindMultipleAssociationRoleConnectorDecorator("TargetMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.MultipleAssociationRole.DomainClassId);
-					}
-				}
-				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.MultipleAssociationRole.RoleNameDomainPropertyId)
-				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.MultipleAssociationRoleConnector.FindMultipleAssociationRoleConnectorDecorator("TargetRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.MultipleAssociationRole.DomainClassId);
-					}
-				}
 			}
 		}
 	
@@ -1487,8 +1388,6 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Aggregation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Composition), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.MultipleAssociationRole), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.AssociationClassRelationship), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]

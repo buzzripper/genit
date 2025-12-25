@@ -677,38 +677,6 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region MultipleAssociations opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of MultipleAssociations.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<MultipleAssociation> MultipleAssociations
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<MultipleAssociation>, MultipleAssociation>(global::Dyvenix.GenIt.MultipleAssociationRole.TypeDomainRoleId);
-			}
-		}
-		#endregion
-		#region MultipleAssociation opposite domain role accessor
-		/// <summary>
-		/// Gets or sets MultipleAssociation.
-		/// </summary>
-		public virtual MultipleAssociation MultipleAssociation
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.AssociationClassRelationship.AssociationClassDomainRoleId) as MultipleAssociation;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.AssociationClassRelationship.AssociationClassDomainRoleId, value);
-			}
-		}
-		#endregion
 		#region AggregationTargets opposite domain role accessor
 		
 		/// <summary>
@@ -2112,78 +2080,6 @@ namespace Dyvenix.GenIt
 			set
 			{
 				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.InterfaceHasOperation.OperationDomainRoleId, value);
-			}
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainClass MultipleAssociation
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.MultipleAssociation.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.MultipleAssociation.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("a82a0c27-346e-4853-b917-fcb7e4df4ed6")]
-	public partial class MultipleAssociation : ModelType
-	{
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// MultipleAssociation domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xa82a0c27, 0x346e, 0x4853, 0xb9, 0x17, 0xfc, 0xb7, 0xe4, 0xdf, 0x4e, 0xd6);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public MultipleAssociation(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public MultipleAssociation(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-		#region Types opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of Types.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> Types
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.MultipleAssociationRole.MultipleAssociationDomainRoleId);
-			}
-		}
-		#endregion
-		#region AssociationClass opposite domain role accessor
-		/// <summary>
-		/// Gets or sets AssociationClass.
-		/// </summary>
-		public virtual ModelClass AssociationClass
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.AssociationClassRelationship.MultipleAssociationDomainRoleId) as ModelClass;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.AssociationClassRelationship.MultipleAssociationDomainRoleId, value);
 			}
 		}
 		#endregion

@@ -293,14 +293,6 @@
     <value>Interface Operation</value>
     <comment>DisplayName for DomainClass &apos;InterfaceOperation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.MultipleAssociation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;MultipleAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociation.DisplayName" xml:space="preserve">
-    <value>Multiple Association</value>
-    <comment>DisplayName for DomainClass &apos;MultipleAssociation&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.ModelType.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelType&apos;</comment>
@@ -620,86 +612,6 @@
   <data name="Dyvenix.GenIt.InterfaceHasOperation/Operation.PropertyDisplayName" xml:space="preserve">
     <value>Interface</value>
     <comment>PropertyDisplayName for DomainRole &apos;Operation&apos; on DomainRelationship &apos;InterfaceHasOperation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole.Description" xml:space="preserve">
-    <value>Links a MultipleAssociation to one of the classes it associates.</value>
-    <comment>Description for DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole.DisplayName" xml:space="preserve">
-    <value>Multiple Association Role</value>
-    <comment>DisplayName for DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/Multiplicity.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/Multiplicity.DisplayName" xml:space="preserve">
-    <value>Multiplicity</value>
-    <comment>DisplayName for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/RoleName.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;RoleName&apos; on DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/RoleName.DisplayName" xml:space="preserve">
-    <value>RoleName</value>
-    <comment>DisplayName for DomainProperty &apos;RoleName&apos; on DomainClass &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/MultipleAssociation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/MultipleAssociation.DisplayName" xml:space="preserve">
-    <value>Multiple Association</value>
-    <comment>DisplayName for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/MultipleAssociation.PropertyDisplayName" xml:space="preserve">
-    <value>Types</value>
-    <comment>PropertyDisplayName for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/Type.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Type&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/Type.DisplayName" xml:space="preserve">
-    <value>Type</value>
-    <comment>DisplayName for DomainRole &apos;Type&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRole/Type.PropertyDisplayName" xml:space="preserve">
-    <value>Multiple Associations</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Type&apos; on DomainRelationship &apos;MultipleAssociationRole&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship.Description" xml:space="preserve">
-    <value>Identifies a MultipleAssociation with a Class, so that it can have attributes.</value>
-    <comment>Description for DomainClass &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship.DisplayName" xml:space="preserve">
-    <value>Association Class Relationship</value>
-    <comment>DisplayName for DomainClass &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/MultipleAssociation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/MultipleAssociation.DisplayName" xml:space="preserve">
-    <value>Multiple Association</value>
-    <comment>DisplayName for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/MultipleAssociation.PropertyDisplayName" xml:space="preserve">
-    <value>Association Class</value>
-    <comment>PropertyDisplayName for DomainRole &apos;MultipleAssociation&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/AssociationClass.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;AssociationClass&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/AssociationClass.DisplayName" xml:space="preserve">
-    <value>Association Class</value>
-    <comment>DisplayName for DomainRole &apos;AssociationClass&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassRelationship/AssociationClass.PropertyDisplayName" xml:space="preserve">
-    <value>Multiple Association</value>
-    <comment>PropertyDisplayName for DomainRole &apos;AssociationClass&apos; on DomainRelationship &apos;AssociationClassRelationship&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Aggregation.Description" xml:space="preserve">
     <value></value>
@@ -1045,14 +957,6 @@
     <value>BusinessRulesShapeNameDecorator</value>
     <comment>Text decorator default text</comment>
   </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationShape.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;MultipleAssociationShape&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationShape.DisplayName" xml:space="preserve">
-    <value>Multiple Association Shape</value>
-    <comment>DisplayName for DomainClass &apos;MultipleAssociationShape&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.AssociationConnector.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;AssociationConnector&apos;</comment>
@@ -1108,30 +1012,6 @@
   <data name="Dyvenix.GenIt.CompositionConnector.DisplayName" xml:space="preserve">
     <value>Composition Connector</value>
     <comment>DisplayName for DomainClass &apos;CompositionConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRoleConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;MultipleAssociationRoleConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.MultipleAssociationRoleConnector.DisplayName" xml:space="preserve">
-    <value>Multiple Association Role Connector</value>
-    <comment>DisplayName for DomainClass &apos;MultipleAssociationRoleConnector&apos;</comment>
-  </data>
-  <data name="MultipleAssociationRoleConnectorTargetMultiplicityDefaultText" xml:space="preserve">
-    <value>TargetMultiplicity</value>
-    <comment>Text decorator default text</comment>
-  </data>
-  <data name="MultipleAssociationRoleConnectorTargetRoleNameDefaultText" xml:space="preserve">
-    <value>TargetRoleName</value>
-    <comment>Text decorator default text</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;AssociationClassConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AssociationClassConnector.DisplayName" xml:space="preserve">
-    <value>Association Class Connector</value>
-    <comment>DisplayName for DomainClass &apos;AssociationClassConnector&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.GeneralizationConnector.Description" xml:space="preserve">
     <value></value>
@@ -1255,30 +1135,6 @@
   </data>
   <data name="GeneralizationToolboxTooltip" xml:space="preserve">
     <value>Create a Generalization or Implementation link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="MultipleAssociationToolboxItem" xml:space="preserve">
-    <value>Multiple Association</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="MultipleAssociationToolboxTooltip" xml:space="preserve">
-    <value>Create a Multiple Association element</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="MultipleAssociationRoleToolboxItem" xml:space="preserve">
-    <value>Multiple Association Link</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="MultipleAssociationRoleToolboxTooltip" xml:space="preserve">
-    <value>Create a Multiple Association link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="AssociationClassRelationshipToolboxItem" xml:space="preserve">
-    <value>Association Class</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="AssociationClassRelationshipToolboxTooltip" xml:space="preserve">
-    <value>Identify a Multiple Association with a Class</value>
     <comment>Toolbox tooltip text</comment>
   </data>
   <data name="CommentToolboxItem" xml:space="preserve">
@@ -1422,10 +1278,6 @@ A DomainClass can be serialized as a moniker only if
     <comment>Message when validation errors are found on save that will cause file to become unloadable</comment>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="MultipleAssociationShapeImage" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\Relation.emf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>MultipleAssociationShape shape image</comment>
-  </data>
   <data name="ModelClassToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
@@ -1464,18 +1316,6 @@ A DomainClass can be serialized as a moniker only if
   </data>
   <data name="GeneralizationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\resources\generalizationtool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="MultipleAssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\resources\multipleassociationtool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="MultipleAssociationRoleToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\AssociationLinkTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="AssociationClassRelationshipToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\AssociationClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="CommentToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

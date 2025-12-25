@@ -76,7 +76,6 @@ namespace Dyvenix.GenIt
 				typeof(ClassOperation),
 				typeof(ModelInterface),
 				typeof(InterfaceOperation),
-				typeof(MultipleAssociation),
 				typeof(ModelType),
 				typeof(ClassModelElement),
 				typeof(Association),
@@ -87,8 +86,6 @@ namespace Dyvenix.GenIt
 				typeof(Generalization),
 				typeof(BidirectionalAssociation),
 				typeof(InterfaceHasOperation),
-				typeof(MultipleAssociationRole),
-				typeof(AssociationClassRelationship),
 				typeof(Aggregation),
 				typeof(Composition),
 				typeof(ModelRootHasTypes),
@@ -100,15 +97,12 @@ namespace Dyvenix.GenIt
 				typeof(BidirectionalConnector),
 				typeof(AggregationConnector),
 				typeof(CompositionConnector),
-				typeof(MultipleAssociationRoleConnector),
-				typeof(AssociationClassConnector),
 				typeof(GeneralizationConnector),
 				typeof(ImplementationConnector),
 				typeof(CommentConnector),
 				typeof(CommentBoxShape),
 				typeof(ClassShape),
 				typeof(InterfaceShape),
-				typeof(MultipleAssociationShape),
 				typeof(global::Dyvenix.GenIt.FixUpDiagram),
 				typeof(global::Dyvenix.GenIt.DecoratorPropertyChanged),
 				typeof(global::Dyvenix.GenIt.ConnectorRolePlayerChanged),
@@ -146,8 +140,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(Association), "TargetMultiplicity", Association.TargetMultiplicityDomainPropertyId, typeof(Association.TargetMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "TargetRoleName", Association.TargetRoleNameDomainPropertyId, typeof(Association.TargetRoleNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Generalization), "Discriminator", Generalization.DiscriminatorDomainPropertyId, typeof(Generalization.DiscriminatorPropertyHandler)),
-				new DomainMemberInfo(typeof(MultipleAssociationRole), "Multiplicity", MultipleAssociationRole.MultiplicityDomainPropertyId, typeof(MultipleAssociationRole.MultiplicityPropertyHandler)),
-				new DomainMemberInfo(typeof(MultipleAssociationRole), "RoleName", MultipleAssociationRole.RoleNameDomainPropertyId, typeof(MultipleAssociationRole.RoleNamePropertyHandler)),
 			};
 		}
 		/// <summary>
@@ -174,10 +166,6 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(BidirectionalAssociation), "BidirectionalTarget", BidirectionalAssociation.BidirectionalTargetDomainRoleId),
 				new DomainRolePlayerInfo(typeof(InterfaceHasOperation), "Interface", InterfaceHasOperation.InterfaceDomainRoleId),
 				new DomainRolePlayerInfo(typeof(InterfaceHasOperation), "Operation", InterfaceHasOperation.OperationDomainRoleId),
-				new DomainRolePlayerInfo(typeof(MultipleAssociationRole), "MultipleAssociation", MultipleAssociationRole.MultipleAssociationDomainRoleId),
-				new DomainRolePlayerInfo(typeof(MultipleAssociationRole), "Type", MultipleAssociationRole.TypeDomainRoleId),
-				new DomainRolePlayerInfo(typeof(AssociationClassRelationship), "MultipleAssociation", AssociationClassRelationship.MultipleAssociationDomainRoleId),
-				new DomainRolePlayerInfo(typeof(AssociationClassRelationship), "AssociationClass", AssociationClassRelationship.AssociationClassDomainRoleId),
 				new DomainRolePlayerInfo(typeof(Aggregation), "AggregationSource", Aggregation.AggregationSourceDomainRoleId),
 				new DomainRolePlayerInfo(typeof(Aggregation), "AggregationTarget", Aggregation.AggregationTargetDomainRoleId),
 				new DomainRolePlayerInfo(typeof(Composition), "CompositionSource", Composition.CompositionSourceDomainRoleId),
@@ -209,7 +197,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(27);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(23);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(ModelClass), 1);
 				createElementMap.Add(typeof(ModelAttribute), 2);
@@ -217,21 +205,17 @@ namespace Dyvenix.GenIt
 				createElementMap.Add(typeof(ClassOperation), 4);
 				createElementMap.Add(typeof(ModelInterface), 5);
 				createElementMap.Add(typeof(InterfaceOperation), 6);
-				createElementMap.Add(typeof(MultipleAssociation), 7);
-				createElementMap.Add(typeof(GenItDiagram), 8);
-				createElementMap.Add(typeof(UnidirectionalConnector), 9);
-				createElementMap.Add(typeof(BidirectionalConnector), 10);
-				createElementMap.Add(typeof(AggregationConnector), 11);
-				createElementMap.Add(typeof(CompositionConnector), 12);
-				createElementMap.Add(typeof(MultipleAssociationRoleConnector), 13);
-				createElementMap.Add(typeof(AssociationClassConnector), 14);
-				createElementMap.Add(typeof(GeneralizationConnector), 15);
-				createElementMap.Add(typeof(ImplementationConnector), 16);
-				createElementMap.Add(typeof(CommentConnector), 17);
-				createElementMap.Add(typeof(CommentBoxShape), 18);
-				createElementMap.Add(typeof(ClassShape), 19);
-				createElementMap.Add(typeof(InterfaceShape), 20);
-				createElementMap.Add(typeof(MultipleAssociationShape), 21);
+				createElementMap.Add(typeof(GenItDiagram), 7);
+				createElementMap.Add(typeof(UnidirectionalConnector), 8);
+				createElementMap.Add(typeof(BidirectionalConnector), 9);
+				createElementMap.Add(typeof(AggregationConnector), 10);
+				createElementMap.Add(typeof(CompositionConnector), 11);
+				createElementMap.Add(typeof(GeneralizationConnector), 12);
+				createElementMap.Add(typeof(ImplementationConnector), 13);
+				createElementMap.Add(typeof(CommentConnector), 14);
+				createElementMap.Add(typeof(CommentBoxShape), 15);
+				createElementMap.Add(typeof(ClassShape), 16);
+				createElementMap.Add(typeof(InterfaceShape), 17);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -252,21 +236,17 @@ namespace Dyvenix.GenIt
 				case 4: return new ClassOperation(partition, propertyAssignments);
 				case 5: return new ModelInterface(partition, propertyAssignments);
 				case 6: return new InterfaceOperation(partition, propertyAssignments);
-				case 7: return new MultipleAssociation(partition, propertyAssignments);
-				case 8: return new GenItDiagram(partition, propertyAssignments);
-				case 9: return new UnidirectionalConnector(partition, propertyAssignments);
-				case 10: return new BidirectionalConnector(partition, propertyAssignments);
-				case 11: return new AggregationConnector(partition, propertyAssignments);
-				case 12: return new CompositionConnector(partition, propertyAssignments);
-				case 13: return new MultipleAssociationRoleConnector(partition, propertyAssignments);
-				case 14: return new AssociationClassConnector(partition, propertyAssignments);
-				case 15: return new GeneralizationConnector(partition, propertyAssignments);
-				case 16: return new ImplementationConnector(partition, propertyAssignments);
-				case 17: return new CommentConnector(partition, propertyAssignments);
-				case 18: return new CommentBoxShape(partition, propertyAssignments);
-				case 19: return new ClassShape(partition, propertyAssignments);
-				case 20: return new InterfaceShape(partition, propertyAssignments);
-				case 21: return new MultipleAssociationShape(partition, propertyAssignments);
+				case 7: return new GenItDiagram(partition, propertyAssignments);
+				case 8: return new UnidirectionalConnector(partition, propertyAssignments);
+				case 9: return new BidirectionalConnector(partition, propertyAssignments);
+				case 10: return new AggregationConnector(partition, propertyAssignments);
+				case 11: return new CompositionConnector(partition, propertyAssignments);
+				case 12: return new GeneralizationConnector(partition, propertyAssignments);
+				case 13: return new ImplementationConnector(partition, propertyAssignments);
+				case 14: return new CommentConnector(partition, propertyAssignments);
+				case 15: return new CommentBoxShape(partition, propertyAssignments);
+				case 16: return new ClassShape(partition, propertyAssignments);
+				case 17: return new InterfaceShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -289,7 +269,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(15);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(13);
 				createElementLinkMap.Add(typeof(UnidirectionalAssociation), 0);
 				createElementLinkMap.Add(typeof(ClassHasAttributes), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -297,13 +277,11 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(Generalization), 4);
 				createElementLinkMap.Add(typeof(BidirectionalAssociation), 5);
 				createElementLinkMap.Add(typeof(InterfaceHasOperation), 6);
-				createElementLinkMap.Add(typeof(MultipleAssociationRole), 7);
-				createElementLinkMap.Add(typeof(AssociationClassRelationship), 8);
-				createElementLinkMap.Add(typeof(Aggregation), 9);
-				createElementLinkMap.Add(typeof(Composition), 10);
-				createElementLinkMap.Add(typeof(ModelRootHasTypes), 11);
-				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 12);
-				createElementLinkMap.Add(typeof(Implementation), 13);
+				createElementLinkMap.Add(typeof(Aggregation), 7);
+				createElementLinkMap.Add(typeof(Composition), 8);
+				createElementLinkMap.Add(typeof(ModelRootHasTypes), 9);
+				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 10);
+				createElementLinkMap.Add(typeof(Implementation), 11);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -325,13 +303,11 @@ namespace Dyvenix.GenIt
 				case 4: return new Generalization(partition, roleAssignments, propertyAssignments);
 				case 5: return new BidirectionalAssociation(partition, roleAssignments, propertyAssignments);
 				case 6: return new InterfaceHasOperation(partition, roleAssignments, propertyAssignments);
-				case 7: return new MultipleAssociationRole(partition, roleAssignments, propertyAssignments);
-				case 8: return new AssociationClassRelationship(partition, roleAssignments, propertyAssignments);
-				case 9: return new Aggregation(partition, roleAssignments, propertyAssignments);
-				case 10: return new Composition(partition, roleAssignments, propertyAssignments);
-				case 11: return new ModelRootHasTypes(partition, roleAssignments, propertyAssignments);
-				case 12: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
-				case 13: return new Implementation(partition, roleAssignments, propertyAssignments);
+				case 7: return new Aggregation(partition, roleAssignments, propertyAssignments);
+				case 8: return new Composition(partition, roleAssignments, propertyAssignments);
+				case 9: return new ModelRootHasTypes(partition, roleAssignments, propertyAssignments);
+				case 10: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
+				case 11: return new Implementation(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}
