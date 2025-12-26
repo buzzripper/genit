@@ -69,7 +69,7 @@ namespace Dyvenix.GenIt
 			{
 				typeof(NamedElement),
 				typeof(ModelRoot),
-				typeof(ModelClass),
+				typeof(EntityModel),
 				typeof(ModelAttribute),
 				typeof(Comment),
 				typeof(Operation),
@@ -123,8 +123,8 @@ namespace Dyvenix.GenIt
 			return new DomainMemberInfo[]
 			{
 				new DomainMemberInfo(typeof(NamedElement), "Name", NamedElement.NameDomainPropertyId, typeof(NamedElement.NamePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelClass), "Kind", ModelClass.KindDomainPropertyId, typeof(ModelClass.KindPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelClass), "IsAbstract", ModelClass.IsAbstractDomainPropertyId, typeof(ModelClass.IsAbstractPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelAttribute), "Multiplicity", ModelAttribute.MultiplicityDomainPropertyId, typeof(ModelAttribute.MultiplicityPropertyHandler)),
@@ -154,11 +154,11 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(Association), "Target", Association.TargetDomainRoleId),
 				new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalSource", UnidirectionalAssociation.UnidirectionalSourceDomainRoleId),
 				new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalTarget", UnidirectionalAssociation.UnidirectionalTargetDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ClassHasAttributes), "ModelClass", ClassHasAttributes.ModelClassDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ClassHasAttributes), "EntityModel", ClassHasAttributes.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasAttributes), "Attribute", ClassHasAttributes.AttributeDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasComments), "ModelRoot", ModelRootHasComments.ModelRootDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasComments), "Comment", ModelRootHasComments.CommentDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ClassHasOperations), "ModelClass", ClassHasOperations.ModelClassDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ClassHasOperations), "EntityModel", ClassHasOperations.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasOperations), "Operation", ClassHasOperations.OperationDomainRoleId),
 				new DomainRolePlayerInfo(typeof(Generalization), "Superclass", Generalization.SuperclassDomainRoleId),
 				new DomainRolePlayerInfo(typeof(Generalization), "Subclass", Generalization.SubclassDomainRoleId),
@@ -199,7 +199,7 @@ namespace Dyvenix.GenIt
 			{
 				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(23);
 				createElementMap.Add(typeof(ModelRoot), 0);
-				createElementMap.Add(typeof(ModelClass), 1);
+				createElementMap.Add(typeof(EntityModel), 1);
 				createElementMap.Add(typeof(ModelAttribute), 2);
 				createElementMap.Add(typeof(Comment), 3);
 				createElementMap.Add(typeof(ClassOperation), 4);
@@ -230,7 +230,7 @@ namespace Dyvenix.GenIt
 			switch (index)
 			{
 				case 0: return new ModelRoot(partition, propertyAssignments);
-				case 1: return new ModelClass(partition, propertyAssignments);
+				case 1: return new EntityModel(partition, propertyAssignments);
 				case 2: return new ModelAttribute(partition, propertyAssignments);
 				case 3: return new Comment(partition, propertyAssignments);
 				case 4: return new ClassOperation(partition, propertyAssignments);

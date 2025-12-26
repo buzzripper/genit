@@ -27,7 +27,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -44,7 +44,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -83,9 +83,9 @@ namespace Dyvenix.GenIt
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Dyvenix.GenIt.ModelClass)
+				if (candidateSource is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
 						return true;
 					}
@@ -118,12 +118,12 @@ namespace Dyvenix.GenIt
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Dyvenix.GenIt.ModelClass)
+				if (source is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceAccepted = (global::Dyvenix.GenIt.ModelClass)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.UnidirectionalAssociation(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
@@ -154,7 +154,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -171,7 +171,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -210,9 +210,9 @@ namespace Dyvenix.GenIt
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Dyvenix.GenIt.ModelClass)
+				if (candidateSource is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
 						return true;
 					}
@@ -245,12 +245,12 @@ namespace Dyvenix.GenIt
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Dyvenix.GenIt.ModelClass)
+				if (source is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceAccepted = (global::Dyvenix.GenIt.ModelClass)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.BidirectionalAssociation(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
@@ -281,7 +281,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -298,7 +298,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -337,9 +337,9 @@ namespace Dyvenix.GenIt
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Dyvenix.GenIt.ModelClass)
+				if (candidateSource is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
 						return true;
 					}
@@ -372,12 +372,12 @@ namespace Dyvenix.GenIt
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Dyvenix.GenIt.ModelClass)
+				if (source is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceAccepted = (global::Dyvenix.GenIt.ModelClass)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.Aggregation(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
@@ -408,7 +408,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -425,7 +425,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -464,9 +464,9 @@ namespace Dyvenix.GenIt
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Dyvenix.GenIt.ModelClass)
+				if (candidateSource is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
 						return true;
 					}
@@ -499,12 +499,12 @@ namespace Dyvenix.GenIt
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Dyvenix.GenIt.ModelClass)
+				if (source is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceAccepted = (global::Dyvenix.GenIt.ModelClass)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.Composition(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
@@ -535,7 +535,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -556,7 +556,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -599,14 +599,14 @@ namespace Dyvenix.GenIt
 			}
 			else // Check combinations
 			{
-				if (candidateSource is global::Dyvenix.GenIt.ModelClass)
+				if (candidateSource is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceModelClass = (global::Dyvenix.GenIt.ModelClass)candidateSource;
-						global::Dyvenix.GenIt.ModelClass targetModelClass = (global::Dyvenix.GenIt.ModelClass)candidateTarget;
-						if(targetModelClass == null || global::Dyvenix.GenIt.Generalization.GetLinkToSuperclass(targetModelClass) != null) return false;
-						if(targetModelClass == null || sourceModelClass == null || global::Dyvenix.GenIt.Generalization.GetLinks(sourceModelClass, targetModelClass).Count > 0) return false;
+						global::Dyvenix.GenIt.EntityModel sourceEntityModel = (global::Dyvenix.GenIt.EntityModel)candidateSource;
+						global::Dyvenix.GenIt.EntityModel targetEntityModel = (global::Dyvenix.GenIt.EntityModel)candidateTarget;
+						if(targetEntityModel == null || global::Dyvenix.GenIt.Generalization.GetLinkToSuperclass(targetEntityModel) != null) return false;
+						if(targetEntityModel == null || sourceEntityModel == null || global::Dyvenix.GenIt.Generalization.GetLinks(sourceEntityModel, targetEntityModel).Count > 0) return false;
 						return true;
 					}
 				}
@@ -648,12 +648,12 @@ namespace Dyvenix.GenIt
 			
 			if (CanAcceptSourceAndTarget(source, target))
 			{
-				if (source is global::Dyvenix.GenIt.ModelClass)
+				if (source is global::Dyvenix.GenIt.EntityModel)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
-						global::Dyvenix.GenIt.ModelClass sourceAccepted = (global::Dyvenix.GenIt.ModelClass)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.Generalization(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
@@ -715,7 +715,7 @@ namespace Dyvenix.GenIt
 		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
 		{
 			if (candidate == null) return false;
-			else if (candidate is global::Dyvenix.GenIt.ModelClass)
+			else if (candidate is global::Dyvenix.GenIt.EntityModel)
 			{ 
 				return true;
 			}
@@ -760,11 +760,11 @@ namespace Dyvenix.GenIt
 			{
 				if (candidateSource is global::Dyvenix.GenIt.Comment)
 				{
-					if (candidateTarget is global::Dyvenix.GenIt.ModelClass)
+					if (candidateTarget is global::Dyvenix.GenIt.EntityModel)
 					{
 						global::Dyvenix.GenIt.Comment sourceComment = (global::Dyvenix.GenIt.Comment)candidateSource;
-						global::Dyvenix.GenIt.ModelClass targetModelClass = (global::Dyvenix.GenIt.ModelClass)candidateTarget;
-						if(targetModelClass == null || sourceComment == null || global::Dyvenix.GenIt.CommentReferencesSubjects.GetLinks(sourceComment, targetModelClass).Count > 0) return false;
+						global::Dyvenix.GenIt.EntityModel targetEntityModel = (global::Dyvenix.GenIt.EntityModel)candidateTarget;
+						if(targetEntityModel == null || sourceComment == null || global::Dyvenix.GenIt.CommentReferencesSubjects.GetLinks(sourceComment, targetEntityModel).Count > 0) return false;
 						return true;
 					}
 					else if (candidateTarget is global::Dyvenix.GenIt.ModelInterface)
@@ -805,10 +805,10 @@ namespace Dyvenix.GenIt
 			{
 				if (source is global::Dyvenix.GenIt.Comment)
 				{
-					if (target is global::Dyvenix.GenIt.ModelClass)
+					if (target is global::Dyvenix.GenIt.EntityModel)
 					{
 						global::Dyvenix.GenIt.Comment sourceAccepted = (global::Dyvenix.GenIt.Comment)source;
-						global::Dyvenix.GenIt.ModelClass targetAccepted = (global::Dyvenix.GenIt.ModelClass)target;
+						global::Dyvenix.GenIt.EntityModel targetAccepted = (global::Dyvenix.GenIt.EntityModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.CommentReferencesSubjects(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{

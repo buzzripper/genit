@@ -30,11 +30,11 @@ namespace Dyvenix.GenIt
 	[VSShell::ProvideToolWindowVisibility(typeof(GenItExplorerToolWindow), Constants.GenItEditorFactoryId)]
 	[VSShell::ProvideStaticToolboxGroup("@Class DiagramsToolboxTab;Dyvenix.GenIt.Dsl.dll", "Dyvenix.GenIt.Class DiagramsToolboxTab")]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@ModelClassToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.ModelClassToolboxItem", 
+					"@EntityModelToolboxItem;Dyvenix.GenIt.Dsl.dll", 
+					"Dyvenix.GenIt.EntityModelToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ModelClassF1Keyword", 
-					"@ModelClassToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
+					"EntityModelF1Keyword", 
+					"@EntityModelToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
 					Index = 0)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",

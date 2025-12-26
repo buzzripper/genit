@@ -33,7 +33,7 @@
         </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
-    <DomainClass Id="a333bc7a-0057-4ca9-bdbe-19524aded57a" Description="" Name="ModelClass" DisplayName="Model Class" Namespace="Dyvenix.GenIt">
+    <DomainClass Id="a333bc7a-0057-4ca9-bdbe-19524aded57a" Description="" Name="EntityModel" DisplayName="Entity Model" Namespace="Dyvenix.GenIt">
       <BaseClass>
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
@@ -219,15 +219,15 @@
         <DomainRole Id="e473ff4f-acab-4329-a392-a85c91dc86e6" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
           <Notes>The Targets property on a ModelClass will include all the elements targeted by every kind of Association.</Notes>
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="8c669209-f190-4b19-9da5-6cfe3696e4fa" Description="" Name="Target" DisplayName="Target" PropertyName="Sources" PropertyDisplayName="Sources">
-          <Notes>The Sources property on a ModelClass will include all the elements sourced by every kind of Association.</Notes>
+          <Notes>The Sources property on a EntityModel will include all the elements sourced by every kind of Association.</Notes>
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -239,28 +239,28 @@
       <Source>
         <DomainRole Id="8adeaf08-9a8e-4694-b408-31d33ead420a" Description="" Name="UnidirectionalSource" DisplayName="Unidirectional Source" PropertyName="UnidirectionalTargets" PropertyDisplayName="Unidirectional Targets">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="b491a3af-896f-4ddf-a6de-def4020b5620" Description="" Name="UnidirectionalTarget" DisplayName="Unidirectional Target" PropertyName="UnidirectionalSources" PropertyDisplayName="Unidirectional Sources">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
     </DomainRelationship>
     <DomainRelationship Id="03a9c537-a07d-44d2-b9e9-7904b35de3dd" Description="" Name="ClassHasAttributes" DisplayName="Class Has Attributes" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="50d60282-915b-4102-96ea-d10a5ddc1dd4" Description="" Name="ModelClass" DisplayName="Model Class" PropertyName="Attributes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Attributes">
+        <DomainRole Id="50d60282-915b-4102-96ea-d10a5ddc1dd4" Description="" Name="EntityModel" DisplayName="Entity Model" PropertyName="Attributes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Attributes">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="36ae1ba4-57f2-4f07-af06-788b29609abb" Description="" Name="Attribute" DisplayName="Attribute" PropertyName="ModelClass" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Model Class">
+        <DomainRole Id="36ae1ba4-57f2-4f07-af06-788b29609abb" Description="" Name="Attribute" DisplayName="Attribute" PropertyName="EntityModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Model">
           <RolePlayer>
             <DomainClassMoniker Name="ModelAttribute" />
           </RolePlayer>
@@ -285,14 +285,14 @@
     </DomainRelationship>
     <DomainRelationship Id="4a1da39d-6ea0-4857-95ad-81f6633a64ed" Description="" Name="ClassHasOperations" DisplayName="Class Has Operations" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="2e1a6b41-4c61-4232-895c-e15334b06341" Description="" Name="ModelClass" DisplayName="ModelClass" PropertyName="Operations" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Operations">
+        <DomainRole Id="2e1a6b41-4c61-4232-895c-e15334b06341" Description="" Name="EntityModel" DisplayName="EntityModel" PropertyName="Operations" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Operations">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="c1d3a745-01ec-4b47-b5cc-5038c42efd55" Description="" Name="Operation" DisplayName="Operation" PropertyName="ModelClass" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Model Class">
+        <DomainRole Id="c1d3a745-01ec-4b47-b5cc-5038c42efd55" Description="" Name="Operation" DisplayName="Operation" PropertyName="EntityModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Model">
           <RolePlayer>
             <DomainClassMoniker Name="ClassOperation" />
           </RolePlayer>
@@ -310,14 +310,14 @@
       <Source>
         <DomainRole Id="5ce4b528-2873-402a-9135-a0e9ebd0eb58" Description="" Name="Superclass" DisplayName="Superclass" PropertyName="Subclasses" PropertyDisplayName="Subclasses">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="e749d5da-fcb0-4724-bb41-4693cf9ee715" Description="" Name="Subclass" DisplayName="Subclass" PropertyName="Superclass" Multiplicity="ZeroOne" PropertyDisplayName="Superclass">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -329,14 +329,14 @@
       <Source>
         <DomainRole Id="a6840fdf-2a3e-4691-bb0d-c5aee9541b00" Description="" Name="BidirectionalSource" DisplayName="Bidirectional Source" PropertyName="BidirectionalTargets" PropertyDisplayName="Bidirectional Targets">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="30c8a91e-de98-441e-814f-2eef871179b9" Description="" Name="BidirectionalTarget" DisplayName="Bidirectional Target" PropertyName="BidirectionalSources" PropertyDisplayName="Bidirectional Sources">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -364,14 +364,14 @@
       <Source>
         <DomainRole Id="6e37a940-3e02-4c06-a51c-8ee0a30d470e" Description="" Name="AggregationSource" DisplayName="Aggregation Source" PropertyName="AggregationTargets" PropertyDisplayName="Aggregation Targets">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="07e94eb3-ae37-43ea-b00a-323dfcc8d12e" Description="" Name="AggregationTarget" DisplayName="Aggregation Target" PropertyName="AggregationSources" PropertyDisplayName="Aggregation Sources">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -383,14 +383,14 @@
       <Source>
         <DomainRole Id="32f48c4a-303c-40af-8d0a-45f7bc78913e" Description="" Name="CompositionSource" DisplayName="Composition Source" PropertyName="CompositionTargets" PropertyDisplayName="Composition Targets">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
         <DomainRole Id="0bcd9a3c-5007-4343-bf09-101db668d479" Description="" Name="CompositionTarget" DisplayName="Composition Target" PropertyName="CompositionSources" PropertyDisplayName="Composition Sources">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelClass" />
+            <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -639,14 +639,14 @@
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="ModelClass" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelClassMoniker" ElementName="modelClass" MonikerTypeName="ModelClassMoniker">
-        <DomainClassMoniker Name="ModelClass" />
+      <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
+        <DomainClassMoniker Name="EntityModel" />
         <ElementData>
           <XmlPropertyData XmlName="kind">
-            <DomainPropertyMoniker Name="ModelClass/Kind" />
+            <DomainPropertyMoniker Name="EntityModel/Kind" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAbstract">
-            <DomainPropertyMoniker Name="ModelClass/IsAbstract" />
+            <DomainPropertyMoniker Name="EntityModel/IsAbstract" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="unidirectionalTargets">
             <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
@@ -804,14 +804,14 @@
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -823,14 +823,14 @@
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -842,14 +842,14 @@
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -861,14 +861,14 @@
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -880,14 +880,14 @@
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -923,7 +923,7 @@
         <TargetDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
-              <DomainClassMoniker Name="ModelClass" />
+              <DomainClassMoniker Name="EntityModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
           <RolePlayerConnectDirective>
@@ -941,7 +941,7 @@
     </Class>
     <ShapeMaps>
       <CompartmentShapeMap>
-        <DomainClassMoniker Name="ModelClass" />
+        <DomainClassMoniker Name="EntityModel" />
         <ParentElementPath>
           <DomainPath>ModelRootHasTypes.ModelRoot/!ModelRoot</DomainPath>
         </ParentElementPath>
@@ -1186,8 +1186,8 @@
       <XmlSerializationBehaviorMoniker Name="GenItSerializationBehavior" />
     </XmlSerializationDefinition>
     <ToolboxTab TabText="Class Diagrams">
-      <ElementTool Name="ModelClass" ToolboxIcon="Resources\ClassTool.bmp" Caption="Class" Tooltip="Create a Class" HelpKeyword="ModelClassF1Keyword">
-        <DomainClassMoniker Name="ModelClass" />
+      <ElementTool Name="EntityModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Entity" Tooltip="Create an Entity" HelpKeyword="EntityModelF1Keyword">
+        <DomainClassMoniker Name="EntityModel" />
       </ElementTool>
       <ElementTool Name="Attribute" ToolboxIcon="resources\attributetool.bmp" Caption="Attribute" Tooltip="Create an Attribute on a Class" HelpKeyword="AttributeF1Keyword">
         <DomainClassMoniker Name="ModelAttribute" />

@@ -324,19 +324,19 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainClass ModelClass
+	/// DomainClass EntityModel
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelClass.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelClass.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("a333bc7a-0057-4ca9-bdbe-19524aded57a")]
-	public partial class ModelClass : ModelType
+	public partial class EntityModel : ModelType
 	{
 		#region Constructors, domain class Id
 	
 		/// <summary>
-		/// ModelClass domain class Id.
+		/// EntityModel domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xa333bc7a, 0x0057, 0x4ca9, 0xbd, 0xbe, 0x19, 0x52, 0x4a, 0xde, 0xd5, 0x7a);
 		/// <summary>
@@ -344,7 +344,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ModelClass(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public EntityModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
 		{
 		}
@@ -354,7 +354,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ModelClass(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public EntityModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, propertyAssignments)
 		{
 		}
@@ -374,8 +374,8 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets the value of Kind domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelClass/Kind.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelClass/Kind.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/Kind.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/Kind.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("f387f050-11f9-456e-a9e6-be8dfd35fa9a")]
 		public global::System.String Kind
@@ -392,19 +392,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelClass.Kind domain property.
+		/// Value handler for the EntityModel.Kind domain property.
 		/// </summary>
-		internal sealed partial class KindPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, global::System.String>
+		internal sealed partial class KindPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
 		{
 			private KindPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelClass.Kind domain property value handler.
+			/// Gets the singleton instance of the EntityModel.Kind domain property value handler.
 			/// </summary>
 			public static readonly KindPropertyHandler Instance = new KindPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelClass.Kind domain property.
+			/// Gets the Id of the EntityModel.Kind domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -420,7 +420,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(ModelClass element)
+			public override sealed global::System.String GetValue(EntityModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.kindPropertyStorage;
@@ -431,7 +431,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelClass element, global::System.String newValue)
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -461,8 +461,8 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets the value of IsAbstract domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelClass/IsAbstract.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelClass/IsAbstract.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/IsAbstract.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/IsAbstract.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(InheritanceModifier.None)]
 		[DslModeling::DomainObjectId("1fb358c4-c63e-441b-bf67-00184bd796a6")]
 		public InheritanceModifier IsAbstract
@@ -479,19 +479,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelClass.IsAbstract domain property.
+		/// Value handler for the EntityModel.IsAbstract domain property.
 		/// </summary>
-		internal sealed partial class IsAbstractPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelClass, InheritanceModifier>
+		internal sealed partial class IsAbstractPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, InheritanceModifier>
 		{
 			private IsAbstractPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelClass.IsAbstract domain property value handler.
+			/// Gets the singleton instance of the EntityModel.IsAbstract domain property value handler.
 			/// </summary>
 			public static readonly IsAbstractPropertyHandler Instance = new IsAbstractPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelClass.IsAbstract domain property.
+			/// Gets the Id of the EntityModel.IsAbstract domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -507,7 +507,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed InheritanceModifier GetValue(ModelClass element)
+			public override sealed InheritanceModifier GetValue(EntityModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.isAbstractPropertyStorage;
@@ -518,7 +518,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelClass element, InheritanceModifier newValue)
+			public override sealed void SetValue(EntityModel element, InheritanceModifier newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -538,12 +538,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Targets.
 		/// </summary>
-		public virtual DslModeling::ReadOnlyLinkedElementCollection<ModelClass> Targets
+		public virtual DslModeling::ReadOnlyLinkedElementCollection<EntityModel> Targets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Association.SourceDomainRoleId);
+				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.SourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -552,12 +552,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Sources.
 		/// </summary>
-		public virtual DslModeling::ReadOnlyLinkedElementCollection<ModelClass> Sources
+		public virtual DslModeling::ReadOnlyLinkedElementCollection<EntityModel> Sources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Association.TargetDomainRoleId);
+				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.TargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -566,12 +566,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of UnidirectionalTargets.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> UnidirectionalTargets
+		public virtual DslModeling::LinkedElementCollection<EntityModel> UnidirectionalTargets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -580,12 +580,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of UnidirectionalSources.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> UnidirectionalSources
+		public virtual DslModeling::LinkedElementCollection<EntityModel> UnidirectionalSources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalTargetDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalTargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -599,7 +599,7 @@ namespace Dyvenix.GenIt
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelAttribute>, ModelAttribute>(global::Dyvenix.GenIt.ClassHasAttributes.ModelClassDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelAttribute>, ModelAttribute>(global::Dyvenix.GenIt.ClassHasAttributes.EntityModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -613,7 +613,7 @@ namespace Dyvenix.GenIt
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ClassOperation>, ClassOperation>(global::Dyvenix.GenIt.ClassHasOperations.ModelClassDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ClassOperation>, ClassOperation>(global::Dyvenix.GenIt.ClassHasOperations.EntityModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -622,12 +622,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Subclasses.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> Subclasses
+		public virtual DslModeling::LinkedElementCollection<EntityModel> Subclasses
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Generalization.SuperclassDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Generalization.SuperclassDomainRoleId);
 			}
 		}
 		#endregion
@@ -635,12 +635,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets Superclass.
 		/// </summary>
-		public virtual ModelClass Superclass
+		public virtual EntityModel Superclass
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.Generalization.SubclassDomainRoleId) as ModelClass;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.Generalization.SubclassDomainRoleId) as EntityModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -654,12 +654,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of BidirectionalTargets.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> BidirectionalTargets
+		public virtual DslModeling::LinkedElementCollection<EntityModel> BidirectionalTargets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalSourceDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalSourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -668,12 +668,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of BidirectionalSources.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> BidirectionalSources
+		public virtual DslModeling::LinkedElementCollection<EntityModel> BidirectionalSources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalTargetDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalTargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -682,12 +682,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of AggregationTargets.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> AggregationTargets
+		public virtual DslModeling::LinkedElementCollection<EntityModel> AggregationTargets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Aggregation.AggregationSourceDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Aggregation.AggregationSourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -696,12 +696,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of AggregationSources.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> AggregationSources
+		public virtual DslModeling::LinkedElementCollection<EntityModel> AggregationSources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Aggregation.AggregationTargetDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Aggregation.AggregationTargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -710,12 +710,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of CompositionTargets.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> CompositionTargets
+		public virtual DslModeling::LinkedElementCollection<EntityModel> CompositionTargets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Composition.CompositionSourceDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Composition.CompositionSourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -724,12 +724,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of CompositionSources.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelClass> CompositionSources
+		public virtual DslModeling::LinkedElementCollection<EntityModel> CompositionSources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelClass>, ModelClass>(global::Dyvenix.GenIt.Composition.CompositionTargetDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Composition.CompositionTargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -832,10 +832,10 @@ namespace Dyvenix.GenIt
 			{
 				// Delete link for path ClassHasOperations.Operations
 				
-				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasOperations.GetLinks((global::Dyvenix.GenIt.ModelClass)this, sourceClassOperation1))
+				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasOperations.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourceClassOperation1))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::Dyvenix.GenIt.ClassHasOperations.ModelClassDomainRoleId, global::Dyvenix.GenIt.ClassHasOperations.OperationDomainRoleId);
+					link.Delete(global::Dyvenix.GenIt.ClassHasOperations.EntityModelDomainRoleId, global::Dyvenix.GenIt.ClassHasOperations.OperationDomainRoleId);
 				}
 
 				return;
@@ -846,10 +846,10 @@ namespace Dyvenix.GenIt
 			{
 				// Delete link for path ClassHasAttributes.Attributes
 				
-				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasAttributes.GetLinks((global::Dyvenix.GenIt.ModelClass)this, sourceModelAttribute2))
+				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasAttributes.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourceModelAttribute2))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::Dyvenix.GenIt.ClassHasAttributes.ModelClassDomainRoleId, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId);
+					link.Delete(global::Dyvenix.GenIt.ClassHasAttributes.EntityModelDomainRoleId, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId);
 				}
 
 				return;
@@ -1160,16 +1160,16 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region ModelClass opposite domain role accessor
+		#region EntityModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets ModelClass.
+		/// Gets or sets EntityModel.
 		/// </summary>
-		public virtual ModelClass ModelClass
+		public virtual EntityModel EntityModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId) as ModelClass;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId) as EntityModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
@@ -1842,16 +1842,16 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region ModelClass opposite domain role accessor
+		#region EntityModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets ModelClass.
+		/// Gets or sets EntityModel.
 		/// </summary>
-		public virtual ModelClass ModelClass
+		public virtual EntityModel EntityModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasOperations.OperationDomainRoleId) as ModelClass;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasOperations.OperationDomainRoleId) as EntityModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set

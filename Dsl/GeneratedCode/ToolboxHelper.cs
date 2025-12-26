@@ -167,18 +167,18 @@ namespace Dyvenix.GenIt
 			global::System.Globalization.CultureInfo resourceCulture = global::System.Globalization.CultureInfo.CurrentUICulture;
 			switch(itemId)
 			{
-				case "Dyvenix.GenIt.ModelClassToolboxItem":
-					// Add ModelClass shape tool.
+				case "Dyvenix.GenIt.EntityModelToolboxItem":
+					// Add EntityModel shape tool.
 					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.ModelClassToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						"Dyvenix.GenIt.EntityModelToolboxItem", // Unique identifier (non-localized) for the toolbox item.
 						1, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("ModelClassToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelClassToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
+						resourceManager.GetString("EntityModelToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("EntityModelToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
 						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"ModelClassF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("ModelClassToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						CreateElementToolPrototype(store, global::Dyvenix.GenIt.ModelClass.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
+						"EntityModelF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("EntityModelToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						CreateElementToolPrototype(store, global::Dyvenix.GenIt.EntityModel.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
 						});

@@ -114,9 +114,9 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelClass -->
-  <xsd:element name="modelClass" type="ModelClass" substitutionGroup="modelType" />
-  <xsd:complexType name="ModelClass">
+  <!-- EntityModel -->
+  <xsd:element name="entityModel" type="EntityModel" substitutionGroup="modelType" />
+  <xsd:complexType name="EntityModel">
     <xsd:complexContent>
       <xsd:extension base="ModelType">
         <xsd:sequence minOccurs="0" maxOccurs="1">
@@ -254,11 +254,11 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelClass Moniker -->
-  <xsd:element name="modelClassMoniker" type="ModelClassMoniker" substitutionGroup="modelTypeMoniker" />
-  <xsd:complexType name="ModelClassMoniker">
+  <!-- EntityModel Moniker -->
+  <xsd:element name="entityModelMoniker" type="EntityModelMoniker" substitutionGroup="modelTypeMoniker" />
+  <xsd:complexType name="EntityModelMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for ModelClass instance.</xsd:documentation>
+      <xsd:documentation>Moniker for EntityModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="ModelTypeMoniker">
@@ -599,8 +599,8 @@
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ModelClass -->
-          <xsd:element ref="modelClassMoniker" minOccurs="1" maxOccurs="1">
+          <!-- Target end EntityModel -->
+          <xsd:element ref="entityModelMoniker" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
@@ -797,8 +797,8 @@
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ModelClass -->
-          <xsd:element ref="modelClassMoniker" minOccurs="1" maxOccurs="1">
+          <!-- Target end EntityModel -->
+          <xsd:element ref="entityModelMoniker" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>

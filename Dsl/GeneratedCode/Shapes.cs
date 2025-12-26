@@ -320,7 +320,7 @@ namespace Dyvenix.GenIt
 				{
 					// First we get the mappings defined for the base shape, and add on any mappings defined for this
 					// shape. 
-					DslDiagrams::CompartmentMapping[] baseMappings = base.GetCompartmentMappings(typeof(global::Dyvenix.GenIt.ModelClass));
+					DslDiagrams::CompartmentMapping[] baseMappings = base.GetCompartmentMappings(typeof(global::Dyvenix.GenIt.EntityModel));
 					int localCompartmentMappingsOffset = 0;
 					if(baseMappings!=null)
 					{
@@ -336,7 +336,7 @@ namespace Dyvenix.GenIt
 																				"AttributesCompartment", 
 																				global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId, 
 																				global::Dyvenix.GenIt.ModelAttribute.DomainClassId, 
-																				GetElementsFromModelClassForAttributesCompartment,
+																				GetElementsFromEntityModelForAttributesCompartment,
 																				null,
 																				null,
 																				null);
@@ -344,11 +344,11 @@ namespace Dyvenix.GenIt
 																				"OperationsCompartment", 
 																				global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId, 
 																				global::Dyvenix.GenIt.ClassOperation.DomainClassId, 
-																				GetElementsFromModelClassForOperationsCompartment,
+																				GetElementsFromEntityModelForOperationsCompartment,
 																				null,
 																				null,
 																				null);
-					compartmentMappings.Add(typeof(global::Dyvenix.GenIt.ModelClass), mappings);
+					compartmentMappings.Add(typeof(global::Dyvenix.GenIt.EntityModel), mappings);
 				}
 			}
 			
@@ -377,16 +377,16 @@ namespace Dyvenix.GenIt
 		}
 		
 			#region DomainPath traversal methods to get the list of elements to display in a compartment.
-			internal static global::System.Collections.IList GetElementsFromModelClassForAttributesCompartment(DslModeling::ModelElement rootElement)
+			internal static global::System.Collections.IList GetElementsFromEntityModelForAttributesCompartment(DslModeling::ModelElement rootElement)
 			{
-				global::Dyvenix.GenIt.ModelClass root = (global::Dyvenix.GenIt.ModelClass)rootElement;
+				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.ModelAttribute> result = root.Attributes;
 				return result;
 			}
-			internal static global::System.Collections.IList GetElementsFromModelClassForOperationsCompartment(DslModeling::ModelElement rootElement)
+			internal static global::System.Collections.IList GetElementsFromEntityModelForOperationsCompartment(DslModeling::ModelElement rootElement)
 			{
-				global::Dyvenix.GenIt.ModelClass root = (global::Dyvenix.GenIt.ModelClass)rootElement;
+				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.ClassOperation> result = root.Operations;
 				return result;

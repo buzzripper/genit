@@ -288,7 +288,7 @@ namespace Dyvenix.GenIt
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "Generated code.")]
 		protected override DslDiagrams::ShapeElement CreateChildShape(DslModeling::ModelElement element)
 		{
-			if(element is global::Dyvenix.GenIt.ModelClass)
+			if(element is global::Dyvenix.GenIt.EntityModel)
 			{
 				global::Dyvenix.GenIt.ClassShape newShape = new global::Dyvenix.GenIt.ClassShape(this.Partition);
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
@@ -771,7 +771,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule that initiates view fixup when an element that has an associated shape is added to the model. 
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelClass), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
@@ -796,9 +796,9 @@ namespace Dyvenix.GenIt
 				{
 					parentElement = GetParentForRelationship((DslModeling::ElementLink)childElement);
 				} else
-				if(childElement is global::Dyvenix.GenIt.ModelClass)
+				if(childElement is global::Dyvenix.GenIt.EntityModel)
 				{
-					parentElement = GetParentForModelClass((global::Dyvenix.GenIt.ModelClass)childElement);
+					parentElement = GetParentForEntityModel((global::Dyvenix.GenIt.EntityModel)childElement);
 				} else
 				if(childElement is global::Dyvenix.GenIt.ModelInterface)
 				{
@@ -817,7 +817,7 @@ namespace Dyvenix.GenIt
 					DslDiagrams::Diagram.FixUpDiagram(parentElement, childElement);
 				}
 			}
-			public static global::Dyvenix.GenIt.ModelRoot GetParentForModelClass( global::Dyvenix.GenIt.ModelType root )
+			public static global::Dyvenix.GenIt.ModelRoot GetParentForEntityModel( global::Dyvenix.GenIt.ModelType root )
 			{
 				// Segments 0 and 1
 				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
@@ -947,12 +947,12 @@ namespace Dyvenix.GenIt
 					return;
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasAttributes)
 				{
-					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
+					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasOperations)
 				{
-					global::System.Collections.IEnumerable elements = GetModelClassForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ModelElement);
+					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceHasOperation)
@@ -963,31 +963,31 @@ namespace Dyvenix.GenIt
 			}
 			
 			#region static DomainPath traversal methods to get the list of compartments to update
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasAttributes root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapeAttributesCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasAttributes root)
 			{
 				// Segment 0
-				global::Dyvenix.GenIt.ModelClass result = root.ModelClass;
+				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeAttributesCompartment(global::Dyvenix.GenIt.ModelAttribute root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapeAttributesCompartment(global::Dyvenix.GenIt.ModelAttribute root)
 			{
 				// Segments 1 and 0
-				global::Dyvenix.GenIt.ModelClass result = root.ModelClass;
+				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeOperationsCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasOperations root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapeOperationsCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasOperations root)
 			{
 				// Segment 0
-				global::Dyvenix.GenIt.ModelClass result = root.ModelClass;
+				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
-			internal static global::System.Collections.ICollection GetModelClassForClassShapeOperationsCompartment(global::Dyvenix.GenIt.ClassOperation root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapeOperationsCompartment(global::Dyvenix.GenIt.ClassOperation root)
 			{
 				// Segments 1 and 0
-				global::Dyvenix.GenIt.ModelClass result = root.ModelClass;
+				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
@@ -1069,12 +1069,12 @@ namespace Dyvenix.GenIt
 				if(e==null) throw new global::System.ArgumentNullException("e");
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasAttributes)
 				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasOperations)
 				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ModelElement);
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceHasOperation)
@@ -1107,12 +1107,12 @@ namespace Dyvenix.GenIt
 				if(e==null) throw new global::System.ArgumentNullException("e");
 				if(e.ModelElement is global::Dyvenix.GenIt.ModelAttribute && e.DomainProperty.Id == global::Dyvenix.GenIt.ModelAttribute.NameDomainPropertyId)
 				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.ModelElement);
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassOperation && e.DomainProperty.Id == global::Dyvenix.GenIt.ClassOperation.NameDomainPropertyId)
 				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.ModelElement);
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceOperation && e.DomainProperty.Id == global::Dyvenix.GenIt.InterfaceOperation.NameDomainPropertyId)
@@ -1147,7 +1147,7 @@ namespace Dyvenix.GenIt
 				{
 					if(e.DomainRole.IsSource)
 					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ModelAttribute)e.OldRolePlayer);
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ModelAttribute)e.OldRolePlayer);
 						//foreach(DslModeling::ModelElement element in oldElements)
 						//{
 						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
@@ -1161,12 +1161,12 @@ namespace Dyvenix.GenIt
 						//	}
 						//}
 						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ElementLink);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ElementLink);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 					}
 					else 
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.NewRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.NewRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 					}
 				}
@@ -1174,7 +1174,7 @@ namespace Dyvenix.GenIt
 				{
 					if(e.DomainRole.IsSource)
 					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassOperation)e.OldRolePlayer);
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassOperation)e.OldRolePlayer);
 						//foreach(DslModeling::ModelElement element in oldElements)
 						//{
 						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
@@ -1188,12 +1188,12 @@ namespace Dyvenix.GenIt
 						//	}
 						//}
 						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ElementLink);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasOperations)e.ElementLink);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 					}
 					else 
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.NewRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.NewRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 					}
 				}
@@ -1251,7 +1251,7 @@ namespace Dyvenix.GenIt
 				{
 					if(!e.CounterpartDomainRole.IsSource)
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.CounterpartRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
 					}
 				}
@@ -1259,7 +1259,7 @@ namespace Dyvenix.GenIt
 				{
 					if(!e.CounterpartDomainRole.IsSource)
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelClassForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.CounterpartRolePlayer);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeOperationsCompartment((global::Dyvenix.GenIt.ClassOperation)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "OperationsCompartment", repaintOnly);
 					}
 				}
