@@ -52,10 +52,10 @@
       <ElementMergeDirectives>
         <ElementMergeDirective>
           <Index>
-            <DomainClassMoniker Name="ModelAttribute" />
+            <DomainClassMoniker Name="PropertyModel" />
           </Index>
           <LinkCreationPaths>
-            <DomainPath>ClassHasAttributes.Attributes</DomainPath>
+            <DomainPath>ClassHasProperties.Attributes</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
         <ElementMergeDirective>
@@ -68,7 +68,7 @@
         </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
-    <DomainClass Id="4df99ada-d0ce-4ea5-82a0-2d7409e38475" Description="An attribute of a class." Name="ModelAttribute" DisplayName="Model Attribute" Namespace="Dyvenix.GenIt">
+    <DomainClass Id="4df99ada-d0ce-4ea5-82a0-2d7409e38475" Description="A property of a class." Name="PropertyModel" DisplayName="Property Model" Namespace="Dyvenix.GenIt">
       <BaseClass>
         <DomainClassMoniker Name="ClassModelElement" />
       </BaseClass>
@@ -251,7 +251,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="03a9c537-a07d-44d2-b9e9-7904b35de3dd" Description="" Name="ClassHasAttributes" DisplayName="Class Has Attributes" Namespace="Dyvenix.GenIt" IsEmbedding="true">
+    <DomainRelationship Id="03a9c537-a07d-44d2-b9e9-7904b35de3dd" Description="" Name="ClassHasProperties" DisplayName="Class Has Properties" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
         <DomainRole Id="50d60282-915b-4102-96ea-d10a5ddc1dd4" Description="" Name="EntityModel" DisplayName="Entity Model" PropertyName="Attributes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Attributes">
           <RolePlayer>
@@ -262,7 +262,7 @@
       <Target>
         <DomainRole Id="36ae1ba4-57f2-4f07-af06-788b29609abb" Description="" Name="Attribute" DisplayName="Attribute" PropertyName="EntityModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Model">
           <RolePlayer>
-            <DomainClassMoniker Name="ModelAttribute" />
+            <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -506,7 +506,7 @@
       <ShapeHasDecorators Position="InnerTopRight" HorizontalOffset="0" VerticalOffset="0">
         <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand Collapse" />
       </ShapeHasDecorators>
-      <Compartment TitleFillColor="235, 235, 235" Name="AttributesCompartment" Title="Attributes" />
+      <Compartment TitleFillColor="235, 235, 235" Name="PropertiesCompartment" Title="Properties" />
       <Compartment TitleFillColor="235, 235, 235" Name="OperationsCompartment" Title="Operations" />
     </CompartmentShape>
     <CompartmentShape Id="c8894909-29b3-4763-ab1e-bb10d40d8335" Description="" Name="InterfaceShape" DisplayName="Interface Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Interface Shape" FillColor="LightGray" InitialHeight="0.5" OutlineThickness="0.01" Geometry="RoundedRectangle">
@@ -599,8 +599,8 @@
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="ClassHasAttributes" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasAttributesMoniker" ElementName="classHasAttributes" MonikerTypeName="ClassHasAttributesMoniker">
-        <DomainRelationshipMoniker Name="ClassHasAttributes" />
+      <XmlClassData TypeName="ClassHasProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasPropertiesMoniker" ElementName="classHasProperties" MonikerTypeName="ClassHasPropertiesMoniker">
+        <DomainRelationshipMoniker Name="ClassHasProperties" />
       </XmlClassData>
       <XmlClassData TypeName="ModelRootHasComments" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasCommentsMoniker" ElementName="modelRootHasComments" MonikerTypeName="ModelRootHasCommentsMoniker">
         <DomainRelationshipMoniker Name="ModelRootHasComments" />
@@ -652,7 +652,7 @@
             <DomainRelationshipMoniker Name="UnidirectionalAssociation" />
           </XmlRelationshipData>
           <XmlRelationshipData RoleElementName="attributes">
-            <DomainRelationshipMoniker Name="ClassHasAttributes" />
+            <DomainRelationshipMoniker Name="ClassHasProperties" />
           </XmlRelationshipData>
           <XmlRelationshipData RoleElementName="operations">
             <DomainRelationshipMoniker Name="ClassHasOperations" />
@@ -669,19 +669,22 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="compositionTargets">
             <DomainRelationshipMoniker Name="Composition" />
           </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="targets">
+            <DomainRelationshipMoniker Name="Association" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="ModelAttribute" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelAttributeMoniker" ElementName="modelAttribute" MonikerTypeName="ModelAttributeMoniker">
-        <DomainClassMoniker Name="ModelAttribute" />
+      <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
+        <DomainClassMoniker Name="PropertyModel" />
         <ElementData>
           <XmlPropertyData XmlName="type">
-            <DomainPropertyMoniker Name="ModelAttribute/Type" />
+            <DomainPropertyMoniker Name="PropertyModel/Type" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="initialValue">
-            <DomainPropertyMoniker Name="ModelAttribute/InitialValue" />
+            <DomainPropertyMoniker Name="PropertyModel/InitialValue" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="multiplicity">
-            <DomainPropertyMoniker Name="ModelAttribute/Multiplicity" />
+            <DomainPropertyMoniker Name="PropertyModel/Multiplicity" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -955,9 +958,9 @@
         </DecoratorMap>
         <CompartmentShapeMoniker Name="ClassShape" />
         <CompartmentMap>
-          <CompartmentMoniker Name="ClassShape/AttributesCompartment" />
+          <CompartmentMoniker Name="ClassShape/PropertiesCompartment" />
           <ElementsDisplayed>
-            <DomainPath>ClassHasAttributes.Attributes/!Attribute</DomainPath>
+            <DomainPath>ClassHasProperties.Attributes/!Attribute</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>
@@ -1190,7 +1193,7 @@
         <DomainClassMoniker Name="EntityModel" />
       </ElementTool>
       <ElementTool Name="Attribute" ToolboxIcon="resources\attributetool.bmp" Caption="Attribute" Tooltip="Create an Attribute on a Class" HelpKeyword="AttributeF1Keyword">
-        <DomainClassMoniker Name="ModelAttribute" />
+        <DomainClassMoniker Name="PropertyModel" />
       </ElementTool>
       <ElementTool Name="ClassOperation" ToolboxIcon="resources\operationtool.bmp" Caption="Class Operation" Tooltip="Create an Operation on a Class" HelpKeyword="ClassOperationF1Keyword">
         <DomainClassMoniker Name="ClassOperation" />

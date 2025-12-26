@@ -70,7 +70,7 @@ namespace Dyvenix.GenIt
 				typeof(NamedElement),
 				typeof(ModelRoot),
 				typeof(EntityModel),
-				typeof(ModelAttribute),
+				typeof(PropertyModel),
 				typeof(Comment),
 				typeof(Operation),
 				typeof(ClassOperation),
@@ -80,7 +80,7 @@ namespace Dyvenix.GenIt
 				typeof(ClassModelElement),
 				typeof(Association),
 				typeof(UnidirectionalAssociation),
-				typeof(ClassHasAttributes),
+				typeof(ClassHasProperties),
 				typeof(ModelRootHasComments),
 				typeof(ClassHasOperations),
 				typeof(Generalization),
@@ -125,9 +125,9 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(NamedElement), "Name", NamedElement.NameDomainPropertyId, typeof(NamedElement.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelAttribute), "Type", ModelAttribute.TypeDomainPropertyId, typeof(ModelAttribute.TypePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelAttribute), "InitialValue", ModelAttribute.InitialValueDomainPropertyId, typeof(ModelAttribute.InitialValuePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelAttribute), "Multiplicity", ModelAttribute.MultiplicityDomainPropertyId, typeof(ModelAttribute.MultiplicityPropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "Type", PropertyModel.TypeDomainPropertyId, typeof(PropertyModel.TypePropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "InitialValue", PropertyModel.InitialValueDomainPropertyId, typeof(PropertyModel.InitialValuePropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "Multiplicity", PropertyModel.MultiplicityDomainPropertyId, typeof(PropertyModel.MultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Signature", Operation.SignatureDomainPropertyId, typeof(Operation.SignaturePropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Concurrency", Operation.ConcurrencyDomainPropertyId, typeof(Operation.ConcurrencyPropertyHandler)),
@@ -154,8 +154,8 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(Association), "Target", Association.TargetDomainRoleId),
 				new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalSource", UnidirectionalAssociation.UnidirectionalSourceDomainRoleId),
 				new DomainRolePlayerInfo(typeof(UnidirectionalAssociation), "UnidirectionalTarget", UnidirectionalAssociation.UnidirectionalTargetDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ClassHasAttributes), "EntityModel", ClassHasAttributes.EntityModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ClassHasAttributes), "Attribute", ClassHasAttributes.AttributeDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ClassHasProperties), "EntityModel", ClassHasProperties.EntityModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ClassHasProperties), "Attribute", ClassHasProperties.AttributeDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasComments), "ModelRoot", ModelRootHasComments.ModelRootDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ModelRootHasComments), "Comment", ModelRootHasComments.CommentDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasOperations), "EntityModel", ClassHasOperations.EntityModelDomainRoleId),
@@ -200,7 +200,7 @@ namespace Dyvenix.GenIt
 				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(23);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(EntityModel), 1);
-				createElementMap.Add(typeof(ModelAttribute), 2);
+				createElementMap.Add(typeof(PropertyModel), 2);
 				createElementMap.Add(typeof(Comment), 3);
 				createElementMap.Add(typeof(ClassOperation), 4);
 				createElementMap.Add(typeof(ModelInterface), 5);
@@ -231,7 +231,7 @@ namespace Dyvenix.GenIt
 			{
 				case 0: return new ModelRoot(partition, propertyAssignments);
 				case 1: return new EntityModel(partition, propertyAssignments);
-				case 2: return new ModelAttribute(partition, propertyAssignments);
+				case 2: return new PropertyModel(partition, propertyAssignments);
 				case 3: return new Comment(partition, propertyAssignments);
 				case 4: return new ClassOperation(partition, propertyAssignments);
 				case 5: return new ModelInterface(partition, propertyAssignments);
@@ -271,7 +271,7 @@ namespace Dyvenix.GenIt
 			{
 				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(13);
 				createElementLinkMap.Add(typeof(UnidirectionalAssociation), 0);
-				createElementLinkMap.Add(typeof(ClassHasAttributes), 1);
+				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
 				createElementLinkMap.Add(typeof(ClassHasOperations), 3);
 				createElementLinkMap.Add(typeof(Generalization), 4);
@@ -297,7 +297,7 @@ namespace Dyvenix.GenIt
 			switch (index)
 			{
 				case 0: return new UnidirectionalAssociation(partition, roleAssignments, propertyAssignments);
-				case 1: return new ClassHasAttributes(partition, roleAssignments, propertyAssignments);
+				case 1: return new ClassHasProperties(partition, roleAssignments, propertyAssignments);
 				case 2: return new ModelRootHasComments(partition, roleAssignments, propertyAssignments);
 				case 3: return new ClassHasOperations(partition, roleAssignments, propertyAssignments);
 				case 4: return new Generalization(partition, roleAssignments, propertyAssignments);
@@ -488,7 +488,7 @@ namespace Dyvenix.GenIt
 		public GenItDeleteClosureBase()
 		{
 			#region Initialize DomainData Table
-			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasProperties.AttributeDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ModelRootHasComments.CommentDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasOperations.OperationDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.InterfaceHasOperation.OperationDomainRoleId, true);

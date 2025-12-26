@@ -135,20 +135,20 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-          <!-- Relationship: ClassHasAttributes -->
+          <!-- Relationship: ClassHasProperties -->
           <xsd:element name="attributes" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
-              <xsd:documentation>Instances of ClassHasAttributes</xsd:documentation>
+              <xsd:documentation>Instances of ClassHasProperties</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
                 <xsd:choice minOccurs="0" maxOccurs="unbounded" >
-                  <xsd:element ref="classHasAttributes">
+                  <xsd:element ref="classHasProperties">
                     <xsd:annotation>
-                      <xsd:documentation>[Relationship deriving from ClassHasAttributes needs to be serialized in full-form]</xsd:documentation>
+                      <xsd:documentation>[Relationship deriving from ClassHasProperties needs to be serialized in full-form]</xsd:documentation>
                     </xsd:annotation>
                   </xsd:element>
-                  <xsd:element ref="modelAttribute" >
+                  <xsd:element ref="propertyModel" >
                     <xsd:annotation>
                       <xsd:documentation>[Target role-player]</xsd:documentation>
                     </xsd:annotation>
@@ -266,11 +266,11 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelAttribute -->
-  <xsd:element name="modelAttribute" type="ModelAttribute" substitutionGroup="classModelElement" />
-  <xsd:complexType name="ModelAttribute">
+  <!-- PropertyModel -->
+  <xsd:element name="propertyModel" type="PropertyModel" substitutionGroup="classModelElement" />
+  <xsd:complexType name="PropertyModel">
     <xsd:annotation>
-      <xsd:documentation>An attribute of a class.</xsd:documentation>
+      <xsd:documentation>A property of a class.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="ClassModelElement">
@@ -290,11 +290,11 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ModelAttribute Moniker -->
-  <xsd:element name="modelAttributeMoniker" type="ModelAttributeMoniker" substitutionGroup="classModelElementMoniker" />
-  <xsd:complexType name="ModelAttributeMoniker">
+  <!-- PropertyModel Moniker -->
+  <xsd:element name="propertyModelMoniker" type="PropertyModelMoniker" substitutionGroup="classModelElementMoniker" />
+  <xsd:complexType name="PropertyModelMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for ModelAttribute instance.</xsd:documentation>
+      <xsd:documentation>Moniker for PropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="ClassModelElementMoniker">
@@ -668,14 +668,14 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ClassHasAttributes -->
-  <xsd:element name="classHasAttributes" abstract="true" type="ClassHasAttributes" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="ClassHasAttributes" abstract="true" >
+  <!-- ClassHasProperties -->
+  <xsd:element name="classHasProperties" abstract="true" type="ClassHasProperties" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="ClassHasProperties" abstract="true" >
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ModelAttribute -->
-          <xsd:element ref="modelAttribute" minOccurs="1" maxOccurs="1">
+          <!-- Target end PropertyModel -->
+          <xsd:element ref="propertyModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
@@ -691,11 +691,11 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- ClassHasAttributes Moniker -->
-  <xsd:element name="classHasAttributesMoniker" type="ClassHasAttributesMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="ClassHasAttributesMoniker">
+  <!-- ClassHasProperties Moniker -->
+  <xsd:element name="classHasPropertiesMoniker" type="ClassHasPropertiesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="ClassHasPropertiesMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for ClassHasAttributes instance.</xsd:documentation>
+      <xsd:documentation>Moniker for ClassHasProperties instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

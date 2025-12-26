@@ -926,7 +926,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule to update compartments when an item is added to the list
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
@@ -945,10 +945,10 @@ namespace Dyvenix.GenIt
 				if(e==null) throw new global::System.ArgumentNullException("e");
 				if (e.ModelElement.IsDeleted)
 					return;
-				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasAttributes)
+				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasProperties)
 				{
-					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapePropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasProperties)e.ModelElement);
+					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasOperations)
 				{
@@ -963,14 +963,14 @@ namespace Dyvenix.GenIt
 			}
 			
 			#region static DomainPath traversal methods to get the list of compartments to update
-			internal static global::System.Collections.ICollection GetEntityModelForClassShapeAttributesCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasAttributes root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapePropertiesCompartmentFromLastLink(global::Dyvenix.GenIt.ClassHasProperties root)
 			{
 				// Segment 0
 				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
-			internal static global::System.Collections.ICollection GetEntityModelForClassShapeAttributesCompartment(global::Dyvenix.GenIt.ModelAttribute root)
+			internal static global::System.Collections.ICollection GetEntityModelForClassShapePropertiesCompartment(global::Dyvenix.GenIt.PropertyModel root)
 			{
 				// Segments 1 and 0
 				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
@@ -1050,7 +1050,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule to update compartments when an items is removed from the list
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
@@ -1067,10 +1067,10 @@ namespace Dyvenix.GenIt
 			internal static void ElementDeleted(DslModeling::ElementDeletedEventArgs e, bool repaintOnly)
 			{
 				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasAttributes)
+				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasProperties)
 				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasProperties)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassHasOperations)
 				{
@@ -1088,7 +1088,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule to update compartments when the property on an item being displayed changes.
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelAttribute), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.PropertyModel), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
@@ -1105,10 +1105,10 @@ namespace Dyvenix.GenIt
 			internal static void ElementPropertyChanged(DslModeling::ElementPropertyChangedEventArgs e, bool repaintOnly)
 			{
 				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(e.ModelElement is global::Dyvenix.GenIt.ModelAttribute && e.DomainProperty.Id == global::Dyvenix.GenIt.ModelAttribute.NameDomainPropertyId)
+				if(e.ModelElement is global::Dyvenix.GenIt.PropertyModel && e.DomainProperty.Id == global::Dyvenix.GenIt.PropertyModel.NameDomainPropertyId)
 				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartment((global::Dyvenix.GenIt.PropertyModel)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.ClassOperation && e.DomainProperty.Id == global::Dyvenix.GenIt.ClassOperation.NameDomainPropertyId)
 				{
@@ -1126,7 +1126,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule to update compartments when a roleplayer change happens
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
@@ -1143,11 +1143,11 @@ namespace Dyvenix.GenIt
 			internal static void RolePlayerChanged(DslModeling::RolePlayerChangedEventArgs e, bool repaintOnly)
 			{
 				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(typeof(global::Dyvenix.GenIt.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				if(typeof(global::Dyvenix.GenIt.ClassHasProperties).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
 				{
 					if(e.DomainRole.IsSource)
 					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ModelAttribute)e.OldRolePlayer);
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.PropertyModel)e.OldRolePlayer);
 						//foreach(DslModeling::ModelElement element in oldElements)
 						//{
 						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
@@ -1161,13 +1161,13 @@ namespace Dyvenix.GenIt
 						//	}
 						//}
 						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasAttributes)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasProperties)e.ElementLink);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 					}
 					else 
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.NewRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartment((global::Dyvenix.GenIt.PropertyModel)e.NewRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 					}
 				}
 				if(typeof(global::Dyvenix.GenIt.ClassHasOperations).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
@@ -1230,7 +1230,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Rule to update compartments when the order of items in the list changes.
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasAttributes), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
@@ -1247,12 +1247,12 @@ namespace Dyvenix.GenIt
 			internal static void RolePlayerPositionChanged(DslModeling::RolePlayerOrderChangedEventArgs e, bool repaintOnly)
 			{
 				if(e==null) throw new global::System.ArgumentNullException("e");
-				if(typeof(global::Dyvenix.GenIt.ClassHasAttributes).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				if(typeof(global::Dyvenix.GenIt.ClassHasProperties).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
 				{
 					if(!e.CounterpartDomainRole.IsSource)
 					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeAttributesCompartment((global::Dyvenix.GenIt.ModelAttribute)e.CounterpartRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "AttributesCompartment", repaintOnly);
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapePropertiesCompartment((global::Dyvenix.GenIt.PropertyModel)e.CounterpartRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "PropertiesCompartment", repaintOnly);
 					}
 				}
 				if(typeof(global::Dyvenix.GenIt.ClassHasOperations).IsAssignableFrom(e.DomainRelationship.ImplementationClass))

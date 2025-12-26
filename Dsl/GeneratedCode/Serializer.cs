@@ -1602,7 +1602,7 @@ namespace Dyvenix.GenIt
 							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </unidirectionalTargets>
 						}
 						break;
-					case "attributes":	// Relationship "ClassHasAttributes"
+					case "attributes":	// Relationship "ClassHasProperties"
 						if (reader.IsEmptyElement)
 						{	// No instance of this relationship, just skip
 							DslModeling::SerializationUtilities.Skip(reader);
@@ -1610,7 +1610,7 @@ namespace Dyvenix.GenIt
 						else
 						{
 							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <attributes>
-							ReadClassHasAttributesInstances(serializationContext, element, reader);
+							ReadClassHasPropertiesInstances(serializationContext, element, reader);
 							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </attributes>
 						}
 						break;
@@ -1726,7 +1726,7 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Reads all instances of relationship ClassHasAttributes.
+		/// Reads all instances of relationship ClassHasProperties.
 		/// </summary>
 		/// <remarks>
 		/// The caller will position the reader at the open tag of the first XML element inside the relationship tag, so it can be
@@ -1736,36 +1736,36 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="element">In-memory EntityModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		private static void ReadClassHasAttributesInstances(DslModeling::SerializationContext serializationContext, EntityModel element, global::System.Xml.XmlReader reader)
+		private static void ReadClassHasPropertiesInstances(DslModeling::SerializationContext serializationContext, EntityModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				DslModeling::DomainClassXmlSerializer newModelAttributeOfClassHasAttributesSerializer = serializationContext.Directory.GetSerializer(ModelAttribute.DomainClassId);
-				global::System.Diagnostics.Debug.Assert(newModelAttributeOfClassHasAttributesSerializer != null, "Cannot find serializer for ModelAttribute!");
-				ModelAttribute newModelAttributeOfClassHasAttributes = newModelAttributeOfClassHasAttributesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as ModelAttribute;
-				if (newModelAttributeOfClassHasAttributes != null)
+				DslModeling::DomainClassXmlSerializer newPropertyModelOfClassHasPropertiesSerializer = serializationContext.Directory.GetSerializer(PropertyModel.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(newPropertyModelOfClassHasPropertiesSerializer != null, "Cannot find serializer for PropertyModel!");
+				PropertyModel newPropertyModelOfClassHasProperties = newPropertyModelOfClassHasPropertiesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as PropertyModel;
+				if (newPropertyModelOfClassHasProperties != null)
 				{
-					element.Attributes.Add(newModelAttributeOfClassHasAttributes);
-					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newModelAttributeOfClassHasAttributes.GetDomainClass().Id);	
-					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newModelAttributeOfClassHasAttributes.GetDomainClass().Name + "!");
-					targetSerializer.Read(serializationContext, newModelAttributeOfClassHasAttributes, reader);
+					element.Attributes.Add(newPropertyModelOfClassHasProperties);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newPropertyModelOfClassHasProperties.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newPropertyModelOfClassHasProperties.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, newPropertyModelOfClassHasProperties, reader);
 				}
 				else
 				{
-					global::System.Type typeofClassHasAttributes = typeof(ClassHasAttributes);
-					DslModeling::DomainRelationshipXmlSerializer newClassHasAttributesSerializer = serializationContext.Directory.GetSerializer(ClassHasAttributes.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-					global::System.Diagnostics.Debug.Assert(newClassHasAttributesSerializer != null, "Cannot find serializer for ClassHasAttributes!");
-					ClassHasAttributes newClassHasAttributes = newClassHasAttributesSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as ClassHasAttributes;
-					if (newClassHasAttributes != null)
+					global::System.Type typeofClassHasProperties = typeof(ClassHasProperties);
+					DslModeling::DomainRelationshipXmlSerializer newClassHasPropertiesSerializer = serializationContext.Directory.GetSerializer(ClassHasProperties.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
+					global::System.Diagnostics.Debug.Assert(newClassHasPropertiesSerializer != null, "Cannot find serializer for ClassHasProperties!");
+					ClassHasProperties newClassHasProperties = newClassHasPropertiesSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as ClassHasProperties;
+					if (newClassHasProperties != null)
 					{
-						if (newClassHasAttributes.GetType() == typeofClassHasAttributes)
+						if (newClassHasProperties.GetType() == typeofClassHasProperties)
 						{	// The relationship should be serialized in short-form.
-							GenItSerializationBehaviorSerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(ClassHasAttributes));
+							GenItSerializationBehaviorSerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(ClassHasProperties));
 						}
-						DslModeling::DomainRoleInfo.SetRolePlayer (newClassHasAttributes, ClassHasAttributes.EntityModelDomainRoleId, element);
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newClassHasAttributes.GetDomainClass().Id);	
-						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newClassHasAttributes.GetDomainClass().Name + "!");
-						targetSerializer.Read(serializationContext, newClassHasAttributes, reader);
+						DslModeling::DomainRoleInfo.SetRolePlayer (newClassHasProperties, ClassHasProperties.EntityModelDomainRoleId, element);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newClassHasProperties.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newClassHasProperties.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newClassHasProperties, reader);
 					}
 					else
 					{	// Unknown element, skip
@@ -2466,26 +2466,26 @@ namespace Dyvenix.GenIt
 				writer.WriteEndElement();
 			}
 	
-			// ClassHasAttributes
-			global::System.Collections.ObjectModel.ReadOnlyCollection<ClassHasAttributes> allClassHasAttributesInstances = ClassHasAttributes.GetLinksToAttributes(element);
-			if (!serializationContext.Result.Failed && allClassHasAttributesInstances.Count > 0)
+			// ClassHasProperties
+			global::System.Collections.ObjectModel.ReadOnlyCollection<ClassHasProperties> allClassHasPropertiesInstances = ClassHasProperties.GetLinksToAttributes(element);
+			if (!serializationContext.Result.Failed && allClassHasPropertiesInstances.Count > 0)
 			{
 				writer.WriteStartElement("attributes");
-				global::System.Type typeofClassHasAttributes = typeof(ClassHasAttributes);
-				foreach (ClassHasAttributes eachClassHasAttributesInstance in allClassHasAttributesInstances)
+				global::System.Type typeofClassHasProperties = typeof(ClassHasProperties);
+				foreach (ClassHasProperties eachClassHasPropertiesInstance in allClassHasPropertiesInstances)
 				{
 					if (serializationContext.Result.Failed)
 						break;
 	
-					if (eachClassHasAttributesInstance.GetType() != typeofClassHasAttributes)
+					if (eachClassHasPropertiesInstance.GetType() != typeofClassHasProperties)
 					{	// Derived relationships will be serialized in full-form.
-						DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(eachClassHasAttributesInstance.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + eachClassHasAttributesInstance.GetDomainClass().Name + "!");			
-						derivedRelSerializer.Write(serializationContext, eachClassHasAttributesInstance, writer);
+						DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(eachClassHasPropertiesInstance.GetDomainClass().Id);
+						global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + eachClassHasPropertiesInstance.GetDomainClass().Name + "!");			
+						derivedRelSerializer.Write(serializationContext, eachClassHasPropertiesInstance, writer);
 					}
 					else
 					{	// No need to serialize the relationship itself, just serialize the role-player directly.
-						DslModeling::ModelElement targetElement = eachClassHasAttributesInstance.Attribute;
+						DslModeling::ModelElement targetElement = eachClassHasPropertiesInstance.Attribute;
 						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
 						global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");			
 						targetSerializer.Write(serializationContext, targetElement, writer);
@@ -2680,15 +2680,15 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Serializer ModelAttributeSerializer for DomainClass ModelAttribute.
+	/// Serializer PropertyModelSerializer for DomainClass PropertyModel.
 	/// </summary>
-	public partial class ModelAttributeSerializer : ClassModelElementSerializer
+	public partial class PropertyModelSerializer : ClassModelElementSerializer
 	{
 		#region Constructor
 		/// <summary>
-		/// ModelAttributeSerializer Constructor
+		/// PropertyModelSerializer Constructor
 		/// </summary>
-		public ModelAttributeSerializer ()
+		public PropertyModelSerializer ()
 			: base ()
 		{
 		}
@@ -2714,25 +2714,25 @@ namespace Dyvenix.GenIt
 	
 		#region Public Properties
 		/// <summary>
-		/// This is the XML tag name used to serialize an instance of ModelAttribute.
+		/// This is the XML tag name used to serialize an instance of PropertyModel.
 		/// </summary>
 		public override string XmlTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"modelAttribute"; }
+			get { return @"propertyModel"; }
 		}
 	
 		/// <summary>
-		/// This is the XML tag name used to serialize a monikerized instance of ModelAttribute.
+		/// This is the XML tag name used to serialize a monikerized instance of PropertyModel.
 		/// </summary>
 		public override string MonikerTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"modelAttributeMoniker"; }
+			get { return @"propertyModelMoniker"; }
 		}
 		
 		/// <summary>
-		/// This is the name of the XML attribute that stores the moniker of ModelAttribute in a serialized monikerized instance.
+		/// This is the name of the XML attribute that stores the moniker of PropertyModel in a serialized monikerized instance.
 		/// </summary>
 		public override string MonikerAttributeName
 		{
@@ -2743,16 +2743,16 @@ namespace Dyvenix.GenIt
 	
 		#region Read Methods
 		/// <summary>
-		/// Public Read() method that deserializes one ModelAttribute instance from XML.
+		/// Public Read() method that deserializes one PropertyModel instance from XML.
 		/// </summary>
 		/// <remarks>
 		/// When this method is called, caller guarantees that the passed-in XML reader is positioned at the open XML tag
-		/// of the ModelAttribute element that is about to be deserialized. 
+		/// of the PropertyModel element that is about to be deserialized. 
 		/// The method needs to ensure that when it returns, the reader is positioned at the open XML tag of the next sibling element,
 		/// or the close tag of the parent element (or EOF).
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ModelAttribute instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory PropertyModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -2810,7 +2810,7 @@ namespace Dyvenix.GenIt
 		/// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ModelAttribute instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory PropertyModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
@@ -2818,8 +2818,8 @@ namespace Dyvenix.GenIt
 			// Always call the base class so any extensions are deserialized
 			base.ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
-			ModelAttribute instanceOfModelAttribute = element as ModelAttribute;
-			global::System.Diagnostics.Debug.Assert(instanceOfModelAttribute != null, "Expecting an instance of ModelAttribute");
+			PropertyModel instanceOfPropertyModel = element as PropertyModel;
+			global::System.Diagnostics.Debug.Assert(instanceOfPropertyModel != null, "Expecting an instance of PropertyModel");
 	
 			// Type
 			if (!serializationContext.Result.Failed)
@@ -2830,7 +2830,7 @@ namespace Dyvenix.GenIt
 					global::System.String valueOfType;
 					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribType, out valueOfType))
 					{
-						instanceOfModelAttribute.Type = valueOfType;
+						instanceOfPropertyModel.Type = valueOfType;
 					}
 					else
 					{	// Invalid property value, ignored.
@@ -2847,7 +2847,7 @@ namespace Dyvenix.GenIt
 					global::System.String valueOfInitialValue;
 					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribInitialValue, out valueOfInitialValue))
 					{
-						instanceOfModelAttribute.InitialValue = valueOfInitialValue;
+						instanceOfPropertyModel.InitialValue = valueOfInitialValue;
 					}
 					else
 					{	// Invalid property value, ignored.
@@ -2864,7 +2864,7 @@ namespace Dyvenix.GenIt
 					global::System.String valueOfMultiplicity;
 					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribMultiplicity, out valueOfMultiplicity))
 					{
-						instanceOfModelAttribute.Multiplicity = valueOfMultiplicity;
+						instanceOfPropertyModel.Multiplicity = valueOfMultiplicity;
 					}
 					else
 					{	// Invalid property value, ignored.
@@ -2876,8 +2876,8 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateInstance
 		/// <summary>
-		/// This method creates a correct instance of ModelAttribute based on the tag currently pointed by the reader. If the reader
-		/// is positioned at a serialized ModelAttribute, a new ModelAttribute instance will be created in the given partition, otherwise 
+		/// This method creates a correct instance of PropertyModel based on the tag currently pointed by the reader. If the reader
+		/// is positioned at a serialized PropertyModel, a new PropertyModel instance will be created in the given partition, otherwise 
 		/// null is returned.
 		/// </summary>
 		/// <remarks>
@@ -2887,7 +2887,7 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		/// <param name="partition">Partition in which new elements should be created.</param>	
-		/// <returns>Created ModelAttribute instance, or null if the reader is not pointing to a serialized ModelAttribute instance.</returns>
+		/// <returns>Created PropertyModel instance, or null if the reader is not pointing to a serialized PropertyModel instance.</returns>
 		public override DslModeling::ModelElement TryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			#region Check Parameters
@@ -2907,18 +2907,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (string.Compare (localName, this.XmlTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "ModelAttribute" instance.
+				{	// New "PropertyModel" instance.
 					result = this.CreateInstance(serializationContext, reader, partition);
 				}
 				else
-				{	// Check for derived classes of "ModelAttribute".
+				{	// Check for derived classes of "PropertyModel".
 					if (this.derivedClasses == null)
 						this.ConstructDerivedClassesLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert (this.derivedClasses != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class instance.
-						ModelAttributeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ModelAttributeSerializer;
+						PropertyModelSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as PropertyModelSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
 					}
@@ -2929,8 +2929,8 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// This method creates an instance of ModelAttribute based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
-		/// to be pointed at a serialized instance of ModelAttribute.
+		/// This method creates an instance of PropertyModel based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
+		/// to be pointed at a serialized instance of PropertyModel.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the ModelRoot instance being read. This method should
@@ -2938,8 +2938,8 @@ namespace Dyvenix.GenIt
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		/// <param name="partition">Partition in which new ModelAttribute instance should be created.</param>	
-		/// <returns>Created ModelAttribute instance.</returns>
+		/// <param name="partition">Partition in which new PropertyModel instance should be created.</param>	
+		/// <returns>Created PropertyModel instance.</returns>
 		protected override DslModeling::ModelElement CreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			string idStr = reader.GetAttribute ("Id");
@@ -2955,7 +2955,7 @@ namespace Dyvenix.GenIt
 				{
 					id = new global::System.Guid (idStr);
 				}
-				return new ModelAttribute(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
+				return new PropertyModel(partition, new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id));
 			}
 			catch (global::System.ArgumentNullException /* anEx */)
 			{	
@@ -2973,12 +2973,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from ModelAttribute, created on demand.
+		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from PropertyModel, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClasses;
 	
 		/// <summary>
-		/// Construct the apping from XmlTagName to DomainClassInfo that derives from ModelAttribute.
+		/// Construct the apping from XmlTagName to DomainClassInfo that derives from PropertyModel.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -2987,7 +2987,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClasses == null); // Shouldn't construct the table more than once.
 			this.derivedClasses = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ModelAttribute.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(PropertyModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -3019,7 +3019,7 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateMonikerInstance
 		/// <summary>
-		/// This method creates a Moniker of the correct derived (including ModelAttribute itself) instance of ModelAttribute based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of the correct derived (including PropertyModel itself) instance of PropertyModel based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -3053,18 +3053,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (string.Compare (localName, this.MonikerTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "ModelAttribute" moniker instance.
+				{	// New "PropertyModel" moniker instance.
 					result = this.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 				}
 				else
-				{	// Check for derived classes of "ModelAttribute".
+				{	// Check for derived classes of "PropertyModel".
 					if (this.derivedClassMonikers == null)
 						this.ConstructDerivedClassMonikersLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class moniker instance.
-						ModelAttributeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ModelAttributeSerializer;
+						PropertyModelSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as PropertyModelSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 					}
@@ -3075,7 +3075,7 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// This method creates a Moniker of ModelAttribute based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of PropertyModel based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -3098,7 +3098,7 @@ namespace Dyvenix.GenIt
 			}
 			DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(relDomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
 			global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for DomainRelationship with Id " + relDomainClassId + "!");
-			DslModeling::Moniker result = relSerializer.MonikerizeReference(serializationContext, sourceRolePlayer, ModelAttribute.DomainClassId, monikerString, partition.Store);
+			DslModeling::Moniker result = relSerializer.MonikerizeReference(serializationContext, sourceRolePlayer, PropertyModel.DomainClassId, monikerString, partition.Store);
 			// Set location info if possible.
 			result.Location = serializationContext.Location;
 			global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
@@ -3111,12 +3111,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from ModelAttribute, created on demand.
+		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from PropertyModel, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClassMonikers;
 	
 		/// <summary>
-		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from ModelAttribute.
+		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from PropertyModel.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -3125,7 +3125,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers == null); // Shouldn't construct the table more than once.
 			this.derivedClassMonikers = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ModelAttribute.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(PropertyModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -3151,13 +3151,13 @@ namespace Dyvenix.GenIt
 	
 		#region Write Methods
 		/// <summary>
-		/// Public WriteMoniker() method that writes a monikerized ModelAttribute instance into XML.
+		/// Public WriteMoniker() method that writes a monikerized PropertyModel instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ModelAttribute instance to be monikerized.</param>
+		/// <param name="element">PropertyModel instance to be monikerized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
-		/// <param name="sourceRolePlayer">Source element that references the ModelAttribute instance being monikerized.</param>
-		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the ModelAttribute instance being monikerized.</param>
+		/// <param name="sourceRolePlayer">Source element that references the PropertyModel instance being monikerized.</param>
+		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the PropertyModel instance being monikerized.</param>
 		public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
 		{
 			#region Check Parameters
@@ -3186,10 +3186,10 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// Public Write() method that serializes one ModelAttribute instance into XML.
+		/// Public Write() method that serializes one PropertyModel instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ModelAttribute instance to be serialized.</param>
+		/// <param name="element">PropertyModel instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
 		/// <param name="rootElementSettings">
 		/// The root element settings if the passed in element is serialized as a root element in the XML. The root element contains additional
@@ -3250,7 +3250,7 @@ namespace Dyvenix.GenIt
 		/// Write all properties that need to be serialized as XML attributes.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ModelAttribute instance to be serialized.</param>
+		/// <param name="element">PropertyModel instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param> 
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
@@ -3258,13 +3258,13 @@ namespace Dyvenix.GenIt
 			// Always call the base class so any extensions are serialized
 			base.WritePropertiesAsAttributes(serializationContext, element, writer);
 	
-			ModelAttribute instanceOfModelAttribute = element as ModelAttribute;
-			global::System.Diagnostics.Debug.Assert(instanceOfModelAttribute != null, "Expecting an instance of ModelAttribute");
+			PropertyModel instanceOfPropertyModel = element as PropertyModel;
+			global::System.Diagnostics.Debug.Assert(instanceOfPropertyModel != null, "Expecting an instance of PropertyModel");
 	
 			// Type
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelAttribute.Type;
+				global::System.String propValue = instanceOfPropertyModel.Type;
 				if (!serializationContext.Result.Failed)
 				{
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
@@ -3276,7 +3276,7 @@ namespace Dyvenix.GenIt
 			// InitialValue
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelAttribute.InitialValue;
+				global::System.String propValue = instanceOfPropertyModel.InitialValue;
 				if (!serializationContext.Result.Failed)
 				{
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
@@ -3288,7 +3288,7 @@ namespace Dyvenix.GenIt
 			// Multiplicity
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelAttribute.Multiplicity;
+				global::System.String propValue = instanceOfPropertyModel.Multiplicity;
 				if (!serializationContext.Result.Failed)
 				{
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "1") != 0))
@@ -3302,11 +3302,11 @@ namespace Dyvenix.GenIt
 	
 		#region Moniker Support
 		/// <summary>
-		/// This method calculates a moniker to a given ModelAttribute instance.
+		/// This method calculates a moniker to a given PropertyModel instance.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">ModelAttribute instance to calculate qualified name for.</param>
-		/// <returns>A fully qualified string moniker to the ModelAttribute instance.</returns>
+		/// <param name="element">PropertyModel instance to calculate qualified name for.</param>
+		/// <returns>A fully qualified string moniker to the PropertyModel instance.</returns>
 		public override string CalculateQualifiedName(DslModeling::DomainXmlSerializerDirectory directory, DslModeling::ModelElement element)
 		{
 			#region Check Parameters
@@ -3318,8 +3318,8 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException("element");
 			#endregion	
 			
-			ModelAttribute instance = element as ModelAttribute;
-			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ModelAttribute!");
+			PropertyModel instance = element as PropertyModel;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of PropertyModel!");
 	
 			string key = instance.Name;
 			string containerMoniker = null;
@@ -3350,7 +3350,7 @@ namespace Dyvenix.GenIt
 		/// returns empty string.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">ModelAttribute instance to get moniker qualifier from.</param>
+		/// <param name="element">PropertyModel instance to get moniker qualifier from.</param>
 		/// <returns>
 		/// Value of this element's moniker qualifier property, if it has one, or the value of the container's moniker qualifier property. Or empty string if this
 		/// element is not monikerized using standard /qualifier/key mechanism.
@@ -3366,8 +3366,8 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException("element");
 			#endregion	
 			
-			ModelAttribute instance = element as ModelAttribute;
-			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ModelAttribute!");
+			PropertyModel instance = element as PropertyModel;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of PropertyModel!");
 			DslModeling::ModelElement container = DslModeling::DomainClassInfo.FindEmbeddingElement(instance);
 			if(container != null)
 			{
@@ -9316,15 +9316,15 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Serializer ClassHasAttributesSerializer for DomainClass ClassHasAttributes.
+	/// Serializer ClassHasPropertiesSerializer for DomainClass ClassHasProperties.
 	/// </summary>
-	public partial class ClassHasAttributesSerializer : DslModeling::DomainRelationshipXmlSerializer
+	public partial class ClassHasPropertiesSerializer : DslModeling::DomainRelationshipXmlSerializer
 	{
 		#region Constructor
 		/// <summary>
-		/// ClassHasAttributesSerializer Constructor
+		/// ClassHasPropertiesSerializer Constructor
 		/// </summary>
-		public ClassHasAttributesSerializer ()
+		public ClassHasPropertiesSerializer ()
 			: base ()
 		{
 		}
@@ -9350,25 +9350,25 @@ namespace Dyvenix.GenIt
 	
 		#region Public Properties
 		/// <summary>
-		/// This is the XML tag name used to serialize an instance of ClassHasAttributes.
+		/// This is the XML tag name used to serialize an instance of ClassHasProperties.
 		/// </summary>
 		public override string XmlTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"classHasAttributes"; }
+			get { return @"classHasProperties"; }
 		}
 	
 		/// <summary>
-		/// This is the XML tag name used to serialize a monikerized instance of ClassHasAttributes.
+		/// This is the XML tag name used to serialize a monikerized instance of ClassHasProperties.
 		/// </summary>
 		public override string MonikerTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"classHasAttributesMoniker"; }
+			get { return @"classHasPropertiesMoniker"; }
 		}
 		
 		/// <summary>
-		/// This is the name of the XML attribute that stores the moniker of ClassHasAttributes in a serialized monikerized instance.
+		/// This is the name of the XML attribute that stores the moniker of ClassHasProperties in a serialized monikerized instance.
 		/// </summary>
 		public override string MonikerAttributeName
 		{
@@ -9379,16 +9379,16 @@ namespace Dyvenix.GenIt
 	
 		#region Read Methods
 		/// <summary>
-		/// Public Read() method that deserializes one ClassHasAttributes instance from XML.
+		/// Public Read() method that deserializes one ClassHasProperties instance from XML.
 		/// </summary>
 		/// <remarks>
 		/// When this method is called, caller guarantees that the passed-in XML reader is positioned at the open XML tag
-		/// of the ClassHasAttributes element that is about to be deserialized. 
+		/// of the ClassHasProperties element that is about to be deserialized. 
 		/// The method needs to ensure that when it returns, the reader is positioned at the open XML tag of the next sibling element,
 		/// or the close tag of the parent element (or EOF).
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ClassHasAttributes instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory ClassHasProperties instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -9436,7 +9436,7 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{
-					GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ClassHasAttributes");
+					GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ClassHasProperties");
 				}
 			}
 	
@@ -9460,7 +9460,7 @@ namespace Dyvenix.GenIt
 		/// 3) EOF.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ClassHasAttributes instance that will link to the target ModelAttribute instance.</param>
+		/// <param name="element">In-memory ClassHasProperties instance that will link to the target PropertyModel instance.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		protected virtual void ReadTargetRolePlayer(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -9478,8 +9478,8 @@ namespace Dyvenix.GenIt
 	
 			// Read the instance of target role-player Attribute
 			DslModeling::ModelElement targetRolePlayer = null;
-			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(ModelAttribute.DomainClassId);
-			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for ModelAttribute!");
+			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(PropertyModel.DomainClassId);
+			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for PropertyModel!");
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
@@ -9487,7 +9487,7 @@ namespace Dyvenix.GenIt
 				if (targetRolePlayer != null)
 				{
 					// Attach the target role-player.
-					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, ClassHasAttributes.AttributeDomainRoleId, targetRolePlayer);
+					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, ClassHasProperties.AttributeDomainRoleId, targetRolePlayer);
 					// Read target role-player.
 					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (targetRolePlayer.GetDomainClass().Id);	
 					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + targetRolePlayer.GetDomainClass().Name + "!");
@@ -9500,7 +9500,7 @@ namespace Dyvenix.GenIt
 			}
 			if (targetRolePlayer == null)
 			{
-				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ClassHasAttributes");
+				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ClassHasProperties");
 			}
 		}
 	
@@ -9512,7 +9512,7 @@ namespace Dyvenix.GenIt
 		/// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ClassHasAttributes instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory ClassHasProperties instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
@@ -9537,7 +9537,7 @@ namespace Dyvenix.GenIt
 		/// 3) EOF.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory ClassHasAttributes instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory ClassHasProperties instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		protected override void ReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -9548,8 +9548,8 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
 		/// <summary>
-		/// This method creates a correct instance of ClassHasAttributes based on the tag currently pointed by the reader. If the reader
-		/// is positioned at a serialized ClassHasAttributes, a new ClassHasAttributes instance will be created in the given partition, otherwise 
+		/// This method creates a correct instance of ClassHasProperties based on the tag currently pointed by the reader. If the reader
+		/// is positioned at a serialized ClassHasProperties, a new ClassHasProperties instance will be created in the given partition, otherwise 
 		/// null is returned.
 		/// </summary>
 		/// <remarks>
@@ -9559,7 +9559,7 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		/// <param name="partition">Partition in which new elements should be created.</param>	
-		/// <returns>Created ClassHasAttributes instance, or null if the reader is not pointing to a serialized ClassHasAttributes instance.</returns>
+		/// <returns>Created ClassHasProperties instance, or null if the reader is not pointing to a serialized ClassHasProperties instance.</returns>
 		public override DslModeling::ModelElement TryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			#region Check Parameters
@@ -9578,9 +9578,9 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// This method creates a correct derived instance of ClassHasAttributes based on the tag currently pointed by the reader.
+		/// This method creates a correct derived instance of ClassHasProperties based on the tag currently pointed by the reader.
 		/// Note that the difference between this method and the above one is that this method will never create an instance of the
-		/// ClassHasAttributes type itself, only derived types are checked.
+		/// ClassHasProperties type itself, only derived types are checked.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -9589,7 +9589,7 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		/// <param name="partition">Partition in which new elements should be created.</param>
-		/// <returns>Created instance that derives from ClassHasAttributes, or null if the reader is not pointing to such a serialized instance.</returns>
+		/// <returns>Created instance that derives from ClassHasProperties, or null if the reader is not pointing to such a serialized instance.</returns>
 		public override DslModeling::ElementLink TryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			#region Check Parameters
@@ -9621,18 +9621,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (!derivedTypesOnly && string.Compare (localName, this.XmlTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "ClassHasAttributes" instance.
+				{	// New "ClassHasProperties" instance.
 					result = this.CreateInstance(serializationContext, reader, partition);
 				}
 				else
-				{	// Check for derived classes of "ClassHasAttributes".
+				{	// Check for derived classes of "ClassHasProperties".
 					if (this.derivedClasses == null)
 						this.ConstructDerivedClassesLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert (this.derivedClasses != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived relationship instance.
-						ClassHasAttributesSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassHasAttributesSerializer;
+						ClassHasPropertiesSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassHasPropertiesSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
 					}
@@ -9643,8 +9643,8 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// This method creates an instance of ClassHasAttributes based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
-		/// to be pointed at a serialized instance of ClassHasAttributes.
+		/// This method creates an instance of ClassHasProperties based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
+		/// to be pointed at a serialized instance of ClassHasProperties.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the ModelRoot instance being read. This method should
@@ -9652,8 +9652,8 @@ namespace Dyvenix.GenIt
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		/// <param name="partition">Partition in which new ClassHasAttributes instance should be created.</param>	
-		/// <returns>Created ClassHasAttributes instance.</returns>
+		/// <param name="partition">Partition in which new ClassHasProperties instance should be created.</param>	
+		/// <returns>Created ClassHasProperties instance.</returns>
 		protected override DslModeling::ModelElement CreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			string idStr = reader.GetAttribute ("Id");
@@ -9670,11 +9670,11 @@ namespace Dyvenix.GenIt
 					id = new global::System.Guid (idStr);
 				}
 				// Create the link with place-holder role-players.
-				return new ClassHasAttributes(
+				return new ClassHasProperties(
 					partition,
 					new DslModeling::RoleAssignment[] {
-						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (ClassHasAttributes.EntityModelDomainRoleId), 
-						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (ClassHasAttributes.AttributeDomainRoleId)
+						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (ClassHasProperties.EntityModelDomainRoleId), 
+						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (ClassHasProperties.AttributeDomainRoleId)
 					},
 					new DslModeling::PropertyAssignment[] {
 						new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id)
@@ -9697,12 +9697,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from ClassHasAttributes, created on demand.
+		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from ClassHasProperties, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClasses;
 	
 		/// <summary>
-		/// Construct the apping from XmlTagName to DomainClassInfo that derives from ClassHasAttributes.
+		/// Construct the apping from XmlTagName to DomainClassInfo that derives from ClassHasProperties.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -9711,7 +9711,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClasses == null); // Shouldn't construct the table more than once.
 			this.derivedClasses = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ClassHasAttributes.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ClassHasProperties.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -9743,7 +9743,7 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateMonikerInstance
 		/// <summary>
-		/// This method creates a Moniker of the correct derived (including ClassHasAttributes itself) instance of ClassHasAttributes based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of the correct derived (including ClassHasProperties itself) instance of ClassHasProperties based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -9777,18 +9777,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (string.Compare (localName, this.MonikerTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "ClassHasAttributes" moniker instance.
+				{	// New "ClassHasProperties" moniker instance.
 					result = this.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 				}
 				else
-				{	// Check for derived classes of "ClassHasAttributes".
+				{	// Check for derived classes of "ClassHasProperties".
 					if (this.derivedClassMonikers == null)
 						this.ConstructDerivedClassMonikersLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class moniker instance.
-						ClassHasAttributesSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassHasAttributesSerializer;
+						ClassHasPropertiesSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassHasPropertiesSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 					}
@@ -9799,7 +9799,7 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// This method creates a Moniker of ClassHasAttributes based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of ClassHasProperties based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -9824,7 +9824,7 @@ namespace Dyvenix.GenIt
 			{	// Normalize the Id.
 				global::System.Guid id = new global::System.Guid(monikerString);
 				monikerString = id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
-				DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, ClassHasAttributes.DomainClassId, partition.Store), partition.Store);
+				DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, ClassHasProperties.DomainClassId, partition.Store), partition.Store);
 				// Set location info if possible.
 				result.Location = serializationContext.Location;
 				global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
@@ -9848,12 +9848,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from ClassHasAttributes, created on demand.
+		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from ClassHasProperties, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClassMonikers;
 	
 		/// <summary>
-		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from ClassHasAttributes.
+		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from ClassHasProperties.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -9862,7 +9862,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers == null); // Shouldn't construct the table more than once.
 			this.derivedClassMonikers = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ClassHasAttributes.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(ClassHasProperties.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -9888,13 +9888,13 @@ namespace Dyvenix.GenIt
 	
 		#region Write Methods
 		/// <summary>
-		/// Public WriteMoniker() method that writes a monikerized ClassHasAttributes instance into XML.
+		/// Public WriteMoniker() method that writes a monikerized ClassHasProperties instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ClassHasAttributes instance to be monikerized.</param>
+		/// <param name="element">ClassHasProperties instance to be monikerized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
-		/// <param name="sourceRolePlayer">Source element that references the ClassHasAttributes instance being monikerized.</param>
-		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the ClassHasAttributes instance being monikerized.</param>
+		/// <param name="sourceRolePlayer">Source element that references the ClassHasProperties instance being monikerized.</param>
+		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the ClassHasProperties instance being monikerized.</param>
 		public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
 		{
 			#region Check Parameters
@@ -9923,10 +9923,10 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// Public Write() method that serializes one ClassHasAttributes instance into XML.
+		/// Public Write() method that serializes one ClassHasProperties instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ClassHasAttributes instance to be serialized.</param>
+		/// <param name="element">ClassHasProperties instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
 		/// <param name="rootElementSettings">
 		/// The root element settings if the passed in element is serialized as a root element in the XML. The root element contains additional
@@ -9943,7 +9943,7 @@ namespace Dyvenix.GenIt
 		/// Write all properties that need to be serialized as XML attributes.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ClassHasAttributes instance to be serialized.</param>
+		/// <param name="element">ClassHasProperties instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param> 
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
@@ -9958,7 +9958,7 @@ namespace Dyvenix.GenIt
 		/// This methods serializes 1) properties serialized as nested XML elements and 2) child model elements into XML. 
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">ClassHasAttributes instance to be serialized.</param>
+		/// <param name="element">ClassHasProperties instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>        
 		protected override void WriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
 		{
@@ -9971,11 +9971,11 @@ namespace Dyvenix.GenIt
 	
 		#region Moniker Support
 		/// <summary>
-		/// This method calculates a moniker to a given ClassHasAttributes instance.
+		/// This method calculates a moniker to a given ClassHasProperties instance.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">ClassHasAttributes instance to calculate qualified name for.</param>
-		/// <returns>A fully qualified string moniker to the ClassHasAttributes instance.</returns>
+		/// <param name="element">ClassHasProperties instance to calculate qualified name for.</param>
+		/// <returns>A fully qualified string moniker to the ClassHasProperties instance.</returns>
 		public override string CalculateQualifiedName(DslModeling::DomainXmlSerializerDirectory directory, DslModeling::ModelElement element)
 		{
 			#region Check Parameters
@@ -9987,8 +9987,8 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException("element");
 			#endregion	
 			
-			ClassHasAttributes instance = element as ClassHasAttributes;
-			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ClassHasAttributes!");
+			ClassHasProperties instance = element as ClassHasProperties;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ClassHasProperties!");
 	
 			return instance.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
 		}
@@ -9999,7 +9999,7 @@ namespace Dyvenix.GenIt
 		/// returns empty string.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">ClassHasAttributes instance to get moniker qualifier from.</param>
+		/// <param name="element">ClassHasProperties instance to get moniker qualifier from.</param>
 		/// <returns>
 		/// Value of this element's moniker qualifier property, if it has one, or the value of the container's moniker qualifier property. Or empty string if this
 		/// element is not monikerized using standard /qualifier/key mechanism.
@@ -24454,7 +24454,7 @@ namespace Dyvenix.GenIt
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(NamedElement.DomainClassId, typeof(NamedElementSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ModelRoot.DomainClassId, typeof(ModelRootSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(EntityModel.DomainClassId, typeof(EntityModelSerializer)));
-					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ModelAttribute.DomainClassId, typeof(ModelAttributeSerializer)));
+					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(PropertyModel.DomainClassId, typeof(PropertyModelSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(Comment.DomainClassId, typeof(CommentSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(Operation.DomainClassId, typeof(OperationSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassOperation.DomainClassId, typeof(ClassOperationSerializer)));
@@ -24464,7 +24464,7 @@ namespace Dyvenix.GenIt
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassModelElement.DomainClassId, typeof(ClassModelElementSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(Association.DomainClassId, typeof(AssociationSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(UnidirectionalAssociation.DomainClassId, typeof(UnidirectionalAssociationSerializer)));
-					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassHasAttributes.DomainClassId, typeof(ClassHasAttributesSerializer)));
+					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassHasProperties.DomainClassId, typeof(ClassHasPropertiesSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ModelRootHasComments.DomainClassId, typeof(ModelRootHasCommentsSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassHasOperations.DomainClassId, typeof(ClassHasOperationsSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(Generalization.DomainClassId, typeof(GeneralizationSerializer)));

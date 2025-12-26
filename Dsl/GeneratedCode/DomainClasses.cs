@@ -594,12 +594,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Attributes.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ModelAttribute> Attributes
+		public virtual DslModeling::LinkedElementCollection<PropertyModel> Attributes
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ModelAttribute>, ModelAttribute>(global::Dyvenix.GenIt.ClassHasAttributes.EntityModelDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(global::Dyvenix.GenIt.ClassHasProperties.EntityModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -758,7 +758,7 @@ namespace Dyvenix.GenIt
 					return true;
 				}
 				
-				if (rootElementDomainInfo.IsDerivedFrom(global::Dyvenix.GenIt.ModelAttribute.DomainClassId)) 
+				if (rootElementDomainInfo.IsDerivedFrom(global::Dyvenix.GenIt.PropertyModel.DomainClassId)) 
 				{
 					return true;
 				}
@@ -796,11 +796,11 @@ namespace Dyvenix.GenIt
 				return;
 			}
 				
-			global::Dyvenix.GenIt.ModelAttribute sourceModelAttribute2 = sourceElement as global::Dyvenix.GenIt.ModelAttribute;
-			if (sourceModelAttribute2 != null)
+			global::Dyvenix.GenIt.PropertyModel sourcePropertyModel2 = sourceElement as global::Dyvenix.GenIt.PropertyModel;
+			if (sourcePropertyModel2 != null)
 			{
-				// Create link for path ClassHasAttributes.Attributes
-				this.Attributes.Add(sourceModelAttribute2);
+				// Create link for path ClassHasProperties.Attributes
+				this.Attributes.Add(sourcePropertyModel2);
 
 				return;
 			}
@@ -841,15 +841,15 @@ namespace Dyvenix.GenIt
 				return;
 			}
 				
-			global::Dyvenix.GenIt.ModelAttribute sourceModelAttribute2 = sourceElement as global::Dyvenix.GenIt.ModelAttribute;
-			if (sourceModelAttribute2 != null)
+			global::Dyvenix.GenIt.PropertyModel sourcePropertyModel2 = sourceElement as global::Dyvenix.GenIt.PropertyModel;
+			if (sourcePropertyModel2 != null)
 			{
-				// Delete link for path ClassHasAttributes.Attributes
+				// Delete link for path ClassHasProperties.Attributes
 				
-				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasAttributes.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourceModelAttribute2))
+				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasProperties.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourcePropertyModel2))
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
-					link.Delete(global::Dyvenix.GenIt.ClassHasAttributes.EntityModelDomainRoleId, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId);
+					link.Delete(global::Dyvenix.GenIt.ClassHasProperties.EntityModelDomainRoleId, global::Dyvenix.GenIt.ClassHasProperties.AttributeDomainRoleId);
 				}
 
 				return;
@@ -863,20 +863,20 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainClass ModelAttribute
-	/// An attribute of a class.
+	/// DomainClass PropertyModel
+	/// A property of a class.
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelAttribute.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelAttribute.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("4df99ada-d0ce-4ea5-82a0-2d7409e38475")]
-	public partial class ModelAttribute : ClassModelElement
+	public partial class PropertyModel : ClassModelElement
 	{
 		#region Constructors, domain class Id
 	
 		/// <summary>
-		/// ModelAttribute domain class Id.
+		/// PropertyModel domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x4df99ada, 0xd0ce, 0x4ea5, 0x82, 0xa0, 0x2d, 0x74, 0x09, 0xe3, 0x84, 0x75);
 		/// <summary>
@@ -884,7 +884,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ModelAttribute(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public PropertyModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
 		{
 		}
@@ -894,7 +894,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public ModelAttribute(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public PropertyModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, propertyAssignments)
 		{
 		}
@@ -914,8 +914,8 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets the value of Type domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelAttribute/Type.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelAttribute/Type.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Type.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Type.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("4ef9ef25-f6e7-46f2-9e48-ed9323cc081f")]
 		public global::System.String Type
@@ -932,19 +932,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelAttribute.Type domain property.
+		/// Value handler for the PropertyModel.Type domain property.
 		/// </summary>
-		internal sealed partial class TypePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		internal sealed partial class TypePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
 		{
 			private TypePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.Type domain property value handler.
+			/// Gets the singleton instance of the PropertyModel.Type domain property value handler.
 			/// </summary>
 			public static readonly TypePropertyHandler Instance = new TypePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelAttribute.Type domain property.
+			/// Gets the Id of the PropertyModel.Type domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -960,7 +960,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(ModelAttribute element)
+			public override sealed global::System.String GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.typePropertyStorage;
@@ -971,7 +971,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -1001,8 +1001,8 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets the value of InitialValue domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelAttribute/InitialValue.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelAttribute/InitialValue.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/InitialValue.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/InitialValue.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("b9a0da77-ee42-4cd5-a7d3-85a8d724691e")]
 		public global::System.String InitialValue
@@ -1019,19 +1019,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelAttribute.InitialValue domain property.
+		/// Value handler for the PropertyModel.InitialValue domain property.
 		/// </summary>
-		internal sealed partial class InitialValuePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		internal sealed partial class InitialValuePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
 		{
 			private InitialValuePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.InitialValue domain property value handler.
+			/// Gets the singleton instance of the PropertyModel.InitialValue domain property value handler.
 			/// </summary>
 			public static readonly InitialValuePropertyHandler Instance = new InitialValuePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelAttribute.InitialValue domain property.
+			/// Gets the Id of the PropertyModel.InitialValue domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -1047,7 +1047,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(ModelAttribute element)
+			public override sealed global::System.String GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.initialValuePropertyStorage;
@@ -1058,7 +1058,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -1088,8 +1088,8 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets or sets the value of Multiplicity domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelAttribute/Multiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelAttribute/Multiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Multiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("1")]
 		[DslModeling::DomainObjectId("25717fe9-d9b3-4b94-a58c-f82c1ee7397d")]
 		public global::System.String Multiplicity
@@ -1106,19 +1106,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelAttribute.Multiplicity domain property.
+		/// Value handler for the PropertyModel.Multiplicity domain property.
 		/// </summary>
-		internal sealed partial class MultiplicityPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelAttribute, global::System.String>
+		internal sealed partial class MultiplicityPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
 		{
 			private MultiplicityPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelAttribute.Multiplicity domain property value handler.
+			/// Gets the singleton instance of the PropertyModel.Multiplicity domain property value handler.
 			/// </summary>
 			public static readonly MultiplicityPropertyHandler Instance = new MultiplicityPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelAttribute.Multiplicity domain property.
+			/// Gets the Id of the PropertyModel.Multiplicity domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -1134,7 +1134,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(ModelAttribute element)
+			public override sealed global::System.String GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.multiplicityPropertyStorage;
@@ -1145,7 +1145,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(ModelAttribute element, global::System.String newValue)
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -1169,12 +1169,12 @@ namespace Dyvenix.GenIt
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId) as EntityModel;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ClassHasProperties.AttributeDomainRoleId) as EntityModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ClassHasAttributes.AttributeDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ClassHasProperties.AttributeDomainRoleId, value);
 			}
 		}
 		#endregion

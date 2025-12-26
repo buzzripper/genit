@@ -173,37 +173,37 @@
     <value>Is Abstract</value>
     <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute.Description" xml:space="preserve">
-    <value>An attribute of a class.</value>
-    <comment>Description for DomainClass &apos;ModelAttribute&apos;</comment>
+  <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
+    <value>A property of a class.</value>
+    <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute.DisplayName" xml:space="preserve">
-    <value>Model Attribute</value>
-    <comment>DisplayName for DomainClass &apos;ModelAttribute&apos;</comment>
+  <data name="Dyvenix.GenIt.PropertyModel.DisplayName" xml:space="preserve">
+    <value>Property Model</value>
+    <comment>DisplayName for DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/Type.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Type.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/Type.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Type.DisplayName" xml:space="preserve">
     <value>Type</value>
-    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/InitialValue.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>Description for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/InitialValue.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/InitialValue.DisplayName" xml:space="preserve">
     <value>Initial Value</value>
-    <comment>DisplayName for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/Multiplicity.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>Description for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelAttribute/Multiplicity.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName" xml:space="preserve">
     <value>Multiplicity</value>
-    <comment>DisplayName for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;ModelAttribute&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
@@ -413,37 +413,37 @@
     <value>Unidirectional Sources</value>
     <comment>PropertyDisplayName for DomainRole &apos;UnidirectionalTarget&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainClass &apos;ClassHasAttributes&apos;</comment>
+    <comment>Description for DomainClass &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes.DisplayName" xml:space="preserve">
-    <value>Class Has Attributes</value>
-    <comment>DisplayName for DomainClass &apos;ClassHasAttributes&apos;</comment>
+  <data name="Dyvenix.GenIt.ClassHasProperties.DisplayName" xml:space="preserve">
+    <value>Class Has Properties</value>
+    <comment>DisplayName for DomainClass &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/EntityModel.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/EntityModel.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>Description for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/EntityModel.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/EntityModel.DisplayName" xml:space="preserve">
     <value>Entity Model</value>
-    <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/EntityModel.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName" xml:space="preserve">
     <value>Attributes</value>
-    <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/Attribute.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/Attribute.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>Description for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/Attribute.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/Attribute.DisplayName" xml:space="preserve">
     <value>Attribute</value>
-    <comment>DisplayName for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassHasAttributes/Attribute.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ClassHasProperties/Attribute.PropertyDisplayName" xml:space="preserve">
     <value>Entity Model</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasAttributes&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;Attribute&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ModelRootHasComments.Description" xml:space="preserve">
     <value></value>
@@ -913,8 +913,8 @@
     <value>Class Shape</value>
     <comment>DisplayName for DomainClass &apos;ClassShape&apos;</comment>
   </data>
-  <data name="ClassShapeAttributesCompartmentTitle" xml:space="preserve">
-    <value>Attributes</value>
+  <data name="ClassShapePropertiesCompartmentTitle" xml:space="preserve">
+    <value>Properties</value>
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeOperationsCompartmentTitle" xml:space="preserve">
