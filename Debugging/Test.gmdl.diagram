@@ -1,28 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<genItDiagram dslVersion="1.0.0.0" Id="029897d8-f82b-4ea1-bcfd-4fc9f0b798e8" absoluteBounds="0, 0, 11, 8.5" name="Test">
+<genItDiagram dslVersion="1.0.0.0" Id="e609f47d-2935-425b-ba37-38dcf7e4925f" absoluteBounds="0, 0, 11, 8.5" name="Test">
   <modelRootMoniker name="/" />
-  <nestedChildShapes>
-    <classShape Id="ec5d8d04-ae2a-4124-af8e-6cc5e9ff626b" absoluteBounds="1.375, 1.125, 1.5, 0.91877929687500037">
-      <entityModelMoniker name="//EntityModel1" />
-      <nestedChildShapes>
-        <elementListCompartment Id="bc1d548e-342c-4027-952f-685686e3d2da" absoluteBounds="1.39, 1.435, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="1a3ac37a-0b61-4821-90f0-7f5a0bbb7270" absoluteBounds="1.39, 1.6943896484375003, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <classShape Id="73fe7bc5-06bd-494f-b3d1-0a23c477217a" absoluteBounds="3.625, 5, 1.5, 0.91877929687499993">
-      <entityModelMoniker name="//EntityModel2" />
-      <nestedChildShapes>
-        <elementListCompartment Id="f84960fe-d15d-4424-848c-eff41ac52bce" absoluteBounds="3.64, 5.31, 1.4700000000000002, 0.24938964843750006" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="d1491200-e8de-4aba-b2bf-fd3d20cfb26e" absoluteBounds="3.64, 5.5693896484375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <compositionConnector Id="6eaba423-26b0-4e29-93c6-0d57e64cc1a9" edgePoints="[(2.125 : 2.043779296875); (2.125 : 5.4593896484375); (3.625 : 5.4593896484375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <compositionMoniker Id="7ebc6b57-1215-47f0-a927-70d70fe0064c" />
-      <relativeChildShapes />
-      <nodes>
-        <classShapeMoniker Id="ec5d8d04-ae2a-4124-af8e-6cc5e9ff626b" />
-        <classShapeMoniker Id="73fe7bc5-06bd-494f-b3d1-0a23c477217a" />
-      </nodes>
-    </compositionConnector>
-  </nestedChildShapes>
 </genItDiagram>

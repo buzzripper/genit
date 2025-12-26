@@ -1,13 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="70ee625f-9a00-4071-aa2e-4cdb7b99c3fc" name="" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
-  <types>
-    <entityModel Id="336f090c-d1a0-433b-9546-83004a2393e1" name="EntityModel1">
-      <compositionTargets>
-        <composition Id="7ebc6b57-1215-47f0-a927-70d70fe0064c" sourceMultiplicity="1" targetMultiplicity="*">
-          <entityModelMoniker name="//EntityModel2" />
-        </composition>
-      </compositionTargets>
-    </entityModel>
-    <entityModel Id="fe20411c-4959-4826-a1f4-b615a9874a29" name="EntityModel2" />
-  </types>
-</modelRoot>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="51c09177-bff1-4d6d-893f-0857f9f5932b" name="" xmlns="http://schemas.microsoft.com/dsltools/GenIt" />
