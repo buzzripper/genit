@@ -23,6 +23,96 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainObjectId("2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b")]
 	public abstract partial class AssociationConnectorBase : DslDiagrams::BinaryLinkShape
 	{
+		#region DiagramElement boilerplate
+		private static DslDiagrams::StyleSet classStyleSet;
+		private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields;
+		private static global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators;
+		
+		/// <summary>
+		/// Per-class style set for this shape.
+		/// </summary>
+		protected override DslDiagrams::StyleSet ClassStyleSet
+		{
+			get
+			{
+				if (classStyleSet == null)
+				{
+					classStyleSet = CreateClassStyleSet();
+				}
+				return classStyleSet;
+			}
+		}
+		
+		/// <summary>
+		/// Per-class ShapeFields for this shape.
+		/// </summary>
+		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
+		{
+			get
+			{
+				if (shapeFields == null)
+				{
+					shapeFields = CreateShapeFields();
+				}
+				return shapeFields;
+			}
+		}
+		
+		/// <summary>
+		/// Event fired when decorator initialization is complete for this shape type.
+		/// </summary>
+		public static event global::System.EventHandler DecoratorsInitialized;
+		
+		/// <summary>
+		/// List containing decorators used by this type.
+		/// </summary>
+		public override global::System.Collections.Generic.IList<DslDiagrams::Decorator> Decorators
+		{
+			get 
+			{
+				if(decorators == null)
+				{
+					decorators = CreateDecorators();
+					
+					// fire this event to allow the diagram to initialize decorator mappings for this shape type.
+					if(DecoratorsInitialized != null)
+					{
+						DecoratorsInitialized(this, global::System.EventArgs.Empty);
+					}
+				}
+				
+				return decorators; 
+			}
+		}
+		
+		/// <summary>
+		/// Finds a decorator associated with AssociationConnector.
+		/// </summary>
+		public static DslDiagrams::Decorator FindAssociationConnectorDecorator(string decoratorName)
+		{	
+			if(decorators == null) return null;
+			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
+		}
+		
+		
+		/// <summary>
+		/// Shape instance initialization.
+		/// </summary>
+		public override void OnInitialize()
+		{
+			base.OnInitialize();
+			
+			// Create host shapes for outer decorators.
+			foreach(DslDiagrams::Decorator decorator in this.Decorators)
+			{
+				if(decorator.RequiresHost)
+				{
+					decorator.ConfigureHostShape(this);
+				}
+			}
+			
+		}
+		#endregion
 		
 		#region Connector styles
 		/// <summary>
@@ -131,168 +221,15 @@ namespace Dyvenix.GenIt
 	/// </summary>
 	[global::System.CLSCompliant(true)]
 			
-	public abstract partial class AssociationConnector : AssociationConnectorBase
+	public partial class AssociationConnector : AssociationConnectorBase
 	{
 		#region Constructors
 		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		protected AssociationConnector(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainClass UnidirectionalConnector
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UnidirectionalConnector.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.UnidirectionalConnector.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("658f1224-1f44-4b74-b2bc-6c32bd8fdec4")]
-	public partial class UnidirectionalConnector : AssociationConnector
-	{
-		#region DiagramElement boilerplate
-		private static DslDiagrams::StyleSet classStyleSet;
-		private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields;
-		private static global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators;
-		
-		/// <summary>
-		/// Per-class style set for this shape.
-		/// </summary>
-		protected override DslDiagrams::StyleSet ClassStyleSet
-		{
-			get
-			{
-				if (classStyleSet == null)
-				{
-					classStyleSet = CreateClassStyleSet();
-				}
-				return classStyleSet;
-			}
-		}
-		
-		/// <summary>
-		/// Per-class ShapeFields for this shape.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
-		{
-			get
-			{
-				if (shapeFields == null)
-				{
-					shapeFields = CreateShapeFields();
-				}
-				return shapeFields;
-			}
-		}
-		
-		/// <summary>
-		/// Event fired when decorator initialization is complete for this shape type.
-		/// </summary>
-		public static event global::System.EventHandler DecoratorsInitialized;
-		
-		/// <summary>
-		/// List containing decorators used by this type.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::Decorator> Decorators
-		{
-			get 
-			{
-				if(decorators == null)
-				{
-					decorators = CreateDecorators();
-					
-					// fire this event to allow the diagram to initialize decorator mappings for this shape type.
-					if(DecoratorsInitialized != null)
-					{
-						DecoratorsInitialized(this, global::System.EventArgs.Empty);
-					}
-				}
-				
-				return decorators; 
-			}
-		}
-		
-		/// <summary>
-		/// Finds a decorator associated with UnidirectionalConnector.
-		/// </summary>
-		public static DslDiagrams::Decorator FindUnidirectionalConnectorDecorator(string decoratorName)
-		{	
-			if(decorators == null) return null;
-			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
-		}
-		
-		
-		/// <summary>
-		/// Shape instance initialization.
-		/// </summary>
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
-			
-			// Create host shapes for outer decorators.
-			foreach(DslDiagrams::Decorator decorator in this.Decorators)
-			{
-				if(decorator.RequiresHost)
-				{
-					decorator.ConfigureHostShape(this);
-				}
-			}
-			
-		}
-		#endregion
-		
-		#region Connector styles
-		/// <summary>
-		/// Initializes style set resources for this shape type
-		/// </summary>
-		/// <param name="classStyleSet">The style set for this shape class</param>
-		protected override void InitializeResources(DslDiagrams::StyleSet classStyleSet)
-		{
-			base.InitializeResources(classStyleSet);
-			
-			// Line pen settings for this connector.
-			DslDiagrams::PenSettings linePen = new DslDiagrams::PenSettings();
-			linePen.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, linePen);
-			linePen.Width = 0.01f;
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, linePen);
-			DslDiagrams::BrushSettings lineBrush = new DslDiagrams::BrushSettings();
-			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
-			
-		}
-		
-		/// <summary>
-		/// Initializes resources associated with this connector instance.
-		/// </summary>
-		protected override void InitializeInstanceResources()
-		{
-			base.InitializeInstanceResources();
-			this.SetDecorators(null, new DslDiagrams::SizeD(0.1,0.1), DslDiagrams::LinkDecorator.DecoratorEmptyArrow, new DslDiagrams::SizeD(0.1,0.1), false);
-		}
-		
-		#endregion
-		
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// UnidirectionalConnector domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x658f1224, 0x1f44, 0x4b74, 0xb2, 0xbc, 0x6c, 0x32, 0xbd, 0x8f, 0xde, 0xc4);
-		/// <summary>
 		/// Constructor
 		/// </summary>
 		/// <param name="store">Store where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public UnidirectionalConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public AssociationConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
 		{
 		}
@@ -302,487 +239,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new element is to be created.</param>
 		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public UnidirectionalConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainClass BidirectionalConnector
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.BidirectionalConnector.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.BidirectionalConnector.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("a10ab6b0-ade6-4708-98db-5a6b18a6d6cd")]
-	public partial class BidirectionalConnector : AssociationConnector
-	{
-		#region DiagramElement boilerplate
-		private static DslDiagrams::StyleSet classStyleSet;
-		private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields;
-		private static global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators;
-		
-		/// <summary>
-		/// Per-class style set for this shape.
-		/// </summary>
-		protected override DslDiagrams::StyleSet ClassStyleSet
-		{
-			get
-			{
-				if (classStyleSet == null)
-				{
-					classStyleSet = CreateClassStyleSet();
-				}
-				return classStyleSet;
-			}
-		}
-		
-		/// <summary>
-		/// Per-class ShapeFields for this shape.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
-		{
-			get
-			{
-				if (shapeFields == null)
-				{
-					shapeFields = CreateShapeFields();
-				}
-				return shapeFields;
-			}
-		}
-		
-		/// <summary>
-		/// Event fired when decorator initialization is complete for this shape type.
-		/// </summary>
-		public static event global::System.EventHandler DecoratorsInitialized;
-		
-		/// <summary>
-		/// List containing decorators used by this type.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::Decorator> Decorators
-		{
-			get 
-			{
-				if(decorators == null)
-				{
-					decorators = CreateDecorators();
-					
-					// fire this event to allow the diagram to initialize decorator mappings for this shape type.
-					if(DecoratorsInitialized != null)
-					{
-						DecoratorsInitialized(this, global::System.EventArgs.Empty);
-					}
-				}
-				
-				return decorators; 
-			}
-		}
-		
-		/// <summary>
-		/// Finds a decorator associated with BidirectionalConnector.
-		/// </summary>
-		public static DslDiagrams::Decorator FindBidirectionalConnectorDecorator(string decoratorName)
-		{	
-			if(decorators == null) return null;
-			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
-		}
-		
-		
-		/// <summary>
-		/// Shape instance initialization.
-		/// </summary>
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
-			
-			// Create host shapes for outer decorators.
-			foreach(DslDiagrams::Decorator decorator in this.Decorators)
-			{
-				if(decorator.RequiresHost)
-				{
-					decorator.ConfigureHostShape(this);
-				}
-			}
-			
-		}
-		#endregion
-		
-		#region Connector styles
-		/// <summary>
-		/// Initializes style set resources for this shape type
-		/// </summary>
-		/// <param name="classStyleSet">The style set for this shape class</param>
-		protected override void InitializeResources(DslDiagrams::StyleSet classStyleSet)
-		{
-			base.InitializeResources(classStyleSet);
-			
-			// Line pen settings for this connector.
-			DslDiagrams::PenSettings linePen = new DslDiagrams::PenSettings();
-			linePen.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, linePen);
-			linePen.Width = 0.01f;
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, linePen);
-			DslDiagrams::BrushSettings lineBrush = new DslDiagrams::BrushSettings();
-			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
-			
-		}
-		
-		#endregion
-		
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// BidirectionalConnector domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xa10ab6b0, 0xade6, 0x4708, 0x98, 0xdb, 0x5a, 0x6b, 0x18, 0xa6, 0xd6, 0xcd);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public BidirectionalConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public BidirectionalConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainClass AggregationConnector
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.AggregationConnector.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.AggregationConnector.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("6c7a82f5-819d-48e2-a0b6-e624b3bfc813")]
-	public partial class AggregationConnector : AssociationConnector
-	{
-		#region DiagramElement boilerplate
-		private static DslDiagrams::StyleSet classStyleSet;
-		private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields;
-		private static global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators;
-		
-		/// <summary>
-		/// Per-class style set for this shape.
-		/// </summary>
-		protected override DslDiagrams::StyleSet ClassStyleSet
-		{
-			get
-			{
-				if (classStyleSet == null)
-				{
-					classStyleSet = CreateClassStyleSet();
-				}
-				return classStyleSet;
-			}
-		}
-		
-		/// <summary>
-		/// Per-class ShapeFields for this shape.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
-		{
-			get
-			{
-				if (shapeFields == null)
-				{
-					shapeFields = CreateShapeFields();
-				}
-				return shapeFields;
-			}
-		}
-		
-		/// <summary>
-		/// Event fired when decorator initialization is complete for this shape type.
-		/// </summary>
-		public static event global::System.EventHandler DecoratorsInitialized;
-		
-		/// <summary>
-		/// List containing decorators used by this type.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::Decorator> Decorators
-		{
-			get 
-			{
-				if(decorators == null)
-				{
-					decorators = CreateDecorators();
-					
-					// fire this event to allow the diagram to initialize decorator mappings for this shape type.
-					if(DecoratorsInitialized != null)
-					{
-						DecoratorsInitialized(this, global::System.EventArgs.Empty);
-					}
-				}
-				
-				return decorators; 
-			}
-		}
-		
-		/// <summary>
-		/// Finds a decorator associated with AggregationConnector.
-		/// </summary>
-		public static DslDiagrams::Decorator FindAggregationConnectorDecorator(string decoratorName)
-		{	
-			if(decorators == null) return null;
-			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
-		}
-		
-		
-		/// <summary>
-		/// Shape instance initialization.
-		/// </summary>
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
-			
-			// Create host shapes for outer decorators.
-			foreach(DslDiagrams::Decorator decorator in this.Decorators)
-			{
-				if(decorator.RequiresHost)
-				{
-					decorator.ConfigureHostShape(this);
-				}
-			}
-			
-		}
-		#endregion
-		
-		#region Connector styles
-		/// <summary>
-		/// Initializes style set resources for this shape type
-		/// </summary>
-		/// <param name="classStyleSet">The style set for this shape class</param>
-		protected override void InitializeResources(DslDiagrams::StyleSet classStyleSet)
-		{
-			base.InitializeResources(classStyleSet);
-			
-			// Line pen settings for this connector.
-			DslDiagrams::PenSettings linePen = new DslDiagrams::PenSettings();
-			linePen.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, linePen);
-			linePen.Width = 0.01f;
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, linePen);
-			DslDiagrams::BrushSettings lineBrush = new DslDiagrams::BrushSettings();
-			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
-			
-		}
-		
-		/// <summary>
-		/// Initializes resources associated with this connector instance.
-		/// </summary>
-		protected override void InitializeInstanceResources()
-		{
-			base.InitializeInstanceResources();
-			this.SetDecorators(DslDiagrams::LinkDecorator.DecoratorEmptyDiamond, new DslDiagrams::SizeD(0.1,0.1), null, new DslDiagrams::SizeD(0.1,0.1), false);
-		}
-		
-		#endregion
-		
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// AggregationConnector domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x6c7a82f5, 0x819d, 0x48e2, 0xa0, 0xb6, 0xe6, 0x24, 0xb3, 0xbf, 0xc8, 0x13);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public AggregationConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public AggregationConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, propertyAssignments)
-		{
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainClass CompositionConnector
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.CompositionConnector.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.CompositionConnector.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainObjectId("a141fa25-2d5d-46e6-8623-2cf98cf8760d")]
-	public partial class CompositionConnector : AssociationConnector
-	{
-		#region DiagramElement boilerplate
-		private static DslDiagrams::StyleSet classStyleSet;
-		private static global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields;
-		private static global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators;
-		
-		/// <summary>
-		/// Per-class style set for this shape.
-		/// </summary>
-		protected override DslDiagrams::StyleSet ClassStyleSet
-		{
-			get
-			{
-				if (classStyleSet == null)
-				{
-					classStyleSet = CreateClassStyleSet();
-				}
-				return classStyleSet;
-			}
-		}
-		
-		/// <summary>
-		/// Per-class ShapeFields for this shape.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::ShapeField> ShapeFields
-		{
-			get
-			{
-				if (shapeFields == null)
-				{
-					shapeFields = CreateShapeFields();
-				}
-				return shapeFields;
-			}
-		}
-		
-		/// <summary>
-		/// Event fired when decorator initialization is complete for this shape type.
-		/// </summary>
-		public static event global::System.EventHandler DecoratorsInitialized;
-		
-		/// <summary>
-		/// List containing decorators used by this type.
-		/// </summary>
-		public override global::System.Collections.Generic.IList<DslDiagrams::Decorator> Decorators
-		{
-			get 
-			{
-				if(decorators == null)
-				{
-					decorators = CreateDecorators();
-					
-					// fire this event to allow the diagram to initialize decorator mappings for this shape type.
-					if(DecoratorsInitialized != null)
-					{
-						DecoratorsInitialized(this, global::System.EventArgs.Empty);
-					}
-				}
-				
-				return decorators; 
-			}
-		}
-		
-		/// <summary>
-		/// Finds a decorator associated with CompositionConnector.
-		/// </summary>
-		public static DslDiagrams::Decorator FindCompositionConnectorDecorator(string decoratorName)
-		{	
-			if(decorators == null) return null;
-			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
-		}
-		
-		
-		/// <summary>
-		/// Shape instance initialization.
-		/// </summary>
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
-			
-			// Create host shapes for outer decorators.
-			foreach(DslDiagrams::Decorator decorator in this.Decorators)
-			{
-				if(decorator.RequiresHost)
-				{
-					decorator.ConfigureHostShape(this);
-				}
-			}
-			
-		}
-		#endregion
-		
-		#region Connector styles
-		/// <summary>
-		/// Initializes style set resources for this shape type
-		/// </summary>
-		/// <param name="classStyleSet">The style set for this shape class</param>
-		protected override void InitializeResources(DslDiagrams::StyleSet classStyleSet)
-		{
-			base.InitializeResources(classStyleSet);
-			
-			// Line pen settings for this connector.
-			DslDiagrams::PenSettings linePen = new DslDiagrams::PenSettings();
-			linePen.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLineDecorator, linePen);
-			linePen.Width = 0.01f;
-			classStyleSet.OverridePen(DslDiagrams::DiagramPens.ConnectionLine, linePen);
-			DslDiagrams::BrushSettings lineBrush = new DslDiagrams::BrushSettings();
-			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
-			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
-			
-		}
-		
-		/// <summary>
-		/// Initializes resources associated with this connector instance.
-		/// </summary>
-		protected override void InitializeInstanceResources()
-		{
-			base.InitializeInstanceResources();
-			this.SetDecorators(DslDiagrams::LinkDecorator.DecoratorFilledDiamond, new DslDiagrams::SizeD(0.1,0.1), null, new DslDiagrams::SizeD(0.1,0.1), false);
-		}
-		
-		#endregion
-		
-		#region Constructors, domain class Id
-	
-		/// <summary>
-		/// CompositionConnector domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xa141fa25, 0x2d5d, 0x46e6, 0x86, 0x23, 0x2c, 0xf9, 0x8c, 0xf8, 0x76, 0x0d);
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public CompositionConnector(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
-			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new element is to be created.</param>
-		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
-		public CompositionConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+		public AssociationConnector(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, propertyAssignments)
 		{
 		}

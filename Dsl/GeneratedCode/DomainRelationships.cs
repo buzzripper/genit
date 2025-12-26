@@ -21,7 +21,7 @@ namespace Dyvenix.GenIt
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
 	[DslModeling::DomainObjectId("4a55a93f-ffed-423c-ad69-a1b5c9c85a1e")]
-	public abstract partial class Association : DslModeling::ElementLink
+	public partial class Association : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
@@ -30,13 +30,56 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x4a55a93f, 0xffed, 0x423c, 0xad, 0x69, 0xa1, 0xb5, 0xc9, 0xc8, 0x5a, 0x1e);
 	
+				
 		/// <summary>
-		/// Constructor.
+		/// Constructor
+		/// Creates a Association link in the same Partition as the given EntityModel
 		/// </summary>
-		/// <param name="partition">The Partition instance containing this ElementLink</param>
-		/// <param name="roleAssignments">A set of role assignments for roleplayer initialization</param>
-		/// <param name="propertyAssignments">A set of attribute assignments for attribute initialization</param>
-		protected Association(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		/// <param name="source">EntityModel to use as the source of the relationship.</param>
+		/// <param name="target">EntityModel to use as the target of the relationship.</param>
+		public Association(EntityModel source, EntityModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(Association.SourceDomainRoleId, source), new DslModeling::RoleAssignment(Association.TargetDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public Association(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public Association(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public Association(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public Association(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -55,10 +98,18 @@ namespace Dyvenix.GenIt
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/Source.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Targets", PropertyDisplayNameKey="Dyvenix.GenIt.Association/Source.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("e473ff4f-acab-4329-a392-a85c91dc86e6")]
-		public abstract EntityModel Source
+		public virtual EntityModel Source
 		{
-			get;
-			set;
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, SourceDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, SourceDomainRoleId, value);
+			}
 		}
 				
 		#endregion
@@ -68,9 +119,9 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::ReadOnlyLinkedElementCollection<EntityModel> GetSources(EntityModel element)
+		public static DslModeling::LinkedElementCollection<EntityModel> GetSources(EntityModel element)
 		{
-			return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(element, TargetDomainRoleId);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, TargetDomainRoleId);
 		}
 		#endregion
 		#region Target domain role code
@@ -87,10 +138,18 @@ namespace Dyvenix.GenIt
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/Target.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "Sources", PropertyDisplayNameKey="Dyvenix.GenIt.Association/Target.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("8c669209-f190-4b19-9da5-6cfe3696e4fa")]
-		public abstract EntityModel Target
+		public virtual EntityModel Target
 		{
-			get;
-			set;
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, TargetDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, TargetDomainRoleId, value);
+			}
 		}
 				
 		#endregion
@@ -100,9 +159,9 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::ReadOnlyLinkedElementCollection<EntityModel> GetTargets(EntityModel element)
+		public static DslModeling::LinkedElementCollection<EntityModel> GetTargets(EntityModel element)
 		{
-			return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(element, SourceDomainRoleId);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, SourceDomainRoleId);
 		}
 		#endregion
 		#region SourceMultiplicity domain property code
@@ -489,245 +548,6 @@ namespace Dyvenix.GenIt
 			foreach ( global::Dyvenix.GenIt.Association link in links )
 			{
 				if ( target.Equals(link.Target) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainRelationship UnidirectionalAssociation
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UnidirectionalAssociation.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.UnidirectionalAssociation.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
-	[DslModeling::DomainObjectId("c126dbfd-cb6b-4a84-b44b-b3426ae7df14")]
-	public partial class UnidirectionalAssociation : Association
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// UnidirectionalAssociation domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xc126dbfd, 0xcb6b, 0x4a84, 0xb4, 0x4b, 0xb3, 0x42, 0x6a, 0xe7, 0xdf, 0x14);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a UnidirectionalAssociation link in the same Partition as the given EntityModel
-		/// </summary>
-		/// <param name="source">EntityModel to use as the source of the relationship.</param>
-		/// <param name="target">EntityModel to use as the target of the relationship.</param>
-		public UnidirectionalAssociation(EntityModel source, EntityModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(UnidirectionalAssociation.UnidirectionalSourceDomainRoleId, source), new DslModeling::RoleAssignment(UnidirectionalAssociation.UnidirectionalTargetDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public UnidirectionalAssociation(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public UnidirectionalAssociation(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public UnidirectionalAssociation(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public UnidirectionalAssociation(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region UnidirectionalSource domain role code
-		
-		/// <summary>
-		/// UnidirectionalSource domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid UnidirectionalSourceDomainRoleId = new global::System.Guid(0x8adeaf08, 0x9a8e, 0x4694, 0xb4, 0x08, 0x31, 0xd3, 0x3e, 0xad, 0x42, 0x0a);
-		
-		/// <summary>
-		/// DomainRole UnidirectionalSource
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UnidirectionalTargets", PropertyDisplayNameKey="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("8adeaf08-9a8e-4694-b408-31d33ead420a")]
-		public virtual EntityModel UnidirectionalSource
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, UnidirectionalSourceDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, UnidirectionalSourceDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access UnidirectionalSources of a EntityModel
-		/// <summary>
-		/// Gets a list of UnidirectionalSources.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetUnidirectionalSources(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, UnidirectionalTargetDomainRoleId);
-		}
-		#endregion
-		#region Source domain role override
-		
-		/// <summary>
-		/// Gets the element playing UnidirectionalSource domain role.
-		/// </summary>
-		public override EntityModel Source
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.UnidirectionalSource;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.UnidirectionalSource = value;
-			}
-		}
-		
-		#endregion
-		#region UnidirectionalTarget domain role code
-		
-		/// <summary>
-		/// UnidirectionalTarget domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid UnidirectionalTargetDomainRoleId = new global::System.Guid(0xb491a3af, 0x896f, 0x4ddf, 0xa6, 0xde, 0xde, 0xf4, 0x02, 0x0b, 0x56, 0x20);
-		
-		/// <summary>
-		/// DomainRole UnidirectionalTarget
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UnidirectionalSources", PropertyDisplayNameKey="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("b491a3af-896f-4ddf-a6de-def4020b5620")]
-		public virtual EntityModel UnidirectionalTarget
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, UnidirectionalTargetDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, UnidirectionalTargetDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access UnidirectionalTargets of a EntityModel
-		/// <summary>
-		/// Gets a list of UnidirectionalTargets.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetUnidirectionalTargets(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, UnidirectionalSourceDomainRoleId);
-		}
-		#endregion
-		#region Target domain role override
-		
-		/// <summary>
-		/// Gets the element playing UnidirectionalTarget domain role.
-		/// </summary>
-		public override EntityModel Target
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.UnidirectionalTarget;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.UnidirectionalTarget = value;
-			}
-		}
-		
-		#endregion
-		#region UnidirectionalSource link accessor
-		/// <summary>
-		/// Get the list of UnidirectionalAssociation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UnidirectionalAssociation> GetLinksToUnidirectionalTargets ( global::Dyvenix.GenIt.EntityModel unidirectionalSourceInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UnidirectionalAssociation>(unidirectionalSourceInstance, global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId);
-		}
-		#endregion
-		#region UnidirectionalTarget link accessor
-		/// <summary>
-		/// Get the list of UnidirectionalAssociation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UnidirectionalAssociation> GetLinksToUnidirectionalSources ( global::Dyvenix.GenIt.EntityModel unidirectionalTargetInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UnidirectionalAssociation>(unidirectionalTargetInstance, global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalTargetDomainRoleId);
-		}
-		#endregion
-		#region UnidirectionalAssociation instance accessors
-		
-		/// <summary>
-		/// Get any UnidirectionalAssociation links between a given EntityModel and a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static new global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UnidirectionalAssociation> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EntityModel target )
-		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.UnidirectionalAssociation> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.UnidirectionalAssociation>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UnidirectionalAssociation> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UnidirectionalAssociation>(source, global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.UnidirectionalAssociation link in links )
-			{
-				if ( target.Equals(link.UnidirectionalTarget) )
 				{
 					outLinks.Add(link);
 				}
@@ -1772,32 +1592,32 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainRelationship BidirectionalAssociation
+	/// DomainRelationship ModelRootHasTypes
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.BidirectionalAssociation.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.BidirectionalAssociation.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
-	[DslModeling::DomainObjectId("51610fa6-0953-40ff-b031-b3de3be17962")]
-	public partial class BidirectionalAssociation : Association
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("2a551631-c1f0-43f3-82c5-2643ed5c0743")]
+	public partial class ModelRootHasTypes : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
 		/// <summary>
-		/// BidirectionalAssociation domain class Id.
+		/// ModelRootHasTypes domain class Id.
 		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x51610fa6, 0x0953, 0x40ff, 0xb0, 0x31, 0xb3, 0xde, 0x3b, 0xe1, 0x79, 0x62);
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x2a551631, 0xc1f0, 0x43f3, 0x82, 0xc5, 0x26, 0x43, 0xed, 0x5c, 0x07, 0x43);
 	
 				
 		/// <summary>
 		/// Constructor
-		/// Creates a BidirectionalAssociation link in the same Partition as the given EntityModel
+		/// Creates a ModelRootHasTypes link in the same Partition as the given ModelRoot
 		/// </summary>
-		/// <param name="source">EntityModel to use as the source of the relationship.</param>
-		/// <param name="target">EntityModel to use as the target of the relationship.</param>
-		public BidirectionalAssociation(EntityModel source, EntityModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(BidirectionalAssociation.BidirectionalSourceDomainRoleId, source), new DslModeling::RoleAssignment(BidirectionalAssociation.BidirectionalTargetDomainRoleId, target)}, null)
+		/// <param name="source">ModelRoot to use as the source of the relationship.</param>
+		/// <param name="target">ModelType to use as the target of the relationship.</param>
+		public ModelRootHasTypes(ModelRoot source, ModelType target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasTypes.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasTypes.TypeDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -1806,7 +1626,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public BidirectionalAssociation(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+		public ModelRootHasTypes(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
 		{
 		}
@@ -1817,7 +1637,7 @@ namespace Dyvenix.GenIt
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public BidirectionalAssociation(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public ModelRootHasTypes(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
 		{
 		}
@@ -1827,7 +1647,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public BidirectionalAssociation(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+		public ModelRootHasTypes(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(partition, roleAssignments, null)
 		{
 		}
@@ -1838,173 +1658,170 @@ namespace Dyvenix.GenIt
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public BidirectionalAssociation(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public ModelRootHasTypes(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
 		#endregion
-		#region BidirectionalSource domain role code
+		#region ModelRoot domain role code
 		
 		/// <summary>
-		/// BidirectionalSource domain role Id.
+		/// ModelRoot domain role Id.
 		/// </summary>
-		public static readonly global::System.Guid BidirectionalSourceDomainRoleId = new global::System.Guid(0xa6840fdf, 0x2a3e, 0x4691, 0xbb, 0x0d, 0xc5, 0xae, 0xe9, 0x54, 0x1b, 0x00);
+		public static readonly global::System.Guid ModelRootDomainRoleId = new global::System.Guid(0xe1f6d228, 0x1927, 0x45c1, 0x84, 0x16, 0xd2, 0xd5, 0x64, 0xed, 0x98, 0x18);
 		
 		/// <summary>
-		/// DomainRole BidirectionalSource
+		/// DomainRole ModelRoot
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "BidirectionalTargets", PropertyDisplayNameKey="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("a6840fdf-2a3e-4691-bb0d-c5aee9541b00")]
-		public virtual EntityModel BidirectionalSource
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Types", PropertyDisplayNameKey="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("e1f6d228-1927-45c1-8416-d2d564ed9818")]
+		public virtual ModelRoot ModelRoot
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, BidirectionalSourceDomainRoleId);
+				return (ModelRoot)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelRootDomainRoleId);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, BidirectionalSourceDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelRootDomainRoleId, value);
 			}
 		}
 				
 		#endregion
-		#region Static methods to access BidirectionalSources of a EntityModel
+		#region Static methods to access ModelRoot of a ModelType
 		/// <summary>
-		/// Gets a list of BidirectionalSources.
+		/// Gets ModelRoot.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetBidirectionalSources(EntityModel element)
+		public static ModelRoot GetModelRoot(ModelType element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, BidirectionalTargetDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, TypeDomainRoleId) as ModelRoot;
 		}
-		#endregion
-		#region Source domain role override
 		
 		/// <summary>
-		/// Gets the element playing BidirectionalSource domain role.
+		/// Sets ModelRoot.
 		/// </summary>
-		public override EntityModel Source
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetModelRoot(ModelType element, ModelRoot newModelRoot)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, TypeDomainRoleId, newModelRoot);
+		}
+		#endregion
+		#region Type domain role code
+		
+		/// <summary>
+		/// Type domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid TypeDomainRoleId = new global::System.Guid(0x73a07a95, 0xe75b, 0x4047, 0x8b, 0x09, 0xe3, 0x98, 0x67, 0x69, 0x40, 0x33);
+		
+		/// <summary>
+		/// DomainRole Type
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes/Type.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes/Type.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainObjectId("73a07a95-e75b-4047-8b09-e39867694033")]
+		public virtual ModelType Type
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return this.BidirectionalSource;
+				return (ModelType)DslModeling::DomainRoleInfo.GetRolePlayer(this, TypeDomainRoleId);
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				this.BidirectionalSource = value;
-			}
-		}
-		
-		#endregion
-		#region BidirectionalTarget domain role code
-		
-		/// <summary>
-		/// BidirectionalTarget domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid BidirectionalTargetDomainRoleId = new global::System.Guid(0x30c8a91e, 0xde98, 0x441e, 0x81, 0x4f, 0x2e, 0xef, 0x87, 0x11, 0x79, 0xb9);
-		
-		/// <summary>
-		/// DomainRole BidirectionalTarget
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "BidirectionalSources", PropertyDisplayNameKey="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("30c8a91e-de98-441e-814f-2eef871179b9")]
-		public virtual EntityModel BidirectionalTarget
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, BidirectionalTargetDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, BidirectionalTargetDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, TypeDomainRoleId, value);
 			}
 		}
 				
 		#endregion
-		#region Static methods to access BidirectionalTargets of a EntityModel
+		#region Static methods to access Types of a ModelRoot
 		/// <summary>
-		/// Gets a list of BidirectionalTargets.
+		/// Gets a list of Types.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetBidirectionalTargets(EntityModel element)
+		public static DslModeling::LinkedElementCollection<ModelType> GetTypes(ModelRoot element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, BidirectionalSourceDomainRoleId);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelType>, ModelType>(element, ModelRootDomainRoleId);
 		}
 		#endregion
-		#region Target domain role override
-		
+		#region ModelRoot link accessor
 		/// <summary>
-		/// Gets the element playing BidirectionalTarget domain role.
+		/// Get the list of ModelRootHasTypes links to a ModelRoot.
 		/// </summary>
-		public override EntityModel Target
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ModelRootHasTypes> GetLinksToTypes ( global::Dyvenix.GenIt.ModelRoot modelRootInstance )
 		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(modelRootInstance, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
+		}
+		#endregion
+		#region Type link accessor
+		/// <summary>
+		/// Get the ModelRootHasTypes link to a ModelType.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ModelRootHasTypes GetLinkToModelRoot (global::Dyvenix.GenIt.ModelType typeInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(typeInstance, global::Dyvenix.GenIt.ModelRootHasTypes.TypeDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Type not obeyed.");
+			if ( links.Count == 0 )
 			{
-				return this.BidirectionalTarget;
+				return null;
 			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
+			else
 			{
-				this.BidirectionalTarget = value;
+				return links[0];
 			}
 		}
-		
 		#endregion
-		#region BidirectionalSource link accessor
-		/// <summary>
-		/// Get the list of BidirectionalAssociation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.BidirectionalAssociation> GetLinksToBidirectionalTargets ( global::Dyvenix.GenIt.EntityModel bidirectionalSourceInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.BidirectionalAssociation>(bidirectionalSourceInstance, global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalSourceDomainRoleId);
-		}
-		#endregion
-		#region BidirectionalTarget link accessor
-		/// <summary>
-		/// Get the list of BidirectionalAssociation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.BidirectionalAssociation> GetLinksToBidirectionalSources ( global::Dyvenix.GenIt.EntityModel bidirectionalTargetInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.BidirectionalAssociation>(bidirectionalTargetInstance, global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalTargetDomainRoleId);
-		}
-		#endregion
-		#region BidirectionalAssociation instance accessors
+		#region ModelRootHasTypes instance accessors
 		
 		/// <summary>
-		/// Get any BidirectionalAssociation links between a given EntityModel and a EntityModel.
+		/// Get any ModelRootHasTypes links between a given ModelRoot and a ModelType.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static new global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.BidirectionalAssociation> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EntityModel target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ModelRootHasTypes> GetLinks( global::Dyvenix.GenIt.ModelRoot source, global::Dyvenix.GenIt.ModelType target )
 		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.BidirectionalAssociation> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.BidirectionalAssociation>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.BidirectionalAssociation> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.BidirectionalAssociation>(source, global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalSourceDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.BidirectionalAssociation link in links )
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ModelRootHasTypes> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ModelRootHasTypes>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(source, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ModelRootHasTypes link in links )
 			{
-				if ( target.Equals(link.BidirectionalTarget) )
+				if ( target.Equals(link.Type) )
 				{
 					outLinks.Add(link);
 				}
 			}
 			return outLinks.AsReadOnly();
 		}
+		/// <summary>
+		/// Get the one ModelRootHasTypes link between a given ModelRootand a ModelType.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ModelRootHasTypes GetLink( global::Dyvenix.GenIt.ModelRoot source, global::Dyvenix.GenIt.ModelType target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(source, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ModelRootHasTypes link in links )
+			{
+				if ( target.Equals(link.Type) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
 		#endregion
 	}
 }
@@ -2234,720 +2051,6 @@ namespace Dyvenix.GenIt
 			foreach ( global::Dyvenix.GenIt.InterfaceHasOperation link in links )
 			{
 				if ( target.Equals(link.Operation) )
-				{
-					return link;
-				}
-			}
-			return null;
-		}
-		
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainRelationship Aggregation
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.Aggregation.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.Aggregation.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
-	[DslModeling::DomainObjectId("dc82326e-8d7b-4d53-b330-45c82c456b67")]
-	public partial class Aggregation : Association
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// Aggregation domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xdc82326e, 0x8d7b, 0x4d53, 0xb3, 0x30, 0x45, 0xc8, 0x2c, 0x45, 0x6b, 0x67);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a Aggregation link in the same Partition as the given EntityModel
-		/// </summary>
-		/// <param name="source">EntityModel to use as the source of the relationship.</param>
-		/// <param name="target">EntityModel to use as the target of the relationship.</param>
-		public Aggregation(EntityModel source, EntityModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(Aggregation.AggregationSourceDomainRoleId, source), new DslModeling::RoleAssignment(Aggregation.AggregationTargetDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Aggregation(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Aggregation(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Aggregation(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Aggregation(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region AggregationSource domain role code
-		
-		/// <summary>
-		/// AggregationSource domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid AggregationSourceDomainRoleId = new global::System.Guid(0x6e37a940, 0x3e02, 0x4c06, 0xa5, 0x1c, 0x8e, 0xe0, 0xa3, 0x0d, 0x47, 0x0e);
-		
-		/// <summary>
-		/// DomainRole AggregationSource
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Aggregation/AggregationSource.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Aggregation/AggregationSource.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "AggregationTargets", PropertyDisplayNameKey="Dyvenix.GenIt.Aggregation/AggregationSource.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("6e37a940-3e02-4c06-a51c-8ee0a30d470e")]
-		public virtual EntityModel AggregationSource
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, AggregationSourceDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, AggregationSourceDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access AggregationSources of a EntityModel
-		/// <summary>
-		/// Gets a list of AggregationSources.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetAggregationSources(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, AggregationTargetDomainRoleId);
-		}
-		#endregion
-		#region Source domain role override
-		
-		/// <summary>
-		/// Gets the element playing AggregationSource domain role.
-		/// </summary>
-		public override EntityModel Source
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.AggregationSource;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.AggregationSource = value;
-			}
-		}
-		
-		#endregion
-		#region AggregationTarget domain role code
-		
-		/// <summary>
-		/// AggregationTarget domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid AggregationTargetDomainRoleId = new global::System.Guid(0x07e94eb3, 0xae37, 0x43ea, 0xb0, 0x0a, 0x32, 0x3d, 0xfc, 0xc8, 0xd1, 0x2e);
-		
-		/// <summary>
-		/// DomainRole AggregationTarget
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Aggregation/AggregationTarget.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Aggregation/AggregationTarget.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "AggregationSources", PropertyDisplayNameKey="Dyvenix.GenIt.Aggregation/AggregationTarget.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("07e94eb3-ae37-43ea-b00a-323dfcc8d12e")]
-		public virtual EntityModel AggregationTarget
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, AggregationTargetDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, AggregationTargetDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access AggregationTargets of a EntityModel
-		/// <summary>
-		/// Gets a list of AggregationTargets.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetAggregationTargets(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, AggregationSourceDomainRoleId);
-		}
-		#endregion
-		#region Target domain role override
-		
-		/// <summary>
-		/// Gets the element playing AggregationTarget domain role.
-		/// </summary>
-		public override EntityModel Target
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.AggregationTarget;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.AggregationTarget = value;
-			}
-		}
-		
-		#endregion
-		#region AggregationSource link accessor
-		/// <summary>
-		/// Get the list of Aggregation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Aggregation> GetLinksToAggregationTargets ( global::Dyvenix.GenIt.EntityModel aggregationSourceInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Aggregation>(aggregationSourceInstance, global::Dyvenix.GenIt.Aggregation.AggregationSourceDomainRoleId);
-		}
-		#endregion
-		#region AggregationTarget link accessor
-		/// <summary>
-		/// Get the list of Aggregation links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Aggregation> GetLinksToAggregationSources ( global::Dyvenix.GenIt.EntityModel aggregationTargetInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Aggregation>(aggregationTargetInstance, global::Dyvenix.GenIt.Aggregation.AggregationTargetDomainRoleId);
-		}
-		#endregion
-		#region Aggregation instance accessors
-		
-		/// <summary>
-		/// Get any Aggregation links between a given EntityModel and a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static new global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Aggregation> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EntityModel target )
-		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.Aggregation> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.Aggregation>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Aggregation> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Aggregation>(source, global::Dyvenix.GenIt.Aggregation.AggregationSourceDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.Aggregation link in links )
-			{
-				if ( target.Equals(link.AggregationTarget) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainRelationship Composition
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.Composition.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.Composition.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(AllowsDuplicates = true)]
-	[DslModeling::DomainObjectId("746d4c6c-8d40-4e45-b739-69837cf3ffa2")]
-	public partial class Composition : Association
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// Composition domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x746d4c6c, 0x8d40, 0x4e45, 0xb7, 0x39, 0x69, 0x83, 0x7c, 0xf3, 0xff, 0xa2);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a Composition link in the same Partition as the given EntityModel
-		/// </summary>
-		/// <param name="source">EntityModel to use as the source of the relationship.</param>
-		/// <param name="target">EntityModel to use as the target of the relationship.</param>
-		public Composition(EntityModel source, EntityModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(Composition.CompositionSourceDomainRoleId, source), new DslModeling::RoleAssignment(Composition.CompositionTargetDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Composition(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Composition(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Composition(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Composition(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region CompositionSource domain role code
-		
-		/// <summary>
-		/// CompositionSource domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid CompositionSourceDomainRoleId = new global::System.Guid(0x32f48c4a, 0x303c, 0x40af, 0x8d, 0x0a, 0x45, 0xf7, 0xbc, 0x78, 0x91, 0x3e);
-		
-		/// <summary>
-		/// DomainRole CompositionSource
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Composition/CompositionSource.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Composition/CompositionSource.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "CompositionTargets", PropertyDisplayNameKey="Dyvenix.GenIt.Composition/CompositionSource.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("32f48c4a-303c-40af-8d0a-45f7bc78913e")]
-		public virtual EntityModel CompositionSource
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, CompositionSourceDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, CompositionSourceDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access CompositionSources of a EntityModel
-		/// <summary>
-		/// Gets a list of CompositionSources.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetCompositionSources(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, CompositionTargetDomainRoleId);
-		}
-		#endregion
-		#region Source domain role override
-		
-		/// <summary>
-		/// Gets the element playing CompositionSource domain role.
-		/// </summary>
-		public override EntityModel Source
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.CompositionSource;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.CompositionSource = value;
-			}
-		}
-		
-		#endregion
-		#region CompositionTarget domain role code
-		
-		/// <summary>
-		/// CompositionTarget domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid CompositionTargetDomainRoleId = new global::System.Guid(0x0bcd9a3c, 0x5007, 0x4343, 0xbf, 0x09, 0x10, 0x1d, 0xb6, 0x68, 0xd4, 0x79);
-		
-		/// <summary>
-		/// DomainRole CompositionTarget
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Composition/CompositionTarget.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Composition/CompositionTarget.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "CompositionSources", PropertyDisplayNameKey="Dyvenix.GenIt.Composition/CompositionTarget.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("0bcd9a3c-5007-4343-bf09-101db668d479")]
-		public virtual EntityModel CompositionTarget
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, CompositionTargetDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, CompositionTargetDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access CompositionTargets of a EntityModel
-		/// <summary>
-		/// Gets a list of CompositionTargets.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetCompositionTargets(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, CompositionSourceDomainRoleId);
-		}
-		#endregion
-		#region Target domain role override
-		
-		/// <summary>
-		/// Gets the element playing CompositionTarget domain role.
-		/// </summary>
-		public override EntityModel Target
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return this.CompositionTarget;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				this.CompositionTarget = value;
-			}
-		}
-		
-		#endregion
-		#region CompositionSource link accessor
-		/// <summary>
-		/// Get the list of Composition links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Composition> GetLinksToCompositionTargets ( global::Dyvenix.GenIt.EntityModel compositionSourceInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Composition>(compositionSourceInstance, global::Dyvenix.GenIt.Composition.CompositionSourceDomainRoleId);
-		}
-		#endregion
-		#region CompositionTarget link accessor
-		/// <summary>
-		/// Get the list of Composition links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Composition> GetLinksToCompositionSources ( global::Dyvenix.GenIt.EntityModel compositionTargetInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Composition>(compositionTargetInstance, global::Dyvenix.GenIt.Composition.CompositionTargetDomainRoleId);
-		}
-		#endregion
-		#region Composition instance accessors
-		
-		/// <summary>
-		/// Get any Composition links between a given EntityModel and a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static new global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Composition> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EntityModel target )
-		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.Composition> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.Composition>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Composition> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Composition>(source, global::Dyvenix.GenIt.Composition.CompositionSourceDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.Composition link in links )
-			{
-				if ( target.Equals(link.CompositionTarget) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainRelationship ModelRootHasTypes
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship(IsEmbedding=true)]
-	[DslModeling::DomainObjectId("2a551631-c1f0-43f3-82c5-2643ed5c0743")]
-	public partial class ModelRootHasTypes : DslModeling::ElementLink
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// ModelRootHasTypes domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x2a551631, 0xc1f0, 0x43f3, 0x82, 0xc5, 0x26, 0x43, 0xed, 0x5c, 0x07, 0x43);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a ModelRootHasTypes link in the same Partition as the given ModelRoot
-		/// </summary>
-		/// <param name="source">ModelRoot to use as the source of the relationship.</param>
-		/// <param name="target">ModelType to use as the target of the relationship.</param>
-		public ModelRootHasTypes(ModelRoot source, ModelType target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ModelRootHasTypes.ModelRootDomainRoleId, source), new DslModeling::RoleAssignment(ModelRootHasTypes.TypeDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public ModelRootHasTypes(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public ModelRootHasTypes(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public ModelRootHasTypes(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public ModelRootHasTypes(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region ModelRoot domain role code
-		
-		/// <summary>
-		/// ModelRoot domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid ModelRootDomainRoleId = new global::System.Guid(0xe1f6d228, 0x1927, 0x45c1, 0x84, 0x16, 0xd2, 0xd5, 0x64, 0xed, 0x98, 0x18);
-		
-		/// <summary>
-		/// DomainRole ModelRoot
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Types", PropertyDisplayNameKey="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("e1f6d228-1927-45c1-8416-d2d564ed9818")]
-		public virtual ModelRoot ModelRoot
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (ModelRoot)DslModeling::DomainRoleInfo.GetRolePlayer(this, ModelRootDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, ModelRootDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access ModelRoot of a ModelType
-		/// <summary>
-		/// Gets ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static ModelRoot GetModelRoot(ModelType element)
-		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, TypeDomainRoleId) as ModelRoot;
-		}
-		
-		/// <summary>
-		/// Sets ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetModelRoot(ModelType element, ModelRoot newModelRoot)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, TypeDomainRoleId, newModelRoot);
-		}
-		#endregion
-		#region Type domain role code
-		
-		/// <summary>
-		/// Type domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid TypeDomainRoleId = new global::System.Guid(0x73a07a95, 0xe75b, 0x4047, 0x8b, 0x09, 0xe3, 0x98, 0x67, 0x69, 0x40, 0x33);
-		
-		/// <summary>
-		/// DomainRole Type
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRootHasTypes/Type.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRootHasTypes/Type.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ModelRoot", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
-		[DslModeling::DomainObjectId("73a07a95-e75b-4047-8b09-e39867694033")]
-		public virtual ModelType Type
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (ModelType)DslModeling::DomainRoleInfo.GetRolePlayer(this, TypeDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, TypeDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access Types of a ModelRoot
-		/// <summary>
-		/// Gets a list of Types.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ModelType> GetTypes(ModelRoot element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ModelType>, ModelType>(element, ModelRootDomainRoleId);
-		}
-		#endregion
-		#region ModelRoot link accessor
-		/// <summary>
-		/// Get the list of ModelRootHasTypes links to a ModelRoot.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ModelRootHasTypes> GetLinksToTypes ( global::Dyvenix.GenIt.ModelRoot modelRootInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(modelRootInstance, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
-		}
-		#endregion
-		#region Type link accessor
-		/// <summary>
-		/// Get the ModelRootHasTypes link to a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.ModelRootHasTypes GetLinkToModelRoot (global::Dyvenix.GenIt.ModelType typeInstance)
-		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(typeInstance, global::Dyvenix.GenIt.ModelRootHasTypes.TypeDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Type not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
-		}
-		#endregion
-		#region ModelRootHasTypes instance accessors
-		
-		/// <summary>
-		/// Get any ModelRootHasTypes links between a given ModelRoot and a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ModelRootHasTypes> GetLinks( global::Dyvenix.GenIt.ModelRoot source, global::Dyvenix.GenIt.ModelType target )
-		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ModelRootHasTypes> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ModelRootHasTypes>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(source, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.ModelRootHasTypes link in links )
-			{
-				if ( target.Equals(link.Type) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		/// <summary>
-		/// Get the one ModelRootHasTypes link between a given ModelRootand a ModelType.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.ModelRootHasTypes GetLink( global::Dyvenix.GenIt.ModelRoot source, global::Dyvenix.GenIt.ModelType target )
-		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ModelRootHasTypes> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ModelRootHasTypes>(source, global::Dyvenix.GenIt.ModelRootHasTypes.ModelRootDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.ModelRootHasTypes link in links )
-			{
-				if ( target.Equals(link.Type) )
 				{
 					return link;
 				}

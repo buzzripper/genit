@@ -120,21 +120,6 @@
     <xsd:complexContent>
       <xsd:extension base="ModelType">
         <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Relationship: UnidirectionalAssociation -->
-          <xsd:element name="unidirectionalTargets" minOccurs="0" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>Instances of UnidirectionalAssociation</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element ref="unidirectionalAssociation" minOccurs="0" maxOccurs="unbounded">
-                  <xsd:annotation>
-                    <xsd:documentation>[Instance of UnidirectionalAssociation needs to be serialized in full-form]</xsd:documentation>
-                  </xsd:annotation>
-                </xsd:element>
-              </xsd:sequence>
-            </xsd:complexType>
-          </xsd:element>
           <!-- Relationship: ClassHasProperties -->
           <xsd:element name="attributes" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
@@ -194,46 +179,16 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-          <!-- Relationship: BidirectionalAssociation -->
-          <xsd:element name="bidirectionalTargets" minOccurs="0" maxOccurs="1">
+          <!-- Relationship: Association -->
+          <xsd:element name="targets" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
-              <xsd:documentation>Instances of BidirectionalAssociation</xsd:documentation>
+              <xsd:documentation>Instances of Association</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element ref="bidirectionalAssociation" minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="association" minOccurs="0" maxOccurs="unbounded">
                   <xsd:annotation>
-                    <xsd:documentation>[Instance of BidirectionalAssociation needs to be serialized in full-form]</xsd:documentation>
-                  </xsd:annotation>
-                </xsd:element>
-              </xsd:sequence>
-            </xsd:complexType>
-          </xsd:element>
-          <!-- Relationship: Aggregation -->
-          <xsd:element name="aggregationTargets" minOccurs="0" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>Instances of Aggregation</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element ref="aggregation" minOccurs="0" maxOccurs="unbounded">
-                  <xsd:annotation>
-                    <xsd:documentation>[Instance of Aggregation needs to be serialized in full-form]</xsd:documentation>
-                  </xsd:annotation>
-                </xsd:element>
-              </xsd:sequence>
-            </xsd:complexType>
-          </xsd:element>
-          <!-- Relationship: Composition -->
-          <xsd:element name="compositionTargets" minOccurs="0" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>Instances of Composition</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element ref="composition" minOccurs="0" maxOccurs="unbounded">
-                  <xsd:annotation>
-                    <xsd:documentation>[Instance of Composition needs to be serialized in full-form]</xsd:documentation>
+                    <xsd:documentation>[Instance of Association needs to be serialized in full-form]</xsd:documentation>
                   </xsd:annotation>
                 </xsd:element>
               </xsd:sequence>
@@ -591,8 +546,8 @@
   </xsd:complexType>
   
   <!-- Association -->
-  <xsd:element name="association" abstract="true" type="Association" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="Association" abstract="true" >
+  <xsd:element name="association" type="Association" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="Association">
     <xsd:annotation>
       <xsd:documentation>Associations between Classes.</xsd:documentation>
     </xsd:annotation>
@@ -625,7 +580,7 @@
   </xsd:complexType>
   
   <!-- Association Moniker -->
-  <xsd:element name="associationMoniker" abstract="true" type="AssociationMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:element name="associationMoniker" type="AssociationMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="AssociationMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for Association instance.</xsd:documentation>
@@ -637,33 +592,6 @@
             <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- UnidirectionalAssociation -->
-  <xsd:element name="unidirectionalAssociation" type="UnidirectionalAssociation" substitutionGroup="association" />
-  <xsd:complexType name="UnidirectionalAssociation">
-    <xsd:complexContent>
-      <xsd:extension base="Association">
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- UnidirectionalAssociation Moniker -->
-  <xsd:element name="unidirectionalAssociationMoniker" type="UnidirectionalAssociationMoniker" substitutionGroup="associationMoniker" />
-  <xsd:complexType name="UnidirectionalAssociationMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for UnidirectionalAssociation instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="AssociationMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -833,11 +761,19 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- BidirectionalAssociation -->
-  <xsd:element name="bidirectionalAssociation" type="BidirectionalAssociation" substitutionGroup="association" />
-  <xsd:complexType name="BidirectionalAssociation">
+  <!-- ModelRootHasTypes -->
+  <xsd:element name="modelRootHasTypes" abstract="true" type="ModelRootHasTypes" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="ModelRootHasTypes" abstract="true" >
     <xsd:complexContent>
-      <xsd:extension base="Association">
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end ModelType -->
+          <xsd:element ref="modelType" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
           <xsd:annotation>
@@ -848,14 +784,19 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- BidirectionalAssociation Moniker -->
-  <xsd:element name="bidirectionalAssociationMoniker" type="BidirectionalAssociationMoniker" substitutionGroup="associationMoniker" />
-  <xsd:complexType name="BidirectionalAssociationMoniker">
+  <!-- ModelRootHasTypes Moniker -->
+  <xsd:element name="modelRootHasTypesMoniker" type="ModelRootHasTypesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="ModelRootHasTypesMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for BidirectionalAssociation instance.</xsd:documentation>
+      <xsd:documentation>Moniker for ModelRootHasTypes instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="AssociationMoniker">
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -888,100 +829,6 @@
   <xsd:complexType name="InterfaceHasOperationMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for InterfaceHasOperation instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElementMoniker">
-        <xsd:attribute name="Id" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- Aggregation -->
-  <xsd:element name="aggregation" type="Aggregation" substitutionGroup="association" />
-  <xsd:complexType name="Aggregation">
-    <xsd:complexContent>
-      <xsd:extension base="Association">
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- Aggregation Moniker -->
-  <xsd:element name="aggregationMoniker" type="AggregationMoniker" substitutionGroup="associationMoniker" />
-  <xsd:complexType name="AggregationMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for Aggregation instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="AssociationMoniker">
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- Composition -->
-  <xsd:element name="composition" type="Composition" substitutionGroup="association" />
-  <xsd:complexType name="Composition">
-    <xsd:complexContent>
-      <xsd:extension base="Association">
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- Composition Moniker -->
-  <xsd:element name="compositionMoniker" type="CompositionMoniker" substitutionGroup="associationMoniker" />
-  <xsd:complexType name="CompositionMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for Composition instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="AssociationMoniker">
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- ModelRootHasTypes -->
-  <xsd:element name="modelRootHasTypes" abstract="true" type="ModelRootHasTypes" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="ModelRootHasTypes" abstract="true" >
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElement">
-        <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ModelType -->
-          <xsd:element ref="modelType" minOccurs="1" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>[Target role-player]</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:sequence>
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- ModelRootHasTypes Moniker -->
-  <xsd:element name="modelRootHasTypesMoniker" type="ModelRootHasTypesMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="ModelRootHasTypesMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for ModelRootHasTypes instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

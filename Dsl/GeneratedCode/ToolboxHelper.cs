@@ -48,25 +48,9 @@ namespace Dyvenix.GenIt
 		/// </remarks>
 		public const string ToolboxFilterString = "GenIt.1.0";
 		/// <summary>
-		/// Toolbox item filter string used to identify UnidirectionalAssociation connector tool.
+		/// Toolbox item filter string used to identify Association connector tool.
 		/// </summary>
-		public const string UnidirectionalAssociationFilterString = "UnidirectionalAssociation.1.0";
-		/// <summary>
-		/// Toolbox item filter string used to identify BidirectionalAssociation connector tool.
-		/// </summary>
-		public const string BidirectionalAssociationFilterString = "BidirectionalAssociation.1.0";
-		/// <summary>
-		/// Toolbox item filter string used to identify Aggregation connector tool.
-		/// </summary>
-		public const string AggregationFilterString = "Aggregation.1.0";
-		/// <summary>
-		/// Toolbox item filter string used to identify Composition connector tool.
-		/// </summary>
-		public const string CompositionFilterString = "Composition.1.0";
-		/// <summary>
-		/// Toolbox item filter string used to identify Generalization connector tool.
-		/// </summary>
-		public const string GeneralizationFilterString = "Generalization.1.0";
+		public const string AssociationFilterString = "Association.1.0";
 		/// <summary>
 		/// Toolbox item filter string used to identify CommentsReferenceTypes connector tool.
 		/// </summary>
@@ -118,7 +102,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return 12;
+				return 8;
 			}
 		}
 		
@@ -247,101 +231,29 @@ namespace Dyvenix.GenIt
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
 						});
 					break;
-				case "Dyvenix.GenIt.UnidirectionalAssociationToolboxItem":
+				case "Dyvenix.GenIt.AssociationToolboxItem":
 
-					// Add UnidirectionalAssociation connector tool.
+					// Add Association connector tool.
 					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.UnidirectionalAssociationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						"Dyvenix.GenIt.AssociationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
 						6, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("UnidirectionalAssociationToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("UnidirectionalAssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
+						resourceManager.GetString("AssociationToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("AssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
 						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"ConnectUnidirectionalAssociationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("UnidirectionalAssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						"ConnectAssociationF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("AssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
 						null, // Connector toolbox items do not have an underlying data object.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(UnidirectionalAssociationFilterString)
-						});
-					break;
-				case "Dyvenix.GenIt.BidirectionalAssociationToolboxItem":
-
-					// Add BidirectionalAssociation connector tool.
-					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.BidirectionalAssociationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						7, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("BidirectionalAssociationToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("BidirectionalAssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"ConnectBidirectionalAssociationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("BidirectionalAssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						null, // Connector toolbox items do not have an underlying data object.
-						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(BidirectionalAssociationFilterString)
-						});
-					break;
-				case "Dyvenix.GenIt.AggregationToolboxItem":
-
-					// Add Aggregation connector tool.
-					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.AggregationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						8, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("AggregationToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("AggregationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"AggregationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("AggregationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						null, // Connector toolbox items do not have an underlying data object.
-						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(AggregationFilterString)
-						});
-					break;
-				case "Dyvenix.GenIt.CompositionToolboxItem":
-
-					// Add Composition connector tool.
-					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.CompositionToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						9, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("CompositionToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CompositionToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"CompositionF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("CompositionToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						null, // Connector toolbox items do not have an underlying data object.
-						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(CompositionFilterString)
-						});
-					break;
-				case "Dyvenix.GenIt.GeneralizationToolboxItem":
-
-					// Add Generalization connector tool.
-					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.GeneralizationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						10, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("GeneralizationToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("GeneralizationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
-						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
-						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"GeneralizationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("GeneralizationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						null, // Connector toolbox items do not have an underlying data object.
-						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
-							new global::System.ComponentModel.ToolboxItemFilterAttribute(GeneralizationFilterString)
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(AssociationFilterString)
 						});
 					break;
 				case "Dyvenix.GenIt.CommentToolboxItem":
 					// Add Comment shape tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.CommentToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						11, // Position relative to other items in the same toolbox tab.
+						7, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
@@ -358,7 +270,7 @@ namespace Dyvenix.GenIt
 					// Add CommentsReferenceTypes connector tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.CommentsReferenceTypesToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						12, // Position relative to other items in the same toolbox tab.
+						8, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentsReferenceTypesToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentsReferenceTypesToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.

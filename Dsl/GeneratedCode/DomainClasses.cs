@@ -538,12 +538,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Targets.
 		/// </summary>
-		public virtual DslModeling::ReadOnlyLinkedElementCollection<EntityModel> Targets
+		public virtual DslModeling::LinkedElementCollection<EntityModel> Targets
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.SourceDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.SourceDomainRoleId);
 			}
 		}
 		#endregion
@@ -552,40 +552,12 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Gets a list of Sources.
 		/// </summary>
-		public virtual DslModeling::ReadOnlyLinkedElementCollection<EntityModel> Sources
+		public virtual DslModeling::LinkedElementCollection<EntityModel> Sources
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::ReadOnlyLinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.TargetDomainRoleId);
-			}
-		}
-		#endregion
-		#region UnidirectionalTargets opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UnidirectionalTargets.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> UnidirectionalTargets
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalSourceDomainRoleId);
-			}
-		}
-		#endregion
-		#region UnidirectionalSources opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UnidirectionalSources.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> UnidirectionalSources
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.UnidirectionalAssociation.UnidirectionalTargetDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Association.TargetDomainRoleId);
 			}
 		}
 		#endregion
@@ -646,90 +618,6 @@ namespace Dyvenix.GenIt
 			set
 			{
 				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.Generalization.SubclassDomainRoleId, value);
-			}
-		}
-		#endregion
-		#region BidirectionalTargets opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of BidirectionalTargets.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> BidirectionalTargets
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalSourceDomainRoleId);
-			}
-		}
-		#endregion
-		#region BidirectionalSources opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of BidirectionalSources.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> BidirectionalSources
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.BidirectionalAssociation.BidirectionalTargetDomainRoleId);
-			}
-		}
-		#endregion
-		#region AggregationTargets opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of AggregationTargets.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> AggregationTargets
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Aggregation.AggregationSourceDomainRoleId);
-			}
-		}
-		#endregion
-		#region AggregationSources opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of AggregationSources.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> AggregationSources
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Aggregation.AggregationTargetDomainRoleId);
-			}
-		}
-		#endregion
-		#region CompositionTargets opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of CompositionTargets.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> CompositionTargets
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Composition.CompositionSourceDomainRoleId);
-			}
-		}
-		#endregion
-		#region CompositionSources opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of CompositionSources.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> CompositionSources
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.Composition.CompositionTargetDomainRoleId);
 			}
 		}
 		#endregion

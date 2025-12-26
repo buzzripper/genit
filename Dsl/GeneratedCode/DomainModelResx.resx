@@ -381,38 +381,6 @@
     <value>Sources</value>
     <comment>PropertyDisplayName for DomainRole &apos;Target&apos; on DomainRelationship &apos;Association&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation.DisplayName" xml:space="preserve">
-    <value>Unidirectional Association</value>
-    <comment>DisplayName for DomainClass &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;UnidirectionalSource&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.DisplayName" xml:space="preserve">
-    <value>Unidirectional Source</value>
-    <comment>DisplayName for DomainRole &apos;UnidirectionalSource&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalSource.PropertyDisplayName" xml:space="preserve">
-    <value>Unidirectional Targets</value>
-    <comment>PropertyDisplayName for DomainRole &apos;UnidirectionalSource&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;UnidirectionalTarget&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.DisplayName" xml:space="preserve">
-    <value>Unidirectional Target</value>
-    <comment>DisplayName for DomainRole &apos;UnidirectionalTarget&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalAssociation/UnidirectionalTarget.PropertyDisplayName" xml:space="preserve">
-    <value>Unidirectional Sources</value>
-    <comment>PropertyDisplayName for DomainRole &apos;UnidirectionalTarget&apos; on DomainRelationship &apos;UnidirectionalAssociation&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.ClassHasProperties.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ClassHasProperties&apos;</comment>
@@ -549,37 +517,33 @@
     <value>Superclass</value>
     <comment>PropertyDisplayName for DomainRole &apos;Subclass&apos; on DomainRelationship &apos;Generalization&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ModelRootHasTypes.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainClass &apos;BidirectionalAssociation&apos;</comment>
+    <comment>Description for DomainClass &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation.DisplayName" xml:space="preserve">
-    <value>Bidirectional Association</value>
-    <comment>DisplayName for DomainClass &apos;BidirectionalAssociation&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRootHasTypes.DisplayName" xml:space="preserve">
+    <value>Model Root Has Types</value>
+    <comment>DisplayName for DomainClass &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;BidirectionalSource&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
+    <comment>Description for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.DisplayName" xml:space="preserve">
-    <value>Bidirectional Source</value>
-    <comment>DisplayName for DomainRole &apos;BidirectionalSource&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.DisplayName" xml:space="preserve">
+    <value>Model Root</value>
+    <comment>DisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalSource.PropertyDisplayName" xml:space="preserve">
-    <value>Bidirectional Targets</value>
-    <comment>PropertyDisplayName for DomainRole &apos;BidirectionalSource&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.PropertyDisplayName" xml:space="preserve">
+    <value>Types</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ModelRootHasTypes/Type.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;BidirectionalTarget&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
+    <comment>Description for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.DisplayName" xml:space="preserve">
-    <value>Bidirectional Target</value>
-    <comment>DisplayName for DomainRole &apos;BidirectionalTarget&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.BidirectionalAssociation/BidirectionalTarget.PropertyDisplayName" xml:space="preserve">
-    <value>Bidirectional Sources</value>
-    <comment>PropertyDisplayName for DomainRole &apos;BidirectionalTarget&apos; on DomainRelationship &apos;BidirectionalAssociation&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRootHasTypes/Type.DisplayName" xml:space="preserve">
+    <value>Type</value>
+    <comment>DisplayName for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.InterfaceHasOperation.Description" xml:space="preserve">
     <value></value>
@@ -612,98 +576,6 @@
   <data name="Dyvenix.GenIt.InterfaceHasOperation/Operation.PropertyDisplayName" xml:space="preserve">
     <value>Interface</value>
     <comment>PropertyDisplayName for DomainRole &apos;Operation&apos; on DomainRelationship &apos;InterfaceHasOperation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation.DisplayName" xml:space="preserve">
-    <value>Aggregation</value>
-    <comment>DisplayName for DomainClass &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationSource.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;AggregationSource&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationSource.DisplayName" xml:space="preserve">
-    <value>Aggregation Source</value>
-    <comment>DisplayName for DomainRole &apos;AggregationSource&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationSource.PropertyDisplayName" xml:space="preserve">
-    <value>Aggregation Targets</value>
-    <comment>PropertyDisplayName for DomainRole &apos;AggregationSource&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationTarget.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;AggregationTarget&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationTarget.DisplayName" xml:space="preserve">
-    <value>Aggregation Target</value>
-    <comment>DisplayName for DomainRole &apos;AggregationTarget&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Aggregation/AggregationTarget.PropertyDisplayName" xml:space="preserve">
-    <value>Aggregation Sources</value>
-    <comment>PropertyDisplayName for DomainRole &apos;AggregationTarget&apos; on DomainRelationship &apos;Aggregation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition.DisplayName" xml:space="preserve">
-    <value>Composition</value>
-    <comment>DisplayName for DomainClass &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionSource.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;CompositionSource&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionSource.DisplayName" xml:space="preserve">
-    <value>Composition Source</value>
-    <comment>DisplayName for DomainRole &apos;CompositionSource&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionSource.PropertyDisplayName" xml:space="preserve">
-    <value>Composition Targets</value>
-    <comment>PropertyDisplayName for DomainRole &apos;CompositionSource&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionTarget.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;CompositionTarget&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionTarget.DisplayName" xml:space="preserve">
-    <value>Composition Target</value>
-    <comment>DisplayName for DomainRole &apos;CompositionTarget&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Composition/CompositionTarget.PropertyDisplayName" xml:space="preserve">
-    <value>Composition Sources</value>
-    <comment>PropertyDisplayName for DomainRole &apos;CompositionTarget&apos; on DomainRelationship &apos;Composition&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes.DisplayName" xml:space="preserve">
-    <value>Model Root Has Types</value>
-    <comment>DisplayName for DomainClass &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.DisplayName" xml:space="preserve">
-    <value>Model Root</value>
-    <comment>DisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes/ModelRoot.PropertyDisplayName" xml:space="preserve">
-    <value>Types</value>
-    <comment>PropertyDisplayName for DomainRole &apos;ModelRoot&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes/Type.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModelRootHasTypes/Type.DisplayName" xml:space="preserve">
-    <value>Type</value>
-    <comment>DisplayName for DomainRole &apos;Type&apos; on DomainRelationship &apos;ModelRootHasTypes&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.CommentReferencesSubjects.Description" xml:space="preserve">
     <value></value>
@@ -981,38 +853,6 @@
     <value>SourceRoleName</value>
     <comment>Text decorator default text</comment>
   </data>
-  <data name="Dyvenix.GenIt.UnidirectionalConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;UnidirectionalConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UnidirectionalConnector.DisplayName" xml:space="preserve">
-    <value>Unidirectional Connector</value>
-    <comment>DisplayName for DomainClass &apos;UnidirectionalConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.BidirectionalConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;BidirectionalConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.BidirectionalConnector.DisplayName" xml:space="preserve">
-    <value>Bidirectional Connector</value>
-    <comment>DisplayName for DomainClass &apos;BidirectionalConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AggregationConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;AggregationConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AggregationConnector.DisplayName" xml:space="preserve">
-    <value>Aggregation Connector</value>
-    <comment>DisplayName for DomainClass &apos;AggregationConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.CompositionConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;CompositionConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.CompositionConnector.DisplayName" xml:space="preserve">
-    <value>Composition Connector</value>
-    <comment>DisplayName for DomainClass &apos;CompositionConnector&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.GeneralizationConnector.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;GeneralizationConnector&apos;</comment>
@@ -1097,44 +937,12 @@
     <value>Create an Operation on an Interface</value>
     <comment>Toolbox tooltip text</comment>
   </data>
-  <data name="UnidirectionalAssociationToolboxItem" xml:space="preserve">
-    <value>Unidirectional Association</value>
+  <data name="AssociationToolboxItem" xml:space="preserve">
+    <value>Association</value>
     <comment>Toolbox item name</comment>
   </data>
-  <data name="UnidirectionalAssociationToolboxTooltip" xml:space="preserve">
-    <value>Create a Unidirectional link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="BidirectionalAssociationToolboxItem" xml:space="preserve">
-    <value>Bidirectional Association</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="BidirectionalAssociationToolboxTooltip" xml:space="preserve">
-    <value>Create a Bidirectional link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="AggregationToolboxItem" xml:space="preserve">
-    <value>Aggregation</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="AggregationToolboxTooltip" xml:space="preserve">
-    <value>Create an Aggregation link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="CompositionToolboxItem" xml:space="preserve">
-    <value>Composition</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="CompositionToolboxTooltip" xml:space="preserve">
-    <value>Create a Composition link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="GeneralizationToolboxItem" xml:space="preserve">
-    <value>Inheritance</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="GeneralizationToolboxTooltip" xml:space="preserve">
-    <value>Create a Generalization or Implementation link</value>
+  <data name="AssociationToolboxTooltip" xml:space="preserve">
+    <value>Create an Association link</value>
     <comment>Toolbox tooltip text</comment>
   </data>
   <data name="CommentToolboxItem" xml:space="preserve">
@@ -1298,24 +1106,8 @@ A DomainClass can be serialized as a moniker only if
     <value>..\resources\interfaceoperationtool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
-  <data name="UnidirectionalAssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\UnidirectionTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="BidirectionalAssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+  <data name="AssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\AssociationTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="AggregationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\AggregationTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="CompositionToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\CompositeTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="GeneralizationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\resources\generalizationtool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="CommentToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

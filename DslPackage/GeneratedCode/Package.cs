@@ -70,45 +70,13 @@ namespace Dyvenix.GenIt
 					0xff00ff,
 					Index = 4)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@UnidirectionalAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.UnidirectionalAssociationToolboxItem", 
+					"@AssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
+					"Dyvenix.GenIt.AssociationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ConnectUnidirectionalAssociationF1Keyword", 
-					"@UnidirectionalAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
+					"ConnectAssociationF1Keyword", 
+					"@AssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
 					Index = 5)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@BidirectionalAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.BidirectionalAssociationToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ConnectBidirectionalAssociationF1Keyword", 
-					"@BidirectionalAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 6)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@AggregationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.AggregationToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"AggregationF1Keyword", 
-					"@AggregationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 7)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@CompositionToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.CompositionToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"CompositionF1Keyword", 
-					"@CompositionToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 8)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@GeneralizationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.GeneralizationToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"GeneralizationF1Keyword", 
-					"@GeneralizationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 9)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentToolboxItem", 
@@ -116,7 +84,7 @@ namespace Dyvenix.GenIt
 					"CommentF1Keyword", 
 					"@CommentToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 10)]
+					Index = 6)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentsReferenceTypesToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentsReferenceTypesToolboxItem", 
@@ -124,7 +92,7 @@ namespace Dyvenix.GenIt
 					"CommentsReferenceTypesF1Keyword", 
 					"@CommentsReferenceTypesToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 11)]
+					Index = 7)]
 	[VSShell::ProvideEditorFactory(typeof(GenItEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(GenItEditorFactory), "." + Constants.DesignerFileExtension, 50)]
 	[VSShell::ProvideEditorLogicalView(typeof(GenItEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer

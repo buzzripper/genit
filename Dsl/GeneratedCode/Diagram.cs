@@ -276,7 +276,11 @@ namespace Dyvenix.GenIt
 			if (connector == null)
 				throw new global::System.ArgumentNullException("connector");
 			#endregion
-			if (connector.GetType() == typeof(global::Dyvenix.GenIt.AssociationConnector))
+			if (connector.GetType() == typeof(global::Dyvenix.GenIt.GeneralizationConnector))
+				return false;
+			if (connector.GetType() == typeof(global::Dyvenix.GenIt.ImplementationConnector))
+				return false;
+			if (connector.GetType() == typeof(global::Dyvenix.GenIt.CommentConnector))
 				return false;
 			return base.IsConnectorMappedToLink(connector);
 		}
@@ -300,45 +304,15 @@ namespace Dyvenix.GenIt
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Dyvenix.GenIt.BidirectionalAssociation)
-			{
-				global::Dyvenix.GenIt.BidirectionalConnector newShape = new global::Dyvenix.GenIt.BidirectionalConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.UnidirectionalAssociation)
-			{
-				global::Dyvenix.GenIt.UnidirectionalConnector newShape = new global::Dyvenix.GenIt.UnidirectionalConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.Aggregation)
-			{
-				global::Dyvenix.GenIt.AggregationConnector newShape = new global::Dyvenix.GenIt.AggregationConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.Composition)
-			{
-				global::Dyvenix.GenIt.CompositionConnector newShape = new global::Dyvenix.GenIt.CompositionConnector(this.Partition);
-				return newShape;
-			}
 			if(element is global::Dyvenix.GenIt.Comment)
 			{
 				global::Dyvenix.GenIt.CommentBoxShape newShape = new global::Dyvenix.GenIt.CommentBoxShape(this.Partition);
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Dyvenix.GenIt.CommentReferencesSubjects)
+			if(element is global::Dyvenix.GenIt.Association)
 			{
-				global::Dyvenix.GenIt.CommentConnector newShape = new global::Dyvenix.GenIt.CommentConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.Generalization)
-			{
-				global::Dyvenix.GenIt.GeneralizationConnector newShape = new global::Dyvenix.GenIt.GeneralizationConnector(this.Partition);
-				return newShape;
-			}
-			if(element is global::Dyvenix.GenIt.Implementation)
-			{
-				global::Dyvenix.GenIt.ImplementationConnector newShape = new global::Dyvenix.GenIt.ImplementationConnector(this.Partition);
+				global::Dyvenix.GenIt.AssociationConnector newShape = new global::Dyvenix.GenIt.AssociationConnector(this.Partition);
 				return newShape;
 			}
 			return base.CreateChildShape(element);
@@ -355,10 +329,7 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.ClassShape.DecoratorsInitialized += ClassShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.InterfaceShape.DecoratorsInitialized += InterfaceShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.UnidirectionalConnector.DecoratorsInitialized += UnidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.BidirectionalConnector.DecoratorsInitialized += BidirectionalConnectorDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.AggregationConnector.DecoratorsInitialized += AggregationConnectorDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.CompositionConnector.DecoratorsInitialized += CompositionConnectorDecoratorMap.OnDecoratorsInitialized;
+			global::Dyvenix.GenIt.AssociationConnector.DecoratorsInitialized += AssociationConnectorDecoratorMap.OnDecoratorsInitialized;
 		}
 		
 		/// <summary>
@@ -425,108 +396,6 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
 			{
-			}
-		}
-		
-		/// <summary>
-		/// Class containing decorator path traversal methods for UnidirectionalConnector.
-		/// </summary>
-		internal static partial class UnidirectionalConnectorDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for UnidirectionalConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceRoleName").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetRoleName").AssociateValueWith(shape.Store, propertyInfo);
-			}
-		}
-		
-		/// <summary>
-		/// Class containing decorator path traversal methods for BidirectionalConnector.
-		/// </summary>
-		internal static partial class BidirectionalConnectorDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for BidirectionalConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceRoleName").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetRoleName").AssociateValueWith(shape.Store, propertyInfo);
-			}
-		}
-		
-		/// <summary>
-		/// Class containing decorator path traversal methods for AggregationConnector.
-		/// </summary>
-		internal static partial class AggregationConnectorDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for AggregationConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceRoleName").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetRoleNameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetRoleName").AssociateValueWith(shape.Store, propertyInfo);
-			}
-		}
-		
-		/// <summary>
-		/// Class containing decorator path traversal methods for CompositionConnector.
-		/// </summary>
-		internal static partial class CompositionConnectorDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for CompositionConnector.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				AssociationConnectorDecoratorMap.OnDecoratorsInitialized(sender, e);
-				
 				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
 				DslDiagrams::AssociatedPropertyInfo propertyInfo;
 				
@@ -548,11 +417,7 @@ namespace Dyvenix.GenIt
 		
 		#region Connect actions
 		private bool changingMouseAction;
-		private global::Dyvenix.GenIt.UnidirectionalAssociationConnectAction unidirectionalAssociationConnectAction;
-		private global::Dyvenix.GenIt.BidirectionalAssociationConnectAction bidirectionalAssociationConnectAction;
-		private global::Dyvenix.GenIt.AggregationConnectAction aggregationConnectAction;
-		private global::Dyvenix.GenIt.CompositionConnectAction compositionConnectAction;
-		private global::Dyvenix.GenIt.GeneralizationConnectAction generalizationConnectAction;
+		private global::Dyvenix.GenIt.AssociationConnectAction associationConnectAction;
 		private global::Dyvenix.GenIt.CommentsReferenceTypesConnectAction commentsReferenceTypesConnectAction;
 		/// <summary>
 		/// Virtual method to provide a filter when to select the mouse action
@@ -576,50 +441,14 @@ namespace Dyvenix.GenIt
 			if(activeView != null)
 			{
 				DslDiagrams::MouseAction action = null;
-				if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.UnidirectionalAssociationFilterString))
+				if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.AssociationFilterString))
 				{
-					if (this.unidirectionalAssociationConnectAction == null)
+					if (this.associationConnectAction == null)
 					{
-						this.unidirectionalAssociationConnectAction = new global::Dyvenix.GenIt.UnidirectionalAssociationConnectAction(this);
-						this.unidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
+						this.associationConnectAction = new global::Dyvenix.GenIt.AssociationConnectAction(this);
+						this.associationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
 					}
-					action = this.unidirectionalAssociationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.BidirectionalAssociationFilterString))
-				{
-					if (this.bidirectionalAssociationConnectAction == null)
-					{
-						this.bidirectionalAssociationConnectAction = new global::Dyvenix.GenIt.BidirectionalAssociationConnectAction(this);
-						this.bidirectionalAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.bidirectionalAssociationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.AggregationFilterString))
-				{
-					if (this.aggregationConnectAction == null)
-					{
-						this.aggregationConnectAction = new global::Dyvenix.GenIt.AggregationConnectAction(this);
-						this.aggregationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.aggregationConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.CompositionFilterString))
-				{
-					if (this.compositionConnectAction == null)
-					{
-						this.compositionConnectAction = new global::Dyvenix.GenIt.CompositionConnectAction(this);
-						this.compositionConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.compositionConnectAction;
-				} 
-				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.GeneralizationFilterString))
-				{
-					if (this.generalizationConnectAction == null)
-					{
-						this.generalizationConnectAction = new global::Dyvenix.GenIt.GeneralizationConnectAction(this);
-						this.generalizationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
-					}
-					action = this.generalizationConnectAction;
+					action = this.associationConnectAction;
 				} 
 				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.CommentsReferenceTypesFilterString))
 				{
@@ -687,30 +516,10 @@ namespace Dyvenix.GenIt
 			{
 				if(disposing)
 				{
-					if(this.unidirectionalAssociationConnectAction != null)
+					if(this.associationConnectAction != null)
 					{
-						this.unidirectionalAssociationConnectAction.Dispose();
-						this.unidirectionalAssociationConnectAction = null;
-					}
-					if(this.bidirectionalAssociationConnectAction != null)
-					{
-						this.bidirectionalAssociationConnectAction.Dispose();
-						this.bidirectionalAssociationConnectAction = null;
-					}
-					if(this.aggregationConnectAction != null)
-					{
-						this.aggregationConnectAction.Dispose();
-						this.aggregationConnectAction = null;
-					}
-					if(this.compositionConnectAction != null)
-					{
-						this.compositionConnectAction.Dispose();
-						this.compositionConnectAction = null;
-					}
-					if(this.generalizationConnectAction != null)
-					{
-						this.generalizationConnectAction.Dispose();
-						this.generalizationConnectAction = null;
+						this.associationConnectAction.Dispose();
+						this.associationConnectAction = null;
 					}
 					if(this.commentsReferenceTypesConnectAction != null)
 					{
@@ -773,14 +582,8 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Aggregation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Composition), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -1288,94 +1091,34 @@ namespace Dyvenix.GenIt
 				
 				if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourceMultiplicity");
+					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("SourceMultiplicity");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.BidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("SourceMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.UnidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.AggregationConnector.FindAggregationConnectorDecorator("SourceMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Aggregation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.CompositionConnector.FindCompositionConnectorDecorator("SourceMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Composition.DomainClassId);
+						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
 					}
 				}
 				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetMultiplicity");
+					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("TargetMultiplicity");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.BidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.UnidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.AggregationConnector.FindAggregationConnectorDecorator("TargetMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Aggregation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.CompositionConnector.FindCompositionConnectorDecorator("TargetMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Composition.DomainClassId);
+						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
 					}
 				}
 				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.BidirectionalConnector.FindBidirectionalConnectorDecorator("SourceRoleName");
+					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("SourceRoleName");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.BidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("SourceRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.UnidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.AggregationConnector.FindAggregationConnectorDecorator("SourceRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Aggregation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.CompositionConnector.FindCompositionConnectorDecorator("SourceRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Composition.DomainClassId);
+						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
 					}
 				}
 				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.TargetRoleNameDomainPropertyId)
 				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.BidirectionalConnector.FindBidirectionalConnectorDecorator("TargetRoleName");
+					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("TargetRoleName");
 					if(decorator != null)
 					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.BidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.UnidirectionalConnector.FindUnidirectionalConnectorDecorator("TargetRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.UnidirectionalAssociation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.AggregationConnector.FindAggregationConnectorDecorator("TargetRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Aggregation.DomainClassId);
-					}
-					decorator = global::Dyvenix.GenIt.CompositionConnector.FindCompositionConnectorDecorator("TargetRoleName");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Composition.DomainClassId);
+						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
 					}
 				}
 			}
@@ -1384,13 +1127,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Reroute a connector when the role players of its underlying relationship change
 		/// </summary>
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.BidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.UnidirectionalAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Aggregation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Composition), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
 		{
 			/// <summary>
