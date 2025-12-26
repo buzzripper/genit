@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Dyvenix.GenIt
@@ -87,6 +88,125 @@ namespace Dyvenix.GenIt
                     break;
                 }
             }
+        }
+    }
+
+    public partial class AssociationConnector
+    {
+        private EventHandler<ElementPropertyChangedEventArgs> arrowheadPropertyChangedHandler;
+        private EventHandler<ElementAddedEventArgs> arrowheadElementAddedHandler;
+        private bool hasAppliedInitialArrowheads;
+
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            if (arrowheadPropertyChangedHandler == null)
+            {
+                arrowheadPropertyChangedHandler = (sender, e) =>
+                {
+                    var association = this.ModelElement as Association;
+                    if (association == null)
+                    {
+                        return;
+                    }
+
+                    if (!ReferenceEquals(e.ModelElement, association))
+                    {
+                        return;
+                    }
+
+                    if (e.DomainProperty.Id == Association.SourceMultiplicityDomainPropertyId ||
+                        e.DomainProperty.Id == Association.TargetMultiplicityDomainPropertyId)
+                    {
+                        UpdateArrowheads(invalidate: true);
+                    }
+                };
+
+                if (this.Store != null)
+                {
+                    this.Store.EventManagerDirectory.ElementPropertyChanged.Add(arrowheadPropertyChangedHandler);
+                }
+            }
+
+            if (arrowheadElementAddedHandler == null)
+            {
+                arrowheadElementAddedHandler = (sender, e) =>
+                {
+                    if (hasAppliedInitialArrowheads)
+                    {
+                        return;
+                    }
+
+                    // Wait until the connector element is actually added (so it has a diagram presentation).
+                    if (!ReferenceEquals(e.ModelElement, this))
+                    {
+                        return;
+                    }
+
+                    hasAppliedInitialArrowheads = true;
+                    UpdateArrowheads(invalidate: true);
+                };
+
+                if (this.Store != null)
+                {
+                    this.Store.EventManagerDirectory.ElementAdded.Add(arrowheadElementAddedHandler);
+                }
+            }
+
+            // Might run before the connector is connected/presented; ElementAdded handler covers first render.
+            UpdateArrowheads(invalidate: false);
+        }
+
+        protected override void OnDeleted()
+        {
+            try
+            {
+                if (arrowheadPropertyChangedHandler != null && this.Store != null)
+                {
+                    this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(arrowheadPropertyChangedHandler);
+                }
+
+                if (arrowheadElementAddedHandler != null && this.Store != null)
+                {
+                    this.Store.EventManagerDirectory.ElementAdded.Remove(arrowheadElementAddedHandler);
+                }
+            }
+            finally
+            {
+                arrowheadPropertyChangedHandler = null;
+                arrowheadElementAddedHandler = null;
+                base.OnDeleted();
+            }
+        }
+
+        private void UpdateArrowheads(bool invalidate)
+        {
+            var association = this.ModelElement as Association;
+            if (association == null)
+            {
+                SetManyEndDecorators(false, false);
+                return;
+            }
+
+            SetManyEndDecorators(
+                association.SourceMultiplicity == Multiplicity.Many,
+                association.TargetMultiplicity == Multiplicity.Many);
+
+            if (invalidate)
+            {
+                this.Invalidate();
+            }
+        }
+
+        private void SetManyEndDecorators(bool showSourceArrow, bool showTargetArrow)
+        {
+            this.SetDecorators(
+                showSourceArrow ? LinkDecorator.DecoratorHollowArrow : null,
+                showSourceArrow ? new SizeD(0.1, 0.1) : SizeD.Empty,
+                showTargetArrow ? LinkDecorator.DecoratorHollowArrow : null,
+                showTargetArrow ? new SizeD(0.1, 0.1) : SizeD.Empty,
+                false);
         }
     }
 }
