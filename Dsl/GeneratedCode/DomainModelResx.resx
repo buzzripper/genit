@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -325,6 +325,54 @@
     <value>Description</value>
     <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ClassModelElement&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EnumMember.Description" xml:space="preserve">
+    <value>A member of an enumeration.</value>
+    <comment>Description for DomainClass &apos;EnumMember&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumMember.DisplayName" xml:space="preserve">
+    <value>Enum Member</value>
+    <comment>DisplayName for DomainClass &apos;EnumMember&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumMember/Value.Description" xml:space="preserve">
+    <value>The numeric value of the enum member</value>
+    <comment>Description for DomainProperty &apos;Value&apos; on DomainClass &apos;EnumMember&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumMember/Value.DisplayName" xml:space="preserve">
+    <value>Value</value>
+    <comment>DisplayName for DomainProperty &apos;Value&apos; on DomainClass &apos;EnumMember&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel.Description" xml:space="preserve">
+    <value>An enumeration type.</value>
+    <comment>Description for DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel.DisplayName" xml:space="preserve">
+    <value>Enum Model</value>
+    <comment>DisplayName for DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/IsExternal.Description" xml:space="preserve">
+    <value>Whether this enum is defined externally</value>
+    <comment>Description for DomainProperty &apos;IsExternal&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/IsExternal.DisplayName" xml:space="preserve">
+    <value>Is External</value>
+    <comment>DisplayName for DomainProperty &apos;IsExternal&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/IsFlags.Description" xml:space="preserve">
+    <value>Whether this enum has the [Flags] attribute</value>
+    <comment>Description for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/IsFlags.DisplayName" xml:space="preserve">
+    <value>Is Flags</value>
+    <comment>DisplayName for DomainProperty &apos;IsFlags&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/GenerateCode.Description" xml:space="preserve">
+    <value>Whether code should be generated for this enum</value>
+    <comment>Description for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/GenerateCode.DisplayName" xml:space="preserve">
+    <value>Generate Code</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -648,6 +696,38 @@
   <data name="Dyvenix.GenIt.Implementation/Implementor.PropertyDisplayName" xml:space="preserve">
     <value>Implements</value>
     <comment>PropertyDisplayName for DomainRole &apos;Implementor&apos; on DomainRelationship &apos;Implementation&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainClass &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers.DisplayName" xml:space="preserve">
+    <value>Enum Has Members</value>
+    <comment>DisplayName for DomainClass &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/EnumModel.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainRole &apos;EnumModel&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/EnumModel.DisplayName" xml:space="preserve">
+    <value>Enum Model</value>
+    <comment>DisplayName for DomainRole &apos;EnumModel&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/EnumModel.PropertyDisplayName" xml:space="preserve">
+    <value>Members</value>
+    <comment>PropertyDisplayName for DomainRole &apos;EnumModel&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/Member.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainRole &apos;Member&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/Member.DisplayName" xml:space="preserve">
+    <value>Member</value>
+    <comment>DisplayName for DomainRole &apos;Member&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumHasMembers/Member.PropertyDisplayName" xml:space="preserve">
+    <value>Enum Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;Member&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.AccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
@@ -997,6 +1077,22 @@
     <value>BusinessRulesShapeNameDecorator</value>
     <comment>Text decorator default text</comment>
   </data>
+  <data name="Dyvenix.GenIt.EnumShape.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumShape.DisplayName" xml:space="preserve">
+    <value>Enum Shape</value>
+    <comment>DisplayName for DomainClass &apos;EnumShape&apos;</comment>
+  </data>
+  <data name="EnumShapeMembersCompartmentTitle" xml:space="preserve">
+    <value>Members</value>
+    <comment>Compartment title</comment>
+  </data>
+  <data name="EnumShapeNameDefaultText" xml:space="preserve">
+    <value>EnumName</value>
+    <comment>Text decorator default text</comment>
+  </data>
   <data name="Dyvenix.GenIt.AssociationConnector.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;AssociationConnector&apos;</comment>
@@ -1063,6 +1159,22 @@
   </data>
   <data name="EntityModelToolboxTooltip" xml:space="preserve">
     <value>Create an Entity</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="EnumModelToolboxItem" xml:space="preserve">
+    <value>Enum</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="EnumModelToolboxTooltip" xml:space="preserve">
+    <value>Create an Enumeration</value>
+    <comment>Toolbox tooltip text</comment>
+  </data>
+  <data name="EnumMemberToolboxItem" xml:space="preserve">
+    <value>Enum Member</value>
+    <comment>Toolbox item name</comment>
+  </data>
+  <data name="EnumMemberToolboxTooltip" xml:space="preserve">
+    <value>Create an Enum Member</value>
     <comment>Toolbox tooltip text</comment>
   </data>
   <data name="AttributeToolboxItem" xml:space="preserve">
@@ -1248,6 +1360,14 @@ A DomainClass can be serialized as a moniker only if
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="EntityModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="EnumModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <comment>Toolbox item image</comment>
+  </data>
+  <data name="EnumMemberToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
+    <value>..\resources\attributetool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="AttributeToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

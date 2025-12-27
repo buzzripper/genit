@@ -304,6 +304,12 @@ namespace Dyvenix.GenIt
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
+			if(element is global::Dyvenix.GenIt.EnumModel)
+			{
+				global::Dyvenix.GenIt.EnumShape newShape = new global::Dyvenix.GenIt.EnumShape(this.Partition);
+				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+				return newShape;
+			}
 			if(element is global::Dyvenix.GenIt.Comment)
 			{
 				global::Dyvenix.GenIt.CommentBoxShape newShape = new global::Dyvenix.GenIt.CommentBoxShape(this.Partition);
@@ -329,6 +335,7 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.ClassShape.DecoratorsInitialized += ClassShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.InterfaceShape.DecoratorsInitialized += InterfaceShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
+			global::Dyvenix.GenIt.EnumShape.DecoratorsInitialized += EnumShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.AssociationConnector.DecoratorsInitialized += AssociationConnectorDecoratorMap.OnDecoratorsInitialized;
 		}
 		
@@ -383,6 +390,24 @@ namespace Dyvenix.GenIt
 				
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Comment.TextDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Comment").AssociateValueWith(shape.Store, propertyInfo);
+			}
+		}
+		
+		/// <summary>
+		/// Class containing decorator path traversal methods for EnumShape.
+		/// </summary>
+		internal static partial class EnumShapeDecoratorMap
+		{
+			/// <summary>
+			/// Event handler called when decorator initialization is complete for EnumShape.  Adds decorator mappings for this shape or connector.
+			/// </summary>
+			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+			{
+				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+				DslDiagrams::AssociatedPropertyInfo propertyInfo;
+				
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
 			}
 		}
 		
@@ -576,6 +601,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
@@ -600,6 +626,10 @@ namespace Dyvenix.GenIt
 				if(childElement is global::Dyvenix.GenIt.ModelInterface)
 				{
 					parentElement = GetParentForModelInterface((global::Dyvenix.GenIt.ModelInterface)childElement);
+				} else
+				if(childElement is global::Dyvenix.GenIt.EnumModel)
+				{
+					parentElement = GetParentForEnumModel((global::Dyvenix.GenIt.EnumModel)childElement);
 				} else
 				if(childElement is global::Dyvenix.GenIt.Comment)
 				{
@@ -629,6 +659,13 @@ namespace Dyvenix.GenIt
 				return result;
 			}
 			public static global::Dyvenix.GenIt.ModelRoot GetParentForComment( global::Dyvenix.GenIt.Comment root )
+			{
+				// Segments 0 and 1
+				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
+				if ( result == null ) return null;
+				return result;
+			}
+			public static global::Dyvenix.GenIt.ModelRoot GetParentForEnumModel( global::Dyvenix.GenIt.ModelType root )
 			{
 				// Segments 0 and 1
 				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
@@ -726,6 +763,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
 		{
 			/// <summary>
@@ -756,6 +794,11 @@ namespace Dyvenix.GenIt
 				{
 					global::System.Collections.IEnumerable elements = GetModelInterfaceForInterfaceShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.InterfaceHasOperation)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.InterfaceShape), "OperationsCompartment", repaintOnly);
+				}
+				if(e.ModelElement is global::Dyvenix.GenIt.EnumHasMembers)
+				{
+					global::System.Collections.IEnumerable elements = GetEnumModelForEnumShapeMembersCompartmentFromLastLink((global::Dyvenix.GenIt.EnumHasMembers)e.ModelElement);
+					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
 				}
 			}
 			
@@ -799,6 +842,20 @@ namespace Dyvenix.GenIt
 			{
 				// Segments 1 and 0
 				global::Dyvenix.GenIt.ModelInterface result = root.Interface;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetEnumModelForEnumShapeMembersCompartmentFromLastLink(global::Dyvenix.GenIt.EnumHasMembers root)
+			{
+				// Segment 0
+				global::Dyvenix.GenIt.EnumModel result = root.EnumModel;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
+			}
+			internal static global::System.Collections.ICollection GetEnumModelForEnumShapeMembersCompartment(global::Dyvenix.GenIt.EnumMember root)
+			{
+				// Segments 1 and 0
+				global::Dyvenix.GenIt.EnumModel result = root.EnumModel;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
@@ -850,6 +907,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
 		{
 			/// <summary>
@@ -879,6 +937,11 @@ namespace Dyvenix.GenIt
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelInterfaceForInterfaceShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.InterfaceHasOperation)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.InterfaceShape), "OperationsCompartment", repaintOnly);
 				}
+				if(e.ModelElement is global::Dyvenix.GenIt.EnumHasMembers)
+				{
+					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartmentFromLastLink((global::Dyvenix.GenIt.EnumHasMembers)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
+				}
 			}
 		}
 		
@@ -888,6 +951,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.PropertyModel), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumMember), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
 		{
 			/// <summary>
@@ -917,6 +981,11 @@ namespace Dyvenix.GenIt
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelInterfaceForInterfaceShapeOperationsCompartment((global::Dyvenix.GenIt.InterfaceOperation)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.InterfaceShape), "OperationsCompartment", repaintOnly);
 				}
+				if(e.ModelElement is global::Dyvenix.GenIt.EnumMember && e.DomainProperty.Id == global::Dyvenix.GenIt.EnumMember.NameDomainPropertyId)
+				{
+					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartment((global::Dyvenix.GenIt.EnumMember)e.ModelElement);
+					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
+				}
 			}
 		}
 		
@@ -926,6 +995,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
 		{
 			/// <summary>
@@ -1021,6 +1091,33 @@ namespace Dyvenix.GenIt
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.InterfaceShape), "OperationsCompartment", repaintOnly);
 					}
 				}
+				if(typeof(global::Dyvenix.GenIt.EnumHasMembers).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(e.DomainRole.IsSource)
+					{
+						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartmentFromLastLink((global::Dyvenix.GenIt.EnumMember)e.OldRolePlayer);
+						//foreach(DslModeling::ModelElement element in oldElements)
+						//{
+						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
+						//	foreach(DslDiagrams::PresentationElement pel in pels)
+						//	{
+						//		global::Dyvenix.GenIt.EnumShape compartmentShape = pel as global::Dyvenix.GenIt.EnumShape;
+						//		if(compartmentShape != null)
+						//		{
+						//			compartmentShape.GetCompartmentMappings()[0].InitializeCompartmentShape(compartmentShape);
+						//		}
+						//	}
+						//}
+						
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartmentFromLastLink((global::Dyvenix.GenIt.EnumHasMembers)e.ElementLink);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
+					}
+					else 
+					{
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartment((global::Dyvenix.GenIt.EnumMember)e.NewRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
+					}
+				}
 			}
 		}
 	
@@ -1030,6 +1127,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasOperations), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
 		{
 			/// <summary>
@@ -1066,6 +1164,14 @@ namespace Dyvenix.GenIt
 					{
 						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelInterfaceForInterfaceShapeOperationsCompartment((global::Dyvenix.GenIt.InterfaceOperation)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.InterfaceShape), "OperationsCompartment", repaintOnly);
+					}
+				}
+				if(typeof(global::Dyvenix.GenIt.EnumHasMembers).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
+				{
+					if(!e.CounterpartDomainRole.IsSource)
+					{
+						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEnumModelForEnumShapeMembersCompartment((global::Dyvenix.GenIt.EnumMember)e.CounterpartRolePlayer);
+						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.EnumShape), "MembersCompartment", repaintOnly);
 					}
 				}
 			}

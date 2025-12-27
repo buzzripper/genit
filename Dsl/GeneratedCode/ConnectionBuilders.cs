@@ -342,6 +342,10 @@ namespace Dyvenix.GenIt
 			{ 
 				return true;
 			}
+			else if (candidate is global::Dyvenix.GenIt.EnumModel)
+			{ 
+				return true;
+			}
 			else
 				return false;
 		}
@@ -393,6 +397,13 @@ namespace Dyvenix.GenIt
 						if(targetModelInterface == null || sourceComment == null || global::Dyvenix.GenIt.CommentReferencesSubjects.GetLinks(sourceComment, targetModelInterface).Count > 0) return false;
 						return true;
 					}
+					else if (candidateTarget is global::Dyvenix.GenIt.EnumModel)
+					{
+						global::Dyvenix.GenIt.Comment sourceComment = (global::Dyvenix.GenIt.Comment)candidateSource;
+						global::Dyvenix.GenIt.EnumModel targetEnumModel = (global::Dyvenix.GenIt.EnumModel)candidateTarget;
+						if(targetEnumModel == null || sourceComment == null || global::Dyvenix.GenIt.CommentReferencesSubjects.GetLinks(sourceComment, targetEnumModel).Count > 0) return false;
+						return true;
+					}
 				}
 				
 			}
@@ -439,6 +450,17 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.Comment sourceAccepted = (global::Dyvenix.GenIt.Comment)source;
 						global::Dyvenix.GenIt.ModelInterface targetAccepted = (global::Dyvenix.GenIt.ModelInterface)target;
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.CommentReferencesSubjects(sourceAccepted, targetAccepted);
+						if (DslModeling::DomainClassInfo.HasNameProperty(result))
+						{
+							DslModeling::DomainClassInfo.SetUniqueName(result);
+						}
+						return result;
+					}
+					else if (target is global::Dyvenix.GenIt.EnumModel)
+					{
+						global::Dyvenix.GenIt.Comment sourceAccepted = (global::Dyvenix.GenIt.Comment)source;
+						global::Dyvenix.GenIt.EnumModel targetAccepted = (global::Dyvenix.GenIt.EnumModel)target;
 						DslModeling::ElementLink result = new global::Dyvenix.GenIt.CommentReferencesSubjects(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{

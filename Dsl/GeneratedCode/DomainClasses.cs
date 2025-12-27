@@ -2369,3 +2369,564 @@ namespace Dyvenix.GenIt
 		#endregion
 	}
 }
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass EnumMember
+	/// A member of an enumeration.
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumMember.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumMember.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e")]
+	public partial class EnumMember : NamedElement
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// EnumMember domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb1c2d3e4, 0xf5a6, 0x4b7c, 0x8d, 0x9e, 0x0f, 0x1a, 0x2b, 0x3c, 0x4d, 0x5e);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public EnumMember(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public EnumMember(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Value domain property code
+		
+		/// <summary>
+		/// Value domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ValueDomainPropertyId = new global::System.Guid(0xc2d3e4f5, 0xa6b7, 0x4c8d, 0x9e, 0x0f, 0x1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f);
+		
+		/// <summary>
+		/// Storage for Value
+		/// </summary>
+		private global::System.String valuePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Value domain property.
+		/// The numeric value of the enum member
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumMember/Value.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumMember/Value.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("")]
+		[DslModeling::DomainObjectId("c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f")]
+		public global::System.String Value
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return valuePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ValuePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumMember.Value domain property.
+		/// </summary>
+		internal sealed partial class ValuePropertyHandler : DslModeling::DomainPropertyValueHandler<EnumMember, global::System.String>
+		{
+			private ValuePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumMember.Value domain property value handler.
+			/// </summary>
+			public static readonly ValuePropertyHandler Instance = new ValuePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumMember.Value domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ValueDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EnumMember element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.valuePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumMember element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.valuePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumModel opposite domain role accessor
+		/// <summary>
+		/// Gets or sets EnumModel.
+		/// </summary>
+		public virtual EnumModel EnumModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId) as EnumModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId, value);
+			}
+		}
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass EnumModel
+	/// An enumeration type.
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("d3e4f5a6-b7c8-4d9e-0f1a-2b3c4d5e6f7a")]
+	public partial class EnumModel : ModelType
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// EnumModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xd3e4f5a6, 0xb7c8, 0x4d9e, 0x0f, 0x1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public EnumModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public EnumModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region IsExternal domain property code
+		
+		/// <summary>
+		/// IsExternal domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsExternalDomainPropertyId = new global::System.Guid(0xe4f5a6b7, 0xc8d9, 0x4e0f, 0x1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b);
+		
+		/// <summary>
+		/// Storage for IsExternal
+		/// </summary>
+		private global::System.Boolean isExternalPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsExternal domain property.
+		/// Whether this enum is defined externally
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumModel/IsExternal.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumModel/IsExternal.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("e4f5a6b7-c8d9-4e0f-1a2b-3c4d5e6f7a8b")]
+		public global::System.Boolean IsExternal
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isExternalPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsExternalPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumModel.IsExternal domain property.
+		/// </summary>
+		internal sealed partial class IsExternalPropertyHandler : DslModeling::DomainPropertyValueHandler<EnumModel, global::System.Boolean>
+		{
+			private IsExternalPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumModel.IsExternal domain property value handler.
+			/// </summary>
+			public static readonly IsExternalPropertyHandler Instance = new IsExternalPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumModel.IsExternal domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsExternalDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EnumModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isExternalPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isExternalPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsFlags domain property code
+		
+		/// <summary>
+		/// IsFlags domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsFlagsDomainPropertyId = new global::System.Guid(0xf5a6b7c8, 0xd9e0, 0x4f1a, 0x2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c);
+		
+		/// <summary>
+		/// Storage for IsFlags
+		/// </summary>
+		private global::System.Boolean isFlagsPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsFlags domain property.
+		/// Whether this enum has the [Flags] attribute
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumModel/IsFlags.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumModel/IsFlags.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("f5a6b7c8-d9e0-4f1a-2b3c-4d5e6f7a8b9c")]
+		public global::System.Boolean IsFlags
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isFlagsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsFlagsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumModel.IsFlags domain property.
+		/// </summary>
+		internal sealed partial class IsFlagsPropertyHandler : DslModeling::DomainPropertyValueHandler<EnumModel, global::System.Boolean>
+		{
+			private IsFlagsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumModel.IsFlags domain property value handler.
+			/// </summary>
+			public static readonly IsFlagsPropertyHandler Instance = new IsFlagsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumModel.IsFlags domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsFlagsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EnumModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isFlagsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isFlagsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region GenerateCode domain property code
+		
+		/// <summary>
+		/// GenerateCode domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GenerateCodeDomainPropertyId = new global::System.Guid(0xa6b7c8d9, 0xe0f1, 0x4a2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d);
+		
+		/// <summary>
+		/// Storage for GenerateCode
+		/// </summary>
+		private global::System.Boolean generateCodePropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of GenerateCode domain property.
+		/// Whether code should be generated for this enum
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumModel/GenerateCode.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumModel/GenerateCode.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d")]
+		public global::System.Boolean GenerateCode
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return generateCodePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GenerateCodePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EnumModel.GenerateCode domain property.
+		/// </summary>
+		internal sealed partial class GenerateCodePropertyHandler : DslModeling::DomainPropertyValueHandler<EnumModel, global::System.Boolean>
+		{
+			private GenerateCodePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EnumModel.GenerateCode domain property value handler.
+			/// </summary>
+			public static readonly GenerateCodePropertyHandler Instance = new GenerateCodePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EnumModel.GenerateCode domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GenerateCodeDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EnumModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.generateCodePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EnumModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.generateCodePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Members opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of Members.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EnumMember> Members
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumMember>, EnumMember>(global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region ElementGroupPrototype Merge methods
+		/// <summary>
+		/// Returns a value indicating whether the source element represented by the
+		/// specified root ProtoElement can be added to this element.
+		/// </summary>
+		/// <param name="rootElement">
+		/// The root ProtoElement representing a source element.  This can be null, 
+		/// in which case the ElementGroupPrototype does not contain an ProtoElements
+		/// and the code should inspect the ElementGroupPrototype context information.
+		/// </param>
+		/// <param name="elementGroupPrototype">The ElementGroupPrototype that contains the root ProtoElement.</param>
+		/// <returns>true if the source element represented by the ProtoElement can be added to this target element.</returns>
+		protected override bool CanMerge(DslModeling::ProtoElementBase rootElement, DslModeling::ElementGroupPrototype elementGroupPrototype)
+		{
+			if ( elementGroupPrototype == null ) throw new global::System.ArgumentNullException("elementGroupPrototype");
+			
+			if (rootElement != null)
+			{
+				DslModeling::DomainClassInfo rootElementDomainInfo = this.Partition.DomainDataDirectory.GetDomainClass(rootElement.DomainClassId);
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Dyvenix.GenIt.EnumMember.DomainClassId)) 
+				{
+					return true;
+				}
+			}
+			return base.CanMerge(rootElement, elementGroupPrototype);
+		}
+		
+		/// <summary>
+		/// Called by the Merge process to create a relationship between 
+		/// this target element and the specified source element. 
+		/// Typically, a parent-child relationship is established
+		/// between the target element (the parent) and the source element 
+		/// (the child), but any relationship can be established.
+		/// </summary>
+		/// <param name="sourceElement">The element that is to be related to this model element.</param>
+		/// <param name="elementGroup">The group of source ModelElements that have been rehydrated into the target store.</param>
+		/// <remarks>
+		/// This method is overriden to create the relationship between the target element and the specified source element.
+		/// The base method does nothing.
+		/// </remarks>
+		protected override void MergeRelate(DslModeling::ModelElement sourceElement, DslModeling::ElementGroup elementGroup)
+		{
+			// In general, sourceElement is allowed to be null, meaning that the elementGroup must be parsed for special cases.
+			// However this is not supported in generated code.  Use double-deriving on this class and then override MergeRelate completely if you 
+			// need to support this case.
+			if ( sourceElement == null ) throw new global::System.ArgumentNullException("sourceElement");
+		
+				
+			global::Dyvenix.GenIt.EnumMember sourceEnumMember1 = sourceElement as global::Dyvenix.GenIt.EnumMember;
+			if (sourceEnumMember1 != null)
+			{
+				// Create link for path EnumHasMembers.Members
+				this.Members.Add(sourceEnumMember1);
+
+				return;
+			}
+		
+			// Sdk workaround to runtime bug #879350 (DSL: can't copy and paste a MEL that has a MEX). Avoid MergeRelate on ModelElementExtension
+			// during a "Paste".
+			if (sourceElement is DslModeling::ExtensionElement
+				&& sourceElement.Store.TransactionManager.CurrentTransaction.TopLevelTransaction.Context.ContextInfo.ContainsKey("{9DAFD42A-DC0E-4d78-8C3F-8266B2CF8B33}"))
+			{
+				return;
+			}
+		
+			// Fall through to base class if this class hasn't handled the merge.
+			base.MergeRelate(sourceElement, elementGroup);
+		}
+		
+		/// <summary>
+		/// Performs operation opposite to MergeRelate - i.e. disconnects a given
+		/// element from the current one (removes links created by MergeRelate).
+		/// </summary>
+		/// <param name="sourceElement">Element to be unmerged/disconnected.</param>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		protected override void MergeDisconnect(DslModeling::ModelElement sourceElement)
+		{
+			if (sourceElement == null) throw new global::System.ArgumentNullException("sourceElement");
+				
+			global::Dyvenix.GenIt.EnumMember sourceEnumMember1 = sourceElement as global::Dyvenix.GenIt.EnumMember;
+			if (sourceEnumMember1 != null)
+			{
+				// Delete link for path EnumHasMembers.Members
+				
+				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.EnumHasMembers.GetLinks((global::Dyvenix.GenIt.EnumModel)this, sourceEnumMember1))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId, global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId);
+				}
+
+				return;
+			}
+			// Fall through to base class if this class hasn't handled the unmerge.
+			base.MergeDisconnect(sourceElement);
+		}
+		#endregion
+	}
+}

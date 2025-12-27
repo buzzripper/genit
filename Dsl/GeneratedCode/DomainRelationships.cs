@@ -2495,3 +2495,239 @@ namespace Dyvenix.GenIt
 		#endregion
 	}
 }
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship EnumHasMembers
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumHasMembers.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumHasMembers.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b")]
+	public partial class EnumHasMembers : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// EnumHasMembers domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xe5f6a7b8, 0xc9d0, 0x4e1f, 0x2a, 0x3b, 0x4c, 0x5d, 0x6e, 0x7f, 0x8a, 0x9b);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a EnumHasMembers link in the same Partition as the given EnumModel
+		/// </summary>
+		/// <param name="source">EnumModel to use as the source of the relationship.</param>
+		/// <param name="target">EnumMember to use as the target of the relationship.</param>
+		public EnumHasMembers(EnumModel source, EnumMember target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EnumHasMembers.EnumModelDomainRoleId, source), new DslModeling::RoleAssignment(EnumHasMembers.MemberDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EnumHasMembers(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EnumHasMembers(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EnumHasMembers(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EnumHasMembers(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EnumModel domain role code
+		
+		/// <summary>
+		/// EnumModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumModelDomainRoleId = new global::System.Guid(0xf6a7b8c9, 0xd0e1, 0x4f2a, 0x3b, 0x4c, 0x5d, 0x6e, 0x7f, 0x8a, 0x9b, 0x0c);
+		
+		/// <summary>
+		/// DomainRole EnumModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumHasMembers/EnumModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumHasMembers/EnumModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Members", PropertyDisplayNameKey="Dyvenix.GenIt.EnumHasMembers/EnumModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c")]
+		public virtual EnumModel EnumModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EnumModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, EnumModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, EnumModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access EnumModel of a EnumMember
+		/// <summary>
+		/// Gets EnumModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static EnumModel GetEnumModel(EnumMember element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, MemberDomainRoleId) as EnumModel;
+		}
+		
+		/// <summary>
+		/// Sets EnumModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetEnumModel(EnumMember element, EnumModel newEnumModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, MemberDomainRoleId, newEnumModel);
+		}
+		#endregion
+		#region Member domain role code
+		
+		/// <summary>
+		/// Member domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid MemberDomainRoleId = new global::System.Guid(0xa7b8c9d0, 0xe1f2, 0x4a3b, 0x4c, 0x5d, 0x6e, 0x7f, 0x8a, 0x9b, 0x0c, 0x1d);
+		
+		/// <summary>
+		/// DomainRole Member
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumHasMembers/Member.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumHasMembers/Member.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EnumModel", PropertyDisplayNameKey="Dyvenix.GenIt.EnumHasMembers/Member.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainObjectId("a7b8c9d0-e1f2-4a3b-4c5d-6e7f8a9b0c1d")]
+		public virtual EnumMember Member
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EnumMember)DslModeling::DomainRoleInfo.GetRolePlayer(this, MemberDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, MemberDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access Members of a EnumModel
+		/// <summary>
+		/// Gets a list of Members.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<EnumMember> GetMembers(EnumModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<EnumMember>, EnumMember>(element, EnumModelDomainRoleId);
+		}
+		#endregion
+		#region EnumModel link accessor
+		/// <summary>
+		/// Get the list of EnumHasMembers links to a EnumModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EnumHasMembers> GetLinksToMembers ( global::Dyvenix.GenIt.EnumModel enumModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumHasMembers>(enumModelInstance, global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
+		}
+		#endregion
+		#region Member link accessor
+		/// <summary>
+		/// Get the EnumHasMembers link to a EnumMember.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.EnumHasMembers GetLinkToEnumModel (global::Dyvenix.GenIt.EnumMember memberInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EnumHasMembers> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumHasMembers>(memberInstance, global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of Member not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region EnumHasMembers instance accessors
+		
+		/// <summary>
+		/// Get any EnumHasMembers links between a given EnumModel and a EnumMember.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EnumHasMembers> GetLinks( global::Dyvenix.GenIt.EnumModel source, global::Dyvenix.GenIt.EnumMember target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.EnumHasMembers> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.EnumHasMembers>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EnumHasMembers> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumHasMembers>(source, global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EnumHasMembers link in links )
+			{
+				if ( target.Equals(link.Member) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one EnumHasMembers link between a given EnumModeland a EnumMember.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.EnumHasMembers GetLink( global::Dyvenix.GenIt.EnumModel source, global::Dyvenix.GenIt.EnumMember target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EnumHasMembers> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumHasMembers>(source, global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EnumHasMembers link in links )
+			{
+				if ( target.Equals(link.Member) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}

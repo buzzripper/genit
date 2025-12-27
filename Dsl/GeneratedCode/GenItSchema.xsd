@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema id="GenItSchema" targetNamespace="http://schemas.microsoft.com/dsltools/GenIt" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/GenIt" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
   <!-- NamedElement -->
@@ -551,6 +551,114 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- EnumMember -->
+  <xsd:element name="enumMember" type="EnumMember" substitutionGroup="namedElement" />
+  <xsd:complexType name="EnumMember">
+    <xsd:annotation>
+      <xsd:documentation>A member of an enumeration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="NamedElement">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Value -->
+        <xsd:attribute name="value" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The numeric value of the enum member</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumMember Moniker -->
+  <xsd:element name="enumMemberMoniker" type="EnumMemberMoniker" substitutionGroup="namedElementMoniker" />
+  <xsd:complexType name="EnumMemberMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EnumMember instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="NamedElementMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumModel -->
+  <xsd:element name="enumModel" type="EnumModel" substitutionGroup="modelType" />
+  <xsd:complexType name="EnumModel">
+    <xsd:annotation>
+      <xsd:documentation>An enumeration type.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ModelType">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: EnumHasMembers -->
+          <xsd:element name="members" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of EnumHasMembers</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:choice minOccurs="0" maxOccurs="unbounded" >
+                  <xsd:element ref="enumHasMembers">
+                    <xsd:annotation>
+                      <xsd:documentation>[Relationship deriving from EnumHasMembers needs to be serialized in full-form]</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                  <xsd:element ref="enumMember" >
+                    <xsd:annotation>
+                      <xsd:documentation>[Target role-player]</xsd:documentation>
+                    </xsd:annotation>
+                  </xsd:element>
+                </xsd:choice>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsExternal -->
+        <xsd:attribute name="isExternal" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Whether this enum is defined externally</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsFlags -->
+        <xsd:attribute name="isFlags" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Whether this enum has the [Flags] attribute</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: GenerateCode -->
+        <xsd:attribute name="generateCode" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Whether code should be generated for this enum</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumModel Moniker -->
+  <xsd:element name="enumModelMoniker" type="EnumModelMoniker" substitutionGroup="modelTypeMoniker" />
+  <xsd:complexType name="EnumModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EnumModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ModelTypeMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
   <!-- Association -->
   <xsd:element name="association" type="Association" substitutionGroup="core:modelElement" />
   <xsd:complexType name="Association">
@@ -915,6 +1023,46 @@
   <xsd:complexType name="ImplementationMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for Implementation instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumHasMembers -->
+  <xsd:element name="enumHasMembers" abstract="true" type="EnumHasMembers" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EnumHasMembers" abstract="true" >
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end EnumMember -->
+          <xsd:element ref="enumMember" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumHasMembers Moniker -->
+  <xsd:element name="enumHasMembersMoniker" type="EnumHasMembersMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EnumHasMembersMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EnumHasMembers instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

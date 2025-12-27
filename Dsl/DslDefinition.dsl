@@ -193,6 +193,50 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
+    <DomainClass Id="b1c2d3e4-f5a6-4b7c-8d9e-0f1a2b3c4d5e" Description="A member of an enumeration." Name="EnumMember" DisplayName="Enum Member" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="NamedElement" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="c2d3e4f5-a6b7-4c8d-9e0f-1a2b3c4d5e6f" Description="The numeric value of the enum member" Name="Value" DisplayName="Value" DefaultValue="">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
+    <DomainClass Id="d3e4f5a6-b7c8-4d9e-0f1a-2b3c4d5e6f7a" Description="An enumeration type." Name="EnumModel" DisplayName="Enum Model" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ModelType" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="e4f5a6b7-c8d9-4e0f-1a2b-3c4d5e6f7a8b" Description="Whether this enum is defined externally" Name="IsExternal" DisplayName="Is External" DefaultValue="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f5a6b7c8-d9e0-4f1a-2b3c-4d5e6f7a8b9c" Description="Whether this enum has the [Flags] attribute" Name="IsFlags" DisplayName="Is Flags" DefaultValue="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d" Description="Whether code should be generated for this enum" Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+      <ElementMergeDirectives>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="EnumMember" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>EnumHasMembers.Members</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
+      </ElementMergeDirectives>
+    </DomainClass>
   </Classes>
   <Relationships>
     <DomainRelationship Id="4a55a93f-ffed-423c-ad69-a1b5c9c85a1e" Description="Associations between Classes." Name="Association" DisplayName="Association" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
@@ -372,6 +416,22 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
+    <DomainRelationship Id="e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b" Description="" Name="EnumHasMembers" DisplayName="Enum Has Members" Namespace="Dyvenix.GenIt" IsEmbedding="true">
+      <Source>
+        <DomainRole Id="f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c" Description="" Name="EnumModel" DisplayName="Enum Model" PropertyName="Members" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Members">
+          <RolePlayer>
+            <DomainClassMoniker Name="EnumModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="a7b8c9d0-e1f2-4a3b-4c5d-6e7f8a9b0c1d" Description="" Name="Member" DisplayName="Member" PropertyName="EnumModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Enum Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="EnumMember" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -485,6 +545,15 @@
         <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
       </ShapeHasDecorators>
     </GeometryShape>
+    <CompartmentShape Id="d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Shape" FillColor="218, 165, 32" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
+      <ShapeHasDecorators Position="InnerTopCenter" HorizontalOffset="0" VerticalOffset="0">
+        <TextDecorator Name="Name" DisplayName="Name" DefaultText="EnumName" />
+      </ShapeHasDecorators>
+      <ShapeHasDecorators Position="InnerTopRight" HorizontalOffset="0" VerticalOffset="0">
+        <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand Collapse" />
+      </ShapeHasDecorators>
+      <Compartment TitleFillColor="235, 235, 235" Name="MembersCompartment" Title="Members" />
+    </CompartmentShape>
   </Shapes>
   <Connectors>
     <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
@@ -667,6 +736,37 @@
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
+      <XmlClassData TypeName="EnumMember" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumMemberMoniker" ElementName="enumMember" MonikerTypeName="EnumMemberMoniker">
+        <DomainClassMoniker Name="EnumMember" />
+        <ElementData>
+          <XmlPropertyData XmlName="value">
+            <DomainPropertyMoniker Name="EnumMember/Value" />
+          </XmlPropertyData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="EnumModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumModelMoniker" ElementName="enumModel" MonikerTypeName="EnumModelMoniker">
+        <DomainClassMoniker Name="EnumModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="isExternal">
+            <DomainPropertyMoniker Name="EnumModel/IsExternal" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isFlags">
+            <DomainPropertyMoniker Name="EnumModel/IsFlags" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="generateCode">
+            <DomainPropertyMoniker Name="EnumModel/GenerateCode" />
+          </XmlPropertyData>
+          <XmlRelationshipData RoleElementName="members">
+            <DomainRelationshipMoniker Name="EnumHasMembers" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="EnumHasMembers" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumHasMembersMoniker" ElementName="enumHasMembers" MonikerTypeName="EnumHasMembersMoniker">
+        <DomainRelationshipMoniker Name="EnumHasMembers" />
+      </XmlClassData>
+      <XmlClassData TypeName="EnumShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumShapeMoniker" ElementName="enumShape" MonikerTypeName="EnumShapeMoniker">
+        <CompartmentShapeMoniker Name="EnumShape" />
+      </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
   <ExplorerBehavior Name="GenItExplorer" />
@@ -745,6 +845,11 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="ModelInterface" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="EnumModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>
@@ -834,6 +939,32 @@
         </DecoratorMap>
         <GeometryShapeMoniker Name="CommentBoxShape" />
       </ShapeMap>
+      <CompartmentShapeMap>
+        <DomainClassMoniker Name="EnumModel" />
+        <ParentElementPath>
+          <DomainPath>ModelRootHasTypes.ModelRoot/!ModelRoot</DomainPath>
+        </ParentElementPath>
+        <DecoratorMap>
+          <TextDecoratorMoniker Name="EnumShape/Name" />
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="NamedElement/Name" />
+            </PropertyPath>
+          </PropertyDisplayed>
+        </DecoratorMap>
+        <CompartmentShapeMoniker Name="EnumShape" />
+        <CompartmentMap>
+          <CompartmentMoniker Name="EnumShape/MembersCompartment" />
+          <ElementsDisplayed>
+            <DomainPath>EnumHasMembers.Members/!Member</DomainPath>
+          </ElementsDisplayed>
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="NamedElement/Name" />
+            </PropertyPath>
+          </PropertyDisplayed>
+        </CompartmentMap>
+      </CompartmentShapeMap>
     </ShapeMaps>
     <ConnectorMaps>
       <ConnectorMap>
@@ -868,6 +999,12 @@
     <ToolboxTab TabText="Class Diagrams">
       <ElementTool Name="EntityModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Entity" Tooltip="Create an Entity" HelpKeyword="EntityModelF1Keyword">
         <DomainClassMoniker Name="EntityModel" />
+      </ElementTool>
+      <ElementTool Name="EnumModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Enum" Tooltip="Create an Enumeration" HelpKeyword="EnumModelF1Keyword">
+        <DomainClassMoniker Name="EnumModel" />
+      </ElementTool>
+      <ElementTool Name="EnumMember" ToolboxIcon="resources\attributetool.bmp" Caption="Enum Member" Tooltip="Create an Enum Member" HelpKeyword="EnumMemberF1Keyword">
+        <DomainClassMoniker Name="EnumMember" />
       </ElementTool>
       <ElementTool Name="Attribute" ToolboxIcon="resources\attributetool.bmp" Caption="Attribute" Tooltip="Create an Attribute on a Class" HelpKeyword="AttributeF1Keyword">
         <DomainClassMoniker Name="PropertyModel" />
