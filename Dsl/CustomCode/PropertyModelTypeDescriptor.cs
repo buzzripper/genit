@@ -45,8 +45,8 @@ namespace Dyvenix.GenIt
         {
             PropertyDescriptorCollection properties = base.GetProperties(attributes);
 
-            // Only show Length property when DataType is String
-            if (_propertyModel.DataType != DataType.String)
+            // Only show Length property when DataType is String or ByteArray
+            if (_propertyModel.DataType != DataType.String && _propertyModel.DataType != DataType.ByteArray)
             {
                 // Filter out the Length property
                 var filteredProperties = properties.Cast<PropertyDescriptor>()
