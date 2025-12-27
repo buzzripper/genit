@@ -94,24 +94,6 @@ namespace Dyvenix.GenIt
 			return DslDiagrams::ShapeElement.FindDecorator(decorators, decoratorName);
 		}
 		
-		
-		/// <summary>
-		/// Shape instance initialization.
-		/// </summary>
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
-			
-			// Create host shapes for outer decorators.
-			foreach(DslDiagrams::Decorator decorator in this.Decorators)
-			{
-				if(decorator.RequiresHost)
-				{
-					decorator.ConfigureHostShape(this);
-				}
-			}
-			
-		}
 		#endregion
 		
 		#region Connector styles
@@ -133,48 +115,6 @@ namespace Dyvenix.GenIt
 			lineBrush.Color = global::System.Drawing.Color.FromArgb(255, 113, 111, 110);
 			classStyleSet.OverrideBrush(DslDiagrams::DiagramBrushes.ConnectionLineDecorator, lineBrush);
 			
-		}
-		
-		#endregion
-		
-		#region Decorators
-		/// <summary>
-		/// Initialize the collection of shape fields associated with this shape type.
-		/// </summary>
-		protected override void InitializeShapeFields(global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields)
-		{
-			base.InitializeShapeFields(shapeFields);
-		}
-		
-		/// <summary>
-		/// Initialize the collection of decorators associated with this shape type.  This method also
-		/// creates shape fields for outer decorators, because these are not part of the shape fields collection
-		/// associated with the shape, so they must be created here rather than in InitializeShapeFields.
-		/// </summary>
-		protected override void InitializeDecorators(global::System.Collections.Generic.IList<DslDiagrams::ShapeField> shapeFields, global::System.Collections.Generic.IList<DslDiagrams::Decorator> decorators)
-		{
-			base.InitializeDecorators(shapeFields, decorators);
-			
-			DslDiagrams::TextField field1 = new DslDiagrams::TextField("TargetRoleName");
-			field1.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetRoleNameDefaultText");
-			field1.DefaultFocusable = true;
-			field1.DefaultAutoSize = true;
-			field1.AnchoringBehavior.MinimumHeightInLines = 1;
-			field1.AnchoringBehavior.MinimumWidthInCharacters = 1;
-			field1.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator1 = new DslDiagrams::ConnectorDecorator(field1, DslDiagrams::ConnectorDecoratorPosition.TargetTop, new DslDiagrams::PointD(0.1, 0.05));
-			decorators.Add(decorator1);
-				
-			DslDiagrams::TextField field2 = new DslDiagrams::TextField("SourceRoleName");
-			field2.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorSourceRoleNameDefaultText");
-			field2.DefaultFocusable = true;
-			field2.DefaultAutoSize = true;
-			field2.AnchoringBehavior.MinimumHeightInLines = 1;
-			field2.AnchoringBehavior.MinimumWidthInCharacters = 1;
-			field2.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator2 = new DslDiagrams::ConnectorDecorator(field2, DslDiagrams::ConnectorDecoratorPosition.SourceTop, new DslDiagrams::PointD(0.1, 0.05));
-			decorators.Add(decorator2);
-				
 		}
 		
 		#endregion

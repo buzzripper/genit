@@ -84,6 +84,7 @@
       <LastGenOutput>SerializationHelper.cs</LastGenOutput>
     </None>
     <Compile Include="CustomCode\AssociationConnectorCustomization.cs" />
+    <Compile Include="CustomCode\AssociationNavigationPropertyRules.cs" />
     <Compile Include="CustomCode\EntityUsesEnumRules.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
     <Compile Include="CustomCode\MultiplicityConverter.cs" />

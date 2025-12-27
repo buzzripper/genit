@@ -338,6 +338,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region GenSourceNavProperty domain property code
+		
+		/// <summary>
+		/// GenSourceNavProperty domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GenSourceNavPropertyDomainPropertyId = new global::System.Guid(0xa7b8c9d0, 0x1234, 0x5678, 0x9a, 0xbc, 0xde, 0xf0, 0x12, 0x34, 0x56, 0x78);
+		
+		/// <summary>
+		/// Storage for GenSourceNavProperty
+		/// </summary>
+		private global::System.Boolean genSourceNavPropertyPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of GenSourceNavProperty domain property.
+		/// Whether to generate a navigation property on the source entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/GenSourceNavProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/GenSourceNavProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("a7b8c9d0-1234-5678-9abc-def012345678")]
+		public global::System.Boolean GenSourceNavProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return genSourceNavPropertyPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GenSourceNavPropertyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.GenSourceNavProperty domain property.
+		/// </summary>
+		internal sealed partial class GenSourceNavPropertyPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private GenSourceNavPropertyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.GenSourceNavProperty domain property value handler.
+			/// </summary>
+			public static readonly GenSourceNavPropertyPropertyHandler Instance = new GenSourceNavPropertyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.GenSourceNavProperty domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GenSourceNavPropertyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.genSourceNavPropertyPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.genSourceNavPropertyPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region TargetMultiplicity domain property code
 		
 		/// <summary>
@@ -506,6 +594,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.targetRoleNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region GenTargetNavProperty domain property code
+		
+		/// <summary>
+		/// GenTargetNavProperty domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid GenTargetNavPropertyDomainPropertyId = new global::System.Guid(0xb8c9d0e1, 0x2345, 0x6789, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89);
+		
+		/// <summary>
+		/// Storage for GenTargetNavProperty
+		/// </summary>
+		private global::System.Boolean genTargetNavPropertyPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of GenTargetNavProperty domain property.
+		/// Whether to generate a navigation property on the target entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/GenTargetNavProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/GenTargetNavProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b8c9d0e1-2345-6789-abcd-ef0123456789")]
+		public global::System.Boolean GenTargetNavProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return genTargetNavPropertyPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				GenTargetNavPropertyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.GenTargetNavProperty domain property.
+		/// </summary>
+		internal sealed partial class GenTargetNavPropertyPropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.Boolean>
+		{
+			private GenTargetNavPropertyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.GenTargetNavProperty domain property value handler.
+			/// </summary>
+			public static readonly GenTargetNavPropertyPropertyHandler Instance = new GenTargetNavPropertyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.GenTargetNavProperty domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return GenTargetNavPropertyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.genTargetNavPropertyPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.genTargetNavPropertyPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -3027,6 +3202,242 @@ namespace Dyvenix.GenIt
 			foreach ( global::Dyvenix.GenIt.EntityUsesEnum link in links )
 			{
 				if ( target.Equals(link.Enum) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship ClassHasNavigationProperties
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassHasNavigationProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassHasNavigationProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("d4e5f6a7-b8c9-0123-4567-89abcdef0123")]
+	public partial class ClassHasNavigationProperties : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// ClassHasNavigationProperties domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xd4e5f6a7, 0xb8c9, 0x0123, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a ClassHasNavigationProperties link in the same Partition as the given EntityModel
+		/// </summary>
+		/// <param name="source">EntityModel to use as the source of the relationship.</param>
+		/// <param name="target">NavigationProperty to use as the target of the relationship.</param>
+		public ClassHasNavigationProperties(EntityModel source, NavigationProperty target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ClassHasNavigationProperties.EntityModelDomainRoleId, source), new DslModeling::RoleAssignment(ClassHasNavigationProperties.NavigationPropertyDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ClassHasNavigationProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ClassHasNavigationProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ClassHasNavigationProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ClassHasNavigationProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EntityModel domain role code
+		
+		/// <summary>
+		/// EntityModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityModelDomainRoleId = new global::System.Guid(0xe5f6a7b8, 0xc9d0, 0x1234, 0x56, 0x78, 0x9a, 0xbc, 0xde, 0xf0, 0x12, 0x34);
+		
+		/// <summary>
+		/// DomainRole EntityModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "NavigationProperties", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("e5f6a7b8-c9d0-1234-5678-9abcdef01234")]
+		public virtual EntityModel EntityModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, EntityModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, EntityModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access EntityModel of a NavigationProperty
+		/// <summary>
+		/// Gets EntityModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static EntityModel GetEntityModel(NavigationProperty element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, NavigationPropertyDomainRoleId) as EntityModel;
+		}
+		
+		/// <summary>
+		/// Sets EntityModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetEntityModel(NavigationProperty element, EntityModel newEntityModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, NavigationPropertyDomainRoleId, newEntityModel);
+		}
+		#endregion
+		#region NavigationProperty domain role code
+		
+		/// <summary>
+		/// NavigationProperty domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid NavigationPropertyDomainRoleId = new global::System.Guid(0xf6a7b8c9, 0xd0e1, 0x2345, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45);
+		
+		/// <summary>
+		/// DomainRole NavigationProperty
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityModel", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainObjectId("f6a7b8c9-d0e1-2345-6789-abcdef012345")]
+		public virtual NavigationProperty NavigationProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (NavigationProperty)DslModeling::DomainRoleInfo.GetRolePlayer(this, NavigationPropertyDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, NavigationPropertyDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access NavigationProperties of a EntityModel
+		/// <summary>
+		/// Gets a list of NavigationProperties.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<NavigationProperty> GetNavigationProperties(EntityModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<NavigationProperty>, NavigationProperty>(element, EntityModelDomainRoleId);
+		}
+		#endregion
+		#region EntityModel link accessor
+		/// <summary>
+		/// Get the list of ClassHasNavigationProperties links to a EntityModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasNavigationProperties> GetLinksToNavigationProperties ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasNavigationProperties>(entityModelInstance, global::Dyvenix.GenIt.ClassHasNavigationProperties.EntityModelDomainRoleId);
+		}
+		#endregion
+		#region NavigationProperty link accessor
+		/// <summary>
+		/// Get the ClassHasNavigationProperties link to a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ClassHasNavigationProperties GetLinkToEntityModel (global::Dyvenix.GenIt.NavigationProperty navigationPropertyInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ClassHasNavigationProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasNavigationProperties>(navigationPropertyInstance, global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of NavigationProperty not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region ClassHasNavigationProperties instance accessors
+		
+		/// <summary>
+		/// Get any ClassHasNavigationProperties links between a given EntityModel and a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasNavigationProperties> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.NavigationProperty target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ClassHasNavigationProperties> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ClassHasNavigationProperties>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ClassHasNavigationProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasNavigationProperties>(source, global::Dyvenix.GenIt.ClassHasNavigationProperties.EntityModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ClassHasNavigationProperties link in links )
+			{
+				if ( target.Equals(link.NavigationProperty) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one ClassHasNavigationProperties link between a given EntityModeland a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ClassHasNavigationProperties GetLink( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.NavigationProperty target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ClassHasNavigationProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasNavigationProperties>(source, global::Dyvenix.GenIt.ClassHasNavigationProperties.EntityModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ClassHasNavigationProperties link in links )
+			{
+				if ( target.Equals(link.NavigationProperty) )
 				{
 					return link;
 				}

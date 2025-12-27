@@ -270,7 +270,7 @@ namespace Dyvenix.GenIt
 				{
 					localCompartmentsOffset = baseCompartmentDescriptions.Length;
 				}
-				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[2+localCompartmentsOffset];
+				compartmentDescriptions = new DslDiagrams::ElementListCompartmentDescription[3+localCompartmentsOffset];
 				
 				if(baseCompartmentDescriptions!=null)
 				{
@@ -286,13 +286,22 @@ namespace Dyvenix.GenIt
 					compartmentDescriptions[localCompartmentsOffset+0] = descriptor;
 				}
 				{
+					string title = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("ClassShapeNavPropertiesCompartmentTitle");
+					DslDiagrams::ElementListCompartmentDescription descriptor = new DslDiagrams::ElementListCompartmentDescription("NavPropertiesCompartment", title, 
+						global::System.Drawing.Color.FromArgb(255, 235, 235, 235), false, 
+						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
+						null, null,
+						false);
+					compartmentDescriptions[localCompartmentsOffset+1] = descriptor;
+				}
+				{
 					string title = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("ClassShapeOperationsCompartmentTitle");
 					DslDiagrams::ElementListCompartmentDescription descriptor = new DslDiagrams::ElementListCompartmentDescription("OperationsCompartment", title, 
 						global::System.Drawing.Color.FromArgb(255, 235, 235, 235), false, 
 						global::System.Drawing.Color.FromKnownColor(global::System.Drawing.KnownColor.White), false,
 						null, null,
 						false);
-					compartmentDescriptions[localCompartmentsOffset+1] = descriptor;
+					compartmentDescriptions[localCompartmentsOffset+2] = descriptor;
 				}
 			}
 			
@@ -326,7 +335,7 @@ namespace Dyvenix.GenIt
 					{
 						localCompartmentMappingsOffset = baseMappings.Length;
 					}
-					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[2+localCompartmentMappingsOffset];
+					DslDiagrams::CompartmentMapping[] mappings = new DslDiagrams::CompartmentMapping[3+localCompartmentMappingsOffset];
 					
 					if(baseMappings!=null)
 					{
@@ -341,6 +350,14 @@ namespace Dyvenix.GenIt
 																				null,
 																				null);
 					mappings[localCompartmentMappingsOffset+1] = new DslDiagrams::ElementListCompartmentMapping(
+																				"NavPropertiesCompartment", 
+																				global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId, 
+																				global::Dyvenix.GenIt.NavigationProperty.DomainClassId, 
+																				GetElementsFromEntityModelForNavPropertiesCompartment,
+																				null,
+																				null,
+																				null);
+					mappings[localCompartmentMappingsOffset+2] = new DslDiagrams::ElementListCompartmentMapping(
 																				"OperationsCompartment", 
 																				global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId, 
 																				global::Dyvenix.GenIt.ClassOperation.DomainClassId, 
@@ -382,6 +399,13 @@ namespace Dyvenix.GenIt
 				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
 					// Segments 0 and 1
 					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.PropertyModel> result = root.Attributes;
+				return result;
+			}
+			internal static global::System.Collections.IList GetElementsFromEntityModelForNavPropertiesCompartment(DslModeling::ModelElement rootElement)
+			{
+				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
+					// Segments 0 and 1
+					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.NavigationProperty> result = root.NavigationProperties;
 				return result;
 			}
 			internal static global::System.Collections.IList GetElementsFromEntityModelForOperationsCompartment(DslModeling::ModelElement rootElement)

@@ -381,6 +381,30 @@
     <value>Generate Code</value>
     <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EnumModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.NavigationProperty.Description" xml:space="preserve">
+    <value>A navigation property representing a relationship to another entity.</value>
+    <comment>Description for DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.NavigationProperty.DisplayName" xml:space="preserve">
+    <value>Navigation Property</value>
+    <comment>DisplayName for DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.NavigationProperty/TargetEntityName.Description" xml:space="preserve">
+    <value>Name of the target entity type</value>
+    <comment>Description for DomainProperty &apos;TargetEntityName&apos; on DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.NavigationProperty/TargetEntityName.DisplayName" xml:space="preserve">
+    <value>Target Entity</value>
+    <comment>DisplayName for DomainProperty &apos;TargetEntityName&apos; on DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.NavigationProperty/IsCollection.Description" xml:space="preserve">
+    <value>Whether this navigation property is a collection</value>
+    <comment>Description for DomainProperty &apos;IsCollection&apos; on DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.NavigationProperty/IsCollection.DisplayName" xml:space="preserve">
+    <value>Is Collection</value>
+    <comment>DisplayName for DomainProperty &apos;IsCollection&apos; on DomainClass &apos;NavigationProperty&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -405,6 +429,14 @@
     <value>Source Role Name</value>
     <comment>DisplayName for DomainProperty &apos;SourceRoleName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/GenSourceNavProperty.Description" xml:space="preserve">
+    <value>Whether to generate a navigation property on the source entity</value>
+    <comment>Description for DomainProperty &apos;GenSourceNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/GenSourceNavProperty.DisplayName" xml:space="preserve">
+    <value>Gen Source Nav Property</value>
+    <comment>DisplayName for DomainProperty &apos;GenSourceNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/TargetMultiplicity.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;TargetMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
@@ -420,6 +452,14 @@
   <data name="Dyvenix.GenIt.Association/TargetRoleName.DisplayName" xml:space="preserve">
     <value>Target Role Name</value>
     <comment>DisplayName for DomainProperty &apos;TargetRoleName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/GenTargetNavProperty.Description" xml:space="preserve">
+    <value>Whether to generate a navigation property on the target entity</value>
+    <comment>Description for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/GenTargetNavProperty.DisplayName" xml:space="preserve">
+    <value>Gen Target Nav Property</value>
+    <comment>DisplayName for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association/Source.Description" xml:space="preserve">
     <value></value>
@@ -777,6 +817,38 @@
     <value>Using Entities</value>
     <comment>PropertyDisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainClass &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties.DisplayName" xml:space="preserve">
+    <value>Class Has Navigation Properties</value>
+    <comment>DisplayName for DomainClass &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.DisplayName" xml:space="preserve">
+    <value>Entity Model</value>
+    <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/EntityModel.PropertyDisplayName" xml:space="preserve">
+    <value>Navigation Properties</value>
+    <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.DisplayName" xml:space="preserve">
+    <value>Navigation Property</value>
+    <comment>DisplayName for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.PropertyDisplayName" xml:space="preserve">
+    <value>Entity Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.AccessModifier/Public.DisplayName" xml:space="preserve">
     <value>Public</value>
     <comment>Display name for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
@@ -1093,6 +1165,10 @@
     <value>Properties</value>
     <comment>Compartment title</comment>
   </data>
+  <data name="ClassShapeNavPropertiesCompartmentTitle" xml:space="preserve">
+    <value>Navigation Properties</value>
+    <comment>Compartment title</comment>
+  </data>
   <data name="ClassShapeOperationsCompartmentTitle" xml:space="preserve">
     <value>Operations</value>
     <comment>Compartment title</comment>
@@ -1156,14 +1232,6 @@
   <data name="Dyvenix.GenIt.AssociationConnector.DisplayName" xml:space="preserve">
     <value>Association Connector</value>
     <comment>DisplayName for DomainClass &apos;AssociationConnector&apos;</comment>
-  </data>
-  <data name="AssociationConnectorTargetRoleNameDefaultText" xml:space="preserve">
-    <value>TargetRoleName</value>
-    <comment>Text decorator default text</comment>
-  </data>
-  <data name="AssociationConnectorSourceRoleNameDefaultText" xml:space="preserve">
-    <value>SourceRoleName</value>
-    <comment>Text decorator default text</comment>
   </data>
   <data name="Dyvenix.GenIt.GeneralizationConnector.Description" xml:space="preserve">
     <value></value>

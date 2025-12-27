@@ -60,6 +60,14 @@
         </ElementMergeDirective>
         <ElementMergeDirective>
           <Index>
+            <DomainClassMoniker Name="NavigationProperty" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>ClassHasNavigationProperties.NavigationProperties</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
             <DomainClassMoniker Name="ClassOperation" />
           </Index>
           <LinkCreationPaths>
@@ -242,6 +250,23 @@
         </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
+    <DomainClass Id="a1b2c3d4-e5f6-7890-abcd-ef1234567890" Description="A navigation property representing a relationship to another entity." Name="NavigationProperty" DisplayName="Navigation Property" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ClassModelElement" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="b2c3d4e5-f6a7-8901-bcde-f23456789012" Description="Name of the target entity type" Name="TargetEntityName" DisplayName="Target Entity" DefaultValue="">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="c3d4e5f6-a7b8-9012-cdef-345678901234" Description="Whether this navigation property is a collection" Name="IsCollection" DisplayName="Is Collection" DefaultValue="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
   </Classes>
   <Relationships>
     <DomainRelationship Id="4a55a93f-ffed-423c-ad69-a1b5c9c85a1e" Description="Associations between Classes." Name="Association" DisplayName="Association" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
@@ -258,6 +283,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a7b8c9d0-1234-5678-9abc-def012345678" Description="Whether to generate a navigation property on the source entity" Name="GenSourceNavProperty" DisplayName="Gen Source Nav Property" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
         <DomainProperty Id="007c3000-0bf3-4179-a114-883ede04c3df" Description="" Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultValue="Many">
           <Type>
             <DomainEnumerationMoniker Name="Multiplicity" />
@@ -266,6 +296,11 @@
         <DomainProperty Id="d0dfb7ed-2955-4348-b1e2-c8d8da294082" Description="" Name="TargetRoleName" DisplayName="Target Role Name" DefaultValue="">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b8c9d0e1-2345-6789-abcd-ef0123456789" Description="Whether to generate a navigation property on the target entity" Name="GenTargetNavProperty" DisplayName="Gen Target Nav Property" DefaultValue="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -460,6 +495,22 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
+    <DomainRelationship Id="d4e5f6a7-b8c9-0123-4567-89abcdef0123" Description="" Name="ClassHasNavigationProperties" DisplayName="Class Has Navigation Properties" Namespace="Dyvenix.GenIt" IsEmbedding="true">
+      <Source>
+        <DomainRole Id="e5f6a7b8-c9d0-1234-5678-9abcdef01234" Description="" Name="EntityModel" DisplayName="Entity Model" PropertyName="NavigationProperties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Navigation Properties">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="f6a7b8c9-d0e1-2345-6789-abcdef012345" Description="" Name="NavigationProperty" DisplayName="Navigation Property" PropertyName="EntityModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="NavigationProperty" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -549,6 +600,7 @@
         <ExpandCollapseDecorator Name="ExpandCollapse" DisplayName="Expand Collapse" />
       </ShapeHasDecorators>
       <Compartment TitleFillColor="235, 235, 235" Name="PropertiesCompartment" Title="Properties" />
+      <Compartment TitleFillColor="235, 235, 235" Name="NavPropertiesCompartment" Title="Navigation Properties" />
       <Compartment TitleFillColor="235, 235, 235" Name="OperationsCompartment" Title="Operations" />
     </CompartmentShape>
     <CompartmentShape Id="c8894909-29b3-4763-ab1e-bb10d40d8335" Description="" Name="InterfaceShape" DisplayName="Interface Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Interface Shape" FillColor="LightGray" InitialHeight="0.5" OutlineThickness="0.01" Geometry="RoundedRectangle">
@@ -586,12 +638,6 @@
   </Shapes>
   <Connectors>
     <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
-      <ConnectorHasDecorators Position="TargetTop" OffsetFromShape="0.1" OffsetFromLine="0.05">
-        <TextDecorator Name="TargetRoleName" DisplayName="Target Role Name" DefaultText="TargetRoleName" />
-      </ConnectorHasDecorators>
-      <ConnectorHasDecorators Position="SourceTop" OffsetFromShape="0.1" OffsetFromLine="0.05">
-        <TextDecorator Name="SourceRoleName" DisplayName="Source Role Name" DefaultText="SourceRoleName" />
-      </ConnectorHasDecorators>
     </Connector>
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
@@ -618,11 +664,17 @@
           <XmlPropertyData XmlName="sourceRoleName">
             <DomainPropertyMoniker Name="Association/SourceRoleName" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="genSourceNavProperty">
+            <DomainPropertyMoniker Name="Association/GenSourceNavProperty" />
+          </XmlPropertyData>
           <XmlPropertyData XmlName="targetMultiplicity">
             <DomainPropertyMoniker Name="Association/TargetMultiplicity" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="targetRoleName">
             <DomainPropertyMoniker Name="Association/TargetRoleName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genTargetNavProperty">
+            <DomainPropertyMoniker Name="Association/GenTargetNavProperty" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -677,6 +729,9 @@
           </XmlPropertyData>
           <XmlRelationshipData RoleElementName="attributes">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
+          </XmlRelationshipData>
+          <XmlRelationshipData RoleElementName="navigationProperties">
+            <DomainRelationshipMoniker Name="ClassHasNavigationProperties" />
           </XmlRelationshipData>
           <XmlRelationshipData RoleElementName="operations">
             <DomainRelationshipMoniker Name="ClassHasOperations" />
@@ -814,6 +869,20 @@
       </XmlClassData>
       <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
         <ConnectorMoniker Name="EnumAssociationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="NavigationProperty" MonikerAttributeName="" SerializeId="true" MonikerElementName="navigationPropertyMoniker" ElementName="navigationProperty" MonikerTypeName="NavigationPropertyMoniker">
+        <DomainClassMoniker Name="NavigationProperty" />
+        <ElementData>
+          <XmlPropertyData XmlName="targetEntityName">
+            <DomainPropertyMoniker Name="NavigationProperty/TargetEntityName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isCollection">
+            <DomainPropertyMoniker Name="NavigationProperty/IsCollection" />
+          </XmlPropertyData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ClassHasNavigationProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasNavigationPropertiesMoniker" ElementName="classHasNavigationProperties" MonikerTypeName="ClassHasNavigationPropertiesMoniker">
+        <DomainRelationshipMoniker Name="ClassHasNavigationProperties" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -954,6 +1023,17 @@
           </PropertyDisplayed>
         </CompartmentMap>
         <CompartmentMap>
+          <CompartmentMoniker Name="ClassShape/NavPropertiesCompartment" />
+          <ElementsDisplayed>
+            <DomainPath>ClassHasNavigationProperties.NavigationProperties/!NavigationProperty</DomainPath>
+          </ElementsDisplayed>
+          <PropertyDisplayed>
+            <PropertyPath>
+              <DomainPropertyMoniker Name="NamedElement/Name" />
+            </PropertyPath>
+          </PropertyDisplayed>
+        </CompartmentMap>
+        <CompartmentMap>
           <CompartmentMoniker Name="ClassShape/OperationsCompartment" />
           <ElementsDisplayed>
             <DomainPath>ClassHasOperations.Operations/!Operation</DomainPath>
@@ -1037,22 +1117,6 @@
       <ConnectorMap>
         <ConnectorMoniker Name="AssociationConnector" />
         <DomainRelationshipMoniker Name="Association" />
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/SourceRoleName" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="Association/SourceRoleName" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/TargetRoleName" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="Association/TargetRoleName" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
       </ConnectorMap>
       <ConnectorMap>
         <ConnectorMoniker Name="EnumAssociationConnector" />

@@ -16,10 +16,18 @@ namespace Dyvenix.GenIt
         {
             return new Type[]
             {
+                // EntityUsesEnum rules
                 typeof(EntityUsesEnumAddRule),
                 typeof(EntityUsesEnumDeleteRule),
                 typeof(PropertyModelDeleteRule),
                 typeof(EntityUsesEnumPropertyNameChangeRule),
+                
+                // Association navigation property rules
+                typeof(AssociationAddRule),
+                typeof(AssociationDeleteRule),
+                typeof(AssociationPropertyChangeRule),
+                typeof(NavigationPropertyDeleteRule),
+                typeof(NavigationPropertyNameChangeRule),
             };
         }
     }
