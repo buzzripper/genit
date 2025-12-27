@@ -101,11 +101,6 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="25717fe9-d9b3-4b94-a58c-f82c1ee7397d" Description="" Name="Multiplicity" DisplayName="Multiplicity" DefaultValue="1" Category="Type">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="27906d32-ad8a-4efd-98c0-95e0c0798f7c" Description="" Name="Comment" DisplayName="Comment" Namespace="Dyvenix.GenIt">
@@ -199,7 +194,7 @@
         <DomainClassMoniker Name="NamedElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0" Description="This is a Description." Name="Description" DisplayName="Description" DefaultValue="" Category="General">
+        <DomainProperty Id="77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0" Description="This is a Description." Name="Description" DisplayName="Description" Category="General">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -769,9 +764,6 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="initialValue">
             <DomainPropertyMoniker Name="PropertyModel/InitialValue" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="multiplicity">
-            <DomainPropertyMoniker Name="PropertyModel/Multiplicity" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

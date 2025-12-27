@@ -128,7 +128,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(PropertyModel), "EnumTypeName", PropertyModel.EnumTypeNameDomainPropertyId, typeof(PropertyModel.EnumTypeNamePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "Length", PropertyModel.LengthDomainPropertyId, typeof(PropertyModel.LengthPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "InitialValue", PropertyModel.InitialValueDomainPropertyId, typeof(PropertyModel.InitialValuePropertyHandler)),
-				new DomainMemberInfo(typeof(PropertyModel), "Multiplicity", PropertyModel.MultiplicityDomainPropertyId, typeof(PropertyModel.MultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Signature", Operation.SignatureDomainPropertyId, typeof(Operation.SignaturePropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Concurrency", Operation.ConcurrencyDomainPropertyId, typeof(Operation.ConcurrencyPropertyHandler)),

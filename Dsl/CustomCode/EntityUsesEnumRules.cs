@@ -157,4 +157,51 @@ namespace Dyvenix.GenIt
             }
         }
     }
+
+    /// <summary>
+    /// Rule that fires when EnumModel.Name changes.
+    /// Updates the EnumTypeName on all PropertyModels that reference this enum.
+    /// </summary>
+    [RuleOn(typeof(EnumModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EnumModelNameChangeRule : ChangeRule
+    {
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            if (e.DomainProperty.Id != EnumModel.NameDomainPropertyId)
+                return;
+
+            var enumModel = e.ModelElement as EnumModel;
+            if (enumModel == null || enumModel.IsDeleting || enumModel.IsDeleted)
+                return;
+
+            string oldName = e.OldValue as string;
+            string newName = e.NewValue as string;
+
+            if (string.IsNullOrEmpty(oldName) || string.IsNullOrEmpty(newName) || oldName == newName)
+                return;
+
+            // Find all EntityUsesEnum links for this enum and update the associated properties
+            var links = EntityUsesEnum.GetLinksToUsingEntities(enumModel);
+            foreach (var link in links)
+            {
+                if (link.IsDeleting || link.IsDeleted)
+                    continue;
+
+                var entity = link.Entity;
+                if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                    continue;
+
+                // Find the property with this enum type and update EnumTypeName
+                var property = entity.Attributes.FirstOrDefault(p =>
+                    p.Name == link.PropertyName &&
+                    p.DataType == DataType.Enum &&
+                    p.EnumTypeName == oldName);
+
+                if (property != null && !property.IsDeleting && !property.IsDeleted)
+                {
+                    property.EnumTypeName = newName;
+                }
+            }
+        }
+    }
 }

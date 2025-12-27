@@ -2831,23 +2831,6 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// Multiplicity
-			if (!serializationContext.Result.Failed)
-			{
-				string attribMultiplicity = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "multiplicity");
-				if (attribMultiplicity != null)
-				{
-					global::System.String valueOfMultiplicity;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribMultiplicity, out valueOfMultiplicity))
-					{
-						instanceOfPropertyModel.Multiplicity = valueOfMultiplicity;
-					}
-					else
-					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "multiplicity", typeof(global::System.String), attribMultiplicity);
-					}
-				}
-			}
 		}
 	
 		#region TryCreateInstance
@@ -3284,18 +3267,6 @@ namespace Dyvenix.GenIt
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "initialValue", propValue);
-					}
-				}
-			}
-			// Multiplicity
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.String propValue = instanceOfPropertyModel.Multiplicity;
-				if (!serializationContext.Result.Failed)
-				{
-					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, "1") != 0))
-					{	// No need to write the value out if it's the same as default value.
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "multiplicity", propValue);
 					}
 				}
 			}
@@ -7713,10 +7684,9 @@ namespace Dyvenix.GenIt
 				global::System.String propValue = instanceOfClassModelElement.Description;
 				if (!serializationContext.Result.Failed)
 				{
-					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
-					{	// No need to write the value out if it's the same as default value.
+					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "description", propValue);
-					}
+	
 				}
 			}
 		}

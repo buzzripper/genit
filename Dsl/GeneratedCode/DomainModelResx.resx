@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -232,18 +232,6 @@
   <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Category" xml:space="preserve">
     <value>Value</value>
     <comment>Category for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName" xml:space="preserve">
-    <value>Multiplicity</value>
-    <comment>DisplayName for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.Category" xml:space="preserve">
-    <value>Type</value>
-    <comment>Category for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>

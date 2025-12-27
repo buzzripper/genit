@@ -1197,94 +1197,6 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region Multiplicity domain property code
-		
-		/// <summary>
-		/// Multiplicity domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid MultiplicityDomainPropertyId = new global::System.Guid(0x25717fe9, 0xd9b3, 0x4b94, 0xa5, 0x8c, 0xf8, 0x2c, 0x1e, 0xe7, 0x39, 0x7d);
-		
-		/// <summary>
-		/// Storage for Multiplicity
-		/// </summary>
-		private global::System.String multiplicityPropertyStorage = "1";
-		
-		/// <summary>
-		/// Gets or sets the value of Multiplicity domain property.
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/Multiplicity.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Multiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("1")]
-		[DslModeling::DomainObjectId("25717fe9-d9b3-4b94-a58c-f82c1ee7397d")]
-		public global::System.String Multiplicity
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return multiplicityPropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				MultiplicityPropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the PropertyModel.Multiplicity domain property.
-		/// </summary>
-		internal sealed partial class MultiplicityPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
-		{
-			private MultiplicityPropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the PropertyModel.Multiplicity domain property value handler.
-			/// </summary>
-			public static readonly MultiplicityPropertyHandler Instance = new MultiplicityPropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the PropertyModel.Multiplicity domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return MultiplicityDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(PropertyModel element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.multiplicityPropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.String oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.multiplicityPropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
 		#region EntityModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModel.
@@ -2448,7 +2360,6 @@ namespace Dyvenix.GenIt
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassModelElement/Description.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Dyvenix.GenIt.ClassModelElement/Description.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassModelElement/Description.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0")]
 		public global::System.String Description
 		{

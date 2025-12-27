@@ -21,6 +21,7 @@ namespace Dyvenix.GenIt
                 typeof(EntityUsesEnumDeleteRule),
                 typeof(PropertyModelDeleteRule),
                 typeof(EntityUsesEnumPropertyNameChangeRule),
+                typeof(EnumModelNameChangeRule),
                 
                 // Association navigation property rules
                 typeof(AssociationAddRule),
