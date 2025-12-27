@@ -321,6 +321,11 @@ namespace Dyvenix.GenIt
 				global::Dyvenix.GenIt.AssociationConnector newShape = new global::Dyvenix.GenIt.AssociationConnector(this.Partition);
 				return newShape;
 			}
+			if(element is global::Dyvenix.GenIt.EntityUsesEnum)
+			{
+				global::Dyvenix.GenIt.EnumAssociationConnector newShape = new global::Dyvenix.GenIt.EnumAssociationConnector(this.Partition);
+				return newShape;
+			}
 			return base.CreateChildShape(element);
 		}
 		#endregion
@@ -437,6 +442,7 @@ namespace Dyvenix.GenIt
 		#region Connect actions
 		private bool changingMouseAction;
 		private global::Dyvenix.GenIt.AssociationConnectAction associationConnectAction;
+		private global::Dyvenix.GenIt.EnumAssociationConnectAction enumAssociationConnectAction;
 		private global::Dyvenix.GenIt.CommentsReferenceTypesConnectAction commentsReferenceTypesConnectAction;
 		/// <summary>
 		/// Virtual method to provide a filter when to select the mouse action
@@ -468,6 +474,15 @@ namespace Dyvenix.GenIt
 						this.associationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
 					}
 					action = this.associationConnectAction;
+				} 
+				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.EnumAssociationFilterString))
+				{
+					if (this.enumAssociationConnectAction == null)
+					{
+						this.enumAssociationConnectAction = new global::Dyvenix.GenIt.EnumAssociationConnectAction(this);
+						this.enumAssociationConnectAction.MouseActionDeactivated += new DslDiagrams::MouseAction.MouseActionDeactivatedEventHandler(OnConnectActionDeactivated);
+					}
+					action = this.enumAssociationConnectAction;
 				} 
 				else if (SelectedToolboxItemSupportsFilterString(activeView, global::Dyvenix.GenIt.GenItToolboxHelper.CommentsReferenceTypesFilterString))
 				{
@@ -540,6 +555,11 @@ namespace Dyvenix.GenIt
 						this.associationConnectAction.Dispose();
 						this.associationConnectAction = null;
 					}
+					if(this.enumAssociationConnectAction != null)
+					{
+						this.enumAssociationConnectAction.Dispose();
+						this.enumAssociationConnectAction = null;
+					}
 					if(this.commentsReferenceTypesConnectAction != null)
 					{
 						this.commentsReferenceTypesConnectAction.Dispose();
@@ -604,6 +624,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityUsesEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
 			[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
@@ -1212,6 +1233,7 @@ namespace Dyvenix.GenIt
 		/// Reroute a connector when the role players of its underlying relationship change
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityUsesEnum), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
 		{
 			/// <summary>

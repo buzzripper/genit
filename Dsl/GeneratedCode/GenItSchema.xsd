@@ -194,6 +194,21 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
+          <!-- Relationship: EntityUsesEnum -->
+          <xsd:element name="usedEnums" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of EntityUsesEnum</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="entityUsesEnum" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of EntityUsesEnum needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -237,6 +252,12 @@
         </xsd:attribute>
         <!-- Property: DataType -->
         <xsd:attribute name="dataType" type="DataType" />
+        <!-- Property: EnumTypeName -->
+        <xsd:attribute name="enumTypeName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the enum type when DataType is Enum</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: Length -->
         <xsd:attribute name="length" type="xsd:integer" >
           <xsd:annotation>
@@ -1075,6 +1096,55 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- EntityUsesEnum -->
+  <xsd:element name="entityUsesEnum" type="EntityUsesEnum" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EntityUsesEnum">
+    <xsd:annotation>
+      <xsd:documentation>Association between Entity and Enum creating a property</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end EnumModel -->
+          <xsd:element ref="enumModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: PropertyName -->
+        <xsd:attribute name="propertyName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the property on the entity</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EntityUsesEnum Moniker -->
+  <xsd:element name="entityUsesEnumMoniker" type="EntityUsesEnumMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EntityUsesEnumMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EntityUsesEnum instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
   <!-- Enum AccessModifier -->
   <xsd:simpleType name="AccessModifier">
     <xsd:restriction base="xsd:string">
@@ -1226,6 +1296,11 @@
       <xsd:enumeration value="Object">
         <xsd:annotation>
           <xsd:documentation>System.Object</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Enum">
+        <xsd:annotation>
+          <xsd:documentation>Enum type - see EnumTypeName property</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

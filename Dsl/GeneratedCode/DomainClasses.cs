@@ -621,6 +621,20 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region UsedEnums opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of UsedEnums.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EnumModel> UsedEnums
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
+			}
+		}
+		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -868,6 +882,94 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.dataTypePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumTypeName domain property code
+		
+		/// <summary>
+		/// EnumTypeName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumTypeNameDomainPropertyId = new global::System.Guid(0xd1e2f3a4, 0xb5c6, 0x4d7e, 0x8f, 0x9a, 0x0b, 0x1c, 0x2d, 0x3e, 0x4f, 0x5a);
+		
+		/// <summary>
+		/// Storage for EnumTypeName
+		/// </summary>
+		private global::System.String enumTypeNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EnumTypeName domain property.
+		/// Name of the enum type when DataType is Enum
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("")]
+		[DslModeling::DomainObjectId("d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a")]
+		public global::System.String EnumTypeName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enumTypeNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnumTypeNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.EnumTypeName domain property.
+		/// </summary>
+		internal sealed partial class EnumTypeNamePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
+		{
+			private EnumTypeNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.EnumTypeName domain property value handler.
+			/// </summary>
+			public static readonly EnumTypeNamePropertyHandler Instance = new EnumTypeNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.EnumTypeName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnumTypeNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enumTypeNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enumTypeNamePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -2828,6 +2930,20 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumMember>, EnumMember>(global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region UsingEntities opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of UsingEntities.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EntityModel> UsingEntities
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityUsesEnum.EnumDomainRoleId);
 			}
 		}
 		#endregion

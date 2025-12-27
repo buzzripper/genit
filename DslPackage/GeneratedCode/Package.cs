@@ -46,21 +46,13 @@ namespace Dyvenix.GenIt
 					0xff00ff,
 					Index = 1)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@EnumMemberToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.EnumMemberToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"EnumMemberF1Keyword", 
-					"@EnumMemberToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 2)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@AttributeToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.AttributeToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"AttributeF1Keyword", 
 					"@AttributeToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 3)]
+					Index = 2)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@ClassOperationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.ClassOperationToolboxItem", 
@@ -68,7 +60,7 @@ namespace Dyvenix.GenIt
 					"ClassOperationF1Keyword", 
 					"@ClassOperationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 4)]
+					Index = 3)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@ModelInterfaceToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.ModelInterfaceToolboxItem", 
@@ -76,7 +68,7 @@ namespace Dyvenix.GenIt
 					"ModelInterfaceF1Keyword", 
 					"@ModelInterfaceToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 5)]
+					Index = 4)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@InterfaceOperationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.InterfaceOperationToolboxItem", 
@@ -84,13 +76,21 @@ namespace Dyvenix.GenIt
 					"InterfaceOperationF1Keyword", 
 					"@InterfaceOperationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 6)]
+					Index = 5)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@AssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.AssociationToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"ConnectAssociationF1Keyword", 
 					"@AssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
+					0xff00ff,
+					Index = 6)]
+	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
+					"@EnumAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
+					"Dyvenix.GenIt.EnumAssociationToolboxItem", 
+					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
+					"EnumAssociationF1Keyword", 
+					"@EnumAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
 					Index = 7)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
