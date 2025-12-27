@@ -787,59 +787,59 @@ namespace Dyvenix.GenIt
 		{
 		}
 		#endregion
-		#region Type domain property code
+		#region DataType domain property code
 		
 		/// <summary>
-		/// Type domain property Id.
+		/// DataType domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid TypeDomainPropertyId = new global::System.Guid(0x4ef9ef25, 0xf6e7, 0x46f2, 0x9e, 0x48, 0xed, 0x93, 0x23, 0xcc, 0x08, 0x1f);
+		public static readonly global::System.Guid DataTypeDomainPropertyId = new global::System.Guid(0x4ef9ef25, 0xf6e7, 0x46f2, 0x9e, 0x48, 0xed, 0x93, 0x23, 0xcc, 0x08, 0x1f);
 		
 		/// <summary>
-		/// Storage for Type
+		/// Storage for DataType
 		/// </summary>
-		private global::System.String typePropertyStorage = string.Empty;
+		private DataType dataTypePropertyStorage = DataType.String;
 		
 		/// <summary>
-		/// Gets or sets the value of Type domain property.
+		/// Gets or sets the value of DataType domain property.
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Type.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Type.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/DataType.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/DataType.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(DataType.String)]
 		[DslModeling::DomainObjectId("4ef9ef25-f6e7-46f2-9e48-ed9323cc081f")]
-		public global::System.String Type
+		public DataType DataType
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return typePropertyStorage;
+				return dataTypePropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				TypePropertyHandler.Instance.SetValue(this, value);
+				DataTypePropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the PropertyModel.Type domain property.
+		/// Value handler for the PropertyModel.DataType domain property.
 		/// </summary>
-		internal sealed partial class TypePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
+		internal sealed partial class DataTypePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, DataType>
 		{
-			private TypePropertyHandler() { }
+			private DataTypePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the PropertyModel.Type domain property value handler.
+			/// Gets the singleton instance of the PropertyModel.DataType domain property value handler.
 			/// </summary>
-			public static readonly TypePropertyHandler Instance = new TypePropertyHandler();
+			public static readonly DataTypePropertyHandler Instance = new DataTypePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the PropertyModel.Type domain property.
+			/// Gets the Id of the PropertyModel.DataType domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return TypeDomainPropertyId;
+					return DataTypeDomainPropertyId;
 				}
 			}
 			
@@ -848,10 +848,10 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(PropertyModel element)
+			public override sealed DataType GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.typePropertyStorage;
+				return element.dataTypePropertyStorage;
 			}
 		
 			/// <summary>
@@ -859,15 +859,102 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
+			public override sealed void SetValue(PropertyModel element, DataType newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				global::System.String oldValue = GetValue(element);
+				DataType oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.typePropertyStorage = newValue;
+					element.dataTypePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Length domain property code
+		
+		/// <summary>
+		/// Length domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid LengthDomainPropertyId = new global::System.Guid(0xa1b2c3d4, 0xe5f6, 0x4a5b, 0x8c, 0x9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d);
+		
+		/// <summary>
+		/// Storage for Length
+		/// </summary>
+		private global::System.Int32 lengthPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of Length domain property.
+		/// Maximum length for string types
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Length.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Length.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d")]
+		public global::System.Int32 Length
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return lengthPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				LengthPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.Length domain property.
+		/// </summary>
+		internal sealed partial class LengthPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Int32>
+		{
+			private LengthPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.Length domain property value handler.
+			/// </summary>
+			public static readonly LengthPropertyHandler Instance = new LengthPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.Length domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return LengthDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Int32 GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.lengthPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Int32 newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Int32 oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.lengthPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

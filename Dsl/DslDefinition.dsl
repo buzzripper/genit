@@ -73,9 +73,14 @@
         <DomainClassMoniker Name="ClassModelElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="" Name="Type" DisplayName="Type" DefaultValue="">
+        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="" Name="DataType" DisplayName="Data Type" DefaultValue="String">
           <Type>
-            <ExternalTypeMoniker Name="/System/String" />
+            <DomainEnumerationMoniker Name="DataType" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d" Description="Maximum length for string types" Name="Length" DisplayName="Length" DefaultValue="0">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="b9a0da77-ee42-4cd5-a7d3-85a8d724691e" Description="" Name="InitialValue" DisplayName="Initial Value" DefaultValue="">
@@ -421,6 +426,30 @@
         <EnumerationLiteral Description="" Name="Concurrent" Value="2" />
       </Literals>
     </DomainEnumeration>
+    <DomainEnumeration Name="DataType" Namespace="Dyvenix.GenIt" Description="Common C# data types">
+      <Literals>
+        <EnumerationLiteral Description="System.String" Name="String" Value="0" />
+		  <EnumerationLiteral Description="System.Int32" Name="Int32" Value="5" />
+		  <EnumerationLiteral Description="System.Boolean" Name="Boolean" Value="1" />
+		  <EnumerationLiteral Description="System.Guid" Name="Guid" Value="17" />
+		  <EnumerationLiteral Description="System.DateTime" Name="DateTime" Value="14" />
+		  <EnumerationLiteral Description="System.Byte" Name="Byte" Value="2" />
+        <EnumerationLiteral Description="System.SByte" Name="SByte" Value="3" />
+        <EnumerationLiteral Description="System.Int16" Name="Int16" Value="4" />
+        <EnumerationLiteral Description="System.Int64" Name="Int64" Value="6" />
+        <EnumerationLiteral Description="System.UInt16" Name="UInt16" Value="7" />
+        <EnumerationLiteral Description="System.UInt32" Name="UInt32" Value="8" />
+        <EnumerationLiteral Description="System.UInt64" Name="UInt64" Value="9" />
+        <EnumerationLiteral Description="System.Single" Name="Single" Value="10" />
+        <EnumerationLiteral Description="System.Double" Name="Double" Value="11" />
+        <EnumerationLiteral Description="System.Decimal" Name="Decimal" Value="12" />
+        <EnumerationLiteral Description="System.Char" Name="Char" Value="13" />
+        <EnumerationLiteral Description="System.DateTimeOffset" Name="DateTimeOffset" Value="15" />
+        <EnumerationLiteral Description="System.TimeSpan" Name="TimeSpan" Value="16" />
+        <EnumerationLiteral Description="Byte array" Name="ByteArray" Value="18" />
+        <EnumerationLiteral Description="System.Object" Name="Object" Value="19" />
+      </Literals>
+    </DomainEnumeration>
   </Types>
   <Shapes>
     <CompartmentShape Id="90f1ac4d-6ba9-4b0a-8559-20e1108d187b" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Class Shape" FillColor="211, 220, 239" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
@@ -563,8 +592,11 @@
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
         <DomainClassMoniker Name="PropertyModel" />
         <ElementData>
-          <XmlPropertyData XmlName="type">
-            <DomainPropertyMoniker Name="PropertyModel/Type" />
+          <XmlPropertyData XmlName="dataType">
+            <DomainPropertyMoniker Name="PropertyModel/DataType" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="length">
+            <DomainPropertyMoniker Name="PropertyModel/Length" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="initialValue">
             <DomainPropertyMoniker Name="PropertyModel/InitialValue" />

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema id="GenItSchema" targetNamespace="http://schemas.microsoft.com/dsltools/GenIt" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/GenIt" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
   <!-- NamedElement -->
@@ -235,8 +235,14 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: Type -->
-        <xsd:attribute name="type" type="xsd:string" />
+        <!-- Property: DataType -->
+        <xsd:attribute name="dataType" type="DataType" />
+        <!-- Property: Length -->
+        <xsd:attribute name="length" type="xsd:integer" >
+          <xsd:annotation>
+            <xsd:documentation>Maximum length for string types</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: InitialValue -->
         <xsd:attribute name="initialValue" type="xsd:string" />
         <!-- Property: Multiplicity -->
@@ -965,6 +971,115 @@
       <xsd:enumeration value="Sequential"/>
       <xsd:enumeration value="Guarded"/>
       <xsd:enumeration value="Concurrent"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Enum DataType -->
+  <xsd:simpleType name="DataType">
+    <xsd:annotation>
+      <xsd:documentation>Common C# data types</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="String">
+        <xsd:annotation>
+          <xsd:documentation>System.String</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Int32">
+        <xsd:annotation>
+          <xsd:documentation>System.Int32</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Boolean">
+        <xsd:annotation>
+          <xsd:documentation>System.Boolean</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Guid">
+        <xsd:annotation>
+          <xsd:documentation>System.Guid</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DateTime">
+        <xsd:annotation>
+          <xsd:documentation>System.DateTime</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Byte">
+        <xsd:annotation>
+          <xsd:documentation>System.Byte</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="SByte">
+        <xsd:annotation>
+          <xsd:documentation>System.SByte</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Int16">
+        <xsd:annotation>
+          <xsd:documentation>System.Int16</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Int64">
+        <xsd:annotation>
+          <xsd:documentation>System.Int64</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt16">
+        <xsd:annotation>
+          <xsd:documentation>System.UInt16</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt32">
+        <xsd:annotation>
+          <xsd:documentation>System.UInt32</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="UInt64">
+        <xsd:annotation>
+          <xsd:documentation>System.UInt64</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Single">
+        <xsd:annotation>
+          <xsd:documentation>System.Single</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Double">
+        <xsd:annotation>
+          <xsd:documentation>System.Double</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Decimal">
+        <xsd:annotation>
+          <xsd:documentation>System.Decimal</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Char">
+        <xsd:annotation>
+          <xsd:documentation>System.Char</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="DateTimeOffset">
+        <xsd:annotation>
+          <xsd:documentation>System.DateTimeOffset</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="TimeSpan">
+        <xsd:annotation>
+          <xsd:documentation>System.TimeSpan</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ByteArray">
+        <xsd:annotation>
+          <xsd:documentation>Byte array</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Object">
+        <xsd:annotation>
+          <xsd:documentation>System.Object</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   

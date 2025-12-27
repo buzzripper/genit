@@ -117,7 +117,8 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(NamedElement), "Name", NamedElement.NameDomainPropertyId, typeof(NamedElement.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
-				new DomainMemberInfo(typeof(PropertyModel), "Type", PropertyModel.TypeDomainPropertyId, typeof(PropertyModel.TypePropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "DataType", PropertyModel.DataTypeDomainPropertyId, typeof(PropertyModel.DataTypePropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "Length", PropertyModel.LengthDomainPropertyId, typeof(PropertyModel.LengthPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "InitialValue", PropertyModel.InitialValueDomainPropertyId, typeof(PropertyModel.InitialValuePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "Multiplicity", PropertyModel.MultiplicityDomainPropertyId, typeof(PropertyModel.MultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
@@ -672,6 +673,137 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.OperationConcurrency/Concurrent.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		Concurrent = 2,
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainEnumeration: DataType
+	/// Common C# data types
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+	public enum DataType
+	{
+		/// <summary>
+		/// String
+		/// System.String
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/String.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		String = 0,
+		/// <summary>
+		/// Int32
+		/// System.Int32
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Int32.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Int32 = 5,
+		/// <summary>
+		/// Boolean
+		/// System.Boolean
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Boolean.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Boolean = 1,
+		/// <summary>
+		/// Guid
+		/// System.Guid
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Guid.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Guid = 17,
+		/// <summary>
+		/// DateTime
+		/// System.DateTime
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/DateTime.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		DateTime = 14,
+		/// <summary>
+		/// Byte
+		/// System.Byte
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Byte.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Byte = 2,
+		/// <summary>
+		/// SByte
+		/// System.SByte
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/SByte.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		SByte = 3,
+		/// <summary>
+		/// Int16
+		/// System.Int16
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Int16.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Int16 = 4,
+		/// <summary>
+		/// Int64
+		/// System.Int64
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Int64.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Int64 = 6,
+		/// <summary>
+		/// UInt16
+		/// System.UInt16
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/UInt16.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		UInt16 = 7,
+		/// <summary>
+		/// UInt32
+		/// System.UInt32
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/UInt32.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		UInt32 = 8,
+		/// <summary>
+		/// UInt64
+		/// System.UInt64
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/UInt64.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		UInt64 = 9,
+		/// <summary>
+		/// Single
+		/// System.Single
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Single.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Single = 10,
+		/// <summary>
+		/// Double
+		/// System.Double
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Double.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Double = 11,
+		/// <summary>
+		/// Decimal
+		/// System.Decimal
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Decimal.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Decimal = 12,
+		/// <summary>
+		/// Char
+		/// System.Char
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Char.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Char = 13,
+		/// <summary>
+		/// DateTimeOffset
+		/// System.DateTimeOffset
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/DateTimeOffset.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		DateTimeOffset = 15,
+		/// <summary>
+		/// TimeSpan
+		/// System.TimeSpan
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/TimeSpan.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		TimeSpan = 16,
+		/// <summary>
+		/// ByteArray
+		/// Byte array
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/ByteArray.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		ByteArray = 18,
+		/// <summary>
+		/// Object
+		/// System.Object
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Object.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Object = 19,
 	}
 }
 

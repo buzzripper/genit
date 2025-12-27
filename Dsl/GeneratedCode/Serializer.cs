@@ -2599,20 +2599,37 @@ namespace Dyvenix.GenIt
 			PropertyModel instanceOfPropertyModel = element as PropertyModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfPropertyModel != null, "Expecting an instance of PropertyModel");
 	
-			// Type
+			// DataType
 			if (!serializationContext.Result.Failed)
 			{
-				string attribType = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "type");
-				if (attribType != null)
+				string attribDataType = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dataType");
+				if (attribDataType != null)
 				{
-					global::System.String valueOfType;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribType, out valueOfType))
+					DataType valueOfDataType;
+					if (DslModeling::SerializationUtilities.TryGetValue<DataType>(serializationContext, attribDataType, out valueOfDataType))
 					{
-						instanceOfPropertyModel.Type = valueOfType;
+						instanceOfPropertyModel.DataType = valueOfDataType;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "type", typeof(global::System.String), attribType);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dataType", typeof(DataType), attribDataType);
+					}
+				}
+			}
+			// Length
+			if (!serializationContext.Result.Failed)
+			{
+				string attribLength = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "length");
+				if (attribLength != null)
+				{
+					global::System.Int32 valueOfLength;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribLength, out valueOfLength))
+					{
+						instanceOfPropertyModel.Length = valueOfLength;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "length", typeof(global::System.Int32), attribLength);
 					}
 				}
 			}
@@ -3039,15 +3056,29 @@ namespace Dyvenix.GenIt
 			PropertyModel instanceOfPropertyModel = element as PropertyModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfPropertyModel != null, "Expecting an instance of PropertyModel");
 	
-			// Type
+			// DataType
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfPropertyModel.Type;
+				DataType propValue = instanceOfPropertyModel.DataType;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<DataType>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "String") != 0)
 					{	// No need to write the value out if it's the same as default value.
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "type", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dataType", serializedPropValue);
+					}
+				}
+			}
+			// Length
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Int32 propValue = instanceOfPropertyModel.Length;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "length", serializedPropValue);
 					}
 				}
 			}

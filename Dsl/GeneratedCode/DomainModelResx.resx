@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -181,13 +181,21 @@
     <value>Property Model</value>
     <comment>DisplayName for DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Type.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/DataType.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainProperty &apos;Type&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+    <comment>Description for DomainProperty &apos;DataType&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Type.DisplayName" xml:space="preserve">
-    <value>Type</value>
-    <comment>DisplayName for DomainProperty &apos;Type&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  <data name="Dyvenix.GenIt.PropertyModel/DataType.DisplayName" xml:space="preserve">
+    <value>Data Type</value>
+    <comment>DisplayName for DomainProperty &apos;DataType&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Length.Description" xml:space="preserve">
+    <value>Maximum length for string types</value>
+    <comment>Description for DomainProperty &apos;Length&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Length.DisplayName" xml:space="preserve">
+    <value>Length</value>
+    <comment>DisplayName for DomainProperty &apos;Length&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Description" xml:space="preserve">
     <value></value>
@@ -776,6 +784,166 @@
   <data name="Dyvenix.GenIt.OperationConcurrency/Concurrent.Description" xml:space="preserve">
     <value></value>
     <comment>Description for EnumerationLiteral &apos;Concurrent&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/String.DisplayName" xml:space="preserve">
+    <value>String</value>
+    <comment>Display name for EnumerationLiteral &apos;String&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/String.Description" xml:space="preserve">
+    <value>System.String</value>
+    <comment>Description for EnumerationLiteral &apos;String&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int32.DisplayName" xml:space="preserve">
+    <value>Int32</value>
+    <comment>Display name for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int32.Description" xml:space="preserve">
+    <value>System.Int32</value>
+    <comment>Description for EnumerationLiteral &apos;Int32&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Boolean.DisplayName" xml:space="preserve">
+    <value>Boolean</value>
+    <comment>Display name for EnumerationLiteral &apos;Boolean&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Boolean.Description" xml:space="preserve">
+    <value>System.Boolean</value>
+    <comment>Description for EnumerationLiteral &apos;Boolean&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Guid.DisplayName" xml:space="preserve">
+    <value>Guid</value>
+    <comment>Display name for EnumerationLiteral &apos;Guid&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Guid.Description" xml:space="preserve">
+    <value>System.Guid</value>
+    <comment>Description for EnumerationLiteral &apos;Guid&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/DateTime.DisplayName" xml:space="preserve">
+    <value>DateTime</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTime&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/DateTime.Description" xml:space="preserve">
+    <value>System.DateTime</value>
+    <comment>Description for EnumerationLiteral &apos;DateTime&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Byte.DisplayName" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Display name for EnumerationLiteral &apos;Byte&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Byte.Description" xml:space="preserve">
+    <value>System.Byte</value>
+    <comment>Description for EnumerationLiteral &apos;Byte&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/SByte.DisplayName" xml:space="preserve">
+    <value>SByte</value>
+    <comment>Display name for EnumerationLiteral &apos;SByte&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/SByte.Description" xml:space="preserve">
+    <value>System.SByte</value>
+    <comment>Description for EnumerationLiteral &apos;SByte&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int16.DisplayName" xml:space="preserve">
+    <value>Int16</value>
+    <comment>Display name for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int16.Description" xml:space="preserve">
+    <value>System.Int16</value>
+    <comment>Description for EnumerationLiteral &apos;Int16&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int64.DisplayName" xml:space="preserve">
+    <value>Int64</value>
+    <comment>Display name for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Int64.Description" xml:space="preserve">
+    <value>System.Int64</value>
+    <comment>Description for EnumerationLiteral &apos;Int64&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt16.DisplayName" xml:space="preserve">
+    <value>UInt16</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt16&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt16.Description" xml:space="preserve">
+    <value>System.UInt16</value>
+    <comment>Description for EnumerationLiteral &apos;UInt16&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt32.DisplayName" xml:space="preserve">
+    <value>UInt32</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt32&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt32.Description" xml:space="preserve">
+    <value>System.UInt32</value>
+    <comment>Description for EnumerationLiteral &apos;UInt32&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt64.DisplayName" xml:space="preserve">
+    <value>UInt64</value>
+    <comment>Display name for EnumerationLiteral &apos;UInt64&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/UInt64.Description" xml:space="preserve">
+    <value>System.UInt64</value>
+    <comment>Description for EnumerationLiteral &apos;UInt64&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Single.DisplayName" xml:space="preserve">
+    <value>Single</value>
+    <comment>Display name for EnumerationLiteral &apos;Single&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Single.Description" xml:space="preserve">
+    <value>System.Single</value>
+    <comment>Description for EnumerationLiteral &apos;Single&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Double.DisplayName" xml:space="preserve">
+    <value>Double</value>
+    <comment>Display name for EnumerationLiteral &apos;Double&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Double.Description" xml:space="preserve">
+    <value>System.Double</value>
+    <comment>Description for EnumerationLiteral &apos;Double&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Decimal.DisplayName" xml:space="preserve">
+    <value>Decimal</value>
+    <comment>Display name for EnumerationLiteral &apos;Decimal&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Decimal.Description" xml:space="preserve">
+    <value>System.Decimal</value>
+    <comment>Description for EnumerationLiteral &apos;Decimal&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Char.DisplayName" xml:space="preserve">
+    <value>Char</value>
+    <comment>Display name for EnumerationLiteral &apos;Char&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Char.Description" xml:space="preserve">
+    <value>System.Char</value>
+    <comment>Description for EnumerationLiteral &apos;Char&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/DateTimeOffset.DisplayName" xml:space="preserve">
+    <value>DateTimeOffset</value>
+    <comment>Display name for EnumerationLiteral &apos;DateTimeOffset&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/DateTimeOffset.Description" xml:space="preserve">
+    <value>System.DateTimeOffset</value>
+    <comment>Description for EnumerationLiteral &apos;DateTimeOffset&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/TimeSpan.DisplayName" xml:space="preserve">
+    <value>TimeSpan</value>
+    <comment>Display name for EnumerationLiteral &apos;TimeSpan&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/TimeSpan.Description" xml:space="preserve">
+    <value>System.TimeSpan</value>
+    <comment>Description for EnumerationLiteral &apos;TimeSpan&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/ByteArray.DisplayName" xml:space="preserve">
+    <value>ByteArray</value>
+    <comment>Display name for EnumerationLiteral &apos;ByteArray&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/ByteArray.Description" xml:space="preserve">
+    <value>Byte array</value>
+    <comment>Description for EnumerationLiteral &apos;ByteArray&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Object.DisplayName" xml:space="preserve">
+    <value>Object</value>
+    <comment>Display name for EnumerationLiteral &apos;Object&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/Object.Description" xml:space="preserve">
+    <value>System.Object</value>
+    <comment>Description for EnumerationLiteral &apos;Object&apos; on DomainEnumeration &apos;DataType&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ClassShape.Description" xml:space="preserve">
     <value></value>
