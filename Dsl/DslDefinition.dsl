@@ -48,6 +48,31 @@
             <DomainEnumerationMoniker Name="InheritanceModifier" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="" Name="Attribute1" DisplayName="Attribute1" Category="Attributes">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a2a2a2a2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a3a3a3a3-3333-3333-3333-333333333333" Description="" Name="Auditable" DisplayName="Auditable" Category="Code">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a4a4a4a4-4444-4444-4444-444444444444" Description="" Name="GenerateCode" DisplayName="Generate Code" Category="Code">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a5a5a5a5-5555-5555-5555-555555555555" Description="" Name="InclRowVersion" DisplayName="Incl Row Version" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -99,6 +124,46 @@
         <DomainProperty Id="b9a0da77-ee42-4cd5-a7d3-85a8d724691e" Description="" Name="InitialValue" DisplayName="Initial Value" DefaultValue="" Category="Value">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b1b1b1b1-1111-1111-1111-111111111111" Description="" Name="Attribute1" DisplayName="Attribute1" Category="Attributes">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b2b2b2b2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b3b3b3b3-3333-3333-3333-333333333333" Description="" Name="IsPrimaryKey" DisplayName="Is Primary Key" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b4b4b4b4-4444-4444-4444-444444444444" Description="" Name="IsNullable" DisplayName="Is Nullable" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b5b5b5b5-5555-5555-5555-555555555555" Description="" Name="IsIdentity" DisplayName="Is Identity" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b6b6b6b6-6666-6666-6666-666666666666" Description="" Name="IsIndexed" DisplayName="Is Indexed" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b7b7b7b7-7777-7777-7777-777777777777" Description="" Name="IsIndexUnique" DisplayName="Is Index Unique" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b8b8b8b8-8888-8888-8888-888888888888" Description="" Name="IsIndexClustered" DisplayName="Is Index Clustered" DefaultValue="false" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -228,7 +293,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d" Description="Whether code should be generated for this enum" Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true">
+        <DomainProperty Id="a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d" Description="Whether code should be generated for this enum" Name="GenerateCode" DisplayName="Generate Code" Category="Code">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -730,6 +795,21 @@
           <XmlPropertyData XmlName="isAbstract">
             <DomainPropertyMoniker Name="EntityModel/IsAbstract" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="attribute1">
+            <DomainPropertyMoniker Name="EntityModel/Attribute1" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="attribute2">
+            <DomainPropertyMoniker Name="EntityModel/Attribute2" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="auditable">
+            <DomainPropertyMoniker Name="EntityModel/Auditable" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="generateCode">
+            <DomainPropertyMoniker Name="EntityModel/GenerateCode" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclRowVersion">
+            <DomainPropertyMoniker Name="EntityModel/InclRowVersion" />
+          </XmlPropertyData>
           <XmlRelationshipData RoleElementName="attributes">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
           </XmlRelationshipData>
@@ -764,6 +844,30 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="initialValue">
             <DomainPropertyMoniker Name="PropertyModel/InitialValue" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="attribute1">
+            <DomainPropertyMoniker Name="PropertyModel/Attribute1" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="attribute2">
+            <DomainPropertyMoniker Name="PropertyModel/Attribute2" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isPrimaryKey">
+            <DomainPropertyMoniker Name="PropertyModel/IsPrimaryKey" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isNullable">
+            <DomainPropertyMoniker Name="PropertyModel/IsNullable" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isIdentity">
+            <DomainPropertyMoniker Name="PropertyModel/IsIdentity" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isIndexed">
+            <DomainPropertyMoniker Name="PropertyModel/IsIndexed" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isIndexUnique">
+            <DomainPropertyMoniker Name="PropertyModel/IsIndexUnique" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isIndexClustered">
+            <DomainPropertyMoniker Name="PropertyModel/IsIndexClustered" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

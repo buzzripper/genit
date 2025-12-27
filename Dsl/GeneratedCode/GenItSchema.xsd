@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema id="GenItSchema" targetNamespace="http://schemas.microsoft.com/dsltools/GenIt" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/GenIt" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
   <!-- NamedElement -->
@@ -242,6 +242,16 @@
         <xsd:attribute name="kind" type="xsd:string" />
         <!-- Property: IsAbstract -->
         <xsd:attribute name="isAbstract" type="InheritanceModifier" />
+        <!-- Property: Attribute1 -->
+        <xsd:attribute name="attribute1" type="xsd:string" />
+        <!-- Property: Attribute2 -->
+        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <!-- Property: Auditable -->
+        <xsd:attribute name="auditable" type="xsd:boolean" />
+        <!-- Property: GenerateCode -->
+        <xsd:attribute name="generateCode" type="xsd:boolean" />
+        <!-- Property: InclRowVersion -->
+        <xsd:attribute name="inclRowVersion" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -288,6 +298,22 @@
         </xsd:attribute>
         <!-- Property: InitialValue -->
         <xsd:attribute name="initialValue" type="xsd:string" />
+        <!-- Property: Attribute1 -->
+        <xsd:attribute name="attribute1" type="xsd:string" />
+        <!-- Property: Attribute2 -->
+        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <!-- Property: IsPrimaryKey -->
+        <xsd:attribute name="isPrimaryKey" type="xsd:boolean" />
+        <!-- Property: IsNullable -->
+        <xsd:attribute name="isNullable" type="xsd:boolean" />
+        <!-- Property: IsIdentity -->
+        <xsd:attribute name="isIdentity" type="xsd:boolean" />
+        <!-- Property: IsIndexed -->
+        <xsd:attribute name="isIndexed" type="xsd:boolean" />
+        <!-- Property: IsIndexUnique -->
+        <xsd:attribute name="isIndexUnique" type="xsd:boolean" />
+        <!-- Property: IsIndexClustered -->
+        <xsd:attribute name="isIndexClustered" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

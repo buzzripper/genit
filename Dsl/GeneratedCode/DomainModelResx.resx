@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -177,6 +177,66 @@
     <value>Is Abstract</value>
     <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute1.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute1.DisplayName" xml:space="preserve">
+    <value>Attribute1</value>
+    <comment>DisplayName for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute1.Category" xml:space="preserve">
+    <value>Attributes</value>
+    <comment>Category for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute2.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute2.DisplayName" xml:space="preserve">
+    <value>Attribute2</value>
+    <comment>DisplayName for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Attribute2.Category" xml:space="preserve">
+    <value>Attributes</value>
+    <comment>Category for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Auditable.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;Auditable&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Auditable.DisplayName" xml:space="preserve">
+    <value>Auditable</value>
+    <comment>DisplayName for DomainProperty &apos;Auditable&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Auditable.Category" xml:space="preserve">
+    <value>Code</value>
+    <comment>Category for DomainProperty &apos;Auditable&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenerateCode.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenerateCode.DisplayName" xml:space="preserve">
+    <value>Generate Code</value>
+    <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenerateCode.Category" xml:space="preserve">
+    <value>Code</value>
+    <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/InclRowVersion.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;InclRowVersion&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/InclRowVersion.DisplayName" xml:space="preserve">
+    <value>Incl Row Version</value>
+    <comment>DisplayName for DomainProperty &apos;InclRowVersion&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/InclRowVersion.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;InclRowVersion&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>
@@ -232,6 +292,102 @@
   <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Category" xml:space="preserve">
     <value>Value</value>
     <comment>Category for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.DisplayName" xml:space="preserve">
+    <value>Attribute1</value>
+    <comment>DisplayName for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.Category" xml:space="preserve">
+    <value>Attributes</value>
+    <comment>Category for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.DisplayName" xml:space="preserve">
+    <value>Attribute2</value>
+    <comment>DisplayName for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.Category" xml:space="preserve">
+    <value>Attributes</value>
+    <comment>Category for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsPrimaryKey.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsPrimaryKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsPrimaryKey.DisplayName" xml:space="preserve">
+    <value>Is Primary Key</value>
+    <comment>DisplayName for DomainProperty &apos;IsPrimaryKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsPrimaryKey.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsPrimaryKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsNullable.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsNullable&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsNullable.DisplayName" xml:space="preserve">
+    <value>Is Nullable</value>
+    <comment>DisplayName for DomainProperty &apos;IsNullable&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsNullable.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsNullable&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIdentity.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsIdentity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIdentity.DisplayName" xml:space="preserve">
+    <value>Is Identity</value>
+    <comment>DisplayName for DomainProperty &apos;IsIdentity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIdentity.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsIdentity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexed.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsIndexed&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexed.DisplayName" xml:space="preserve">
+    <value>Is Indexed</value>
+    <comment>DisplayName for DomainProperty &apos;IsIndexed&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexed.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsIndexed&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexUnique.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsIndexUnique&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexUnique.DisplayName" xml:space="preserve">
+    <value>Is Index Unique</value>
+    <comment>DisplayName for DomainProperty &apos;IsIndexUnique&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexUnique.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsIndexUnique&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexClustered.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsIndexClustered&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexClustered.DisplayName" xml:space="preserve">
+    <value>Is Index Clustered</value>
+    <comment>DisplayName for DomainProperty &apos;IsIndexClustered&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsIndexClustered.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;IsIndexClustered&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
@@ -396,6 +552,10 @@
   <data name="Dyvenix.GenIt.EnumModel/GenerateCode.DisplayName" xml:space="preserve">
     <value>Generate Code</value>
     <comment>DisplayName for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EnumModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EnumModel/GenerateCode.Category" xml:space="preserve">
+    <value>Code</value>
+    <comment>Category for DomainProperty &apos;GenerateCode&apos; on DomainClass &apos;EnumModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.NavigationProperty.Description" xml:space="preserve">
     <value>A navigation property representing a relationship to another entity.</value>
