@@ -13,6 +13,23 @@
   <Extern href="virtkeys.h"/>
   <Extern href="DSLToolsCmdID.h"/>
   <Include href="GeneratedCode\GeneratedVsct.vsct"/>
+  
   <Commands package="guidPkg">
+    <Buttons>
+      <Button guid="guidCmdSet" id="cmdidGenerateCode" priority="0x0100" type="Button">
+        <Parent guid="guidCmdSet" id="grpidContextMain"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Generate Code</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
   </Commands>
+  
+  <Symbols>
+    <GuidSymbol name="guidCmdSet" value="{94fe6316-0e08-4ace-9bb9-f1c3774d3a14}">
+      <IDSymbol name="cmdidGenerateCode" value="0x0100"/>
+    </GuidSymbol>
+  </Symbols>
 </CommandTable>
