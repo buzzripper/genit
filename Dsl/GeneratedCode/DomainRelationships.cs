@@ -180,6 +180,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of SourceMultiplicity domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/SourceMultiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/SourceMultiplicity.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/SourceMultiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(Multiplicity.One)]
 		[DslModeling::DomainObjectId("7f3fc48a-1968-44e9-91aa-ee8d93c10f89")]
@@ -267,6 +268,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of SourceRoleName domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/SourceRoleName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/SourceRoleName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/SourceRoleName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("99ceb0e6-4515-4c03-96e9-b961d66611de")]
@@ -355,6 +357,7 @@ namespace Dyvenix.GenIt
 		/// Whether to generate a navigation property on the source entity
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/GenSourceNavProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/GenSourceNavProperty.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/GenSourceNavProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("a7b8c9d0-1234-5678-9abc-def012345678")]
@@ -442,6 +445,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of TargetMultiplicity domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/TargetMultiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/TargetMultiplicity.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/TargetMultiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(Multiplicity.Many)]
 		[DslModeling::DomainObjectId("007c3000-0bf3-4179-a114-883ede04c3df")]
@@ -529,6 +533,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of TargetRoleName domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/TargetRoleName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/TargetRoleName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/TargetRoleName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("d0dfb7ed-2955-4348-b1e2-c8d8da294082")]
@@ -617,6 +622,7 @@ namespace Dyvenix.GenIt
 		/// Whether to generate a navigation property on the target entity
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/GenTargetNavProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/GenTargetNavProperty.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/GenTargetNavProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("b8c9d0e1-2345-6789-abcd-ef0123456789")]
 		public global::System.Boolean GenTargetNavProperty
@@ -704,6 +710,7 @@ namespace Dyvenix.GenIt
 		/// Name of the FK property on the target entity
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/FkPropertyName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.Association/FkPropertyName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/FkPropertyName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("c9d0e1f2-3456-789a-bcde-f01234567890")]

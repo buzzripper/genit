@@ -141,6 +141,10 @@
     <value>Name</value>
     <comment>DisplayName for DomainProperty &apos;Name&apos; on DomainClass &apos;NamedElement&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.NamedElement/Name.Category" xml:space="preserve">
+    <value>General</value>
+    <comment>Category for DomainProperty &apos;Name&apos; on DomainClass &apos;NamedElement&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModelRoot.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelRoot&apos;</comment>
@@ -189,6 +193,10 @@
     <value>Data Type</value>
     <comment>DisplayName for DomainProperty &apos;DataType&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/DataType.Category" xml:space="preserve">
+    <value>Type</value>
+    <comment>Category for DomainProperty &apos;DataType&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel/EnumTypeName.Description" xml:space="preserve">
     <value>Name of the enum type when DataType is Enum</value>
     <comment>Description for DomainProperty &apos;EnumTypeName&apos; on DomainClass &apos;PropertyModel&apos;</comment>
@@ -196,6 +204,10 @@
   <data name="Dyvenix.GenIt.PropertyModel/EnumTypeName.DisplayName" xml:space="preserve">
     <value>Enum Type Name</value>
     <comment>DisplayName for DomainProperty &apos;EnumTypeName&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/EnumTypeName.Category" xml:space="preserve">
+    <value>Type</value>
+    <comment>Category for DomainProperty &apos;EnumTypeName&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel/Length.Description" xml:space="preserve">
     <value>Maximum length for string types</value>
@@ -205,6 +217,10 @@
     <value>Length</value>
     <comment>DisplayName for DomainProperty &apos;Length&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Length.Category" xml:space="preserve">
+    <value>Type</value>
+    <comment>Category for DomainProperty &apos;Length&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
@@ -213,6 +229,10 @@
     <value>Initial Value</value>
     <comment>DisplayName for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/InitialValue.Category" xml:space="preserve">
+    <value>Value</value>
+    <comment>Category for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
@@ -220,6 +240,10 @@
   <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName" xml:space="preserve">
     <value>Multiplicity</value>
     <comment>DisplayName for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Multiplicity.Category" xml:space="preserve">
+    <value>Type</value>
+    <comment>Category for DomainProperty &apos;Multiplicity&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
@@ -333,6 +357,10 @@
     <value>Description</value>
     <comment>DisplayName for DomainProperty &apos;Description&apos; on DomainClass &apos;ClassModelElement&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ClassModelElement/Description.Category" xml:space="preserve">
+    <value>General</value>
+    <comment>Category for DomainProperty &apos;Description&apos; on DomainClass &apos;ClassModelElement&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EnumMember.Description" xml:space="preserve">
     <value>A member of an enumeration.</value>
     <comment>Description for DomainClass &apos;EnumMember&apos;</comment>
@@ -421,6 +449,10 @@
     <value>Source Multiplicity</value>
     <comment>DisplayName for DomainProperty &apos;SourceMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/SourceMultiplicity.Category" xml:space="preserve">
+    <value>Source</value>
+    <comment>Category for DomainProperty &apos;SourceMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/SourceRoleName.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;SourceRoleName&apos; on DomainClass &apos;Association&apos;</comment>
@@ -428,6 +460,10 @@
   <data name="Dyvenix.GenIt.Association/SourceRoleName.DisplayName" xml:space="preserve">
     <value>Source Role Name</value>
     <comment>DisplayName for DomainProperty &apos;SourceRoleName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/SourceRoleName.Category" xml:space="preserve">
+    <value>Source</value>
+    <comment>Category for DomainProperty &apos;SourceRoleName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association/GenSourceNavProperty.Description" xml:space="preserve">
     <value>Whether to generate a navigation property on the source entity</value>
@@ -437,6 +473,10 @@
     <value>Gen Source Nav Property</value>
     <comment>DisplayName for DomainProperty &apos;GenSourceNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/GenSourceNavProperty.Category" xml:space="preserve">
+    <value>Source</value>
+    <comment>Category for DomainProperty &apos;GenSourceNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/TargetMultiplicity.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;TargetMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
@@ -444,6 +484,10 @@
   <data name="Dyvenix.GenIt.Association/TargetMultiplicity.DisplayName" xml:space="preserve">
     <value>Target Multiplicity</value>
     <comment>DisplayName for DomainProperty &apos;TargetMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/TargetMultiplicity.Category" xml:space="preserve">
+    <value>Target</value>
+    <comment>Category for DomainProperty &apos;TargetMultiplicity&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association/TargetRoleName.Description" xml:space="preserve">
     <value></value>
@@ -453,6 +497,10 @@
     <value>Target Role Name</value>
     <comment>DisplayName for DomainProperty &apos;TargetRoleName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/TargetRoleName.Category" xml:space="preserve">
+    <value>Target</value>
+    <comment>Category for DomainProperty &apos;TargetRoleName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/GenTargetNavProperty.Description" xml:space="preserve">
     <value>Whether to generate a navigation property on the target entity</value>
     <comment>Description for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
@@ -461,6 +509,10 @@
     <value>Gen Target Nav Property</value>
     <comment>DisplayName for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/GenTargetNavProperty.Category" xml:space="preserve">
+    <value>Target</value>
+    <comment>Category for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/FkPropertyName.Description" xml:space="preserve">
     <value>Name of the FK property on the target entity</value>
     <comment>Description for DomainProperty &apos;FkPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
@@ -468,6 +520,10 @@
   <data name="Dyvenix.GenIt.Association/FkPropertyName.DisplayName" xml:space="preserve">
     <value>FK Property Name</value>
     <comment>DisplayName for DomainProperty &apos;FkPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/FkPropertyName.Category" xml:space="preserve">
+    <value>Target</value>
+    <comment>Category for DomainProperty &apos;FkPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association/Source.Description" xml:space="preserve">
     <value></value>

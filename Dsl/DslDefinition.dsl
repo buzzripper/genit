@@ -3,7 +3,7 @@
   <Classes>
     <DomainClass Id="9913cfeb-b29a-4eb0-aba0-2e8c046b87e0" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt">
       <Properties>
-        <DomainProperty Id="34e4a209-7491-4a75-9f70-f2b75ab46ed5" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true">
+        <DomainProperty Id="34e4a209-7491-4a75-9f70-f2b75ab46ed5" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true" Category="General">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -81,27 +81,27 @@
         <DomainClassMoniker Name="ClassModelElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="" Name="DataType" DisplayName="Data Type" DefaultValue="String">
+        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="" Name="DataType" DisplayName="Data Type" DefaultValue="String" Category="Type">
           <Type>
             <DomainEnumerationMoniker Name="DataType" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a" Description="Name of the enum type when DataType is Enum" Name="EnumTypeName" DisplayName="Enum Type Name" DefaultValue="">
+        <DomainProperty Id="d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a" Description="Name of the enum type when DataType is Enum" Name="EnumTypeName" DisplayName="Enum Type Name" DefaultValue="" Category="Type">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d" Description="Maximum length for string types" Name="Length" DisplayName="Length" DefaultValue="0">
+        <DomainProperty Id="a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d" Description="Maximum length for string types" Name="Length" DisplayName="Length" DefaultValue="0" Category="Type">
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b9a0da77-ee42-4cd5-a7d3-85a8d724691e" Description="" Name="InitialValue" DisplayName="Initial Value" DefaultValue="">
+        <DomainProperty Id="b9a0da77-ee42-4cd5-a7d3-85a8d724691e" Description="" Name="InitialValue" DisplayName="Initial Value" DefaultValue="" Category="Value">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="25717fe9-d9b3-4b94-a58c-f82c1ee7397d" Description="" Name="Multiplicity" DisplayName="Multiplicity" DefaultValue="1">
+        <DomainProperty Id="25717fe9-d9b3-4b94-a58c-f82c1ee7397d" Description="" Name="Multiplicity" DisplayName="Multiplicity" DefaultValue="1" Category="Type">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -199,7 +199,7 @@
         <DomainClassMoniker Name="NamedElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0" Description="This is a Description." Name="Description" DisplayName="Description" DefaultValue="">
+        <DomainProperty Id="77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0" Description="This is a Description." Name="Description" DisplayName="Description" DefaultValue="" Category="General">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -273,37 +273,37 @@
       <Notes>This is the abstract base relationship of the several kinds of association between Classes.
       It defines the Properties that are attached to each association.</Notes>
       <Properties>
-        <DomainProperty Id="7f3fc48a-1968-44e9-91aa-ee8d93c10f89" Description="" Name="SourceMultiplicity" DisplayName="Source Multiplicity" DefaultValue="One">
+        <DomainProperty Id="7f3fc48a-1968-44e9-91aa-ee8d93c10f89" Description="" Name="SourceMultiplicity" DisplayName="Source Multiplicity" DefaultValue="One" Category="Source">
           <Type>
             <DomainEnumerationMoniker Name="Multiplicity" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="99ceb0e6-4515-4c03-96e9-b961d66611de" Description="" Name="SourceRoleName" DisplayName="Source Role Name" DefaultValue="">
+        <DomainProperty Id="99ceb0e6-4515-4c03-96e9-b961d66611de" Description="" Name="SourceRoleName" DisplayName="Source Role Name" DefaultValue="" Category="Source">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a7b8c9d0-1234-5678-9abc-def012345678" Description="Whether to generate a navigation property on the source entity" Name="GenSourceNavProperty" DisplayName="Gen Source Nav Property" DefaultValue="true">
+        <DomainProperty Id="a7b8c9d0-1234-5678-9abc-def012345678" Description="Whether to generate a navigation property on the source entity" Name="GenSourceNavProperty" DisplayName="Gen Source Nav Property" DefaultValue="true" Category="Source">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="007c3000-0bf3-4179-a114-883ede04c3df" Description="" Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultValue="Many">
+        <DomainProperty Id="007c3000-0bf3-4179-a114-883ede04c3df" Description="" Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultValue="Many" Category="Target">
           <Type>
             <DomainEnumerationMoniker Name="Multiplicity" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d0dfb7ed-2955-4348-b1e2-c8d8da294082" Description="" Name="TargetRoleName" DisplayName="Target Role Name" DefaultValue="">
+        <DomainProperty Id="d0dfb7ed-2955-4348-b1e2-c8d8da294082" Description="" Name="TargetRoleName" DisplayName="Target Role Name" DefaultValue="" Category="Target">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b8c9d0e1-2345-6789-abcd-ef0123456789" Description="Whether to generate a navigation property on the target entity" Name="GenTargetNavProperty" DisplayName="Gen Target Nav Property" DefaultValue="false">
+        <DomainProperty Id="b8c9d0e1-2345-6789-abcd-ef0123456789" Description="Whether to generate a navigation property on the target entity" Name="GenTargetNavProperty" DisplayName="Gen Target Nav Property" DefaultValue="false" Category="Target">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="c9d0e1f2-3456-789a-bcde-f01234567890" Description="Name of the FK property on the target entity" Name="FkPropertyName" DisplayName="FK Property Name" DefaultValue="">
+        <DomainProperty Id="c9d0e1f2-3456-789a-bcde-f01234567890" Description="Name of the FK property on the target entity" Name="FkPropertyName" DisplayName="FK Property Name" DefaultValue="" Category="Target">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
@@ -39,23 +40,34 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// Filters the properties collection to show/hide Length based on DataType.
+        /// Filters the properties collection to show/hide properties based on DataType.
         /// </summary>
         public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
             PropertyDescriptorCollection properties = base.GetProperties(attributes);
 
+            var filteredProperties = properties.Cast<PropertyDescriptor>()
+                .Where(p => ShouldShowProperty(p))
+                .ToArray();
+
+            return new PropertyDescriptorCollection(filteredProperties);
+        }
+
+        private bool ShouldShowProperty(PropertyDescriptor property)
+        {
             // Only show Length property when DataType is String or ByteArray
-            if (_propertyModel.DataType != DataType.String && _propertyModel.DataType != DataType.ByteArray)
+            if (property.Name.Equals("Length", StringComparison.OrdinalIgnoreCase))
             {
-                // Filter out the Length property
-                var filteredProperties = properties.Cast<PropertyDescriptor>()
-                    .Where(p => !p.Name.Equals("Length", StringComparison.OrdinalIgnoreCase))
-                    .ToArray();
-                return new PropertyDescriptorCollection(filteredProperties);
+                return _propertyModel.DataType == DataType.String || _propertyModel.DataType == DataType.ByteArray;
             }
 
-            return properties;
+            // Only show EnumTypeName when DataType is Enum
+            if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
+            {
+                return _propertyModel.DataType == DataType.Enum;
+            }
+
+            return true;
         }
     }
 }

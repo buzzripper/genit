@@ -54,6 +54,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of Name domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.NamedElement/Name.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.NamedElement/Name.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.NamedElement/Name.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::ElementName]
@@ -859,6 +860,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of DataType domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/DataType.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/DataType.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/DataType.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(DataType.String)]
 		[DslModeling::DomainObjectId("4ef9ef25-f6e7-46f2-9e48-ed9323cc081f")]
@@ -947,6 +949,7 @@ namespace Dyvenix.GenIt
 		/// Name of the enum type when DataType is Enum
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a")]
@@ -1035,6 +1038,7 @@ namespace Dyvenix.GenIt
 		/// Maximum length for string types
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Length.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/Length.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Length.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d")]
 		public global::System.Int32 Length
@@ -1121,6 +1125,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of InitialValue domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/InitialValue.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/InitialValue.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/InitialValue.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("b9a0da77-ee42-4cd5-a7d3-85a8d724691e")]
@@ -1208,6 +1213,7 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of Multiplicity domain property.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Multiplicity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/Multiplicity.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Multiplicity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("1")]
 		[DslModeling::DomainObjectId("25717fe9-d9b3-4b94-a58c-f82c1ee7397d")]
@@ -2440,6 +2446,7 @@ namespace Dyvenix.GenIt
 		/// This is a Description.
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassModelElement/Description.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ClassModelElement/Description.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassModelElement/Description.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("77a2653e-d7ee-4729-9dd2-d1c73e8ebbf0")]
