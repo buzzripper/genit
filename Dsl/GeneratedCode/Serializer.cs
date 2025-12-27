@@ -2488,7 +2488,10 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateCode", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "generateCode", serializedPropValue);
+					}
 				}
 			}
 			// InclRowVersion

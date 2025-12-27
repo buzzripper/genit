@@ -63,7 +63,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a4a4a4a4-4444-4444-4444-444444444444" Description="" Name="GenerateCode" DisplayName="Generate Code" Category="Code">
+        <DomainProperty Id="a4a4a4a4-4444-4444-4444-444444444444" Description="" Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true" Category="Code">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
