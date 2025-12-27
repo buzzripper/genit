@@ -1,117 +1,28 @@
 using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Dyvenix.GenIt
 {
-    /// <summary>
-    /// Custom TextField that formats Multiplicity enum values for display
-    /// </summary>
-    internal class MultiplicityTextField : TextField
-    {
-        public MultiplicityTextField(string fieldName) : base(fieldName)
-        {
-        }
-        
-        /// <summary>
-        /// Override GetDisplayText to format multiplicity values
-        /// </summary>
-        public override string GetDisplayText(ShapeElement parentShape)
-        {
-            string text = base.GetDisplayText(parentShape);
-            
-            // Try to parse as Multiplicity enum
-            if (Enum.TryParse<Multiplicity>(text, out Multiplicity multiplicity))
-            {
-                return FormatMultiplicity(multiplicity);
-            }
-            
-            return text;
-        }
-        
-        private static string FormatMultiplicity(Multiplicity multiplicity)
-        {
-            switch (multiplicity)
-            {
-                case Multiplicity.ZeroOrOne:
-                    return "0..1";
-                case Multiplicity.One:
-                    return "1";
-                case Multiplicity.Many:
-                    return "*";
-                default:
-                    return multiplicity.ToString();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Helper class for replacing multiplicity text fields in decorators
-    /// </summary>
-    internal static class MultiplicityDecoratorHelper
-    {
-        public static void ReplaceMultiplicityTextField(IList<ShapeField> shapeFields, IList<Decorator> decorators, string fieldName)
-        {
-            // Find the decorator with the matching field name
-            for (int i = 0; i < decorators.Count; i++)
-            {
-                Decorator decorator = decorators[i];
-                if (decorator.Field != null && decorator.Field.Name == fieldName)
-                {
-                    TextField originalField = decorator.Field as TextField;
-                    if (originalField != null)
-                    {
-                        // Create a new MultiplicityTextField with the same settings
-                        MultiplicityTextField newField = new MultiplicityTextField(fieldName);
-                        newField.DefaultText = originalField.DefaultText;
-                        newField.DefaultFocusable = originalField.DefaultFocusable;
-                        newField.DefaultAutoSize = originalField.DefaultAutoSize;
-                        newField.AnchoringBehavior.MinimumHeightInLines = originalField.AnchoringBehavior.MinimumHeightInLines;
-                        newField.AnchoringBehavior.MinimumWidthInCharacters = originalField.AnchoringBehavior.MinimumWidthInCharacters;
-                        newField.DefaultAccessibleState = originalField.DefaultAccessibleState;
-                        
-                        // Remove the old field from shapeFields if it exists
-                        shapeFields.Remove(originalField);
-                        
-                        // Add the new field
-                        shapeFields.Add(newField);
-                        
-                        // Create a new decorator with the new field
-                        ConnectorDecorator connectorDecorator = decorator as ConnectorDecorator;
-                        if (connectorDecorator != null)
-                        {
-                            Decorator newDecorator = new ConnectorDecorator(newField, connectorDecorator.Position, connectorDecorator.Offset);
-                            decorators[i] = newDecorator;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-    }
-
     public partial class AssociationConnector
     {
-        private EventHandler<ElementPropertyChangedEventArgs> arrowheadPropertyChangedHandler;
-        private EventHandler<ElementAddedEventArgs> arrowheadElementAddedHandler;
-        private bool hasAppliedInitialArrowheads;
+        private EventHandler<ElementPropertyChangedEventArgs> multiplicityPropertyChangedHandler;
 
         public override void OnInitialize()
         {
             base.OnInitialize();
 
-            if (arrowheadPropertyChangedHandler == null)
+            // Remove any end decorators (no diamonds/arrowheads)
+            this.SetDecorators(null, SizeD.Empty, null, SizeD.Empty, false);
+
+            if (multiplicityPropertyChangedHandler == null)
             {
-                arrowheadPropertyChangedHandler = (sender, e) =>
+                multiplicityPropertyChangedHandler = (sender, e) =>
                 {
                     var association = this.ModelElement as Association;
-                    if (association == null)
-                    {
-                        return;
-                    }
-
-                    if (!ReferenceEquals(e.ModelElement, association))
+                    if (association == null || !ReferenceEquals(e.ModelElement, association))
                     {
                         return;
                     }
@@ -119,94 +30,142 @@ namespace Dyvenix.GenIt
                     if (e.DomainProperty.Id == Association.SourceMultiplicityDomainPropertyId ||
                         e.DomainProperty.Id == Association.TargetMultiplicityDomainPropertyId)
                     {
-                        UpdateArrowheads(invalidate: true);
+                        this.Invalidate();
                     }
                 };
 
-                if (this.Store != null)
-                {
-                    this.Store.EventManagerDirectory.ElementPropertyChanged.Add(arrowheadPropertyChangedHandler);
-                }
+                this.Store?.EventManagerDirectory.ElementPropertyChanged.Add(multiplicityPropertyChangedHandler);
             }
 
-            if (arrowheadElementAddedHandler == null)
-            {
-                arrowheadElementAddedHandler = (sender, e) =>
-                {
-                    if (hasAppliedInitialArrowheads)
-                    {
-                        return;
-                    }
-
-                    // Wait until the connector element is actually added (so it has a diagram presentation).
-                    if (!ReferenceEquals(e.ModelElement, this))
-                    {
-                        return;
-                    }
-
-                    hasAppliedInitialArrowheads = true;
-                    UpdateArrowheads(invalidate: true);
-                };
-
-                if (this.Store != null)
-                {
-                    this.Store.EventManagerDirectory.ElementAdded.Add(arrowheadElementAddedHandler);
-                }
-            }
-
-            // Might run before the connector is connected/presented; ElementAdded handler covers first render.
-            UpdateArrowheads(invalidate: false);
+            this.Invalidate();
         }
 
         protected override void OnDeleted()
         {
             try
             {
-                if (arrowheadPropertyChangedHandler != null && this.Store != null)
+                if (multiplicityPropertyChangedHandler != null)
                 {
-                    this.Store.EventManagerDirectory.ElementPropertyChanged.Remove(arrowheadPropertyChangedHandler);
-                }
-
-                if (arrowheadElementAddedHandler != null && this.Store != null)
-                {
-                    this.Store.EventManagerDirectory.ElementAdded.Remove(arrowheadElementAddedHandler);
+                    this.Store?.EventManagerDirectory.ElementPropertyChanged.Remove(multiplicityPropertyChangedHandler);
                 }
             }
             finally
             {
-                arrowheadPropertyChangedHandler = null;
-                arrowheadElementAddedHandler = null;
+                multiplicityPropertyChangedHandler = null;
                 base.OnDeleted();
             }
         }
 
-        private void UpdateArrowheads(bool invalidate)
+        public override void OnPaintShape(DiagramPaintEventArgs e)
         {
+            base.OnPaintShape(e);
+            DrawMultiplicityLabels(e);
+        }
+
+        private void DrawMultiplicityLabels(DiagramPaintEventArgs e)
+        {
+            // Draw multiplicity text at the actual connector endpoints
             var association = this.ModelElement as Association;
             if (association == null)
             {
-                SetManyEndDecorators(false, false);
                 return;
             }
 
-            SetManyEndDecorators(
-                association.SourceMultiplicity == Multiplicity.Many,
-                association.TargetMultiplicity == Multiplicity.Many);
-
-            if (invalidate)
+            var edgePoints = this.EdgePoints;
+            if (edgePoints == null || edgePoints.Count < 2)
             {
-                this.Invalidate();
+                return;
+            }
+
+            // Get the first and last points (source and target endpoints)
+            var sourcePoint = edgePoints[0].Point;
+            var targetPoint = edgePoints[edgePoints.Count - 1].Point;
+
+            // Get next points for direction calculation
+            var sourceNextPoint = edgePoints.Count > 1 ? edgePoints[1].Point : targetPoint;
+            var targetNextPoint = edgePoints.Count > 1 ? edgePoints[edgePoints.Count - 2].Point : sourcePoint;
+
+            // Source multiplicity - only draw "*" for Many
+            if (association.SourceMultiplicity == Multiplicity.Many)
+            {
+                DrawMultiplicityAtEndpoint(e, "*", sourcePoint, sourceNextPoint);
+            }
+
+            // Target multiplicity - only draw "*" for Many
+            if (association.TargetMultiplicity == Multiplicity.Many)
+            {
+                DrawMultiplicityAtEndpoint(e, "*", targetPoint, targetNextPoint);
             }
         }
 
-        private void SetManyEndDecorators(bool showSourceArrow, bool showTargetArrow)
+        private void DrawMultiplicityAtEndpoint(DiagramPaintEventArgs e, string text, PointD endpoint, PointD nextPoint)
         {
-            this.SetDecorators(
-                showSourceArrow ? LinkDecorator.DecoratorHollowArrow : null,
-                showSourceArrow ? new SizeD(0.1, 0.1) : SizeD.Empty,
-                showTargetArrow ? LinkDecorator.DecoratorHollowArrow : null,
-                showTargetArrow ? new SizeD(0.1, 0.1) : SizeD.Empty,
-                false);
+            // Calculate direction from endpoint toward the center of the line
+            double dx = nextPoint.X - endpoint.X;
+            double dy = nextPoint.Y - endpoint.Y;
+            double length = Math.Sqrt(dx * dx + dy * dy);
+
+            if (length < 0.001)
+            {
+                return;
+            }
+
+            // Normalize direction vector
+            dx /= length;
+            dy /= length;
+
+            // Offset values (in world/inches coordinates)
+            double offsetAlongLine = 0.12; // Move along the line from the endpoint (farther from the box)
+            double offsetPerpendicular = 0.15; // Move perpendicular to the line (farther from the line)
+
+            // Calculate text position by offsetting along the line first
+            double textX = endpoint.X + dx * offsetAlongLine;
+            double textY = endpoint.Y + dy * offsetAlongLine;
+            
+            // Determine perpendicular offset direction based on line orientation
+            if (Math.Abs(dx) > Math.Abs(dy))
+            {
+                // More horizontal line - offset downward (positive Y)
+                textY += offsetPerpendicular;
+            }
+            else
+            {
+                // More vertical line
+                // If line goes downward (dy > 0), this endpoint is at top - offset to the right
+                // If line goes upward (dy < 0), this endpoint is at bottom - offset to the right
+                // But if this endpoint is at the TOP (line goes down from here), we need more space
+                // because the * would be too close to the box above
+                if (dy > 0)
+                {
+                    // Line goes DOWN from this endpoint (this box is above)
+                    // Offset to the right, but also add a bit more distance from the box
+                    textX += offsetPerpendicular;
+                    textY += 0.05; // Add extra vertical offset to move away from the box above
+                }
+                else
+                {
+                    // Line goes UP from this endpoint (this box is below)
+                    // Offset to the right
+                    textX += offsetPerpendicular;
+                }
+            }
+
+            // Create font scaled appropriately for world coordinates
+            // In DSL Tools, world coords are in inches, so font size needs to account for that
+            float fontSize = 0.25f; // Size in inches (world coords)
+
+            using (var font = new Font("Segoe UI", fontSize, FontStyle.Regular, GraphicsUnit.Inch))
+            using (var brush = new SolidBrush(Color.FromArgb(80, 80, 80)))
+            {
+                // Measure text
+                var textSize = e.Graphics.MeasureString(text, font);
+
+                // Draw centered on the calculated point
+                float drawX = (float)textX - textSize.Width / 2;
+                float drawY = (float)textY - textSize.Height / 2;
+
+                e.Graphics.DrawString(text, font, brush, drawX, drawY);
+            }
         }
     }
 }
