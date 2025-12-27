@@ -155,45 +155,25 @@ namespace Dyvenix.GenIt
 		{
 			base.InitializeDecorators(shapeFields, decorators);
 			
-			DslDiagrams::TextField field1 = new DslDiagrams::TextField("TargetMultiplicity");
-			field1.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetMultiplicityDefaultText");
+			DslDiagrams::TextField field1 = new DslDiagrams::TextField("TargetRoleName");
+			field1.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetRoleNameDefaultText");
 			field1.DefaultFocusable = true;
 			field1.DefaultAutoSize = true;
 			field1.AnchoringBehavior.MinimumHeightInLines = 1;
 			field1.AnchoringBehavior.MinimumWidthInCharacters = 1;
 			field1.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator1 = new DslDiagrams::ConnectorDecorator(field1, DslDiagrams::ConnectorDecoratorPosition.TargetBottom, DslDiagrams::PointD.Empty);
+			DslDiagrams::Decorator decorator1 = new DslDiagrams::ConnectorDecorator(field1, DslDiagrams::ConnectorDecoratorPosition.TargetTop, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator1);
 				
-			DslDiagrams::TextField field2 = new DslDiagrams::TextField("SourceMultiplicity");
-			field2.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorSourceMultiplicityDefaultText");
+			DslDiagrams::TextField field2 = new DslDiagrams::TextField("SourceRoleName");
+			field2.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorSourceRoleNameDefaultText");
 			field2.DefaultFocusable = true;
 			field2.DefaultAutoSize = true;
 			field2.AnchoringBehavior.MinimumHeightInLines = 1;
 			field2.AnchoringBehavior.MinimumWidthInCharacters = 1;
 			field2.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator2 = new DslDiagrams::ConnectorDecorator(field2, DslDiagrams::ConnectorDecoratorPosition.SourceBottom, DslDiagrams::PointD.Empty);
+			DslDiagrams::Decorator decorator2 = new DslDiagrams::ConnectorDecorator(field2, DslDiagrams::ConnectorDecoratorPosition.SourceTop, DslDiagrams::PointD.Empty);
 			decorators.Add(decorator2);
-				
-			DslDiagrams::TextField field3 = new DslDiagrams::TextField("TargetRoleName");
-			field3.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorTargetRoleNameDefaultText");
-			field3.DefaultFocusable = true;
-			field3.DefaultAutoSize = true;
-			field3.AnchoringBehavior.MinimumHeightInLines = 1;
-			field3.AnchoringBehavior.MinimumWidthInCharacters = 1;
-			field3.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator3 = new DslDiagrams::ConnectorDecorator(field3, DslDiagrams::ConnectorDecoratorPosition.TargetTop, DslDiagrams::PointD.Empty);
-			decorators.Add(decorator3);
-				
-			DslDiagrams::TextField field4 = new DslDiagrams::TextField("SourceRoleName");
-			field4.DefaultText = global::Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("AssociationConnectorSourceRoleNameDefaultText");
-			field4.DefaultFocusable = true;
-			field4.DefaultAutoSize = true;
-			field4.AnchoringBehavior.MinimumHeightInLines = 1;
-			field4.AnchoringBehavior.MinimumWidthInCharacters = 1;
-			field4.DefaultAccessibleState = global::System.Windows.Forms.AccessibleStates.Invisible;
-			DslDiagrams::Decorator decorator4 = new DslDiagrams::ConnectorDecorator(field4, DslDiagrams::ConnectorDecoratorPosition.SourceTop, DslDiagrams::PointD.Empty);
-			decorators.Add(decorator4);
 				
 		}
 		

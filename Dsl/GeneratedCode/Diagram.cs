@@ -399,12 +399,6 @@ namespace Dyvenix.GenIt
 				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
 				DslDiagrams::AssociatedPropertyInfo propertyInfo;
 				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "TargetMultiplicity").AssociateValueWith(shape.Store, propertyInfo);
-				
 				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId);
 				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "SourceRoleName").AssociateValueWith(shape.Store, propertyInfo);
 				
@@ -1089,23 +1083,7 @@ namespace Dyvenix.GenIt
 			{
 				if(e == null) throw new global::System.ArgumentNullException("e");
 				
-				if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.SourceMultiplicityDomainPropertyId)
-				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("SourceMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
-					}
-				}
-				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.TargetMultiplicityDomainPropertyId)
-				{
-					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("TargetMultiplicity");
-					if(decorator != null)
-					{
-						decorator.UpdateDecoratorHostShapes(e.ModelElement, global::Dyvenix.GenIt.Association.DomainClassId);
-					}
-				}
-				else if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId)
+				if (e.DomainProperty.Id == global::Dyvenix.GenIt.Association.SourceRoleNameDomainPropertyId)
 				{
 					DslDiagrams::Decorator decorator = global::Dyvenix.GenIt.AssociationConnector.FindAssociationConnectorDecorator("SourceRoleName");
 					if(decorator != null)

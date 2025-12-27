@@ -459,12 +459,6 @@
   </Shapes>
   <Connectors>
     <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
-      <ConnectorHasDecorators Position="TargetBottom" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="TargetMultiplicity" DisplayName="Target Multiplicity" DefaultText="TargetMultiplicity" />
-      </ConnectorHasDecorators>
-      <ConnectorHasDecorators Position="SourceBottom" OffsetFromShape="0" OffsetFromLine="0">
-        <TextDecorator Name="SourceMultiplicity" DisplayName="Source Multiplicity" DefaultText="SourceMultiplicity" />
-      </ConnectorHasDecorators>
       <ConnectorHasDecorators Position="TargetTop" OffsetFromShape="0" OffsetFromLine="0">
         <TextDecorator Name="TargetRoleName" DisplayName="Target Role Name" DefaultText="TargetRoleName" />
       </ConnectorHasDecorators>
@@ -813,22 +807,6 @@
       <ConnectorMap>
         <ConnectorMoniker Name="AssociationConnector" />
         <DomainRelationshipMoniker Name="Association" />
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/SourceMultiplicity" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="Association/SourceMultiplicity" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
-        <DecoratorMap>
-          <TextDecoratorMoniker Name="AssociationConnector/TargetMultiplicity" />
-          <PropertyDisplayed>
-            <PropertyPath>
-              <DomainPropertyMoniker Name="Association/TargetMultiplicity" />
-            </PropertyPath>
-          </PropertyDisplayed>
-        </DecoratorMap>
         <DecoratorMap>
           <TextDecoratorMoniker Name="AssociationConnector/SourceRoleName" />
           <PropertyDisplayed>

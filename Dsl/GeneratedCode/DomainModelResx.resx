@@ -837,14 +837,6 @@
     <value>Association Connector</value>
     <comment>DisplayName for DomainClass &apos;AssociationConnector&apos;</comment>
   </data>
-  <data name="AssociationConnectorTargetMultiplicityDefaultText" xml:space="preserve">
-    <value>TargetMultiplicity</value>
-    <comment>Text decorator default text</comment>
-  </data>
-  <data name="AssociationConnectorSourceMultiplicityDefaultText" xml:space="preserve">
-    <value>SourceMultiplicity</value>
-    <comment>Text decorator default text</comment>
-  </data>
   <data name="AssociationConnectorTargetRoleNameDefaultText" xml:space="preserve">
     <value>TargetRoleName</value>
     <comment>Text decorator default text</comment>
