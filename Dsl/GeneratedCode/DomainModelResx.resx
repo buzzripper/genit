@@ -461,6 +461,14 @@
     <value>Gen Target Nav Property</value>
     <comment>DisplayName for DomainProperty &apos;GenTargetNavProperty&apos; on DomainClass &apos;Association&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.Association/FkPropertyName.Description" xml:space="preserve">
+    <value>Name of the FK property on the target entity</value>
+    <comment>Description for DomainProperty &apos;FkPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Association/FkPropertyName.DisplayName" xml:space="preserve">
+    <value>FK Property Name</value>
+    <comment>DisplayName for DomainProperty &apos;FkPropertyName&apos; on DomainClass &apos;Association&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association/Source.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainRole &apos;Source&apos; on DomainRelationship &apos;Association&apos;</comment>

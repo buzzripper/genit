@@ -687,6 +687,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region FkPropertyName domain property code
+		
+		/// <summary>
+		/// FkPropertyName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid FkPropertyNameDomainPropertyId = new global::System.Guid(0xc9d0e1f2, 0x3456, 0x789a, 0xbc, 0xde, 0xf0, 0x12, 0x34, 0x56, 0x78, 0x90);
+		
+		/// <summary>
+		/// Storage for FkPropertyName
+		/// </summary>
+		private global::System.String fkPropertyNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of FkPropertyName domain property.
+		/// Name of the FK property on the target entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Association/FkPropertyName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.Association/FkPropertyName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue("")]
+		[DslModeling::DomainObjectId("c9d0e1f2-3456-789a-bcde-f01234567890")]
+		public global::System.String FkPropertyName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return fkPropertyNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				FkPropertyNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the Association.FkPropertyName domain property.
+		/// </summary>
+		internal sealed partial class FkPropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<Association, global::System.String>
+		{
+			private FkPropertyNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the Association.FkPropertyName domain property value handler.
+			/// </summary>
+			public static readonly FkPropertyNamePropertyHandler Instance = new FkPropertyNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the Association.FkPropertyName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return FkPropertyNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(Association element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.fkPropertyNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(Association element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.fkPropertyNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Source link accessor
 		/// <summary>
 		/// Get the list of Association links to a EntityModel.

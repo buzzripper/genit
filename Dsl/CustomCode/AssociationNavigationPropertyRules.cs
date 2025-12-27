@@ -7,6 +7,7 @@ namespace Dyvenix.GenIt
     /// <summary>
     /// Rule that fires when an Association relationship is created.
     /// Creates NavigationProperties based on GenSourceNavProperty and GenTargetNavProperty settings.
+    /// Also creates an FK property on the target entity.
     /// </summary>
     [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
     public class AssociationAddRule : AddRule
@@ -34,6 +35,9 @@ namespace Dyvenix.GenIt
             {
                 CreateTargetNavigationProperty(association, target, source);
             }
+
+            // Create FK property on target entity
+            CreateFkProperty(association, target, source);
         }
 
         private void CreateSourceNavigationProperty(Association association, EntityModel source, EntityModel target)
@@ -90,6 +94,24 @@ namespace Dyvenix.GenIt
             target.NavigationProperties.Add(navProp);
         }
 
+        private void CreateFkProperty(Association association, EntityModel target, EntityModel source)
+        {
+            // FK property name: <SourceEntityName>Id
+            string fkPropName = GetUniqueFkPropertyName(target, source.Name + "Id");
+
+            // Store the FK property name on the association
+            association.FkPropertyName = fkPropName;
+
+            var fkProp = new PropertyModel(target.Partition)
+            {
+                Name = fkPropName,
+                DataType = DataType.Guid,
+                Description = $"Foreign key to {source.Name}"
+            };
+
+            target.Attributes.Add(fkProp);
+        }
+
         private string GetUniqueNavPropertyName(EntityModel entity, string baseName)
         {
             if (!entity.NavigationProperties.Any(np => np.Name == baseName))
@@ -102,11 +124,24 @@ namespace Dyvenix.GenIt
             }
             return baseName + suffix;
         }
+
+        private string GetUniqueFkPropertyName(EntityModel entity, string baseName)
+        {
+            if (!entity.Attributes.Any(a => a.Name == baseName))
+                return baseName;
+
+            int suffix = 2;
+            while (entity.Attributes.Any(a => a.Name == baseName + suffix))
+            {
+                suffix++;
+            }
+            return baseName + suffix;
+        }
     }
 
     /// <summary>
     /// Rule that fires when an Association relationship is being deleted.
-    /// Deletes the associated NavigationProperties.
+    /// Deletes the associated NavigationProperties and FK property.
     /// </summary>
     [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
     public class AssociationDeleteRule : DeleteRule
@@ -137,6 +172,16 @@ namespace Dyvenix.GenIt
                 if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
                 {
                     navProp.Delete();
+                }
+            }
+
+            // Delete FK property on target
+            if (target != null && !target.IsDeleting && !target.IsDeleted && !string.IsNullOrEmpty(association.FkPropertyName))
+            {
+                var fkProp = target.Attributes.FirstOrDefault(a => a.Name == association.FkPropertyName);
+                if (fkProp != null && !fkProp.IsDeleting && !fkProp.IsDeleted)
+                {
+                    fkProp.Delete();
                 }
             }
         }
@@ -380,6 +425,37 @@ namespace Dyvenix.GenIt
                 if (!assoc.IsDeleting && !assoc.IsDeleted && assoc.TargetRoleName == oldName)
                 {
                     assoc.TargetRoleName = newName;
+                    return;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel (FK property) is being deleted.
+    /// Deletes the associated Association if the FK property was tied to it.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class FkPropertyDeleteRule : DeletingRule
+    {
+        public override void ElementDeleting(ElementDeletingEventArgs e)
+        {
+            var property = e.ModelElement as PropertyModel;
+            if (property == null)
+                return;
+
+            var entity = property.EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            // Find associations where this entity is the target and the property name matches FkPropertyName
+            var targetAssociations = Association.GetLinksToSources(entity);
+            foreach (var assoc in targetAssociations)
+            {
+                if (!assoc.IsDeleting && !assoc.IsDeleted && assoc.FkPropertyName == property.Name)
+                {
+                    // Delete the association when its FK property is deleted
+                    assoc.Delete();
                     return;
                 }
             }

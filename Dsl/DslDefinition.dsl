@@ -303,6 +303,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c9d0e1f2-3456-789a-bcde-f01234567890" Description="Name of the FK property on the target entity" Name="FkPropertyName" DisplayName="FK Property Name" DefaultValue="">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <Source>
         <DomainRole Id="e473ff4f-acab-4329-a392-a85c91dc86e6" Description="" Name="Source" DisplayName="Source" PropertyName="Targets" PropertyDisplayName="Targets">
@@ -675,6 +680,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="genTargetNavProperty">
             <DomainPropertyMoniker Name="Association/GenTargetNavProperty" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="fkPropertyName">
+            <DomainPropertyMoniker Name="Association/FkPropertyName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

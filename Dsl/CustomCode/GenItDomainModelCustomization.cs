@@ -28,6 +28,9 @@ namespace Dyvenix.GenIt
                 typeof(AssociationPropertyChangeRule),
                 typeof(NavigationPropertyDeleteRule),
                 typeof(NavigationPropertyNameChangeRule),
+                
+                // Association FK property rule
+                typeof(FkPropertyDeleteRule),
             };
         }
     }

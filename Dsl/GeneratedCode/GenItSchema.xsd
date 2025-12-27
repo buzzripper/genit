@@ -786,6 +786,12 @@
             <xsd:documentation>Whether to generate a navigation property on the target entity</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: FkPropertyName -->
+        <xsd:attribute name="fkPropertyName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the FK property on the target entity</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

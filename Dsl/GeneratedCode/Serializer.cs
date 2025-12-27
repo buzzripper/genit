@@ -10328,6 +10328,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// FkPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribFkPropertyName = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "fkPropertyName");
+				if (attribFkPropertyName != null)
+				{
+					global::System.String valueOfFkPropertyName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribFkPropertyName, out valueOfFkPropertyName))
+					{
+						instanceOfAssociation.FkPropertyName = valueOfFkPropertyName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "fkPropertyName", typeof(global::System.String), attribFkPropertyName);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -10887,6 +10904,18 @@ namespace Dyvenix.GenIt
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "genTargetNavProperty", serializedPropValue);
+					}
+				}
+			}
+			// FkPropertyName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfAssociation.FkPropertyName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "fkPropertyName", propValue);
 					}
 				}
 			}

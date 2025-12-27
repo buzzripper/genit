@@ -148,6 +148,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(Association), "TargetMultiplicity", Association.TargetMultiplicityDomainPropertyId, typeof(Association.TargetMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "TargetRoleName", Association.TargetRoleNameDomainPropertyId, typeof(Association.TargetRoleNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "GenTargetNavProperty", Association.GenTargetNavPropertyDomainPropertyId, typeof(Association.GenTargetNavPropertyPropertyHandler)),
+				new DomainMemberInfo(typeof(Association), "FkPropertyName", Association.FkPropertyNameDomainPropertyId, typeof(Association.FkPropertyNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Generalization), "Discriminator", Generalization.DiscriminatorDomainPropertyId, typeof(Generalization.DiscriminatorPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityUsesEnum), "PropertyName", EntityUsesEnum.PropertyNameDomainPropertyId, typeof(EntityUsesEnum.PropertyNamePropertyHandler)),
 			};
