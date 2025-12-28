@@ -15,7 +15,7 @@
       <Parent guid="guidCmdSet" id="menuidContext" />
       <CommandFlag>AlwaysCreate</CommandFlag>
       <Strings>
-        <CanonicalName>Class Diagrams Designer Context Menu</CanonicalName>
+        <CanonicalName>GenIt Designer Context Menu</CanonicalName>
         <ButtonText>GenIt Context</ButtonText>
       </Strings>
     </Menu>
@@ -23,8 +23,8 @@
       <Parent guid="guidCmdSet" id="menuidExplorer" />
       <CommandFlag>AlwaysCreate</CommandFlag>
       <Strings>
-        <CanonicalName>Class Diagrams Explorer Context Menu</CanonicalName>
-        <ButtonText>Class Diagrams Explorer</ButtonText>
+        <CanonicalName>GenIt Explorer Context Menu</CanonicalName>
+        <ButtonText>GenIt Explorer</ButtonText>
       </Strings>
     </Menu>
   </Menus>
@@ -43,7 +43,7 @@
             <CommandFlag>DefaultInvisible</CommandFlag>
             <CommandFlag>DynamicVisibility</CommandFlag>
             <Strings>
-                <ButtonText>Class Diagrams Explorer</ButtonText>
+                <ButtonText>GenIt Explorer</ButtonText>
             </Strings>
         </Button>
     </Buttons>

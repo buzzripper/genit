@@ -89,6 +89,7 @@
     <Compile Include="CustomCode\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\EntityUsesEnumRules.cs" />
     <Compile Include="CustomCode\FolderPathEditor.cs" />
+    <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />

@@ -51,11 +51,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GenItReportVB.txt</LastGenOutput>
     </None>
-    <None Include="Sample.gmdl" />
-    <None Include="Sample.gmdl.diagram">
-      <DependentUpon>Sample.gmdl</DependentUpon>
-    </None>
-    <None Include="Test.gmdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="GenItReport.txt">

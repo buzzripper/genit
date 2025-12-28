@@ -74,6 +74,26 @@
   <ItemGroup>
     <Compile Include="CustomCode\CommandSetExtensions.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
+    <Compile Include="CustomCode\ModelView\AddViewDialog.cs" />
+    <Compile Include="CustomCode\ModelView\GenItPackageViewAttributes.cs" />
+    <Compile Include="CustomCode\ModelView\GenItViewDocData.cs" />
+    <Compile Include="CustomCode\ModelView\GenItViewDocView.cs" />
+    <Compile Include="CustomCode\ModelView\GenItViewEditorFactory.cs" />
+    <Compile Include="CustomCode\ModelView\ModelExplorerDragSource.cs" />
+    <Compile Include="CustomCode\ModelView\ViewConstants.cs" />
+    <Compile Include="CustomCode\ModelView\ViewFileData.cs" />
+    <Compile Include="CustomCode\MultiDiagram\AddViewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomCode\MultiDiagram\DiagramManager.cs" />
+    <Compile Include="CustomCode\MultiDiagram\DiagramTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomCode\MultiDiagram\GenItDocViewExtensions.cs" />
+    <Compile Include="CustomCode\MultiDiagram\GenItExplorerThemeExtension.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomCode\MultiDiagram\GenItExplorerToolWindowExtension.cs" />
     <Compile Include="CustomCode\PackageExtensions.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>

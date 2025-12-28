@@ -122,7 +122,7 @@
     <comment>Description for DslLibrary &apos;GenIt&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.GenItDomainModel.DisplayName" xml:space="preserve">
-    <value>Class Diagrams</value>
+    <value>GenIt</value>
     <comment>DisplayName for DslLibrary &apos;GenIt&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.NamedElement.Description" xml:space="preserve">
@@ -1486,11 +1486,11 @@
     <comment>DisplayName for DomainClass &apos;EnumAssociationConnector&apos;</comment>
   </data>
   <data name="FormatList" xml:space="preserve">
-    <value>Class Diagrams (*.gmdl)|*.gmdl</value>
+    <value>GenIt (*.gmdl)|*.gmdl</value>
     <comment>A list of file format specifiers for the Save dialog box</comment>
   </data>
   <data name="ModelExplorerTitle" xml:space="preserve">
-    <value>Class Diagrams Explorer</value>
+    <value>GenIt Explorer</value>
     <comment>Model Explorer Toolwindow title</comment>
   </data>
   <data name="Dyvenix.GenIt.GenItDiagram.Description" xml:space="preserve">
