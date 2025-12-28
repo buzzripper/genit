@@ -1,0 +1,17 @@
+﻿<!--DSL Tools Language Template-->
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<TemplateData>
+		<TemplateID>{ced996fc-31f7-4325-80ea-276cf8ae7fd7}</TemplateID>
+		<Name Package="{3aa8cbb2-f0c4-4628-bc99-158569733469}" ID="103"/>
+		<Description Package="{3aa8cbb2-f0c4-4628-bc99-158569733469}" ID="102"/>
+		<Icon Package="{3aa8cbb2-f0c4-4628-bc99-158569733469}" ID="201" />
+		<ProjectType>CSharp</ProjectType>
+		<SortOrder>360</SortOrder>
+		<DefaultName>GenIt.gmdl</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem TargetFileName="$fileinputname$.gmdl">gmdl.gmdl</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.gmdl.diagram">gmdl.diagram</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
+
