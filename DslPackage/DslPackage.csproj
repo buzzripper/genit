@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomCode\CommandSetExtensions.cs" />
+    <Compile Include="CustomCode\GenItPackageCustomization.cs" />
     <Compile Include="CustomCode\PackageExtensions.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>

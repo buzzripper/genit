@@ -88,7 +88,10 @@
     <Compile Include="CustomCode\AssociationNavigationPropertyRules.cs" />
     <Compile Include="CustomCode\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\EntityUsesEnumRules.cs" />
+    <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
+    <Compile Include="CustomCode\ModelRootCustomization.cs" />
+    <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />
     <Compile Include="CustomCode\MultiplicityConverter.cs" />
     <Compile Include="CustomCode\PropertyModelCustomization.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -152,6 +152,14 @@
   <data name="Dyvenix.GenIt.ModelRoot.DisplayName" xml:space="preserve">
     <value>Model Root</value>
     <comment>DisplayName for DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesPath.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Entities Path</value>
+    <comment>Description for DomainProperty &apos;EntitiesPath&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesPath.DisplayName" xml:space="preserve">
+    <value>Entities Path</value>
+    <comment>DisplayName for DomainProperty &apos;EntitiesPath&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>

@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9d433ece-11d0-4cbc-9a3b-82824193f347" Description="Description for Dyvenix.GenIt.GenIt" Name="GenIt" DisplayName="Class Diagrams" Namespace="Dyvenix.GenIt" ProductName="GenIt" CompanyName="Dyvenix" PackageGuid="3aa8cbb2-f0c4-4628-bc99-158569733469" PackageNamespace="Dyvenix.GenIt" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="9913cfeb-b29a-4eb0-aba0-2e8c046b87e0" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt">
       <Properties>
-        <DomainProperty Id="34e4a209-7491-4a75-9f70-f2b75ab46ed5" Description="" Name="Name" DisplayName="Name" DefaultValue="" IsElementName="true" Category="General">
+        <DomainProperty Id="34e4a209-7491-4a75-9f70-f2b75ab46ed5" Description="" Name="Name" DisplayName="Name" DefaultValue="" Category="General" IsElementName="true">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -14,6 +14,13 @@
       <BaseClass>
         <DomainClassMoniker Name="NamedElement" />
       </BaseClass>
+      <Properties>
+        <DomainProperty Id="2847358f-5cff-4639-ac36-424b18d1f769" Description="Description for Dyvenix.GenIt.ModelRoot.Entities Path" Name="EntitiesPath" DisplayName="Entities Path">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
           <Index>
@@ -633,11 +640,11 @@
     <DomainEnumeration Name="DataType" Namespace="Dyvenix.GenIt" Description="Common C# data types">
       <Literals>
         <EnumerationLiteral Description="System.String" Name="String" Value="0" />
-		  <EnumerationLiteral Description="System.Int32" Name="Int32" Value="5" />
-		  <EnumerationLiteral Description="System.Boolean" Name="Boolean" Value="1" />
-		  <EnumerationLiteral Description="System.Guid" Name="Guid" Value="17" />
-		  <EnumerationLiteral Description="System.DateTime" Name="DateTime" Value="14" />
-		  <EnumerationLiteral Description="System.Byte" Name="Byte" Value="2" />
+        <EnumerationLiteral Description="System.Int32" Name="Int32" Value="5" />
+        <EnumerationLiteral Description="System.Boolean" Name="Boolean" Value="1" />
+        <EnumerationLiteral Description="System.Guid" Name="Guid" Value="17" />
+        <EnumerationLiteral Description="System.DateTime" Name="DateTime" Value="14" />
+        <EnumerationLiteral Description="System.Byte" Name="Byte" Value="2" />
         <EnumerationLiteral Description="System.SByte" Name="SByte" Value="3" />
         <EnumerationLiteral Description="System.Int16" Name="Int16" Value="4" />
         <EnumerationLiteral Description="System.Int64" Name="Int64" Value="6" />
@@ -691,7 +698,7 @@
         <TextDecorator Name="Comment" DisplayName="Comment" DefaultText="BusinessRulesShapeNameDecorator" />
       </ShapeHasDecorators>
     </GeometryShape>
-    <CompartmentShape Id="d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Shape" FillColor="218, 165, 32" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
+    <CompartmentShape Id="d4e5f6a7-b8c9-4d0e-1f2a-3b4c5d6e7f8a" Description="" Name="EnumShape" DisplayName="Enum Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Shape" FillColor="Goldenrod" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="InnerTopCenter" HorizontalOffset="0" VerticalOffset="0">
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="EnumName" />
       </ShapeHasDecorators>
@@ -702,13 +709,11 @@
     </CompartmentShape>
   </Shapes>
   <Connectors>
-    <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01">
-    </Connector>
+    <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" />
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
-    <Connector Id="e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="113, 111, 110" Thickness="0.01">
-    </Connector>
+    <Connector Id="e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="113, 111, 110" Thickness="0.01" />
   </Connectors>
   <XmlSerializationBehavior Name="GenItSerializationBehavior" Namespace="Dyvenix.GenIt">
     <ClassData>
@@ -784,6 +789,9 @@
           <XmlRelationshipData RoleElementName="types">
             <DomainRelationshipMoniker Name="ModelRootHasTypes" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="entitiesPath">
+            <DomainPropertyMoniker Name="ModelRoot/EntitiesPath" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -987,6 +995,30 @@
       </XmlClassData>
       <XmlClassData TypeName="ClassHasNavigationProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasNavigationPropertiesMoniker" ElementName="classHasNavigationProperties" MonikerTypeName="ClassHasNavigationPropertiesMoniker">
         <DomainRelationshipMoniker Name="ClassHasNavigationProperties" />
+      </XmlClassData>
+      <XmlClassData TypeName="ClassShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="classShapeMoniker" ElementName="classShape" MonikerTypeName="ClassShapeMoniker">
+        <CompartmentShapeMoniker Name="ClassShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="InterfaceShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceShapeMoniker" ElementName="interfaceShape" MonikerTypeName="InterfaceShapeMoniker">
+        <CompartmentShapeMoniker Name="InterfaceShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentBoxShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentBoxShapeMoniker" ElementName="commentBoxShape" MonikerTypeName="CommentBoxShapeMoniker">
+        <GeometryShapeMoniker Name="CommentBoxShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="AssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationConnectorMoniker" ElementName="associationConnector" MonikerTypeName="AssociationConnectorMoniker">
+        <ConnectorMoniker Name="AssociationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="GeneralizationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationConnectorMoniker" ElementName="generalizationConnector" MonikerTypeName="GeneralizationConnectorMoniker">
+        <ConnectorMoniker Name="GeneralizationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="ImplementationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="implementationConnectorMoniker" ElementName="implementationConnector" MonikerTypeName="ImplementationConnectorMoniker">
+        <ConnectorMoniker Name="ImplementationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentConnectorMoniker" ElementName="commentConnector" MonikerTypeName="CommentConnectorMoniker">
+        <ConnectorMoniker Name="CommentConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="GenItDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="genItDiagramMoniker" ElementName="genItDiagram" MonikerTypeName="GenItDiagramMoniker">
+        <DiagramMoniker Name="GenItDiagram" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
