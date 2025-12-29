@@ -44,8 +44,11 @@ namespace Dyvenix.GenIt
 
 			foreach (PropertyDescriptor prop in properties)
 			{
-				// Add FolderPathEditor to EntitiesPath property
-				if (prop.Name == "EntitiesPath")
+				// Add FolderPathEditor to folder path properties
+				if (prop.Name == "EntitiesOutputFolder" ||
+					prop.Name == "DbContextOutputFolder" ||
+					prop.Name == "EnumsOutputFolder" ||
+					prop.Name == "TemplatesFolder")
 				{
 					newProperties.Add(new FolderPathPropertyDescriptor(prop));
 				}

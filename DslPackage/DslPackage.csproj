@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="CustomCode\MultiDiagram\GenItExplorerToolWindowExtension.cs" />
     <Compile Include="CustomCode\PackageExtensions.cs" />
+    <Compile Include="CustomCode\PackageUtils.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

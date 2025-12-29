@@ -98,8 +98,20 @@
             <xsd:documentation>Version of the model serialized in this file.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: EntitiesPath -->
-        <xsd:attribute name="entitiesPath" type="xsd:string" />
+        <!-- Property: EntitiesOutputFolder -->
+        <xsd:attribute name="entitiesOutputFolder" type="xsd:string" />
+        <!-- Property: EntitiesNamespace -->
+        <xsd:attribute name="entitiesNamespace" type="xsd:string" />
+        <!-- Property: TemplatesFolder -->
+        <xsd:attribute name="templatesFolder" type="xsd:string" />
+        <!-- Property: DbContextOutputFolder -->
+        <xsd:attribute name="dbContextOutputFolder" type="xsd:string" />
+        <!-- Property: DbContextNamespace -->
+        <xsd:attribute name="dbContextNamespace" type="xsd:string" />
+        <!-- Property: EnumsOutputFolder -->
+        <xsd:attribute name="enumsOutputFolder" type="xsd:string" />
+        <!-- Property: EnumsNamespace -->
+        <xsd:attribute name="enumsNamespace" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -654,20 +654,122 @@ namespace Dyvenix.GenIt
 			ModelRoot instanceOfModelRoot = element as ModelRoot;
 			global::System.Diagnostics.Debug.Assert(instanceOfModelRoot != null, "Expecting an instance of ModelRoot");
 	
-			// EntitiesPath
+			// EntitiesOutputFolder
 			if (!serializationContext.Result.Failed)
 			{
-				string attribEntitiesPath = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entitiesPath");
-				if (attribEntitiesPath != null)
+				string attribEntitiesOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entitiesOutputFolder");
+				if (attribEntitiesOutputFolder != null)
 				{
-					global::System.String valueOfEntitiesPath;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEntitiesPath, out valueOfEntitiesPath))
+					global::System.String valueOfEntitiesOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEntitiesOutputFolder, out valueOfEntitiesOutputFolder))
 					{
-						instanceOfModelRoot.EntitiesPath = valueOfEntitiesPath;
+						instanceOfModelRoot.EntitiesOutputFolder = valueOfEntitiesOutputFolder;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entitiesPath", typeof(global::System.String), attribEntitiesPath);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entitiesOutputFolder", typeof(global::System.String), attribEntitiesOutputFolder);
+					}
+				}
+			}
+			// EntitiesNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEntitiesNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entitiesNamespace");
+				if (attribEntitiesNamespace != null)
+				{
+					global::System.String valueOfEntitiesNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEntitiesNamespace, out valueOfEntitiesNamespace))
+					{
+						instanceOfModelRoot.EntitiesNamespace = valueOfEntitiesNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entitiesNamespace", typeof(global::System.String), attribEntitiesNamespace);
+					}
+				}
+			}
+			// TemplatesFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribTemplatesFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "templatesFolder");
+				if (attribTemplatesFolder != null)
+				{
+					global::System.String valueOfTemplatesFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTemplatesFolder, out valueOfTemplatesFolder))
+					{
+						instanceOfModelRoot.TemplatesFolder = valueOfTemplatesFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "templatesFolder", typeof(global::System.String), attribTemplatesFolder);
+					}
+				}
+			}
+			// DbContextOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextOutputFolder");
+				if (attribDbContextOutputFolder != null)
+				{
+					global::System.String valueOfDbContextOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDbContextOutputFolder, out valueOfDbContextOutputFolder))
+					{
+						instanceOfModelRoot.DbContextOutputFolder = valueOfDbContextOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextOutputFolder", typeof(global::System.String), attribDbContextOutputFolder);
+					}
+				}
+			}
+			// DbContextNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextNamespace");
+				if (attribDbContextNamespace != null)
+				{
+					global::System.String valueOfDbContextNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDbContextNamespace, out valueOfDbContextNamespace))
+					{
+						instanceOfModelRoot.DbContextNamespace = valueOfDbContextNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextNamespace", typeof(global::System.String), attribDbContextNamespace);
+					}
+				}
+			}
+			// EnumsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEnumsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "enumsOutputFolder");
+				if (attribEnumsOutputFolder != null)
+				{
+					global::System.String valueOfEnumsOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEnumsOutputFolder, out valueOfEnumsOutputFolder))
+					{
+						instanceOfModelRoot.EnumsOutputFolder = valueOfEnumsOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "enumsOutputFolder", typeof(global::System.String), attribEnumsOutputFolder);
+					}
+				}
+			}
+			// EnumsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEnumsNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "enumsNamespace");
+				if (attribEnumsNamespace != null)
+				{
+					global::System.String valueOfEnumsNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEnumsNamespace, out valueOfEnumsNamespace))
+					{
+						instanceOfModelRoot.EnumsNamespace = valueOfEnumsNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "enumsNamespace", typeof(global::System.String), attribEnumsNamespace);
 					}
 				}
 			}
@@ -1240,14 +1342,80 @@ namespace Dyvenix.GenIt
 			ModelRoot instanceOfModelRoot = element as ModelRoot;
 			global::System.Diagnostics.Debug.Assert(instanceOfModelRoot != null, "Expecting an instance of ModelRoot");
 	
-			// EntitiesPath
+			// EntitiesOutputFolder
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelRoot.EntitiesPath;
+				global::System.String propValue = instanceOfModelRoot.EntitiesOutputFolder;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entitiesPath", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entitiesOutputFolder", propValue);
+	
+				}
+			}
+			// EntitiesNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.EntitiesNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entitiesNamespace", propValue);
+	
+				}
+			}
+			// TemplatesFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.TemplatesFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "templatesFolder", propValue);
+	
+				}
+			}
+			// DbContextOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DbContextOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextOutputFolder", propValue);
+	
+				}
+			}
+			// DbContextNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DbContextNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextNamespace", propValue);
+	
+				}
+			}
+			// EnumsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.EnumsOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumsOutputFolder", propValue);
+	
+				}
+			}
+			// EnumsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.EnumsNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumsNamespace", propValue);
 	
 				}
 			}

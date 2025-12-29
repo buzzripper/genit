@@ -167,59 +167,60 @@ namespace Dyvenix.GenIt
 		{
 		}
 		#endregion
-		#region EntitiesPath domain property code
+		#region EntitiesOutputFolder domain property code
 		
 		/// <summary>
-		/// EntitiesPath domain property Id.
+		/// EntitiesOutputFolder domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid EntitiesPathDomainPropertyId = new global::System.Guid(0x2847358f, 0x5cff, 0x4639, 0xac, 0x36, 0x42, 0x4b, 0x18, 0xd1, 0xf7, 0x69);
+		public static readonly global::System.Guid EntitiesOutputFolderDomainPropertyId = new global::System.Guid(0x2847358f, 0x5cff, 0x4639, 0xac, 0x36, 0x42, 0x4b, 0x18, 0xd1, 0xf7, 0x69);
 		
 		/// <summary>
-		/// Storage for EntitiesPath
+		/// Storage for EntitiesOutputFolder
 		/// </summary>
-		private global::System.String entitiesPathPropertyStorage = string.Empty;
+		private global::System.String entitiesOutputFolderPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of EntitiesPath domain property.
-		/// Description for Dyvenix.GenIt.ModelRoot.Entities Path
+		/// Gets or sets the value of EntitiesOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Entities Output Folder
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EntitiesPath.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EntitiesPath.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("2847358f-5cff-4639-ac36-424b18d1f769")]
-		public global::System.String EntitiesPath
+		public global::System.String EntitiesOutputFolder
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return entitiesPathPropertyStorage;
+				return entitiesOutputFolderPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				EntitiesPathPropertyHandler.Instance.SetValue(this, value);
+				EntitiesOutputFolderPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelRoot.EntitiesPath domain property.
+		/// Value handler for the ModelRoot.EntitiesOutputFolder domain property.
 		/// </summary>
-		internal sealed partial class EntitiesPathPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		internal sealed partial class EntitiesOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
 		{
-			private EntitiesPathPropertyHandler() { }
+			private EntitiesOutputFolderPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.EntitiesPath domain property value handler.
+			/// Gets the singleton instance of the ModelRoot.EntitiesOutputFolder domain property value handler.
 			/// </summary>
-			public static readonly EntitiesPathPropertyHandler Instance = new EntitiesPathPropertyHandler();
+			public static readonly EntitiesOutputFolderPropertyHandler Instance = new EntitiesOutputFolderPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelRoot.EntitiesPath domain property.
+			/// Gets the Id of the ModelRoot.EntitiesOutputFolder domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return EntitiesPathDomainPropertyId;
+					return EntitiesOutputFolderDomainPropertyId;
 				}
 			}
 			
@@ -231,7 +232,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.entitiesPathPropertyStorage;
+				return element.entitiesOutputFolderPropertyStorage;
 			}
 		
 			/// <summary>
@@ -247,7 +248,534 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.entitiesPathPropertyStorage = newValue;
+					element.entitiesOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EntitiesNamespace domain property code
+		
+		/// <summary>
+		/// EntitiesNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EntitiesNamespaceDomainPropertyId = new global::System.Guid(0x9c8ff99e, 0xff07, 0x4379, 0xb5, 0x5d, 0x11, 0x6f, 0x4d, 0x54, 0x1c, 0x5f);
+		
+		/// <summary>
+		/// Storage for EntitiesNamespace
+		/// </summary>
+		private global::System.String entitiesNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EntitiesNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Entities Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EntitiesNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EntitiesNamespace.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EntitiesNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("9c8ff99e-ff07-4379-b55d-116f4d541c5f")]
+		public global::System.String EntitiesNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return entitiesNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EntitiesNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EntitiesNamespace domain property.
+		/// </summary>
+		internal sealed partial class EntitiesNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private EntitiesNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EntitiesNamespace domain property value handler.
+			/// </summary>
+			public static readonly EntitiesNamespacePropertyHandler Instance = new EntitiesNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EntitiesNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EntitiesNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.entitiesNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.entitiesNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region TemplatesFolder domain property code
+		
+		/// <summary>
+		/// TemplatesFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TemplatesFolderDomainPropertyId = new global::System.Guid(0x2c2607f1, 0x8c23, 0x4964, 0x8c, 0x11, 0xd7, 0xb0, 0x1c, 0xdf, 0xec, 0xd4);
+		
+		/// <summary>
+		/// Storage for TemplatesFolder
+		/// </summary>
+		private global::System.String templatesFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TemplatesFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Templates Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/TemplatesFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/TemplatesFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("2c2607f1-8c23-4964-8c11-d7b01cdfecd4")]
+		public global::System.String TemplatesFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return templatesFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TemplatesFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.TemplatesFolder domain property.
+		/// </summary>
+		internal sealed partial class TemplatesFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private TemplatesFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.TemplatesFolder domain property value handler.
+			/// </summary>
+			public static readonly TemplatesFolderPropertyHandler Instance = new TemplatesFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.TemplatesFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TemplatesFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.templatesFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.templatesFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DbContextOutputFolder domain property code
+		
+		/// <summary>
+		/// DbContextOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextOutputFolderDomainPropertyId = new global::System.Guid(0xffe37e03, 0x971d, 0x4dd8, 0x92, 0x22, 0xd0, 0xd5, 0x78, 0x5b, 0xef, 0x4d);
+		
+		/// <summary>
+		/// Storage for DbContextOutputFolder
+		/// </summary>
+		private global::System.String dbContextOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("ffe37e03-971d-4dd8-9222-d0d5785bef4d")]
+		public global::System.String DbContextOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class DbContextOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly DbContextOutputFolderPropertyHandler Instance = new DbContextOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DbContextNamespace domain property code
+		
+		/// <summary>
+		/// DbContextNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextNamespaceDomainPropertyId = new global::System.Guid(0x94cef65b, 0x5fb6, 0x424b, 0x8c, 0x28, 0x06, 0x26, 0x95, 0x10, 0x51, 0xf6);
+		
+		/// <summary>
+		/// Storage for DbContextNamespace
+		/// </summary>
+		private global::System.String dbContextNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DbContextNamespace.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("94cef65b-5fb6-424b-8c28-0626951051f6")]
+		public global::System.String DbContextNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextNamespace domain property.
+		/// </summary>
+		internal sealed partial class DbContextNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextNamespace domain property value handler.
+			/// </summary>
+			public static readonly DbContextNamespacePropertyHandler Instance = new DbContextNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumsOutputFolder domain property code
+		
+		/// <summary>
+		/// EnumsOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumsOutputFolderDomainPropertyId = new global::System.Guid(0xc89338c6, 0xf414, 0x4b3d, 0x8b, 0xef, 0xc3, 0x94, 0xaf, 0x76, 0x86, 0x4b);
+		
+		/// <summary>
+		/// Storage for EnumsOutputFolder
+		/// </summary>
+		private global::System.String enumsOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EnumsOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Enums Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c89338c6-f414-4b3d-8bef-c394af76864b")]
+		public global::System.String EnumsOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enumsOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnumsOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EnumsOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class EnumsOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private EnumsOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EnumsOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly EnumsOutputFolderPropertyHandler Instance = new EnumsOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EnumsOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnumsOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enumsOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enumsOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumsNamespace domain property code
+		
+		/// <summary>
+		/// EnumsNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumsNamespaceDomainPropertyId = new global::System.Guid(0x866010b0, 0xd180, 0x44b3, 0x93, 0x9b, 0x48, 0xfb, 0x2e, 0xac, 0x91, 0xbb);
+		
+		/// <summary>
+		/// Storage for EnumsNamespace
+		/// </summary>
+		private global::System.String enumsNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of EnumsNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Enums Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EnumsNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EnumsNamespace.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EnumsNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("866010b0-d180-44b3-939b-48fb2eac91bb")]
+		public global::System.String EnumsNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enumsNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnumsNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EnumsNamespace domain property.
+		/// </summary>
+		internal sealed partial class EnumsNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private EnumsNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EnumsNamespace domain property value handler.
+			/// </summary>
+			public static readonly EnumsNamespacePropertyHandler Instance = new EnumsNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EnumsNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnumsNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enumsNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enumsNamespacePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

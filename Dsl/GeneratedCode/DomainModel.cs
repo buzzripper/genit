@@ -122,7 +122,13 @@ namespace Dyvenix.GenIt
 			return new DomainMemberInfo[]
 			{
 				new DomainMemberInfo(typeof(NamedElement), "Name", NamedElement.NameDomainPropertyId, typeof(NamedElement.NamePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "EntitiesPath", ModelRoot.EntitiesPathDomainPropertyId, typeof(ModelRoot.EntitiesPathPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EntitiesOutputFolder", ModelRoot.EntitiesOutputFolderDomainPropertyId, typeof(ModelRoot.EntitiesOutputFolderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EntitiesNamespace", ModelRoot.EntitiesNamespaceDomainPropertyId, typeof(ModelRoot.EntitiesNamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "TemplatesFolder", ModelRoot.TemplatesFolderDomainPropertyId, typeof(ModelRoot.TemplatesFolderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DbContextOutputFolder", ModelRoot.DbContextOutputFolderDomainPropertyId, typeof(ModelRoot.DbContextOutputFolderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DbContextNamespace", ModelRoot.DbContextNamespaceDomainPropertyId, typeof(ModelRoot.DbContextNamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EnumsOutputFolder", ModelRoot.EnumsOutputFolderDomainPropertyId, typeof(ModelRoot.EnumsOutputFolderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EnumsNamespace", ModelRoot.EnumsNamespaceDomainPropertyId, typeof(ModelRoot.EnumsNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attribute1", EntityModel.Attribute1DomainPropertyId, typeof(EntityModel.Attribute1PropertyHandler)),
