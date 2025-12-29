@@ -153,13 +153,85 @@
     <value>Model Root</value>
     <comment>DisplayName for DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelRoot/EntitiesPath.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModelRoot.Entities Path</value>
-    <comment>Description for DomainProperty &apos;EntitiesPath&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Entities Output Folder</value>
+    <comment>Description for DomainProperty &apos;EntitiesOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModelRoot/EntitiesPath.DisplayName" xml:space="preserve">
-    <value>Entities Path</value>
-    <comment>DisplayName for DomainProperty &apos;EntitiesPath&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.DisplayName" xml:space="preserve">
+    <value>Entities Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;EntitiesOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesOutputFolder.Category" xml:space="preserve">
+    <value>Entities</value>
+    <comment>Category for DomainProperty &apos;EntitiesOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Entities Namespace</value>
+    <comment>Description for DomainProperty &apos;EntitiesNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesNamespace.DisplayName" xml:space="preserve">
+    <value>Entities Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;EntitiesNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesNamespace.Category" xml:space="preserve">
+    <value>Entities</value>
+    <comment>Category for DomainProperty &apos;EntitiesNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/TemplatesFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Templates Folder</value>
+    <comment>Description for DomainProperty &apos;TemplatesFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/TemplatesFolder.DisplayName" xml:space="preserve">
+    <value>Templates Folder</value>
+    <comment>DisplayName for DomainProperty &apos;TemplatesFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Db Context Output Folder</value>
+    <comment>Description for DomainProperty &apos;DbContextOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.DisplayName" xml:space="preserve">
+    <value>Db Context Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextOutputFolder.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Db Context Namespace</value>
+    <comment>Description for DomainProperty &apos;DbContextNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextNamespace.DisplayName" xml:space="preserve">
+    <value>Db Context Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextNamespace.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Enums Output Folder</value>
+    <comment>Description for DomainProperty &apos;EnumsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.DisplayName" xml:space="preserve">
+    <value>Enums Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;EnumsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.Category" xml:space="preserve">
+    <value>Enums</value>
+    <comment>Category for DomainProperty &apos;EnumsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Enums Namespace</value>
+    <comment>Description for DomainProperty &apos;EnumsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsNamespace.DisplayName" xml:space="preserve">
+    <value>Enums Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;EnumsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsNamespace.Category" xml:space="preserve">
+    <value>Enums</value>
+    <comment>Category for DomainProperty &apos;EnumsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>

@@ -15,7 +15,37 @@
         <DomainClassMoniker Name="NamedElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="2847358f-5cff-4639-ac36-424b18d1f769" Description="Description for Dyvenix.GenIt.ModelRoot.Entities Path" Name="EntitiesPath" DisplayName="Entities Path">
+        <DomainProperty Id="2847358f-5cff-4639-ac36-424b18d1f769" Description="Description for Dyvenix.GenIt.ModelRoot.Entities Output Folder" Name="EntitiesOutputFolder" DisplayName="Entities Output Folder" Category="Entities">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="9c8ff99e-ff07-4379-b55d-116f4d541c5f" Description="Description for Dyvenix.GenIt.ModelRoot.Entities Namespace" Name="EntitiesNamespace" DisplayName="Entities Namespace" Category="Entities">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2c2607f1-8c23-4964-8c11-d7b01cdfecd4" Description="Description for Dyvenix.GenIt.ModelRoot.Templates Folder" Name="TemplatesFolder" DisplayName="Templates Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="ffe37e03-971d-4dd8-9222-d0d5785bef4d" Description="Description for Dyvenix.GenIt.ModelRoot.Db Context Output Folder" Name="DbContextOutputFolder" DisplayName="Db Context Output Folder" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="94cef65b-5fb6-424b-8c28-0626951051f6" Description="Description for Dyvenix.GenIt.ModelRoot.Db Context Namespace" Name="DbContextNamespace" DisplayName="Db Context Namespace" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="c89338c6-f414-4b3d-8bef-c394af76864b" Description="Description for Dyvenix.GenIt.ModelRoot.Enums Output Folder" Name="EnumsOutputFolder" DisplayName="Enums Output Folder" Category="Enums">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="866010b0-d180-44b3-939b-48fb2eac91bb" Description="Description for Dyvenix.GenIt.ModelRoot.Enums Namespace" Name="EnumsNamespace" DisplayName="Enums Namespace" Category="Enums">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -789,8 +819,26 @@
           <XmlRelationshipData RoleElementName="types">
             <DomainRelationshipMoniker Name="ModelRootHasTypes" />
           </XmlRelationshipData>
-          <XmlPropertyData XmlName="entitiesPath">
-            <DomainPropertyMoniker Name="ModelRoot/EntitiesPath" />
+          <XmlPropertyData XmlName="entitiesOutputFolder">
+            <DomainPropertyMoniker Name="ModelRoot/EntitiesOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="entitiesNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/EntitiesNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="templatesFolder">
+            <DomainPropertyMoniker Name="ModelRoot/TemplatesFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextOutputFolder">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="enumsOutputFolder">
+            <DomainPropertyMoniker Name="ModelRoot/EnumsOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="enumsNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/EnumsNamespace" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

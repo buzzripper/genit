@@ -39,32 +39,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Dsl\GeneratedCode\GenItSchema.xsd">
-      <Link>GenItSchema.xsd</Link>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="GenItReport.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GenItReport.txt</LastGenOutput>
-    </None>
-    <None Include="GenItReportVB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>GenItReportVB.txt</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="GenItReport.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GenItReport.tt</DependentUpon>
-    </Content>
-    <Content Include="GenItReportVB.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GenItReportVB.tt</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4df5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
