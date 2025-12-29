@@ -29,12 +29,13 @@ namespace Dyvenix.GenIt
                 dialog.Description = "Select a folder";
                 dialog.ShowNewFolderButton = true;
 
-                // Set the initial path if one exists
+                string solutionRoot = PackageUtils.SolutionRootPath;
+
+                // Set the initial path
                 if (value is string currentPath && !string.IsNullOrEmpty(currentPath))
                 {
                     // If the current path is relative, try to make it absolute for the dialog
                     string absolutePath = currentPath;
-                    string solutionRoot = PackageUtils.SolutionRootPath;
                     
                     if (!Path.IsPathRooted(currentPath) && !string.IsNullOrEmpty(solutionRoot))
                     {
@@ -51,6 +52,14 @@ namespace Dyvenix.GenIt
                     if (Directory.Exists(absolutePath))
                     {
                         dialog.SelectedPath = absolutePath;
+                    }
+                }
+                else
+                {
+                    // Property is blank - default to solution root folder
+                    if (!string.IsNullOrEmpty(solutionRoot) && Directory.Exists(solutionRoot))
+                    {
+                        dialog.SelectedPath = solutionRoot;
                     }
                 }
 
