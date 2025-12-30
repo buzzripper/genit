@@ -19,6 +19,9 @@ namespace Dyvenix.GenIt
                 // EntityModel add rule
                 typeof(EntityModelAddRule),
                 
+                // PropertyModel add rule
+                typeof(PropertyModelAddRule),
+                
                 // EnumAssociation rules
                 typeof(EnumAssociationAddRule),
                 typeof(EnumAssociationDeleteRule),

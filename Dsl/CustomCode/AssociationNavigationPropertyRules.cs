@@ -500,4 +500,25 @@ namespace Dyvenix.GenIt
             }
         }
     }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel is added.
+    /// Sets the default Length to 50 for String type properties.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class PropertyModelAddRule : AddRule
+    {
+        public override void ElementAdded(ElementAddedEventArgs e)
+        {
+            var property = e.ModelElement as PropertyModel;
+            if (property == null || property.IsDeleting || property.IsDeleted)
+                return;
+
+            // Set default Length to 50 for String type properties
+            if (property.DataType == DataType.String && property.Length == 0)
+            {
+                property.Length = 50;
+            }
+        }
+    }
 }
