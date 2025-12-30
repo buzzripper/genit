@@ -469,6 +469,14 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;IsIndexClustered&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsForeignKey.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.PropertyModel.Is Foreign Key</value>
+    <comment>Description for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsForeignKey.DisplayName" xml:space="preserve">
+    <value>Is Foreign Key</value>
+    <comment>DisplayName for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

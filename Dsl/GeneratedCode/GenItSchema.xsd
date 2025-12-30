@@ -328,6 +328,8 @@
         <xsd:attribute name="isIndexUnique" type="xsd:boolean" />
         <!-- Property: IsIndexClustered -->
         <xsd:attribute name="isIndexClustered" type="xsd:boolean" />
+        <!-- Property: IsForeignKey -->
+        <xsd:attribute name="isForeignKey" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

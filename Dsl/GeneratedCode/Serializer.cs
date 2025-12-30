@@ -3340,6 +3340,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsForeignKey
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsForeignKey = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isForeignKey");
+				if (attribIsForeignKey != null)
+				{
+					global::System.Boolean valueOfIsForeignKey;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsForeignKey, out valueOfIsForeignKey))
+					{
+						instanceOfPropertyModel.IsForeignKey = valueOfIsForeignKey;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isForeignKey", typeof(global::System.Boolean), attribIsForeignKey);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -3876,6 +3893,16 @@ namespace Dyvenix.GenIt
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isIndexClustered", serializedPropValue);
 					}
+				}
+			}
+			// IsForeignKey
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfPropertyModel.IsForeignKey;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isForeignKey", serializedPropValue);
 				}
 			}
 		}

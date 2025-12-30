@@ -81,14 +81,14 @@
 //				propsOutput.AddLine();
 //			}
 
-//			// FK properties
-//			var fkProperties = entity.Properties.Where(p => p.IsForeignKey);
-//			if (fkProperties.Any())
-//				propsOutput.AddLine(1, $"// FKs");
-//			foreach (var property in fkProperties)
-//				GenerateProperty(property, propsOutput, usings);
-//			if (fkProperties.Any())
-//				propsOutput.AddLine();
+//			//// FK properties
+//			//var fkProperties = entity.Properties.Where(p => p.IsForeignKey);
+//			//if (fkProperties.Any())
+//			//	propsOutput.AddLine(1, $"// FKs");
+//			//foreach (var property in fkProperties)
+//			//	GenerateProperty(property, propsOutput, usings);
+//			//if (fkProperties.Any())
+//			//	propsOutput.AddLine();
 
 //			// Properties
 //			propsOutput.AddLine(1, $"// Properties");

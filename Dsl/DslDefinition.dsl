@@ -203,6 +203,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e40dafb9-46ce-49f9-9932-23945a811c0c" Description="Description for Dyvenix.GenIt.PropertyModel.Is Foreign Key" Name="IsForeignKey" DisplayName="Is Foreign Key">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="27906d32-ad8a-4efd-98c0-95e0c0798f7c" Description="" Name="Comment" DisplayName="Comment" Namespace="Dyvenix.GenIt">
@@ -925,6 +930,9 @@
           <XmlPropertyData XmlName="isIndexClustered">
             <DomainPropertyMoniker Name="PropertyModel/IsIndexClustered" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="isForeignKey">
+            <DomainPropertyMoniker Name="PropertyModel/IsForeignKey" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="Comment" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentMoniker" ElementName="comment" MonikerTypeName="CommentMoniker">
@@ -1055,6 +1063,18 @@
       </XmlClassData>
       <XmlClassData TypeName="GenItDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="genItDiagramMoniker" ElementName="genItDiagram" MonikerTypeName="GenItDiagramMoniker">
         <DiagramMoniker Name="GenItDiagram" />
+      </XmlClassData>
+      <XmlClassData TypeName="ClassShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="classShapeMoniker" ElementName="classShape" MonikerTypeName="ClassShapeMoniker">
+        <CompartmentShapeMoniker Name="ClassShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="InterfaceShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceShapeMoniker" ElementName="interfaceShape" MonikerTypeName="InterfaceShapeMoniker">
+        <CompartmentShapeMoniker Name="InterfaceShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="EnumShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumShapeMoniker" ElementName="enumShape" MonikerTypeName="EnumShapeMoniker">
+        <CompartmentShapeMoniker Name="EnumShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
+        <ConnectorMoniker Name="EnumAssociationConnector" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>

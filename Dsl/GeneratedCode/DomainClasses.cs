@@ -2944,6 +2944,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region IsForeignKey domain property code
+		
+		/// <summary>
+		/// IsForeignKey domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsForeignKeyDomainPropertyId = new global::System.Guid(0xe40dafb9, 0x46ce, 0x49f9, 0x99, 0x32, 0x23, 0x94, 0x5a, 0x81, 0x1c, 0x0c);
+		
+		/// <summary>
+		/// Storage for IsForeignKey
+		/// </summary>
+		private global::System.Boolean isForeignKeyPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsForeignKey domain property.
+		/// Description for Dyvenix.GenIt.PropertyModel.Is Foreign Key
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/IsForeignKey.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/IsForeignKey.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("e40dafb9-46ce-49f9-9932-23945a811c0c")]
+		public global::System.Boolean IsForeignKey
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isForeignKeyPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsForeignKeyPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.IsForeignKey domain property.
+		/// </summary>
+		internal sealed partial class IsForeignKeyPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Boolean>
+		{
+			private IsForeignKeyPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.IsForeignKey domain property value handler.
+			/// </summary>
+			public static readonly IsForeignKeyPropertyHandler Instance = new IsForeignKeyPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.IsForeignKey domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsForeignKeyDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isForeignKeyPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isForeignKeyPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModel.

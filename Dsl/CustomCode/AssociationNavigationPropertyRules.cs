@@ -106,7 +106,8 @@ namespace Dyvenix.GenIt
             {
                 Name = fkPropName,
                 DataType = DataType.Guid,
-                Description = $"Foreign key to {source.Name}"
+                Description = $"Foreign key to {source.Name}",
+                IsForeignKey = true
             };
 
             target.Properties.Add(fkProp);
