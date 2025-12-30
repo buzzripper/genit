@@ -1,0 +1,29 @@
+﻿//------------------------------------------------------------------------------------------------------------
+// This file was auto-generated. Any changes made to it will be lost.
+//------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Dyvenix.Core.ApiClients;
+using Dyvenix.Common.Core.Entities;
+${{ADDL_USINGS}}
+
+namespace ${{API_CLIENTS_NS}};
+
+public interface I${{API_CLIENT_NAME}}
+{
+${{INTERFACE_SIGNATURES}}
+}
+public class ${{API_CLIENT_NAME}} : ApiClientBase<${{ENTITY_NAME}}>, I${{API_CLIENT_NAME}}
+{
+    public ${{API_CLIENT_NAME}}(HttpClient httpClient)
+        : base(httpClient)
+    {
+    }
+
+${{CUD_METHODS}}
+${{SINGLE_METHODS}}
+${{LIST_METHODS}}
+${{QUERY_METHODS}}
+}

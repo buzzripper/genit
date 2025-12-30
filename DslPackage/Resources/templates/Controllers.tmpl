@@ -1,0 +1,31 @@
+﻿//------------------------------------------------------------------------------------------------------------
+// This file was auto-generated. Any changes made to it will be lost.
+//------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Mvc;
+using Dyvenix.Core.DTOs;
+using Dyvenix.Common.Core.Entities;
+using Dyvenix.Logging;
+${{ADDL_USINGS}}
+
+namespace ${{CONTROLLERS_NS}};
+${{CONTROLLER_ATTRS}}
+[ApiController]
+[ApiVersion("${{CONTROLLER_VERSION}}")]
+[Route("api/v{version:apiVersion}/[controller]")]
+public class ${{CONTROLLER_NAME}} : ApiControllerBase<${{CONTROLLER_NAME}}>
+{
+	private readonly I${{SERVICE_NAME}} _${{SERVICE_VAR_NAME}};
+
+	public ${{CONTROLLER_NAME}}(I${{SERVICE_NAME}} ${{SERVICE_VAR_NAME}}, IDyvenixLogger<${{CONTROLLER_NAME}}> logger) : base(logger)
+	{
+		_${{SERVICE_VAR_NAME}} = ${{SERVICE_VAR_NAME}};
+	}
+${{CUD_METHODS}}
+${{SINGLE_METHODS}}
+${{LIST_METHODS}}
+${{QUERY_METHODS}}
+}
