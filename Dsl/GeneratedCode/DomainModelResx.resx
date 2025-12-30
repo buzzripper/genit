@@ -277,22 +277,6 @@
     <value>Entity Model</value>
     <comment>DisplayName for DomainClass &apos;EntityModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityModel/Kind.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Kind&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/Kind.DisplayName" xml:space="preserve">
-    <value>Kind</value>
-    <comment>DisplayName for DomainProperty &apos;Kind&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/IsAbstract.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/IsAbstract.DisplayName" xml:space="preserve">
-    <value>Is Abstract</value>
-    <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.EntityModel/Attribute1.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>

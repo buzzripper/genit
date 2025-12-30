@@ -90,16 +90,6 @@
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="f387f050-11f9-456e-a9e6-be8dfd35fa9a" Description="" Name="Kind" DisplayName="Kind" DefaultValue="">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="1fb358c4-c63e-441b-bf67-00184bd796a6" Description="" Name="IsAbstract" DisplayName="Is Abstract" DefaultValue="None">
-          <Type>
-            <DomainEnumerationMoniker Name="InheritanceModifier" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="" Name="Attribute1" DisplayName="Attribute1" Category="Attributes">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
@@ -874,12 +864,6 @@
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
         <DomainClassMoniker Name="EntityModel" />
         <ElementData>
-          <XmlPropertyData XmlName="kind">
-            <DomainPropertyMoniker Name="EntityModel/Kind" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="isAbstract">
-            <DomainPropertyMoniker Name="EntityModel/IsAbstract" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="attribute1">
             <DomainPropertyMoniker Name="EntityModel/Attribute1" />
           </XmlPropertyData>

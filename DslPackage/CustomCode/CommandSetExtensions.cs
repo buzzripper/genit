@@ -1,4 +1,5 @@
 using Dyvenix.GenIt.DslPackage.CodeGen;
+using Dyvenix.GenIt.DslPackage.CustomCode;
 using Microsoft.VisualStudio.Modeling.Shell;
 using System;
 using System.ComponentModel.Design;
@@ -55,7 +56,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		private void OnMenuGenerateCode(object sender, EventArgs e)
 		{
-			GenItModel genitModel = null;
 			try
 			{
 				// Get the current document
@@ -67,13 +67,9 @@ namespace Dyvenix.GenIt
 				}
 
 				ModelRoot modelRoot = docData.RootElement as ModelRoot;
-				if (modelRoot == null)
-				{
-					ShowMessage("Could not access the model root.", "GenIt Code Generator");
-					return;
-				}
+				new ModelValidator().Validate(modelRoot);
 
-				genitModel = new GenItModel(modelRoot);
+				var genitModel = new GenItModel(modelRoot);
 
 				// TODO: Replace this with your actual code generator
 				// For now, just show what would be generated
@@ -87,13 +83,11 @@ namespace Dyvenix.GenIt
 			}
 			catch (Exception ex)
 			{
-				ShowErrorMessage($"Error generating code:\n\n{ex.Message}", "GenIt Code Generator");
-			}
-			finally
-			{
-				genitModel = null;
+				ShowErrorMessage(ex.Message, "GenIt Code Generator");
 			}
 		}
+
+		#region Show Messages
 
 		/// <summary>
 		/// Shows an information message to the user.
@@ -118,5 +112,7 @@ namespace Dyvenix.GenIt
 				System.Windows.Forms.MessageBoxButtons.OK,
 				System.Windows.Forms.MessageBoxIcon.Error);
 		}
+
+		#endregion
 	}
 }

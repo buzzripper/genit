@@ -132,8 +132,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "EntitiesEnabled", ModelRoot.EntitiesEnabledDomainPropertyId, typeof(ModelRoot.EntitiesEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextEnabled", ModelRoot.DbContextEnabledDomainPropertyId, typeof(ModelRoot.DbContextEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsEnabled", ModelRoot.EnumsEnabledDomainPropertyId, typeof(ModelRoot.EnumsEnabledPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attribute1", EntityModel.Attribute1DomainPropertyId, typeof(EntityModel.Attribute1PropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attribute2", EntityModel.Attribute2DomainPropertyId, typeof(EntityModel.Attribute2PropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),

@@ -258,10 +258,6 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: Kind -->
-        <xsd:attribute name="kind" type="xsd:string" />
-        <!-- Property: IsAbstract -->
-        <xsd:attribute name="isAbstract" type="InheritanceModifier" />
         <!-- Property: Attribute1 -->
         <xsd:attribute name="attribute1" type="xsd:string" />
         <!-- Property: Attribute2 -->

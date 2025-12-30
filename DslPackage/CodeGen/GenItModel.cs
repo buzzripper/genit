@@ -37,5 +37,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 		internal List<EnumModel> Enums { get; private set; }
 		internal List<EnumAssociation> EnumAssociations { get; private set; }
+
+
 	}
 }

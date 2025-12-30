@@ -1828,40 +1828,6 @@ namespace Dyvenix.GenIt
 			EntityModel instanceOfEntityModel = element as EntityModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfEntityModel != null, "Expecting an instance of EntityModel");
 	
-			// Kind
-			if (!serializationContext.Result.Failed)
-			{
-				string attribKind = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "kind");
-				if (attribKind != null)
-				{
-					global::System.String valueOfKind;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribKind, out valueOfKind))
-					{
-						instanceOfEntityModel.Kind = valueOfKind;
-					}
-					else
-					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "kind", typeof(global::System.String), attribKind);
-					}
-				}
-			}
-			// IsAbstract
-			if (!serializationContext.Result.Failed)
-			{
-				string attribIsAbstract = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAbstract");
-				if (attribIsAbstract != null)
-				{
-					InheritanceModifier valueOfIsAbstract;
-					if (DslModeling::SerializationUtilities.TryGetValue<InheritanceModifier>(serializationContext, attribIsAbstract, out valueOfIsAbstract))
-					{
-						instanceOfEntityModel.IsAbstract = valueOfIsAbstract;
-					}
-					else
-					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAbstract", typeof(InheritanceModifier), attribIsAbstract);
-					}
-				}
-			}
 			// Attribute1
 			if (!serializationContext.Result.Failed)
 			{
@@ -2749,31 +2715,6 @@ namespace Dyvenix.GenIt
 			EntityModel instanceOfEntityModel = element as EntityModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfEntityModel != null, "Expecting an instance of EntityModel");
 	
-			// Kind
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.String propValue = instanceOfEntityModel.Kind;
-				if (!serializationContext.Result.Failed)
-				{
-					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
-					{	// No need to write the value out if it's the same as default value.
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "kind", propValue);
-					}
-				}
-			}
-			// IsAbstract
-			if (!serializationContext.Result.Failed)
-			{
-				InheritanceModifier propValue = instanceOfEntityModel.IsAbstract;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<InheritanceModifier>(serializationContext, propValue);
-				if (!serializationContext.Result.Failed)
-				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "None") != 0)
-					{	// No need to write the value out if it's the same as default value.
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAbstract", serializedPropValue);
-					}
-				}
-			}
 			// Attribute1
 			if (!serializationContext.Result.Failed)
 			{

@@ -77,6 +77,7 @@
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
+    <Compile Include="CustomCode\ModelValidator.cs" />
     <Compile Include="CustomCode\OutputWindowHelper.cs" />
     <Compile Include="CustomCode\CommandSetExtensions.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />

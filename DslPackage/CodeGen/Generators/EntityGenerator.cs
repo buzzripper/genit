@@ -68,27 +68,27 @@
 //				this.GenerateProperty(property, propsOutput, usings);
 //			propsOutput.AddLine();
 
-//			// RowVersion
-//			if (entity.InclRowVersion)
-//			{
-//				var rowVerProp = new PropertyModel
-//				{
-//					Id = Guid.NewGuid(),
-//					Name = "RowVersion",
-//					PrimitiveType = PrimitiveType.ByteArray
-//				};
-//				this.GenerateProperty(rowVerProp, propsOutput, usings);
-//				propsOutput.AddLine();
-//			}
-
-//			//// FK properties
-//			//var fkProperties = entity.Properties.Where(p => p.IsForeignKey);
-//			//if (fkProperties.Any())
-//			//	propsOutput.AddLine(1, $"// FKs");
-//			//foreach (var property in fkProperties)
-//			//	GenerateProperty(property, propsOutput, usings);
-//			//if (fkProperties.Any())
+//			//// RowVersion
+//			//if (entity.InclRowVersion)
+//			//{
+//			//	var rowVerProp = new PropertyModel
+//			//	{
+//			//		Id = Guid.NewGuid(),
+//			//		Name = "RowVersion",
+//			//		PrimitiveType = PrimitiveType.ByteArray
+//			//	};
+//			//	this.GenerateProperty(rowVerProp, propsOutput, usings);
 //			//	propsOutput.AddLine();
+//			//}
+
+//			// FK properties
+//			var fkProperties = entity.Properties.Where(p => p.IsForeignKey);
+//			if (fkProperties.Any())
+//				propsOutput.AddLine(1, $"// FKs");
+//			foreach (var property in fkProperties)
+//				GenerateProperty(property, propsOutput, usings);
+//			if (fkProperties.Any())
+//				propsOutput.AddLine();
 
 //			// Properties
 //			propsOutput.AddLine(1, $"// Properties");
@@ -114,106 +114,106 @@
 //			File.WriteAllText(outputFile, fileContents);
 //		}
 
-//		private List<string> BuildAddlUsings(EntityModel entity)
-//		{
-//			var usings = new List<string>();
+//		//private List<string> BuildAddlUsings(EntityModel entity)
+//		//{
+//		//	var usings = new List<string>();
 
-//			entity.AddlUsings?.ToList().ForEach(u => usings.Add(u));
+//		//	entity.AddlUsings?.ToList().ForEach(u => usings.Add(u));
 
-//			return usings;
-//		}
+//		//	return usings;
+//		//}
 
-//		private void GenerateProperty(PropertyModel prop, List<string> output, List<string> usings)
-//		{
-//			var tc = 1;
+//		//private void GenerateProperty(PropertyModel prop, List<string> output, List<string> usings)
+//		//{
+//		//	var tc = 1;
 
-//			if (prop.Attributes.Any())
-//				foreach (var attr in prop.Attributes)
-//					output.AddLine(tc, $"[{attr}]");
+//		//	if (prop.Attributes.Any())
+//		//		foreach (var attr in prop.Attributes)
+//		//			output.AddLine(tc, $"[{attr}]");
 
-//			if ((prop.PrimitiveType ?? PrimitiveType.None) != PrimitiveType.None)
-//			{
-//				var nullStr = (prop.Nullable && (prop.PrimitiveType.CSType != "string")) ? "?" : string.Empty;
-//				var datatype = $"{prop.PrimitiveType.CSType}{nullStr}";
-//				output.AddLine(tc, $"internal {datatype} {prop.Name} {{ get; set; }}");
+//		//	if ((prop.PrimitiveType ?? PrimitiveType.None) != PrimitiveType.None)
+//		//	{
+//		//		var nullStr = (prop.Nullable && (prop.PrimitiveType.CSType != "string")) ? "?" : string.Empty;
+//		//		var datatype = $"{prop.PrimitiveType.CSType}{nullStr}";
+//		//		output.AddLine(tc, $"internal {datatype} {prop.Name} {{ get; set; }}");
 
-//			}
-//			else if (prop.EnumType != null)
-//			{
-//				var nullStr = prop.Nullable ? "?" : string.Empty;
-//				//output.AddLine(tc, $"[JsonConverter(typeof(JsonStringEnumConverter))]");
-//				output.AddLine(tc, $"internal {prop.EnumType.Name}{nullStr} {prop.Name} {{ get; set; }}");
-//				usings.AddIfNotExists("System.Text.Json.Serialization");
-//				if (!string.IsNullOrWhiteSpace(prop.EnumType.Namespace))
-//					usings.AddIfNotExists(prop.EnumType.Namespace);
-//			}
+//		//	}
+//		//	else if (prop.EnumType != null)
+//		//	{
+//		//		var nullStr = prop.Nullable ? "?" : string.Empty;
+//		//		//output.AddLine(tc, $"[JsonConverter(typeof(JsonStringEnumConverter))]");
+//		//		output.AddLine(tc, $"internal {prop.EnumType.Name}{nullStr} {prop.Name} {{ get; set; }}");
+//		//		usings.AddIfNotExists("System.Text.Json.Serialization");
+//		//		if (!string.IsNullOrWhiteSpace(prop.EnumType.Namespace))
+//		//			usings.AddIfNotExists(prop.EnumType.Namespace);
+//		//	}
 
-//			if (prop.AddlUsings.Any())
-//				foreach (var usingStr in prop.AddlUsings)
-//					usings.AddIfNotExists(usingStr);
-//		}
+//		//	if (prop.AddlUsings.Any())
+//		//		foreach (var usingStr in prop.AddlUsings)
+//		//			usings.AddIfNotExists(usingStr);
+//		//}
 
-//		private void GenerateNavigationProperty(NavPropertyModel navProperty, List<string> propOutputList, List<string> usings)
-//		{
-//			var tabCount = 1;
+//		//private void GenerateNavigationProperty(NavPropertyModel navProperty, List<string> propOutputList, List<string> usings)
+//		//{
+//		//	var tabCount = 1;
 
-//			switch (navProperty.Cardinality)
-//			{
-//				case Cardinality.OneToOne:
-//					propOutputList.AddLine(tabCount, $"internal {navProperty.FKEntity.Name} {navProperty.Name} {{ get; set; }}");
-//					break;
+//		//	switch (navProperty.Cardinality)
+//		//	{
+//		//		case Cardinality.OneToOne:
+//		//			propOutputList.AddLine(tabCount, $"internal {navProperty.FKEntity.Name} {navProperty.Name} {{ get; set; }}");
+//		//			break;
 
-//				case Cardinality.OneToMany:
-//					usings.AddIfNotExists("System.Collections.Generic");
-//					propOutputList.AddLine(tabCount, $"internal virtual ICollection<{navProperty.FKEntity.Name}> {navProperty.Name} {{ get; set; }} = new List<{navProperty.FKEntity.Name}>();");
-//					break;
+//		//		case Cardinality.OneToMany:
+//		//			usings.AddIfNotExists("System.Collections.Generic");
+//		//			propOutputList.AddLine(tabCount, $"internal virtual ICollection<{navProperty.FKEntity.Name}> {navProperty.Name} {{ get; set; }} = new List<{navProperty.FKEntity.Name}>();");
+//		//			break;
 
-//				default:
-//					throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
-//			}
-//		}
+//		//		default:
+//		//			throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
+//		//	}
+//		//}
 
-//		private string GeneratePropNames(EntityModel entity)
-//		{
-//			var sb = new StringBuilder();
+//		//private string GeneratePropNames(EntityModel entity)
+//		//{
+//		//	var sb = new StringBuilder();
 
-//			foreach (var prop in entity.Properties)
-//			{
-//				if (sb.Length > 0)
-//					sb.Append(Environment.NewLine);
-//				sb.Append($"\t\tpublic const string {prop.Name} = nameof({entity.Name}.{prop.Name});");
-//			}
+//		//	foreach (var prop in entity.Properties)
+//		//	{
+//		//		if (sb.Length > 0)
+//		//			sb.Append(Environment.NewLine);
+//		//		sb.Append($"\t\tpublic const string {prop.Name} = nameof({entity.Name}.{prop.Name});");
+//		//	}
 
-//			return sb.ToString();
-//		}
+//		//	return sb.ToString();
+//		//}
 
-//		private string ReplaceTemplateTokens(string template, List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, string propNames)
-//		{
-//			// Usings
-//			var sb = new StringBuilder();
-//			usings.ForEach(x => sb.AppendLine($"using {x};"));
-//			template = template.Replace(Utils.FmtToken(cToken_AddlUsings), sb.ToString());
+//		//private string ReplaceTemplateTokens(string template, List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, string propNames)
+//		//{
+//		//	// Usings
+//		//	var sb = new StringBuilder();
+//		//	usings.ForEach(x => sb.AppendLine($"using {x};"));
+//		//	template = template.Replace(Utils.FmtToken(cToken_AddlUsings), sb.ToString());
 
-//			// Entities namespace 		
-//			template = template.Replace(Utils.FmtToken(cToken_EntitiesNs), entitiesNamespace);
+//		//	// Entities namespace 		
+//		//	template = template.Replace(Utils.FmtToken(cToken_EntitiesNs), entitiesNamespace);
 
-//			// Entity name
-//			template = template.Replace(Utils.FmtToken(cToken_EntityName), entity.Name);
+//		//	// Entity name
+//		//	template = template.Replace(Utils.FmtToken(cToken_EntityName), entity.Name);
 
-//			// Properties
-//			sb = new StringBuilder();
-//			propsOutput.ForEach(x => sb.AppendLine(x));
-//			template = template.Replace(Utils.FmtToken(cToken_Properties), sb.ToString());
+//		//	// Properties
+//		//	sb = new StringBuilder();
+//		//	propsOutput.ForEach(x => sb.AppendLine(x));
+//		//	template = template.Replace(Utils.FmtToken(cToken_Properties), sb.ToString());
 
-//			// Nav Properties
-//			sb = new StringBuilder();
-//			navPropsOutput.ForEach(x => sb.AppendLine(x));
-//			template = template.Replace(Utils.FmtToken(cToken_NavProperties), sb.ToString());
+//		//	// Nav Properties
+//		//	sb = new StringBuilder();
+//		//	navPropsOutput.ForEach(x => sb.AppendLine(x));
+//		//	template = template.Replace(Utils.FmtToken(cToken_NavProperties), sb.ToString());
 
-//			// PropNames
-//			template = template.Replace(Utils.FmtToken(cToken_PropNames), propNames);
+//		//	// PropNames
+//		//	template = template.Replace(Utils.FmtToken(cToken_PropNames), propNames);
 
-//			return template;
-//		}
+//		//	return template;
+//		//}
 //	}
 //}
