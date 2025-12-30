@@ -74,7 +74,7 @@ namespace Dyvenix.GenIt
 
         private PropertyDescriptor MakeReadOnlyIfNeeded(PropertyDescriptor property)
         {
-            // Make EnumTypeName read-only when property is tied to an EntityUsesEnum relationship
+            // Make EnumTypeName read-only when property is tied to an EnumAssociation relationship
             if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
             {
                 if (IsEnumPropertyTiedToRelationship())
@@ -83,7 +83,7 @@ namespace Dyvenix.GenIt
                 }
             }
 
-            // Make DataType read-only when property is tied to an EntityUsesEnum relationship
+            // Make DataType read-only when property is tied to an EnumAssociation relationship
             if (property.Name.Equals("DataType", StringComparison.OrdinalIgnoreCase))
             {
                 if (IsEnumPropertyTiedToRelationship())
@@ -104,8 +104,8 @@ namespace Dyvenix.GenIt
             if (entity == null)
                 return false;
 
-            // Check if there's an EntityUsesEnum link with this property name
-            var links = EntityUsesEnum.GetLinksToUsedEnums(entity);
+            // Check if there's an EnumAssociation link with this property name
+            var links = EnumAssociation.GetLinksToUsedEnums(entity);
             return links.Any(l => l.PropertyName == _propertyModel.Name);
         }
     }

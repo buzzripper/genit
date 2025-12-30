@@ -161,18 +161,18 @@ namespace Dyvenix.GenIt
                     CreateConnectorIfBothEndsExist(association);
                 }
 
-                // Create connectors for enum usages
-                foreach (var enumUsage in EntityUsesEnum.GetLinksToUsedEnums(entity))
+                // Create connectors for enum associations
+                foreach (var enumAssociation in EnumAssociation.GetLinksToUsedEnums(entity))
                 {
-                    CreateConnectorIfBothEndsExist(enumUsage);
+                    CreateConnectorIfBothEndsExist(enumAssociation);
                 }
             }
             else if (element is EnumModel enumModel)
             {
-                // Create connectors for enum usages
-                foreach (var enumUsage in EntityUsesEnum.GetLinksToUsingEntities(enumModel))
+                // Create connectors for enum associations
+                foreach (var enumAssociation in EnumAssociation.GetLinksToUsingEntities(enumModel))
                 {
-                    CreateConnectorIfBothEndsExist(enumUsage);
+                    CreateConnectorIfBothEndsExist(enumAssociation);
                 }
             }
         }

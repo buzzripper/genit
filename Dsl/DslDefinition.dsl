@@ -574,7 +574,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d" Description="Association between Entity and Enum creating a property" Name="EntityUsesEnum" DisplayName="Entity Uses Enum" Namespace="Dyvenix.GenIt">
+    <DomainRelationship Id="f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d" Description="Association between Entity and Enum creating a property" Name="EnumAssociation" DisplayName="Enum Association" Namespace="Dyvenix.GenIt">
       <Properties>
         <DomainProperty Id="a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d" Description="Name of the property on the entity" Name="PropertyName" DisplayName="Property Name" DefaultValue="">
           <Type>
@@ -882,7 +882,7 @@
             <DomainRelationshipMoniker Name="Association" />
           </XmlRelationshipData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="usedEnums">
-            <DomainRelationshipMoniker Name="EntityUsesEnum" />
+            <DomainRelationshipMoniker Name="EnumAssociation" />
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
@@ -1016,19 +1016,16 @@
       <XmlClassData TypeName="EnumHasMembers" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumHasMembersMoniker" ElementName="enumHasMembers" MonikerTypeName="EnumHasMembersMoniker">
         <DomainRelationshipMoniker Name="EnumHasMembers" />
       </XmlClassData>
-      <XmlClassData TypeName="EntityUsesEnum" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityUsesEnumMoniker" ElementName="entityUsesEnum" MonikerTypeName="EntityUsesEnumMoniker">
-        <DomainRelationshipMoniker Name="EntityUsesEnum" />
+      <XmlClassData TypeName="EnumAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationMoniker" ElementName="enumAssociation" MonikerTypeName="EnumAssociationMoniker">
+        <DomainRelationshipMoniker Name="EnumAssociation" />
         <ElementData>
           <XmlPropertyData XmlName="propertyName">
-            <DomainPropertyMoniker Name="EntityUsesEnum/PropertyName" />
+            <DomainPropertyMoniker Name="EnumAssociation/PropertyName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="EnumShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumShapeMoniker" ElementName="enumShape" MonikerTypeName="EnumShapeMoniker">
-        <CompartmentShapeMoniker Name="EnumShape" />
-      </XmlClassData>
-      <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
-        <ConnectorMoniker Name="EnumAssociationConnector" />
+      <XmlClassData TypeName="ClassHasNavigationProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasNavigationPropertiesMoniker" ElementName="classHasNavigationProperties" MonikerTypeName="ClassHasNavigationPropertiesMoniker">
+        <DomainRelationshipMoniker Name="ClassHasNavigationProperties" />
       </XmlClassData>
       <XmlClassData TypeName="NavigationProperty" MonikerAttributeName="" SerializeId="true" MonikerElementName="navigationPropertyMoniker" ElementName="navigationProperty" MonikerTypeName="NavigationPropertyMoniker">
         <DomainClassMoniker Name="NavigationProperty" />
@@ -1040,15 +1037,6 @@
             <DomainPropertyMoniker Name="NavigationProperty/IsCollection" />
           </XmlPropertyData>
         </ElementData>
-      </XmlClassData>
-      <XmlClassData TypeName="ClassHasNavigationProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="classHasNavigationPropertiesMoniker" ElementName="classHasNavigationProperties" MonikerTypeName="ClassHasNavigationPropertiesMoniker">
-        <DomainRelationshipMoniker Name="ClassHasNavigationProperties" />
-      </XmlClassData>
-      <XmlClassData TypeName="ClassShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="classShapeMoniker" ElementName="classShape" MonikerTypeName="ClassShapeMoniker">
-        <CompartmentShapeMoniker Name="ClassShape" />
-      </XmlClassData>
-      <XmlClassData TypeName="InterfaceShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceShapeMoniker" ElementName="interfaceShape" MonikerTypeName="InterfaceShapeMoniker">
-        <CompartmentShapeMoniker Name="InterfaceShape" />
       </XmlClassData>
       <XmlClassData TypeName="CommentBoxShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentBoxShapeMoniker" ElementName="commentBoxShape" MonikerTypeName="CommentBoxShapeMoniker">
         <GeometryShapeMoniker Name="CommentBoxShape" />
@@ -1156,9 +1144,9 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="EntityUsesEnumBuilder">
+    <ConnectionBuilder Name="EnumAssociationBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="EntityUsesEnum" />
+        <DomainRelationshipMoniker Name="EnumAssociation" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -1304,7 +1292,7 @@
       </ConnectorMap>
       <ConnectorMap>
         <ConnectorMoniker Name="EnumAssociationConnector" />
-        <DomainRelationshipMoniker Name="EntityUsesEnum" />
+        <DomainRelationshipMoniker Name="EnumAssociation" />
       </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
@@ -1338,7 +1326,7 @@
         <ConnectionBuilderMoniker Name="GenIt/AssociationBuilder" />
       </ConnectionTool>
       <ConnectionTool Name="EnumAssociation" ToolboxIcon="Resources\AssociationTool.bmp" Caption="Enum Association" Tooltip="Create a property linked to an Enum" HelpKeyword="EnumAssociationF1Keyword">
-        <ConnectionBuilderMoniker Name="GenIt/EntityUsesEnumBuilder" />
+        <ConnectionBuilderMoniker Name="GenIt/EnumAssociationBuilder" />
       </ConnectionTool>
       <ElementTool Name="Comment" ToolboxIcon="resources\commenttool.bmp" Caption="Comment" Tooltip="Create a Comment" HelpKeyword="CommentF1Keyword">
         <DomainClassMoniker Name="Comment" />

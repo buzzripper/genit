@@ -1,7 +1,8 @@
+using Dyvenix.GenIt.DslPackage.CodeGen;
 using Microsoft.VisualStudio.Modeling.Shell;
 using System;
 using System.ComponentModel.Design;
-using System.Linq;
+using System.Text;
 
 namespace Dyvenix.GenIt
 {
@@ -54,6 +55,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		private void OnMenuGenerateCode(object sender, EventArgs e)
 		{
+			GenItModel genitModel = null;
 			try
 			{
 				// Get the current document
@@ -71,60 +73,32 @@ namespace Dyvenix.GenIt
 					return;
 				}
 
-				// Get all entities from the model
-				var entityModels = modelRoot.Types.OfType<EntityModel>().ToList();
-				if (entityModels.Count == 0)
-				{
-					ShowMessage("No entities found in the model. Add some entities first.", "GenIt Code Generator");
-					return;
-				}
-
-				// Get all enums
-				var enumModels = modelRoot.Types.OfType<EnumModel>().ToList();
-				var associations = modelRoot.Types.OfType<Association>().ToList();
-				//var enumAssociations = modelRoot.Types.OfType<EnumAssociation>().ToList();
-
+				genitModel = new GenItModel(modelRoot);
 
 				// TODO: Replace this with your actual code generator
 				// For now, just show what would be generated
-				string summary = $"Model: {modelRoot.Name}\n\n" +
-							   $"Entities found: {entityModels.Count}\n\n";
+				var sb = new StringBuilder();
+				sb.AppendLine($"Entities: {genitModel.Entities.Count}");
+				sb.AppendLine($"Enums: {genitModel.Enums.Count}");
+				sb.AppendLine($"Associations: {genitModel.Associations.Count}");
+				sb.AppendLine($"Enum Associations: {genitModel.EnumAssociations.Count}");
 
-				foreach (var entity in entityModels)
-				{
-					summary += $"Entity: {entity.Name}\n";
-					summary += $"  Properties: {entity.Attributes.Count}\n";
-					summary += $"  Operations: {entity.Operations.Count}\n";
-
-					foreach (var prop in entity.Attributes)
-					{
-						summary += $"    - {prop.Name}: {prop.DataType}";
-						if (prop.DataType == DataType.String || prop.DataType == DataType.ByteArray)
-						{
-							if (prop.Length > 0)
-								summary += $"({prop.Length})";
-						}
-						summary += "\n";
-					}
-					summary += "\n";
-				}
-
-				// TODO: Call your actual code generator here
-				// CodeGenerator.Generate(modelRoot, docData.FileName);
-
-				ShowMessage(summary + "\nReady to generate code!\n\nImplement your code generator logic here.",
-					"GenIt Code Generator");
+				ShowMessage(sb.ToString());
 			}
 			catch (Exception ex)
 			{
 				ShowErrorMessage($"Error generating code:\n\n{ex.Message}", "GenIt Code Generator");
+			}
+			finally
+			{
+				genitModel = null;
 			}
 		}
 
 		/// <summary>
 		/// Shows an information message to the user.
 		/// </summary>
-		private void ShowMessage(string message, string title)
+		private void ShowMessage(string message, string title = "GenIt")
 		{
 			System.Windows.Forms.MessageBox.Show(
 				message,

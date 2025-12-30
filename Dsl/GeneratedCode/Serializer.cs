@@ -1969,7 +1969,7 @@ namespace Dyvenix.GenIt
 							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </targets>
 						}
 						break;
-					case "usedEnums":	// Relationship "EntityUsesEnum"
+					case "usedEnums":	// Relationship "EnumAssociation"
 						if (reader.IsEmptyElement)
 						{	// No instance of this relationship, just skip
 							DslModeling::SerializationUtilities.Skip(reader);
@@ -1977,7 +1977,7 @@ namespace Dyvenix.GenIt
 						else
 						{
 							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <usedEnums>
-							ReadEntityUsesEnumInstances(serializationContext, element, reader);
+							ReadEnumAssociationInstances(serializationContext, element, reader);
 							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </usedEnums>
 						}
 						break;
@@ -2228,7 +2228,7 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Reads all instances of relationship EntityUsesEnum.
+		/// Reads all instances of relationship EnumAssociation.
 		/// </summary>
 		/// <remarks>
 		/// The caller will position the reader at the open tag of the first XML element inside the relationship tag, so it can be
@@ -2239,29 +2239,29 @@ namespace Dyvenix.GenIt
 		/// <param name="element">In-memory EntityModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
-		private static void ReadEntityUsesEnumInstances(DslModeling::SerializationContext serializationContext, EntityModel element, global::System.Xml.XmlReader reader)
+		private static void ReadEnumAssociationInstances(DslModeling::SerializationContext serializationContext, EntityModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				DslModeling::DomainClassXmlSerializer newEntityUsesEnumSerializer = serializationContext.Directory.GetSerializer(EntityUsesEnum.DomainClassId);
-				global::System.Diagnostics.Debug.Assert(newEntityUsesEnumSerializer != null, "Cannot find serializer for EntityUsesEnum!");
-				EntityUsesEnum newEntityUsesEnum = newEntityUsesEnumSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as EntityUsesEnum;
-				if (newEntityUsesEnum != null)
+				DslModeling::DomainClassXmlSerializer newEnumAssociationSerializer = serializationContext.Directory.GetSerializer(EnumAssociation.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(newEnumAssociationSerializer != null, "Cannot find serializer for EnumAssociation!");
+				EnumAssociation newEnumAssociation = newEnumAssociationSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as EnumAssociation;
+				if (newEnumAssociation != null)
 				{
-					DslModeling::DomainRoleInfo.SetRolePlayer (newEntityUsesEnum, EntityUsesEnum.EntityDomainRoleId, element);
-					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newEntityUsesEnum.GetDomainClass().Id);	
-					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newEntityUsesEnum.GetDomainClass().Name + "!");
-					targetSerializer.Read(serializationContext, newEntityUsesEnum, reader);
+					DslModeling::DomainRoleInfo.SetRolePlayer (newEnumAssociation, EnumAssociation.EntityDomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newEnumAssociation.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newEnumAssociation.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, newEnumAssociation, reader);
 				}
 				else
 				{	// Maybe the relationship is serialized in short-form by mistake.
-					DslModeling::DomainClassXmlSerializer newEnumModelMonikerOfEntityUsesEnumSerializer = serializationContext.Directory.GetSerializer(EnumModel.DomainClassId);
-					global::System.Diagnostics.Debug.Assert(newEnumModelMonikerOfEntityUsesEnumSerializer != null, "Cannot find serializer for EnumModel!");
-					DslModeling::Moniker newEnumModelMonikerOfEntityUsesEnum = newEnumModelMonikerOfEntityUsesEnumSerializer.TryCreateMonikerInstance(serializationContext, reader, element, EntityUsesEnum.DomainClassId, element.Partition);
-					if (newEnumModelMonikerOfEntityUsesEnum != null)
+					DslModeling::DomainClassXmlSerializer newEnumModelMonikerOfEnumAssociationSerializer = serializationContext.Directory.GetSerializer(EnumModel.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newEnumModelMonikerOfEnumAssociationSerializer != null, "Cannot find serializer for EnumModel!");
+					DslModeling::Moniker newEnumModelMonikerOfEnumAssociation = newEnumModelMonikerOfEnumAssociationSerializer.TryCreateMonikerInstance(serializationContext, reader, element, EnumAssociation.DomainClassId, element.Partition);
+					if (newEnumModelMonikerOfEnumAssociation != null)
 					{
-						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(EntityUsesEnum));
-						new EntityUsesEnum(element.Partition, new DslModeling::RoleAssignment(EntityUsesEnum.EntityDomainRoleId, element), new DslModeling::RoleAssignment(EntityUsesEnum.EnumDomainRoleId, newEnumModelMonikerOfEntityUsesEnum));
+						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(EnumAssociation));
+						new EnumAssociation(element.Partition, new DslModeling::RoleAssignment(EnumAssociation.EntityDomainRoleId, element), new DslModeling::RoleAssignment(EnumAssociation.EnumDomainRoleId, newEnumModelMonikerOfEnumAssociation));
 						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
 					}
 					else
@@ -2888,19 +2888,19 @@ namespace Dyvenix.GenIt
 				writer.WriteEndElement();
 			}
 	
-			// EntityUsesEnum
-			global::System.Collections.ObjectModel.ReadOnlyCollection<EntityUsesEnum> allEntityUsesEnumInstances = EntityUsesEnum.GetLinksToUsedEnums(element);
-			if (!serializationContext.Result.Failed && allEntityUsesEnumInstances.Count > 0)
+			// EnumAssociation
+			global::System.Collections.ObjectModel.ReadOnlyCollection<EnumAssociation> allEnumAssociationInstances = EnumAssociation.GetLinksToUsedEnums(element);
+			if (!serializationContext.Result.Failed && allEnumAssociationInstances.Count > 0)
 			{
 				writer.WriteStartElement("usedEnums");
-				foreach (EntityUsesEnum eachEntityUsesEnumInstance in allEntityUsesEnumInstances)
+				foreach (EnumAssociation eachEnumAssociationInstance in allEnumAssociationInstances)
 				{
 					if (serializationContext.Result.Failed)
 						break;
 	
-					DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(eachEntityUsesEnumInstance.GetDomainClass().Id);
-					global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + eachEntityUsesEnumInstance.GetDomainClass().Name + "!");
-					relSerializer.Write(serializationContext, eachEntityUsesEnumInstance, writer);
+					DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(eachEnumAssociationInstance.GetDomainClass().Id);
+					global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + eachEnumAssociationInstance.GetDomainClass().Name + "!");
+					relSerializer.Write(serializationContext, eachEnumAssociationInstance, writer);
 				}
 				writer.WriteEndElement();
 			}
@@ -18622,15 +18622,15 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Serializer EntityUsesEnumSerializer for DomainClass EntityUsesEnum.
+	/// Serializer EnumAssociationSerializer for DomainClass EnumAssociation.
 	/// </summary>
-	public partial class EntityUsesEnumSerializer : DslModeling::DomainRelationshipXmlSerializer
+	public partial class EnumAssociationSerializer : DslModeling::DomainRelationshipXmlSerializer
 	{
 		#region Constructor
 		/// <summary>
-		/// EntityUsesEnumSerializer Constructor
+		/// EnumAssociationSerializer Constructor
 		/// </summary>
-		public EntityUsesEnumSerializer ()
+		public EnumAssociationSerializer ()
 			: base ()
 		{
 		}
@@ -18656,25 +18656,25 @@ namespace Dyvenix.GenIt
 	
 		#region Public Properties
 		/// <summary>
-		/// This is the XML tag name used to serialize an instance of EntityUsesEnum.
+		/// This is the XML tag name used to serialize an instance of EnumAssociation.
 		/// </summary>
 		public override string XmlTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"entityUsesEnum"; }
+			get { return @"enumAssociation"; }
 		}
 	
 		/// <summary>
-		/// This is the XML tag name used to serialize a monikerized instance of EntityUsesEnum.
+		/// This is the XML tag name used to serialize a monikerized instance of EnumAssociation.
 		/// </summary>
 		public override string MonikerTagName
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			get { return @"entityUsesEnumMoniker"; }
+			get { return @"enumAssociationMoniker"; }
 		}
 		
 		/// <summary>
-		/// This is the name of the XML attribute that stores the moniker of EntityUsesEnum in a serialized monikerized instance.
+		/// This is the name of the XML attribute that stores the moniker of EnumAssociation in a serialized monikerized instance.
 		/// </summary>
 		public override string MonikerAttributeName
 		{
@@ -18685,16 +18685,16 @@ namespace Dyvenix.GenIt
 	
 		#region Read Methods
 		/// <summary>
-		/// Public Read() method that deserializes one EntityUsesEnum instance from XML.
+		/// Public Read() method that deserializes one EnumAssociation instance from XML.
 		/// </summary>
 		/// <remarks>
 		/// When this method is called, caller guarantees that the passed-in XML reader is positioned at the open XML tag
-		/// of the EntityUsesEnum element that is about to be deserialized. 
+		/// of the EnumAssociation element that is about to be deserialized. 
 		/// The method needs to ensure that when it returns, the reader is positioned at the open XML tag of the next sibling element,
 		/// or the close tag of the parent element (or EOF).
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory EntityUsesEnum instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory EnumAssociation instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		public override void Read(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -18742,7 +18742,7 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{
-					GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "EntityUsesEnum");
+					GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "EnumAssociation");
 				}
 			}
 	
@@ -18766,7 +18766,7 @@ namespace Dyvenix.GenIt
 		/// 3) EOF.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory EntityUsesEnum instance that will link to the target EnumModel instance.</param>
+		/// <param name="element">In-memory EnumAssociation instance that will link to the target EnumModel instance.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		protected virtual void ReadTargetRolePlayer(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -18789,11 +18789,11 @@ namespace Dyvenix.GenIt
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((EntityUsesEnum)element).Entity, EntityUsesEnum.DomainClassId, element.Partition);
+				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((EnumAssociation)element).Entity, EnumAssociation.DomainClassId, element.Partition);
 				if (targetRoleMoniker != null)
 				{
 					// Attach the target role-player moniker.
-					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, EntityUsesEnum.EnumDomainRoleId, targetRoleMoniker);
+					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, EnumAssociation.EnumDomainRoleId, targetRoleMoniker);
 					// Moniker tag has no child XML elements in it, so just skip to the next element.
 					DslModeling::SerializationUtilities.Skip(reader);
 					break;
@@ -18804,7 +18804,7 @@ namespace Dyvenix.GenIt
 			}
 			if (targetRoleMoniker == null)
 			{
-				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "EntityUsesEnum");
+				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "EnumAssociation");
 			}
 		}
 	
@@ -18816,7 +18816,7 @@ namespace Dyvenix.GenIt
 		/// The caller will guarantee that the reader is positioned on the open XML tag of the current element being deserialized.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory EntityUsesEnum instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory EnumAssociation instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void ReadPropertiesFromAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
@@ -18824,8 +18824,8 @@ namespace Dyvenix.GenIt
 			// Always call the base class so any extensions are deserialized
 			base.ReadPropertiesFromAttributes(serializationContext, element, reader);
 	
-			EntityUsesEnum instanceOfEntityUsesEnum = element as EntityUsesEnum;
-			global::System.Diagnostics.Debug.Assert(instanceOfEntityUsesEnum != null, "Expecting an instance of EntityUsesEnum");
+			EnumAssociation instanceOfEnumAssociation = element as EnumAssociation;
+			global::System.Diagnostics.Debug.Assert(instanceOfEnumAssociation != null, "Expecting an instance of EnumAssociation");
 	
 			// PropertyName
 			if (!serializationContext.Result.Failed)
@@ -18836,7 +18836,7 @@ namespace Dyvenix.GenIt
 					global::System.String valueOfPropertyName;
 					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribPropertyName, out valueOfPropertyName))
 					{
-						instanceOfEntityUsesEnum.PropertyName = valueOfPropertyName;
+						instanceOfEnumAssociation.PropertyName = valueOfPropertyName;
 					}
 					else
 					{	// Invalid property value, ignored.
@@ -18860,7 +18860,7 @@ namespace Dyvenix.GenIt
 		/// 3) EOF.
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">In-memory EntityUsesEnum instance that will get the deserialized data.</param>
+		/// <param name="element">In-memory EnumAssociation instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		protected override void ReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
 		{
@@ -18871,8 +18871,8 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateInstance & TryCreateDerivedInstance
 		/// <summary>
-		/// This method creates a correct instance of EntityUsesEnum based on the tag currently pointed by the reader. If the reader
-		/// is positioned at a serialized EntityUsesEnum, a new EntityUsesEnum instance will be created in the given partition, otherwise 
+		/// This method creates a correct instance of EnumAssociation based on the tag currently pointed by the reader. If the reader
+		/// is positioned at a serialized EnumAssociation, a new EnumAssociation instance will be created in the given partition, otherwise 
 		/// null is returned.
 		/// </summary>
 		/// <remarks>
@@ -18882,7 +18882,7 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		/// <param name="partition">Partition in which new elements should be created.</param>	
-		/// <returns>Created EntityUsesEnum instance, or null if the reader is not pointing to a serialized EntityUsesEnum instance.</returns>
+		/// <returns>Created EnumAssociation instance, or null if the reader is not pointing to a serialized EnumAssociation instance.</returns>
 		public override DslModeling::ModelElement TryCreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			#region Check Parameters
@@ -18901,9 +18901,9 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// This method creates a correct derived instance of EntityUsesEnum based on the tag currently pointed by the reader.
+		/// This method creates a correct derived instance of EnumAssociation based on the tag currently pointed by the reader.
 		/// Note that the difference between this method and the above one is that this method will never create an instance of the
-		/// EntityUsesEnum type itself, only derived types are checked.
+		/// EnumAssociation type itself, only derived types are checked.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -18912,7 +18912,7 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
 		/// <param name="partition">Partition in which new elements should be created.</param>
-		/// <returns>Created instance that derives from EntityUsesEnum, or null if the reader is not pointing to such a serialized instance.</returns>
+		/// <returns>Created instance that derives from EnumAssociation, or null if the reader is not pointing to such a serialized instance.</returns>
 		public override DslModeling::ElementLink TryCreateDerivedInstance (DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			#region Check Parameters
@@ -18944,18 +18944,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (!derivedTypesOnly && string.Compare (localName, this.XmlTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "EntityUsesEnum" instance.
+				{	// New "EnumAssociation" instance.
 					result = this.CreateInstance(serializationContext, reader, partition);
 				}
 				else
-				{	// Check for derived classes of "EntityUsesEnum".
+				{	// Check for derived classes of "EnumAssociation".
 					if (this.derivedClasses == null)
 						this.ConstructDerivedClassesLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert (this.derivedClasses != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived relationship instance.
-						EntityUsesEnumSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as EntityUsesEnumSerializer;
+						EnumAssociationSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as EnumAssociationSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
 					}
@@ -18966,8 +18966,8 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// This method creates an instance of EntityUsesEnum based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
-		/// to be pointed at a serialized instance of EntityUsesEnum.
+		/// This method creates an instance of EnumAssociation based on the tag currently pointed by the reader. The reader is guaranteed (by the caller)
+		/// to be pointed at a serialized instance of EnumAssociation.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the ModelRoot instance being read. This method should
@@ -18975,8 +18975,8 @@ namespace Dyvenix.GenIt
 		/// </remarks>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		/// <param name="partition">Partition in which new EntityUsesEnum instance should be created.</param>	
-		/// <returns>Created EntityUsesEnum instance.</returns>
+		/// <param name="partition">Partition in which new EnumAssociation instance should be created.</param>	
+		/// <returns>Created EnumAssociation instance.</returns>
 		protected override DslModeling::ModelElement CreateInstance(DslModeling::SerializationContext serializationContext, global::System.Xml.XmlReader reader, DslModeling::Partition partition)
 		{
 			string idStr = reader.GetAttribute ("Id");
@@ -18993,11 +18993,11 @@ namespace Dyvenix.GenIt
 					id = new global::System.Guid (idStr);
 				}
 				// Create the link with place-holder role-players.
-				return new EntityUsesEnum(
+				return new EnumAssociation(
 					partition,
 					new DslModeling::RoleAssignment[] {
-						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (EntityUsesEnum.EntityDomainRoleId), 
-						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (EntityUsesEnum.EnumDomainRoleId)
+						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (EnumAssociation.EntityDomainRoleId), 
+						DslModeling::RoleAssignment.CreatePlaceholderRoleAssignment (EnumAssociation.EnumDomainRoleId)
 					},
 					new DslModeling::PropertyAssignment[] {
 						new DslModeling::PropertyAssignment(DslModeling::ElementFactory.IdPropertyAssignment, id)
@@ -19020,12 +19020,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from EntityUsesEnum, created on demand.
+		/// Stores a mapping from XmlTagName to DomainClassInfo that derives from EnumAssociation, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClasses;
 	
 		/// <summary>
-		/// Construct the apping from XmlTagName to DomainClassInfo that derives from EntityUsesEnum.
+		/// Construct the apping from XmlTagName to DomainClassInfo that derives from EnumAssociation.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -19034,7 +19034,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClasses == null); // Shouldn't construct the table more than once.
 			this.derivedClasses = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(EntityUsesEnum.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(EnumAssociation.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -19066,7 +19066,7 @@ namespace Dyvenix.GenIt
 	
 		#region TryCreateMonikerInstance
 		/// <summary>
-		/// This method creates a Moniker of the correct derived (including EntityUsesEnum itself) instance of EntityUsesEnum based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of the correct derived (including EnumAssociation itself) instance of EnumAssociation based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -19100,18 +19100,18 @@ namespace Dyvenix.GenIt
 			{
 				string localName = reader.LocalName;
 				if (string.Compare (localName, this.MonikerTagName, global::System.StringComparison.CurrentCulture) == 0)
-				{	// New "EntityUsesEnum" moniker instance.
+				{	// New "EnumAssociation" moniker instance.
 					result = this.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 				}
 				else
-				{	// Check for derived classes of "EntityUsesEnum".
+				{	// Check for derived classes of "EnumAssociation".
 					if (this.derivedClassMonikers == null)
 						this.ConstructDerivedClassMonikersLookupTable(serializationContext, partition.DomainDataDirectory);
 					global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers != null);
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class moniker instance.
-						EntityUsesEnumSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as EntityUsesEnumSerializer;
+						EnumAssociationSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as EnumAssociationSerializer;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 					}
@@ -19122,7 +19122,7 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// This method creates a Moniker of EntityUsesEnum based on the tag currently pointed by the reader.
+		/// This method creates a Moniker of EnumAssociation based on the tag currently pointed by the reader.
 		/// </summary>
 		/// <remarks>
 		/// The caller will guarantee that the reader is positioned at open XML tag of the next element being read. This method should
@@ -19147,7 +19147,7 @@ namespace Dyvenix.GenIt
 			{	// Normalize the Id.
 				global::System.Guid id = new global::System.Guid(monikerString);
 				monikerString = id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
-				DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, EntityUsesEnum.DomainClassId, partition.Store), partition.Store);
+				DslModeling::Moniker result = new DslModeling::Moniker(new DslModeling::MonikerKey(monikerString, relDomainClassId, EnumAssociation.DomainClassId, partition.Store), partition.Store);
 				// Set location info if possible.
 				result.Location = serializationContext.Location;
 				global::System.Xml.IXmlLineInfo xmlLineInfo = reader as global::System.Xml.IXmlLineInfo;
@@ -19171,12 +19171,12 @@ namespace Dyvenix.GenIt
 		}
 	
 		/// <summary>
-		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from EntityUsesEnum, created on demand.
+		/// Stores a mapping from Moniker Xml tag name to DomainClassInfo that derives from EnumAssociation, created on demand.
 		/// </summary>
 		private global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> derivedClassMonikers;
 	
 		/// <summary>
-		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from EntityUsesEnum.
+		/// Construct the mapping from Moniker Xml tag name to DomainClassInfo that derives from EnumAssociation.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="domainDataDirectory">DomainDataDirectory to be used to discover all derived classes.</param>
@@ -19185,7 +19185,7 @@ namespace Dyvenix.GenIt
 			global::System.Diagnostics.Debug.Assert(this.derivedClassMonikers == null); // Shouldn't construct the table more than once.
 			this.derivedClassMonikers = new global::System.Collections.Generic.Dictionary<string, DslModeling::DomainClassInfo> (global::System.StringComparer.CurrentCulture);
 	
-			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(EntityUsesEnum.DomainClassId);
+			DslModeling::DomainClassInfo thisClass = domainDataDirectory.GetDomainClass(EnumAssociation.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(thisClass != null, "Cannot find DomainClassInfo for ModelRoot!");
 	
 			global::System.Collections.ObjectModel.ReadOnlyCollection<DslModeling::DomainClassInfo> descendents = thisClass.AllDescendants;
@@ -19211,13 +19211,13 @@ namespace Dyvenix.GenIt
 	
 		#region Write Methods
 		/// <summary>
-		/// Public WriteMoniker() method that writes a monikerized EntityUsesEnum instance into XML.
+		/// Public WriteMoniker() method that writes a monikerized EnumAssociation instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">EntityUsesEnum instance to be monikerized.</param>
+		/// <param name="element">EnumAssociation instance to be monikerized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
-		/// <param name="sourceRolePlayer">Source element that references the EntityUsesEnum instance being monikerized.</param>
-		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the EntityUsesEnum instance being monikerized.</param>
+		/// <param name="sourceRolePlayer">Source element that references the EnumAssociation instance being monikerized.</param>
+		/// <param name="relSerializer">Serializer that handles the relationship connecting the source element to the EnumAssociation instance being monikerized.</param>
 		public override void WriteMoniker(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::ModelElement sourceRolePlayer, DslModeling::DomainRelationshipXmlSerializer relSerializer)
 		{
 			#region Check Parameters
@@ -19246,10 +19246,10 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// Public Write() method that serializes one EntityUsesEnum instance into XML.
+		/// Public Write() method that serializes one EnumAssociation instance into XML.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">EntityUsesEnum instance to be serialized.</param>
+		/// <param name="element">EnumAssociation instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>
 		/// <param name="rootElementSettings">
 		/// The root element settings if the passed in element is serialized as a root element in the XML. The root element contains additional
@@ -19298,8 +19298,8 @@ namespace Dyvenix.GenIt
 			}
 	
 			// Write the target role-player instance.
-			EntityUsesEnum instance = element as EntityUsesEnum;
-			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of EntityUsesEnum!");
+			EnumAssociation instance = element as EnumAssociation;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of EnumAssociation!");
 	
 			DslModeling::ModelElement targetElement = instance.Enum;
 			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
@@ -19319,7 +19319,7 @@ namespace Dyvenix.GenIt
 		/// Write all properties that need to be serialized as XML attributes.
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">EntityUsesEnum instance to be serialized.</param>
+		/// <param name="element">EnumAssociation instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param> 
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
 		protected override void WritePropertiesAsAttributes(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
@@ -19327,13 +19327,13 @@ namespace Dyvenix.GenIt
 			// Always call the base class so any extensions are serialized
 			base.WritePropertiesAsAttributes(serializationContext, element, writer);
 	
-			EntityUsesEnum instanceOfEntityUsesEnum = element as EntityUsesEnum;
-			global::System.Diagnostics.Debug.Assert(instanceOfEntityUsesEnum != null, "Expecting an instance of EntityUsesEnum");
+			EnumAssociation instanceOfEnumAssociation = element as EnumAssociation;
+			global::System.Diagnostics.Debug.Assert(instanceOfEnumAssociation != null, "Expecting an instance of EnumAssociation");
 	
 			// PropertyName
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfEntityUsesEnum.PropertyName;
+				global::System.String propValue = instanceOfEnumAssociation.PropertyName;
 				if (!serializationContext.Result.Failed)
 				{
 					if (propValue != null && (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(propValue, string.Empty) != 0))
@@ -19348,7 +19348,7 @@ namespace Dyvenix.GenIt
 		/// This methods serializes 1) properties serialized as nested XML elements and 2) child model elements into XML. 
 		/// </summary>
 		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="element">EntityUsesEnum instance to be serialized.</param>
+		/// <param name="element">EnumAssociation instance to be serialized.</param>
 		/// <param name="writer">XmlWriter to write serialized data to.</param>        
 		protected override void WriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
 		{
@@ -19361,11 +19361,11 @@ namespace Dyvenix.GenIt
 	
 		#region Moniker Support
 		/// <summary>
-		/// This method calculates a moniker to a given EntityUsesEnum instance.
+		/// This method calculates a moniker to a given EnumAssociation instance.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">EntityUsesEnum instance to calculate qualified name for.</param>
-		/// <returns>A fully qualified string moniker to the EntityUsesEnum instance.</returns>
+		/// <param name="element">EnumAssociation instance to calculate qualified name for.</param>
+		/// <returns>A fully qualified string moniker to the EnumAssociation instance.</returns>
 		public override string CalculateQualifiedName(DslModeling::DomainXmlSerializerDirectory directory, DslModeling::ModelElement element)
 		{
 			#region Check Parameters
@@ -19377,8 +19377,8 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException("element");
 			#endregion	
 			
-			EntityUsesEnum instance = element as EntityUsesEnum;
-			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of EntityUsesEnum!");
+			EnumAssociation instance = element as EnumAssociation;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of EnumAssociation!");
 	
 			return instance.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture);
 		}
@@ -19389,7 +19389,7 @@ namespace Dyvenix.GenIt
 		/// returns empty string.
 		/// </summary>
 		/// <param name="directory">Directory to look up serializer based on model element type.</param>
-		/// <param name="element">EntityUsesEnum instance to get moniker qualifier from.</param>
+		/// <param name="element">EnumAssociation instance to get moniker qualifier from.</param>
 		/// <returns>
 		/// Value of this element's moniker qualifier property, if it has one, or the value of the container's moniker qualifier property. Or empty string if this
 		/// element is not monikerized using standard /qualifier/key mechanism.
@@ -19440,14 +19440,14 @@ namespace Dyvenix.GenIt
 			DslModeling::MonikerKey key = null;
 			if (DslModeling::SimpleMonikerResolver.IsFullyQualified(monikerString))
 			{
-				key = new DslModeling::MonikerKey(monikerString, EntityUsesEnum.DomainClassId, domainClassId, store);
+				key = new DslModeling::MonikerKey(monikerString, EnumAssociation.DomainClassId, domainClassId, store);
 			}
 			else
 			{
 				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
 				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
 				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), EntityUsesEnum.DomainClassId, domainClassId, store);
+				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), EnumAssociation.DomainClassId, domainClassId, store);
 			}
 			return new DslModeling::Moniker(key, store);
 		}
@@ -26030,7 +26030,7 @@ namespace Dyvenix.GenIt
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(CommentReferencesSubjects.DomainClassId, typeof(CommentReferencesSubjectsSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(Implementation.DomainClassId, typeof(ImplementationSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(EnumHasMembers.DomainClassId, typeof(EnumHasMembersSerializer)));
-					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(EntityUsesEnum.DomainClassId, typeof(EntityUsesEnumSerializer)));
+					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(EnumAssociation.DomainClassId, typeof(EnumAssociationSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassHasNavigationProperties.DomainClassId, typeof(ClassHasNavigationPropertiesSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(ClassShape.DomainClassId, typeof(ClassShapeSerializer)));
 					GenItSerializationBehavior.serializerTypes.Add(new DslModeling::DomainXmlSerializerDirectoryEntry(InterfaceShape.DomainClassId, typeof(InterfaceShapeSerializer)));

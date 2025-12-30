@@ -3004,33 +3004,33 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainRelationship EntityUsesEnum
+	/// DomainRelationship EnumAssociation
 	/// Association between Entity and Enum creating a property
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumAssociation.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumAssociation.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d")]
-	public partial class EntityUsesEnum : DslModeling::ElementLink
+	public partial class EnumAssociation : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
 		/// <summary>
-		/// EntityUsesEnum domain class Id.
+		/// EnumAssociation domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xf1e2d3c4, 0xb5a6, 0x4978, 0x8c, 0x9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d);
 	
 				
 		/// <summary>
 		/// Constructor
-		/// Creates a EntityUsesEnum link in the same Partition as the given EntityModel
+		/// Creates a EnumAssociation link in the same Partition as the given EntityModel
 		/// </summary>
 		/// <param name="source">EntityModel to use as the source of the relationship.</param>
 		/// <param name="target">EnumModel to use as the target of the relationship.</param>
-		public EntityUsesEnum(EntityModel source, EnumModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EntityUsesEnum.EntityDomainRoleId, source), new DslModeling::RoleAssignment(EntityUsesEnum.EnumDomainRoleId, target)}, null)
+		public EnumAssociation(EntityModel source, EnumModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EnumAssociation.EntityDomainRoleId, source), new DslModeling::RoleAssignment(EnumAssociation.EnumDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -3039,7 +3039,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityUsesEnum(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+		public EnumAssociation(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
 		{
 		}
@@ -3050,7 +3050,7 @@ namespace Dyvenix.GenIt
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityUsesEnum(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public EnumAssociation(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3060,7 +3060,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityUsesEnum(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+		public EnumAssociation(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(partition, roleAssignments, null)
 		{
 		}
@@ -3071,7 +3071,7 @@ namespace Dyvenix.GenIt
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityUsesEnum(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public EnumAssociation(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3086,9 +3086,9 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// DomainRole Entity
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/Entity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/Entity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UsedEnums", PropertyDisplayNameKey="Dyvenix.GenIt.EntityUsesEnum/Entity.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumAssociation/Entity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumAssociation/Entity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UsedEnums", PropertyDisplayNameKey="Dyvenix.GenIt.EnumAssociation/Entity.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("b3c4d5e6-f7a8-4b9c-0d1e-2f3a4b5c6d7e")]
 		public virtual EntityModel Entity
 		{
@@ -3126,9 +3126,9 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// DomainRole Enum
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/Enum.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/Enum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UsingEntities", PropertyDisplayNameKey="Dyvenix.GenIt.EntityUsesEnum/Enum.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumAssociation/Enum.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumAssociation/Enum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UsingEntities", PropertyDisplayNameKey="Dyvenix.GenIt.EnumAssociation/Enum.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("c4d5e6f7-a8b9-4c0d-1e2f-3a4b5c6d7e8f")]
 		public virtual EnumModel Enum
 		{
@@ -3172,8 +3172,8 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the value of PropertyName domain property.
 		/// Name of the property on the entity
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/PropertyName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/PropertyName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumAssociation/PropertyName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumAssociation/PropertyName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue("")]
 		[DslModeling::DomainObjectId("a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d")]
 		public global::System.String PropertyName
@@ -3190,19 +3190,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 		/// <summary>
-		/// Value handler for the EntityUsesEnum.PropertyName domain property.
+		/// Value handler for the EnumAssociation.PropertyName domain property.
 		/// </summary>
-		internal sealed partial class PropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityUsesEnum, global::System.String>
+		internal sealed partial class PropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EnumAssociation, global::System.String>
 		{
 			private PropertyNamePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the EntityUsesEnum.PropertyName domain property value handler.
+			/// Gets the singleton instance of the EnumAssociation.PropertyName domain property value handler.
 			/// </summary>
 			public static readonly PropertyNamePropertyHandler Instance = new PropertyNamePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the EntityUsesEnum.PropertyName domain property.
+			/// Gets the Id of the EnumAssociation.PropertyName domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
@@ -3218,7 +3218,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(EntityUsesEnum element)
+			public override sealed global::System.String GetValue(EnumAssociation element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.propertyNamePropertyStorage;
@@ -3229,7 +3229,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(EntityUsesEnum element, global::System.String newValue)
+			public override sealed void SetValue(EnumAssociation element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
@@ -3246,38 +3246,38 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Entity link accessor
 		/// <summary>
-		/// Get the list of EntityUsesEnum links to a EntityModel.
+		/// Get the list of EnumAssociation links to a EntityModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinksToUsedEnums ( global::Dyvenix.GenIt.EntityModel entityInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EnumAssociation> GetLinksToUsedEnums ( global::Dyvenix.GenIt.EntityModel entityInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(entityInstance, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumAssociation>(entityInstance, global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
 		}
 		#endregion
 		#region Enum link accessor
 		/// <summary>
-		/// Get the list of EntityUsesEnum links to a EnumModel.
+		/// Get the list of EnumAssociation links to a EnumModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinksToUsingEntities ( global::Dyvenix.GenIt.EnumModel enumInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EnumAssociation> GetLinksToUsingEntities ( global::Dyvenix.GenIt.EnumModel enumInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(enumInstance, global::Dyvenix.GenIt.EntityUsesEnum.EnumDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumAssociation>(enumInstance, global::Dyvenix.GenIt.EnumAssociation.EnumDomainRoleId);
 		}
 		#endregion
-		#region EntityUsesEnum instance accessors
+		#region EnumAssociation instance accessors
 		
 		/// <summary>
-		/// Get any EntityUsesEnum links between a given EntityModel and a EnumModel.
+		/// Get any EnumAssociation links between a given EntityModel and a EnumModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EnumAssociation> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
 		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityUsesEnum> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityUsesEnum>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityUsesEnum> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(source, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.EntityUsesEnum link in links )
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.EnumAssociation> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.EnumAssociation>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EnumAssociation> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumAssociation>(source, global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EnumAssociation link in links )
 			{
 				if ( target.Equals(link.Enum) )
 				{
@@ -3287,14 +3287,14 @@ namespace Dyvenix.GenIt
 			return outLinks.AsReadOnly();
 		}
 		/// <summary>
-		/// Get the one EntityUsesEnum link between a given EntityModeland a EnumModel.
+		/// Get the one EnumAssociation link between a given EntityModeland a EnumModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.EntityUsesEnum GetLink( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
+		public static global::Dyvenix.GenIt.EnumAssociation GetLink( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityUsesEnum> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(source, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.EntityUsesEnum link in links )
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EnumAssociation> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EnumAssociation>(source, global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EnumAssociation link in links )
 			{
 				if ( target.Equals(link.Enum) )
 				{

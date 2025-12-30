@@ -11,7 +11,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Templates
 		public static void Initialize(string templatesPath)
 		{
 			_templatesPath = templatesPath;
-			_outWinHelper = Utils.GetOutputWindowHelper();
+			_outWinHelper = CodeGenUtils.OutputWindowHelper;
 		}
 
 		public static string GetTemplate(string templateName)

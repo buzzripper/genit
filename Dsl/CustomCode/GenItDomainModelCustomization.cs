@@ -16,11 +16,11 @@ namespace Dyvenix.GenIt
         {
             return new Type[]
             {
-                // EntityUsesEnum rules
-                typeof(EntityUsesEnumAddRule),
-                typeof(EntityUsesEnumDeleteRule),
+                // EnumAssociation rules
+                typeof(EnumAssociationAddRule),
+                typeof(EnumAssociationDeleteRule),
                 typeof(PropertyModelDeleteRule),
-                typeof(EntityUsesEnumPropertyNameChangeRule),
+                typeof(EnumAssociationPropertyNameChangeRule),
                 typeof(EnumModelNameChangeRule),
                 
                 // Association navigation property rules

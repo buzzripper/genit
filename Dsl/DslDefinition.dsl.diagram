@@ -75,7 +75,7 @@
           </nestedChildShapes>
         </microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape>
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape Id="1b0f143e-0e5a-4a9c-b0ad-9c090044591b" absoluteBounds="1.6, 29.191049831708284, 1.35, 0.80803197185198483">
-          <DomainRelationshipMoniker Name="/Dyvenix.GenIt/EntityUsesEnum" />
+          <DomainRelationshipMoniker Name="/Dyvenix.GenIt/EnumAssociation" />
           <relativeChildShapes />
           <nestedChildShapes>
             <elementListCompartment Id="57989d8a-08ee-43db-9567-ca21b1bb9c52" absoluteBounds="1.6150000000000002, 29.451049831708286, 1.3200000000000003, 0.44803197185198462" name="Properties" titleTextColor="Black" itemTextColor="Black" />
@@ -570,7 +570,7 @@
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipPortMoniker Id="6c04400e-ed45-4fd2-b025-0979771d9646" />
       </nodes>
     </microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector>
-    <microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector edgePoints="[(2.95 : 38.4417870008945); (3.85 : 38.4417870008945)]" fixedFrom="Caller" fixedTo="Caller" TargetRelationshipDomainClassId="e37b3710-5105-4dea-b3dc-08d96f12af2d" multiplicitySymbol="0..*" treeOrder="0">
+    <microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector edgePoints="[(2.95 : 38.4417870008945); (3.85 : 38.4417870008945)]" fixedFrom="Caller" fixedTo="Caller" TargetRelationshipDomainClassId="e37b3710-5105-4dea-b3dc-08d96f12af2d" multiplicitySymbol="0..1" treeOrder="0">
       <relativeChildShapes />
       <nodes>
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShapeMoniker Id="bbcd9af6-eea9-4731-85e6-79bd9a63ac0c" />
@@ -598,7 +598,7 @@
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipPortMoniker Id="bdc34bc6-ead7-46e4-9592-f5bf7c12c076" />
       </nodes>
     </microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector>
-    <microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector edgePoints="[(2.95 : 29.3610498317083); (3.85 : 29.3610498317083)]" fixedFrom="Caller" fixedTo="Caller" TargetRelationshipDomainClassId="e37b3710-5105-4dea-b3dc-08d96f12af2d" multiplicitySymbol="0..*" treeOrder="0">
+    <microsoft.VisualStudio.Modeling.DslDesigner.RoleConnector edgePoints="[(2.95 : 29.3610498317083); (3.85 : 29.3610498317083)]" fixedFrom="Caller" fixedTo="Caller" TargetRelationshipDomainClassId="e37b3710-5105-4dea-b3dc-08d96f12af2d" multiplicitySymbol="0..1" treeOrder="0">
       <relativeChildShapes />
       <nodes>
         <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShapeMoniker Id="1b0f143e-0e5a-4a9c-b0ad-9c090044591b" />
@@ -810,7 +810,7 @@
             </SourceRoleNode>
             <SourceRoleNode Id="de4c9aaa-f56f-4569-bf49-f287de045e1c" IsLeaf="true">
               <Role>
-                <DomainRoleMoniker Name="/Dyvenix.GenIt/EntityUsesEnum/Entity" />
+                <DomainRoleMoniker Name="/Dyvenix.GenIt/EnumAssociation/Entity" />
               </Role>
             </SourceRoleNode>
             <SourceRoleNode Id="e5a5cbf4-7900-4681-a7f8-7c686e6ac4af">

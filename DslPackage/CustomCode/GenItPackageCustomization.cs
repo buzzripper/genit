@@ -1,4 +1,3 @@
-using Dyvenix.GenIt.DslPackage.CustomCode;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -16,6 +15,7 @@ namespace Dyvenix.GenIt
 		private IVsSolution _solution;
 		private uint _solutionEventsCookie;
 
+
 		/// <summary>
 		/// Override to perform additional initialization after the base package is initialized.
 		/// </summary>
@@ -30,10 +30,10 @@ namespace Dyvenix.GenIt
 			if (_solution != null)
 			{
 				_solution.AdviseSolutionEvents(this, out _solutionEventsCookie);
-				
+
 				// Check if a solution is already open
 				if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK
-				    && !string.IsNullOrEmpty(solutionDirectory))
+					&& !string.IsNullOrEmpty(solutionDirectory))
 				{
 					PackageUtils.SolutionRootPath = solutionDirectory;
 					System.Diagnostics.Debug.WriteLine($"GenItPackage.InitializeAsync: Solution already open, set SolutionRootPath to '{solutionDirectory}'");

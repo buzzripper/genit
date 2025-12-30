@@ -1069,45 +1069,45 @@
     <value>Enum Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;Member&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation.Description" xml:space="preserve">
     <value>Association between Entity and Enum creating a property</value>
-    <comment>Description for DomainClass &apos;EntityUsesEnum&apos;</comment>
+    <comment>Description for DomainClass &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum.DisplayName" xml:space="preserve">
-    <value>Entity Uses Enum</value>
-    <comment>DisplayName for DomainClass &apos;EntityUsesEnum&apos;</comment>
+  <data name="Dyvenix.GenIt.EnumAssociation.DisplayName" xml:space="preserve">
+    <value>Enum Association</value>
+    <comment>DisplayName for DomainClass &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/PropertyName.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/PropertyName.Description" xml:space="preserve">
     <value>Name of the property on the entity</value>
-    <comment>Description for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EntityUsesEnum&apos;</comment>
+    <comment>Description for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/PropertyName.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/PropertyName.DisplayName" xml:space="preserve">
     <value>Property Name</value>
-    <comment>DisplayName for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EntityUsesEnum&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Entity.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Entity.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>Description for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Entity.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Entity.DisplayName" xml:space="preserve">
     <value>Entity</value>
-    <comment>DisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Entity.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Entity.PropertyDisplayName" xml:space="preserve">
     <value>Used Enums</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Enum.Description" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Enum.Description" xml:space="preserve">
     <value></value>
-    <comment>Description for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>Description for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Enum.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Enum.DisplayName" xml:space="preserve">
     <value>Enum</value>
-    <comment>DisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityUsesEnum/Enum.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EnumAssociation/Enum.PropertyDisplayName" xml:space="preserve">
     <value>Using Entities</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EntityUsesEnum&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ClassHasNavigationProperties.Description" xml:space="preserve">
     <value></value>

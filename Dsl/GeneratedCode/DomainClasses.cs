@@ -1683,7 +1683,7 @@ namespace Dyvenix.GenIt
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
 			}
 		}
 		#endregion
@@ -4650,7 +4650,7 @@ namespace Dyvenix.GenIt
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityUsesEnum.EnumDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EnumAssociation.EnumDomainRoleId);
 			}
 		}
 		#endregion

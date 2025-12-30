@@ -230,16 +230,16 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-          <!-- Relationship: EntityUsesEnum -->
+          <!-- Relationship: EnumAssociation -->
           <xsd:element name="usedEnums" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
-              <xsd:documentation>Instances of EntityUsesEnum</xsd:documentation>
+              <xsd:documentation>Instances of EnumAssociation</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element ref="entityUsesEnum" minOccurs="0" maxOccurs="unbounded">
+                <xsd:element ref="enumAssociation" minOccurs="0" maxOccurs="unbounded">
                   <xsd:annotation>
-                    <xsd:documentation>[Instance of EntityUsesEnum needs to be serialized in full-form]</xsd:documentation>
+                    <xsd:documentation>[Instance of EnumAssociation needs to be serialized in full-form]</xsd:documentation>
                   </xsd:annotation>
                 </xsd:element>
               </xsd:sequence>
@@ -1216,9 +1216,9 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- EntityUsesEnum -->
-  <xsd:element name="entityUsesEnum" type="EntityUsesEnum" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="EntityUsesEnum">
+  <!-- EnumAssociation -->
+  <xsd:element name="enumAssociation" type="EnumAssociation" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EnumAssociation">
     <xsd:annotation>
       <xsd:documentation>Association between Entity and Enum creating a property</xsd:documentation>
     </xsd:annotation>
@@ -1248,11 +1248,11 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- EntityUsesEnum Moniker -->
-  <xsd:element name="entityUsesEnumMoniker" type="EntityUsesEnumMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="EntityUsesEnumMoniker">
+  <!-- EnumAssociation Moniker -->
+  <xsd:element name="enumAssociationMoniker" type="EnumAssociationMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EnumAssociationMoniker">
     <xsd:annotation>
-      <xsd:documentation>Moniker for EntityUsesEnum instance.</xsd:documentation>
+      <xsd:documentation>Moniker for EnumAssociation instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

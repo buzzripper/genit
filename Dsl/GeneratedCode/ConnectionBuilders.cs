@@ -479,7 +479,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class EntityUsesEnumBuilder
+	public static partial class EnumAssociationBuilder
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -553,7 +553,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.EntityModel sourceEntityModel = (global::Dyvenix.GenIt.EntityModel)candidateSource;
 						global::Dyvenix.GenIt.EnumModel targetEnumModel = (global::Dyvenix.GenIt.EnumModel)candidateTarget;
-						if(targetEnumModel == null || sourceEntityModel == null || global::Dyvenix.GenIt.EntityUsesEnum.GetLinks(sourceEntityModel, targetEnumModel).Count > 0) return false;
+						if(targetEnumModel == null || sourceEntityModel == null || global::Dyvenix.GenIt.EnumAssociation.GetLinks(sourceEntityModel, targetEnumModel).Count > 0) return false;
 						return true;
 					}
 				}
@@ -591,7 +591,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.EntityModel sourceAccepted = (global::Dyvenix.GenIt.EntityModel)source;
 						global::Dyvenix.GenIt.EnumModel targetAccepted = (global::Dyvenix.GenIt.EnumModel)target;
-						DslModeling::ElementLink result = new global::Dyvenix.GenIt.EntityUsesEnum(sourceAccepted, targetAccepted);
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.EnumAssociation(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
 							DslModeling::DomainClassInfo.SetUniqueName(result);
@@ -843,7 +843,7 @@ namespace Dyvenix.GenIt
 			/// Called by the base ConnectAction class to determine if the given shapes can be connected.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder EntityUsesEnumBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder EnumAssociationBuilder.
 			/// </remarks>
 			public override bool CanCreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, ref string connectionWarning)
 			{
@@ -869,11 +869,11 @@ namespace Dyvenix.GenIt
 				{				
 					if(targetShapeElement == null)
 					{
-						return EntityUsesEnumBuilder.CanAcceptSource(sourceElement);
+						return EnumAssociationBuilder.CanAcceptSource(sourceElement);
 					}
 					else
 					{				
-						return EntityUsesEnumBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
+						return EnumAssociationBuilder.CanAcceptSourceAndTarget(sourceElement, targetElement);
 					}
 				}
 				else
@@ -898,7 +898,7 @@ namespace Dyvenix.GenIt
 			/// Called by the base ConnectAction class to create the underlying relationship.
 			/// </summary>
 			/// <remarks>
-			/// This implementation delegates calls to the ConnectionBuilder EntityUsesEnumBuilder.
+			/// This implementation delegates calls to the ConnectionBuilder EnumAssociationBuilder.
 			/// </remarks>
 			public override void CreateConnection(DslDiagrams::ShapeElement sourceShapeElement, DslDiagrams::ShapeElement targetShapeElement, DslDiagrams::PaintFeedbackArgs paintFeedbackArgs)
 			{
@@ -912,7 +912,7 @@ namespace Dyvenix.GenIt
 				if(sourceElement == null) sourceElement = sourceShapeElement;
 				DslModeling::ModelElement targetElement = targetShapeElement.ModelElement;
 				if(targetElement == null) targetElement = targetShapeElement;
-				EntityUsesEnumBuilder.Connect(sourceElement, targetElement);
+				EnumAssociationBuilder.Connect(sourceElement, targetElement);
 			}
 		}
 		

@@ -91,7 +91,7 @@ namespace Dyvenix.GenIt
 				typeof(CommentReferencesSubjects),
 				typeof(Implementation),
 				typeof(EnumHasMembers),
-				typeof(EntityUsesEnum),
+				typeof(EnumAssociation),
 				typeof(ClassHasNavigationProperties),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
@@ -169,7 +169,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(Association), "GenTargetNavProperty", Association.GenTargetNavPropertyDomainPropertyId, typeof(Association.GenTargetNavPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "FkPropertyName", Association.FkPropertyNameDomainPropertyId, typeof(Association.FkPropertyNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Generalization), "Discriminator", Generalization.DiscriminatorDomainPropertyId, typeof(Generalization.DiscriminatorPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityUsesEnum), "PropertyName", EntityUsesEnum.PropertyNameDomainPropertyId, typeof(EntityUsesEnum.PropertyNamePropertyHandler)),
+				new DomainMemberInfo(typeof(EnumAssociation), "PropertyName", EnumAssociation.PropertyNameDomainPropertyId, typeof(EnumAssociation.PropertyNamePropertyHandler)),
 			};
 		}
 		/// <summary>
@@ -200,8 +200,8 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(Implementation), "Implementor", Implementation.ImplementorDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "EnumModel", EnumHasMembers.EnumModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "Member", EnumHasMembers.MemberDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityUsesEnum), "Entity", EntityUsesEnum.EntityDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityUsesEnum), "Enum", EntityUsesEnum.EnumDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EnumAssociation), "Entity", EnumAssociation.EntityDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EnumAssociation), "Enum", EnumAssociation.EnumDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "EntityModel", ClassHasNavigationProperties.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "NavigationProperty", ClassHasNavigationProperties.NavigationPropertyDomainRoleId),
 			};
@@ -312,7 +312,7 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 7);
 				createElementLinkMap.Add(typeof(Implementation), 8);
 				createElementLinkMap.Add(typeof(EnumHasMembers), 9);
-				createElementLinkMap.Add(typeof(EntityUsesEnum), 10);
+				createElementLinkMap.Add(typeof(EnumAssociation), 10);
 				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 11);
 			}
 			int index;
@@ -338,7 +338,7 @@ namespace Dyvenix.GenIt
 				case 7: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
 				case 8: return new Implementation(partition, roleAssignments, propertyAssignments);
 				case 9: return new EnumHasMembers(partition, roleAssignments, propertyAssignments);
-				case 10: return new EntityUsesEnum(partition, roleAssignments, propertyAssignments);
+				case 10: return new EnumAssociation(partition, roleAssignments, propertyAssignments);
 				case 11: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
