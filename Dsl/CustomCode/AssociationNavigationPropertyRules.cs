@@ -5,6 +5,44 @@ using Microsoft.VisualStudio.Modeling;
 namespace Dyvenix.GenIt
 {
     /// <summary>
+    /// Rule that fires when an EntityModel is created.
+    /// Automatically creates a primary key PropertyModel.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelAddRule : AddRule
+    {
+        public override void ElementAdded(ElementAddedEventArgs e)
+        {
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            // Don't create PK if we're deserializing from file
+            if (entity.Store.TransactionManager.CurrentTransaction != null &&
+                entity.Store.TransactionManager.CurrentTransaction.Context.ContextInfo.ContainsKey("Deserializing"))
+                return;
+
+            // Check if an "Id" property already exists to avoid duplicates
+            if (entity.Properties.Any(p => p.Name == "Id"))
+                return;
+
+            // Create primary key property
+            var pkProperty = new PropertyModel(entity.Partition)
+            {
+                Name = "Id",
+                DataType = DataType.Guid,
+                IsPrimaryKey = true,
+                IsNullable = false,
+                IsIndexed = true,
+                IsIndexUnique = true,
+                Description = "Primary key"
+            };
+
+            entity.Properties.Add(pkProperty);
+        }
+    }
+
+    /// <summary>
     /// Rule that fires when an Association relationship is created.
     /// Creates NavigationProperties based on GenSourceNavProperty and GenTargetNavProperty settings.
     /// Also creates an FK property on the target entity.

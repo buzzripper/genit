@@ -112,6 +112,12 @@
         <xsd:attribute name="enumsOutputFolder" type="xsd:string" />
         <!-- Property: EnumsNamespace -->
         <xsd:attribute name="enumsNamespace" type="xsd:string" />
+        <!-- Property: EntitiesEnabled -->
+        <xsd:attribute name="entitiesEnabled" type="xsd:boolean" />
+        <!-- Property: DbContextEnabled -->
+        <xsd:attribute name="dbContextEnabled" type="xsd:boolean" />
+        <!-- Property: EnumsEnabled -->
+        <xsd:attribute name="enumsEnabled" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

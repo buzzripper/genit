@@ -16,6 +16,9 @@ namespace Dyvenix.GenIt
         {
             return new Type[]
             {
+                // EntityModel add rule
+                typeof(EntityModelAddRule),
+                
                 // EnumAssociation rules
                 typeof(EnumAssociationAddRule),
                 typeof(EnumAssociationDeleteRule),

@@ -773,6 +773,57 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// EntitiesEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEntitiesEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "entitiesEnabled");
+				if (attribEntitiesEnabled != null)
+				{
+					global::System.Boolean valueOfEntitiesEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribEntitiesEnabled, out valueOfEntitiesEnabled))
+					{
+						instanceOfModelRoot.EntitiesEnabled = valueOfEntitiesEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "entitiesEnabled", typeof(global::System.Boolean), attribEntitiesEnabled);
+					}
+				}
+			}
+			// DbContextEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextEnabled");
+				if (attribDbContextEnabled != null)
+				{
+					global::System.Boolean valueOfDbContextEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribDbContextEnabled, out valueOfDbContextEnabled))
+					{
+						instanceOfModelRoot.DbContextEnabled = valueOfDbContextEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextEnabled", typeof(global::System.Boolean), attribDbContextEnabled);
+					}
+				}
+			}
+			// EnumsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEnumsEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "enumsEnabled");
+				if (attribEnumsEnabled != null)
+				{
+					global::System.Boolean valueOfEnumsEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribEnumsEnabled, out valueOfEnumsEnabled))
+					{
+						instanceOfModelRoot.EnumsEnabled = valueOfEnumsEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "enumsEnabled", typeof(global::System.Boolean), attribEnumsEnabled);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1417,6 +1468,45 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumsNamespace", propValue);
 	
+				}
+			}
+			// EntitiesEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.EntitiesEnabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "entitiesEnabled", serializedPropValue);
+					}
+				}
+			}
+			// DbContextEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.DbContextEnabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextEnabled", serializedPropValue);
+					}
+				}
+			}
+			// EnumsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.EnumsEnabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumsEnabled", serializedPropValue);
+					}
 				}
 			}
 		}

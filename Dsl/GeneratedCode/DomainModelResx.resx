@@ -233,6 +233,42 @@
     <value>Enums</value>
     <comment>Category for DomainProperty &apos;EnumsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Enabled</value>
+    <comment>Description for DomainProperty &apos;EntitiesEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesEnabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;EntitiesEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EntitiesEnabled.Category" xml:space="preserve">
+    <value>Entities</value>
+    <comment>Category for DomainProperty &apos;EntitiesEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Enabled</value>
+    <comment>Description for DomainProperty &apos;DbContextEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextEnabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextEnabled.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Enabled</value>
+    <comment>Description for DomainProperty &apos;EnumsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsEnabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;EnumsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EnumsEnabled.Category" xml:space="preserve">
+    <value>Enums</value>
+    <comment>Category for DomainProperty &apos;EnumsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

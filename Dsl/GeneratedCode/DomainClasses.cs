@@ -782,6 +782,273 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region EntitiesEnabled domain property code
+		
+		/// <summary>
+		/// EntitiesEnabled domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EntitiesEnabledDomainPropertyId = new global::System.Guid(0xc62cace8, 0x2504, 0x4f5c, 0x80, 0x71, 0xaa, 0x04, 0x40, 0xe1, 0xe5, 0x8e);
+		
+		/// <summary>
+		/// Storage for EntitiesEnabled
+		/// </summary>
+		private global::System.Boolean entitiesEnabledPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of EntitiesEnabled domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Enabled
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EntitiesEnabled.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EntitiesEnabled.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EntitiesEnabled.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("c62cace8-2504-4f5c-8071-aa0440e1e58e")]
+		public global::System.Boolean EntitiesEnabled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return entitiesEnabledPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EntitiesEnabledPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EntitiesEnabled domain property.
+		/// </summary>
+		internal sealed partial class EntitiesEnabledPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private EntitiesEnabledPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EntitiesEnabled domain property value handler.
+			/// </summary>
+			public static readonly EntitiesEnabledPropertyHandler Instance = new EntitiesEnabledPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EntitiesEnabled domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EntitiesEnabledDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.entitiesEnabledPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.entitiesEnabledPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DbContextEnabled domain property code
+		
+		/// <summary>
+		/// DbContextEnabled domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextEnabledDomainPropertyId = new global::System.Guid(0x18526060, 0x805b, 0x4f63, 0xba, 0x29, 0x4b, 0x29, 0xc4, 0x3b, 0x04, 0x98);
+		
+		/// <summary>
+		/// Storage for DbContextEnabled
+		/// </summary>
+		private global::System.Boolean dbContextEnabledPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextEnabled domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Enabled
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextEnabled.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DbContextEnabled.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextEnabled.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("18526060-805b-4f63-ba29-4b29c43b0498")]
+		public global::System.Boolean DbContextEnabled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextEnabledPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextEnabledPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextEnabled domain property.
+		/// </summary>
+		internal sealed partial class DbContextEnabledPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private DbContextEnabledPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextEnabled domain property value handler.
+			/// </summary>
+			public static readonly DbContextEnabledPropertyHandler Instance = new DbContextEnabledPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextEnabled domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextEnabledDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextEnabledPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextEnabledPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region EnumsEnabled domain property code
+		
+		/// <summary>
+		/// EnumsEnabled domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnumsEnabledDomainPropertyId = new global::System.Guid(0xf1a3fdde, 0xcea3, 0x44f8, 0x97, 0x48, 0x27, 0xd4, 0x29, 0x98, 0x21, 0x04);
+		
+		/// <summary>
+		/// Storage for EnumsEnabled
+		/// </summary>
+		private global::System.Boolean enumsEnabledPropertyStorage = true;
+		
+		/// <summary>
+		/// Gets or sets the value of EnumsEnabled domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Enabled
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EnumsEnabled.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/EnumsEnabled.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EnumsEnabled.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
+		[DslModeling::DomainObjectId("f1a3fdde-cea3-44f8-9748-27d429982104")]
+		public global::System.Boolean EnumsEnabled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enumsEnabledPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnumsEnabledPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EnumsEnabled domain property.
+		/// </summary>
+		internal sealed partial class EnumsEnabledPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Boolean>
+		{
+			private EnumsEnabledPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EnumsEnabled domain property value handler.
+			/// </summary>
+			public static readonly EnumsEnabledPropertyHandler Instance = new EnumsEnabledPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EnumsEnabled domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnumsEnabledDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enumsEnabledPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enumsEnabledPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

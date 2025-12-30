@@ -50,6 +50,21 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c62cace8-2504-4f5c-8071-aa0440e1e58e" Description="Description for Dyvenix.GenIt.ModelRoot.Enabled" Name="EntitiesEnabled" DisplayName="Enabled" DefaultValue="true" Category="Entities">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="18526060-805b-4f63-ba29-4b29c43b0498" Description="Description for Dyvenix.GenIt.ModelRoot.Enabled" Name="DbContextEnabled" DisplayName="Enabled" DefaultValue="true" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f1a3fdde-cea3-44f8-9748-27d429982104" Description="Description for Dyvenix.GenIt.ModelRoot.Enabled" Name="EnumsEnabled" DisplayName="Enabled" DefaultValue="true" Category="Enums">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -844,6 +859,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="enumsNamespace">
             <DomainPropertyMoniker Name="ModelRoot/EnumsNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="entitiesEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/EntitiesEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="enumsEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/EnumsEnabled" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
