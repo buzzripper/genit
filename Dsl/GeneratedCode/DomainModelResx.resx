@@ -794,7 +794,7 @@
     <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName" xml:space="preserve">
-    <value>Attributes</value>
+    <value>Properties</value>
     <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasProperties&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ClassHasProperties/Attribute.Description" xml:space="preserve">

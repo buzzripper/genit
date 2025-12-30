@@ -913,7 +913,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassHasProperties/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassHasProperties/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Attributes", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Properties", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("50d60282-915b-4102-96ea-d10a5ddc1dd4")]
 		public virtual EntityModel EntityModel
 		{
@@ -980,13 +980,13 @@ namespace Dyvenix.GenIt
 		}
 				
 		#endregion
-		#region Static methods to access Attributes of a EntityModel
+		#region Static methods to access Properties of a EntityModel
 		/// <summary>
-		/// Gets a list of Attributes.
+		/// Gets a list of Properties.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<PropertyModel> GetAttributes(EntityModel element)
+		public static DslModeling::LinkedElementCollection<PropertyModel> GetProperties(EntityModel element)
 		{
 			return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(element, EntityModelDomainRoleId);
 		}
@@ -997,7 +997,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasProperties> GetLinksToAttributes ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasProperties> GetLinksToProperties ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
 		{
 			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasProperties>(entityModelInstance, global::Dyvenix.GenIt.ClassHasProperties.EntityModelDomainRoleId);
 		}

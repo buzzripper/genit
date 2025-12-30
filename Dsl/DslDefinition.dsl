@@ -117,7 +117,7 @@
             <DomainClassMoniker Name="PropertyModel" />
           </Index>
           <LinkCreationPaths>
-            <DomainPath>ClassHasProperties.Attributes</DomainPath>
+            <DomainPath>ClassHasProperties.Properties</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
         <ElementMergeDirective>
@@ -425,7 +425,7 @@
     </DomainRelationship>
     <DomainRelationship Id="03a9c537-a07d-44d2-b9e9-7904b35de3dd" Description="" Name="ClassHasProperties" DisplayName="Class Has Properties" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="50d60282-915b-4102-96ea-d10a5ddc1dd4" Description="" Name="EntityModel" DisplayName="Entity Model" PropertyName="Attributes" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Attributes">
+        <DomainRole Id="50d60282-915b-4102-96ea-d10a5ddc1dd4" Description="" Name="EntityModel" DisplayName="Entity Model" PropertyName="Properties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Properties">
           <RolePlayer>
             <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
@@ -866,7 +866,7 @@
           <XmlPropertyData XmlName="inclRowVersion">
             <DomainPropertyMoniker Name="EntityModel/InclRowVersion" />
           </XmlPropertyData>
-          <XmlRelationshipData RoleElementName="attributes">
+          <XmlRelationshipData RoleElementName="properties">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
           </XmlRelationshipData>
           <XmlRelationshipData RoleElementName="navigationProperties">
@@ -1186,7 +1186,7 @@
         <CompartmentMap>
           <CompartmentMoniker Name="ClassShape/PropertiesCompartment" />
           <ElementsDisplayed>
-            <DomainPath>ClassHasProperties.Attributes/!Attribute</DomainPath>
+            <DomainPath>ClassHasProperties.Properties/!Attribute</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>

@@ -1613,12 +1613,12 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region Attributes opposite domain role accessor
+		#region Properties opposite domain role accessor
 		
 		/// <summary>
-		/// Gets a list of Attributes.
+		/// Gets a list of Properties.
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<PropertyModel> Attributes
+		public virtual DslModeling::LinkedElementCollection<PropertyModel> Properties
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -1781,8 +1781,8 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.PropertyModel sourcePropertyModel3 = sourceElement as global::Dyvenix.GenIt.PropertyModel;
 			if (sourcePropertyModel3 != null)
 			{
-				// Create link for path ClassHasProperties.Attributes
-				this.Attributes.Add(sourcePropertyModel3);
+				// Create link for path ClassHasProperties.Properties
+				this.Properties.Add(sourcePropertyModel3);
 
 				return;
 			}
@@ -1840,7 +1840,7 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.PropertyModel sourcePropertyModel3 = sourceElement as global::Dyvenix.GenIt.PropertyModel;
 			if (sourcePropertyModel3 != null)
 			{
-				// Delete link for path ClassHasProperties.Attributes
+				// Delete link for path ClassHasProperties.Properties
 				
 				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.ClassHasProperties.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourcePropertyModel3))
 				{

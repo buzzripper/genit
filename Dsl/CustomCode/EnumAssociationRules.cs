@@ -39,18 +39,18 @@ namespace Dyvenix.GenIt
             };
 
             // Add the property to the entity
-            entity.Attributes.Add(property);
+            entity.Properties.Add(property);
         }
 
         private string GetUniquePropertyName(EntityModel entity, string baseName)
         {
             // Check if base name is available
-            if (!entity.Attributes.Any(a => a.Name == baseName))
+            if (!entity.Properties.Any(a => a.Name == baseName))
                 return baseName;
 
             // Find a unique name by adding a number suffix
             int suffix = 2;
-            while (entity.Attributes.Any(a => a.Name == baseName + suffix))
+            while (entity.Properties.Any(a => a.Name == baseName + suffix))
             {
                 suffix++;
             }
@@ -78,7 +78,7 @@ namespace Dyvenix.GenIt
                 return;
 
             // Find and delete the associated property
-            var property = entity.Attributes.FirstOrDefault(p => 
+            var property = entity.Properties.FirstOrDefault(p => 
                 p.Name == propertyName && 
                 p.DataType == DataType.Enum);
 
@@ -147,7 +147,7 @@ namespace Dyvenix.GenIt
                 return;
 
             // Find the property with the old name and update it
-            var property = entity.Attributes.FirstOrDefault(p => 
+            var property = entity.Properties.FirstOrDefault(p => 
                 p.Name == oldName && 
                 p.DataType == DataType.Enum);
 
@@ -192,7 +192,7 @@ namespace Dyvenix.GenIt
                     continue;
 
                 // Find the property with this enum type and update EnumTypeName
-                var property = entity.Attributes.FirstOrDefault(p =>
+                var property = entity.Properties.FirstOrDefault(p =>
                     p.Name == link.PropertyName &&
                     p.DataType == DataType.Enum &&
                     p.EnumTypeName == oldName);

@@ -109,7 +109,7 @@ namespace Dyvenix.GenIt
                 Description = $"Foreign key to {source.Name}"
             };
 
-            target.Attributes.Add(fkProp);
+            target.Properties.Add(fkProp);
         }
 
         private string GetUniqueNavPropertyName(EntityModel entity, string baseName)
@@ -127,11 +127,11 @@ namespace Dyvenix.GenIt
 
         private string GetUniqueFkPropertyName(EntityModel entity, string baseName)
         {
-            if (!entity.Attributes.Any(a => a.Name == baseName))
+            if (!entity.Properties.Any(a => a.Name == baseName))
                 return baseName;
 
             int suffix = 2;
-            while (entity.Attributes.Any(a => a.Name == baseName + suffix))
+            while (entity.Properties.Any(a => a.Name == baseName + suffix))
             {
                 suffix++;
             }
@@ -178,7 +178,7 @@ namespace Dyvenix.GenIt
             // Delete FK property on target
             if (target != null && !target.IsDeleting && !target.IsDeleted && !string.IsNullOrEmpty(association.FkPropertyName))
             {
-                var fkProp = target.Attributes.FirstOrDefault(a => a.Name == association.FkPropertyName);
+                var fkProp = target.Properties.FirstOrDefault(a => a.Name == association.FkPropertyName);
                 if (fkProp != null && !fkProp.IsDeleting && !fkProp.IsDeleted)
                 {
                     fkProp.Delete();

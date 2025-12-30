@@ -1909,16 +1909,16 @@ namespace Dyvenix.GenIt
 			{
 				switch (reader.LocalName)
 				{
-					case "attributes":	// Relationship "ClassHasProperties"
+					case "properties":	// Relationship "ClassHasProperties"
 						if (reader.IsEmptyElement)
 						{	// No instance of this relationship, just skip
 							DslModeling::SerializationUtilities.Skip(reader);
 						}
 						else
 						{
-							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <attributes>
+							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <properties>
 							ReadClassHasPropertiesInstances(serializationContext, element, reader);
-							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </attributes>
+							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </properties>
 						}
 						break;
 					case "navigationProperties":	// Relationship "ClassHasNavigationProperties"
@@ -2007,7 +2007,7 @@ namespace Dyvenix.GenIt
 				PropertyModel newPropertyModelOfClassHasProperties = newPropertyModelOfClassHasPropertiesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as PropertyModel;
 				if (newPropertyModelOfClassHasProperties != null)
 				{
-					element.Attributes.Add(newPropertyModelOfClassHasProperties);
+					element.Properties.Add(newPropertyModelOfClassHasProperties);
 					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newPropertyModelOfClassHasProperties.GetDomainClass().Id);	
 					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newPropertyModelOfClassHasProperties.GetDomainClass().Name + "!");
 					targetSerializer.Read(serializationContext, newPropertyModelOfClassHasProperties, reader);
@@ -2771,10 +2771,10 @@ namespace Dyvenix.GenIt
 		private static void WriteChildElements(DslModeling::SerializationContext serializationContext, EntityModel element, global::System.Xml.XmlWriter writer)
 		{
 			// ClassHasProperties
-			global::System.Collections.ObjectModel.ReadOnlyCollection<ClassHasProperties> allClassHasPropertiesInstances = ClassHasProperties.GetLinksToAttributes(element);
+			global::System.Collections.ObjectModel.ReadOnlyCollection<ClassHasProperties> allClassHasPropertiesInstances = ClassHasProperties.GetLinksToProperties(element);
 			if (!serializationContext.Result.Failed && allClassHasPropertiesInstances.Count > 0)
 			{
-				writer.WriteStartElement("attributes");
+				writer.WriteStartElement("properties");
 				global::System.Type typeofClassHasProperties = typeof(ClassHasProperties);
 				foreach (ClassHasProperties eachClassHasPropertiesInstance in allClassHasPropertiesInstances)
 				{
