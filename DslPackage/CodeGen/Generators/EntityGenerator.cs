@@ -1,8 +1,10 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
 using Dyvenix.GenIt.DslPackage.CodeGen.Templates;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
@@ -71,15 +73,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateEntity(EntityModel entity, string entitiesNamespace, string template, string outputFolder)
 		{
 			// Usings
-			var usings = entity.UsingsList.AsString();
+			var usings = new List<string>();
+			foreach (var u in entity.UsingsList)
+				usings.Add($"{u}");
 
-			//	var propsOutput = new List<string>();
+			var propsOutput = new List<string>();
 
-			//	// PK
-			//	propsOutput.AddLine(0, $"// PK");
-			//	foreach (var property in entity.Properties.Where(p => p.IsPrimaryKey))
-			//		this.GenerateProperty(property, propsOutput, usings);
-			//	propsOutput.AddLine();
+			// PK
+			propsOutput.AddLine(0, $"// PK");
+			foreach (var property in entity.Properties.Where(p => p.IsPrimaryKey))
+				this.GenerateProperty(property, propsOutput, usings);
+			propsOutput.AddLine();
 
 			//	//// RowVersion
 			//	//if (entity.InclRowVersion)
@@ -103,63 +107,56 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			//	if (fkProperties.Any())
 			//		propsOutput.AddLine();
 
-			//	// Properties
-			//	propsOutput.AddLine(1, $"// Properties");
-			//	foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey))
-			//		GenerateProperty(property, propsOutput, usings);
+			// Properties
+			propsOutput.AddLine(1, $"// Properties");
+			foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey))
+				GenerateProperty(property, propsOutput, usings);
 
-			//	// Navigation properties
-			//	var navPropsOutput = new List<string>();
+			// Navigation properties
+			var navPropsOutput = new List<string>();
 			//	if (entity.NavProperties.Any())
 			//		navPropsOutput.AddLine(0, $"// Navigation Properties");
 			//	foreach (var navProperty in entity.NavProperties)
 			//		GenerateNavigationProperty(navProperty, navPropsOutput, usings);
 
-			//	// Property names
-			//	var propNames = GeneratePropNames(entity);
+			// Property names
+			var propNames = GeneratePropNames(entity);
 
-			//	// Replace tokens in template
-			//	var fileContents = ReplaceTemplateTokens(template, usings, entitiesNamespace, entity, propsOutput, navPropsOutput, propNames);
+			// Replace tokens in template
+			var fileContents = ReplaceTemplateTokens(template, usings, entitiesNamespace, entity, propsOutput, navPropsOutput, propNames);
 
-			//	var outputFile = Path.Combine(outputFolder, $"{entity.Name}.cs");
-			//	if (File.Exists(outputFile))
-			//		File.Delete(outputFile);
-			//	File.WriteAllText(outputFile, fileContents);
-			//}
+			var outputFile = Path.Combine(outputFolder, $"{entity.Name}.cs");
+			if (File.Exists(outputFile))
+				File.Delete(outputFile);
+			File.WriteAllText(outputFile, fileContents);
 
-			//private List<string> BuildAddlUsings(EntityModel entity)
+			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+		}
+
+		private void GenerateProperty(PropertyModel prop, List<string> output, List<string> usings)
+		{
+			var tc = 1;
+
+			if (prop.Attributes.Any())
+				foreach (var attr in prop.AttributesList)
+					output.AddLine(tc, $"[{attr}]");
+
+			//if ((prop.PrimitiveType ?? PrimitiveType.None) != PrimitiveType.None)
 			//{
-			//	var usings = new List<string>();
+			//	var nullStr = (prop.Nullable && (prop.PrimitiveType.CSType != "string")) ? "?" : string.Empty;
+			//	var datatype = $"{prop.PrimitiveType.CSType}{nullStr}";
+			//	output.AddLine(tc, $"internal {datatype} {prop.Name} {{ get; set; }}");
 
-			//	entity.AddlUsings?.ToList().ForEach(u => usings.Add(u));
-
-			//	return usings;
 			//}
-
-			//private void GenerateProperty(PropertyModel prop, List<string> output, List<string> usings)
+			//else if (prop.EnumType != null)
 			//{
-			//	var tc = 1;
-
-			//	if (prop.Attributes.Any())
-			//		foreach (var attr in prop.Attributes)
-			//			output.AddLine(tc, $"[{attr}]");
-
-			//	if ((prop.PrimitiveType ?? PrimitiveType.None) != PrimitiveType.None)
-			//	{
-			//		var nullStr = (prop.Nullable && (prop.PrimitiveType.CSType != "string")) ? "?" : string.Empty;
-			//		var datatype = $"{prop.PrimitiveType.CSType}{nullStr}";
-			//		output.AddLine(tc, $"internal {datatype} {prop.Name} {{ get; set; }}");
-
-			//	}
-			//	else if (prop.EnumType != null)
-			//	{
-			//		var nullStr = prop.Nullable ? "?" : string.Empty;
-			//		//output.AddLine(tc, $"[JsonConverter(typeof(JsonStringEnumConverter))]");
-			//		output.AddLine(tc, $"internal {prop.EnumType.Name}{nullStr} {prop.Name} {{ get; set; }}");
-			//		usings.AddIfNotExists("System.Text.Json.Serialization");
-			//		if (!string.IsNullOrWhiteSpace(prop.EnumType.Namespace))
-			//			usings.AddIfNotExists(prop.EnumType.Namespace);
-			//	}
+			//	var nullStr = prop.Nullable ? "?" : string.Empty;
+			//	//output.AddLine(tc, $"[JsonConverter(typeof(JsonStringEnumConverter))]");
+			//	output.AddLine(tc, $"internal {prop.EnumType.Name}{nullStr} {prop.Name} {{ get; set; }}");
+			//	usings.AddIfNotExists("System.Text.Json.Serialization");
+			//	if (!string.IsNullOrWhiteSpace(prop.EnumType.Namespace))
+			//		usings.AddIfNotExists(prop.EnumType.Namespace);
+			//}
 
 			//	if (prop.AddlUsings.Any())
 			//		foreach (var usingStr in prop.AddlUsings)
@@ -184,49 +181,49 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			//		default:
 			//			throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
 			//	}
-			//}
+		}
 
-			//private string GeneratePropNames(EntityModel entity)
-			//{
-			//	var sb = new StringBuilder();
+		private string GeneratePropNames(EntityModel entity)
+		{
+			var sb = new StringBuilder();
 
-			//	foreach (var prop in entity.Properties)
-			//	{
-			//		if (sb.Length > 0)
-			//			sb.Append(Environment.NewLine);
-			//		sb.Append($"\t\tpublic const string {prop.Name} = nameof({entity.Name}.{prop.Name});");
-			//	}
+			foreach (var prop in entity.Properties)
+			{
+				if (sb.Length > 0)
+					sb.Append(Environment.NewLine);
+				sb.Append($"\t\tpublic const string {prop.Name} = nameof({entity.Name}.{prop.Name});");
+			}
 
-			//	return sb.ToString();
-			//}
+			return sb.ToString();
+		}
 
-			//private string ReplaceTemplateTokens(string template, List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, string propNames)
-			//{
-			//	// Usings
-			//	var sb = new StringBuilder();
-			//	usings.ForEach(x => sb.AppendLine($"using {x};"));
-			//	template = template.Replace(Utils.FmtToken(cToken_AddlUsings), sb.ToString());
+		private string ReplaceTemplateTokens(string template, List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, string propNames)
+		{
+			// Usings
+			var sb = new StringBuilder();
+			usings.ForEach(x => sb.AppendLine($"using {x};"));
+			template = template.Replace(CodeGenUtils.FormatToken(cToken_AddlUsings), sb.ToString());
 
-			//	// Entities namespace 		
-			//	template = template.Replace(Utils.FmtToken(cToken_EntitiesNs), entitiesNamespace);
+			// Entities namespace 		
+			template = template.Replace(CodeGenUtils.FormatToken(cToken_EntitiesNs), entitiesNamespace);
 
-			//	// Entity name
-			//	template = template.Replace(Utils.FmtToken(cToken_EntityName), entity.Name);
+			// Entity name
+			template = template.Replace(CodeGenUtils.FormatToken(cToken_EntityName), entity.Name);
 
-			//	// Properties
-			//	sb = new StringBuilder();
-			//	propsOutput.ForEach(x => sb.AppendLine(x));
-			//	template = template.Replace(Utils.FmtToken(cToken_Properties), sb.ToString());
+			// Properties
+			sb = new StringBuilder();
+			propsOutput.ForEach(x => sb.AppendLine(x));
+			template = template.Replace(CodeGenUtils.FormatToken(cToken_Properties), sb.ToString());
 
-			//	// Nav Properties
-			//	sb = new StringBuilder();
-			//	navPropsOutput.ForEach(x => sb.AppendLine(x));
-			//	template = template.Replace(Utils.FmtToken(cToken_NavProperties), sb.ToString());
+			//// Nav Properties
+			//sb = new StringBuilder();
+			//navPropsOutput.ForEach(x => sb.AppendLine(x));
+			//template = template.Replace(CodeGenUtils.FormatToken(cToken_NavProperties), sb.ToString());
 
-			//	// PropNames
-			//	template = template.Replace(Utils.FmtToken(cToken_PropNames), propNames);
+			// PropNames
+			template = template.Replace(CodeGenUtils.FormatToken(cToken_PropNames), propNames);
 
-			//	return template;
+			return template;
 		}
 	}
 }

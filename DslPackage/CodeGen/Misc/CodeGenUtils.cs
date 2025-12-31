@@ -18,5 +18,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 
 			return Path.GetFullPath(Path.Combine(bp, path));
 		}
+
+		public static string FormatToken(string tokenTitle)
+		{
+			return $"${{{{{tokenTitle}}}}}";
+		}
 	}
 }

@@ -4,7 +4,8 @@
     <entityModel Id="3029ab31-0516-4130-9d4e-cbffc2c6c4dd" name="EntityModel1" attributes="1&#xD;&#xA;2&#xD;&#xA;3" usings="A&#xD;&#xA;B&#xD;&#xA;C&#xD;&#xA;" auditable="false" inclRowVersion="false">
       <properties>
         <propertyModel Id="96bd41ad-b5b3-455c-8827-f16ffc1697ef" name="Id" description="Primary key" dataType="Guid" isPrimaryKey="true" isIndexed="true" isIndexUnique="true" isForeignKey="false" />
-        <propertyModel Id="7460c29a-b839-43e8-8696-20c5ddaf95bd" name="PropertyModel1" length="50" isForeignKey="false" />
+        <propertyModel Id="7460c29a-b839-43e8-8696-20c5ddaf95bd" name="Name" length="50" isForeignKey="false" />
+        <propertyModel Id="ebaf0ff5-2fee-4926-8972-82828f623311" name="Email" length="255" isForeignKey="false" />
       </properties>
     </entityModel>
   </types>
