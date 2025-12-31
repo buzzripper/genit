@@ -1493,14 +1493,6 @@
     <value>Create an Enumeration</value>
     <comment>Toolbox tooltip text</comment>
   </data>
-  <data name="AttributeToolboxItem" xml:space="preserve">
-    <value>Attribute</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="AttributeToolboxTooltip" xml:space="preserve">
-    <value>Create an Attribute on a Class</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
   <data name="ClassOperationToolboxItem" xml:space="preserve">
     <value>Class Operation</value>
     <comment>Toolbox item name</comment>
@@ -1680,10 +1672,6 @@ A DomainClass can be serialized as a moniker only if
   </data>
   <data name="EnumModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="AttributeToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\resources\attributetool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ClassOperationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
