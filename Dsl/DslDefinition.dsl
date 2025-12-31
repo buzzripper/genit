@@ -90,7 +90,20 @@
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="Custom attributes for the entity (one per line)" Name="Attributes" DisplayName="Attributes" Category="Attributes">
+        <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="Custom attributes for the entity (one per line)" Name="Attributes" DisplayName="Attributes" Category="Code">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+                <AttributeParameter Value="System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+        </DomainProperty>
+        <DomainProperty Id="a2a2a2a2-2222-2222-2222-222222222222" Description="Custom using statements for the entity (one per line)" Name="Usings" DisplayName="Usings" Category="Code">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -171,7 +184,20 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b1b1b1b1-1111-1111-1111-111111111111" Description="Custom attributes for the property (one per line)" Name="Attributes" DisplayName="Attributes" Category="Attributes">
+        <DomainProperty Id="b1b1b1b1-1111-1111-1111-111111111111" Description="Custom attributes for the property (one per line)" Name="Attributes" DisplayName="Attributes" Category="Code">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+                <AttributeParameter Value="System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
+        </DomainProperty>
+        <DomainProperty Id="b2b2b2b2-2222-2222-2222-222222222222" Description="Custom using statements for the property (one per line)" Name="Usings" DisplayName="Usings" Category="Code">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -854,6 +880,9 @@
           <XmlPropertyData XmlName="attributes">
             <DomainPropertyMoniker Name="EntityModel/Attributes" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="usings">
+            <DomainPropertyMoniker Name="EntityModel/Usings" />
+          </XmlPropertyData>
           <XmlPropertyData XmlName="auditable">
             <DomainPropertyMoniker Name="EntityModel/Auditable" />
           </XmlPropertyData>
@@ -900,6 +929,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="attributes">
             <DomainPropertyMoniker Name="PropertyModel/Attributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="usings">
+            <DomainPropertyMoniker Name="PropertyModel/Usings" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="isPrimaryKey">
             <DomainPropertyMoniker Name="PropertyModel/IsPrimaryKey" />
@@ -1298,6 +1330,18 @@
       <ConnectorMap>
         <ConnectorMoniker Name="AssociationConnector" />
         <DomainRelationshipMoniker Name="Association" />
+      </ConnectorMap>
+      <ConnectorMap>
+        <ConnectorMoniker Name="GeneralizationConnector" />
+        <DomainRelationshipMoniker Name="Generalization" />
+      </ConnectorMap>
+      <ConnectorMap>
+        <ConnectorMoniker Name="ImplementationConnector" />
+        <DomainRelationshipMoniker Name="Implementation" />
+      </ConnectorMap>
+      <ConnectorMap>
+        <ConnectorMoniker Name="CommentConnector" />
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
       </ConnectorMap>
       <ConnectorMap>
         <ConnectorMoniker Name="EnumAssociationConnector" />

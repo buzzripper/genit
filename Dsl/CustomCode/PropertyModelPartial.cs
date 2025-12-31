@@ -30,5 +30,26 @@ namespace Dyvenix.GenIt
                     .ToList();
             }
         }
+
+        /// <summary>
+        /// Gets a list of using statement strings parsed from the Usings property.
+        /// Each line in the Usings string becomes an item in the list.
+        /// Empty lines are skipped.
+        /// </summary>
+        [Browsable(false)]
+        public List<string> UsingsList
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(this.Usings))
+                    return new List<string>();
+
+                return this.Usings
+                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(line => line.Trim())
+                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .ToList();
+            }
+        }
     }
 }

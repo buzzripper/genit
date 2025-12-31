@@ -77,9 +77,9 @@
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
+    <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
     <Compile Include="CustomCode\ModelValidator.cs" />
     <Compile Include="CustomCode\OutputWindowHelper.cs" />
-    <Compile Include="CustomCode\CommandSetExtensions.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
     <Compile Include="CustomCode\ModelView\AddViewDialog.cs" />
     <Compile Include="CustomCode\ModelView\GenItPackageViewAttributes.cs" />
@@ -112,7 +112,7 @@
     <EmbeddedResource Include="Resources\Templates\Controllers.tmpl" />
     <EmbeddedResource Include="Resources\Templates\DbContext.tmpl" />
     <EmbeddedResource Include="Resources\Templates\DTO.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\Entities.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Entity.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Enums.tmpl" />
     <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Read.tmpl" />
     <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Update.tmpl" />

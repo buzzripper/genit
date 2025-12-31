@@ -286,8 +286,20 @@
     <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel/Attributes.Category" xml:space="preserve">
-    <value>Attributes</value>
+    <value>Code</value>
     <comment>Category for DomainProperty &apos;Attributes&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Usings.Description" xml:space="preserve">
+    <value>Custom using statements for the entity (one per line)</value>
+    <comment>Description for DomainProperty &apos;Usings&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Usings.DisplayName" xml:space="preserve">
+    <value>Usings</value>
+    <comment>DisplayName for DomainProperty &apos;Usings&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Usings.Category" xml:space="preserve">
+    <value>Code</value>
+    <comment>Category for DomainProperty &apos;Usings&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel/Auditable.Description" xml:space="preserve">
     <value></value>
@@ -390,8 +402,20 @@
     <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel/Attributes.Category" xml:space="preserve">
-    <value>Attributes</value>
+    <value>Code</value>
     <comment>Category for DomainProperty &apos;Attributes&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Usings.Description" xml:space="preserve">
+    <value>Custom using statements for the property (one per line)</value>
+    <comment>Description for DomainProperty &apos;Usings&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Usings.DisplayName" xml:space="preserve">
+    <value>Usings</value>
+    <comment>DisplayName for DomainProperty &apos;Usings&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/Usings.Category" xml:space="preserve">
+    <value>Code</value>
+    <comment>Category for DomainProperty &apos;Usings&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel/IsPrimaryKey.Description" xml:space="preserve">
     <value></value>

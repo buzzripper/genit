@@ -266,26 +266,6 @@ namespace Dyvenix.GenIt
 		}
 		
 		/// <summary>
-		/// Most connectors are mapped to element links, but there can be exceptions. This method tell if a connector should be
-		/// mapped to an element link.
-		/// </summary>
-		public override bool IsConnectorMappedToLink(DslDiagrams::BinaryLinkShape connector)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(connector != null);
-			if (connector == null)
-				throw new global::System.ArgumentNullException("connector");
-			#endregion
-			if (connector.GetType() == typeof(global::Dyvenix.GenIt.GeneralizationConnector))
-				return false;
-			if (connector.GetType() == typeof(global::Dyvenix.GenIt.ImplementationConnector))
-				return false;
-			if (connector.GetType() == typeof(global::Dyvenix.GenIt.CommentConnector))
-				return false;
-			return base.IsConnectorMappedToLink(connector);
-		}
-		
-		/// <summary>
 		/// Creates a new shape for the given model element as part of view fixup
 		/// </summary>
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily", Justification = "Generated code.")]
@@ -319,6 +299,21 @@ namespace Dyvenix.GenIt
 			if(element is global::Dyvenix.GenIt.Association)
 			{
 				global::Dyvenix.GenIt.AssociationConnector newShape = new global::Dyvenix.GenIt.AssociationConnector(this.Partition);
+				return newShape;
+			}
+			if(element is global::Dyvenix.GenIt.Generalization)
+			{
+				global::Dyvenix.GenIt.GeneralizationConnector newShape = new global::Dyvenix.GenIt.GeneralizationConnector(this.Partition);
+				return newShape;
+			}
+			if(element is global::Dyvenix.GenIt.Implementation)
+			{
+				global::Dyvenix.GenIt.ImplementationConnector newShape = new global::Dyvenix.GenIt.ImplementationConnector(this.Partition);
+				return newShape;
+			}
+			if(element is global::Dyvenix.GenIt.CommentReferencesSubjects)
+			{
+				global::Dyvenix.GenIt.CommentConnector newShape = new global::Dyvenix.GenIt.CommentConnector(this.Partition);
 				return newShape;
 			}
 			if(element is global::Dyvenix.GenIt.EnumAssociation)
@@ -602,6 +597,9 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed partial class FixUpDiagram : FixUpDiagramBase
 		{
@@ -1249,6 +1247,9 @@ namespace Dyvenix.GenIt
 		/// Reroute a connector when the role players of its underlying relationship change
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Implementation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.CommentReferencesSubjects), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumAssociation), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		internal sealed class ConnectorRolePlayerChanged : DslModeling::RolePlayerChangeRule
 		{

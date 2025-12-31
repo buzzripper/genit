@@ -264,6 +264,12 @@
             <xsd:documentation>Custom attributes for the entity (one per line)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom using statements for the entity (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: Auditable -->
         <xsd:attribute name="auditable" type="xsd:boolean" />
         <!-- Property: GenerateCode -->
@@ -320,6 +326,12 @@
         <xsd:attribute name="attributes" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Custom attributes for the property (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom using statements for the property (one per line)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: IsPrimaryKey -->

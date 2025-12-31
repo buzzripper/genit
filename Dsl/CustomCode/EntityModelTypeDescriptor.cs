@@ -35,7 +35,7 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// Filters the properties collection to add multiline editor to Attributes.
+        /// Filters the properties collection to add multiline editor to Attributes and Usings.
         /// </summary>
         public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -44,9 +44,9 @@ namespace Dyvenix.GenIt
 
             foreach (PropertyDescriptor prop in properties)
             {
-                if (prop.Name == "Attributes")
+                if (prop.Name == "Attributes" || prop.Name == "Usings")
                 {
-                    // Add multiline string editor to Attributes property
+                    // Add multiline string editor to Attributes and Usings properties
                     newProperties.Add(TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(prop));
                 }
                 else

@@ -1330,6 +1330,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region Usings domain property code
+		
+		/// <summary>
+		/// Usings domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UsingsDomainPropertyId = new global::System.Guid(0xa2a2a2a2, 0x2222, 0x2222, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22);
+		
+		/// <summary>
+		/// Storage for Usings
+		/// </summary>
+		private global::System.String usingsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Usings domain property.
+		/// Custom using statements for the entity (one per line)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/Usings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.EntityModel/Usings.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/Usings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("a2a2a2a2-2222-2222-2222-222222222222")]
+		public global::System.String Usings
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return usingsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UsingsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.Usings domain property.
+		/// </summary>
+		internal sealed partial class UsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
+		{
+			private UsingsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.Usings domain property value handler.
+			/// </summary>
+			public static readonly UsingsPropertyHandler Instance = new UsingsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.Usings domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UsingsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.usingsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.usingsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Auditable domain property code
 		
 		/// <summary>
@@ -2337,6 +2425,94 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.attributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Usings domain property code
+		
+		/// <summary>
+		/// Usings domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UsingsDomainPropertyId = new global::System.Guid(0xb2b2b2b2, 0x2222, 0x2222, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22, 0x22);
+		
+		/// <summary>
+		/// Storage for Usings
+		/// </summary>
+		private global::System.String usingsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Usings domain property.
+		/// Custom using statements for the property (one per line)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/Usings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/Usings.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Usings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b2b2b2b2-2222-2222-2222-222222222222")]
+		public global::System.String Usings
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return usingsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UsingsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.Usings domain property.
+		/// </summary>
+		internal sealed partial class UsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
+		{
+			private UsingsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.Usings domain property value handler.
+			/// </summary>
+			public static readonly UsingsPropertyHandler Instance = new UsingsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.Usings domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UsingsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.usingsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.usingsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

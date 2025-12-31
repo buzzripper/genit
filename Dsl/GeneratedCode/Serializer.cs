@@ -1845,6 +1845,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// Usings
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUsings = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "usings");
+				if (attribUsings != null)
+				{
+					global::System.String valueOfUsings;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUsings, out valueOfUsings))
+					{
+						instanceOfEntityModel.Usings = valueOfUsings;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "usings", typeof(global::System.String), attribUsings);
+					}
+				}
+			}
 			// Auditable
 			if (!serializationContext.Result.Failed)
 			{
@@ -2709,6 +2726,17 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
+			// Usings
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfEntityModel.Usings;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "usings", propValue);
+	
+				}
+			}
 			// Auditable
 			if (!serializationContext.Result.Failed)
 			{
@@ -3222,6 +3250,23 @@ namespace Dyvenix.GenIt
 					else
 					{	// Invalid property value, ignored.
 						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attributes", typeof(global::System.String), attribAttributes);
+					}
+				}
+			}
+			// Usings
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUsings = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "usings");
+				if (attribUsings != null)
+				{
+					global::System.String valueOfUsings;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUsings, out valueOfUsings))
+					{
+						instanceOfPropertyModel.Usings = valueOfUsings;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "usings", typeof(global::System.String), attribUsings);
 					}
 				}
 			}
@@ -3791,6 +3836,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attributes", propValue);
+	
+				}
+			}
+			// Usings
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfPropertyModel.Usings;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "usings", propValue);
 	
 				}
 			}

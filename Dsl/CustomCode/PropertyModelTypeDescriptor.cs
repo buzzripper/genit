@@ -82,6 +82,12 @@ namespace Dyvenix.GenIt
                 return TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(property);
             }
 
+            // Add multiline editor to Usings property
+            if (property.Name.Equals("Usings", StringComparison.OrdinalIgnoreCase))
+            {
+                return TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(property);
+            }
+
             // Make all properties read-only for RowVersion property (except Description)
             if (IsRowVersionProperty() && !property.Name.Equals("Description", StringComparison.OrdinalIgnoreCase))
             {
