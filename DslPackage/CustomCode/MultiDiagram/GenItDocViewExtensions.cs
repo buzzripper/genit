@@ -8,7 +8,6 @@ namespace Dyvenix.GenIt
 	/// </summary>
 	internal partial class GenItDocView
 	{
-		private DiagramTabControl _tabControl;
 		private DiagramManager _diagramManager;
 		private TabbedDiagramContainer _container;
 

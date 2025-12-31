@@ -4,18 +4,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 {
 	internal static class CodeGenUtils
 	{
-		private static OutputWindowHelper _outputWindowHelper;
-
-		internal static OutputWindowHelper OutputWindowHelper
-		{
-			get
-			{
-				if (_outputWindowHelper == null)
-					_outputWindowHelper = new OutputWindowHelper();
-				return _outputWindowHelper;
-			}
-		}
-
 		public static string SolutionRootPath { get; set; }
 
 		public static string ResolveRelativePath(string path)

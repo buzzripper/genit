@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3e88710b-b2f8-41f6-8f30-d1eabebc7ee9" name="" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3e88710b-b2f8-41f6-8f30-d1eabebc7ee9" name="" entitiesOutputFolder="Entities" entitiesNamespace="Dyvenix.Entities" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
   <types>
     <entityModel Id="3029ab31-0516-4130-9d4e-cbffc2c6c4dd" name="EntityModel1" attributes="1&#xD;&#xA;2&#xD;&#xA;3" usings="A&#xD;&#xA;B&#xD;&#xA;C&#xD;&#xA;" auditable="false" inclRowVersion="false">
       <properties>

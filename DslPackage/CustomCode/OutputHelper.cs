@@ -8,45 +8,49 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 	/// <summary>
 	/// Helper class for writing messages to the Visual Studio Output window.
 	/// </summary>
-	internal class OutputWindowHelper
+	internal static class OutputHelper
 	{
 		// Custom output pane GUID for GenIt messages
-		private readonly Guid GenItOutputPaneGuid = new Guid("E13B7B5C-4F3A-4A1E-9D5B-2C3F4E5A6B7C");
+		private static readonly Guid GenItOutputPaneGuid = new Guid("E13B7B5C-4F3A-4A1E-9D5B-2C3F4E5A6B7C");
 		private const string GenItPaneName = "GenIt";
 
 		/// <summary>
 		/// Writes a message to the GenIt output pane.
 		/// </summary>
-		public void Write(string message)
+		public static void Write(string message)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			WriteToPane(GenItOutputPaneGuid, GenItPaneName, message, activate: false);
 		}
 
 		/// <summary>
 		/// Writes a message to the GenIt output pane and activates it.
 		/// </summary>
-		public void WriteAndActivate(string message)
+		public static void WriteAndActivate(string message)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			WriteToPane(GenItOutputPaneGuid, GenItPaneName, message, activate: true);
 		}
 
 		/// <summary>
 		/// Writes an error message to the GenIt output pane and activates it.
 		/// </summary>
-		public void WriteError(string message)
+		public static void WriteError(string message)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			WriteToPane(GenItOutputPaneGuid, GenItPaneName, $"ERROR: {message}", activate: true);
 		}
 
 		/// <summary>
 		/// Writes a warning message to the GenIt output pane.
 		/// </summary>
-		public void WriteWarning(string message)
+		public static void WriteWarning(string message)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
 			WriteToPane(GenItOutputPaneGuid, GenItPaneName, $"WARNING: {message}", activate: false);
 		}
 
-		private void WriteToPane(Guid paneGuid, string paneName, string message, bool activate)
+		private static void WriteToPane(Guid paneGuid, string paneName, string message, bool activate)
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
@@ -85,10 +89,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 		/// <summary>
 		/// Clears the GenIt output pane.
 		/// </summary>
-		public void Clear()
+		public static void Clear()
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
-
 			try
 			{
 				var outputWindow = Package.GetGlobalService(typeof(SVsOutputWindow)) as IVsOutputWindow;

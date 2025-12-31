@@ -1,18 +1,17 @@
-using System;
-using System.ComponentModel.Design;
-using System.Linq;
 using Dyvenix.GenIt.DslPackage.CodeGen;
 using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
-using Dyvenix.GenIt.DslPackage.CustomCode;
-using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Shell;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.ComponentModel.Design;
+using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
 {
 	internal partial class GenItCommandSet : GenItCommandSetBase
 	{
 		private CommandID _generateCodeCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0100);
-		private readonly OutputWindowHelper _outputHelper = new OutputWindowHelper();
 
 		/// <summary>
 		/// Provide the menu commands that this command set handles
@@ -65,68 +64,86 @@ namespace Dyvenix.GenIt
 		{
 			try
 			{
+				OutputHelper.WriteAndActivate("Reading model file...");
+
 				GenItDocData docData = this.CurrentGenItDocData;
 				if (docData == null || docData.Store == null)
 				{
-					_outputHelper.WriteError("No active document found.");
+					OutputHelper.WriteError("No active document found.");
 					return;
 				}
 
 				var modelRoots = docData.Store.ElementDirectory.FindElements<ModelRoot>();
 				if (modelRoots == null || modelRoots.Count == 0)
 				{
-					_outputHelper.WriteError("No model root found in the document.");
+					OutputHelper.WriteError("No model root found in the document.");
 					return;
 				}
 
 				ModelRoot modelRoot = modelRoots[0];
 
-				// Validate the model first
-				ModelValidator validator = new ModelValidator();
-				validator.Validate(modelRoot);
-
-				_outputHelper.WriteAndActivate("Starting code generation...");
-				_outputHelper.Write("=".PadRight(80, '='));
-
-				// Create the model wrapper
+				// Create the code gen model and validate
 				GenItModel model = new GenItModel(modelRoot);
-
-				// Generate entities
-				if (modelRoot.EntitiesEnabled)
+				OutputHelper.Write("Validating model...");
+				if (!model.Validate(out var errors))
 				{
-					_outputHelper.Write("Generating entities...");
-					// TODO: Implement entity generation
-					// EntityGenerator entityGenerator = new EntityGenerator(
-					//     model.Entities,
-					//     modelRoot.EntitiesNamespace,
-					//     modelRoot.TemplatesFolder,
-					//     modelRoot.EntitiesOutputFolder);
-					// entityGenerator.Run();
-					_outputHelper.Write($"Generated {model.Entities.Count} entities.");
-				}
+					OutputHelper.WriteError("Model validation failed with the following errors:");
+					foreach (var error in errors)
+					{
+						OutputHelper.WriteError($"  {error}");
+					}
 
-				// Generate DbContext
-				if (modelRoot.DbContextEnabled)
-				{
-					_outputHelper.Write("Generating DbContext...");
-					// TODO: Implement DbContext generation
+					ShowMessageBox("Model validation failed. Check the output window for details.", "Validation Error");
+					return;
 				}
+				OutputHelper.Write("Model validated.");
 
-				// Generate Enums
-				if (modelRoot.EnumsEnabled)
-				{
-					_outputHelper.Write("Generating enums...");
-					// TODO: Implement enum generation
-					_outputHelper.Write($"Generated {model.Enums.Count} enums.");
-				}
+				OutputHelper.Write("Starting code generation...");
+				OutputHelper.Write("=".PadRight(80, '='));
 
-				_outputHelper.Write("=".PadRight(80, '='));
-				_outputHelper.Write("Code generation completed successfully!");
+				model.GenerateCode();
+
+				OutputHelper.Write("=".PadRight(80, '='));
+				OutputHelper.Write("Code generation completed successfully!");
 			}
 			catch (Exception ex)
 			{
-				_outputHelper.WriteError($"Code generation failed: {ex.Message}");
-				_outputHelper.WriteError(ex.StackTrace);
+				MessageBox.Show(ex.Message, "Code Generation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				OutputHelper.WriteError($"Code generation failed: {ex.Message}");
+				OutputHelper.WriteError(ex.StackTrace);
+			}
+			finally
+			{
+
+			}
+		}
+
+		/// <summary>
+		/// Shows a message box using Visual Studio's UI shell
+		/// </summary>
+		private void ShowMessageBox(string message, string title)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			OLEMSGICON icon = OLEMSGICON.OLEMSGICON_INFO;
+
+			IVsUIShell uiShell = (IVsUIShell)this.ServiceProvider.GetService(typeof(SVsUIShell));
+			if (uiShell != null)
+			{
+				Guid clsid = Guid.Empty;
+				int result;
+				uiShell.ShowMessageBox(
+					0,
+					ref clsid,
+					title,
+					message,
+					string.Empty,
+					0,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
+					icon,
+					0,
+					out result);
 			}
 		}
 	}
