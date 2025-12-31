@@ -1,5 +1,6 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
 using Dyvenix.GenIt.DslPackage.CodeGen.Templates;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,6 +64,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateCode()
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
 			{
 				var template = _templatesManager.GetTemplate();
@@ -72,6 +75,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateEntity(EntityModel entity, string entitiesNamespace, string template, string outputFolder)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			// Usings
 			var usings = new List<string>();
 			foreach (var u in entity.UsingsList)

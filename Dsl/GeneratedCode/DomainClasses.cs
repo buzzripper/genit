@@ -1768,20 +1768,6 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region UsedEnums opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UsedEnums.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EnumModel> UsedEnums
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
-			}
-		}
-		#endregion
 		#region NavigationProperties opposite domain role accessor
 		
 		/// <summary>
@@ -4821,20 +4807,6 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumMember>, EnumMember>(global::Dyvenix.GenIt.EnumHasMembers.EnumModelDomainRoleId);
-			}
-		}
-		#endregion
-		#region UsingEntities opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UsingEntities.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> UsingEntities
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EnumAssociation.EnumDomainRoleId);
 			}
 		}
 		#endregion

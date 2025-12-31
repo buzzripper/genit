@@ -86,21 +86,13 @@ namespace Dyvenix.GenIt
 					0xff00ff,
 					Index = 6)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@EnumAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.EnumAssociationToolboxItem", 
-					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"EnumAssociationF1Keyword", 
-					"@EnumAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
-					0xff00ff,
-					Index = 7)]
-	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
 					"CommentF1Keyword", 
 					"@CommentToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 8)]
+					Index = 7)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
 					"@CommentsReferenceTypesToolboxItem;Dyvenix.GenIt.Dsl.dll", 
 					"Dyvenix.GenIt.CommentsReferenceTypesToolboxItem", 
@@ -108,7 +100,7 @@ namespace Dyvenix.GenIt
 					"CommentsReferenceTypesF1Keyword", 
 					"@CommentsReferenceTypesToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
-					Index = 9)]
+					Index = 8)]
 	[VSShell::ProvideEditorFactory(typeof(GenItEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(GenItEditorFactory), "." + Constants.DesignerFileExtension, 50)]
 	[VSShell::ProvideEditorLogicalView(typeof(GenItEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer

@@ -1,5 +1,6 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Generators;
 using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
+using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,6 +49,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 		internal void GenerateCode()
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			if (_entityGenerator.Enabled)
 				_entityGenerator.GenerateCode();
 			else

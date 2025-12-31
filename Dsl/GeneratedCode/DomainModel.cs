@@ -91,14 +91,12 @@ namespace Dyvenix.GenIt
 				typeof(CommentReferencesSubjects),
 				typeof(Implementation),
 				typeof(EnumHasMembers),
-				typeof(EnumAssociation),
 				typeof(ClassHasNavigationProperties),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
 				typeof(GeneralizationConnector),
 				typeof(ImplementationConnector),
 				typeof(CommentConnector),
-				typeof(EnumAssociationConnector),
 				typeof(CommentBoxShape),
 				typeof(ClassShape),
 				typeof(InterfaceShape),
@@ -171,7 +169,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(Association), "GenTargetNavProperty", Association.GenTargetNavPropertyDomainPropertyId, typeof(Association.GenTargetNavPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "FkPropertyName", Association.FkPropertyNameDomainPropertyId, typeof(Association.FkPropertyNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Generalization), "Discriminator", Generalization.DiscriminatorDomainPropertyId, typeof(Generalization.DiscriminatorPropertyHandler)),
-				new DomainMemberInfo(typeof(EnumAssociation), "PropertyName", EnumAssociation.PropertyNameDomainPropertyId, typeof(EnumAssociation.PropertyNamePropertyHandler)),
 			};
 		}
 		/// <summary>
@@ -202,8 +199,6 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(Implementation), "Implementor", Implementation.ImplementorDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "EnumModel", EnumHasMembers.EnumModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "Member", EnumHasMembers.MemberDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EnumAssociation), "Entity", EnumAssociation.EntityDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EnumAssociation), "Enum", EnumAssociation.EnumDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "EntityModel", ClassHasNavigationProperties.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "NavigationProperty", ClassHasNavigationProperties.NavigationPropertyDomainRoleId),
 			};
@@ -227,7 +222,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(24);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(23);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(EntityModel), 1);
 				createElementMap.Add(typeof(PropertyModel), 2);
@@ -243,11 +238,10 @@ namespace Dyvenix.GenIt
 				createElementMap.Add(typeof(GeneralizationConnector), 12);
 				createElementMap.Add(typeof(ImplementationConnector), 13);
 				createElementMap.Add(typeof(CommentConnector), 14);
-				createElementMap.Add(typeof(EnumAssociationConnector), 15);
-				createElementMap.Add(typeof(CommentBoxShape), 16);
-				createElementMap.Add(typeof(ClassShape), 17);
-				createElementMap.Add(typeof(InterfaceShape), 18);
-				createElementMap.Add(typeof(EnumShape), 19);
+				createElementMap.Add(typeof(CommentBoxShape), 15);
+				createElementMap.Add(typeof(ClassShape), 16);
+				createElementMap.Add(typeof(InterfaceShape), 17);
+				createElementMap.Add(typeof(EnumShape), 18);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -276,11 +270,10 @@ namespace Dyvenix.GenIt
 				case 12: return new GeneralizationConnector(partition, propertyAssignments);
 				case 13: return new ImplementationConnector(partition, propertyAssignments);
 				case 14: return new CommentConnector(partition, propertyAssignments);
-				case 15: return new EnumAssociationConnector(partition, propertyAssignments);
-				case 16: return new CommentBoxShape(partition, propertyAssignments);
-				case 17: return new ClassShape(partition, propertyAssignments);
-				case 18: return new InterfaceShape(partition, propertyAssignments);
-				case 19: return new EnumShape(partition, propertyAssignments);
+				case 15: return new CommentBoxShape(partition, propertyAssignments);
+				case 16: return new ClassShape(partition, propertyAssignments);
+				case 17: return new InterfaceShape(partition, propertyAssignments);
+				case 18: return new EnumShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -303,7 +296,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(12);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(11);
 				createElementLinkMap.Add(typeof(Association), 0);
 				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -314,8 +307,7 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 7);
 				createElementLinkMap.Add(typeof(Implementation), 8);
 				createElementLinkMap.Add(typeof(EnumHasMembers), 9);
-				createElementLinkMap.Add(typeof(EnumAssociation), 10);
-				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 11);
+				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 10);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -340,8 +332,7 @@ namespace Dyvenix.GenIt
 				case 7: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
 				case 8: return new Implementation(partition, roleAssignments, propertyAssignments);
 				case 9: return new EnumHasMembers(partition, roleAssignments, propertyAssignments);
-				case 10: return new EnumAssociation(partition, roleAssignments, propertyAssignments);
-				case 11: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
+				case 10: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}

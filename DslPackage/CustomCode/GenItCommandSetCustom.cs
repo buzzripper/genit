@@ -62,6 +62,8 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		private void OnMenuGenerateCode(object sender, EventArgs args)
 		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
 			try
 			{
 				OutputHelper.WriteAndActivate("Reading model file...");

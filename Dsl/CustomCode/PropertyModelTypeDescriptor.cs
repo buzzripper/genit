@@ -94,27 +94,11 @@ namespace Dyvenix.GenIt
                 return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
             }
 
-            // Add dropdown with enum names for EnumTypeName property (unless tied to relationship)
+            // Add dropdown with enum names for EnumTypeName property
             if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
             {
-                if (IsEnumPropertyTiedToRelationship())
-                {
-                    return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
-                }
-                else
-                {
-                    // Add the custom enum dropdown editor
-                    return TypeDescriptorHelper.CreateEnumTypeNamePropertyDescriptor(property);
-                }
-            }
-
-            // Make DataType read-only when property is tied to an EnumAssociation relationship
-            if (property.Name.Equals("DataType", StringComparison.OrdinalIgnoreCase))
-            {
-                if (IsEnumPropertyTiedToRelationship())
-                {
-                    return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
-                }
+                // Add the custom enum dropdown editor
+                return TypeDescriptorHelper.CreateEnumTypeNamePropertyDescriptor(property);
             }
 
             return property;
@@ -136,20 +120,6 @@ namespace Dyvenix.GenIt
 
             // Check if the entity has InclRowVersion enabled
             return entity.InclRowVersion;
-        }
-
-        private bool IsEnumPropertyTiedToRelationship()
-        {
-            if (_propertyModel.DataType != DataType.Enum)
-                return false;
-
-            var entity = _propertyModel.EntityModel;
-            if (entity == null)
-                return false;
-
-            // Check if there's an EnumAssociation link with this property name
-            var links = EnumAssociation.GetLinksToUsedEnums(entity);
-            return links.Any(l => l.PropertyName == _propertyModel.Name);
         }
     }
 }

@@ -1097,46 +1097,6 @@
     <value>Enum Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;Member&apos; on DomainRelationship &apos;EnumHasMembers&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EnumAssociation.Description" xml:space="preserve">
-    <value>Association between Entity and Enum creating a property</value>
-    <comment>Description for DomainClass &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation.DisplayName" xml:space="preserve">
-    <value>Enum Association</value>
-    <comment>DisplayName for DomainClass &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/PropertyName.Description" xml:space="preserve">
-    <value>Name of the property on the entity</value>
-    <comment>Description for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/PropertyName.DisplayName" xml:space="preserve">
-    <value>Property Name</value>
-    <comment>DisplayName for DomainProperty &apos;PropertyName&apos; on DomainClass &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Entity.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Entity.DisplayName" xml:space="preserve">
-    <value>Entity</value>
-    <comment>DisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Entity.PropertyDisplayName" xml:space="preserve">
-    <value>Used Enums</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Entity&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Enum.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Enum.DisplayName" xml:space="preserve">
-    <value>Enum</value>
-    <comment>DisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociation/Enum.PropertyDisplayName" xml:space="preserve">
-    <value>Using Entities</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Enum&apos; on DomainRelationship &apos;EnumAssociation&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.ClassHasNavigationProperties.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ClassHasNavigationProperties&apos;</comment>
@@ -1497,14 +1457,6 @@
     <value>Comment Connector</value>
     <comment>DisplayName for DomainClass &apos;CommentConnector&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EnumAssociationConnector.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;EnumAssociationConnector&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EnumAssociationConnector.DisplayName" xml:space="preserve">
-    <value>Enum Association Connector</value>
-    <comment>DisplayName for DomainClass &apos;EnumAssociationConnector&apos;</comment>
-  </data>
   <data name="FormatList" xml:space="preserve">
     <value>GenIt (*.gmdl)|*.gmdl</value>
     <comment>A list of file format specifiers for the Save dialog box</comment>
@@ -1579,14 +1531,6 @@
   </data>
   <data name="AssociationToolboxTooltip" xml:space="preserve">
     <value>Create an Association link</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="EnumAssociationToolboxItem" xml:space="preserve">
-    <value>Enum Association</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="EnumAssociationToolboxTooltip" xml:space="preserve">
-    <value>Create a property linked to an Enum</value>
     <comment>Toolbox tooltip text</comment>
   </data>
   <data name="CommentToolboxItem" xml:space="preserve">
@@ -1755,10 +1699,6 @@ A DomainClass can be serialized as a moniker only if
     <comment>Toolbox item image</comment>
   </data>
   <data name="AssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\AssociationTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="EnumAssociationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\AssociationTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
