@@ -855,7 +855,7 @@ namespace Dyvenix.GenIt
 		TimeSpan = 16,
 		/// <summary>
 		/// ByteArray
-		/// Byte array
+		/// Byte array (byte[])
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/ByteArray.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		ByteArray = 18,

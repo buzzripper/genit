@@ -261,7 +261,7 @@
         <!-- Property: Attribute1 -->
         <xsd:attribute name="attribute1" type="xsd:string" />
         <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <xsd:attribute name="attribute2" type="xsd:string" />
         <!-- Property: Auditable -->
         <xsd:attribute name="auditable" type="xsd:boolean" />
         <!-- Property: GenerateCode -->
@@ -317,7 +317,7 @@
         <!-- Property: Attribute1 -->
         <xsd:attribute name="attribute1" type="xsd:string" />
         <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <xsd:attribute name="attribute2" type="xsd:string" />
         <!-- Property: IsPrimaryKey -->
         <xsd:attribute name="isPrimaryKey" type="xsd:boolean" />
         <!-- Property: IsNullable -->
@@ -1454,7 +1454,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="ByteArray">
         <xsd:annotation>
-          <xsd:documentation>Byte array</xsd:documentation>
+          <xsd:documentation>Byte array (byte[])</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="Object">

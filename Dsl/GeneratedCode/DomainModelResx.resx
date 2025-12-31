@@ -1454,7 +1454,7 @@
     <comment>Display name for EnumerationLiteral &apos;ByteArray&apos; on DomainEnumeration &apos;DataType&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.DataType/ByteArray.Description" xml:space="preserve">
-    <value>Byte array</value>
+    <value>Byte array (byte[])</value>
     <comment>Description for EnumerationLiteral &apos;ByteArray&apos; on DomainEnumeration &apos;DataType&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.DataType/Object.DisplayName" xml:space="preserve">

@@ -521,4 +521,91 @@ namespace Dyvenix.GenIt
             }
         }
     }
+
+    /// <summary>
+    /// Rule that fires when EntityModel.InclRowVersion property changes.
+    /// Automatically creates or deletes a RowVersion property.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelRowVersionChangeRule : ChangeRule
+    {
+        private const string RowVersionPropertyName = "RowVersion";
+
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            if (e.DomainProperty.Id != EntityModel.InclRowVersionDomainPropertyId)
+                return;
+
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            bool newValue = (bool)e.NewValue;
+
+            if (newValue)
+            {
+                // Create RowVersion property if it doesn't exist
+                CreateRowVersionProperty(entity);
+            }
+            else
+            {
+                // Delete RowVersion property if it exists
+                DeleteRowVersionProperty(entity);
+            }
+        }
+
+        private void CreateRowVersionProperty(EntityModel entity)
+        {
+            // Check if RowVersion property already exists
+            var existingProp = entity.Properties.FirstOrDefault(p => p.Name == RowVersionPropertyName);
+            if (existingProp != null)
+                return;
+
+            var rowVersionProp = new PropertyModel(entity.Partition)
+            {
+                Name = RowVersionPropertyName,
+                DataType = DataType.ByteArray,
+                IsNullable = false,
+                Description = "Concurrency token for optimistic locking"
+            };
+
+            entity.Properties.Add(rowVersionProp);
+        }
+
+        private void DeleteRowVersionProperty(EntityModel entity)
+        {
+            var rowVersionProp = entity.Properties.FirstOrDefault(p => p.Name == RowVersionPropertyName);
+            if (rowVersionProp != null && !rowVersionProp.IsDeleting && !rowVersionProp.IsDeleted)
+            {
+                rowVersionProp.Delete();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel is being deleted.
+    /// If it's a RowVersion property, sync back to EntityModel.InclRowVersion.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class RowVersionPropertyDeleteRule : DeletingRule
+    {
+        private const string RowVersionPropertyName = "RowVersion";
+
+        public override void ElementDeleting(ElementDeletingEventArgs e)
+        {
+            var property = e.ModelElement as PropertyModel;
+            if (property == null || property.Name != RowVersionPropertyName)
+                return;
+
+            var entity = property.EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            // Only sync back if this is truly a RowVersion property (ByteArray type)
+            if (property.DataType == DataType.ByteArray && entity.InclRowVersion)
+            {
+                entity.InclRowVersion = false;
+            }
+        }
+    }
 }

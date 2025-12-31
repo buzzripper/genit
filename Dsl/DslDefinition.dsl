@@ -97,7 +97,7 @@
         </DomainProperty>
         <DomainProperty Id="a2a2a2a2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
           <Type>
-            <ExternalTypeMoniker Name="/System/Int32" />
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="a3a3a3a3-3333-3333-3333-333333333333" Description="" Name="Auditable" DisplayName="Auditable" Category="Code">
@@ -175,7 +175,7 @@
         </DomainProperty>
         <DomainProperty Id="b2b2b2b2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
           <Type>
-            <ExternalTypeMoniker Name="/System/Int32" />
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="b3b3b3b3-3333-3333-3333-333333333333" Description="" Name="IsPrimaryKey" DisplayName="Is Primary Key" DefaultValue="false" Category="Database">
@@ -697,7 +697,7 @@
         <EnumerationLiteral Description="System.Char" Name="Char" Value="13" />
         <EnumerationLiteral Description="System.DateTimeOffset" Name="DateTimeOffset" Value="15" />
         <EnumerationLiteral Description="System.TimeSpan" Name="TimeSpan" Value="16" />
-        <EnumerationLiteral Description="Byte array" Name="ByteArray" Value="18" />
+        <EnumerationLiteral Description="Byte array (byte[])" Name="ByteArray" Value="18" />
         <EnumerationLiteral Description="System.Object" Name="Object" Value="19" />
         <EnumerationLiteral Description="Enum type - see EnumTypeName property" Name="Enum" Value="20" />
       </Literals>

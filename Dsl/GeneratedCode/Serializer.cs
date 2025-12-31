@@ -1851,14 +1851,14 @@ namespace Dyvenix.GenIt
 				string attribAttribute2 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute2");
 				if (attribAttribute2 != null)
 				{
-					global::System.Int32 valueOfAttribute2;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribAttribute2, out valueOfAttribute2))
+					global::System.String valueOfAttribute2;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute2, out valueOfAttribute2))
 					{
 						instanceOfEntityModel.Attribute2 = valueOfAttribute2;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.Int32), attribAttribute2);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.String), attribAttribute2);
 					}
 				}
 			}
@@ -2729,11 +2729,12 @@ namespace Dyvenix.GenIt
 			// Attribute2
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Int32 propValue = instanceOfEntityModel.Attribute2;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				global::System.String propValue = instanceOfEntityModel.Attribute2;
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", serializedPropValue);
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", propValue);
+	
 				}
 			}
 			// Auditable
@@ -3258,14 +3259,14 @@ namespace Dyvenix.GenIt
 				string attribAttribute2 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute2");
 				if (attribAttribute2 != null)
 				{
-					global::System.Int32 valueOfAttribute2;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribAttribute2, out valueOfAttribute2))
+					global::System.String valueOfAttribute2;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute2, out valueOfAttribute2))
 					{
 						instanceOfPropertyModel.Attribute2 = valueOfAttribute2;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.Int32), attribAttribute2);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.String), attribAttribute2);
 					}
 				}
 			}
@@ -3841,11 +3842,12 @@ namespace Dyvenix.GenIt
 			// Attribute2
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Int32 propValue = instanceOfPropertyModel.Attribute2;
-				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				global::System.String propValue = instanceOfPropertyModel.Attribute2;
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", serializedPropValue);
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", propValue);
+	
 				}
 			}
 			// IsPrimaryKey

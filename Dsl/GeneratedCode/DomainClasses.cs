@@ -1339,7 +1339,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for Attribute2
 		/// </summary>
-		private global::System.Int32 attribute2PropertyStorage;
+		private global::System.String attribute2PropertyStorage = string.Empty;
 		
 		/// <summary>
 		/// Gets or sets the value of Attribute2 domain property.
@@ -1348,7 +1348,7 @@ namespace Dyvenix.GenIt
 		[DslDesign::CategoryResource("Dyvenix.GenIt.EntityModel/Attribute2.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/Attribute2.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("a2a2a2a2-2222-2222-2222-222222222222")]
-		public global::System.Int32 Attribute2
+		public global::System.String Attribute2
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -1364,7 +1364,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Value handler for the EntityModel.Attribute2 domain property.
 		/// </summary>
-		internal sealed partial class Attribute2PropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Int32>
+		internal sealed partial class Attribute2PropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
 		{
 			private Attribute2PropertyHandler() { }
 		
@@ -1390,7 +1390,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.Int32 GetValue(EntityModel element)
+			public override sealed global::System.String GetValue(EntityModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.attribute2PropertyStorage;
@@ -1401,11 +1401,11 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(EntityModel element, global::System.Int32 newValue)
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				global::System.Int32 oldValue = GetValue(element);
+				global::System.String oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
@@ -2438,7 +2438,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for Attribute2
 		/// </summary>
-		private global::System.Int32 attribute2PropertyStorage;
+		private global::System.String attribute2PropertyStorage = string.Empty;
 		
 		/// <summary>
 		/// Gets or sets the value of Attribute2 domain property.
@@ -2447,7 +2447,7 @@ namespace Dyvenix.GenIt
 		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/Attribute2.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/Attribute2.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("b2b2b2b2-2222-2222-2222-222222222222")]
-		public global::System.Int32 Attribute2
+		public global::System.String Attribute2
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -2463,7 +2463,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Value handler for the PropertyModel.Attribute2 domain property.
 		/// </summary>
-		internal sealed partial class Attribute2PropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Int32>
+		internal sealed partial class Attribute2PropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
 		{
 			private Attribute2PropertyHandler() { }
 		
@@ -2489,7 +2489,7 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed global::System.Int32 GetValue(PropertyModel element)
+			public override sealed global::System.String GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 				return element.attribute2PropertyStorage;
@@ -2500,11 +2500,11 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(PropertyModel element, global::System.Int32 newValue)
+			public override sealed void SetValue(PropertyModel element, global::System.String newValue)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
 		
-				global::System.Int32 oldValue = GetValue(element);
+				global::System.String oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
