@@ -167,7 +167,8 @@ namespace Dyvenix.GenIt
     {
         public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
         {
-            if (e.DomainProperty.Id != EnumModel.NameDomainPropertyId)
+            // Since EnumModel inherits from NamedElement, the Name property is defined there
+            if (e.DomainProperty.Id != NamedElement.NameDomainPropertyId)
                 return;
 
             var enumModel = e.ModelElement as EnumModel;

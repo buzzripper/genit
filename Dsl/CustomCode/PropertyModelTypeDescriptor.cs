@@ -94,12 +94,17 @@ namespace Dyvenix.GenIt
                 return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
             }
 
-            // Make EnumTypeName read-only when property is tied to an EnumAssociation relationship
+            // Add dropdown with enum names for EnumTypeName property (unless tied to relationship)
             if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
             {
                 if (IsEnumPropertyTiedToRelationship())
                 {
                     return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+                }
+                else
+                {
+                    // Add the custom enum dropdown editor
+                    return TypeDescriptorHelper.CreateEnumTypeNamePropertyDescriptor(property);
                 }
             }
 

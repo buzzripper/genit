@@ -1,14 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<genItDiagram dslVersion="1.0.0.0" Id="10c34793-a569-4282-afd4-1b83758b7c51" absoluteBounds="0, 0, 11, 8.5" name="Test">
+<genItDiagram dslVersion="1.0.0.0" Id="867519f4-85b0-440f-893f-4e1ae2389a0a" absoluteBounds="0, 0, 11, 8.5" name="Test">
   <modelRootMoniker name="/" />
   <nestedChildShapes>
-    <classShape Id="94fa32a2-097e-4dbc-aec3-b887ace139e0" absoluteBounds="3.25, 3.25, 1.5, 1.7550732421874997">
+    <classShape Id="e56596a2-94d8-4988-9a18-ff05d0431218" absoluteBounds="3.625, 3, 1.5, 1.5627718098958328">
       <entityModelMoniker name="//EntityModel1" />
       <nestedChildShapes>
-        <elementListCompartment Id="5b247eb2-d574-4778-a965-83593fd4a1f3" absoluteBounds="3.2649999999999997, 3.5599999999999996, 1.4700000000000002, 0.8262939453125" name="PropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="cd2cac16-7468-4fb1-a948-bdc1eaeea743" absoluteBounds="3.265, 4.3962939453125, 1.4700000000000002, 0.2493896484375" name="NavPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-        <elementListCompartment Id="85fe2c4c-1d2c-423e-98ba-4d0bce92320c" absoluteBounds="3.265, 4.65568359375, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="dad88af7-02dd-4ae7-bf8d-b75aa69b95e2" absoluteBounds="3.64, 3.31, 1.4700000000000002, 0.63399251302083326" name="PropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="826fc9f9-c236-4d51-b41d-5a7f7e534c8e" absoluteBounds="3.64, 3.9539925130208333, 1.4700000000000002, 0.2493896484375" name="NavPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9743265f-6a96-4d02-8b6f-4bcc19b25f42" absoluteBounds="3.64, 4.2133821614583331, 1.4700000000000002, 0.2493896484375" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <enumShape Id="7b1247f2-dfef-437e-b8e0-19e61f050d66" absoluteBounds="7.125, 4.125, 1.5, 0.65938964843749925">
+      <enumModelMoniker name="//EnumModel1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="92c2feea-a6c7-4255-94cd-6227ca887bc7" absoluteBounds="7.14, 4.435, 1.4700000000000002, 0.24938964843750006" name="MembersCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </enumShape>
+    <enumShape Id="b14bad72-102f-47da-8ae7-30ace95f9e66" absoluteBounds="7.25, 5.875, 1.5, 0.65938964843749925">
+      <enumModelMoniker name="//EnumModel2" />
+      <nestedChildShapes>
+        <elementListCompartment Id="81cf8808-515e-42d2-93c5-aa6273f2d167" absoluteBounds="7.265, 6.185, 1.4700000000000002, 0.24938964843750006" name="MembersCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </enumShape>
   </nestedChildShapes>
 </genItDiagram>
