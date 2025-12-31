@@ -1828,37 +1828,20 @@ namespace Dyvenix.GenIt
 			EntityModel instanceOfEntityModel = element as EntityModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfEntityModel != null, "Expecting an instance of EntityModel");
 	
-			// Attribute1
+			// Attributes
 			if (!serializationContext.Result.Failed)
 			{
-				string attribAttribute1 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute1");
-				if (attribAttribute1 != null)
+				string attribAttributes = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attributes");
+				if (attribAttributes != null)
 				{
-					global::System.String valueOfAttribute1;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute1, out valueOfAttribute1))
+					global::System.String valueOfAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttributes, out valueOfAttributes))
 					{
-						instanceOfEntityModel.Attribute1 = valueOfAttribute1;
+						instanceOfEntityModel.Attributes = valueOfAttributes;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute1", typeof(global::System.String), attribAttribute1);
-					}
-				}
-			}
-			// Attribute2
-			if (!serializationContext.Result.Failed)
-			{
-				string attribAttribute2 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute2");
-				if (attribAttribute2 != null)
-				{
-					global::System.String valueOfAttribute2;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute2, out valueOfAttribute2))
-					{
-						instanceOfEntityModel.Attribute2 = valueOfAttribute2;
-					}
-					else
-					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.String), attribAttribute2);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attributes", typeof(global::System.String), attribAttributes);
 					}
 				}
 			}
@@ -2715,25 +2698,14 @@ namespace Dyvenix.GenIt
 			EntityModel instanceOfEntityModel = element as EntityModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfEntityModel != null, "Expecting an instance of EntityModel");
 	
-			// Attribute1
+			// Attributes
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfEntityModel.Attribute1;
+				global::System.String propValue = instanceOfEntityModel.Attributes;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute1", propValue);
-	
-				}
-			}
-			// Attribute2
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.String propValue = instanceOfEntityModel.Attribute2;
-				if (!serializationContext.Result.Failed)
-				{
-					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attributes", propValue);
 	
 				}
 			}
@@ -3236,37 +3208,20 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// Attribute1
+			// Attributes
 			if (!serializationContext.Result.Failed)
 			{
-				string attribAttribute1 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute1");
-				if (attribAttribute1 != null)
+				string attribAttributes = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attributes");
+				if (attribAttributes != null)
 				{
-					global::System.String valueOfAttribute1;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute1, out valueOfAttribute1))
+					global::System.String valueOfAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttributes, out valueOfAttributes))
 					{
-						instanceOfPropertyModel.Attribute1 = valueOfAttribute1;
+						instanceOfPropertyModel.Attributes = valueOfAttributes;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute1", typeof(global::System.String), attribAttribute1);
-					}
-				}
-			}
-			// Attribute2
-			if (!serializationContext.Result.Failed)
-			{
-				string attribAttribute2 = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "attribute2");
-				if (attribAttribute2 != null)
-				{
-					global::System.String valueOfAttribute2;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribAttribute2, out valueOfAttribute2))
-					{
-						instanceOfPropertyModel.Attribute2 = valueOfAttribute2;
-					}
-					else
-					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attribute2", typeof(global::System.String), attribAttribute2);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "attributes", typeof(global::System.String), attribAttributes);
 					}
 				}
 			}
@@ -3828,25 +3783,14 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// Attribute1
+			// Attributes
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfPropertyModel.Attribute1;
+				global::System.String propValue = instanceOfPropertyModel.Attributes;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute1", propValue);
-	
-				}
-			}
-			// Attribute2
-			if (!serializationContext.Result.Failed)
-			{
-				global::System.String propValue = instanceOfPropertyModel.Attribute2;
-				if (!serializationContext.Result.Failed)
-				{
-					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attribute2", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "attributes", propValue);
 	
 				}
 			}

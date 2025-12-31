@@ -28,6 +28,8 @@ namespace Dyvenix.GenIt.DslPackage.CustomCode
 			var entities = modelRoot?.Types?.OfType<EntityModel>()?.ToList();
 			if (entities == null || entities.Count == 0)
 				throw new Exception("No entities found in the model. Add some entities first.");
+
+			var x = entities[0].AttributesList.Count;
 		}
 	}
 }

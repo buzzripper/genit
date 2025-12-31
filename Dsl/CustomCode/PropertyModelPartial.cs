@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+
+namespace Dyvenix.GenIt
+{
+    /// <summary>
+    /// Partial class for PropertyModel with additional helper properties
+    /// </summary>
+    public partial class PropertyModel
+    {
+        /// <summary>
+        /// Gets a list of attribute strings parsed from the Attributes property.
+        /// Each line in the Attributes string becomes an item in the list.
+        /// Empty lines are skipped.
+        /// </summary>
+        [Browsable(false)]
+        public List<string> AttributesList
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(this.Attributes))
+                    return new List<string>();
+
+                return this.Attributes
+                    .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(line => line.Trim())
+                    .Where(line => !string.IsNullOrWhiteSpace(line))
+                    .ToList();
+            }
+        }
+    }
+}

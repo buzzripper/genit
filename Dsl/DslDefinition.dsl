@@ -90,15 +90,18 @@
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="" Name="Attribute1" DisplayName="Attribute1" Category="Attributes">
+        <DomainProperty Id="a1a1a1a1-1111-1111-1111-111111111111" Description="Custom attributes for the entity (one per line)" Name="Attributes" DisplayName="Attributes" Category="Attributes">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
-        </DomainProperty>
-        <DomainProperty Id="a2a2a2a2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+                <AttributeParameter Value="System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
         </DomainProperty>
         <DomainProperty Id="a3a3a3a3-3333-3333-3333-333333333333" Description="" Name="Auditable" DisplayName="Auditable" Category="Code">
           <Type>
@@ -168,15 +171,18 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="b1b1b1b1-1111-1111-1111-111111111111" Description="" Name="Attribute1" DisplayName="Attribute1" Category="Attributes">
+        <DomainProperty Id="b1b1b1b1-1111-1111-1111-111111111111" Description="Custom attributes for the property (one per line)" Name="Attributes" DisplayName="Attributes" Category="Attributes">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
-        </DomainProperty>
-        <DomainProperty Id="b2b2b2b2-2222-2222-2222-222222222222" Description="" Name="Attribute2" DisplayName="Attribute2" Category="Attributes">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
+          <Attributes>
+            <ClrAttribute Name="System.ComponentModel.Editor">
+              <Parameters>
+                <AttributeParameter Value="System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+                <AttributeParameter Value="System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+              </Parameters>
+            </ClrAttribute>
+          </Attributes>
         </DomainProperty>
         <DomainProperty Id="b3b3b3b3-3333-3333-3333-333333333333" Description="" Name="IsPrimaryKey" DisplayName="Is Primary Key" DefaultValue="false" Category="Database">
           <Type>
@@ -640,41 +646,21 @@
     <ExternalType Name="Guid" Namespace="System" />
     <ExternalType Name="Boolean" Namespace="System" />
     <ExternalType Name="Char" Namespace="System" />
-    <DomainEnumeration Name="AccessModifier" Namespace="Dyvenix.GenIt" Description="">
-      <Literals>
-        <EnumerationLiteral Description="" Name="Public" Value="0" />
-        <EnumerationLiteral Description="" Name="Assembly" Value="1" />
-        <EnumerationLiteral Description="" Name="Private" Value="2" />
-        <EnumerationLiteral Description="" Name="Family" Value="3" />
-        <EnumerationLiteral Description="" Name="FamilyOrAssembly" Value="4" />
-        <EnumerationLiteral Description="" Name="FamilyAndAssembly" Value="5" />
-      </Literals>
-    </DomainEnumeration>
-    <DomainEnumeration Name="TypeAccessModifier" Namespace="Dyvenix.GenIt" Description="">
-      <Literals>
-        <EnumerationLiteral Description="" Name="Public" Value="0" />
-        <EnumerationLiteral Description="" Name="Private" Value="1" />
-      </Literals>
-    </DomainEnumeration>
-    <DomainEnumeration Name="InheritanceModifier" Namespace="Dyvenix.GenIt" Description="">
-      <Literals>
-        <EnumerationLiteral Description="" Name="None" Value="0" />
-        <EnumerationLiteral Description="" Name="Abstract" Value="1" />
-        <EnumerationLiteral Description="" Name="Sealed" Value="2" />
-      </Literals>
-    </DomainEnumeration>
+    <DomainEnumeration Name="AccessModifier" Namespace="Dyvenix.GenIt" Description="" />
+    <DomainEnumeration Name="TypeAccessModifier" Namespace="Dyvenix.GenIt" Description="" />
+    <DomainEnumeration Name="InheritanceModifier" Namespace="Dyvenix.GenIt" Description="" />
     <DomainEnumeration Name="Multiplicity" Namespace="Dyvenix.GenIt" Description="">
       <Literals>
-        <EnumerationLiteral Description="" Name="Many" Value="0" />
-        <EnumerationLiteral Description="" Name="One" Value="1" />
-        <EnumerationLiteral Description="" Name="ZeroOrOne" Value="2" />
+        <EnumerationLiteral Description="Zero or one" Name="ZeroOne" Value="0" />
+        <EnumerationLiteral Description="Exactly one" Name="One" Value="1" />
+        <EnumerationLiteral Description="Zero or more" Name="Many" Value="2" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="OperationConcurrency" Namespace="Dyvenix.GenIt" Description="">
       <Literals>
-        <EnumerationLiteral Description="" Name="Sequential" Value="0" />
-        <EnumerationLiteral Description="" Name="Guarded" Value="1" />
-        <EnumerationLiteral Description="" Name="Concurrent" Value="2" />
+        <EnumerationLiteral Description="Sequential execution" Name="Sequential" Value="0" />
+        <EnumerationLiteral Description="Guarded execution" Name="Guarded" Value="1" />
+        <EnumerationLiteral Description="Concurrent execution" Name="Concurrent" Value="2" />
       </Literals>
     </DomainEnumeration>
     <DomainEnumeration Name="DataType" Namespace="Dyvenix.GenIt" Description="Common C# data types">
@@ -700,6 +686,7 @@
         <EnumerationLiteral Description="Byte array (byte[])" Name="ByteArray" Value="18" />
         <EnumerationLiteral Description="System.Object" Name="Object" Value="19" />
         <EnumerationLiteral Description="Enum type - see EnumTypeName property" Name="Enum" Value="20" />
+        <EnumerationLiteral Description="List of strings (List&lt;string&gt;)" Name="StringList" Value="21" />
       </Literals>
     </DomainEnumeration>
   </Types>
@@ -864,11 +851,8 @@
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
         <DomainClassMoniker Name="EntityModel" />
         <ElementData>
-          <XmlPropertyData XmlName="attribute1">
-            <DomainPropertyMoniker Name="EntityModel/Attribute1" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="attribute2">
-            <DomainPropertyMoniker Name="EntityModel/Attribute2" />
+          <XmlPropertyData XmlName="attributes">
+            <DomainPropertyMoniker Name="EntityModel/Attributes" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="auditable">
             <DomainPropertyMoniker Name="EntityModel/Auditable" />
@@ -914,11 +898,8 @@
           <XmlPropertyData XmlName="initialValue">
             <DomainPropertyMoniker Name="PropertyModel/InitialValue" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="attribute1">
-            <DomainPropertyMoniker Name="PropertyModel/Attribute1" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="attribute2">
-            <DomainPropertyMoniker Name="PropertyModel/Attribute2" />
+          <XmlPropertyData XmlName="attributes">
+            <DomainPropertyMoniker Name="PropertyModel/Attributes" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="isPrimaryKey">
             <DomainPropertyMoniker Name="PropertyModel/IsPrimaryKey" />

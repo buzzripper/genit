@@ -258,10 +258,12 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: Attribute1 -->
-        <xsd:attribute name="attribute1" type="xsd:string" />
-        <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:string" />
+        <!-- Property: Attributes -->
+        <xsd:attribute name="attributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom attributes for the entity (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: Auditable -->
         <xsd:attribute name="auditable" type="xsd:boolean" />
         <!-- Property: GenerateCode -->
@@ -314,10 +316,12 @@
         </xsd:attribute>
         <!-- Property: InitialValue -->
         <xsd:attribute name="initialValue" type="xsd:string" />
-        <!-- Property: Attribute1 -->
-        <xsd:attribute name="attribute1" type="xsd:string" />
-        <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:string" />
+        <!-- Property: Attributes -->
+        <xsd:attribute name="attributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom attributes for the property (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: IsPrimaryKey -->
         <xsd:attribute name="isPrimaryKey" type="xsd:boolean" />
         <!-- Property: IsNullable -->
@@ -1312,47 +1316,60 @@
   <!-- Enum AccessModifier -->
   <xsd:simpleType name="AccessModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Public"/>
-      <xsd:enumeration value="Assembly"/>
-      <xsd:enumeration value="Private"/>
-      <xsd:enumeration value="Family"/>
-      <xsd:enumeration value="FamilyOrAssembly"/>
-      <xsd:enumeration value="FamilyAndAssembly"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum TypeAccessModifier -->
   <xsd:simpleType name="TypeAccessModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Public"/>
-      <xsd:enumeration value="Private"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum InheritanceModifier -->
   <xsd:simpleType name="InheritanceModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="None"/>
-      <xsd:enumeration value="Abstract"/>
-      <xsd:enumeration value="Sealed"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum Multiplicity -->
   <xsd:simpleType name="Multiplicity">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Many"/>
-      <xsd:enumeration value="One"/>
-      <xsd:enumeration value="ZeroOrOne"/>
+      <xsd:enumeration value="ZeroOne">
+        <xsd:annotation>
+          <xsd:documentation>Zero or one</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="One">
+        <xsd:annotation>
+          <xsd:documentation>Exactly one</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Many">
+        <xsd:annotation>
+          <xsd:documentation>Zero or more</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum OperationConcurrency -->
   <xsd:simpleType name="OperationConcurrency">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Sequential"/>
-      <xsd:enumeration value="Guarded"/>
-      <xsd:enumeration value="Concurrent"/>
+      <xsd:enumeration value="Sequential">
+        <xsd:annotation>
+          <xsd:documentation>Sequential execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Guarded">
+        <xsd:annotation>
+          <xsd:documentation>Guarded execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Concurrent">
+        <xsd:annotation>
+          <xsd:documentation>Concurrent execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   
@@ -1465,6 +1482,11 @@
       <xsd:enumeration value="Enum">
         <xsd:annotation>
           <xsd:documentation>Enum type - see EnumTypeName property</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="StringList">
+        <xsd:annotation>
+          <xsd:documentation>List of strings (List&lt;string&gt;)</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

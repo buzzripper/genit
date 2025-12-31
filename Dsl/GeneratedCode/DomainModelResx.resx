@@ -277,29 +277,17 @@
     <value>Entity Model</value>
     <comment>DisplayName for DomainClass &apos;EntityModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute1.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  <data name="Dyvenix.GenIt.EntityModel/Attributes.Description" xml:space="preserve">
+    <value>Custom attributes for the entity (one per line)</value>
+    <comment>Description for DomainProperty &apos;Attributes&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute1.DisplayName" xml:space="preserve">
-    <value>Attribute1</value>
-    <comment>DisplayName for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute1.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EntityModel/Attributes.DisplayName" xml:space="preserve">
     <value>Attributes</value>
-    <comment>Category for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;EntityModel&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute2.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute2.DisplayName" xml:space="preserve">
-    <value>Attribute2</value>
-    <comment>DisplayName for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.EntityModel/Attribute2.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.EntityModel/Attributes.Category" xml:space="preserve">
     <value>Attributes</value>
-    <comment>Category for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;EntityModel&apos;</comment>
+    <comment>Category for DomainProperty &apos;Attributes&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel/Auditable.Description" xml:space="preserve">
     <value></value>
@@ -393,29 +381,17 @@
     <value>Value</value>
     <comment>Category for DomainProperty &apos;InitialValue&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  <data name="Dyvenix.GenIt.PropertyModel/Attributes.Description" xml:space="preserve">
+    <value>Custom attributes for the property (one per line)</value>
+    <comment>Description for DomainProperty &apos;Attributes&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.DisplayName" xml:space="preserve">
-    <value>Attribute1</value>
-    <comment>DisplayName for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute1.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Attributes.DisplayName" xml:space="preserve">
     <value>Attributes</value>
-    <comment>Category for DomainProperty &apos;Attribute1&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+    <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.DisplayName" xml:space="preserve">
-    <value>Attribute2</value>
-    <comment>DisplayName for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.PropertyModel/Attribute2.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.PropertyModel/Attributes.Category" xml:space="preserve">
     <value>Attributes</value>
-    <comment>Category for DomainProperty &apos;Attribute2&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+    <comment>Category for DomainProperty &apos;Attributes&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel/IsPrimaryKey.Description" xml:space="preserve">
     <value></value>
@@ -1169,124 +1145,36 @@
     <value>Entity Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Public.DisplayName" xml:space="preserve">
-    <value>Public</value>
-    <comment>Display name for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
+    <value>ZeroOne</value>
+    <comment>Display name for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Public.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Assembly.DisplayName" xml:space="preserve">
-    <value>Assembly</value>
-    <comment>Display name for EnumerationLiteral &apos;Assembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Assembly.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Assembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Private.DisplayName" xml:space="preserve">
-    <value>Private</value>
-    <comment>Display name for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Private.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Family.DisplayName" xml:space="preserve">
-    <value>Family</value>
-    <comment>Display name for EnumerationLiteral &apos;Family&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/Family.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Family&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/FamilyOrAssembly.DisplayName" xml:space="preserve">
-    <value>FamilyOrAssembly</value>
-    <comment>Display name for EnumerationLiteral &apos;FamilyOrAssembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/FamilyOrAssembly.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;FamilyOrAssembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/FamilyAndAssembly.DisplayName" xml:space="preserve">
-    <value>FamilyAndAssembly</value>
-    <comment>Display name for EnumerationLiteral &apos;FamilyAndAssembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.AccessModifier/FamilyAndAssembly.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;FamilyAndAssembly&apos; on DomainEnumeration &apos;AccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.TypeAccessModifier/Public.DisplayName" xml:space="preserve">
-    <value>Public</value>
-    <comment>Display name for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;TypeAccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.TypeAccessModifier/Public.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Public&apos; on DomainEnumeration &apos;TypeAccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.TypeAccessModifier/Private.DisplayName" xml:space="preserve">
-    <value>Private</value>
-    <comment>Display name for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;TypeAccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.TypeAccessModifier/Private.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Private&apos; on DomainEnumeration &apos;TypeAccessModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/None.DisplayName" xml:space="preserve">
-    <value>None</value>
-    <comment>Display name for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/None.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;None&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/Abstract.DisplayName" xml:space="preserve">
-    <value>Abstract</value>
-    <comment>Display name for EnumerationLiteral &apos;Abstract&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/Abstract.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Abstract&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/Sealed.DisplayName" xml:space="preserve">
-    <value>Sealed</value>
-    <comment>Display name for EnumerationLiteral &apos;Sealed&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.InheritanceModifier/Sealed.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Sealed&apos; on DomainEnumeration &apos;InheritanceModifier&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Multiplicity/Many.DisplayName" xml:space="preserve">
-    <value>Many</value>
-    <comment>Display name for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.Multiplicity/Many.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.Description" xml:space="preserve">
+    <value>Zero or one</value>
+    <comment>Description for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Multiplicity/One.DisplayName" xml:space="preserve">
     <value>One</value>
     <comment>Display name for EnumerationLiteral &apos;One&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Multiplicity/One.Description" xml:space="preserve">
-    <value></value>
+    <value>Exactly one</value>
     <comment>Description for EnumerationLiteral &apos;One&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroOrOne.DisplayName" xml:space="preserve">
-    <value>ZeroOrOne</value>
-    <comment>Display name for EnumerationLiteral &apos;ZeroOrOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/Many.DisplayName" xml:space="preserve">
+    <value>Many</value>
+    <comment>Display name for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Multiplicity/ZeroOrOne.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for EnumerationLiteral &apos;ZeroOrOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
+  <data name="Dyvenix.GenIt.Multiplicity/Many.Description" xml:space="preserve">
+    <value>Zero or more</value>
+    <comment>Description for EnumerationLiteral &apos;Many&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Sequential.DisplayName" xml:space="preserve">
     <value>Sequential</value>
     <comment>Display name for EnumerationLiteral &apos;Sequential&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Sequential.Description" xml:space="preserve">
-    <value></value>
+    <value>Sequential execution</value>
     <comment>Description for EnumerationLiteral &apos;Sequential&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Guarded.DisplayName" xml:space="preserve">
@@ -1294,7 +1182,7 @@
     <comment>Display name for EnumerationLiteral &apos;Guarded&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Guarded.Description" xml:space="preserve">
-    <value></value>
+    <value>Guarded execution</value>
     <comment>Description for EnumerationLiteral &apos;Guarded&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Concurrent.DisplayName" xml:space="preserve">
@@ -1302,7 +1190,7 @@
     <comment>Display name for EnumerationLiteral &apos;Concurrent&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.OperationConcurrency/Concurrent.Description" xml:space="preserve">
-    <value></value>
+    <value>Concurrent execution</value>
     <comment>Description for EnumerationLiteral &apos;Concurrent&apos; on DomainEnumeration &apos;OperationConcurrency&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.DataType/String.DisplayName" xml:space="preserve">
@@ -1472,6 +1360,14 @@
   <data name="Dyvenix.GenIt.DataType/Enum.Description" xml:space="preserve">
     <value>Enum type - see EnumTypeName property</value>
     <comment>Description for EnumerationLiteral &apos;Enum&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/StringList.DisplayName" xml:space="preserve">
+    <value>StringList</value>
+    <comment>Display name for EnumerationLiteral &apos;StringList&apos; on DomainEnumeration &apos;DataType&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.DataType/StringList.Description" xml:space="preserve">
+    <value>List of strings (List&lt;string&gt;)</value>
+    <comment>Description for EnumerationLiteral &apos;StringList&apos; on DomainEnumeration &apos;DataType&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ClassShape.Description" xml:space="preserve">
     <value></value>
