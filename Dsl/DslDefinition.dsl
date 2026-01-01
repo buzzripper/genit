@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Dsl xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="9d433ece-11d0-4cbc-9a3b-82824193f347" Description="Description for Dyvenix.GenIt.GenIt" Name="GenIt" DisplayName="GenIt" Namespace="Dyvenix.GenIt" ProductName="GenIt" CompanyName="Dyvenix" PackageGuid="3aa8cbb2-f0c4-4628-bc99-158569733469" PackageNamespace="Dyvenix.GenIt" xmlns="http://schemas.microsoft.com/VisualStudio/2005/DslTools/DslDefinitionModel">
   <Classes>
     <DomainClass Id="9913cfeb-b29a-4eb0-aba0-2e8c046b87e0" Description="" Name="NamedElement" DisplayName="Named Element" InheritanceModifier="Abstract" Namespace="Dyvenix.GenIt">
@@ -73,6 +73,11 @@
         <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="113, 111, 110" Category="Diagram">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="734e8e6b-74f7-42c3-8b70-066d67928c78" Description="Description for Dyvenix.GenIt.ModelRoot.Incl Header" Name="InclHeader" DisplayName="Incl Header" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -833,6 +838,9 @@
           <XmlPropertyData XmlName="associationLineColor">
             <DomainPropertyMoniker Name="ModelRoot/AssociationLineColor" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="inclHeader">
+            <DomainPropertyMoniker Name="ModelRoot/InclHeader" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -1132,7 +1140,7 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    </ConnectionBuilders>
+  </ConnectionBuilders>
   <Diagram Id="2f556c0f-616b-4b70-9e3e-12f9045d12d7" Description="" Name="GenItDiagram" DisplayName="Class Diagram" Namespace="Dyvenix.GenIt">
     <Class>
       <DomainClassMoniker Name="ModelRoot" />

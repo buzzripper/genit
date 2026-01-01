@@ -22,7 +22,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		{
 			var entities = modelRoot.Types.OfType<EntityModel>().ToList();
 
-			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.TemplatesFolder, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled);
+			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.TemplatesFolder, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
 
 			//_enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			//_associations = modelRoot.Store.ElementDirectory.FindElements<Association>().Where(a => a.Source != null && a.Target != null).ToList();

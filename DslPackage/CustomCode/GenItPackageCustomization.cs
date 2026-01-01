@@ -1,6 +1,10 @@
+using Dyvenix.GenIt.DslPackage.CustomCode;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.VisualStudio.Threading;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using VSShell = Microsoft.VisualStudio.Shell;
@@ -24,6 +28,8 @@ namespace Dyvenix.GenIt
 			await base.InitializeAsync(cancellationToken, progress);
 
 			await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+			VsServices.Initialize(this);
 
 			// Get the solution service and subscribe to solution events
 			_solution = await GetServiceAsync(typeof(SVsSolution)) as IVsSolution;
@@ -59,25 +65,37 @@ namespace Dyvenix.GenIt
 
 		public int OnAfterOpenSolution(object pUnkReserved, int fNewSolution)
 		{
-			VSShell.ThreadHelper.ThrowIfNotOnUIThread();
+			ThreadHelper.ThrowIfNotOnUIThread();
 
-			// Get the solution's root folder path
-			if (_solution != null)
+			_ = ThreadHelper.JoinableTaskFactory.RunAsync(async () =>
 			{
-				if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK)
+				// Switch when needed
+				await TaskScheduler.Default;
+
+				// background work here (I/O, parsing, etc.)
+
+				await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+				// Get the solution's root folder path
+				if (_solution != null)
 				{
-					PackageUtils.SolutionRootPath = solutionDirectory;
-					System.Diagnostics.Debug.WriteLine($"GenItPackage.OnAfterOpenSolution: Set SolutionRootPath to '{solutionDirectory}'");
+					if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK)
+					{
+						PackageUtils.SolutionRootPath = solutionDirectory;
+						System.Diagnostics.Debug.WriteLine($"GenItPackage.OnAfterOpenSolution: Set SolutionRootPath to '{solutionDirectory}'");
+					}
 				}
-			}
+			});
 
 			return VSConstants.S_OK;
 		}
 
 		public int OnAfterCloseSolution(object pUnkReserved)
 		{
+			SolutionRootCache.Set(null);
 			PackageUtils.SolutionRootPath = null;
-			System.Diagnostics.Debug.WriteLine("GenItPackage.OnAfterCloseSolution: Cleared SolutionRootPath");
+
+			Debug.WriteLine("GenItPackage.OnAfterCloseSolution: Cleared SolutionRootPath");
 
 			return VSConstants.S_OK;
 		}

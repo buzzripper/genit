@@ -130,6 +130,8 @@
             <xsd:documentation>Color for association connector lines</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: InclHeader -->
+        <xsd:attribute name="inclHeader" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
