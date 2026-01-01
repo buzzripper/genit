@@ -52,7 +52,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (_inclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
 
-			// Namespace 		
+			// Namespace 		 
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {_enumsNamespace};");
 

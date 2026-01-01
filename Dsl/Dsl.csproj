@@ -95,12 +95,14 @@
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
+    <Compile Include="CustomCode\ModelRootPartial.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />
     <Compile Include="CustomCode\MultiplicityConverter.cs" />
     <Compile Include="CustomCode\NavigationPropertyCustom.cs" />
     <Compile Include="CustomCode\NavigationPropertyTypeDescriptor.cs" />
     <Compile Include="CustomCode\PackageUtils.cs" />
     <Compile Include="CustomCode\PropertyModelCustomization.cs" />
+    <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\TypeDescriptorHelper.cs" />

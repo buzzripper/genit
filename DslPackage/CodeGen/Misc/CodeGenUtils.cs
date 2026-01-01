@@ -8,7 +8,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 		static CodeGenUtils()
 		{
 			FileHeader = $"//------------------------------------------------------------------------------------------------------------{Environment.NewLine}";
-			FileHeader += $"// This file was auto-generated. Any changes made to it will be lost.{Environment.NewLine}";
+			FileHeader += $"// This file was auto-generated on {DateTime.Now:g}. Any changes made to it will be lost.{Environment.NewLine}";
 			FileHeader += $"//------------------------------------------------------------------------------------------------------------";
 		}
 

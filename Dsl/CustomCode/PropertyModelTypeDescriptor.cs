@@ -93,6 +93,15 @@ namespace Dyvenix.GenIt
                 return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
             }
 
+            // Make IsNullable read-only when IsPrimaryKey or IsForeignKey is true
+            if (property.Name.Equals("IsNullable", StringComparison.OrdinalIgnoreCase))
+            {
+                if (_propertyModel.IsPrimaryKey || _propertyModel.IsForeignKey)
+                {
+                    return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+                }
+            }
+
             // Add dropdown with enum names for EnumTypeName property
             if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
             {

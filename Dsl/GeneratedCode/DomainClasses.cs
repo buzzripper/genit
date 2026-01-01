@@ -606,6 +606,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DbContextUsings domain property code
+		
+		/// <summary>
+		/// DbContextUsings domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextUsingsDomainPropertyId = new global::System.Guid(0xd3d3d3d3, 0xd3d3, 0xd3d3, 0xd3, 0xd3, 0xd3, 0xd3, 0xd3, 0xd3, 0xd3, 0xd3);
+		
+		/// <summary>
+		/// Storage for DbContextUsings
+		/// </summary>
+		private global::System.String dbContextUsingsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextUsings domain property.
+		/// Custom using statements for the DbContext (one per line)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextUsings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DbContextUsings.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextUsings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("d3d3d3d3-d3d3-d3d3-d3d3-d3d3d3d3d3d3")]
+		public global::System.String DbContextUsings
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextUsingsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextUsingsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextUsings domain property.
+		/// </summary>
+		internal sealed partial class DbContextUsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextUsingsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextUsings domain property value handler.
+			/// </summary>
+			public static readonly DbContextUsingsPropertyHandler Instance = new DbContextUsingsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextUsings domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextUsingsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextUsingsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextUsingsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EnumsOutputFolder domain property code
 		
 		/// <summary>

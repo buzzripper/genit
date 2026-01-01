@@ -85,16 +85,36 @@ namespace Dyvenix.GenIt
             var sourceNextPoint = edgePoints.Count > 1 ? edgePoints[1].Point : targetPoint;
             var targetNextPoint = edgePoints.Count > 1 ? edgePoints[edgePoints.Count - 2].Point : sourcePoint;
 
-            // Source multiplicity - only draw "*" for Many
-            if (association.SourceMultiplicity == Multiplicity.Many)
+            // Source multiplicity - draw label based on multiplicity type
+            string sourceLabel = GetMultiplicityLabel(association.SourceMultiplicity);
+            if (!string.IsNullOrEmpty(sourceLabel))
             {
-                DrawMultiplicityAtEndpoint(e, "*", sourcePoint, sourceNextPoint);
+                DrawMultiplicityAtEndpoint(e, sourceLabel, sourcePoint, sourceNextPoint);
             }
 
-            // Target multiplicity - only draw "*" for Many
-            if (association.TargetMultiplicity == Multiplicity.Many)
+            // Target multiplicity - draw label based on multiplicity type
+            string targetLabel = GetMultiplicityLabel(association.TargetMultiplicity);
+            if (!string.IsNullOrEmpty(targetLabel))
             {
-                DrawMultiplicityAtEndpoint(e, "*", targetPoint, targetNextPoint);
+                DrawMultiplicityAtEndpoint(e, targetLabel, targetPoint, targetNextPoint);
+            }
+        }
+
+        /// <summary>
+        /// Gets the display label for a multiplicity value.
+        /// </summary>
+        private string GetMultiplicityLabel(Multiplicity multiplicity)
+        {
+            switch (multiplicity)
+            {
+                case Multiplicity.One:
+                    return "1";
+                case Multiplicity.ZeroOne:
+                    return "0..1";
+                case Multiplicity.Many:
+                    return "*";
+                default:
+                    return null;
             }
         }
 
@@ -152,10 +172,14 @@ namespace Dyvenix.GenIt
 
             // Create font scaled appropriately for world coordinates
             // In DSL Tools, world coords are in inches, so font size needs to account for that
-            float fontSize = 0.25f; // Size in inches (world coords)
+            // Use different sizes: larger for '*', smaller for '1' and '0..1'
+            float fontSize = (text == "*") ? 0.18f : 0.11f;
+
+            // Get the line color from ModelRoot to match the connector line color
+            Color textColor = GetLineColorFromModel();
 
             using (var font = new Font("Segoe UI", fontSize, FontStyle.Regular, GraphicsUnit.Inch))
-            using (var brush = new SolidBrush(Color.FromArgb(80, 80, 80)))
+            using (var brush = new SolidBrush(textColor))
             {
                 // Measure text
                 var textSize = e.Graphics.MeasureString(text, font);
@@ -166,6 +190,24 @@ namespace Dyvenix.GenIt
 
                 e.Graphics.DrawString(text, font, brush, drawX, drawY);
             }
+        }
+
+        /// <summary>
+        /// Gets the line color from the ModelRoot, or returns a default color if not available.
+        /// </summary>
+        private Color GetLineColorFromModel()
+        {
+            ModelRoot modelRoot = GetModelRoot();
+            if (modelRoot != null)
+            {
+                Color lineColor = modelRoot.AssociationLineColor;
+                if (lineColor != Color.Empty && lineColor != Color.Transparent)
+                {
+                    return lineColor;
+                }
+            }
+            // Default color if ModelRoot or color is not available
+            return Color.FromArgb(113, 111, 110);
         }
     }
 }

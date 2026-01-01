@@ -52,6 +52,11 @@ namespace Dyvenix.GenIt
 				{
 					newProperties.Add(new FolderPathPropertyDescriptor(prop));
 				}
+				// Add multiline string editor to DbContextUsings property
+				else if (prop.Name == "DbContextUsings")
+				{
+					newProperties.Add(TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(prop));
+				}
 				else
 				{
 					newProperties.Add(prop);
