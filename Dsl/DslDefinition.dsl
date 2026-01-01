@@ -360,7 +360,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d" Description="Whether code should be generated for this enum" Name="GenerateCode" DisplayName="Generate Code" Category="Code">
+        <DomainProperty Id="a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d" Description="Whether code should be generated for this enum" Name="GenerateCode" DisplayName="Generate Code" DefaultValue="true" Category="Code">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
