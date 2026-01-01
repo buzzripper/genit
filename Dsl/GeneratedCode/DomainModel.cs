@@ -91,14 +91,12 @@ namespace Dyvenix.GenIt
 				typeof(CommentReferencesSubjects),
 				typeof(Implementation),
 				typeof(EnumHasMembers),
-				typeof(EntityUsesEnum),
 				typeof(ClassHasNavigationProperties),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
 				typeof(GeneralizationConnector),
 				typeof(ImplementationConnector),
 				typeof(CommentConnector),
-				typeof(EnumAssociationConnector),
 				typeof(CommentBoxShape),
 				typeof(ClassShape),
 				typeof(InterfaceShape),
@@ -129,10 +127,14 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextNamespace", ModelRoot.DbContextNamespaceDomainPropertyId, typeof(ModelRoot.DbContextNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsOutputFolder", ModelRoot.EnumsOutputFolderDomainPropertyId, typeof(ModelRoot.EnumsOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsNamespace", ModelRoot.EnumsNamespaceDomainPropertyId, typeof(ModelRoot.EnumsNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "Kind", EntityModel.KindDomainPropertyId, typeof(EntityModel.KindPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "IsAbstract", EntityModel.IsAbstractDomainPropertyId, typeof(EntityModel.IsAbstractPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "Attribute1", EntityModel.Attribute1DomainPropertyId, typeof(EntityModel.Attribute1PropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "Attribute2", EntityModel.Attribute2DomainPropertyId, typeof(EntityModel.Attribute2PropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EntitiesEnabled", ModelRoot.EntitiesEnabledDomainPropertyId, typeof(ModelRoot.EntitiesEnabledPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DbContextEnabled", ModelRoot.DbContextEnabledDomainPropertyId, typeof(ModelRoot.DbContextEnabledPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EnumsEnabled", ModelRoot.EnumsEnabledDomainPropertyId, typeof(ModelRoot.EnumsEnabledPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DiagramBackgroundColor", ModelRoot.DiagramBackgroundColorDomainPropertyId, typeof(ModelRoot.DiagramBackgroundColorPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "AssociationLineColor", ModelRoot.AssociationLineColorDomainPropertyId, typeof(ModelRoot.AssociationLineColorPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "InclHeader", ModelRoot.InclHeaderDomainPropertyId, typeof(ModelRoot.InclHeaderPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "GenerateCode", EntityModel.GenerateCodeDomainPropertyId, typeof(EntityModel.GenerateCodePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "InclRowVersion", EntityModel.InclRowVersionDomainPropertyId, typeof(EntityModel.InclRowVersionPropertyHandler)),
@@ -140,14 +142,16 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(PropertyModel), "EnumTypeName", PropertyModel.EnumTypeNameDomainPropertyId, typeof(PropertyModel.EnumTypeNamePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "Length", PropertyModel.LengthDomainPropertyId, typeof(PropertyModel.LengthPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "InitialValue", PropertyModel.InitialValueDomainPropertyId, typeof(PropertyModel.InitialValuePropertyHandler)),
-				new DomainMemberInfo(typeof(PropertyModel), "Attribute1", PropertyModel.Attribute1DomainPropertyId, typeof(PropertyModel.Attribute1PropertyHandler)),
-				new DomainMemberInfo(typeof(PropertyModel), "Attribute2", PropertyModel.Attribute2DomainPropertyId, typeof(PropertyModel.Attribute2PropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "Attributes", PropertyModel.AttributesDomainPropertyId, typeof(PropertyModel.AttributesPropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "Usings", PropertyModel.UsingsDomainPropertyId, typeof(PropertyModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsPrimaryKey", PropertyModel.IsPrimaryKeyDomainPropertyId, typeof(PropertyModel.IsPrimaryKeyPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsNullable", PropertyModel.IsNullableDomainPropertyId, typeof(PropertyModel.IsNullablePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsIdentity", PropertyModel.IsIdentityDomainPropertyId, typeof(PropertyModel.IsIdentityPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsIndexed", PropertyModel.IsIndexedDomainPropertyId, typeof(PropertyModel.IsIndexedPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsIndexUnique", PropertyModel.IsIndexUniqueDomainPropertyId, typeof(PropertyModel.IsIndexUniquePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsIndexClustered", PropertyModel.IsIndexClusteredDomainPropertyId, typeof(PropertyModel.IsIndexClusteredPropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "IsForeignKey", PropertyModel.IsForeignKeyDomainPropertyId, typeof(PropertyModel.IsForeignKeyPropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "IsRowVersion", PropertyModel.IsRowVersionDomainPropertyId, typeof(PropertyModel.IsRowVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Signature", Operation.SignatureDomainPropertyId, typeof(Operation.SignaturePropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Concurrency", Operation.ConcurrencyDomainPropertyId, typeof(Operation.ConcurrencyPropertyHandler)),
@@ -169,7 +173,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(Association), "GenTargetNavProperty", Association.GenTargetNavPropertyDomainPropertyId, typeof(Association.GenTargetNavPropertyPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "FkPropertyName", Association.FkPropertyNameDomainPropertyId, typeof(Association.FkPropertyNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Generalization), "Discriminator", Generalization.DiscriminatorDomainPropertyId, typeof(Generalization.DiscriminatorPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityUsesEnum), "PropertyName", EntityUsesEnum.PropertyNameDomainPropertyId, typeof(EntityUsesEnum.PropertyNamePropertyHandler)),
 			};
 		}
 		/// <summary>
@@ -200,8 +203,6 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(Implementation), "Implementor", Implementation.ImplementorDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "EnumModel", EnumHasMembers.EnumModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "Member", EnumHasMembers.MemberDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityUsesEnum), "Entity", EntityUsesEnum.EntityDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityUsesEnum), "Enum", EntityUsesEnum.EnumDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "EntityModel", ClassHasNavigationProperties.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "NavigationProperty", ClassHasNavigationProperties.NavigationPropertyDomainRoleId),
 			};
@@ -225,7 +226,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(24);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(23);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(EntityModel), 1);
 				createElementMap.Add(typeof(PropertyModel), 2);
@@ -241,11 +242,10 @@ namespace Dyvenix.GenIt
 				createElementMap.Add(typeof(GeneralizationConnector), 12);
 				createElementMap.Add(typeof(ImplementationConnector), 13);
 				createElementMap.Add(typeof(CommentConnector), 14);
-				createElementMap.Add(typeof(EnumAssociationConnector), 15);
-				createElementMap.Add(typeof(CommentBoxShape), 16);
-				createElementMap.Add(typeof(ClassShape), 17);
-				createElementMap.Add(typeof(InterfaceShape), 18);
-				createElementMap.Add(typeof(EnumShape), 19);
+				createElementMap.Add(typeof(CommentBoxShape), 15);
+				createElementMap.Add(typeof(ClassShape), 16);
+				createElementMap.Add(typeof(InterfaceShape), 17);
+				createElementMap.Add(typeof(EnumShape), 18);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -274,11 +274,10 @@ namespace Dyvenix.GenIt
 				case 12: return new GeneralizationConnector(partition, propertyAssignments);
 				case 13: return new ImplementationConnector(partition, propertyAssignments);
 				case 14: return new CommentConnector(partition, propertyAssignments);
-				case 15: return new EnumAssociationConnector(partition, propertyAssignments);
-				case 16: return new CommentBoxShape(partition, propertyAssignments);
-				case 17: return new ClassShape(partition, propertyAssignments);
-				case 18: return new InterfaceShape(partition, propertyAssignments);
-				case 19: return new EnumShape(partition, propertyAssignments);
+				case 15: return new CommentBoxShape(partition, propertyAssignments);
+				case 16: return new ClassShape(partition, propertyAssignments);
+				case 17: return new InterfaceShape(partition, propertyAssignments);
+				case 18: return new EnumShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -301,7 +300,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(12);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(11);
 				createElementLinkMap.Add(typeof(Association), 0);
 				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -312,8 +311,7 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(CommentReferencesSubjects), 7);
 				createElementLinkMap.Add(typeof(Implementation), 8);
 				createElementLinkMap.Add(typeof(EnumHasMembers), 9);
-				createElementLinkMap.Add(typeof(EntityUsesEnum), 10);
-				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 11);
+				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 10);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -338,8 +336,7 @@ namespace Dyvenix.GenIt
 				case 7: return new CommentReferencesSubjects(partition, roleAssignments, propertyAssignments);
 				case 8: return new Implementation(partition, roleAssignments, propertyAssignments);
 				case 9: return new EnumHasMembers(partition, roleAssignments, propertyAssignments);
-				case 10: return new EntityUsesEnum(partition, roleAssignments, propertyAssignments);
-				case 11: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
+				case 10: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -607,36 +604,6 @@ namespace Dyvenix.GenIt
 	[global::System.CLSCompliant(true)]
 	public enum AccessModifier
 	{
-		/// <summary>
-		/// Public
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/Public.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Public = 0,
-		/// <summary>
-		/// Assembly
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/Assembly.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Assembly = 1,
-		/// <summary>
-		/// Private
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/Private.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Private = 2,
-		/// <summary>
-		/// Family
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/Family.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Family = 3,
-		/// <summary>
-		/// FamilyOrAssembly
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/FamilyOrAssembly.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		FamilyOrAssembly = 4,
-		/// <summary>
-		/// FamilyAndAssembly
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.AccessModifier/FamilyAndAssembly.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		FamilyAndAssembly = 5,
 	}
 }
 namespace Dyvenix.GenIt
@@ -647,16 +614,6 @@ namespace Dyvenix.GenIt
 	[global::System.CLSCompliant(true)]
 	public enum TypeAccessModifier
 	{
-		/// <summary>
-		/// Public
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.TypeAccessModifier/Public.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Public = 0,
-		/// <summary>
-		/// Private
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.TypeAccessModifier/Private.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Private = 1,
 	}
 }
 namespace Dyvenix.GenIt
@@ -667,21 +624,6 @@ namespace Dyvenix.GenIt
 	[global::System.CLSCompliant(true)]
 	public enum InheritanceModifier
 	{
-		/// <summary>
-		/// None
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.InheritanceModifier/None.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		None = 0,
-		/// <summary>
-		/// Abstract
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.InheritanceModifier/Abstract.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Abstract = 1,
-		/// <summary>
-		/// Sealed
-		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.InheritanceModifier/Sealed.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Sealed = 2,
 	}
 }
 namespace Dyvenix.GenIt
@@ -693,20 +635,23 @@ namespace Dyvenix.GenIt
 	public enum Multiplicity
 	{
 		/// <summary>
-		/// Many
+		/// ZeroOne
+		/// Zero or one
 		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Multiplicity/Many.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		Many = 0,
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.Multiplicity/ZeroOne.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		ZeroOne = 0,
 		/// <summary>
 		/// One
+		/// Exactly one
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.Multiplicity/One.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		One = 1,
 		/// <summary>
-		/// ZeroOrOne
+		/// Many
+		/// Zero or more
 		/// </summary>
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Multiplicity/ZeroOrOne.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		ZeroOrOne = 2,
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.Multiplicity/Many.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		Many = 2,
 	}
 }
 namespace Dyvenix.GenIt
@@ -719,16 +664,19 @@ namespace Dyvenix.GenIt
 	{
 		/// <summary>
 		/// Sequential
+		/// Sequential execution
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.OperationConcurrency/Sequential.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		Sequential = 0,
 		/// <summary>
 		/// Guarded
+		/// Guarded execution
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.OperationConcurrency/Guarded.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		Guarded = 1,
 		/// <summary>
 		/// Concurrent
+		/// Concurrent execution
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.OperationConcurrency/Concurrent.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		Concurrent = 2,
@@ -853,7 +801,7 @@ namespace Dyvenix.GenIt
 		TimeSpan = 16,
 		/// <summary>
 		/// ByteArray
-		/// Byte array
+		/// Byte array (byte[])
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/ByteArray.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		ByteArray = 18,
@@ -869,6 +817,12 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/Enum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		Enum = 20,
+		/// <summary>
+		/// StringList
+		/// List of strings (List<string>)
+		/// </summary>
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DataType/StringList.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		StringList = 21,
 	}
 }
 

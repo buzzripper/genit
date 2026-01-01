@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
 using System.Linq;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Design;
@@ -49,7 +50,7 @@ namespace Dyvenix.GenIt
 
             var modifiedProperties = properties.Cast<PropertyDescriptor>()
                 .Where(p => ShouldShowProperty(p))
-                .Select(p => MakeReadOnlyIfNeeded(p))
+                .Select(p => ModifyProperty(p))
                 .ToArray();
 
             return new PropertyDescriptorCollection(modifiedProperties);
@@ -72,71 +73,34 @@ namespace Dyvenix.GenIt
             return true;
         }
 
-        private PropertyDescriptor MakeReadOnlyIfNeeded(PropertyDescriptor property)
+        private PropertyDescriptor ModifyProperty(PropertyDescriptor property)
         {
-            // Make EnumTypeName read-only when property is tied to an EntityUsesEnum relationship
-            if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
+            // Add multiline editor to Attributes property
+            if (property.Name.Equals("Attributes", StringComparison.OrdinalIgnoreCase))
             {
-                if (IsEnumPropertyTiedToRelationship())
-                {
-                    return new ReadOnlyPropertyDescriptor(property);
-                }
+                return TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(property);
             }
 
-            // Make DataType read-only when property is tied to an EntityUsesEnum relationship
-            if (property.Name.Equals("DataType", StringComparison.OrdinalIgnoreCase))
+            // Add multiline editor to Usings property
+            if (property.Name.Equals("Usings", StringComparison.OrdinalIgnoreCase))
             {
-                if (IsEnumPropertyTiedToRelationship())
-                {
-                    return new ReadOnlyPropertyDescriptor(property);
-                }
+                return TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(property);
+            }
+
+            // Make all properties read-only for RowVersion property (except Description)
+            if (_propertyModel.IsRowVersion && !property.Name.Equals("Description", StringComparison.OrdinalIgnoreCase))
+            {
+                return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+            }
+
+            // Add dropdown with enum names for EnumTypeName property
+            if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
+            {
+                // Add the custom enum dropdown editor
+                return TypeDescriptorHelper.CreateEnumTypeNamePropertyDescriptor(property);
             }
 
             return property;
         }
-
-        private bool IsEnumPropertyTiedToRelationship()
-        {
-            if (_propertyModel.DataType != DataType.Enum)
-                return false;
-
-            var entity = _propertyModel.EntityModel;
-            if (entity == null)
-                return false;
-
-            // Check if there's an EntityUsesEnum link with this property name
-            var links = EntityUsesEnum.GetLinksToUsedEnums(entity);
-            return links.Any(l => l.PropertyName == _propertyModel.Name);
-        }
-    }
-
-    /// <summary>
-    /// A property descriptor wrapper that makes the property read-only.
-    /// </summary>
-    public class ReadOnlyPropertyDescriptor : PropertyDescriptor
-    {
-        private readonly PropertyDescriptor _baseDescriptor;
-
-        public ReadOnlyPropertyDescriptor(PropertyDescriptor baseDescriptor)
-            : base(baseDescriptor)
-        {
-            _baseDescriptor = baseDescriptor;
-        }
-
-        public override Type ComponentType => _baseDescriptor.ComponentType;
-        public override bool IsReadOnly => true;
-        public override Type PropertyType => _baseDescriptor.PropertyType;
-        public override string Category => _baseDescriptor.Category;
-        public override string Description => _baseDescriptor.Description;
-        public override string DisplayName => _baseDescriptor.DisplayName;
-
-        public override bool CanResetValue(object component) => false;
-        public override object GetValue(object component) => _baseDescriptor.GetValue(component);
-        public override void ResetValue(object component) { }
-        public override void SetValue(object component, object value) { } // No-op for read-only
-        public override bool ShouldSerializeValue(object component) => _baseDescriptor.ShouldSerializeValue(component);
-
-        public override object GetEditor(Type editorBaseType) => _baseDescriptor.GetEditor(editorBaseType);
-        public override TypeConverter Converter => _baseDescriptor.Converter;
     }
 }

@@ -72,7 +72,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomCode\CommandSetExtensions.cs" />
+    <Compile Include="CodeGen\Generators\EntityGenerator.cs" />
+    <Compile Include="CodeGen\GenItModel.cs" />
+    <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
+    <Compile Include="CodeGen\Misc\FileHelper.cs" />
+    <Compile Include="CodeGen\Misc\StringListExt.cs" />
+    <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
+    <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
+    <Compile Include="CustomCode\OutputHelper.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
     <Compile Include="CustomCode\ModelView\AddViewDialog.cs" />
     <Compile Include="CustomCode\ModelView\GenItPackageViewAttributes.cs" />
@@ -95,12 +102,26 @@
     </Compile>
     <Compile Include="CustomCode\MultiDiagram\GenItExplorerToolWindowExtension.cs" />
     <Compile Include="CustomCode\PackageExtensions.cs" />
-    <Compile Include="CustomCode\PackageUtils.cs" />
+    <Compile Include="CustomCode\SolutionRootCache.cs" />
+    <Compile Include="CustomCode\VsDocument.cs" />
+    <Compile Include="CustomCode\VsServices.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources\Templates\ApiClientCollExt.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\ApiClients.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Controllers.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\DbContext.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\DTO.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Entity.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Enums.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Read.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Update.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Query.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\ServiceCollExt.tmpl" />
+    <EmbeddedResource Include="Resources\Templates\Services.tmpl" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
@@ -259,4 +280,5 @@
     </CodeAnalysisDictionary>
     <Content Include="Resources\ModelExplorerToolWindowBitmaps.bmp" />
   </ItemGroup>
+  <ItemGroup />
 </Project>

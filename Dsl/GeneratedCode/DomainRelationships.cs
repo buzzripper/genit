@@ -913,7 +913,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassHasProperties/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassHasProperties/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Attributes", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "Properties", PropertyDisplayNameKey="Dyvenix.GenIt.ClassHasProperties/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("50d60282-915b-4102-96ea-d10a5ddc1dd4")]
 		public virtual EntityModel EntityModel
 		{
@@ -980,13 +980,13 @@ namespace Dyvenix.GenIt
 		}
 				
 		#endregion
-		#region Static methods to access Attributes of a EntityModel
+		#region Static methods to access Properties of a EntityModel
 		/// <summary>
-		/// Gets a list of Attributes.
+		/// Gets a list of Properties.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<PropertyModel> GetAttributes(EntityModel element)
+		public static DslModeling::LinkedElementCollection<PropertyModel> GetProperties(EntityModel element)
 		{
 			return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(element, EntityModelDomainRoleId);
 		}
@@ -997,7 +997,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasProperties> GetLinksToAttributes ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ClassHasProperties> GetLinksToProperties ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
 		{
 			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ClassHasProperties>(entityModelInstance, global::Dyvenix.GenIt.ClassHasProperties.EntityModelDomainRoleId);
 		}
@@ -2991,312 +2991,6 @@ namespace Dyvenix.GenIt
 			foreach ( global::Dyvenix.GenIt.EnumHasMembers link in links )
 			{
 				if ( target.Equals(link.Member) )
-				{
-					return link;
-				}
-			}
-			return null;
-		}
-		
-		#endregion
-	}
-}
-namespace Dyvenix.GenIt
-{
-	/// <summary>
-	/// DomainRelationship EntityUsesEnum
-	/// Association between Entity and Enum creating a property
-	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
-	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
-	[DslModeling::DomainObjectId("f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d")]
-	public partial class EntityUsesEnum : DslModeling::ElementLink
-	{
-		#region Constructors, domain class Id
-		
-		/// <summary>
-		/// EntityUsesEnum domain class Id.
-		/// </summary>
-		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xf1e2d3c4, 0xb5a6, 0x4978, 0x8c, 0x9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d);
-	
-				
-		/// <summary>
-		/// Constructor
-		/// Creates a EntityUsesEnum link in the same Partition as the given EntityModel
-		/// </summary>
-		/// <param name="source">EntityModel to use as the source of the relationship.</param>
-		/// <param name="target">EnumModel to use as the target of the relationship.</param>
-		public EntityUsesEnum(EntityModel source, EnumModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EntityUsesEnum.EntityDomainRoleId, source), new DslModeling::RoleAssignment(EntityUsesEnum.EnumDomainRoleId, target)}, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityUsesEnum(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="store">Store where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityUsesEnum(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public EntityUsesEnum(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
-			: base(partition, roleAssignments, null)
-		{
-		}
-		
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="partition">Partition where new link is to be created.</param>
-		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public EntityUsesEnum(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
-			: base(partition, roleAssignments, propertyAssignments)
-		{
-		}
-		#endregion
-		#region Entity domain role code
-		
-		/// <summary>
-		/// Entity domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid EntityDomainRoleId = new global::System.Guid(0xb3c4d5e6, 0xf7a8, 0x4b9c, 0x0d, 0x1e, 0x2f, 0x3a, 0x4b, 0x5c, 0x6d, 0x7e);
-		
-		/// <summary>
-		/// DomainRole Entity
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/Entity.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/Entity.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UsedEnums", PropertyDisplayNameKey="Dyvenix.GenIt.EntityUsesEnum/Entity.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("b3c4d5e6-f7a8-4b9c-0d1e-2f3a4b5c6d7e")]
-		public virtual EntityModel Entity
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, EntityDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, EntityDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access UsingEntities of a EnumModel
-		/// <summary>
-		/// Gets a list of UsingEntities.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetUsingEntities(EnumModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, EnumDomainRoleId);
-		}
-		#endregion
-		#region Enum domain role code
-		
-		/// <summary>
-		/// Enum domain role Id.
-		/// </summary>
-		public static readonly global::System.Guid EnumDomainRoleId = new global::System.Guid(0xc4d5e6f7, 0xa8b9, 0x4c0d, 0x1e, 0x2f, 0x3a, 0x4b, 0x5c, 0x6d, 0x7e, 0x8f);
-		
-		/// <summary>
-		/// DomainRole Enum
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/Enum.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/Enum.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UsingEntities", PropertyDisplayNameKey="Dyvenix.GenIt.EntityUsesEnum/Enum.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
-		[DslModeling::DomainObjectId("c4d5e6f7-a8b9-4c0d-1e2f-3a4b5c6d7e8f")]
-		public virtual EnumModel Enum
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return (EnumModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, EnumDomainRoleId);
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetRolePlayer(this, EnumDomainRoleId, value);
-			}
-		}
-				
-		#endregion
-		#region Static methods to access UsedEnums of a EntityModel
-		/// <summary>
-		/// Gets a list of UsedEnums.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EnumModel> GetUsedEnums(EntityModel element)
-		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(element, EntityDomainRoleId);
-		}
-		#endregion
-		#region PropertyName domain property code
-		
-		/// <summary>
-		/// PropertyName domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid PropertyNameDomainPropertyId = new global::System.Guid(0xa2b3c4d5, 0xe6f7, 0x4a8b, 0x9c, 0x0d, 0x1e, 0x2f, 0x3a, 0x4b, 0x5c, 0x6d);
-		
-		/// <summary>
-		/// Storage for PropertyName
-		/// </summary>
-		private global::System.String propertyNamePropertyStorage = string.Empty;
-		
-		/// <summary>
-		/// Gets or sets the value of PropertyName domain property.
-		/// Name of the property on the entity
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityUsesEnum/PropertyName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityUsesEnum/PropertyName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("")]
-		[DslModeling::DomainObjectId("a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d")]
-		public global::System.String PropertyName
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return propertyNamePropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				PropertyNamePropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the EntityUsesEnum.PropertyName domain property.
-		/// </summary>
-		internal sealed partial class PropertyNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityUsesEnum, global::System.String>
-		{
-			private PropertyNamePropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the EntityUsesEnum.PropertyName domain property value handler.
-			/// </summary>
-			public static readonly PropertyNamePropertyHandler Instance = new PropertyNamePropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the EntityUsesEnum.PropertyName domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return PropertyNameDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
-			public override sealed global::System.String GetValue(EntityUsesEnum element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.propertyNamePropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(EntityUsesEnum element, global::System.String newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				global::System.String oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.propertyNamePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
-		#region Entity link accessor
-		/// <summary>
-		/// Get the list of EntityUsesEnum links to a EntityModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinksToUsedEnums ( global::Dyvenix.GenIt.EntityModel entityInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(entityInstance, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
-		}
-		#endregion
-		#region Enum link accessor
-		/// <summary>
-		/// Get the list of EntityUsesEnum links to a EnumModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinksToUsingEntities ( global::Dyvenix.GenIt.EnumModel enumInstance )
-		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(enumInstance, global::Dyvenix.GenIt.EntityUsesEnum.EnumDomainRoleId);
-		}
-		#endregion
-		#region EntityUsesEnum instance accessors
-		
-		/// <summary>
-		/// Get any EntityUsesEnum links between a given EntityModel and a EnumModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityUsesEnum> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
-		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityUsesEnum> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityUsesEnum>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityUsesEnum> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(source, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.EntityUsesEnum link in links )
-			{
-				if ( target.Equals(link.Enum) )
-				{
-					outLinks.Add(link);
-				}
-			}
-			return outLinks.AsReadOnly();
-		}
-		/// <summary>
-		/// Get the one EntityUsesEnum link between a given EntityModeland a EnumModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.EntityUsesEnum GetLink( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.EnumModel target )
-		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityUsesEnum> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityUsesEnum>(source, global::Dyvenix.GenIt.EntityUsesEnum.EntityDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.EntityUsesEnum link in links )
-			{
-				if ( target.Equals(link.Enum) )
 				{
 					return link;
 				}

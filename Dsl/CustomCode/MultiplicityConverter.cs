@@ -22,7 +22,7 @@ namespace Dyvenix.GenIt
                 // Convert enum values to simplified notation
                 switch (multiplicity)
                 {
-                    case Multiplicity.ZeroOrOne:
+                    case Multiplicity.ZeroOne:
                         return "0..1";
                     case Multiplicity.One:
                         return "1";
@@ -46,7 +46,7 @@ namespace Dyvenix.GenIt
                 switch (stringValue)
                 {
                     case "0..1":
-                        return Multiplicity.ZeroOrOne;
+                        return Multiplicity.ZeroOne;
                     case "1":
                         return Multiplicity.One;
                     case "*":
@@ -71,7 +71,7 @@ namespace Dyvenix.GenIt
         {
             return new StandardValuesCollection(new Multiplicity[] 
             { 
-                Multiplicity.ZeroOrOne, 
+                Multiplicity.ZeroOne, 
                 Multiplicity.One, 
                 Multiplicity.Many 
             });

@@ -1,226 +1,277 @@
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
 {
-    /// <summary>
-    /// Extension to GenItDiagram to support drag-drop from Model Explorer.
-    /// </summary>
-    public partial class GenItDiagram
-    {
-        /// <summary>
-        /// Custom data format for elements dragged from the Model Explorer.
-        /// </summary>
-        private const string ModelElementDataFormat = "GenItModelElement";
+	/// <summary>
+	/// Extension to GenItDiagram to support drag-drop from Model Explorer and background color.
+	/// </summary>
+	public partial class GenItDiagram
+	{
+		/// <summary>
+		/// Custom data format for elements dragged from the Model Explorer.
+		/// </summary>
+		private const string ModelElementDataFormat = "GenItModelElement";
 
-        /// <summary>
-        /// Override to handle drag over events, including from Model Explorer.
-        /// </summary>
-        public override void OnDragOver(DiagramDragEventArgs e)
-        {
-            base.OnDragOver(e);
+		/// <summary>
+		/// Override to apply background color from ModelRoot when diagram initializes.
+		/// </summary>
+		public override void OnInitialize()
+		{
+			base.OnInitialize();
+			ApplyBackgroundColorFromModel();
+		}
 
-            // If not already handled, check for our custom format
-            if (e.Effect == DragDropEffects.None)
-            {
-                if (e.Data.GetDataPresent(ModelElementDataFormat))
-                {
-                    var element = e.Data.GetData(ModelElementDataFormat) as ModelElement;
-                    if (element != null && CanAcceptElement(element))
-                    {
-                        e.Effect = DragDropEffects.Copy;
-                        e.Handled = true;
-                    }
-                }
-            }
-        }
+		/// <summary>
+		/// Applies the background color from the associated ModelRoot.
+		/// </summary>
+		public void ApplyBackgroundColorFromModel()
+		{
+			if (this.ModelElement is ModelRoot modelRoot)
+			{
+				Color bgColor = modelRoot.DiagramBackgroundColor;
+				if (bgColor != Color.Empty && bgColor != Color.Transparent)
+				{
+					SetBackgroundColor(bgColor);
+				}
+			}
+		}
 
-        /// <summary>
-        /// Override to handle drop events, including from Model Explorer.
-        /// </summary>
-        public override void OnDragDrop(DiagramDragEventArgs e)
-        {
-            // First check for our custom format (from Model Explorer)
-            if (e.Data.GetDataPresent(ModelElementDataFormat))
-            {
-                var element = e.Data.GetData(ModelElementDataFormat) as ModelElement;
-                if (element != null && CanAcceptElement(element))
-                {
-                    // Check if shape already exists on this diagram
-                    if (!HasShapeForElement(element))
-                    {
-                        // Get drop position
-                        PointD dropPoint = e.MousePosition;
+		/// <summary>
+		/// Sets the background color of the diagram.
+		/// </summary>
+		private void SetBackgroundColor(Color color)
+		{
+			// Use the StyleSet to override the diagram background brush
+			using (var transaction = this.Store.TransactionManager.BeginTransaction("Set Diagram Background"))
+			{
+				BrushSettings brushSettings = new BrushSettings();
+				brushSettings.Color = color;
+				this.StyleSet.OverrideBrush(DiagramBrushes.DiagramBackground, brushSettings);
+				transaction.Commit();
+			}
+			this.Invalidate(true);
+		}
 
-                        // Create shape for the element
-                        using (var tx = this.Store.TransactionManager.BeginTransaction("Add to View"))
-                        {
-                            CreateShapeForExistingElement(element, dropPoint);
-                            tx.Commit();
-                        }
-                    }
-                    e.Effect = DragDropEffects.Copy;
-                    e.Handled = true;
-                    return;
-                }
-            }
+		/// <summary>
+		/// Override to handle drag over events, including from Model Explorer.
+		/// </summary>
+		public override void OnDragOver(DiagramDragEventArgs e)
+		{
+			base.OnDragOver(e);
 
-            // Let base class handle other drag-drop (toolbox items, etc.)
-            base.OnDragDrop(e);
-        }
+			// If not already handled, check for our custom format
+			if (e.Effect == DragDropEffects.None)
+			{
+				if (e.Data.GetDataPresent(ModelElementDataFormat))
+				{
+					var element = e.Data.GetData(ModelElementDataFormat) as ModelElement;
+					if (element != null && CanAcceptElement(element))
+					{
+						e.Effect = DragDropEffects.Copy;
+						e.Handled = true;
+					}
+				}
+			}
+		}
 
-        /// <summary>
-        /// Determines if the diagram can accept the given element.
-        /// </summary>
-        private bool CanAcceptElement(ModelElement element)
-        {
-            return element is EntityModel
-                || element is EnumModel
-                || element is ModelInterface
-                || element is Comment;
-        }
+		/// <summary>
+		/// Override to handle drop events, including from Model Explorer.
+		/// </summary>
+		public override void OnDragDrop(DiagramDragEventArgs e)
+		{
+			// First check for our custom format (from Model Explorer)
+			if (e.Data.GetDataPresent(ModelElementDataFormat))
+			{
+				var element = e.Data.GetData(ModelElementDataFormat) as ModelElement;
+				if (element != null && CanAcceptElement(element))
+				{
+					// Check if shape already exists on this diagram
+					if (!HasShapeForElement(element))
+					{
+						// Get drop position
+						PointD dropPoint = e.MousePosition;
 
-        /// <summary>
-        /// Checks if a shape already exists on this diagram for the given element.
-        /// </summary>
-        private bool HasShapeForElement(ModelElement element)
-        {
-            var presentations = PresentationViewsSubject.GetPresentation(element);
-            return presentations.Any(p => p is NodeShape ns && ns.Diagram == this);
-        }
+						// Create shape for the element
+						using (var tx = this.Store.TransactionManager.BeginTransaction("Add to View"))
+						{
+							CreateShapeForExistingElement(element, dropPoint);
+							tx.Commit();
+						}
+					}
+					e.Effect = DragDropEffects.Copy;
+					e.Handled = true;
+					return;
+				}
+			}
 
-        /// <summary>
-        /// Creates a shape for an existing model element at the specified position.
-        /// </summary>
-        private void CreateShapeForExistingElement(ModelElement element, PointD position)
-        {
-            // Use the diagram's built-in FixUpDiagram mechanism to create the shape properly
-            // This ensures all the compartment initialization, decorators, etc. are set up correctly
-            
-            // First, use FixUpDiagram to create the shape with proper initialization
-            // Get the parent element for the shape (ModelRoot for top-level elements)
-            ModelElement parentElement = null;
-            
-            if (element is ModelType modelType)
-            {
-                parentElement = modelType.ModelRoot;
-            }
-            else if (element is Comment comment)
-            {
-                parentElement = comment.ModelRoot;
-            }
+			// Let base class handle other drag-drop (toolbox items, etc.)
+			base.OnDragDrop(e);
+		}
 
-            if (parentElement == null)
-            {
-                return;
-            }
+		/// <summary>
+		/// Determines if the diagram can accept the given element.
+		/// </summary>
+		private bool CanAcceptElement(ModelElement element)
+		{
+			return element is EntityModel
+				|| element is EnumModel
+				|| element is ModelInterface
+				|| element is Comment;
+		}
 
-            // Use the standard fixup mechanism which properly initializes compartments
-            FixUpDiagram(parentElement, element);
+		/// <summary>
+		/// Checks if a shape already exists on this diagram for the given element.
+		/// </summary>
+		private bool HasShapeForElement(ModelElement element)
+		{
+			var presentations = PresentationViewsSubject.GetPresentation(element);
+			return presentations.Any(p => p is NodeShape ns && ns.Diagram == this);
+		}
 
-            // Now find the shape that was created and set its position
-            NodeShape createdShape = null;
-            foreach (var pe in PresentationViewsSubject.GetPresentation(element))
-            {
-                if (pe is NodeShape ns && ns.Diagram == this)
-                {
-                    createdShape = ns;
-                    break;
-                }
-            }
+		/// <summary>
+		/// Creates a shape for an existing model element at the specified position.
+		/// </summary>
+		private void CreateShapeForExistingElement(ModelElement element, PointD position)
+		{
+			// Use the diagram's built-in FixUpDiagram mechanism to create the shape properly
+			// This ensures all the compartment initialization, decorators, etc. are set up correctly
 
-            if (createdShape != null)
-            {
-                // Set the position
-                createdShape.AbsoluteBounds = new RectangleD(position, createdShape.AbsoluteBounds.Size);
+			// First, use FixUpDiagram to create the shape with proper initialization
+			// Get the parent element for the shape (ModelRoot for top-level elements)
+			ModelElement parentElement = null;
 
-                // Also create connectors for any existing relationships
-                CreateConnectorsForElement(element);
-            }
-        }
+			if (element is ModelType modelType)
+			{
+				parentElement = modelType.ModelRoot;
+			}
+			else if (element is Comment comment)
+			{
+				parentElement = comment.ModelRoot;
+			}
 
-        /// <summary>
-        /// Creates connectors for relationships of an element when its shape is added.
-        /// </summary>
-        private void CreateConnectorsForElement(ModelElement element)
-        {
-            if (element is EntityModel entity)
-            {
-                // Create connectors for associations where this entity is source
-                foreach (var association in Association.GetLinksToTargets(entity))
-                {
-                    CreateConnectorIfBothEndsExist(association);
-                }
+			if (parentElement == null)
+			{
+				return;
+			}
 
-                // Create connectors for associations where this entity is target
-                foreach (var association in Association.GetLinksToSources(entity))
-                {
-                    CreateConnectorIfBothEndsExist(association);
-                }
+			// Use the standard fixup mechanism which properly initializes compartments
+			FixUpDiagram(parentElement, element);
 
-                // Create connectors for enum usages
-                foreach (var enumUsage in EntityUsesEnum.GetLinksToUsedEnums(entity))
-                {
-                    CreateConnectorIfBothEndsExist(enumUsage);
-                }
-            }
-            else if (element is EnumModel enumModel)
-            {
-                // Create connectors for enum usages
-                foreach (var enumUsage in EntityUsesEnum.GetLinksToUsingEntities(enumModel))
-                {
-                    CreateConnectorIfBothEndsExist(enumUsage);
-                }
-            }
-        }
+			// Now find the shape that was created and set its position
+			NodeShape createdShape = null;
+			foreach (var pe in PresentationViewsSubject.GetPresentation(element))
+			{
+				if (pe is NodeShape ns && ns.Diagram == this)
+				{
+					createdShape = ns;
+					break;
+				}
+			}
 
-        /// <summary>
-        /// Creates a connector for a relationship if shapes for both ends exist on this diagram.
-        /// </summary>
-        private void CreateConnectorIfBothEndsExist(ElementLink link)
-        {
-            if (link == null) return;
+			if (createdShape != null)
+			{
+				// Set the position
+				createdShape.AbsoluteBounds = new RectangleD(position, createdShape.AbsoluteBounds.Size);
 
-            var linkedElements = link.LinkedElements;
-            if (linkedElements.Count != 2) return;
+				// Also create connectors for any existing relationships
+				CreateConnectorsForElement(element);
+			}
+		}
 
-            // Check if shapes exist for both ends
-            NodeShape sourceShape = null;
-            NodeShape targetShape = null;
+		/// <summary>
+		/// Creates connectors for relationships of an element when its shape is added.
+		/// </summary>
+		private void CreateConnectorsForElement(ModelElement element)
+		{
+			if (element is EntityModel entity)
+			{
+				// Create connectors for associations where this entity is source
+				foreach (var association in Association.GetLinksToTargets(entity))
+				{
+					CreateConnectorIfBothEndsExist(association);
+				}
 
-            foreach (var pe in PresentationViewsSubject.GetPresentation(linkedElements[0]))
-            {
-                if (pe is NodeShape ns && ns.Diagram == this)
-                {
-                    sourceShape = ns;
-                    break;
-                }
-            }
+				// Create connectors for associations where this entity is target
+				foreach (var association in Association.GetLinksToSources(entity))
+				{
+					CreateConnectorIfBothEndsExist(association);
+				}
+			}
+		}
 
-            foreach (var pe in PresentationViewsSubject.GetPresentation(linkedElements[1]))
-            {
-                if (pe is NodeShape ns && ns.Diagram == this)
-                {
-                    targetShape = ns;
-                    break;
-                }
-            }
+		/// <summary>
+		/// Creates a connector for a relationship if shapes for both ends exist on this diagram.
+		/// </summary>
+		private void CreateConnectorIfBothEndsExist(ElementLink link)
+		{
+			if (link == null) return;
 
-            if (sourceShape == null || targetShape == null)
-                return;
+			var linkedElements = link.LinkedElements;
+			if (linkedElements.Count != 2) return;
 
-            // Check if connector already exists
-            foreach (var pe in PresentationViewsSubject.GetPresentation(link))
-            {
-                if (pe is BinaryLinkShape bls && bls.Diagram == this)
-                    return; // Connector already exists
-            }
+			// Check if shapes exist for both ends
+			NodeShape sourceShape = null;
+			NodeShape targetShape = null;
 
-            // Use FixUpDiagram to create the connector properly
-            FixUpDiagram(this.ModelElement, link);
-        }
-    }
+			foreach (var pe in PresentationViewsSubject.GetPresentation(linkedElements[0]))
+			{
+				if (pe is NodeShape ns && ns.Diagram == this)
+				{
+					sourceShape = ns;
+					break;
+				}
+			}
+
+			foreach (var pe in PresentationViewsSubject.GetPresentation(linkedElements[1]))
+			{
+				if (pe is NodeShape ns && ns.Diagram == this)
+				{
+					targetShape = ns;
+					break;
+				}
+			}
+
+			if (sourceShape == null || targetShape == null)
+				return;
+
+			// Check if connector already exists
+			foreach (var pe in PresentationViewsSubject.GetPresentation(link))
+			{
+				if (pe is BinaryLinkShape bls && bls.Diagram == this)
+					return; // Connector already exists
+			}
+
+			// Use FixUpDiagram to create the connector properly
+			FixUpDiagram(this.ModelElement, link);
+		}
+	}
+
+	/// <summary>
+	/// Rule to update diagram background color when ModelRoot.DiagramBackgroundColor changes.
+	/// </summary>
+	[RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
+	internal sealed class DiagramBackgroundColorChangeRule : ChangeRule
+	{
+		public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+		{
+			if (e.DomainProperty.Id == ModelRoot.DiagramBackgroundColorDomainPropertyId)
+			{
+				ModelRoot modelRoot = (ModelRoot)e.ModelElement;
+				Color newColor = (Color)e.NewValue;
+
+				// Find all diagrams associated with this model root and update their background
+				foreach (var pel in PresentationViewsSubject.GetPresentation(modelRoot))
+				{
+					if (pel is GenItDiagram diagram)
+					{
+						diagram.ApplyBackgroundColorFromModel();
+					}
+				}
+			}
+		}
+	}
 }

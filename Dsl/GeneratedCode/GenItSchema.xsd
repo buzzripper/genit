@@ -112,6 +112,26 @@
         <xsd:attribute name="enumsOutputFolder" type="xsd:string" />
         <!-- Property: EnumsNamespace -->
         <xsd:attribute name="enumsNamespace" type="xsd:string" />
+        <!-- Property: EntitiesEnabled -->
+        <xsd:attribute name="entitiesEnabled" type="xsd:boolean" />
+        <!-- Property: DbContextEnabled -->
+        <xsd:attribute name="dbContextEnabled" type="xsd:boolean" />
+        <!-- Property: EnumsEnabled -->
+        <xsd:attribute name="enumsEnabled" type="xsd:boolean" />
+        <!-- Property: DiagramBackgroundColor -->
+        <xsd:attribute name="diagramBackgroundColor" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Background color for the diagram surface</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: AssociationLineColor -->
+        <xsd:attribute name="associationLineColor" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Color for association connector lines</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: InclHeader -->
+        <xsd:attribute name="inclHeader" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -135,7 +155,7 @@
       <xsd:extension base="ModelType">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: ClassHasProperties -->
-          <xsd:element name="attributes" minOccurs="0" maxOccurs="1">
+          <xsd:element name="properties" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>Instances of ClassHasProperties</xsd:documentation>
             </xsd:annotation>
@@ -230,21 +250,6 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-          <!-- Relationship: EntityUsesEnum -->
-          <xsd:element name="usedEnums" minOccurs="0" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>Instances of EntityUsesEnum</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element ref="entityUsesEnum" minOccurs="0" maxOccurs="unbounded">
-                  <xsd:annotation>
-                    <xsd:documentation>[Instance of EntityUsesEnum needs to be serialized in full-form]</xsd:documentation>
-                  </xsd:annotation>
-                </xsd:element>
-              </xsd:sequence>
-            </xsd:complexType>
-          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -252,14 +257,18 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: Kind -->
-        <xsd:attribute name="kind" type="xsd:string" />
-        <!-- Property: IsAbstract -->
-        <xsd:attribute name="isAbstract" type="InheritanceModifier" />
-        <!-- Property: Attribute1 -->
-        <xsd:attribute name="attribute1" type="xsd:string" />
-        <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <!-- Property: Attributes -->
+        <xsd:attribute name="attributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom attributes for the entity (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom using statements for the entity (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: Auditable -->
         <xsd:attribute name="auditable" type="xsd:boolean" />
         <!-- Property: GenerateCode -->
@@ -312,10 +321,18 @@
         </xsd:attribute>
         <!-- Property: InitialValue -->
         <xsd:attribute name="initialValue" type="xsd:string" />
-        <!-- Property: Attribute1 -->
-        <xsd:attribute name="attribute1" type="xsd:string" />
-        <!-- Property: Attribute2 -->
-        <xsd:attribute name="attribute2" type="xsd:integer" />
+        <!-- Property: Attributes -->
+        <xsd:attribute name="attributes" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom attributes for the property (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom using statements for the property (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: IsPrimaryKey -->
         <xsd:attribute name="isPrimaryKey" type="xsd:boolean" />
         <!-- Property: IsNullable -->
@@ -328,6 +345,14 @@
         <xsd:attribute name="isIndexUnique" type="xsd:boolean" />
         <!-- Property: IsIndexClustered -->
         <xsd:attribute name="isIndexClustered" type="xsd:boolean" />
+        <!-- Property: IsForeignKey -->
+        <xsd:attribute name="isForeignKey" type="xsd:boolean" />
+        <!-- Property: IsRowVersion -->
+        <xsd:attribute name="isRowVersion" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Indicates this is an auto-generated RowVersion property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1216,55 +1241,6 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- EntityUsesEnum -->
-  <xsd:element name="entityUsesEnum" type="EntityUsesEnum" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="EntityUsesEnum">
-    <xsd:annotation>
-      <xsd:documentation>Association between Entity and Enum creating a property</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElement">
-        <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end EnumModel -->
-          <xsd:element ref="enumModelMoniker" minOccurs="1" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>[Target role-player]</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:sequence>
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: PropertyName -->
-        <xsd:attribute name="propertyName" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Name of the property on the entity</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- EntityUsesEnum Moniker -->
-  <xsd:element name="entityUsesEnumMoniker" type="EntityUsesEnumMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="EntityUsesEnumMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for EntityUsesEnum instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElementMoniker">
-        <xsd:attribute name="Id" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
   <!-- ClassHasNavigationProperties -->
   <xsd:element name="classHasNavigationProperties" abstract="true" type="ClassHasNavigationProperties" substitutionGroup="core:modelElement" />
   <xsd:complexType name="ClassHasNavigationProperties" abstract="true" >
@@ -1308,47 +1284,60 @@
   <!-- Enum AccessModifier -->
   <xsd:simpleType name="AccessModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Public"/>
-      <xsd:enumeration value="Assembly"/>
-      <xsd:enumeration value="Private"/>
-      <xsd:enumeration value="Family"/>
-      <xsd:enumeration value="FamilyOrAssembly"/>
-      <xsd:enumeration value="FamilyAndAssembly"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum TypeAccessModifier -->
   <xsd:simpleType name="TypeAccessModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Public"/>
-      <xsd:enumeration value="Private"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum InheritanceModifier -->
   <xsd:simpleType name="InheritanceModifier">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="None"/>
-      <xsd:enumeration value="Abstract"/>
-      <xsd:enumeration value="Sealed"/>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum Multiplicity -->
   <xsd:simpleType name="Multiplicity">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Many"/>
-      <xsd:enumeration value="One"/>
-      <xsd:enumeration value="ZeroOrOne"/>
+      <xsd:enumeration value="ZeroOne">
+        <xsd:annotation>
+          <xsd:documentation>Zero or one</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="One">
+        <xsd:annotation>
+          <xsd:documentation>Exactly one</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Many">
+        <xsd:annotation>
+          <xsd:documentation>Zero or more</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   
   <!-- Enum OperationConcurrency -->
   <xsd:simpleType name="OperationConcurrency">
     <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="Sequential"/>
-      <xsd:enumeration value="Guarded"/>
-      <xsd:enumeration value="Concurrent"/>
+      <xsd:enumeration value="Sequential">
+        <xsd:annotation>
+          <xsd:documentation>Sequential execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Guarded">
+        <xsd:annotation>
+          <xsd:documentation>Guarded execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="Concurrent">
+        <xsd:annotation>
+          <xsd:documentation>Concurrent execution</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
   
@@ -1450,7 +1439,7 @@
       </xsd:enumeration>
       <xsd:enumeration value="ByteArray">
         <xsd:annotation>
-          <xsd:documentation>Byte array</xsd:documentation>
+          <xsd:documentation>Byte array (byte[])</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
       <xsd:enumeration value="Object">
@@ -1461,6 +1450,11 @@
       <xsd:enumeration value="Enum">
         <xsd:annotation>
           <xsd:documentation>Enum type - see EnumTypeName property</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="StringList">
+        <xsd:annotation>
+          <xsd:documentation>List of strings (List&lt;string&gt;)</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

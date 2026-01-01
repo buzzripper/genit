@@ -1,0 +1,38 @@
+﻿//------------------------------------------------------------------------------------------------------------
+// This file was auto-generated. Any changes made to it will be lost.
+//------------------------------------------------------------------------------------------------------------
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Dyvenix.App1.Data.Contexts;
+using Dyvenix.App1.Common.Entities;
+using Dyvenix.Common.Core.Entities;
+using Dyvenix.Core.Exceptions;
+using Dyvenix.Core.Queries;
+using Dyvenix.Logging;
+${{ADDL_USINGS}}
+
+namespace ${{SERVICES_NS}};
+
+public interface I${{SERVICE_NAME}}
+{
+${{INTERFACE_SIGNATURES}}
+}
+${{SERVICE_ATTRS}}
+public class ${{SERVICE_NAME}} : I${{SERVICE_NAME}}
+{
+	private readonly IDbContextFactory _dbContextFactory;
+	private readonly IDyvenixLogger<${{SERVICE_NAME}}> _logger;
+
+	public ${{SERVICE_NAME}}(IDbContextFactory dbContextFactory, IDyvenixLogger<${{SERVICE_NAME}}> logger)
+	{
+		_dbContextFactory = dbContextFactory;
+		_logger = logger;
+	}
+${{CUD_METHODS}}
+${{SINGLE_METHODS}}
+${{LIST_METHODS}}
+${{QUERY_METHODS}}
+}

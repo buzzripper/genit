@@ -5,6 +5,43 @@ using Microsoft.VisualStudio.Modeling;
 namespace Dyvenix.GenIt
 {
     /// <summary>
+    /// Rule that fires when an EntityModel is created.
+    /// Automatically creates a primary key PropertyModel.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelAddRule : AddRule
+    {
+        public override void ElementAdded(ElementAddedEventArgs e)
+        {
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            // Don't create PK if we're deserializing from file
+            if (entity.Store.InSerializationTransaction)
+                return;
+
+            // Check if an "Id" property already exists to avoid duplicates
+            if (entity.Properties.Any(p => p.Name == "Id"))
+                return;
+
+            // Create primary key property
+            var pkProperty = new PropertyModel(entity.Partition)
+            {
+                Name = "Id",
+                DataType = DataType.Guid,
+                IsPrimaryKey = true,
+                IsNullable = false,
+                IsIndexed = true,
+                IsIndexUnique = true,
+                Description = "Primary key"
+            };
+
+            entity.Properties.Add(pkProperty);
+        }
+    }
+
+    /// <summary>
     /// Rule that fires when an Association relationship is created.
     /// Creates NavigationProperties based on GenSourceNavProperty and GenTargetNavProperty settings.
     /// Also creates an FK property on the target entity.
@@ -16,6 +53,10 @@ namespace Dyvenix.GenIt
         {
             var association = e.ModelElement as Association;
             if (association == null || association.IsDeleting || association.IsDeleted)
+                return;
+
+            // Don't create properties if we're deserializing from file
+            if (association.Store.InSerializationTransaction)
                 return;
 
             var source = association.Source;
@@ -106,10 +147,11 @@ namespace Dyvenix.GenIt
             {
                 Name = fkPropName,
                 DataType = DataType.Guid,
-                Description = $"Foreign key to {source.Name}"
+                Description = $"Foreign key to {source.Name}",
+                IsForeignKey = true
             };
 
-            target.Attributes.Add(fkProp);
+            target.Properties.Add(fkProp);
         }
 
         private string GetUniqueNavPropertyName(EntityModel entity, string baseName)
@@ -127,11 +169,11 @@ namespace Dyvenix.GenIt
 
         private string GetUniqueFkPropertyName(EntityModel entity, string baseName)
         {
-            if (!entity.Attributes.Any(a => a.Name == baseName))
+            if (!entity.Properties.Any(a => a.Name == baseName))
                 return baseName;
 
             int suffix = 2;
-            while (entity.Attributes.Any(a => a.Name == baseName + suffix))
+            while (entity.Properties.Any(a => a.Name == baseName + suffix))
             {
                 suffix++;
             }
@@ -178,7 +220,7 @@ namespace Dyvenix.GenIt
             // Delete FK property on target
             if (target != null && !target.IsDeleting && !target.IsDeleted && !string.IsNullOrEmpty(association.FkPropertyName))
             {
-                var fkProp = target.Attributes.FirstOrDefault(a => a.Name == association.FkPropertyName);
+                var fkProp = target.Properties.FirstOrDefault(a => a.Name == association.FkPropertyName);
                 if (fkProp != null && !fkProp.IsDeleting && !fkProp.IsDeleted)
                 {
                     fkProp.Delete();
@@ -189,7 +231,8 @@ namespace Dyvenix.GenIt
 
     /// <summary>
     /// Rule that fires when Association properties change.
-    /// Handles GenSourceNavProperty, GenTargetNavProperty, SourceRoleName, and TargetRoleName changes.
+    /// Handles GenSourceNavProperty, GenTargetNavProperty, SourceRoleName, TargetRoleName,
+    /// and multiplicity changes.
     /// </summary>
     [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
     public class AssociationPropertyChangeRule : ChangeRule
@@ -261,6 +304,32 @@ namespace Dyvenix.GenIt
                     if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
                     {
                         navProp.Name = newName;
+                    }
+                }
+            }
+            // Handle TargetMultiplicity change - sync IsCollection on source nav property
+            else if (e.DomainProperty.Id == Association.TargetMultiplicityDomainPropertyId)
+            {
+                if (!string.IsNullOrEmpty(association.SourceRoleName))
+                {
+                    var navProp = source.NavigationProperties.FirstOrDefault(np => np.Name == association.SourceRoleName);
+                    if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
+                    {
+                        Multiplicity newMultiplicity = (Multiplicity)e.NewValue;
+                        navProp.IsCollection = newMultiplicity == Multiplicity.Many;
+                    }
+                }
+            }
+            // Handle SourceMultiplicity change - sync IsCollection on target nav property
+            else if (e.DomainProperty.Id == Association.SourceMultiplicityDomainPropertyId)
+            {
+                if (!string.IsNullOrEmpty(association.TargetRoleName))
+                {
+                    var navProp = target.NavigationProperties.FirstOrDefault(np => np.Name == association.TargetRoleName);
+                    if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
+                    {
+                        Multiplicity newMultiplicity = (Multiplicity)e.NewValue;
+                        navProp.IsCollection = newMultiplicity == Multiplicity.Many;
                     }
                 }
             }
@@ -457,6 +526,155 @@ namespace Dyvenix.GenIt
                     // Delete the association when its FK property is deleted
                     assoc.Delete();
                     return;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel is added.
+    /// Sets the default Length to 50 for String type properties.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class PropertyModelAddRule : AddRule
+    {
+        public override void ElementAdded(ElementAddedEventArgs e)
+        {
+            var property = e.ModelElement as PropertyModel;
+            if (property == null || property.IsDeleting || property.IsDeleted)
+                return;
+
+            // Set default Length to 50 for String type properties
+            if (property.DataType == DataType.String && property.Length == 0)
+            {
+                property.Length = 50;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when EntityModel.InclRowVersion property changes.
+    /// Automatically creates or deletes a RowVersion property.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelRowVersionChangeRule : ChangeRule
+    {
+        private const string RowVersionPropertyName = "RowVersion";
+
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            if (e.DomainProperty.Id != EntityModel.InclRowVersionDomainPropertyId)
+                return;
+
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            bool newValue = (bool)e.NewValue;
+
+            if (newValue)
+            {
+                // Create RowVersion property if it doesn't exist
+                CreateRowVersionProperty(entity);
+            }
+            else
+            {
+                // Delete RowVersion property if it exists
+                DeleteRowVersionProperty(entity);
+            }
+        }
+
+        private void CreateRowVersionProperty(EntityModel entity)
+        {
+            // Check if RowVersion property already exists
+            var existingProp = entity.Properties.FirstOrDefault(p => p.Name == RowVersionPropertyName);
+            if (existingProp != null)
+                return;
+
+            var rowVersionProp = new PropertyModel(entity.Partition)
+            {
+                Name = RowVersionPropertyName,
+                DataType = DataType.ByteArray,
+                IsNullable = false,
+                IsRowVersion = true,
+                Description = "Concurrency token for optimistic locking"
+            };
+
+            entity.Properties.Add(rowVersionProp);
+        }
+
+        private void DeleteRowVersionProperty(EntityModel entity)
+        {
+            var rowVersionProp = entity.Properties.FirstOrDefault(p => p.IsRowVersion);
+            if (rowVersionProp != null && !rowVersionProp.IsDeleting && !rowVersionProp.IsDeleted)
+            {
+                rowVersionProp.Delete();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel is being deleted.
+    /// If it's a RowVersion property, sync back to EntityModel.InclRowVersion.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class RowVersionPropertyDeleteRule : DeletingRule
+    {
+        public override void ElementDeleting(ElementDeletingEventArgs e)
+        {
+            var property = e.ModelElement as PropertyModel;
+            if (property == null || !property.IsRowVersion)
+                return;
+
+            var entity = property.EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            // Sync back - when RowVersion property is deleted, set InclRowVersion to false
+            if (entity.InclRowVersion)
+            {
+                entity.InclRowVersion = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when EntityModel.Name changes.
+    /// Syncs the name change to NavigationProperty.TargetEntityName for any navigation properties
+    /// that reference this entity.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelNameChangeRule : ChangeRule
+    {
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            // Only handle Name property changes
+            if (e.DomainProperty.Id != NamedElement.NameDomainPropertyId)
+                return;
+
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            string oldName = e.OldValue as string;
+            string newName = e.NewValue as string;
+
+            if (string.IsNullOrEmpty(oldName) || string.IsNullOrEmpty(newName) || oldName == newName)
+                return;
+
+            // Find all navigation properties in the model that reference this entity
+            var store = entity.Store;
+            var allNavProperties = store.ElementDirectory.FindElements<NavigationProperty>();
+
+            foreach (var navProp in allNavProperties)
+            {
+                if (navProp.IsDeleting || navProp.IsDeleted)
+                    continue;
+
+                // Update TargetEntityName if it matches the old entity name
+                if (navProp.TargetEntityName == oldName)
+                {
+                    navProp.TargetEntityName = newName;
                 }
             }
         }

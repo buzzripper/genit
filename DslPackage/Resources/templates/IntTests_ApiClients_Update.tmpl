@@ -1,0 +1,76 @@
+﻿//------------------------------------------------------------------------------------------------------------
+// This file was auto-generated. Any changes made to it will be lost.
+//------------------------------------------------------------------------------------------------------------
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit.Abstractions;
+using Dyvenix.Core.Tests;
+using Dyvenix.App1.Common.ApiClients;
+using Dyvenix.App1.Tests.Common.Data;
+using Dyvenix.App1.Common.Entities;
+using Dyvenix.App1.Tests.Common;
+using Dyvenix.App1.Data;
+using Dyvenix.App1.Data.Contexts;
+${{ADDL_USINGS}}
+namespace ${{INT_TESTS_NS}};
+
+#region Fixture
+
+public class ${{ENTITY_NAME}}UpdateTestsFixture : IDisposable
+{
+	public ${{ENTITY_NAME}}UpdateTestsFixture()
+	{
+		ServerApiFactory = new ServerApiFactory();
+		ServiceProvider = ServerApiFactory.Services;
+	}
+
+	public ServerApiFactory ServerApiFactory { get; private set; }
+	public IServiceProvider ServiceProvider { get; }
+
+	public I${{ENTITY_NAME}}ApiClient ${{ENTITY_NAME}}ApiClient { get; }
+	public IDataManager DataManager { get; }
+
+	public void Dispose()
+	{
+		ServerApiFactory.Dispose();
+	}
+}
+
+#endregion
+
+[Collection("Global Collection")]
+public class ${{ENTITY_NAME}}UpdateTests : TestBase, IClassFixture<${{ENTITY_NAME}}UpdateTestsFixture>, IDisposable
+{
+	#region Fields
+
+	private readonly ${{ENTITY_NAME}}UpdateTestsFixture _classFixture;
+	private readonly I${{ENTITY_NAME}}ApiClient _apiClient;
+	private readonly ITestOutputHelper _output;
+	private readonly Db _db;
+	private readonly IDataManager _dataManager;
+
+	#endregion
+
+	#region Ctors / Init
+
+	public ${{ENTITY_NAME}}UpdateTests(${{ENTITY_NAME}}UpdateTestsFixture classFixture, ITestOutputHelper output)
+	{
+		_classFixture = classFixture;
+		_output = output;
+
+		_apiClient = classFixture.ServiceProvider.GetRequiredService<I${{ENTITY_NAME}}ApiClient>();
+		_db = classFixture.ServiceProvider.GetRequiredService<IDbContextFactory>().CreateDbContext();
+		_output = output;
+		_dataManager = classFixture.ServiceProvider.GetRequiredService<IDataManager>();
+	}
+
+	public void Dispose()
+	{
+	}
+
+	#endregion
+${{TEST_METHODS}}
+}
+

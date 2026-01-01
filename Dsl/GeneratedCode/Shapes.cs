@@ -398,7 +398,7 @@ namespace Dyvenix.GenIt
 			{
 				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
 					// Segments 0 and 1
-					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.PropertyModel> result = root.Attributes;
+					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.PropertyModel> result = root.Properties;
 				return result;
 			}
 			internal static global::System.Collections.IList GetElementsFromEntityModelForNavPropertiesCompartment(DslModeling::ModelElement rootElement)
