@@ -130,6 +130,8 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "EntitiesEnabled", ModelRoot.EntitiesEnabledDomainPropertyId, typeof(ModelRoot.EntitiesEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextEnabled", ModelRoot.DbContextEnabledDomainPropertyId, typeof(ModelRoot.DbContextEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsEnabled", ModelRoot.EnumsEnabledDomainPropertyId, typeof(ModelRoot.EnumsEnabledPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DiagramBackgroundColor", ModelRoot.DiagramBackgroundColorDomainPropertyId, typeof(ModelRoot.DiagramBackgroundColorPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "AssociationLineColor", ModelRoot.AssociationLineColorDomainPropertyId, typeof(ModelRoot.AssociationLineColorPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),

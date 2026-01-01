@@ -824,6 +824,40 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DiagramBackgroundColor
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDiagramBackgroundColor = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "diagramBackgroundColor");
+				if (attribDiagramBackgroundColor != null)
+				{
+					global::System.Drawing.Color valueOfDiagramBackgroundColor;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribDiagramBackgroundColor, out valueOfDiagramBackgroundColor))
+					{
+						instanceOfModelRoot.DiagramBackgroundColor = valueOfDiagramBackgroundColor;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "diagramBackgroundColor", typeof(global::System.Drawing.Color), attribDiagramBackgroundColor);
+					}
+				}
+			}
+			// AssociationLineColor
+			if (!serializationContext.Result.Failed)
+			{
+				string attribAssociationLineColor = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "associationLineColor");
+				if (attribAssociationLineColor != null)
+				{
+					global::System.Drawing.Color valueOfAssociationLineColor;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Drawing.Color>(serializationContext, attribAssociationLineColor, out valueOfAssociationLineColor))
+					{
+						instanceOfModelRoot.AssociationLineColor = valueOfAssociationLineColor;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "associationLineColor", typeof(global::System.Drawing.Color), attribAssociationLineColor);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1506,6 +1540,32 @@ namespace Dyvenix.GenIt
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enumsEnabled", serializedPropValue);
+					}
+				}
+			}
+			// DiagramBackgroundColor
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Drawing.Color propValue = instanceOfModelRoot.DiagramBackgroundColor;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "White") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "diagramBackgroundColor", serializedPropValue);
+					}
+				}
+			}
+			// AssociationLineColor
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Drawing.Color propValue = instanceOfModelRoot.AssociationLineColor;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "113, 111, 110") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "associationLineColor", serializedPropValue);
 					}
 				}
 			}

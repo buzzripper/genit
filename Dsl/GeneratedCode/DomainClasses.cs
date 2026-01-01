@@ -1049,6 +1049,184 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DiagramBackgroundColor domain property code
+		
+		/// <summary>
+		/// DiagramBackgroundColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DiagramBackgroundColorDomainPropertyId = new global::System.Guid(0xd1d1d1d1, 0xd1d1, 0xd1d1, 0xd1, 0xd1, 0xd1, 0xd1, 0xd1, 0xd1, 0xd1, 0xd1);
+		
+		/// <summary>
+		/// Storage for DiagramBackgroundColor
+		/// </summary>
+		private global::System.Drawing.Color diagramBackgroundColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("White");
+		
+		/// <summary>
+		/// Gets or sets the value of DiagramBackgroundColor domain property.
+		/// Background color for the diagram surface
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "White")]
+		[DslModeling::DomainObjectId("d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1")]
+		public global::System.Drawing.Color DiagramBackgroundColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return diagramBackgroundColorPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DiagramBackgroundColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DiagramBackgroundColor domain property.
+		/// </summary>
+		internal sealed partial class DiagramBackgroundColorPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Drawing.Color>
+		{
+			private DiagramBackgroundColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DiagramBackgroundColor domain property value handler.
+			/// </summary>
+			public static readonly DiagramBackgroundColorPropertyHandler Instance = new DiagramBackgroundColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DiagramBackgroundColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DiagramBackgroundColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.diagramBackgroundColorPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.diagramBackgroundColorPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region AssociationLineColor domain property code
+		
+		/// <summary>
+		/// AssociationLineColor domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid AssociationLineColorDomainPropertyId = new global::System.Guid(0xd2d2d2d2, 0xd2d2, 0xd2d2, 0xd2, 0xd2, 0xd2, 0xd2, 0xd2, 0xd2, 0xd2, 0xd2);
+		
+		/// <summary>
+		/// Storage for AssociationLineColor
+		/// </summary>
+		private global::System.Drawing.Color associationLineColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("113, 111, 110");
+		
+		/// <summary>
+		/// Gets or sets the value of AssociationLineColor domain property.
+		/// Color for association connector lines
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "113, 111, 110")]
+		[DslModeling::DomainObjectId("d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2")]
+		public global::System.Drawing.Color AssociationLineColor
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return associationLineColorPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				AssociationLineColorPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.AssociationLineColor domain property.
+		/// </summary>
+		internal sealed partial class AssociationLineColorPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Drawing.Color>
+		{
+			private AssociationLineColorPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.AssociationLineColor domain property value handler.
+			/// </summary>
+			public static readonly AssociationLineColorPropertyHandler Instance = new AssociationLineColorPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.AssociationLineColor domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return AssociationLineColorDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Drawing.Color GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.associationLineColorPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Drawing.Color newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Drawing.Color oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.associationLineColorPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

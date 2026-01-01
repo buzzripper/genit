@@ -65,6 +65,16 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1" Description="Background color for the diagram surface" Name="DiagramBackgroundColor" DisplayName="Diagram Background Color" DefaultValue="White" Category="Diagram">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="113, 111, 110" Category="Diagram">
+          <Type>
+            <ExternalTypeMoniker Name="/System.Drawing/Color" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -617,6 +627,7 @@
     <ExternalType Name="Guid" Namespace="System" />
     <ExternalType Name="Boolean" Namespace="System" />
     <ExternalType Name="Char" Namespace="System" />
+    <ExternalType Name="Color" Namespace="System.Drawing" />
     <DomainEnumeration Name="AccessModifier" Namespace="Dyvenix.GenIt" Description="" />
     <DomainEnumeration Name="TypeAccessModifier" Namespace="Dyvenix.GenIt" Description="" />
     <DomainEnumeration Name="InheritanceModifier" Namespace="Dyvenix.GenIt" Description="" />
@@ -815,6 +826,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="enumsEnabled">
             <DomainPropertyMoniker Name="ModelRoot/EnumsEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="diagramBackgroundColor">
+            <DomainPropertyMoniker Name="ModelRoot/DiagramBackgroundColor" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="associationLineColor">
+            <DomainPropertyMoniker Name="ModelRoot/AssociationLineColor" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

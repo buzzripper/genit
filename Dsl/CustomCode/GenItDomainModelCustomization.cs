@@ -36,6 +36,12 @@ namespace Dyvenix.GenIt
                 
                 // Association FK property rule
                 typeof(FkPropertyDeleteRule),
+                
+                // Diagram background color rule
+                typeof(DiagramBackgroundColorChangeRule),
+                
+                // Association line color rule
+                typeof(AssociationLineColorChangeRule),
 			};
 		}
 	}

@@ -118,6 +118,18 @@
         <xsd:attribute name="dbContextEnabled" type="xsd:boolean" />
         <!-- Property: EnumsEnabled -->
         <xsd:attribute name="enumsEnabled" type="xsd:boolean" />
+        <!-- Property: DiagramBackgroundColor -->
+        <xsd:attribute name="diagramBackgroundColor" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Background color for the diagram surface</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: AssociationLineColor -->
+        <xsd:attribute name="associationLineColor" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Color for association connector lines</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

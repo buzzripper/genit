@@ -269,6 +269,30 @@
     <value>Enums</value>
     <comment>Category for DomainProperty &apos;EnumsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Description" xml:space="preserve">
+    <value>Background color for the diagram surface</value>
+    <comment>Description for DomainProperty &apos;DiagramBackgroundColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.DisplayName" xml:space="preserve">
+    <value>Diagram Background Color</value>
+    <comment>DisplayName for DomainProperty &apos;DiagramBackgroundColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Category" xml:space="preserve">
+    <value>Diagram</value>
+    <comment>Category for DomainProperty &apos;DiagramBackgroundColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/AssociationLineColor.Description" xml:space="preserve">
+    <value>Color for association connector lines</value>
+    <comment>Description for DomainProperty &apos;AssociationLineColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/AssociationLineColor.DisplayName" xml:space="preserve">
+    <value>Association Line Color</value>
+    <comment>DisplayName for DomainProperty &apos;AssociationLineColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/AssociationLineColor.Category" xml:space="preserve">
+    <value>Diagram</value>
+    <comment>Category for DomainProperty &apos;AssociationLineColor&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

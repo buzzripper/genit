@@ -83,6 +83,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>SerializationHelper.cs</LastGenOutput>
     </None>
+    <Compile Include="CustomCode\AssociationConnectorCustom.cs" />
     <Compile Include="CustomCode\AssociationConnectorCustomization.cs" />
     <Compile Include="CustomCode\AssociationCustomization.cs" />
     <Compile Include="CustomCode\AssociationNavigationPropertyRules.cs" />

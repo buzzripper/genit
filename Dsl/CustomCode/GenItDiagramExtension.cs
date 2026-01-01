@@ -1,12 +1,13 @@
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Extension to GenItDiagram to support drag-drop from Model Explorer.
+	/// Extension to GenItDiagram to support drag-drop from Model Explorer and background color.
 	/// </summary>
 	public partial class GenItDiagram
 	{
@@ -14,6 +15,46 @@ namespace Dyvenix.GenIt
 		/// Custom data format for elements dragged from the Model Explorer.
 		/// </summary>
 		private const string ModelElementDataFormat = "GenItModelElement";
+
+		/// <summary>
+		/// Override to apply background color from ModelRoot when diagram initializes.
+		/// </summary>
+		public override void OnInitialize()
+		{
+			base.OnInitialize();
+			ApplyBackgroundColorFromModel();
+		}
+
+		/// <summary>
+		/// Applies the background color from the associated ModelRoot.
+		/// </summary>
+		public void ApplyBackgroundColorFromModel()
+		{
+			if (this.ModelElement is ModelRoot modelRoot)
+			{
+				Color bgColor = modelRoot.DiagramBackgroundColor;
+				if (bgColor != Color.Empty && bgColor != Color.Transparent)
+				{
+					SetBackgroundColor(bgColor);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the background color of the diagram.
+		/// </summary>
+		private void SetBackgroundColor(Color color)
+		{
+			// Use the StyleSet to override the diagram background brush
+			using (var transaction = this.Store.TransactionManager.BeginTransaction("Set Diagram Background"))
+			{
+				BrushSettings brushSettings = new BrushSettings();
+				brushSettings.Color = color;
+				this.StyleSet.OverrideBrush(DiagramBrushes.DiagramBackground, brushSettings);
+				transaction.Commit();
+			}
+			this.Invalidate(true);
+		}
 
 		/// <summary>
 		/// Override to handle drag over events, including from Model Explorer.
@@ -206,6 +247,31 @@ namespace Dyvenix.GenIt
 
 			// Use FixUpDiagram to create the connector properly
 			FixUpDiagram(this.ModelElement, link);
+		}
+	}
+
+	/// <summary>
+	/// Rule to update diagram background color when ModelRoot.DiagramBackgroundColor changes.
+	/// </summary>
+	[RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
+	internal sealed class DiagramBackgroundColorChangeRule : ChangeRule
+	{
+		public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+		{
+			if (e.DomainProperty.Id == ModelRoot.DiagramBackgroundColorDomainPropertyId)
+			{
+				ModelRoot modelRoot = (ModelRoot)e.ModelElement;
+				Color newColor = (Color)e.NewValue;
+
+				// Find all diagrams associated with this model root and update their background
+				foreach (var pel in PresentationViewsSubject.GetPresentation(modelRoot))
+				{
+					if (pel is GenItDiagram diagram)
+					{
+						diagram.ApplyBackgroundColorFromModel();
+					}
+				}
+			}
 		}
 	}
 }
