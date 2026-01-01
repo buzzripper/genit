@@ -21,6 +21,9 @@ namespace Dyvenix.GenIt
                 // EntityModel RowVersion rule
                 typeof(EntityModelRowVersionChangeRule),
                 
+                // EntityModel name change rule (syncs NavigationProperty.TargetEntityName)
+                typeof(EntityModelNameChangeRule),
+                
                 // PropertyModel add rule
                 typeof(PropertyModelAddRule),
                 

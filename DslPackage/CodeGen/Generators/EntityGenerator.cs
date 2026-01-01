@@ -68,86 +68,87 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
 			{
-				GenerateEntity(entity, _entitiesNamespace, _outputFolderpath);
+				GenerateEntity(entity);
 			}
 		}
 
-		private void GenerateEntity(EntityModel entity, string entitiesNamespace, string outputFolder)
+		private void GenerateEntity(EntityModel entity)
 		{
-			ThreadHelper.ThrowIfNotOnUIThread();
+			var fileContent = new List<string>();
+
+			if (_inclHeader)
+				fileContent.Add(CodeGenUtils.FileHeader);
 
 			// Usings
-			var usings = new List<string>();
-			foreach (var u in entity.UsingsList)
-				usings.Add(u);
+			if (entity.UsingsList?.Count > 0)
+				entity.UsingsList.ForEach(u => fileContent.AddLine(0, $"using {u};"));
 
-			var propsOutput = new List<string>();
+			// Namespace 		
+			fileContent.AddLine();
+			fileContent.AddLine(0, $"namespace {_entitiesNamespace};");
+
+			// Declaration
+			fileContent.AddLine();
+			fileContent.AddLine(0, $"public partial class {entity.Name}");
+			fileContent.AddLine(0, "{");
 
 			// PK
-			propsOutput.Add("// PK");
+			fileContent.AddLine(1, "// PK");
 			foreach (var property in entity.Properties.Where(p => p.IsPrimaryKey))
-				this.GenerateProperty(property, propsOutput, usings);
+				this.GenerateProperty(property, fileContent);
 
-			//	//// RowVersion
-			//	//if (entity.InclRowVersion)
-			//	//{
-			//	//	var rowVerProp = new PropertyModel
-			//	//	{
-			//	//		Id = Guid.NewGuid(),
-			//	//		Name = "RowVersion",
-			//	//		PrimitiveType = PrimitiveType.ByteArray
-			//	//	};
-			//	//	this.GenerateProperty(rowVerProp, propsOutput, usings);
-			//	//	propsOutput.AddLine();
-			//	//}
+			// FK
+			if (entity.Properties.Any(p => p.IsForeignKey))
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(1, "// FKs");
+				foreach (var property in entity.Properties.Where(p => p.IsForeignKey))
+					this.GenerateProperty(property, fileContent);
+			}
 
-			//	// FK properties
-			//	var fkProperties = entity.Properties.Where(p => p.IsForeignKey);
-			//	if (fkProperties.Any())
-			//		propsOutput.AddLine(1, $"// FKs");
-			//	foreach (var property in fkProperties)
-			//		GenerateProperty(property, propsOutput, usings);
-			//	if (fkProperties.Any())
-			//		propsOutput.AddLine();
+			// RowVersion
+			if (entity.InclRowVersion)
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(1, "// RowVersion");
+				fileContent.AddLine(1, $"public byte[] RowVersion {{ get; set; }}");
+			}
 
 			// Properties
-			propsOutput.Add($"// Properties");
-			foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey))
-				GenerateProperty(property, propsOutput, usings);
+			if (entity.Properties.Count > 0)
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(1, $"// Properties");
+				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey))
+					GenerateProperty(property, fileContent);
+			}
 
-			// Navigation properties
-			var navPropsOutput = new List<string>();
-			//	if (entity.NavProperties.Any())
-			//		navPropsOutput.AddLine(0, $"// Navigation Properties");
-			//	foreach (var navProperty in entity.NavProperties)
-			//		GenerateNavigationProperty(navProperty, navPropsOutput, usings);
+			if (entity.NavigationProperties.Count > 0)
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(1, $"// Navigation Properties");
+				foreach (var navProperty in entity.NavigationProperties)
+				{
+					var dataType = navProperty.IsCollection ? $"List<{navProperty.TargetEntityName}>" : navProperty.TargetEntityName;
+					fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}");
+				}
+			}
 
-			// Property names
-			var propNames = GeneratePropNames(entity);
-
-			// Replace tokens in template
-			var fileContents = CreateContents(usings, entitiesNamespace, entity, propsOutput, navPropsOutput, propNames);
-
-			var outputFilepath = Path.Combine(outputFolder, $"{entity.Name}.cs");
-			//if (File.Exists(outputFile))
-			//	File.Delete(outputFile);
-			//File.WriteAllText(outputFile, fileContents);
-			FileHelper.SaveFile(outputFilepath, fileContents);
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
+			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}
 
-		private void GenerateProperty(PropertyModel prop, List<string> output, List<string> usings)
+		private void GenerateProperty(PropertyModel prop, List<string> fileContent)
 		{
-			var tc = 1;
-
 			if (prop.Attributes.Any())
 				foreach (var attr in prop.AttributesList)
-					output.AddLine(tc, $"[{attr}]");
+					fileContent.AddLine(1, $"[{attr}]");
 
 			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
 			var nullStr = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-			output.Add($"public {dataTypeName}{nullStr} {prop.Name} {{ get; set; }}");
+			fileContent.AddLine(1, $"public {dataTypeName}{nullStr} {prop.Name} {{ get; set; }}");
 
 			//}
 			//else if (prop.EnumType != null)
@@ -165,79 +166,75 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			//			usings.AddIfNotExists(usingStr);
 		}
 
-		//private void GenerateNavigationProperty(NavPropertyModel navProperty, List<string> propOutputList, List<string> usings)
+		//private void GenerateNavigationProperty(NavigationProperty navProperty, List<string> fileContent)
 		//{
 		//	var tabCount = 1;
 
-		//	switch (navProperty.Cardinality)
-		//	{
-		//		case Cardinality.OneToOne:
-		//			propOutputList.AddLine(tabCount, $"public {navProperty.FKEntity.Name} {navProperty.Name} {{ get; set; }}");
-		//			break;
+		//	break;
 
 		//		case Cardinality.OneToMany:
-		//			usings.AddIfNotExists("System.Collections.Generic");
-		//			propOutputList.AddLine(tabCount, $"public virtual ICollection<{navProperty.FKEntity.Name}> {navProperty.Name} {{ get; set; }} = new List<{navProperty.FKEntity.Name}>();");
-		//			break;
+		//		usings.AddIfNotExists("System.Collections.Generic");
+		//		fileContent.AddLine(tabCount, $"public virtual ICollection<{navProperty.FKEntity.Name}> {navProperty.Name} {{ get; set; }} = new List<{navProperty.FKEntity.Name}>();");
+		//		break;
 
-		//		default:
-		//			throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
+		//	default:
+		//		throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
 		//	}
 		//}
 
-		private List<string> GeneratePropNames(EntityModel entity)
-		{
-			var propNames = new List<string>();
+		//private List<string> GeneratePropNames(EntityModel entity)
+		//{
+		//	var propNames = new List<string>();
 
-			foreach (var prop in entity.Properties)
-				propNames.Append($"public const string {prop.Name} = \"{prop.Name}\";");
+		//	foreach (var prop in entity.Properties)
+		//		propNames.Append($"public const string {prop.Name} = \"{prop.Name}\";");
 
-			return propNames;
-		}
+		//	return propNames;
+		//}
 
-		private string CreateContents(List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, List<string> propNames)
-		{
-			var content = new List<string>();
+		//private string CreateContents(List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, List<string> propNames)
+		//{
+		//	var content = new List<string>();
 
-			if (_inclHeader)
-				content.Add(CodeGenUtils.FileHeader);
+		//	if (_inclHeader)
+		//		content.Add(CodeGenUtils.FileHeader);
 
-			// Usings
-			if (usings?.Count > 0)
-				usings.ForEach(x => content.AddLine(0, $"using {x};"));
+		//	// Usings
+		//	if (usings?.Count > 0)
+		//		usings.ForEach(x => content.AddLine(0, $"using {x};"));
 
-			// Namespace 		
-			content.AddLine();
-			content.AddLine(0, $"namespace {entitiesNamespace};");
+		//	// Namespace 		
+		//	content.AddLine();
+		//	content.AddLine(0, $"namespace {entitiesNamespace};");
 
-			// Declaration
-			content.AddLine();
-			content.AddLine(0, $"public partial class {entity.Name}");
-			content.AddLine(0, "{");
+		//	// Declaration
+		//	content.AddLine();
+		//	content.AddLine(0, $"public partial class {entity.Name}");
+		//	content.AddLine(0, "{");
 
-			// Properties
-			if (propsOutput.Count > 0)
-			{
-				propsOutput.ForEach(propLine => content.AddLine(1, $"{propLine}"));
-			}
+		//	// Properties
+		//	if (propsOutput.Count > 0)
+		//	{
+		//		propsOutput.ForEach(propLine => content.AddLine(1, $"{propLine}"));
+		//	}
 
-			// Nav Properties
-			if (navPropsOutput.Count > 0)
-			{
-				content.AddLine();
-				navPropsOutput.ForEach(navPropLine => content.AddLine(1, $"{navPropLine}"));
-			}
+		//	// Nav Properties
+		//	if (navPropsOutput.Count > 0)
+		//	{
+		//		content.AddLine();
+		//		navPropsOutput.ForEach(navPropLine => content.AddLine(1, $"{navPropLine}"));
+		//	}
 
-			// PropNames
-			if (propNames.Count > 0)
-			{
-				content.AddLine();
-				propNames.ForEach(propNameLine => content.AddLine(1, $"{propNameLine}"));
-			}
+		//	// PropNames
+		//	if (propNames.Count > 0)
+		//	{
+		//		content.AddLine();
+		//		propNames.ForEach(propNameLine => content.AddLine(1, $"{propNameLine}"));
+		//	}
 
-			content.AddLine(0, "}");
+		//	content.AddLine(0, "}");
 
-			return content.AsString();
-		}
+		//	return content.AsString();
+		//}
 	}
 }

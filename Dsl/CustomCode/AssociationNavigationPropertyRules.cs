@@ -18,8 +18,7 @@ namespace Dyvenix.GenIt
                 return;
 
             // Don't create PK if we're deserializing from file
-            if (entity.Store.TransactionManager.CurrentTransaction != null &&
-                entity.Store.TransactionManager.CurrentTransaction.Context.ContextInfo.ContainsKey("Deserializing"))
+            if (entity.Store.InSerializationTransaction)
                 return;
 
             // Check if an "Id" property already exists to avoid duplicates
@@ -54,6 +53,10 @@ namespace Dyvenix.GenIt
         {
             var association = e.ModelElement as Association;
             if (association == null || association.IsDeleting || association.IsDeleted)
+                return;
+
+            // Don't create properties if we're deserializing from file
+            if (association.Store.InSerializationTransaction)
                 return;
 
             var source = association.Source;
@@ -228,7 +231,8 @@ namespace Dyvenix.GenIt
 
     /// <summary>
     /// Rule that fires when Association properties change.
-    /// Handles GenSourceNavProperty, GenTargetNavProperty, SourceRoleName, and TargetRoleName changes.
+    /// Handles GenSourceNavProperty, GenTargetNavProperty, SourceRoleName, TargetRoleName,
+    /// and multiplicity changes.
     /// </summary>
     [RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
     public class AssociationPropertyChangeRule : ChangeRule
@@ -300,6 +304,32 @@ namespace Dyvenix.GenIt
                     if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
                     {
                         navProp.Name = newName;
+                    }
+                }
+            }
+            // Handle TargetMultiplicity change - sync IsCollection on source nav property
+            else if (e.DomainProperty.Id == Association.TargetMultiplicityDomainPropertyId)
+            {
+                if (!string.IsNullOrEmpty(association.SourceRoleName))
+                {
+                    var navProp = source.NavigationProperties.FirstOrDefault(np => np.Name == association.SourceRoleName);
+                    if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
+                    {
+                        Multiplicity newMultiplicity = (Multiplicity)e.NewValue;
+                        navProp.IsCollection = newMultiplicity == Multiplicity.Many;
+                    }
+                }
+            }
+            // Handle SourceMultiplicity change - sync IsCollection on target nav property
+            else if (e.DomainProperty.Id == Association.SourceMultiplicityDomainPropertyId)
+            {
+                if (!string.IsNullOrEmpty(association.TargetRoleName))
+                {
+                    var navProp = target.NavigationProperties.FirstOrDefault(np => np.Name == association.TargetRoleName);
+                    if (navProp != null && !navProp.IsDeleting && !navProp.IsDeleted)
+                    {
+                        Multiplicity newMultiplicity = (Multiplicity)e.NewValue;
+                        navProp.IsCollection = newMultiplicity == Multiplicity.Many;
                     }
                 }
             }
@@ -605,6 +635,48 @@ namespace Dyvenix.GenIt
             if (property.DataType == DataType.ByteArray && entity.InclRowVersion)
             {
                 entity.InclRowVersion = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Rule that fires when EntityModel.Name changes.
+    /// Syncs the name change to NavigationProperty.TargetEntityName for any navigation properties
+    /// that reference this entity.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelNameChangeRule : ChangeRule
+    {
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            // Only handle Name property changes
+            if (e.DomainProperty.Id != NamedElement.NameDomainPropertyId)
+                return;
+
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            string oldName = e.OldValue as string;
+            string newName = e.NewValue as string;
+
+            if (string.IsNullOrEmpty(oldName) || string.IsNullOrEmpty(newName) || oldName == newName)
+                return;
+
+            // Find all navigation properties in the model that reference this entity
+            var store = entity.Store;
+            var allNavProperties = store.ElementDirectory.FindElements<NavigationProperty>();
+
+            foreach (var navProp in allNavProperties)
+            {
+                if (navProp.IsDeleting || navProp.IsDeleted)
+                    continue;
+
+                // Update TargetEntityName if it matches the old entity name
+                if (navProp.TargetEntityName == oldName)
+                {
+                    navProp.TargetEntityName = newName;
+                }
             }
         }
     }
