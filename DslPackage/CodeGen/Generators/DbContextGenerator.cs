@@ -83,7 +83,75 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine();
 			fileContent.AddLine(1, "# endregion");
+			fileContent.AddLine();
+			fileContent.AddLine(1, "protected override void OnModelCreating(ModelBuilder modelBuilder)");
+			fileContent.AddLine(1, "{");
+			fileContent.AddLine(2, "base.OnModelCreating(modelBuilder);");
 
+			foreach (var entity in _entities.Where(e => e.GenerateCode))
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(2, $"#region {entity.Name}");
+				fileContent.AddLine();
+
+				fileContent.AddLine(2, $"modelBuilder.Entity<{entity.Name}>(entity =>");
+				fileContent.AddLine(2, "{");
+				fileContent.AddLine(3, $"entity.ToTable(\"{entity.Name}\");");
+
+				// PK
+				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey))
+					fileContent.AddLine(3, $"entity.HasKey(e => e.{prop.Name});");
+
+				// RowVersion
+				if (entity.InclRowVersion)
+					fileContent.AddLine(3, $"entity.Property(e => e.RowVersion).IsRowVersion();");
+
+				// FKs
+				foreach (var prop in entity.Properties.Where(p => p.IsForeignKey))
+				{
+					var line = $"entity.Property(e => e.{prop.Name})";
+					if (!prop.IsNullable)
+						line += ".IsRequired()";
+					line += ";";
+					fileContent.AddLine(3, line);
+				}
+
+				// Properties
+				foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion))
+				{
+					var line = $"entity.Property(e => e.{prop.Name})";
+					if (!prop.IsNullable)
+						line += ".IsRequired()";
+					if (prop.DataType == DataType.String && prop.Length > 0)
+						line += $".HasMaxLength({prop.Length})";
+					line += ";";
+					fileContent.AddLine(3, line);
+				}
+
+				// Indexes
+				fileContent.AddLine();
+				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey || p.IsForeignKey || p.IsIndexed))
+				{
+					var line = $"entity.HasIndex(e => e.{prop.Name}, \"IX_{entity.Name}_{prop.Name}\")";
+					if (!prop.IsIndexUnique)
+						line += ".IsUnique()";
+					if (!prop.IsIndexClustered)
+						line += ".Clustered()";
+					line += ";";
+					fileContent.AddLine(3, line);
+				}
+
+				fileContent.AddLine(2, "});");
+				fileContent.AddLine();
+				fileContent.AddLine(2, $"#endregion");
+			}
+
+			fileContent.AddLine();
+			fileContent.AddLine(2, "OnModelCreatingPartial(modelBuilder);");
+			fileContent.AddLine(1, "}");
+
+			fileContent.AddLine();
+			fileContent.AddLine(1, "partial void OnModelCreatingPartial(ModelBuilder modelBuilder);");
 
 			fileContent.AddLine(0, "}");
 
