@@ -1,5 +1,4 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
-using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,8 +44,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateCode()
 		{
-			ThreadHelper.ThrowIfNotOnUIThread();
-
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
 			{
 				GenerateEntity(entity);
@@ -141,8 +138,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					fileContent.AddLine(1, $"[{attr}]");
 
 			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
-			var nullStr = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-			fileContent.AddLine(1, $"public {dataTypeName}{nullStr} {prop.Name} {{ get; set; }}");
+			var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
+			var nullInit = !prop.IsNullable ? " = null!;" : string.Empty;
+
+			fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
 		}
 	}
 }

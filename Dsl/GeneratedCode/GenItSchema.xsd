@@ -108,6 +108,12 @@
         <xsd:attribute name="dbContextOutputFolder" type="xsd:string" />
         <!-- Property: DbContextNamespace -->
         <xsd:attribute name="dbContextNamespace" type="xsd:string" />
+        <!-- Property: DbContextUsings -->
+        <xsd:attribute name="dbContextUsings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Custom using statements for the DbContext (one per line)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
         <!-- Property: EnumsOutputFolder -->
         <xsd:attribute name="enumsOutputFolder" type="xsd:string" />
         <!-- Property: EnumsNamespace -->

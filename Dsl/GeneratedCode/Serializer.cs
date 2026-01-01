@@ -739,6 +739,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DbContextUsings
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextUsings = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextUsings");
+				if (attribDbContextUsings != null)
+				{
+					global::System.String valueOfDbContextUsings;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDbContextUsings, out valueOfDbContextUsings))
+					{
+						instanceOfModelRoot.DbContextUsings = valueOfDbContextUsings;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextUsings", typeof(global::System.String), attribDbContextUsings);
+					}
+				}
+			}
 			// EnumsOutputFolder
 			if (!serializationContext.Result.Failed)
 			{
@@ -1496,6 +1513,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextNamespace", propValue);
+	
+				}
+			}
+			// DbContextUsings
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DbContextUsings;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextUsings", propValue);
 	
 				}
 			}

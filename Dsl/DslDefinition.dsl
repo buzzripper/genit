@@ -40,6 +40,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="d3d3d3d3-d3d3-d3d3-d3d3-d3d3d3d3d3d3" Description="Custom using statements for the DbContext (one per line)" Name="DbContextUsings" DisplayName="Db Context Usings" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
         <DomainProperty Id="c89338c6-f414-4b3d-8bef-c394af76864b" Description="Description for Dyvenix.GenIt.ModelRoot.Enums Output Folder" Name="EnumsOutputFolder" DisplayName="Enums Output Folder" Category="Enums">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
@@ -821,6 +826,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="dbContextNamespace">
             <DomainPropertyMoniker Name="ModelRoot/DbContextNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextUsings">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextUsings" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="enumsOutputFolder">
             <DomainPropertyMoniker Name="ModelRoot/EnumsOutputFolder" />

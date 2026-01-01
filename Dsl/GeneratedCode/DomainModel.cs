@@ -125,6 +125,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "TemplatesFolder", ModelRoot.TemplatesFolderDomainPropertyId, typeof(ModelRoot.TemplatesFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextOutputFolder", ModelRoot.DbContextOutputFolderDomainPropertyId, typeof(ModelRoot.DbContextOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextNamespace", ModelRoot.DbContextNamespaceDomainPropertyId, typeof(ModelRoot.DbContextNamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DbContextUsings", ModelRoot.DbContextUsingsDomainPropertyId, typeof(ModelRoot.DbContextUsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsOutputFolder", ModelRoot.EnumsOutputFolderDomainPropertyId, typeof(ModelRoot.EnumsOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EnumsNamespace", ModelRoot.EnumsNamespaceDomainPropertyId, typeof(ModelRoot.EnumsNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntitiesEnabled", ModelRoot.EntitiesEnabledDomainPropertyId, typeof(ModelRoot.EntitiesEnabledPropertyHandler)),

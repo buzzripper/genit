@@ -10,6 +10,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 	{
 		private readonly EntityGenerator _entityGenerator;
 		private readonly EnumGenerator _enumGenerator;
+		private readonly DbContextGenerator _dbContextGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
@@ -19,6 +20,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
+			//var dbContext = modelRoot.Types.OfType<EnumModel>().ToList();
+			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
 		}
 
 		internal bool Validate(out List<string> errors)
@@ -27,6 +30,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 			_entityGenerator.Validate(errors);
 			_enumGenerator.Validate(errors);
+			_dbContextGenerator.Validate(errors);
 
 			return errors.Count == 0;
 		}
@@ -44,6 +48,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				_enumGenerator.GenerateCode();
 			else
 				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
+
+			if (_dbContextGenerator.Enabled)
+				_dbContextGenerator.GenerateCode();
+			else
+				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 		}
 	}
 }

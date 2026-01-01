@@ -209,6 +209,18 @@
     <value>DbContext</value>
     <comment>Category for DomainProperty &apos;DbContextNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextUsings.Description" xml:space="preserve">
+    <value>Custom using statements for the DbContext (one per line)</value>
+    <comment>Description for DomainProperty &apos;DbContextUsings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextUsings.DisplayName" xml:space="preserve">
+    <value>Db Context Usings</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextUsings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextUsings.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextUsings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModelRoot/EnumsOutputFolder.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModelRoot.Enums Output Folder</value>
     <comment>Description for DomainProperty &apos;EnumsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>

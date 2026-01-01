@@ -27,6 +27,10 @@ namespace Dyvenix.GenIt
                 // PropertyModel add rule
                 typeof(PropertyModelAddRule),
                 
+                // PropertyModel nullability rules (IsPrimaryKey and IsForeignKey)
+                typeof(PropertyModelIsPrimaryKeyChangeRule),
+                typeof(PropertyModelIsForeignKeyChangeRule),
+                
                 // RowVersion property delete rule
                 typeof(RowVersionPropertyDeleteRule),
                 
@@ -39,6 +43,9 @@ namespace Dyvenix.GenIt
                 
                 // Association FK property rule
                 typeof(FkPropertyDeleteRule),
+                
+                // Association SourceMultiplicity change rule (syncs FK property nullability)
+                typeof(AssociationSourceMultiplicityChangeRule),
                 
                 // Diagram background color rule
                 typeof(DiagramBackgroundColorChangeRule),
