@@ -5072,7 +5072,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for GenerateCode
 		/// </summary>
-		private global::System.Boolean generateCodePropertyStorage;
+		private global::System.Boolean generateCodePropertyStorage = true;
 		
 		/// <summary>
 		/// Gets or sets the value of GenerateCode domain property.
@@ -5081,6 +5081,7 @@ namespace Dyvenix.GenIt
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EnumModel/GenerateCode.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Dyvenix.GenIt.EnumModel/GenerateCode.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.EnumModel/GenerateCode.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("a6b7c8d9-e0f1-4a2b-3c4d-5e6f7a8b9c0d")]
 		public global::System.Boolean GenerateCode
 		{

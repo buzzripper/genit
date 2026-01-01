@@ -1,5 +1,4 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
-using Dyvenix.GenIt.DslPackage.CodeGen.Templates;
 using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
 using System.IO;
@@ -9,33 +8,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
 	internal class EntityGenerator
 	{
-		#region Constants
-
-		private const string cTemplateFilename = "Entity.tmpl";
-
-		private const string cToken_AddlUsings = "ADDL_USINGS";
-		private const string cToken_EntitiesNs = "ENTITIES_NS";
-		private const string cToken_EntityName = "ENTITY_NAME";
-		private const string cToken_Properties = "PROPERTIES";
-		private const string cToken_NavProperties = "NAV_PROPERTIES";
-		private const string cToken_PropNames = "PROP_NAMES";
-
-		#endregion
-
 		private readonly List<EntityModel> _entities;
 		private readonly string _entitiesNamespace;
-		private readonly TemplatesManager _templatesManager;
 		private readonly string _outputFolderpath;
 		private readonly bool _inclHeader;
 
-		internal EntityGenerator(List<EntityModel> entities, string entitiesNamespace, string templatesFolder, string outputFolderpath, bool enabled, bool inclHeader)
+		internal EntityGenerator(List<EntityModel> entities, string entitiesNamespace, string outputFolderpath, bool enabled, bool inclHeader)
 		{
 			_entities = entities;
 			_entitiesNamespace = entitiesNamespace;
 			_outputFolderpath = FileHelper.GetAbsolutePath(outputFolderpath);
 			_inclHeader = inclHeader;
-
-			_templatesManager = new TemplatesManager(templatesFolder, cTemplateFilename);
 
 			this.Enabled = enabled;
 		}
@@ -52,8 +35,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				errors.Add("EntitiesOutputFolder is not set. Please set it in the ModelRoot properties.");
 			else if (!Directory.Exists(_outputFolderpath))
 				errors.Add("EntitiesOutputFolder does not exist. Please select a valid folder.");
-
-			_templatesManager.Validate(errors);
 		}
 
 		#region Properties

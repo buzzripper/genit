@@ -8,41 +8,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 {
 	internal class GenItModel
 	{
-		//private readonly string _templatesFolderpath;
 		private readonly EntityGenerator _entityGenerator;
-
-		//private readonly List<EntityModel> _entities;
-		//private readonly List<Association> _associations;
-		//private readonly string _entitiesOutputFolder;
-		//private readonly string EntitiesNamespace;
-		//private readonly List<EnumModel> _enums;
-		//private readonly List<EnumAssociation> _enumAssociations;
+		private readonly EnumGenerator _enumGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
 			var entities = modelRoot.Types.OfType<EntityModel>().ToList();
+			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
 
-			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.TemplatesFolder, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
+			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
+			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
-			//_enums = modelRoot.Types.OfType<EnumModel>().ToList();
-			//_associations = modelRoot.Store.ElementDirectory.FindElements<Association>().Where(a => a.Source != null && a.Target != null).ToList();
-			//_enumAssociations = modelRoot.Store.ElementDirectory.FindElements<EnumAssociation>().Where(ea => ea.Entity != null && ea.Enum != null).ToList();
-
-			//this._entitiesOutputFolder = modelRoot.EntitiesOutputFolder;
-			//this.EntitiesNamespace = modelRoot.EntitiesNamespace;
 		}
-
-		//public List<EntityModel> Entities => _entities;
-		//public List<Association> Associations => _associations;
-		//public List<EnumModel> Enums => _enums;
-		//public List<EnumAssociation> EnumAssociations => _enumAssociations;
-		//public string EntitiesOutputFolder => _entitiesOutputFolder;
 
 		internal bool Validate(out List<string> errors)
 		{
 			errors = new List<string>();
 
 			_entityGenerator.Validate(errors);
+			_enumGenerator.Validate(errors);
 
 			return errors.Count == 0;
 		}
@@ -55,6 +39,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				_entityGenerator.GenerateCode();
 			else
 				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
+
+			if (_enumGenerator.Enabled)
+				_enumGenerator.GenerateCode();
+			else
+				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
 		}
 	}
 }
