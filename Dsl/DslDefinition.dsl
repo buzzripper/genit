@@ -228,6 +228,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="b9b9b9b9-9999-9999-9999-999999999999" Description="Indicates this is an auto-generated RowVersion property" Name="IsRowVersion" DisplayName="Is Row Version" DefaultValue="false" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="27906d32-ad8a-4efd-98c0-95e0c0798f7c" Description="" Name="Comment" DisplayName="Comment" Namespace="Dyvenix.GenIt">
@@ -919,6 +924,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isForeignKey">
             <DomainPropertyMoniker Name="PropertyModel/IsForeignKey" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isRowVersion">
+            <DomainPropertyMoniker Name="PropertyModel/IsRowVersion" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

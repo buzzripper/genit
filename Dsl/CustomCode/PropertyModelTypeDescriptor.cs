@@ -33,7 +33,6 @@ namespace Dyvenix.GenIt
     public class PropertyModelTypeDescriptor : ElementTypeDescriptor
     {
         private readonly PropertyModel _propertyModel;
-        private const string RowVersionPropertyName = "RowVersion";
 
         public PropertyModelTypeDescriptor(ICustomTypeDescriptor parent, PropertyModel element)
             : base(parent, element)
@@ -89,7 +88,7 @@ namespace Dyvenix.GenIt
             }
 
             // Make all properties read-only for RowVersion property (except Description)
-            if (IsRowVersionProperty() && !property.Name.Equals("Description", StringComparison.OrdinalIgnoreCase))
+            if (_propertyModel.IsRowVersion && !property.Name.Equals("Description", StringComparison.OrdinalIgnoreCase))
             {
                 return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
             }
@@ -102,24 +101,6 @@ namespace Dyvenix.GenIt
             }
 
             return property;
-        }
-
-        private bool IsRowVersionProperty()
-        {
-            // Check if this is the RowVersion property
-            if (_propertyModel.Name != RowVersionPropertyName)
-                return false;
-
-            // Check if it's a ByteArray type
-            if (_propertyModel.DataType != DataType.ByteArray)
-                return false;
-
-            var entity = _propertyModel.EntityModel;
-            if (entity == null)
-                return false;
-
-            // Check if the entity has InclRowVersion enabled
-            return entity.InclRowVersion;
         }
     }
 }

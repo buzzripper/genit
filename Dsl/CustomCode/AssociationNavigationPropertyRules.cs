@@ -596,6 +596,7 @@ namespace Dyvenix.GenIt
                 Name = RowVersionPropertyName,
                 DataType = DataType.ByteArray,
                 IsNullable = false,
+                IsRowVersion = true,
                 Description = "Concurrency token for optimistic locking"
             };
 
@@ -604,7 +605,7 @@ namespace Dyvenix.GenIt
 
         private void DeleteRowVersionProperty(EntityModel entity)
         {
-            var rowVersionProp = entity.Properties.FirstOrDefault(p => p.Name == RowVersionPropertyName);
+            var rowVersionProp = entity.Properties.FirstOrDefault(p => p.IsRowVersion);
             if (rowVersionProp != null && !rowVersionProp.IsDeleting && !rowVersionProp.IsDeleted)
             {
                 rowVersionProp.Delete();
@@ -619,20 +620,18 @@ namespace Dyvenix.GenIt
     [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
     public class RowVersionPropertyDeleteRule : DeletingRule
     {
-        private const string RowVersionPropertyName = "RowVersion";
-
         public override void ElementDeleting(ElementDeletingEventArgs e)
         {
             var property = e.ModelElement as PropertyModel;
-            if (property == null || property.Name != RowVersionPropertyName)
+            if (property == null || !property.IsRowVersion)
                 return;
 
             var entity = property.EntityModel;
             if (entity == null || entity.IsDeleting || entity.IsDeleted)
                 return;
 
-            // Only sync back if this is truly a RowVersion property (ByteArray type)
-            if (property.DataType == DataType.ByteArray && entity.InclRowVersion)
+            // Sync back - when RowVersion property is deleted, set InclRowVersion to false
+            if (entity.InclRowVersion)
             {
                 entity.InclRowVersion = false;
             }

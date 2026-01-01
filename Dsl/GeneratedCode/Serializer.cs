@@ -3405,6 +3405,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsRowVersion
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsRowVersion = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isRowVersion");
+				if (attribIsRowVersion != null)
+				{
+					global::System.Boolean valueOfIsRowVersion;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsRowVersion, out valueOfIsRowVersion))
+					{
+						instanceOfPropertyModel.IsRowVersion = valueOfIsRowVersion;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isRowVersion", typeof(global::System.Boolean), attribIsRowVersion);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -3952,6 +3969,19 @@ namespace Dyvenix.GenIt
 				if (!serializationContext.Result.Failed)
 				{
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isForeignKey", serializedPropValue);
+				}
+			}
+			// IsRowVersion
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfPropertyModel.IsRowVersion;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isRowVersion", serializedPropValue);
+					}
 				}
 			}
 		}

@@ -529,6 +529,14 @@
     <value>Is Foreign Key</value>
     <comment>DisplayName for DomainProperty &apos;IsForeignKey&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsRowVersion.Description" xml:space="preserve">
+    <value>Indicates this is an auto-generated RowVersion property</value>
+    <comment>Description for DomainProperty &apos;IsRowVersion&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsRowVersion.DisplayName" xml:space="preserve">
+    <value>Is Row Version</value>
+    <comment>DisplayName for DomainProperty &apos;IsRowVersion&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

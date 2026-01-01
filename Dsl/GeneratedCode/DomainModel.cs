@@ -151,6 +151,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(PropertyModel), "IsIndexUnique", PropertyModel.IsIndexUniqueDomainPropertyId, typeof(PropertyModel.IsIndexUniquePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsIndexClustered", PropertyModel.IsIndexClusteredDomainPropertyId, typeof(PropertyModel.IsIndexClusteredPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsForeignKey", PropertyModel.IsForeignKeyDomainPropertyId, typeof(PropertyModel.IsForeignKeyPropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "IsRowVersion", PropertyModel.IsRowVersionDomainPropertyId, typeof(PropertyModel.IsRowVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Signature", Operation.SignatureDomainPropertyId, typeof(Operation.SignaturePropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Concurrency", Operation.ConcurrencyDomainPropertyId, typeof(Operation.ConcurrencyPropertyHandler)),

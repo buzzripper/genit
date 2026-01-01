@@ -347,6 +347,12 @@
         <xsd:attribute name="isIndexClustered" type="xsd:boolean" />
         <!-- Property: IsForeignKey -->
         <xsd:attribute name="isForeignKey" type="xsd:boolean" />
+        <!-- Property: IsRowVersion -->
+        <xsd:attribute name="isRowVersion" type="xsd:boolean" >
+          <xsd:annotation>
+            <xsd:documentation>Indicates this is an auto-generated RowVersion property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

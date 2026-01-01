@@ -107,11 +107,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// RowVersion
-			if (entity.InclRowVersion)
+			if (entity.Properties.Any(p => p.IsRowVersion))
 			{
 				fileContent.AddLine();
-				fileContent.AddLine(1, "// RowVersion");
-				fileContent.AddLine(1, $"public byte[] RowVersion {{ get; set; }}");
+				fileContent.AddLine(1, "// Rowversion");
+				foreach (var property in entity.Properties.Where(p => p.IsRowVersion))
+					this.GenerateProperty(property, fileContent);
 			}
 
 			// Properties
@@ -119,7 +120,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, $"// Properties");
-				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey))
+				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion))
 					GenerateProperty(property, fileContent);
 			}
 
@@ -133,6 +134,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}");
 				}
 			}
+
+			// Property names
+			fileContent.AddLine();
+			fileContent.AddLine(1, "public static class PropNames");
+			fileContent.AddLine(1, "{");
+			foreach (var prop in entity.Properties)
+			{
+				fileContent.AddLine(2, $"public const string {prop.Name} = \"{prop.Name}\";");
+			}
+			fileContent.AddLine(1, "}");
+
+			fileContent.AddLine(0, "}");
 
 			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
@@ -149,92 +162,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
 			var nullStr = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
 			fileContent.AddLine(1, $"public {dataTypeName}{nullStr} {prop.Name} {{ get; set; }}");
-
-			//}
-			//else if (prop.EnumType != null)
-			//{
-			//	var nullStr = prop.Nullable ? "?" : string.Empty;
-			//	//output.AddLine(tc, $"[JsonConverter(typeof(JsonStringEnumConverter))]");
-			//	output.AddLine(tc, $"public {prop.EnumType.Name}{nullStr} {prop.Name} {{ get; set; }}");
-			//	usings.AddIfNotExists("System.Text.Json.Serialization");
-			//	if (!string.IsNullOrWhiteSpace(prop.EnumType.Namespace))
-			//		usings.AddIfNotExists(prop.EnumType.Namespace);
-			//}
-
-			//	if (prop.AddlUsings.Any())
-			//		foreach (var usingStr in prop.AddlUsings)
-			//			usings.AddIfNotExists(usingStr);
 		}
-
-		//private void GenerateNavigationProperty(NavigationProperty navProperty, List<string> fileContent)
-		//{
-		//	var tabCount = 1;
-
-		//	break;
-
-		//		case Cardinality.OneToMany:
-		//		usings.AddIfNotExists("System.Collections.Generic");
-		//		fileContent.AddLine(tabCount, $"public virtual ICollection<{navProperty.FKEntity.Name}> {navProperty.Name} {{ get; set; }} = new List<{navProperty.FKEntity.Name}>();");
-		//		break;
-
-		//	default:
-		//		throw new ApplicationException($"Error determining data type for property '{navProperty.Name}': Cardinality '{navProperty.Cardinality}' not supported.");
-		//	}
-		//}
-
-		//private List<string> GeneratePropNames(EntityModel entity)
-		//{
-		//	var propNames = new List<string>();
-
-		//	foreach (var prop in entity.Properties)
-		//		propNames.Append($"public const string {prop.Name} = \"{prop.Name}\";");
-
-		//	return propNames;
-		//}
-
-		//private string CreateContents(List<string> usings, string entitiesNamespace, EntityModel entity, List<string> propsOutput, List<string> navPropsOutput, List<string> propNames)
-		//{
-		//	var content = new List<string>();
-
-		//	if (_inclHeader)
-		//		content.Add(CodeGenUtils.FileHeader);
-
-		//	// Usings
-		//	if (usings?.Count > 0)
-		//		usings.ForEach(x => content.AddLine(0, $"using {x};"));
-
-		//	// Namespace 		
-		//	content.AddLine();
-		//	content.AddLine(0, $"namespace {entitiesNamespace};");
-
-		//	// Declaration
-		//	content.AddLine();
-		//	content.AddLine(0, $"public partial class {entity.Name}");
-		//	content.AddLine(0, "{");
-
-		//	// Properties
-		//	if (propsOutput.Count > 0)
-		//	{
-		//		propsOutput.ForEach(propLine => content.AddLine(1, $"{propLine}"));
-		//	}
-
-		//	// Nav Properties
-		//	if (navPropsOutput.Count > 0)
-		//	{
-		//		content.AddLine();
-		//		navPropsOutput.ForEach(navPropLine => content.AddLine(1, $"{navPropLine}"));
-		//	}
-
-		//	// PropNames
-		//	if (propNames.Count > 0)
-		//	{
-		//		content.AddLine();
-		//		propNames.ForEach(propNameLine => content.AddLine(1, $"{propNameLine}"));
-		//	}
-
-		//	content.AddLine(0, "}");
-
-		//	return content.AsString();
-		//}
 	}
 }

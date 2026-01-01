@@ -3380,6 +3380,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region IsRowVersion domain property code
+		
+		/// <summary>
+		/// IsRowVersion domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsRowVersionDomainPropertyId = new global::System.Guid(0xb9b9b9b9, 0x9999, 0x9999, 0x99, 0x99, 0x99, 0x99, 0x99, 0x99, 0x99, 0x99);
+		
+		/// <summary>
+		/// Storage for IsRowVersion
+		/// </summary>
+		private global::System.Boolean isRowVersionPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsRowVersion domain property.
+		/// Indicates this is an auto-generated RowVersion property
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/IsRowVersion.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/IsRowVersion.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("b9b9b9b9-9999-9999-9999-999999999999")]
+		public global::System.Boolean IsRowVersion
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isRowVersionPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsRowVersionPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.IsRowVersion domain property.
+		/// </summary>
+		internal sealed partial class IsRowVersionPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Boolean>
+		{
+			private IsRowVersionPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.IsRowVersion domain property value handler.
+			/// </summary>
+			public static readonly IsRowVersionPropertyHandler Instance = new IsRowVersionPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.IsRowVersion domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsRowVersionDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isRowVersionPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isRowVersionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModel.
