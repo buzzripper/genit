@@ -21,7 +21,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
 			//var dbContext = modelRoot.Types.OfType<EnumModel>().ToList();
-			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
+			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.Name, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
 		}
 
 		internal bool Validate(out List<string> errors)

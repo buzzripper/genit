@@ -8,15 +8,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 	internal class DbContextGenerator
 	{
 		private readonly List<EntityModel> _entities;
+		private readonly string _dbContextName;
 		private readonly string _dbContextNamespace;
 		private readonly List<string> _dbContextUsings;
 		private readonly string _entitiesNamespace;
 		private readonly string _outputFolderpath;
 		private readonly bool _inclHeader;
 
-		internal DbContextGenerator(List<EntityModel> entities, string dbContextNamespace, string entitiesNamespace, string outputFolderpath, bool enabled, bool inclHeader, List<string> dbContextUsings)
+		internal DbContextGenerator(List<EntityModel> entities, string dbContextName, string dbContextNamespace, string entitiesNamespace, string outputFolderpath, bool enabled, bool inclHeader, List<string> dbContextUsings)
 		{
 			_entities = entities;
+			_dbContextName = dbContextName;
 			_dbContextNamespace = dbContextNamespace;
 			_dbContextUsings = dbContextUsings;
 			_entitiesNamespace = entitiesNamespace;
@@ -68,9 +70,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Declaration
 			fileContent.AddLine();
-			fileContent.AddLine(0, "public partial class Db : DbContext");
+			fileContent.AddLine(0, $"public partial class {_dbContextName} : DbContext");
 			fileContent.AddLine(0, "{");
-			fileContent.AddLine(1, "public Db(DbContextOptions<Db> options)");
+			fileContent.AddLine(1, $"public {_dbContextName}(DbContextOptions<{_dbContextName}> options)");
 			fileContent.AddLine(2, ": base(options)");
 			fileContent.AddLine(1, "{");
 			fileContent.AddLine(1, "}");
@@ -136,7 +138,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					if (!prop.IsIndexUnique)
 						line += ".IsUnique()";
 					if (!prop.IsIndexClustered)
-						line += ".Clustered()";
+						line += ".IsClustered()";
 					line += ";";
 					fileContent.AddLine(3, line);
 				}
@@ -155,7 +157,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"Db.cs");
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{_dbContextName}.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 		}
 
