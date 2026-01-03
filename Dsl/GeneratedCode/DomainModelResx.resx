@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -605,22 +605,6 @@
     <value>Postcondition</value>
     <comment>DisplayName for DomainProperty &apos;Postcondition&apos; on DomainClass &apos;Operation&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ClassOperation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;ClassOperation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassOperation.DisplayName" xml:space="preserve">
-    <value>Class Operation</value>
-    <comment>DisplayName for DomainClass &apos;ClassOperation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassOperation/IsAbstract.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ClassOperation&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassOperation/IsAbstract.DisplayName" xml:space="preserve">
-    <value>Is Abstract</value>
-    <comment>DisplayName for DomainProperty &apos;IsAbstract&apos; on DomainClass &apos;ClassOperation&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.ModelInterface.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;ModelInterface&apos;</comment>
@@ -877,6 +861,94 @@
     <value>Display Order</value>
     <comment>DisplayName for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel</value>
+    <comment>Description for DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel.DisplayName" xml:space="preserve">
+    <value>Service Model</value>
+    <comment>DisplayName for DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Enabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Enabled</value>
+    <comment>Description for DomainProperty &apos;Enabled&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Enabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;Enabled&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclCreate.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Create</value>
+    <comment>Description for DomainProperty &apos;InclCreate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclCreate.DisplayName" xml:space="preserve">
+    <value>Incl Create</value>
+    <comment>DisplayName for DomainProperty &apos;InclCreate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclUpdate.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Update</value>
+    <comment>Description for DomainProperty &apos;InclUpdate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclUpdate.DisplayName" xml:space="preserve">
+    <value>Incl Update</value>
+    <comment>DisplayName for DomainProperty &apos;InclUpdate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclDelete.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Delete</value>
+    <comment>Description for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclDelete.DisplayName" xml:space="preserve">
+    <value>Incl Delete</value>
+    <comment>DisplayName for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclController.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Controller</value>
+    <comment>Description for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclController.DisplayName" xml:space="preserve">
+    <value>Incl Controller</value>
+    <comment>DisplayName for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Version.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Version</value>
+    <comment>Description for DomainProperty &apos;Version&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Version.DisplayName" xml:space="preserve">
+    <value>Version</value>
+    <comment>DisplayName for DomainProperty &apos;Version&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ServiceUsings.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Service Usings</value>
+    <comment>Description for DomainProperty &apos;ServiceUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ServiceUsings.DisplayName" xml:space="preserve">
+    <value>Service Usings</value>
+    <comment>DisplayName for DomainProperty &apos;ServiceUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ServiceAttributes.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Service Attributes</value>
+    <comment>Description for DomainProperty &apos;ServiceAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ServiceAttributes.DisplayName" xml:space="preserve">
+    <value>Service Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;ServiceAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Usings</value>
+    <comment>Description for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.DisplayName" xml:space="preserve">
+    <value>Controller Usings</value>
+    <comment>DisplayName for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Attributes</value>
+    <comment>Description for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.DisplayName" xml:space="preserve">
+    <value>Controller Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -1056,38 +1128,6 @@
   <data name="Dyvenix.GenIt.ModelRootHasComments/Comment.PropertyDisplayName" xml:space="preserve">
     <value>Model Root</value>
     <comment>PropertyDisplayName for DomainRole &apos;Comment&apos; on DomainRelationship &apos;ModelRootHasComments&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainClass &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations.DisplayName" xml:space="preserve">
-    <value>Class Has Operations</value>
-    <comment>DisplayName for DomainClass &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/EntityModel.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/EntityModel.DisplayName" xml:space="preserve">
-    <value>EntityModel</value>
-    <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/EntityModel.PropertyDisplayName" xml:space="preserve">
-    <value>Operations</value>
-    <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/Operation.Description" xml:space="preserve">
-    <value></value>
-    <comment>Description for DomainRole &apos;Operation&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/Operation.DisplayName" xml:space="preserve">
-    <value>Operation</value>
-    <comment>DisplayName for DomainRole &apos;Operation&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ClassHasOperations/Operation.PropertyDisplayName" xml:space="preserve">
-    <value>Entity Model</value>
-    <comment>PropertyDisplayName for DomainRole &apos;Operation&apos; on DomainRelationship &apos;ClassHasOperations&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Generalization.Description" xml:space="preserve">
     <value>Inheritance between Classes.</value>
@@ -1445,6 +1485,102 @@
     <value>Update Method Modeled</value>
     <comment>PropertyDisplayName for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels</value>
+    <comment>Description for DomainClass &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels.DisplayName" xml:space="preserve">
+    <value>Service Model Has Read Method Models</value>
+    <comment>DisplayName for DomainClass &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ServiceModel</value>
+    <comment>Description for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.DisplayName" xml:space="preserve">
+    <value>Service Model</value>
+    <comment>DisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.PropertyDisplayName" xml:space="preserve">
+    <value>Read Methods</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModel</value>
+    <comment>Description for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.DisplayName" xml:space="preserve">
+    <value>Read Method Model</value>
+    <comment>DisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.PropertyDisplayName" xml:space="preserve">
+    <value>Service Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ServiceModelHasReadMethodModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods</value>
+    <comment>Description for DomainClass &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods.DisplayName" xml:space="preserve">
+    <value>Service Model Has Update Methods</value>
+    <comment>DisplayName for DomainClass &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.ServiceModel</value>
+    <comment>Description for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.DisplayName" xml:space="preserve">
+    <value>Service Model</value>
+    <comment>DisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.PropertyDisplayName" xml:space="preserve">
+    <value>Update Methods</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModel</value>
+    <comment>Description for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.DisplayName" xml:space="preserve">
+    <value>Update Method Model</value>
+    <comment>DisplayName for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.PropertyDisplayName" xml:space="preserve">
+    <value>Service Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;ServiceModelHasUpdateMethods&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModelHasServiceModels</value>
+    <comment>Description for DomainClass &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels.DisplayName" xml:space="preserve">
+    <value>Entity Model Has Service Models</value>
+    <comment>DisplayName for DomainClass &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel</value>
+    <comment>Description for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.DisplayName" xml:space="preserve">
+    <value>Entity Model</value>
+    <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName" xml:space="preserve">
+    <value>Service Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModel</value>
+    <comment>Description for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.DisplayName" xml:space="preserve">
+    <value>Service Model</value>
+    <comment>DisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.PropertyDisplayName" xml:space="preserve">
+    <value>Entity Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ServiceModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
     <value>ZeroOne</value>
     <comment>Display name for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
@@ -1685,10 +1821,6 @@
     <value>Navigation Properties</value>
     <comment>Compartment title</comment>
   </data>
-  <data name="ClassShapeOperationsCompartmentTitle" xml:space="preserve">
-    <value>Operations</value>
-    <comment>Compartment title</comment>
-  </data>
   <data name="ClassShapeNameDefaultText" xml:space="preserve">
     <value>Name</value>
     <comment>Text decorator default text</comment>
@@ -1807,14 +1939,6 @@
   </data>
   <data name="EnumModelToolboxTooltip" xml:space="preserve">
     <value>Create an Enumeration</value>
-    <comment>Toolbox tooltip text</comment>
-  </data>
-  <data name="ClassOperationToolboxItem" xml:space="preserve">
-    <value>Class Operation</value>
-    <comment>Toolbox item name</comment>
-  </data>
-  <data name="ClassOperationToolboxTooltip" xml:space="preserve">
-    <value>Create an Operation on a Class</value>
     <comment>Toolbox tooltip text</comment>
   </data>
   <data name="ModelInterfaceToolboxItem" xml:space="preserve">
@@ -1988,10 +2112,6 @@ A DomainClass can be serialized as a moniker only if
   </data>
   <data name="EnumModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
     <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-    <comment>Toolbox item image</comment>
-  </data>
-  <data name="ClassOperationToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\resources\operationtool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelInterfaceToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
