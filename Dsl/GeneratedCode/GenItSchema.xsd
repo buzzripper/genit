@@ -813,6 +813,112 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- FilterPropertyModel -->
+  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="modelRoot" />
+  <xsd:complexType name="FilterPropertyModel">
+    <xsd:complexContent>
+      <xsd:extension base="ModelRoot">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: Property -->
+          <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instance of Property</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="property" minOccurs="1" maxOccurs="1">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of Property needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: IsOptional -->
+        <xsd:attribute name="isOptional" type="xsd:boolean" />
+        <!-- Property: IsInternal -->
+        <xsd:attribute name="isInternal" type="xsd:boolean" />
+        <!-- Property: InternalValue -->
+        <xsd:attribute name="internalValue" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- FilterPropertyModel Moniker -->
+  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:complexType name="FilterPropertyModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for FilterPropertyModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ModelRootMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- ReadMethodModel -->
+  <xsd:element name="readMethodModel" type="ReadMethodModel" substitutionGroup="modelRoot" />
+  <xsd:complexType name="ReadMethodModel">
+    <xsd:complexContent>
+      <xsd:extension base="ModelRoot">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: FilterProperties -->
+          <xsd:element name="filterPropertyModeled" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of FilterProperties</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="filterProperties" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of FilterProperties needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: ItemId -->
+        <xsd:attribute name="itemId" type="xsd:string" />
+        <!-- Property: InclPaging -->
+        <xsd:attribute name="inclPaging" type="xsd:boolean" />
+        <!-- Property: UseQuery -->
+        <xsd:attribute name="useQuery" type="xsd:boolean" />
+        <!-- Property: InclSorting -->
+        <xsd:attribute name="inclSorting" type="xsd:boolean" />
+        <!-- Property: DisplayOrder -->
+        <xsd:attribute name="displayOrder" type="xsd:integer" />
+        <!-- Property: Attributes -->
+        <xsd:attribute name="attributes" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- ReadMethodModel Moniker -->
+  <xsd:element name="readMethodModelMoniker" type="ReadMethodModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:complexType name="ReadMethodModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for ReadMethodModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ModelRootMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
   <!-- Association -->
   <xsd:element name="association" type="Association" substitutionGroup="core:modelElement" />
   <xsd:complexType name="Association">
@@ -1275,6 +1381,86 @@
   <xsd:complexType name="ClassHasNavigationPropertiesMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ClassHasNavigationProperties instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- Property -->
+  <xsd:element name="property" type="Property" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="Property">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end PropertyModel -->
+          <xsd:element ref="propertyModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- Property Moniker -->
+  <xsd:element name="propertyMoniker" type="PropertyMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="PropertyMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for Property instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- FilterProperties -->
+  <xsd:element name="filterProperties" type="FilterProperties" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="FilterProperties">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end FilterPropertyModel -->
+          <xsd:element ref="filterPropertyModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- FilterProperties Moniker -->
+  <xsd:element name="filterPropertiesMoniker" type="FilterPropertiesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="FilterPropertiesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for FilterProperties instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

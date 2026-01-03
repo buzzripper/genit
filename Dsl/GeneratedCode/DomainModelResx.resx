@@ -741,6 +741,94 @@
     <value>Is Collection</value>
     <comment>DisplayName for DomainProperty &apos;IsCollection&apos; on DomainClass &apos;NavigationProperty&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModel</value>
+    <comment>Description for DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel.DisplayName" xml:space="preserve">
+    <value>Filter Property Model</value>
+    <comment>DisplayName for DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsOptional.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsOptional&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsOptional.DisplayName" xml:space="preserve">
+    <value>Is Optional</value>
+    <comment>DisplayName for DomainProperty &apos;IsOptional&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsInternal.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;IsInternal&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsInternal.DisplayName" xml:space="preserve">
+    <value>Is Internal</value>
+    <comment>DisplayName for DomainProperty &apos;IsInternal&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/InternalValue.Description" xml:space="preserve">
+    <value></value>
+    <comment>Description for DomainProperty &apos;InternalValue&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/InternalValue.DisplayName" xml:space="preserve">
+    <value>Internal Value</value>
+    <comment>DisplayName for DomainProperty &apos;InternalValue&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel</value>
+    <comment>Description for DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel.DisplayName" xml:space="preserve">
+    <value>Read Method Model</value>
+    <comment>DisplayName for DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/ItemId.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Item Id</value>
+    <comment>Description for DomainProperty &apos;ItemId&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/ItemId.DisplayName" xml:space="preserve">
+    <value>Item Id</value>
+    <comment>DisplayName for DomainProperty &apos;ItemId&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclPaging.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Incl Paging</value>
+    <comment>Description for DomainProperty &apos;InclPaging&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclPaging.DisplayName" xml:space="preserve">
+    <value>Incl Paging</value>
+    <comment>DisplayName for DomainProperty &apos;InclPaging&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/UseQuery.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Use Query</value>
+    <comment>Description for DomainProperty &apos;UseQuery&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/UseQuery.DisplayName" xml:space="preserve">
+    <value>Use Query</value>
+    <comment>DisplayName for DomainProperty &apos;UseQuery&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclSorting.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Incl Sorting</value>
+    <comment>Description for DomainProperty &apos;InclSorting&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclSorting.DisplayName" xml:space="preserve">
+    <value>Incl Sorting</value>
+    <comment>DisplayName for DomainProperty &apos;InclSorting&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/DisplayOrder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Display Order</value>
+    <comment>Description for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/DisplayOrder.DisplayName" xml:space="preserve">
+    <value>Display Order</value>
+    <comment>DisplayName for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/Attributes.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Attributes</value>
+    <comment>Description for DomainProperty &apos;Attributes&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/Attributes.DisplayName" xml:space="preserve">
+    <value>Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -1180,6 +1268,70 @@
   <data name="Dyvenix.GenIt.ClassHasNavigationProperties/NavigationProperty.PropertyDisplayName" xml:space="preserve">
     <value>Entity Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.Property</value>
+    <comment>Description for DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property.DisplayName" xml:space="preserve">
+    <value>Property</value>
+    <comment>DisplayName for DomainClass &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.Property.FilterPropertyModel</value>
+    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.DisplayName" xml:space="preserve">
+    <value>Filter Property Model</value>
+    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Property Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/PropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.Property.PropertyModel</value>
+    <comment>Description for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/PropertyModel.DisplayName" xml:space="preserve">
+    <value>Property Model</value>
+    <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.Property/PropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Filter Property Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterProperties</value>
+    <comment>Description for DomainClass &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties.DisplayName" xml:space="preserve">
+    <value>Filter Properties</value>
+    <comment>DisplayName for DomainClass &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel</value>
+    <comment>Description for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.DisplayName" xml:space="preserve">
+    <value>Read Method Model</value>
+    <comment>DisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.PropertyDisplayName" xml:space="preserve">
+    <value>Filter Property Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel</value>
+    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.DisplayName" xml:space="preserve">
+    <value>Filter Property Model</value>
+    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Read Method Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
     <value>ZeroOne</value>

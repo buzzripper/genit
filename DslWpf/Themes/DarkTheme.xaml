@@ -1,0 +1,42 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- VS 2026 Dark Theme Colors -->
+    
+    <!-- Background Colors -->
+    <SolidColorBrush x:Key="Theme.Background" Color="#252526"/>
+    <SolidColorBrush x:Key="Theme.Background.Window" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="Theme.Background.Control" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="Theme.Background.ControlLight" Color="#333337"/>
+    <SolidColorBrush x:Key="Theme.Background.ToolBar" Color="#2D2D30"/>
+    <SolidColorBrush x:Key="Theme.Background.Header" Color="#3C3C3C"/>
+    
+    <!-- Border Colors -->
+    <SolidColorBrush x:Key="Theme.Border" Color="#3F3F46"/>
+    <SolidColorBrush x:Key="Theme.Border.Dark" Color="#555555"/>
+    <SolidColorBrush x:Key="Theme.Border.Light" Color="#4D4D4D"/>
+    
+    <!-- Text Colors -->
+    <SolidColorBrush x:Key="Theme.Foreground" Color="#F1F1F1"/>
+    <SolidColorBrush x:Key="Theme.Foreground.Secondary" Color="#A0A0A0"/>
+    <SolidColorBrush x:Key="Theme.Foreground.Disabled" Color="#656565"/>
+    
+    <!-- Accent Colors -->
+    <SolidColorBrush x:Key="Theme.Accent" Color="#0E639C"/>
+    <SolidColorBrush x:Key="Theme.Accent.Hover" Color="#1177BB"/>
+    <SolidColorBrush x:Key="Theme.HotTrack" Color="#3794FF"/>
+    
+    <!-- DataGrid Colors -->
+    <SolidColorBrush x:Key="Theme.DataGrid.Background" Color="#252526"/>
+    <SolidColorBrush x:Key="Theme.DataGrid.RowBackground" Color="#1E1E1E"/>
+    <SolidColorBrush x:Key="Theme.DataGrid.AlternatingRowBackground" Color="#2A2A2D"/>
+    <SolidColorBrush x:Key="Theme.DataGrid.SelectedBackground" Color="#094771"/>
+    <SolidColorBrush x:Key="Theme.DataGrid.HeaderBackground" Color="#3C3C3C"/>
+    
+    <!-- Splitter Colors -->
+    <SolidColorBrush x:Key="Theme.Splitter" Color="#3F3F46"/>
+    
+    <!-- Status Colors -->
+    <SolidColorBrush x:Key="Theme.Delete" Color="#F14C4C"/>
+    
+</ResourceDictionary>

@@ -399,6 +399,65 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
+    <DomainClass Id="e97460a8-b0c2-4ad1-8647-ea4e27d2a20d" Description="Description for Dyvenix.GenIt.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ModelRoot" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="a62c7c1d-5ab4-4917-bd52-a13a77f94d63" Description="" Name="IsOptional" DisplayName="Is Optional">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b4574f7b-e7cf-4741-9f42-456b2cbafe9e" Description="" Name="IsInternal" DisplayName="Is Internal">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="fc2d5cff-abd9-4d0f-a208-dd028b12a0b3" Description="" Name="InternalValue" DisplayName="Internal Value">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
+    <DomainClass Id="d1adda56-215a-4935-b298-b323e4db36ae" Description="Description for Dyvenix.GenIt.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ModelRoot" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="3eba03a0-4a38-4b84-b92f-df0b6eb699d5" Description="Description for Dyvenix.GenIt.ReadMethodModel.Item Id" Name="ItemId" DisplayName="Item Id">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Guid" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="195dd15c-8511-4ac1-a981-4d3321013e64" Description="Description for Dyvenix.GenIt.ReadMethodModel.Incl Paging" Name="InclPaging" DisplayName="Incl Paging">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="14903356-51d9-4bdc-9d67-4cecc1d5236d" Description="Description for Dyvenix.GenIt.ReadMethodModel.Use Query" Name="UseQuery" DisplayName="Use Query">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="38e5475c-d4f4-4c0a-802f-1d7e1f992ba5" Description="Description for Dyvenix.GenIt.ReadMethodModel.Incl Sorting" Name="InclSorting" DisplayName="Incl Sorting">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="eb611af5-b2c6-40fc-a876-e09706222756" Description="Description for Dyvenix.GenIt.ReadMethodModel.Display Order" Name="DisplayOrder" DisplayName="Display Order">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="ae6548ac-6c00-4749-b7a6-ba456df529f8" Description="Description for Dyvenix.GenIt.ReadMethodModel.Attributes" Name="Attributes" DisplayName="Attributes">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
   </Classes>
   <Relationships>
     <DomainRelationship Id="4a55a93f-ffed-423c-ad69-a1b5c9c85a1e" Description="Associations between Classes." Name="Association" DisplayName="Association" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
@@ -621,6 +680,38 @@
         <DomainRole Id="f6a7b8c9-d0e1-2345-6789-abcdef012345" Description="" Name="NavigationProperty" DisplayName="Navigation Property" PropertyName="EntityModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Model">
           <RolePlayer>
             <DomainClassMoniker Name="NavigationProperty" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="5284b992-a619-46e6-9ec8-41ca28fc0fa7" Description="Description for Dyvenix.GenIt.Property" Name="Property" DisplayName="Property" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="17d276ff-cd02-40a8-99a1-29bdfff796bf" Description="Description for Dyvenix.GenIt.Property.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="PropertyModel" Multiplicity="One" PropertyDisplayName="Property Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="FilterPropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.Property.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="One" PropertyDisplayName="Filter Property Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="PropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="32cb6cdb-1478-47f4-829d-937554a834f2" Description="Description for Dyvenix.GenIt.FilterProperties" Name="FilterProperties" DisplayName="Filter Properties" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="0f995100-09ad-4176-ade0-88937e672b83" Description="Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="FilterPropertyModeled" PropertyDisplayName="Filter Property Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="ReadMethodModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="a86dafce-f80a-4f02-93e8-25e90ad5cfa9" Description="Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="ReadMethodModeled" PropertyDisplayName="Read Method Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="FilterPropertyModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -1068,6 +1159,55 @@
       <XmlClassData TypeName="EnumShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumShapeMoniker" ElementName="enumShape" MonikerTypeName="EnumShapeMoniker">
         <CompartmentShapeMoniker Name="EnumShape" />
       </XmlClassData>
+      <XmlClassData TypeName="FilterPropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelMoniker" ElementName="filterPropertyModel" MonikerTypeName="FilterPropertyModelMoniker">
+        <DomainClassMoniker Name="FilterPropertyModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="isOptional">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsOptional" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isInternal">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsInternal" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="internalValue">
+            <DomainPropertyMoniker Name="FilterPropertyModel/InternalValue" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
+            <DomainRelationshipMoniker Name="Property" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="Property" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyMoniker" ElementName="property" MonikerTypeName="PropertyMoniker">
+        <DomainRelationshipMoniker Name="Property" />
+      </XmlClassData>
+      <XmlClassData TypeName="ReadMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelMoniker" ElementName="readMethodModel" MonikerTypeName="ReadMethodModelMoniker">
+        <DomainClassMoniker Name="ReadMethodModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="itemId">
+            <DomainPropertyMoniker Name="ReadMethodModel/ItemId" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclPaging">
+            <DomainPropertyMoniker Name="ReadMethodModel/InclPaging" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useQuery">
+            <DomainPropertyMoniker Name="ReadMethodModel/UseQuery" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclSorting">
+            <DomainPropertyMoniker Name="ReadMethodModel/InclSorting" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayOrder">
+            <DomainPropertyMoniker Name="ReadMethodModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="attributes">
+            <DomainPropertyMoniker Name="ReadMethodModel/Attributes" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="filterPropertyModeled">
+            <DomainRelationshipMoniker Name="FilterProperties" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="FilterProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertiesMoniker" ElementName="filterProperties" MonikerTypeName="FilterPropertiesMoniker">
+        <DomainRelationshipMoniker Name="FilterProperties" />
+      </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
   <ExplorerBehavior Name="GenItExplorer" />
@@ -1151,6 +1291,44 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="EnumModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="PropertyBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="Property" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="FilterPropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="PropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="FilterPropertiesBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="FilterProperties" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ReadMethodModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="FilterPropertyModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>

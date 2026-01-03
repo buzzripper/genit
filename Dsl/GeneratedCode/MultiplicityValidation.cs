@@ -10,5 +10,53 @@
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
 using DslValidation = global::Microsoft.VisualStudio.Modeling.Validation;
+namespace Dyvenix.GenIt
+{
+	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
+	public partial class PropertyModel
+	{
+		/// <summary>
+		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
+		/// </summary>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
+		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
+		private void ValidatePropertyModelMultiplicity (DslValidation::ValidationContext context)
+		{
+			if (this.FilterPropertyModel == null)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"PropertyModel", this.Name, "FilterPropertyModel"),
+						"DSL0001", this);
+			}
+		} // ValidatePropertyModelMultiplicity
+	} // class PropertyModel
+} // Dyvenix.GenIt
+
+namespace Dyvenix.GenIt
+{
+	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
+	public partial class FilterPropertyModel
+	{
+		/// <summary>
+		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
+		/// </summary>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
+		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
+		private void ValidateFilterPropertyModelMultiplicity (DslValidation::ValidationContext context)
+		{
+			if (this.PropertyModel == null)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"FilterPropertyModel", this.Name, "PropertyModel"),
+						"DSL0001", this);
+			}
+		} // ValidateFilterPropertyModelMultiplicity
+	} // class FilterPropertyModel
+} // Dyvenix.GenIt
+
 	
  
