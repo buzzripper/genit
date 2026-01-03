@@ -412,7 +412,7 @@ namespace Dyvenix.GenIt
 			{
 				global::Dyvenix.GenIt.EntityModel root = (global::Dyvenix.GenIt.EntityModel)rootElement;
 					// Segments 0 and 1
-					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.ServiceModel> result = root.ServiceModeled;
+					DslModeling::LinkedElementCollection<global::Dyvenix.GenIt.ServiceModel> result = root.ServiceModels;
 				return result;
 			}
 			#endregion

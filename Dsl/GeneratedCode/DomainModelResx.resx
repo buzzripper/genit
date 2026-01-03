@@ -1566,7 +1566,7 @@
     <comment>DisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName" xml:space="preserve">
-    <value>Service Modeled</value>
+    <value>Service Models</value>
     <comment>PropertyDisplayName for DomainRole &apos;EntityModel&apos; on DomainRelationship &apos;EntityModelHasServiceModels&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.Description" xml:space="preserve">

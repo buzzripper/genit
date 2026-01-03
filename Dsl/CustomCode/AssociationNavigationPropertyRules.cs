@@ -706,16 +706,14 @@ namespace Dyvenix.GenIt
             // Only set version if it's empty (not already set)
             if (string.IsNullOrEmpty(serviceModel.Version))
             {
-                // Count existing services to determine the version number
-                int versionNumber = entityModel.ServiceModeled.Count;
+                // Count is already updated to include the new service, so use it directly
+                // e.g., if this is the first service, Count = 1, so Version = "v1"
+                int versionNumber = entityModel.ServiceModels.Count;
                 serviceModel.Version = $"v{versionNumber}";
             }
 
             // Set default values for new service
-            if (!serviceModel.Enabled)
-            {
-                serviceModel.Enabled = true;
-            }
+            serviceModel.Enabled = true;
         }
     }
 }

@@ -4489,7 +4489,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ServiceModels", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("4af6262f-0c9f-463a-a5ee-96eb899348b1")]
 		public virtual EntityModel EntityModel
 		{
@@ -4557,13 +4557,13 @@ namespace Dyvenix.GenIt
 		}
 				
 		#endregion
-		#region Static methods to access ServiceModeled of a EntityModel
+		#region Static methods to access ServiceModels of a EntityModel
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets a list of ServiceModels.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ServiceModel> GetServiceModeled(EntityModel element)
+		public static DslModeling::LinkedElementCollection<ServiceModel> GetServiceModels(EntityModel element)
 		{
 			return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(element, EntityModelDomainRoleId);
 		}
@@ -4574,7 +4574,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelHasServiceModels> GetLinksToServiceModeled ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelHasServiceModels> GetLinksToServiceModels ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
 		{
 			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelHasServiceModels>(entityModelInstance, global::Dyvenix.GenIt.EntityModelHasServiceModels.EntityModelDomainRoleId);
 		}

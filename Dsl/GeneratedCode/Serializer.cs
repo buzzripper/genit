@@ -2131,16 +2131,16 @@ namespace Dyvenix.GenIt
 							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </targets>
 						}
 						break;
-					case "serviceModeled":	// Relationship "EntityModelHasServiceModels"
+					case "serviceModels":	// Relationship "EntityModelHasServiceModels"
 						if (reader.IsEmptyElement)
 						{	// No instance of this relationship, just skip
 							DslModeling::SerializationUtilities.Skip(reader);
 						}
 						else
 						{
-							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <serviceModeled>
+							DslModeling::SerializationUtilities.SkipToFirstChild(reader);  // Skip the open tag of <serviceModels>
 							ReadEntityModelHasServiceModelsInstances(serializationContext, element, reader);
-							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </serviceModeled>
+							DslModeling::SerializationUtilities.Skip(reader);  // Skip the close tag of </serviceModels>
 						}
 						break;
 					default:
@@ -2372,7 +2372,7 @@ namespace Dyvenix.GenIt
 					if (newServiceModelOfEntityModelHasServiceModels != null)
 					{
 						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(EntityModelHasServiceModels));
-						element.ServiceModeled.Add(newServiceModelOfEntityModelHasServiceModels);
+						element.ServiceModels.Add(newServiceModelOfEntityModelHasServiceModels);
 						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newServiceModelOfEntityModelHasServiceModels.GetDomainClass().Id);	
 						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newServiceModelOfEntityModelHasServiceModels.GetDomainClass().Name + "!");
 						targetSerializer.Read(serializationContext, newServiceModelOfEntityModelHasServiceModels, reader);
@@ -2950,10 +2950,10 @@ namespace Dyvenix.GenIt
 			}
 	
 			// EntityModelHasServiceModels
-			global::System.Collections.ObjectModel.ReadOnlyCollection<EntityModelHasServiceModels> allEntityModelHasServiceModelsInstances = EntityModelHasServiceModels.GetLinksToServiceModeled(element);
+			global::System.Collections.ObjectModel.ReadOnlyCollection<EntityModelHasServiceModels> allEntityModelHasServiceModelsInstances = EntityModelHasServiceModels.GetLinksToServiceModels(element);
 			if (!serializationContext.Result.Failed && allEntityModelHasServiceModelsInstances.Count > 0)
 			{
-				writer.WriteStartElement("serviceModeled");
+				writer.WriteStartElement("serviceModels");
 				foreach (EntityModelHasServiceModels eachEntityModelHasServiceModelsInstance in allEntityModelHasServiceModelsInstances)
 				{
 					if (serializationContext.Result.Failed)

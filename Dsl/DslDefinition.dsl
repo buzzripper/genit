@@ -158,7 +158,7 @@
             <DomainClassMoniker Name="ServiceModel" />
           </Index>
           <LinkCreationPaths>
-            <DomainPath>EntityModelHasServiceModels.ServiceModeled</DomainPath>
+            <DomainPath>EntityModelHasServiceModels.ServiceModels</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
       </ElementMergeDirectives>
@@ -845,7 +845,7 @@
     </DomainRelationship>
     <DomainRelationship Id="f7eaeabe-cc43-4898-9c7f-0576609f30e5" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels" Name="EntityModelHasServiceModels" DisplayName="Entity Model Has Service Models" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="4af6262f-0c9f-463a-a5ee-96eb899348b1" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel" Name="EntityModel" DisplayName="Entity Model" PropertyName="ServiceModeled" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Service Modeled">
+        <DomainRole Id="4af6262f-0c9f-463a-a5ee-96eb899348b1" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel" Name="EntityModel" DisplayName="Entity Model" PropertyName="ServiceModels" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Service Models">
           <RolePlayer>
             <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
@@ -1117,7 +1117,7 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="targets">
             <DomainRelationshipMoniker Name="Association" />
           </XmlRelationshipData>
-          <XmlRelationshipData UseFullForm="true" RoleElementName="serviceModeled">
+          <XmlRelationshipData UseFullForm="true" RoleElementName="serviceModels">
             <DomainRelationshipMoniker Name="EntityModelHasServiceModels" />
           </XmlRelationshipData>
         </ElementData>
@@ -1690,7 +1690,7 @@
         <CompartmentMap>
           <CompartmentMoniker Name="ClassShape/ServiceMethods" />
           <ElementsDisplayed>
-            <DomainPath>EntityModelHasServiceModels.ServiceModeled/!ServiceModel</DomainPath>
+            <DomainPath>EntityModelHasServiceModels.ServiceModels/!ServiceModel</DomainPath>
           </ElementsDisplayed>
           <PropertyDisplayed>
             <PropertyPath>

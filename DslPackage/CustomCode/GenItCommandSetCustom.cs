@@ -180,7 +180,7 @@ namespace Dyvenix.GenIt
 		}
 
 		/// <summary>
-		/// Event handler to add a new ServiceModel to the EntityModel's ServiceModeled collection
+		/// Event handler to add a new ServiceModel to the EntityModel's ServiceModels collection
 		/// </summary>
 		private void OnMenuAddNewService(object sender, EventArgs args)
 		{
@@ -226,7 +226,7 @@ namespace Dyvenix.GenIt
 				using (Transaction transaction = entityModel.Store.TransactionManager.BeginTransaction("Add New Service"))
 				{
 					// Determine the version number based on existing services
-					int nextVersion = entityModel.ServiceModeled.Count + 1;
+					int nextVersion = entityModel.ServiceModels.Count + 1;
 					string versionString = $"v{nextVersion}";
 
 					// Create the new ServiceModel
@@ -241,7 +241,7 @@ namespace Dyvenix.GenIt
 					newService.InclDelete = true;
 					newService.InclController = true;
 
-					// Create the relationship link to add it to the EntityModel's ServiceModeled collection
+					// Create the relationship link to add it to the EntityModel's ServiceModels collection
 					new EntityModelHasServiceModels(entityModel, newService);
 
 					transaction.Commit();

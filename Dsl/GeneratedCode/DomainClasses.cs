@@ -2122,13 +2122,13 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region ServiceModeled opposite domain role accessor
+		#region ServiceModels opposite domain role accessor
 		
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets a list of ServiceModels.
 		/// Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ServiceModel> ServiceModeled
+		public virtual DslModeling::LinkedElementCollection<ServiceModel> ServiceModels
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -2217,8 +2217,8 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.ServiceModel sourceServiceModel3 = sourceElement as global::Dyvenix.GenIt.ServiceModel;
 			if (sourceServiceModel3 != null)
 			{
-				// Create link for path EntityModelHasServiceModels.ServiceModeled
-				this.ServiceModeled.Add(sourceServiceModel3);
+				// Create link for path EntityModelHasServiceModels.ServiceModels
+				this.ServiceModels.Add(sourceServiceModel3);
 
 				return;
 			}
@@ -2276,7 +2276,7 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.ServiceModel sourceServiceModel3 = sourceElement as global::Dyvenix.GenIt.ServiceModel;
 			if (sourceServiceModel3 != null)
 			{
-				// Delete link for path EntityModelHasServiceModels.ServiceModeled
+				// Delete link for path EntityModelHasServiceModels.ServiceModels
 				
 				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.EntityModelHasServiceModels.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourceServiceModel3))
 				{
