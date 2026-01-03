@@ -3577,19 +3577,38 @@ namespace Dyvenix.GenIt
 		#region FilterPropertyModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets FilterPropertyModel.
-		/// Description for Dyvenix.GenIt.Property.PropertyModel
+		/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel
 		/// </summary>
 		public virtual FilterPropertyModel FilterPropertyModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.Property.PropertyModelDomainRoleId) as FilterPropertyModel;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId) as FilterPropertyModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.Property.PropertyModelDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region UpdatePropertyModel opposite domain role accessor
+		/// <summary>
+		/// Gets or sets UpdatePropertyModel.
+		/// Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel
+		/// </summary>
+		public virtual UpdatePropertyModel UpdatePropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId) as UpdatePropertyModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -5905,19 +5924,19 @@ namespace Dyvenix.GenIt
 		#region PropertyModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets PropertyModel.
-		/// Description for Dyvenix.GenIt.Property.FilterPropertyModel
+		/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModel
 		/// </summary>
 		public virtual PropertyModel PropertyModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.Property.FilterPropertyModelDomainRoleId) as PropertyModel;
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId) as PropertyModel;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.Property.FilterPropertyModelDomainRoleId, value);
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -5925,14 +5944,15 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// Gets a list of ReadMethodModeled.
-		/// Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel
+		/// Description for
+		/// Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel
 		/// </summary>
 		public virtual DslModeling::LinkedElementCollection<ReadMethodModel> ReadMethodModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(global::Dyvenix.GenIt.FilterProperties.FilterPropertyModelDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -6503,14 +6523,496 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// Gets a list of FilterPropertyModeled.
-		/// Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel
 		/// </summary>
 		public virtual DslModeling::LinkedElementCollection<FilterPropertyModel> FilterPropertyModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(global::Dyvenix.GenIt.FilterProperties.ReadMethodModelDomainRoleId);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId);
+			}
+		}
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass UpdatePropertyModel
+	/// Description for Dyvenix.GenIt.UpdatePropertyModel
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("dfb40532-a576-4b0e-bebe-90c3c47c3ae3")]
+	public partial class UpdatePropertyModel : ModelRoot
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// UpdatePropertyModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xdfb40532, 0xa576, 0x4b0e, 0xbe, 0xbe, 0x90, 0xc3, 0xc4, 0x7c, 0x3a, 0xe3);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public UpdatePropertyModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public UpdatePropertyModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region IsOptional domain property code
+		
+		/// <summary>
+		/// IsOptional domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsOptionalDomainPropertyId = new global::System.Guid(0xf5660c8b, 0x88ae, 0x4d6d, 0x83, 0x04, 0x0d, 0x08, 0x00, 0x78, 0x82, 0x62);
+		
+		/// <summary>
+		/// Storage for IsOptional
+		/// </summary>
+		private global::System.Boolean isOptionalPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsOptional domain property.
+		/// Description for Dyvenix.GenIt.UpdatePropertyModel.Is Optional
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModel/IsOptional.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModel/IsOptional.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("f5660c8b-88ae-4d6d-8304-0d0800788262")]
+		public global::System.Boolean IsOptional
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isOptionalPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsOptionalPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdatePropertyModel.IsOptional domain property.
+		/// </summary>
+		internal sealed partial class IsOptionalPropertyHandler : DslModeling::DomainPropertyValueHandler<UpdatePropertyModel, global::System.Boolean>
+		{
+			private IsOptionalPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdatePropertyModel.IsOptional domain property value handler.
+			/// </summary>
+			public static readonly IsOptionalPropertyHandler Instance = new IsOptionalPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdatePropertyModel.IsOptional domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsOptionalDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(UpdatePropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isOptionalPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdatePropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isOptionalPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region PropertyModel opposite domain role accessor
+		/// <summary>
+		/// Gets or sets PropertyModel.
+		/// Description for
+		/// Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModel
+		/// </summary>
+		public virtual PropertyModel PropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId) as PropertyModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region UpdateMethodModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of UpdateMethodModeled.
+		/// Description for
+		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<UpdateMethodModel> UpdateMethodModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdateMethodModel>, UpdateMethodModel>(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId);
+			}
+		}
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass UpdateMethodModel
+	/// Description for Dyvenix.GenIt.UpdateMethodModel
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("0d0babe0-406d-490d-ae7a-47ad0ddb6081")]
+	public partial class UpdateMethodModel : ModelRoot
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// UpdateMethodModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x0d0babe0, 0x406d, 0x490d, 0xae, 0x7a, 0x47, 0xad, 0x0d, 0xdb, 0x60, 0x81);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public UpdateMethodModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public UpdateMethodModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region ItemId domain property code
+		
+		/// <summary>
+		/// ItemId domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ItemIdDomainPropertyId = new global::System.Guid(0x880bb24a, 0xb5b9, 0x4816, 0x9f, 0x0a, 0xd9, 0x5d, 0x5d, 0x7f, 0x21, 0x0c);
+		
+		/// <summary>
+		/// Storage for ItemId
+		/// </summary>
+		private global::System.Guid itemIdPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of ItemId domain property.
+		/// Description for Dyvenix.GenIt.UpdateMethodModel.Item Id
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/ItemId.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/ItemId.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("880bb24a-b5b9-4816-9f0a-d95d5d7f210c")]
+		public global::System.Guid ItemId
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return itemIdPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ItemIdPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.ItemId domain property.
+		/// </summary>
+		internal sealed partial class ItemIdPropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.Guid>
+		{
+			private ItemIdPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.ItemId domain property value handler.
+			/// </summary>
+			public static readonly ItemIdPropertyHandler Instance = new ItemIdPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.ItemId domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ItemIdDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Guid GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.itemIdPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.Guid newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Guid oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.itemIdPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region UseDto domain property code
+		
+		/// <summary>
+		/// UseDto domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UseDtoDomainPropertyId = new global::System.Guid(0xe5e99a5a, 0x7ed8, 0x4c53, 0x86, 0xb0, 0x6c, 0xf9, 0xf4, 0x41, 0x5a, 0x97);
+		
+		/// <summary>
+		/// Storage for UseDto
+		/// </summary>
+		private global::System.Boolean useDtoPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of UseDto domain property.
+		/// Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/UseDto.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/UseDto.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("e5e99a5a-7ed8-4c53-86b0-6cf9f4415a97")]
+		public global::System.Boolean UseDto
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return useDtoPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UseDtoPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.UseDto domain property.
+		/// </summary>
+		internal sealed partial class UseDtoPropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.Boolean>
+		{
+			private UseDtoPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.UseDto domain property value handler.
+			/// </summary>
+			public static readonly UseDtoPropertyHandler Instance = new UseDtoPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.UseDto domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UseDtoDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.useDtoPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.useDtoPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DisplayOrder domain property code
+		
+		/// <summary>
+		/// DisplayOrder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DisplayOrderDomainPropertyId = new global::System.Guid(0x2d1897ce, 0xb2a7, 0x4cfb, 0xaf, 0x36, 0xb5, 0xf0, 0xc6, 0xc1, 0xcd, 0x13);
+		
+		/// <summary>
+		/// Storage for DisplayOrder
+		/// </summary>
+		private global::System.Int32 displayOrderPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of DisplayOrder domain property.
+		/// Description for Dyvenix.GenIt.UpdateMethodModel.Display Order
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("2d1897ce-b2a7-4cfb-af36-b5f0c6c1cd13")]
+		public global::System.Int32 DisplayOrder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return displayOrderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DisplayOrderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.DisplayOrder domain property.
+		/// </summary>
+		internal sealed partial class DisplayOrderPropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.Int32>
+		{
+			private DisplayOrderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.DisplayOrder domain property value handler.
+			/// </summary>
+			public static readonly DisplayOrderPropertyHandler Instance = new DisplayOrderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.DisplayOrder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DisplayOrderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Int32 GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.displayOrderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.Int32 newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Int32 oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.displayOrderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region PropertyModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of PropertyModels.
+		/// Description for
+		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<UpdatePropertyModel> PropertyModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdatePropertyModel>, UpdatePropertyModel>(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId);
 			}
 		}
 		#endregion

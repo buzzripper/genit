@@ -145,7 +145,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
 			var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-			var nullInit = !prop.IsNullable && prop.DataType == DataType.String && !prop.IsPrimaryKey && !prop.IsForeignKey ? " = null!;" : string.Empty;
+			var nullInit = prop.IsRowVersion || (!prop.IsNullable && prop.DataType == DataType.String && !prop.IsPrimaryKey && !prop.IsForeignKey) ? " = null!;" : string.Empty;
 
 			fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
 		}

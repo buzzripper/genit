@@ -3240,33 +3240,33 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainRelationship Property
-	/// Description for Dyvenix.GenIt.Property
+	/// DomainRelationship FilterPropertyModelHasProperty
+	/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.Property.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.Property.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterPropertyModelHasProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterPropertyModelHasProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("5284b992-a619-46e6-9ec8-41ca28fc0fa7")]
-	public partial class Property : DslModeling::ElementLink
+	public partial class FilterPropertyModelHasProperty : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
 		/// <summary>
-		/// Property domain class Id.
+		/// FilterPropertyModelHasProperty domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x5284b992, 0xa619, 0x46e6, 0x9e, 0xc8, 0x41, 0xca, 0x28, 0xfc, 0x0f, 0xa7);
 	
 				
 		/// <summary>
 		/// Constructor
-		/// Creates a Property link in the same Partition as the given FilterPropertyModel
+		/// Creates a FilterPropertyModelHasProperty link in the same Partition as the given FilterPropertyModel
 		/// </summary>
 		/// <param name="source">FilterPropertyModel to use as the source of the relationship.</param>
 		/// <param name="target">PropertyModel to use as the target of the relationship.</param>
-		public Property(FilterPropertyModel source, PropertyModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(Property.FilterPropertyModelDomainRoleId, source), new DslModeling::RoleAssignment(Property.PropertyModelDomainRoleId, target)}, null)
+		public FilterPropertyModelHasProperty(FilterPropertyModel source, PropertyModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId, source), new DslModeling::RoleAssignment(FilterPropertyModelHasProperty.PropertyModelDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -3275,7 +3275,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Property(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+		public FilterPropertyModelHasProperty(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
 		{
 		}
@@ -3286,7 +3286,7 @@ namespace Dyvenix.GenIt
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Property(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public FilterPropertyModelHasProperty(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3296,7 +3296,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public Property(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+		public FilterPropertyModelHasProperty(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(partition, roleAssignments, null)
 		{
 		}
@@ -3307,7 +3307,7 @@ namespace Dyvenix.GenIt
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public Property(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public FilterPropertyModelHasProperty(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3321,11 +3321,11 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// DomainRole FilterPropertyModel
-		/// Description for Dyvenix.GenIt.Property.FilterPropertyModel
+		/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModel
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Property/FilterPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Property/FilterPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.Property/FilterPropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
 		[DslModeling::DomainObjectId("17d276ff-cd02-40a8-99a1-29bdfff796bf")]
 		public virtual FilterPropertyModel FilterPropertyModel
 		{
@@ -3372,11 +3372,11 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// DomainRole PropertyModel
-		/// Description for Dyvenix.GenIt.Property.PropertyModel
+		/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.Property/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.Property/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "FilterPropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.Property/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "FilterPropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
 		[DslModeling::DomainObjectId("0b288384-2de6-4188-b81d-dd343d2c541a")]
 		public virtual PropertyModel PropertyModel
 		{
@@ -3416,13 +3416,13 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region FilterPropertyModel link accessor
 		/// <summary>
-		/// Get the Property link to a FilterPropertyModel.
+		/// Get the FilterPropertyModelHasProperty link to a FilterPropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.Property GetLinkToPropertyModel (global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance)
+		public static global::Dyvenix.GenIt.FilterPropertyModelHasProperty GetLinkToPropertyModel (global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance)
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Property> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Property>(filterPropertyModelInstance, global::Dyvenix.GenIt.Property.FilterPropertyModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(filterPropertyModelInstance, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId);
 			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of FilterPropertyModel not obeyed.");
 			if ( links.Count == 0 )
 			{
@@ -3436,13 +3436,13 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region PropertyModel link accessor
 		/// <summary>
-		/// Get the Property link to a PropertyModel.
+		/// Get the FilterPropertyModelHasProperty link to a PropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.Property GetLinkToFilterPropertyModel (global::Dyvenix.GenIt.PropertyModel propertyModelInstance)
+		public static global::Dyvenix.GenIt.FilterPropertyModelHasProperty GetLinkToFilterPropertyModel (global::Dyvenix.GenIt.PropertyModel propertyModelInstance)
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Property> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Property>(propertyModelInstance, global::Dyvenix.GenIt.Property.PropertyModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(propertyModelInstance, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId);
 			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of PropertyModel not obeyed.");
 			if ( links.Count == 0 )
 			{
@@ -3454,18 +3454,18 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region Property instance accessors
+		#region FilterPropertyModelHasProperty instance accessors
 		
 		/// <summary>
-		/// Get any Property links between a given FilterPropertyModel and a PropertyModel.
+		/// Get any FilterPropertyModelHasProperty links between a given FilterPropertyModel and a PropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.Property> GetLinks( global::Dyvenix.GenIt.FilterPropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> GetLinks( global::Dyvenix.GenIt.FilterPropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
 		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.Property> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.Property>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Property> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Property>(source, global::Dyvenix.GenIt.Property.FilterPropertyModelDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.Property link in links )
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(source, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.FilterPropertyModelHasProperty link in links )
 			{
 				if ( target.Equals(link.PropertyModel) )
 				{
@@ -3475,14 +3475,14 @@ namespace Dyvenix.GenIt
 			return outLinks.AsReadOnly();
 		}
 		/// <summary>
-		/// Get the one Property link between a given FilterPropertyModeland a PropertyModel.
+		/// Get the one FilterPropertyModelHasProperty link between a given FilterPropertyModeland a PropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.Property GetLink( global::Dyvenix.GenIt.FilterPropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
+		public static global::Dyvenix.GenIt.FilterPropertyModelHasProperty GetLink( global::Dyvenix.GenIt.FilterPropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.Property> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.Property>(source, global::Dyvenix.GenIt.Property.FilterPropertyModelDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.Property link in links )
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(source, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.FilterPropertyModelHasProperty link in links )
 			{
 				if ( target.Equals(link.PropertyModel) )
 				{
@@ -3498,33 +3498,33 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainRelationship FilterProperties
-	/// Description for Dyvenix.GenIt.FilterProperties
+	/// DomainRelationship ReadMethodModelHasFilterProperties
+	/// Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties
 	/// </summary>
-	[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-	[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainRelationship()]
 	[DslModeling::DomainObjectId("32cb6cdb-1478-47f4-829d-937554a834f2")]
-	public partial class FilterProperties : DslModeling::ElementLink
+	public partial class ReadMethodModelHasFilterProperties : DslModeling::ElementLink
 	{
 		#region Constructors, domain class Id
 		
 		/// <summary>
-		/// FilterProperties domain class Id.
+		/// ReadMethodModelHasFilterProperties domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x32cb6cdb, 0x1478, 0x47f4, 0x82, 0x9d, 0x93, 0x75, 0x54, 0xa8, 0x34, 0xf2);
 	
 				
 		/// <summary>
 		/// Constructor
-		/// Creates a FilterProperties link in the same Partition as the given ReadMethodModel
+		/// Creates a ReadMethodModelHasFilterProperties link in the same Partition as the given ReadMethodModel
 		/// </summary>
 		/// <param name="source">ReadMethodModel to use as the source of the relationship.</param>
 		/// <param name="target">FilterPropertyModel to use as the target of the relationship.</param>
-		public FilterProperties(ReadMethodModel source, FilterPropertyModel target)
-			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(FilterProperties.ReadMethodModelDomainRoleId, source), new DslModeling::RoleAssignment(FilterProperties.FilterPropertyModelDomainRoleId, target)}, null)
+		public ReadMethodModelHasFilterProperties(ReadMethodModel source, FilterPropertyModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId, source), new DslModeling::RoleAssignment(ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, target)}, null)
 		{
 		}
 		
@@ -3533,7 +3533,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public FilterProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+		public ReadMethodModelHasFilterProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
 		{
 		}
@@ -3544,7 +3544,7 @@ namespace Dyvenix.GenIt
 		/// <param name="store">Store where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public FilterProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public ReadMethodModelHasFilterProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3554,7 +3554,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
-		public FilterProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+		public ReadMethodModelHasFilterProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
 			: base(partition, roleAssignments, null)
 		{
 		}
@@ -3565,7 +3565,7 @@ namespace Dyvenix.GenIt
 		/// <param name="partition">Partition where new link is to be created.</param>
 		/// <param name="roleAssignments">List of relationship role assignments.</param>
 		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
-		public FilterProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+		public ReadMethodModelHasFilterProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
 			: base(partition, roleAssignments, propertyAssignments)
 		{
 		}
@@ -3579,11 +3579,11 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// DomainRole ReadMethodModel
-		/// Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterProperties/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterProperties/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "FilterPropertyModeled", PropertyDisplayNameKey="Dyvenix.GenIt.FilterProperties/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "FilterPropertyModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("0f995100-09ad-4176-ade0-88937e672b83")]
 		public virtual ReadMethodModel ReadMethodModel
 		{
@@ -3620,11 +3620,12 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// DomainRole FilterPropertyModel
-		/// Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel
+		/// Description for
+		/// Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterProperties/FilterPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterProperties/FilterPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("a86dafce-f80a-4f02-93e8-25e90ad5cfa9")]
 		public virtual FilterPropertyModel FilterPropertyModel
 		{
@@ -3654,38 +3655,38 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region ReadMethodModel link accessor
 		/// <summary>
-		/// Get the list of FilterProperties links to a ReadMethodModel.
+		/// Get the list of ReadMethodModelHasFilterProperties links to a ReadMethodModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.FilterProperties> GetLinksToFilterPropertyModeled ( global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> GetLinksToFilterPropertyModeled ( global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterProperties>(readMethodModelInstance, global::Dyvenix.GenIt.FilterProperties.ReadMethodModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(readMethodModelInstance, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId);
 		}
 		#endregion
 		#region FilterPropertyModel link accessor
 		/// <summary>
-		/// Get the list of FilterProperties links to a FilterPropertyModel.
+		/// Get the list of ReadMethodModelHasFilterProperties links to a FilterPropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.FilterProperties> GetLinksToReadMethodModeled ( global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> GetLinksToReadMethodModeled ( global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance )
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterProperties>(filterPropertyModelInstance, global::Dyvenix.GenIt.FilterProperties.FilterPropertyModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(filterPropertyModelInstance, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId);
 		}
 		#endregion
-		#region FilterProperties instance accessors
+		#region ReadMethodModelHasFilterProperties instance accessors
 		
 		/// <summary>
-		/// Get any FilterProperties links between a given ReadMethodModel and a FilterPropertyModel.
+		/// Get any ReadMethodModelHasFilterProperties links between a given ReadMethodModel and a FilterPropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.FilterProperties> GetLinks( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.FilterPropertyModel target )
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> GetLinks( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.FilterPropertyModel target )
 		{
-			global::System.Collections.Generic.List<global::Dyvenix.GenIt.FilterProperties> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.FilterProperties>();
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterProperties>(source, global::Dyvenix.GenIt.FilterProperties.ReadMethodModelDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.FilterProperties link in links )
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(source, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties link in links )
 			{
 				if ( target.Equals(link.FilterPropertyModel) )
 				{
@@ -3695,16 +3696,497 @@ namespace Dyvenix.GenIt
 			return outLinks.AsReadOnly();
 		}
 		/// <summary>
-		/// Get the one FilterProperties link between a given ReadMethodModeland a FilterPropertyModel.
+		/// Get the one ReadMethodModelHasFilterProperties link between a given ReadMethodModeland a FilterPropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.FilterProperties GetLink( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.FilterPropertyModel target )
+		public static global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties GetLink( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.FilterPropertyModel target )
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterProperties>(source, global::Dyvenix.GenIt.FilterProperties.ReadMethodModelDomainRoleId);
-			foreach ( global::Dyvenix.GenIt.FilterProperties link in links )
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(source, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties link in links )
 			{
 				if ( target.Equals(link.FilterPropertyModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship UpdatePropertyModelHasPropertyModel
+	/// Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("d46acff7-473f-47fa-b427-5d628500c5a0")]
+	public partial class UpdatePropertyModelHasPropertyModel : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// UpdatePropertyModelHasPropertyModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xd46acff7, 0x473f, 0x47fa, 0xb4, 0x27, 0x5d, 0x62, 0x85, 0x00, 0xc5, 0xa0);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a UpdatePropertyModelHasPropertyModel link in the same Partition as the given UpdatePropertyModel
+		/// </summary>
+		/// <param name="source">UpdatePropertyModel to use as the source of the relationship.</param>
+		/// <param name="target">PropertyModel to use as the target of the relationship.</param>
+		public UpdatePropertyModelHasPropertyModel(UpdatePropertyModel source, PropertyModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId, source), new DslModeling::RoleAssignment(UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public UpdatePropertyModelHasPropertyModel(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public UpdatePropertyModelHasPropertyModel(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public UpdatePropertyModelHasPropertyModel(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public UpdatePropertyModelHasPropertyModel(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region UpdatePropertyModel domain role code
+		
+		/// <summary>
+		/// UpdatePropertyModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid UpdatePropertyModelDomainRoleId = new global::System.Guid(0xad66d0c1, 0xb9fe, 0x4aa8, 0x86, 0x38, 0x8a, 0xa7, 0x2d, 0x16, 0x2d, 0xcf);
+		
+		/// <summary>
+		/// DomainRole UpdatePropertyModel
+		/// Description for
+		/// Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("ad66d0c1-b9fe-4aa8-8638-8aa72d162dcf")]
+		public virtual UpdatePropertyModel UpdatePropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (UpdatePropertyModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, UpdatePropertyModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, UpdatePropertyModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access UpdatePropertyModel of a PropertyModel
+		/// <summary>
+		/// Gets UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static UpdatePropertyModel GetUpdatePropertyModel(PropertyModel element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, PropertyModelDomainRoleId) as UpdatePropertyModel;
+		}
+		
+		/// <summary>
+		/// Sets UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetUpdatePropertyModel(PropertyModel element, UpdatePropertyModel newUpdatePropertyModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, PropertyModelDomainRoleId, newUpdatePropertyModel);
+		}
+		#endregion
+		#region PropertyModel domain role code
+		
+		/// <summary>
+		/// PropertyModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid PropertyModelDomainRoleId = new global::System.Guid(0x201fa5a7, 0x23e9, 0x4b3c, 0x8b, 0xe8, 0x3a, 0xea, 0x92, 0xdc, 0x11, 0xe6);
+		
+		/// <summary>
+		/// DomainRole PropertyModel
+		/// Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdatePropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("201fa5a7-23e9-4b3c-8be8-3aea92dc11e6")]
+		public virtual PropertyModel PropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (PropertyModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, PropertyModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, PropertyModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access PropertyModel of a UpdatePropertyModel
+		/// <summary>
+		/// Gets PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static PropertyModel GetPropertyModel(UpdatePropertyModel element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, UpdatePropertyModelDomainRoleId) as PropertyModel;
+		}
+		
+		/// <summary>
+		/// Sets PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetPropertyModel(UpdatePropertyModel element, PropertyModel newPropertyModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, UpdatePropertyModelDomainRoleId, newPropertyModel);
+		}
+		#endregion
+		#region UpdatePropertyModel link accessor
+		/// <summary>
+		/// Get the UpdatePropertyModelHasPropertyModel link to a UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel GetLinkToPropertyModel (global::Dyvenix.GenIt.UpdatePropertyModel updatePropertyModelInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(updatePropertyModelInstance, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of UpdatePropertyModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region PropertyModel link accessor
+		/// <summary>
+		/// Get the UpdatePropertyModelHasPropertyModel link to a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel GetLinkToUpdatePropertyModel (global::Dyvenix.GenIt.PropertyModel propertyModelInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(propertyModelInstance, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of PropertyModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region UpdatePropertyModelHasPropertyModel instance accessors
+		
+		/// <summary>
+		/// Get any UpdatePropertyModelHasPropertyModel links between a given UpdatePropertyModel and a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> GetLinks( global::Dyvenix.GenIt.UpdatePropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(source, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel link in links )
+			{
+				if ( target.Equals(link.PropertyModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one UpdatePropertyModelHasPropertyModel link between a given UpdatePropertyModeland a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel GetLink( global::Dyvenix.GenIt.UpdatePropertyModel source, global::Dyvenix.GenIt.PropertyModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(source, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel link in links )
+			{
+				if ( target.Equals(link.PropertyModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship UpdateMethodModelHasUpdateProperties
+	/// Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("b00efb37-ec59-40d2-af39-bdd942b5d4f4")]
+	public partial class UpdateMethodModelHasUpdateProperties : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// UpdateMethodModelHasUpdateProperties domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb00efb37, 0xec59, 0x40d2, 0xaf, 0x39, 0xbd, 0xd9, 0x42, 0xb5, 0xd4, 0xf4);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a UpdateMethodModelHasUpdateProperties link in the same Partition as the given UpdateMethodModel
+		/// </summary>
+		/// <param name="source">UpdateMethodModel to use as the source of the relationship.</param>
+		/// <param name="target">UpdatePropertyModel to use as the target of the relationship.</param>
+		public UpdateMethodModelHasUpdateProperties(UpdateMethodModel source, UpdatePropertyModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId, source), new DslModeling::RoleAssignment(UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public UpdateMethodModelHasUpdateProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public UpdateMethodModelHasUpdateProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public UpdateMethodModelHasUpdateProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public UpdateMethodModelHasUpdateProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region UpdateMethodModel domain role code
+		
+		/// <summary>
+		/// UpdateMethodModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid UpdateMethodModelDomainRoleId = new global::System.Guid(0xc15ab607, 0x9c3b, 0x49cb, 0xb7, 0x0a, 0xf8, 0x73, 0x77, 0xd3, 0x19, 0xd7);
+		
+		/// <summary>
+		/// DomainRole UpdateMethodModel
+		/// Description for
+		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.OneMany)]
+		[DslModeling::DomainObjectId("c15ab607-9c3b-49cb-b70a-f87377d319d7")]
+		public virtual UpdateMethodModel UpdateMethodModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (UpdateMethodModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, UpdateMethodModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, UpdateMethodModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access UpdateMethodModeled of a UpdatePropertyModel
+		/// <summary>
+		/// Gets a list of UpdateMethodModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<UpdateMethodModel> GetUpdateMethodModeled(UpdatePropertyModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<UpdateMethodModel>, UpdateMethodModel>(element, UpdatePropertyModelDomainRoleId);
+		}
+		#endregion
+		#region UpdatePropertyModel domain role code
+		
+		/// <summary>
+		/// UpdatePropertyModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid UpdatePropertyModelDomainRoleId = new global::System.Guid(0xcc20809a, 0xf025, 0x4bd0, 0xbc, 0x76, 0x51, 0x67, 0x42, 0x2f, 0xd8, 0x73);
+		
+		/// <summary>
+		/// DomainRole UpdatePropertyModel
+		/// Description for
+		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdateMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("cc20809a-f025-4bd0-bc76-5167422fd873")]
+		public virtual UpdatePropertyModel UpdatePropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (UpdatePropertyModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, UpdatePropertyModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, UpdatePropertyModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access PropertyModels of a UpdateMethodModel
+		/// <summary>
+		/// Gets a list of PropertyModels.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<UpdatePropertyModel> GetPropertyModels(UpdateMethodModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<UpdatePropertyModel>, UpdatePropertyModel>(element, UpdateMethodModelDomainRoleId);
+		}
+		#endregion
+		#region UpdateMethodModel link accessor
+		/// <summary>
+		/// Get the list of UpdateMethodModelHasUpdateProperties links to a UpdateMethodModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> GetLinksToPropertyModels ( global::Dyvenix.GenIt.UpdateMethodModel updateMethodModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(updateMethodModelInstance, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId);
+		}
+		#endregion
+		#region UpdatePropertyModel link accessor
+		/// <summary>
+		/// Get the list of UpdateMethodModelHasUpdateProperties links to a UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> GetLinksToUpdateMethodModeled ( global::Dyvenix.GenIt.UpdatePropertyModel updatePropertyModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(updatePropertyModelInstance, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId);
+		}
+		#endregion
+		#region UpdateMethodModelHasUpdateProperties instance accessors
+		
+		/// <summary>
+		/// Get any UpdateMethodModelHasUpdateProperties links between a given UpdateMethodModel and a UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> GetLinks( global::Dyvenix.GenIt.UpdateMethodModel source, global::Dyvenix.GenIt.UpdatePropertyModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(source, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties link in links )
+			{
+				if ( target.Equals(link.UpdatePropertyModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one UpdateMethodModelHasUpdateProperties link between a given UpdateMethodModeland a UpdatePropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties GetLink( global::Dyvenix.GenIt.UpdateMethodModel source, global::Dyvenix.GenIt.UpdatePropertyModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(source, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties link in links )
+			{
+				if ( target.Equals(link.UpdatePropertyModel) )
 				{
 					return link;
 				}

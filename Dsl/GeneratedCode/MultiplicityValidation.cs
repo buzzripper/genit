@@ -30,6 +30,14 @@ namespace Dyvenix.GenIt
 						"PropertyModel", this.Name, "FilterPropertyModel"),
 						"DSL0001", this);
 			}
+			if (this.UpdatePropertyModel == null)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"PropertyModel", this.Name, "UpdatePropertyModel"),
+						"DSL0001", this);
+			}
 		} // ValidatePropertyModelMultiplicity
 	} // class PropertyModel
 } // Dyvenix.GenIt
@@ -56,6 +64,54 @@ namespace Dyvenix.GenIt
 			}
 		} // ValidateFilterPropertyModelMultiplicity
 	} // class FilterPropertyModel
+} // Dyvenix.GenIt
+
+namespace Dyvenix.GenIt
+{
+	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
+	public partial class UpdatePropertyModel
+	{
+		/// <summary>
+		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
+		/// </summary>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
+		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
+		private void ValidateUpdatePropertyModelMultiplicity (DslValidation::ValidationContext context)
+		{
+			if (this.PropertyModel == null)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"UpdatePropertyModel", this.Name, "PropertyModel"),
+						"DSL0001", this);
+			}
+		} // ValidateUpdatePropertyModelMultiplicity
+	} // class UpdatePropertyModel
+} // Dyvenix.GenIt
+
+namespace Dyvenix.GenIt
+{
+	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
+	public partial class UpdateMethodModel
+	{
+		/// <summary>
+		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
+		/// </summary>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
+		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
+		private void ValidateUpdateMethodModelMultiplicity (DslValidation::ValidationContext context)
+		{
+			if (this.PropertyModels.Count == 0)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"UpdateMethodModel", this.Name, "PropertyModels"),
+						"DSL0001", this);
+			}
+		} // ValidateUpdateMethodModelMultiplicity
+	} // class UpdateMethodModel
 } // Dyvenix.GenIt
 
 	

@@ -829,6 +829,54 @@
     <value>Attributes</value>
     <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdatePropertyModel</value>
+    <comment>Description for DomainClass &apos;UpdatePropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModel.DisplayName" xml:space="preserve">
+    <value>Update Property Model</value>
+    <comment>DisplayName for DomainClass &apos;UpdatePropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModel/IsOptional.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdatePropertyModel.Is Optional</value>
+    <comment>Description for DomainProperty &apos;IsOptional&apos; on DomainClass &apos;UpdatePropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModel/IsOptional.DisplayName" xml:space="preserve">
+    <value>Is Optional</value>
+    <comment>DisplayName for DomainProperty &apos;IsOptional&apos; on DomainClass &apos;UpdatePropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModel</value>
+    <comment>Description for DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel.DisplayName" xml:space="preserve">
+    <value>Update Method Model</value>
+    <comment>DisplayName for DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/ItemId.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Item Id</value>
+    <comment>Description for DomainProperty &apos;ItemId&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/ItemId.DisplayName" xml:space="preserve">
+    <value>Item Id</value>
+    <comment>DisplayName for DomainProperty &apos;ItemId&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto</value>
+    <comment>Description for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.DisplayName" xml:space="preserve">
+    <value>Use Dto</value>
+    <comment>DisplayName for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Display Order</value>
+    <comment>Description for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.DisplayName" xml:space="preserve">
+    <value>Display Order</value>
+    <comment>DisplayName for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>
@@ -1269,69 +1317,133 @@
     <value>Entity Model</value>
     <comment>PropertyDisplayName for DomainRole &apos;NavigationProperty&apos; on DomainRelationship &apos;ClassHasNavigationProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.Property</value>
-    <comment>Description for DomainClass &apos;Property&apos;</comment>
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModelHasProperty</value>
+    <comment>Description for DomainClass &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property.DisplayName" xml:space="preserve">
-    <value>Property</value>
-    <comment>DisplayName for DomainClass &apos;Property&apos;</comment>
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty.DisplayName" xml:space="preserve">
+    <value>Filter Property Model Has Property</value>
+    <comment>DisplayName for DomainClass &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.Property.FilterPropertyModel</value>
-    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModel</value>
+    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.DisplayName" xml:space="preserve">
     <value>Filter Property Model</value>
-    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
     <value>Property Model</value>
-    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/PropertyModel.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.Property.PropertyModel</value>
-    <comment>Description for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel</value>
+    <comment>Description for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/PropertyModel.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.DisplayName" xml:space="preserve">
     <value>Property Model</value>
-    <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.Property/PropertyModel.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName" xml:space="preserve">
     <value>Filter Property Model</value>
-    <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;Property&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.FilterProperties</value>
-    <comment>Description for DomainClass &apos;FilterProperties&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties</value>
+    <comment>Description for DomainClass &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties.DisplayName" xml:space="preserve">
-    <value>Filter Properties</value>
-    <comment>DisplayName for DomainClass &apos;FilterProperties&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties.DisplayName" xml:space="preserve">
+    <value>Read Method Model Has Filter Properties</value>
+    <comment>DisplayName for DomainClass &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel</value>
-    <comment>Description for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel</value>
+    <comment>Description for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.DisplayName" xml:space="preserve">
     <value>Read Method Model</value>
-    <comment>DisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/ReadMethodModel.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.PropertyDisplayName" xml:space="preserve">
     <value>Filter Property Modeled</value>
-    <comment>PropertyDisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel</value>
-    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel</value>
+    <comment>Description for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.DisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.DisplayName" xml:space="preserve">
     <value>Filter Property Model</value>
-    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+    <comment>DisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.FilterProperties/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.PropertyDisplayName" xml:space="preserve">
     <value>Read Method Modeled</value>
-    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;FilterProperties&apos;</comment>
+    <comment>PropertyDisplayName for DomainRole &apos;FilterPropertyModel&apos; on DomainRelationship &apos;ReadMethodModelHasFilterProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel</value>
+    <comment>Description for DomainClass &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.DisplayName" xml:space="preserve">
+    <value>Update Property Model Has Property Model</value>
+    <comment>DisplayName for DomainClass &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModel</value>
+    <comment>Description for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.DisplayName" xml:space="preserve">
+    <value>Update Property Model</value>
+    <comment>DisplayName for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/UpdatePropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Property Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel</value>
+    <comment>Description for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.DisplayName" xml:space="preserve">
+    <value>Property Model</value>
+    <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Update Property Model</value>
+    <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties</value>
+    <comment>Description for DomainClass &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.DisplayName" xml:space="preserve">
+    <value>Update Method Model Has Update Properties</value>
+    <comment>DisplayName for DomainClass &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel</value>
+    <comment>Description for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.DisplayName" xml:space="preserve">
+    <value>Update Method Model</value>
+    <comment>DisplayName for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.PropertyDisplayName" xml:space="preserve">
+    <value>Property Models</value>
+    <comment>PropertyDisplayName for DomainRole &apos;UpdateMethodModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel</value>
+    <comment>Description for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.DisplayName" xml:space="preserve">
+    <value>Update Property Model</value>
+    <comment>DisplayName for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.PropertyDisplayName" xml:space="preserve">
+    <value>Update Method Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;UpdatePropertyModel&apos; on DomainRelationship &apos;UpdateMethodModelHasUpdateProperties&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
     <value>ZeroOne</value>

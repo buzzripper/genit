@@ -458,6 +458,40 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
+    <DomainClass Id="dfb40532-a576-4b0e-bebe-90c3c47c3ae3" Description="Description for Dyvenix.GenIt.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ModelRoot" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="f5660c8b-88ae-4d6d-8304-0d0800788262" Description="Description for Dyvenix.GenIt.UpdatePropertyModel.Is Optional" Name="IsOptional" DisplayName="Is Optional">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
+    <DomainClass Id="0d0babe0-406d-490d-ae7a-47ad0ddb6081" Description="Description for Dyvenix.GenIt.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" Namespace="Dyvenix.GenIt">
+      <BaseClass>
+        <DomainClassMoniker Name="ModelRoot" />
+      </BaseClass>
+      <Properties>
+        <DomainProperty Id="880bb24a-b5b9-4816-9f0a-d95d5d7f210c" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Item Id" Name="ItemId" DisplayName="Item Id">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Guid" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="e5e99a5a-7ed8-4c53-86b0-6cf9f4415a97" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto" Name="UseDto" DisplayName="Use Dto">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2d1897ce-b2a7-4cfb-af36-b5f0c6c1cd13" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Display Order" Name="DisplayOrder" DisplayName="Display Order">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
   </Classes>
   <Relationships>
     <DomainRelationship Id="4a55a93f-ffed-423c-ad69-a1b5c9c85a1e" Description="Associations between Classes." Name="Association" DisplayName="Association" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
@@ -684,34 +718,66 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="5284b992-a619-46e6-9ec8-41ca28fc0fa7" Description="Description for Dyvenix.GenIt.Property" Name="Property" DisplayName="Property" Namespace="Dyvenix.GenIt">
+    <DomainRelationship Id="5284b992-a619-46e6-9ec8-41ca28fc0fa7" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty" Name="FilterPropertyModelHasProperty" DisplayName="Filter Property Model Has Property" Namespace="Dyvenix.GenIt">
       <Source>
-        <DomainRole Id="17d276ff-cd02-40a8-99a1-29bdfff796bf" Description="Description for Dyvenix.GenIt.Property.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="PropertyModel" Multiplicity="One" PropertyDisplayName="Property Model">
+        <DomainRole Id="17d276ff-cd02-40a8-99a1-29bdfff796bf" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="PropertyModel" Multiplicity="One" PropertyDisplayName="Property Model">
           <RolePlayer>
             <DomainClassMoniker Name="FilterPropertyModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.Property.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="One" PropertyDisplayName="Filter Property Model">
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="One" PropertyDisplayName="Filter Property Model">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="32cb6cdb-1478-47f4-829d-937554a834f2" Description="Description for Dyvenix.GenIt.FilterProperties" Name="FilterProperties" DisplayName="Filter Properties" Namespace="Dyvenix.GenIt">
+    <DomainRelationship Id="32cb6cdb-1478-47f4-829d-937554a834f2" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties" Name="ReadMethodModelHasFilterProperties" DisplayName="Read Method Model Has Filter Properties" Namespace="Dyvenix.GenIt">
       <Source>
-        <DomainRole Id="0f995100-09ad-4176-ade0-88937e672b83" Description="Description for Dyvenix.GenIt.FilterProperties.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="FilterPropertyModeled" PropertyDisplayName="Filter Property Modeled">
+        <DomainRole Id="0f995100-09ad-4176-ade0-88937e672b83" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="FilterPropertyModeled" PropertyDisplayName="Filter Property Modeled">
           <RolePlayer>
             <DomainClassMoniker Name="ReadMethodModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="a86dafce-f80a-4f02-93e8-25e90ad5cfa9" Description="Description for Dyvenix.GenIt.FilterProperties.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="ReadMethodModeled" PropertyDisplayName="Read Method Modeled">
+        <DomainRole Id="a86dafce-f80a-4f02-93e8-25e90ad5cfa9" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="ReadMethodModeled" PropertyDisplayName="Read Method Modeled">
           <RolePlayer>
             <DomainClassMoniker Name="FilterPropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="d46acff7-473f-47fa-b427-5d628500c5a0" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel" Name="UpdatePropertyModelHasPropertyModel" DisplayName="Update Property Model Has Property Model" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="ad66d0c1-b9fe-4aa8-8638-8aa72d162dcf" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" PropertyName="PropertyModel" Multiplicity="One" PropertyDisplayName="Property Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="UpdatePropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModel" Multiplicity="One" PropertyDisplayName="Update Property Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="PropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="b00efb37-ec59-40d2-af39-bdd942b5d4f4" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties" Name="UpdateMethodModelHasUpdateProperties" DisplayName="Update Method Model Has Update Properties" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="c15ab607-9c3b-49cb-b70a-f87377d319d7" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" PropertyName="PropertyModels" Multiplicity="OneMany" PropertyDisplayName="Property Models">
+          <RolePlayer>
+            <DomainClassMoniker Name="UpdateMethodModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="cc20809a-f025-4bd0-bc76-5167422fd873" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" PropertyName="UpdateMethodModeled" PropertyDisplayName="Update Method Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="UpdatePropertyModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -1172,12 +1238,12 @@
             <DomainPropertyMoniker Name="FilterPropertyModel/InternalValue" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
-            <DomainRelationshipMoniker Name="Property" />
+            <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="Property" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyMoniker" ElementName="property" MonikerTypeName="PropertyMoniker">
-        <DomainRelationshipMoniker Name="Property" />
+      <XmlClassData TypeName="FilterPropertyModelHasProperty" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelHasPropertyMoniker" ElementName="filterPropertyModelHasProperty" MonikerTypeName="FilterPropertyModelHasPropertyMoniker">
+        <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
       </XmlClassData>
       <XmlClassData TypeName="ReadMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelMoniker" ElementName="readMethodModel" MonikerTypeName="ReadMethodModelMoniker">
         <DomainClassMoniker Name="ReadMethodModel" />
@@ -1201,12 +1267,46 @@
             <DomainPropertyMoniker Name="ReadMethodModel/Attributes" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="filterPropertyModeled">
-            <DomainRelationshipMoniker Name="FilterProperties" />
+            <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
-      <XmlClassData TypeName="FilterProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertiesMoniker" ElementName="filterProperties" MonikerTypeName="FilterPropertiesMoniker">
-        <DomainRelationshipMoniker Name="FilterProperties" />
+      <XmlClassData TypeName="ReadMethodModelHasFilterProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelHasFilterPropertiesMoniker" ElementName="readMethodModelHasFilterProperties" MonikerTypeName="ReadMethodModelHasFilterPropertiesMoniker">
+        <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
+      </XmlClassData>
+      <XmlClassData TypeName="UpdatePropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updatePropertyModelMoniker" ElementName="updatePropertyModel" MonikerTypeName="UpdatePropertyModelMoniker">
+        <DomainClassMoniker Name="UpdatePropertyModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="isOptional">
+            <DomainPropertyMoniker Name="UpdatePropertyModel/IsOptional" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
+            <DomainRelationshipMoniker Name="UpdatePropertyModelHasPropertyModel" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="UpdatePropertyModelHasPropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updatePropertyModelHasPropertyModelMoniker" ElementName="updatePropertyModelHasPropertyModel" MonikerTypeName="UpdatePropertyModelHasPropertyModelMoniker">
+        <DomainRelationshipMoniker Name="UpdatePropertyModelHasPropertyModel" />
+      </XmlClassData>
+      <XmlClassData TypeName="UpdateMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updateMethodModelMoniker" ElementName="updateMethodModel" MonikerTypeName="UpdateMethodModelMoniker">
+        <DomainClassMoniker Name="UpdateMethodModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="itemId">
+            <DomainPropertyMoniker Name="UpdateMethodModel/ItemId" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useDto">
+            <DomainPropertyMoniker Name="UpdateMethodModel/UseDto" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayOrder">
+            <DomainPropertyMoniker Name="UpdateMethodModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModels">
+            <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="UpdateMethodModelHasUpdateProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="updateMethodModelHasUpdatePropertiesMoniker" ElementName="updateMethodModelHasUpdateProperties" MonikerTypeName="UpdateMethodModelHasUpdatePropertiesMoniker">
+        <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -1296,9 +1396,9 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="PropertyBuilder">
+    <ConnectionBuilder Name="FilterPropertyModelHasPropertyBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="Property" />
+        <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -1315,9 +1415,9 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="FilterPropertiesBuilder">
+    <ConnectionBuilder Name="ReadMethodModelHasFilterPropertiesBuilder">
       <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="FilterProperties" />
+        <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
         <SourceDirectives>
           <RolePlayerConnectDirective>
             <AcceptingClass>
@@ -1329,6 +1429,44 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="FilterPropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="UpdatePropertyModelHasPropertyModelBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="UpdatePropertyModelHasPropertyModel" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="UpdatePropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="PropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="UpdateMethodModelHasUpdatePropertiesBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="UpdateMethodModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="UpdatePropertyModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>

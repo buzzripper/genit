@@ -479,7 +479,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class PropertyBuilder
+	public static partial class FilterPropertyModelHasPropertyBuilder
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -553,9 +553,9 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.FilterPropertyModel sourceFilterPropertyModel = (global::Dyvenix.GenIt.FilterPropertyModel)candidateSource;
 						global::Dyvenix.GenIt.PropertyModel targetPropertyModel = (global::Dyvenix.GenIt.PropertyModel)candidateTarget;
-						if(targetPropertyModel == null || global::Dyvenix.GenIt.Property.GetLinkToFilterPropertyModel(targetPropertyModel) != null) return false;
-						if(sourceFilterPropertyModel == null || global::Dyvenix.GenIt.Property.GetLinkToPropertyModel(sourceFilterPropertyModel) != null) return false;
-						if(targetPropertyModel == null || sourceFilterPropertyModel == null || global::Dyvenix.GenIt.Property.GetLinks(sourceFilterPropertyModel, targetPropertyModel).Count > 0) return false;
+						if(targetPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinkToFilterPropertyModel(targetPropertyModel) != null) return false;
+						if(sourceFilterPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinkToPropertyModel(sourceFilterPropertyModel) != null) return false;
+						if(targetPropertyModel == null || sourceFilterPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinks(sourceFilterPropertyModel, targetPropertyModel).Count > 0) return false;
 						return true;
 					}
 				}
@@ -593,7 +593,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.FilterPropertyModel sourceAccepted = (global::Dyvenix.GenIt.FilterPropertyModel)source;
 						global::Dyvenix.GenIt.PropertyModel targetAccepted = (global::Dyvenix.GenIt.PropertyModel)target;
-						DslModeling::ElementLink result = new global::Dyvenix.GenIt.Property(sourceAccepted, targetAccepted);
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.FilterPropertyModelHasProperty(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
 							DslModeling::DomainClassInfo.SetUniqueName(result);
@@ -611,7 +611,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// ConnectionBuilder class to provide logic for constructing connections between elements.
 	/// </summary>
-	public static partial class FilterPropertiesBuilder
+	public static partial class ReadMethodModelHasFilterPropertiesBuilder
 	{
 		#region Accept Connection Methods
 		/// <summary>
@@ -685,7 +685,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.ReadMethodModel sourceReadMethodModel = (global::Dyvenix.GenIt.ReadMethodModel)candidateSource;
 						global::Dyvenix.GenIt.FilterPropertyModel targetFilterPropertyModel = (global::Dyvenix.GenIt.FilterPropertyModel)candidateTarget;
-						if(targetFilterPropertyModel == null || sourceReadMethodModel == null || global::Dyvenix.GenIt.FilterProperties.GetLinks(sourceReadMethodModel, targetFilterPropertyModel).Count > 0) return false;
+						if(targetFilterPropertyModel == null || sourceReadMethodModel == null || global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.GetLinks(sourceReadMethodModel, targetFilterPropertyModel).Count > 0) return false;
 						return true;
 					}
 				}
@@ -723,7 +723,269 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.ReadMethodModel sourceAccepted = (global::Dyvenix.GenIt.ReadMethodModel)source;
 						global::Dyvenix.GenIt.FilterPropertyModel targetAccepted = (global::Dyvenix.GenIt.FilterPropertyModel)target;
-						DslModeling::ElementLink result = new global::Dyvenix.GenIt.FilterProperties(sourceAccepted, targetAccepted);
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties(sourceAccepted, targetAccepted);
+						if (DslModeling::DomainClassInfo.HasNameProperty(result))
+						{
+							DslModeling::DomainClassInfo.SetUniqueName(result);
+						}
+						return result;
+					}
+				}
+				
+			}
+			global::System.Diagnostics.Debug.Fail("Having agreed that the connection can be accepted we should never fail to make one.");
+			throw new global::System.InvalidOperationException();
+		}
+		#endregion
+ 	}
+	/// <summary>
+	/// ConnectionBuilder class to provide logic for constructing connections between elements.
+	/// </summary>
+	public static partial class UpdatePropertyModelHasPropertyModelBuilder
+	{
+		#region Accept Connection Methods
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the source of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the source of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Dyvenix.GenIt.UpdatePropertyModel)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the target of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the target of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Dyvenix.GenIt.PropertyModel)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		/// <summary>
+		/// Test whether a given pair of model elements are acceptable to this ConnectionBuilder as the source and target of a connection
+		/// </summary>
+		/// <param name="candidateSource">The model element to test as a source</param>
+		/// <param name="candidateTarget">The model element to test as a target</param>
+		/// <returns>Whether the elements can be used as the source and target of a connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static bool CanAcceptSourceAndTarget(DslModeling::ModelElement candidateSource, DslModeling::ModelElement candidateTarget)
+		{
+			// Accepts null, null; source, null; source, target but NOT null, target
+			if (candidateSource == null)
+			{
+				if (candidateTarget != null)
+				{
+					throw new global::System.ArgumentNullException("candidateSource");
+				}
+				else // Both null
+				{
+					return false;
+				}
+			}
+			bool acceptSource = CanAcceptSource(candidateSource);
+			// If the source wasn't accepted then there's no point checking targets.
+			// If there is no target then the source controls the accept.
+			if (!acceptSource || candidateTarget == null)
+			{
+				return acceptSource;
+			}
+			else // Check combinations
+			{
+				if (candidateSource is global::Dyvenix.GenIt.UpdatePropertyModel)
+				{
+					if (candidateTarget is global::Dyvenix.GenIt.PropertyModel)
+					{
+						global::Dyvenix.GenIt.UpdatePropertyModel sourceUpdatePropertyModel = (global::Dyvenix.GenIt.UpdatePropertyModel)candidateSource;
+						global::Dyvenix.GenIt.PropertyModel targetPropertyModel = (global::Dyvenix.GenIt.PropertyModel)candidateTarget;
+						if(targetPropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinkToUpdatePropertyModel(targetPropertyModel) != null) return false;
+						if(sourceUpdatePropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinkToPropertyModel(sourceUpdatePropertyModel) != null) return false;
+						if(targetPropertyModel == null || sourceUpdatePropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinks(sourceUpdatePropertyModel, targetPropertyModel).Count > 0) return false;
+						return true;
+					}
+				}
+				
+			}
+			return false;
+		}
+		#endregion
+
+		#region Connection Methods
+		/// <summary>
+		/// Make a connection between the given pair of source and target elements
+		/// </summary>
+		/// <param name="source">The model element to use as the source of the connection</param>
+		/// <param name="target">The model element to use as the target of the connection</param>
+		/// <returns>A link representing the created connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static DslModeling::ElementLink Connect(DslModeling::ModelElement source, DslModeling::ModelElement target)
+		{
+			if (source == null)
+			{
+				throw new global::System.ArgumentNullException("source");
+			}
+			if (target == null)
+			{
+				throw new global::System.ArgumentNullException("target");
+			}
+			
+			if (CanAcceptSourceAndTarget(source, target))
+			{
+				if (source is global::Dyvenix.GenIt.UpdatePropertyModel)
+				{
+					if (target is global::Dyvenix.GenIt.PropertyModel)
+					{
+						global::Dyvenix.GenIt.UpdatePropertyModel sourceAccepted = (global::Dyvenix.GenIt.UpdatePropertyModel)source;
+						global::Dyvenix.GenIt.PropertyModel targetAccepted = (global::Dyvenix.GenIt.PropertyModel)target;
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel(sourceAccepted, targetAccepted);
+						if (DslModeling::DomainClassInfo.HasNameProperty(result))
+						{
+							DslModeling::DomainClassInfo.SetUniqueName(result);
+						}
+						return result;
+					}
+				}
+				
+			}
+			global::System.Diagnostics.Debug.Fail("Having agreed that the connection can be accepted we should never fail to make one.");
+			throw new global::System.InvalidOperationException();
+		}
+		#endregion
+ 	}
+	/// <summary>
+	/// ConnectionBuilder class to provide logic for constructing connections between elements.
+	/// </summary>
+	public static partial class UpdateMethodModelHasUpdatePropertiesBuilder
+	{
+		#region Accept Connection Methods
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the source of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the source of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptSource(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Dyvenix.GenIt.UpdateMethodModel)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+
+		/// <summary>
+		/// Test whether a given model element is acceptable to this ConnectionBuilder as the target of a connection.
+		/// </summary>
+		/// <param name="candidate">The model element to test.</param>
+		/// <returns>Whether the element can be used as the target of a connection.</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		public static bool CanAcceptTarget(DslModeling::ModelElement candidate)
+		{
+			if (candidate == null) return false;
+			else if (candidate is global::Dyvenix.GenIt.UpdatePropertyModel)
+			{ 
+				return true;
+			}
+			else
+				return false;
+		}
+		
+		/// <summary>
+		/// Test whether a given pair of model elements are acceptable to this ConnectionBuilder as the source and target of a connection
+		/// </summary>
+		/// <param name="candidateSource">The model element to test as a source</param>
+		/// <param name="candidateTarget">The model element to test as a target</param>
+		/// <returns>Whether the elements can be used as the source and target of a connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static bool CanAcceptSourceAndTarget(DslModeling::ModelElement candidateSource, DslModeling::ModelElement candidateTarget)
+		{
+			// Accepts null, null; source, null; source, target but NOT null, target
+			if (candidateSource == null)
+			{
+				if (candidateTarget != null)
+				{
+					throw new global::System.ArgumentNullException("candidateSource");
+				}
+				else // Both null
+				{
+					return false;
+				}
+			}
+			bool acceptSource = CanAcceptSource(candidateSource);
+			// If the source wasn't accepted then there's no point checking targets.
+			// If there is no target then the source controls the accept.
+			if (!acceptSource || candidateTarget == null)
+			{
+				return acceptSource;
+			}
+			else // Check combinations
+			{
+				if (candidateSource is global::Dyvenix.GenIt.UpdateMethodModel)
+				{
+					if (candidateTarget is global::Dyvenix.GenIt.UpdatePropertyModel)
+					{
+						global::Dyvenix.GenIt.UpdateMethodModel sourceUpdateMethodModel = (global::Dyvenix.GenIt.UpdateMethodModel)candidateSource;
+						global::Dyvenix.GenIt.UpdatePropertyModel targetUpdatePropertyModel = (global::Dyvenix.GenIt.UpdatePropertyModel)candidateTarget;
+						if(targetUpdatePropertyModel == null || sourceUpdateMethodModel == null || global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.GetLinks(sourceUpdateMethodModel, targetUpdatePropertyModel).Count > 0) return false;
+						return true;
+					}
+				}
+				
+			}
+			return false;
+		}
+		#endregion
+
+		#region Connection Methods
+		/// <summary>
+		/// Make a connection between the given pair of source and target elements
+		/// </summary>
+		/// <param name="source">The model element to use as the source of the connection</param>
+		/// <param name="target">The model element to use as the target of the connection</param>
+		/// <returns>A link representing the created connection</returns>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "Generated code.")]
+		public static DslModeling::ElementLink Connect(DslModeling::ModelElement source, DslModeling::ModelElement target)
+		{
+			if (source == null)
+			{
+				throw new global::System.ArgumentNullException("source");
+			}
+			if (target == null)
+			{
+				throw new global::System.ArgumentNullException("target");
+			}
+			
+			if (CanAcceptSourceAndTarget(source, target))
+			{
+				if (source is global::Dyvenix.GenIt.UpdateMethodModel)
+				{
+					if (target is global::Dyvenix.GenIt.UpdatePropertyModel)
+					{
+						global::Dyvenix.GenIt.UpdateMethodModel sourceAccepted = (global::Dyvenix.GenIt.UpdateMethodModel)source;
+						global::Dyvenix.GenIt.UpdatePropertyModel targetAccepted = (global::Dyvenix.GenIt.UpdatePropertyModel)target;
+						DslModeling::ElementLink result = new global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties(sourceAccepted, targetAccepted);
 						if (DslModeling::DomainClassInfo.HasNameProperty(result))
 						{
 							DslModeling::DomainClassInfo.SetUniqueName(result);
