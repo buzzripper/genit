@@ -823,8 +823,9 @@ namespace Dyvenix.GenIt
 			internal static global::System.Collections.ICollection GetEntityModelForClassShapeServiceMethods(global::Dyvenix.GenIt.ServiceModel root)
 			{
 				// Segments 1 and 0
-				DslModeling::ReadOnlyLinkedElementCollection<global::Dyvenix.GenIt.EntityModel> result = root.EntityModeled;
-				return result;
+				global::Dyvenix.GenIt.EntityModel result = root.EntityModeled;
+				if ( result == null ) return new DslModeling::ModelElement[0];
+				return new DslModeling::ModelElement[] {result};
 			}
 			internal static global::System.Collections.ICollection GetModelInterfaceForInterfaceShapeOperationsCompartmentFromLastLink(global::Dyvenix.GenIt.InterfaceHasOperation root)
 			{

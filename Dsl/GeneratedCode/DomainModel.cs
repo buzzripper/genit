@@ -586,6 +586,7 @@ namespace Dyvenix.GenIt
 			DomainRoles.Add(global::Dyvenix.GenIt.InterfaceHasOperation.OperationDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId, true);
 			#endregion
 		}
 		/// <summary>

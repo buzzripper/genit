@@ -153,6 +153,14 @@
             <DomainPath>ClassHasNavigationProperties.NavigationProperties</DomainPath>
           </LinkCreationPaths>
         </ElementMergeDirective>
+        <ElementMergeDirective>
+          <Index>
+            <DomainClassMoniker Name="ServiceModel" />
+          </Index>
+          <LinkCreationPaths>
+            <DomainPath>EntityModelHasServiceModels.ServiceModeled</DomainPath>
+          </LinkCreationPaths>
+        </ElementMergeDirective>
       </ElementMergeDirectives>
     </DomainClass>
     <DomainClass Id="4df99ada-d0ce-4ea5-82a0-2d7409e38475" Description="A property of a class." Name="PropertyModel" DisplayName="Property Model" Namespace="Dyvenix.GenIt">
@@ -835,16 +843,16 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="f7eaeabe-cc43-4898-9c7f-0576609f30e5" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels" Name="EntityModelHasServiceModels" DisplayName="Entity Model Has Service Models" Namespace="Dyvenix.GenIt">
+    <DomainRelationship Id="f7eaeabe-cc43-4898-9c7f-0576609f30e5" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels" Name="EntityModelHasServiceModels" DisplayName="Entity Model Has Service Models" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="4af6262f-0c9f-463a-a5ee-96eb899348b1" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel" Name="EntityModel" DisplayName="Entity Model" PropertyName="ServiceModeled" PropertyDisplayName="Service Modeled">
+        <DomainRole Id="4af6262f-0c9f-463a-a5ee-96eb899348b1" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.EntityModel" Name="EntityModel" DisplayName="Entity Model" PropertyName="ServiceModeled" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Service Modeled">
           <RolePlayer>
             <DomainClassMoniker Name="EntityModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="1eb2f065-fdd7-463f-b470-49e8fe5a43ee" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModel" Name="ServiceModel" DisplayName="Service Model" PropertyName="EntityModeled" PropertyDisplayName="Entity Modeled">
+        <DomainRole Id="1eb2f065-fdd7-463f-b470-49e8fe5a43ee" Description="Description for Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModel" Name="ServiceModel" DisplayName="Service Model" PropertyName="EntityModeled" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Entity Modeled">
           <RolePlayer>
             <DomainClassMoniker Name="ServiceModel" />
           </RolePlayer>

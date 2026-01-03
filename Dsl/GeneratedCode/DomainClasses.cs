@@ -2166,6 +2166,11 @@ namespace Dyvenix.GenIt
 				{
 					return true;
 				}
+				
+				if (rootElementDomainInfo.IsDerivedFrom(global::Dyvenix.GenIt.ServiceModel.DomainClassId)) 
+				{
+					return true;
+				}
 			}
 			return base.CanMerge(rootElement, elementGroupPrototype);
 		}
@@ -2205,6 +2210,15 @@ namespace Dyvenix.GenIt
 			{
 				// Create link for path ClassHasNavigationProperties.NavigationProperties
 				this.NavigationProperties.Add(sourceNavigationProperty2);
+
+				return;
+			}
+				
+			global::Dyvenix.GenIt.ServiceModel sourceServiceModel3 = sourceElement as global::Dyvenix.GenIt.ServiceModel;
+			if (sourceServiceModel3 != null)
+			{
+				// Create link for path EntityModelHasServiceModels.ServiceModeled
+				this.ServiceModeled.Add(sourceServiceModel3);
 
 				return;
 			}
@@ -2254,6 +2268,20 @@ namespace Dyvenix.GenIt
 				{
 					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
 					link.Delete(global::Dyvenix.GenIt.ClassHasNavigationProperties.EntityModelDomainRoleId, global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId);
+				}
+
+				return;
+			}
+				
+			global::Dyvenix.GenIt.ServiceModel sourceServiceModel3 = sourceElement as global::Dyvenix.GenIt.ServiceModel;
+			if (sourceServiceModel3 != null)
+			{
+				// Delete link for path EntityModelHasServiceModels.ServiceModeled
+				
+				foreach (DslModeling::ElementLink link in global::Dyvenix.GenIt.EntityModelHasServiceModels.GetLinks((global::Dyvenix.GenIt.EntityModel)this, sourceServiceModel3))
+				{
+					// Delete the link, but without possible delete propagation to the element since it's moving to a new location.
+					link.Delete(global::Dyvenix.GenIt.EntityModelHasServiceModels.EntityModelDomainRoleId, global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId);
 				}
 
 				return;
@@ -7817,17 +7845,21 @@ namespace Dyvenix.GenIt
 		}
 		#endregion
 		#region EntityModeled opposite domain role accessor
-		
 		/// <summary>
-		/// Gets a list of EntityModeled.
+		/// Gets or sets EntityModeled.
 		/// Description for Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> EntityModeled
+		public virtual EntityModel EntityModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId);
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId) as EntityModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId, value);
 			}
 		}
 		#endregion

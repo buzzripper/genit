@@ -1337,6 +1337,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.EntityModel sourceEntityModel = (global::Dyvenix.GenIt.EntityModel)candidateSource;
 						global::Dyvenix.GenIt.ServiceModel targetServiceModel = (global::Dyvenix.GenIt.ServiceModel)candidateTarget;
+						if(targetServiceModel == null || global::Dyvenix.GenIt.EntityModelHasServiceModels.GetLinkToEntityModeled(targetServiceModel) != null) return false;
 						if(targetServiceModel == null || sourceEntityModel == null || global::Dyvenix.GenIt.EntityModelHasServiceModels.GetLinks(sourceEntityModel, targetServiceModel).Count > 0) return false;
 						return true;
 					}

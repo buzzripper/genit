@@ -4411,7 +4411,7 @@ namespace Dyvenix.GenIt
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelHasServiceModels.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
 	[DslModeling::DomainObjectId("f7eaeabe-cc43-4898-9c7f-0576609f30e5")]
 	public partial class EntityModelHasServiceModels : DslModeling::ElementLink
 	{
@@ -4489,7 +4489,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("4af6262f-0c9f-463a-a5ee-96eb899348b1")]
 		public virtual EntityModel EntityModel
 		{
@@ -4508,13 +4508,23 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Static methods to access EntityModeled of a ServiceModel
 		/// <summary>
-		/// Gets a list of EntityModeled.
+		/// Gets EntityModeled.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<EntityModel> GetEntityModeled(ServiceModel element)
+		public static EntityModel GetEntityModeled(ServiceModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, ServiceModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ServiceModelDomainRoleId) as EntityModel;
+		}
+		
+		/// <summary>
+		/// Sets EntityModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetEntityModeled(ServiceModel element, EntityModel newEntityModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ServiceModelDomainRoleId, newEntityModel);
 		}
 		#endregion
 		#region ServiceModel domain role code
@@ -4530,7 +4540,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelHasServiceModels/ServiceModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
 		[DslModeling::DomainObjectId("1eb2f065-fdd7-463f-b470-49e8fe5a43ee")]
 		public virtual ServiceModel ServiceModel
 		{
@@ -4571,13 +4581,22 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region ServiceModel link accessor
 		/// <summary>
-		/// Get the list of EntityModelHasServiceModels links to a ServiceModel.
+		/// Get the EntityModelHasServiceModels link to a ServiceModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelHasServiceModels> GetLinksToEntityModeled ( global::Dyvenix.GenIt.ServiceModel serviceModelInstance )
+		public static global::Dyvenix.GenIt.EntityModelHasServiceModels GetLinkToEntityModeled (global::Dyvenix.GenIt.ServiceModel serviceModelInstance)
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelHasServiceModels>(serviceModelInstance, global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityModelHasServiceModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelHasServiceModels>(serviceModelInstance, global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ServiceModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
 		}
 		#endregion
 		#region EntityModelHasServiceModels instance accessors

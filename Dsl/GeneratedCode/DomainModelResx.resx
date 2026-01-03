@@ -1822,7 +1822,7 @@
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeServiceMethodsTitle" xml:space="preserve">
-    <value></value>
+    <value>Service Methods</value>
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeNameDefaultText" xml:space="preserve">

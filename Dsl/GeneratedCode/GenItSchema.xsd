@@ -1739,7 +1739,7 @@
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Target end ServiceModel -->
-          <xsd:element ref="serviceModelMoniker" minOccurs="1" maxOccurs="1">
+          <xsd:element ref="serviceModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
