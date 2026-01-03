@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -1819,6 +1819,10 @@
   </data>
   <data name="ClassShapeNavPropertiesCompartmentTitle" xml:space="preserve">
     <value>Navigation Properties</value>
+    <comment>Compartment title</comment>
+  </data>
+  <data name="ClassShapeServiceMethodsTitle" xml:space="preserve">
+    <value></value>
     <comment>Compartment title</comment>
   </data>
   <data name="ClassShapeNameDefaultText" xml:space="preserve">

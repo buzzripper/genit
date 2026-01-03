@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema id="GenItSchema" targetNamespace="http://schemas.microsoft.com/dsltools/GenIt" elementFormDefault="qualified" xmlns="http://schemas.microsoft.com/dsltools/GenIt" xmlns:core="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <xsd:import id="CoreSchema" namespace="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" />
   <!-- NamedElement -->
