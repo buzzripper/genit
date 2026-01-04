@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using Dyvenix.GenIt.DslPackage.Tools.Services;
 
 namespace Dyvenix.GenIt
 {
@@ -16,6 +17,9 @@ namespace Dyvenix.GenIt
 			// Register the TypeConverter for Multiplicity enum to display formatted values in property grid
 			TypeDescriptor.AddAttributes(typeof(Multiplicity),
 				new TypeConverterAttribute(typeof(MultiplicityConverter)));
+
+			// Register the GenItEditorWindow tool window
+			this.AddToolWindow(typeof(GenItEditorWindow));
 		}
 	}
 }

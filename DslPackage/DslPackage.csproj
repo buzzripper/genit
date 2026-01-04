@@ -70,6 +70,8 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
@@ -81,6 +83,7 @@
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
+    <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
     <Compile Include="CustomCode\OutputHelper.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
     <Compile Include="CustomCode\ModelView\AddViewDialog.cs" />
@@ -112,6 +115,39 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tools\Services\Controls\FilterPropsEditControl.xaml.cs">
+      <DependentUpon>FilterPropsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\InclNavPropEditControl.xaml.cs">
+      <DependentUpon>InclNavPropEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\ReadMethodsEditControl.xaml.cs">
+      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\SvcEditControl.xaml.cs">
+      <DependentUpon>SvcEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\UpdateMethodsEditControl.xaml.cs">
+      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\UpdPropsEditControl.xaml.cs">
+      <DependentUpon>UpdPropsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\Controls\UserControlBase.cs" />
+    <Compile Include="Tools\Services\GenItEditorWindow.cs" />
+    <Compile Include="Tools\Services\GenItEditorWindowControl.xaml.cs">
+      <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tools\Services\SelectionTracker.cs" />
+    <Compile Include="Tools\Services\ViewModels\EditableString.cs" />
+    <Compile Include="Tools\Services\ViewModels\EntityViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\FilterPropertyViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\NavigationPropertyViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\PropertyViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\ReadMethodViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\ServiceViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\UpdateMethodViewModel.cs" />
+    <Compile Include="Tools\Services\ViewModels\UpdatePropertyViewModel.cs" />
     <EmbeddedResource Include="Resources\Templates\ApiClientCollExt.tmpl" />
     <EmbeddedResource Include="Resources\Templates\ApiClients.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Controllers.tmpl" />
@@ -282,5 +318,30 @@
     </CodeAnalysisDictionary>
     <Content Include="Resources\ModelExplorerToolWindowBitmaps.bmp" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Tools\Services\Controls\FilterPropsEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\Controls\InclNavPropEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\Controls\ReadMethodsEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\Controls\SvcEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\Controls\UpdateMethodsEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\Controls\UpdPropsEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tools\Services\GenItEditorWindowControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

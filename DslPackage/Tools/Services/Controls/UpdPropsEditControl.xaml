@@ -1,0 +1,59 @@
+<local:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Tools.Services.Controls.UpdPropsEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Tools.Services.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="350">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
+        <Border Grid.Row="0" Background="{DynamicResource Theme.Background.Header}" 
+                BorderBrush="{DynamicResource Theme.Border}" 
+                BorderThickness="0,0,0,1" Padding="8,4">
+            <TextBlock Text="Properties to Update" FontWeight="SemiBold" FontSize="12"
+                       Foreground="{DynamicResource Theme.Foreground}"/>
+        </Border>
+
+        <!-- DataGrid -->
+        <DataGrid Grid.Row="1" 
+                  x:Name="grdProps"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserResizeRows="False"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="None"
+                  SelectionMode="Single"
+                  SelectionUnit="Cell"
+                  BorderThickness="0"
+                  Background="{DynamicResource Theme.DataGrid.Background}"
+                  RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
+                  AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="" Width="50">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsIncluded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding PropertyName}" IsReadOnly="True"/>
+                <DataGridTemplateColumn Header="Opt" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsOptional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</local:UserControlBase>
