@@ -3,81 +3,93 @@ using System.ComponentModel;
 
 namespace Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels
 {
-    public class NavigationPropertyViewModel : INotifyPropertyChanged
-    {
-        private Guid _itemId;
-        private string _name = string.Empty;
-        private string _targetEntity = string.Empty;
-        private bool _isCollection;
+	public class NavigationPropertyViewModel : INotifyPropertyChanged
+	{
+		private Guid _itemId;
+		private string _name = string.Empty;
+		private string _targetEntity = string.Empty;
+		private bool _isCollection;
 
-        public Guid ItemId
-        {
-            get => _itemId;
-            set
-            {
-                if (_itemId != value)
-                {
-                    _itemId = value;
-                    OnPropertyChanged(nameof(ItemId));
-                }
-            }
-        }
+		public NavigationPropertyViewModel()
+		{
+		}
 
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
-            }
-        }
+		public NavigationPropertyViewModel(NavigationProperty navProperty)
+		{
+			ItemId = Guid.NewGuid();
+			Name = navProperty.Name;
+			TargetEntity = navProperty.TargetEntityName;
+			IsCollection = navProperty.IsCollection;
+		}
 
-        public string TargetEntity
-        {
-            get => _targetEntity;
-            set
-            {
-                if (_targetEntity != value)
-                {
-                    _targetEntity = value;
-                    OnPropertyChanged(nameof(TargetEntity));
-                }
-            }
-        }
+		public Guid ItemId
+		{
+			get => _itemId;
+			set
+			{
+				if (_itemId != value)
+				{
+					_itemId = value;
+					OnPropertyChanged(nameof(ItemId));
+				}
+			}
+		}
 
-        public bool IsCollection
-        {
-            get => _isCollection;
-            set
-            {
-                if (_isCollection != value)
-                {
-                    _isCollection = value;
-                    OnPropertyChanged(nameof(IsCollection));
-                }
-            }
-        }
+		public string Name
+		{
+			get => _name;
+			set
+			{
+				if (_name != value)
+				{
+					_name = value;
+					OnPropertyChanged(nameof(Name));
+				}
+			}
+		}
 
-        public static NavigationPropertyViewModel CreateNew(Guid itemId, string name, string targetEntity, bool isCollection = false)
-        {
-            return new NavigationPropertyViewModel
-            {
-                ItemId = itemId,
-                Name = name,
-                TargetEntity = targetEntity,
-                IsCollection = isCollection
-            };
-        }
+		public string TargetEntity
+		{
+			get => _targetEntity;
+			set
+			{
+				if (_targetEntity != value)
+				{
+					_targetEntity = value;
+					OnPropertyChanged(nameof(TargetEntity));
+				}
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public bool IsCollection
+		{
+			get => _isCollection;
+			set
+			{
+				if (_isCollection != value)
+				{
+					_isCollection = value;
+					OnPropertyChanged(nameof(IsCollection));
+				}
+			}
+		}
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+		public static NavigationPropertyViewModel CreateNew(Guid itemId, string name, string targetEntity, bool isCollection = false)
+		{
+			return new NavigationPropertyViewModel
+			{
+				ItemId = itemId,
+				Name = name,
+				TargetEntity = targetEntity,
+				IsCollection = isCollection
+			};
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged(string propertyName)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
 }

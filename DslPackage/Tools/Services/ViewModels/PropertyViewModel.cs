@@ -3,81 +3,93 @@ using System.ComponentModel;
 
 namespace Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels
 {
-    public class PropertyViewModel : INotifyPropertyChanged
-    {
-        private Guid _itemId;
-        private string _name = string.Empty;
-        private string _type = string.Empty;
-        private bool _isPrimaryKey;
+	public class PropertyViewModel : INotifyPropertyChanged
+	{
+		private Guid _itemId;
+		private string _name = string.Empty;
+		private string _type = string.Empty;
+		private bool _isPrimaryKey;
 
-        public Guid ItemId
-        {
-            get => _itemId;
-            set
-            {
-                if (_itemId != value)
-                {
-                    _itemId = value;
-                    OnPropertyChanged(nameof(ItemId));
-                }
-            }
-        }
+		public PropertyViewModel()
+		{
+		}
 
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
-            }
-        }
+		public PropertyViewModel(PropertyModel propertyModel)
+		{
+			ItemId = Guid.NewGuid();
+			Name = propertyModel.Name;
+			Type = propertyModel.DataType.ToString();
+			IsPrimaryKey = propertyModel.IsPrimaryKey;
+		}
 
-        public string Type
-        {
-            get => _type;
-            set
-            {
-                if (_type != value)
-                {
-                    _type = value;
-                    OnPropertyChanged(nameof(Type));
-                }
-            }
-        }
+		public Guid ItemId
+		{
+			get => _itemId;
+			set
+			{
+				if (_itemId != value)
+				{
+					_itemId = value;
+					OnPropertyChanged(nameof(ItemId));
+				}
+			}
+		}
 
-        public bool IsPrimaryKey
-        {
-            get => _isPrimaryKey;
-            set
-            {
-                if (_isPrimaryKey != value)
-                {
-                    _isPrimaryKey = value;
-                    OnPropertyChanged(nameof(IsPrimaryKey));
-                }
-            }
-        }
+		public string Name
+		{
+			get => _name;
+			set
+			{
+				if (_name != value)
+				{
+					_name = value;
+					OnPropertyChanged(nameof(Name));
+				}
+			}
+		}
 
-        public static PropertyViewModel CreateNew(Guid itemId, string name, string type, bool isPrimaryKey = false)
-        {
-            return new PropertyViewModel
-            {
-                ItemId = itemId,
-                Name = name,
-                Type = type,
-                IsPrimaryKey = isPrimaryKey
-            };
-        }
+		public string Type
+		{
+			get => _type;
+			set
+			{
+				if (_type != value)
+				{
+					_type = value;
+					OnPropertyChanged(nameof(Type));
+				}
+			}
+		}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+		public bool IsPrimaryKey
+		{
+			get => _isPrimaryKey;
+			set
+			{
+				if (_isPrimaryKey != value)
+				{
+					_isPrimaryKey = value;
+					OnPropertyChanged(nameof(IsPrimaryKey));
+				}
+			}
+		}
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+		public static PropertyViewModel CreateNew(Guid itemId, string name, string type, bool isPrimaryKey = false)
+		{
+			return new PropertyViewModel
+			{
+				ItemId = itemId,
+				Name = name,
+				Type = type,
+				IsPrimaryKey = isPrimaryKey
+			};
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged(string propertyName)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
 }

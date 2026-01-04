@@ -117,6 +117,36 @@ namespace Dyvenix.GenIt
 			}
 		}
 
+		/// <summary>
+		/// Override OnPaint to draw the background area where there are no tabs.
+		/// </summary>
+		protected override void OnPaint(PaintEventArgs e)
+		{
+			base.OnPaint(e);
+
+			// Get VS theme background color
+			var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+
+			// Fill the entire control background first
+			using (var backBrush = new SolidBrush(backColor))
+			{
+				e.Graphics.FillRectangle(backBrush, ClientRectangle);
+			}
+		}
+
+		/// <summary>
+		/// Override OnPaintBackground to prevent default background painting.
+		/// </summary>
+		protected override void OnPaintBackground(PaintEventArgs e)
+		{
+			// Get VS theme background color and fill the entire background
+			var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+			using (var backBrush = new SolidBrush(backColor))
+			{
+				e.Graphics.FillRectangle(backBrush, ClientRectangle);
+			}
+		}
+
 		private void DiagramTabControl_DrawItem(object sender, DrawItemEventArgs e)
 		{
 			if (e.Index < 0 || e.Index >= TabCount)
