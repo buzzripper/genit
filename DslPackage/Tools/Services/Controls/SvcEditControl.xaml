@@ -21,6 +21,8 @@
         <SolidColorBrush x:Key="Theme.DataGrid.Background" Color="{DynamicResource {x:Static vsshell:VsColors.ToolWindowBackgroundKey}}"/>
         <SolidColorBrush x:Key="Theme.DataGrid.RowBackground" Color="{DynamicResource {x:Static vsshell:VsColors.ToolWindowBackgroundKey}}"/>
         <SolidColorBrush x:Key="Theme.DataGrid.AlternatingRowBackground" Color="{DynamicResource {x:Static vsshell:VsColors.ToolWindowBackgroundKey}}"/>
+        <SolidColorBrush x:Key="Theme.DataGrid.SelectedRowBackground" Color="{DynamicResource {x:Static vsshell:VsColors.HighlightKey}}"/>
+        <SolidColorBrush x:Key="Theme.DataGrid.SelectedRowForeground" Color="{DynamicResource {x:Static vsshell:VsColors.HighlightTextKey}}"/>
         
         <!-- Implicit styles for controls -->
         <Style TargetType="TextBlock">
@@ -31,6 +33,31 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+        </Style>
+        
+        <!-- Toolbar button style - subtle hover effect -->
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="Transparent" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.3"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         
         <!-- TabControl with VS theming -->
@@ -93,11 +120,18 @@
         </Style>
         <Style TargetType="DataGridRow">
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightKey}}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.HighlightTextKey}}"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="DataGridColumnHeader">
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
             <Setter Property="Padding" Value="4,2"/>
         </Style>
         
@@ -116,9 +150,10 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Top Row - Checkboxes and Options -->
+        <!-- Top Row - Entity Name, Version, Checkboxes and Options -->
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -128,25 +163,27 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="v1" VerticalAlignment="Center" Margin="4,0,12,0" FontSize="12"/>
+            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="" VerticalAlignment="Center" Margin="4,0,16,0" FontSize="14" FontWeight="SemiBold"/>
+            
+            <TextBlock Grid.Column="1" x:Name="txtVersion" Text="v1" VerticalAlignment="Center" Margin="0,0,12,0" FontSize="12"/>
 
-            <CheckBox Grid.Column="1" x:Name="ckbInclCreate" Content="Include Create Method" 
+            <CheckBox Grid.Column="2" x:Name="ckbInclCreate" Content="Include Create Method" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclCreate_Changed" Unchecked="ckbInclCreate_Changed"/>
 
-            <CheckBox Grid.Column="2" x:Name="ckbInclUpdate" Content="Include Update Method" 
+            <CheckBox Grid.Column="3" x:Name="ckbInclUpdate" Content="Include Update Method" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclUpdate_Changed" Unchecked="ckbInclUpdate_Changed"/>
 
-            <CheckBox Grid.Column="3" x:Name="ckbInclDelete" Content="Include Delete Method" 
+            <CheckBox Grid.Column="4" x:Name="ckbInclDelete" Content="Include Delete Method" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclDelete_Changed" Unchecked="ckbInclDelete_Changed"/>
 
-            <CheckBox Grid.Column="4" x:Name="ckbInclController" Content="Include Controller" 
+            <CheckBox Grid.Column="5" x:Name="ckbInclController" Content="Include Controller" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclController_Changed" Unchecked="ckbInclController_Changed"/>
 
-            <CheckBox Grid.Column="6" x:Name="ckbEnabled" Content="Enabled" 
+            <CheckBox Grid.Column="7" x:Name="ckbEnabled" Content="Enabled" 
                       VerticalAlignment="Center" HorizontalAlignment="Right"
                       Checked="ckbEnabled_Changed" Unchecked="ckbEnabled_Changed"/>
         </Grid>
@@ -180,7 +217,7 @@
                                 <Grid>
                                     <TextBlock Text="Usings" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
                                     <Button x:Name="btnAddServiceUsing" ToolTip="Add Using" Click="btnAddServiceUsing_Click" 
-                                            Padding="4" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+                                            HorizontalAlignment="Right" Style="{StaticResource ToolbarButtonStyle}">
                                         <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                                     </Button>
                                 </Grid>
@@ -203,7 +240,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Click="btnDeleteServiceUsing_Click" 
-                                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
+                                                        Style="{StaticResource ToolbarButtonStyle}" Cursor="Hand"
                                                         ToolTip="Delete">
                                                     <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
                                                           Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
@@ -232,7 +269,7 @@
                                 <Grid>
                                     <TextBlock Text="Attributes" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
                                     <Button x:Name="btnAddServiceAttribute" ToolTip="Add Attribute" Click="btnAddServiceAttribute_Click" 
-                                            Padding="4" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+                                            HorizontalAlignment="Right" Style="{StaticResource ToolbarButtonStyle}">
                                         <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                                     </Button>
                                 </Grid>
@@ -255,7 +292,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Click="btnDeleteServiceAttribute_Click" 
-                                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
+                                                        Style="{StaticResource ToolbarButtonStyle}" Cursor="Hand"
                                                         ToolTip="Delete">
                                                     <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
                                                           Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
@@ -289,7 +326,7 @@
                                 <Grid>
                                     <TextBlock Text="Usings" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
                                     <Button x:Name="btnAddControllerUsing" ToolTip="Add Using" Click="btnAddControllerUsing_Click" 
-                                            Padding="4" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+                                            HorizontalAlignment="Right" Style="{StaticResource ToolbarButtonStyle}">
                                         <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                                     </Button>
                                 </Grid>
@@ -312,7 +349,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Click="btnDeleteControllerUsing_Click" 
-                                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
+                                                        Style="{StaticResource ToolbarButtonStyle}" Cursor="Hand"
                                                         ToolTip="Delete">
                                                     <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
                                                           Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
@@ -341,7 +378,7 @@
                                 <Grid>
                                     <TextBlock Text="Attributes" FontWeight="SemiBold" FontSize="12" VerticalAlignment="Center"/>
                                     <Button x:Name="btnAddControllerAttribute" ToolTip="Add Attribute" Click="btnAddControllerAttribute_Click" 
-                                            Padding="4" HorizontalAlignment="Right" Background="Transparent" BorderThickness="0">
+                                            HorizontalAlignment="Right" Style="{StaticResource ToolbarButtonStyle}">
                                         <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                                     </Button>
                                 </Grid>
@@ -364,7 +401,7 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Click="btnDeleteControllerAttribute_Click" 
-                                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
+                                                        Style="{StaticResource ToolbarButtonStyle}" Cursor="Hand"
                                                         ToolTip="Delete">
                                                     <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
                                                           Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 

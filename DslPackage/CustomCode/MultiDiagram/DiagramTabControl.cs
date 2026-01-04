@@ -1,227 +1,246 @@
 using Microsoft.VisualStudio.PlatformUI;
 using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
 {
-	/// <summary>
-	/// Custom tab control for diagram views, positioned at the bottom of the editor.
-	/// Supports VS theming for dark/light modes.
-	/// </summary>
-	internal class DiagramTabControl : TabControl
-	{
-		private ContextMenuStrip _tabContextMenu;
-		private int _rightClickedTabIndex = -1;
+    /// <summary>
+    /// Custom tab control for diagram views, positioned at the bottom of the editor.
+    /// Supports VS theming for dark/light modes.
+    /// </summary>
+    internal class DiagramTabControl : TabControl
+    {
+        private const int WM_ERASEBKGND = 0x0014;
+        private const int WM_PAINT = 0x000F;
 
-		/// <summary>
-		/// Event raised when user requests to add a new tab.
-		/// </summary>
-		public event EventHandler AddTabRequested;
+        private ContextMenuStrip _tabContextMenu;
+        private int _rightClickedTabIndex = -1;
 
-		/// <summary>
-		/// Event raised when user requests to rename a tab.
-		/// </summary>
-		public event EventHandler<TabEventArgs> RenameTabRequested;
+        /// <summary>
+        /// Event raised when user requests to add a new tab.
+        /// </summary>
+        public event EventHandler AddTabRequested;
 
-		/// <summary>
-		/// Event raised when user requests to delete a tab.
-		/// </summary>
-		public event EventHandler<TabEventArgs> DeleteTabRequested;
+        /// <summary>
+        /// Event raised when user requests to rename a tab.
+        /// </summary>
+        public event EventHandler<TabEventArgs> RenameTabRequested;
 
-		public DiagramTabControl()
-		{
-			this.Dock = DockStyle.Bottom;
-			this.Height = 24;
-			this.Alignment = TabAlignment.Bottom;
-			this.SizeMode = TabSizeMode.Normal;
-			this.Multiline = false;
-			this.HotTrack = true;
-			this.DrawMode = TabDrawMode.OwnerDrawFixed;
-			this.ItemSize = new Size(80, 20);
+        /// <summary>
+        /// Event raised when user requests to delete a tab.
+        /// </summary>
+        public event EventHandler<TabEventArgs> DeleteTabRequested;
 
-			// Subscribe to VS theme changes
-			VSColorTheme.ThemeChanged += OnThemeChanged;
-			ApplyVsTheme();
+        public DiagramTabControl()
+        {
+            this.Dock = DockStyle.Bottom;
+            this.Height = 24;
+            this.Alignment = TabAlignment.Bottom;
+            this.SizeMode = TabSizeMode.Normal;
+            this.Multiline = false;
+            this.HotTrack = true;
+            this.DrawMode = TabDrawMode.OwnerDrawFixed;
+            this.ItemSize = new Size(80, 20);
 
-			// Create context menu
-			CreateContextMenu();
+            // Enable custom painting
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
 
-			// Handle custom drawing for theme support
-			this.DrawItem += DiagramTabControl_DrawItem;
-		}
+            // Subscribe to VS theme changes
+            VSColorTheme.ThemeChanged += OnThemeChanged;
+            ApplyVsTheme();
 
-		private void CreateContextMenu()
-		{
-			_tabContextMenu = new ContextMenuStrip();
+            // Create context menu
+            CreateContextMenu();
+        }
 
-			var addItem = new ToolStripMenuItem("Add View...");
-			addItem.Click += (s, e) => AddTabRequested?.Invoke(this, EventArgs.Empty);
+        private void CreateContextMenu()
+        {
+            _tabContextMenu = new ContextMenuStrip();
 
-			var renameItem = new ToolStripMenuItem("Rename View...");
-			renameItem.Click += (s, e) =>
-			{
-				if (_rightClickedTabIndex >= 0 && _rightClickedTabIndex < TabCount)
-				{
-					RenameTabRequested?.Invoke(this, new TabEventArgs(_rightClickedTabIndex, TabPages[_rightClickedTabIndex].Text));
-				}
-			};
+            var addItem = new ToolStripMenuItem("Add View...");
+            addItem.Click += (s, e) => AddTabRequested?.Invoke(this, EventArgs.Empty);
 
-			var deleteItem = new ToolStripMenuItem("Delete View");
-			deleteItem.Click += (s, e) =>
-			{
-				if (_rightClickedTabIndex >= 0 && _rightClickedTabIndex < TabCount)
-				{
-					// Don't allow deleting the last tab (Default view)
-					if (TabCount > 1)
-					{
-						DeleteTabRequested?.Invoke(this, new TabEventArgs(_rightClickedTabIndex, TabPages[_rightClickedTabIndex].Text));
-					}
-					else
-					{
-						MessageBox.Show("Cannot delete the last view.", "Delete View",
-							MessageBoxButtons.OK, MessageBoxIcon.Warning);
-					}
-				}
-			};
+            var renameItem = new ToolStripMenuItem("Rename View...");
+            renameItem.Click += (s, e) =>
+            {
+                if (_rightClickedTabIndex >= 0 && _rightClickedTabIndex < TabCount)
+                {
+                    RenameTabRequested?.Invoke(this, new TabEventArgs(_rightClickedTabIndex, TabPages[_rightClickedTabIndex].Text));
+                }
+            };
 
-			_tabContextMenu.Items.Add(addItem);
-			_tabContextMenu.Items.Add(new ToolStripSeparator());
-			_tabContextMenu.Items.Add(renameItem);
-			_tabContextMenu.Items.Add(deleteItem);
-		}
+            var deleteItem = new ToolStripMenuItem("Delete View");
+            deleteItem.Click += (s, e) =>
+            {
+                if (_rightClickedTabIndex >= 0 && _rightClickedTabIndex < TabCount)
+                {
+                    // Don't allow deleting the last tab (Default view)
+                    if (TabCount > 1)
+                    {
+                        DeleteTabRequested?.Invoke(this, new TabEventArgs(_rightClickedTabIndex, TabPages[_rightClickedTabIndex].Text));
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot delete the last view.", "Delete View",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            };
 
-		protected override void OnMouseClick(MouseEventArgs e)
-		{
-			base.OnMouseClick(e);
+            _tabContextMenu.Items.Add(addItem);
+            _tabContextMenu.Items.Add(new ToolStripSeparator());
+            _tabContextMenu.Items.Add(renameItem);
+            _tabContextMenu.Items.Add(deleteItem);
+        }
 
-			if (e.Button == MouseButtons.Right)
-			{
-				for (int i = 0; i < TabCount; i++)
-				{
-					if (GetTabRect(i).Contains(e.Location))
-					{
-						_rightClickedTabIndex = i;
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
 
-						// Disable delete for "Default" tab (index 0) or if it's the only tab
-						var deleteItem = _tabContextMenu.Items[3] as ToolStripMenuItem;
-						if (deleteItem != null)
-						{
-							deleteItem.Enabled = i > 0 && TabCount > 1;
-						}
+            if (e.Button == MouseButtons.Right)
+            {
+                for (int i = 0; i < TabCount; i++)
+                {
+                    if (GetTabRect(i).Contains(e.Location))
+                    {
+                        _rightClickedTabIndex = i;
 
-						_tabContextMenu.Show(this, e.Location);
-						return;
-					}
-				}
-			}
-		}
+                        // Disable delete for "Default" tab (index 0) or if it's the only tab
+                        var deleteItem = _tabContextMenu.Items[3] as ToolStripMenuItem;
+                        if (deleteItem != null)
+                        {
+                            deleteItem.Enabled = i > 0 && TabCount > 1;
+                        }
 
-		/// <summary>
-		/// Override OnPaint to draw the background area where there are no tabs.
-		/// </summary>
-		protected override void OnPaint(PaintEventArgs e)
-		{
-			base.OnPaint(e);
+                        _tabContextMenu.Show(this, e.Location);
+                        return;
+                    }
+                }
+            }
+        }
 
-			// Get VS theme background color
-			var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+        /// <summary>
+        /// Override WndProc to handle background erasing with theme color.
+        /// </summary>
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_ERASEBKGND)
+            {
+                // Handle background erasing ourselves
+                using (var g = Graphics.FromHdc(m.WParam))
+                {
+                    var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+                    using (var brush = new SolidBrush(backColor))
+                    {
+                        g.FillRectangle(brush, ClientRectangle);
+                    }
+                }
+                m.Result = (IntPtr)1; // Indicate we handled it
+                return;
+            }
+            base.WndProc(ref m);
+        }
 
-			// Fill the entire control background first
-			using (var backBrush = new SolidBrush(backColor))
-			{
-				e.Graphics.FillRectangle(backBrush, ClientRectangle);
-			}
-		}
+        /// <summary>
+        /// Override OnPaint to fully custom draw the tab control.
+        /// </summary>
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            // Get VS theme colors
+            var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+            var foreColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
+            var selectedBackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTabSelectedTabColorKey);
+            var borderColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBorderColorKey);
 
-		/// <summary>
-		/// Override OnPaintBackground to prevent default background painting.
-		/// </summary>
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{
-			// Get VS theme background color and fill the entire background
-			var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
-			using (var backBrush = new SolidBrush(backColor))
-			{
-				e.Graphics.FillRectangle(backBrush, ClientRectangle);
-			}
-		}
+            // Fill the entire background
+            using (var backBrush = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, ClientRectangle);
+            }
 
-		private void DiagramTabControl_DrawItem(object sender, DrawItemEventArgs e)
-		{
-			if (e.Index < 0 || e.Index >= TabCount)
-				return;
+            // Draw each tab
+            for (int i = 0; i < TabCount; i++)
+            {
+                var tabRect = GetTabRect(i);
+                var tabPage = TabPages[i];
+                bool isSelected = (SelectedIndex == i);
 
-			var tabPage = TabPages[e.Index];
-			var tabRect = GetTabRect(e.Index);
+                // Draw tab background
+                using (var tabBrush = new SolidBrush(isSelected ? selectedBackColor : backColor))
+                {
+                    e.Graphics.FillRectangle(tabBrush, tabRect);
+                }
 
-			// Get VS theme colors
-			var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
-			var foreColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
-			var selectedBackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTabSelectedTabColorKey);
+                // Draw tab border
+                using (var borderPen = new Pen(borderColor))
+                {
+                    e.Graphics.DrawRectangle(borderPen, tabRect);
+                }
 
-			bool isSelected = (SelectedIndex == e.Index);
+                // Draw tab text
+                var textFormat = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
 
-			using (var backBrush = new SolidBrush(isSelected ? selectedBackColor : backColor))
-			{
-				e.Graphics.FillRectangle(backBrush, tabRect);
-			}
+                using (var textBrush = new SolidBrush(foreColor))
+                {
+                    e.Graphics.DrawString(tabPage.Text, Font, textBrush, tabRect, textFormat);
+                }
+            }
+        }
 
-			// Draw text
-			var textFormat = new StringFormat
-			{
-				Alignment = StringAlignment.Center,
-				LineAlignment = StringAlignment.Center
-			};
+        /// <summary>
+        /// Override OnPaintBackground to prevent default background painting.
+        /// </summary>
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            // Get VS theme background color and fill the entire background
+            var backColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+            using (var backBrush = new SolidBrush(backColor))
+            {
+                e.Graphics.FillRectangle(backBrush, ClientRectangle);
+            }
+        }
 
-			using (var textBrush = new SolidBrush(foreColor))
-			{
-				e.Graphics.DrawString(tabPage.Text, Font, textBrush, tabRect, textFormat);
-			}
+        private void OnThemeChanged(ThemeChangedEventArgs e)
+        {
+            ApplyVsTheme();
+            Invalidate();
+        }
 
-			// Draw border
-			var borderColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBorderColorKey);
-			using (var borderPen = new Pen(borderColor))
-			{
-				e.Graphics.DrawRectangle(borderPen, tabRect);
-			}
-		}
+        private void ApplyVsTheme()
+        {
+            BackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
+            ForeColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
+        }
 
-		private void OnThemeChanged(ThemeChangedEventArgs e)
-		{
-			ApplyVsTheme();
-			Invalidate();
-		}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                VSColorTheme.ThemeChanged -= OnThemeChanged;
+                _tabContextMenu?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
 
-		private void ApplyVsTheme()
-		{
-			BackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBackgroundColorKey);
-			ForeColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
-		}
+    /// <summary>
+    /// Event args for tab-related events.
+    /// </summary>
+    internal class TabEventArgs : EventArgs
+    {
+        public int TabIndex { get; }
+        public string TabName { get; }
 
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				VSColorTheme.ThemeChanged -= OnThemeChanged;
-				_tabContextMenu?.Dispose();
-			}
-			base.Dispose(disposing);
-		}
-	}
-
-	/// <summary>
-	/// Event args for tab-related events.
-	/// </summary>
-	internal class TabEventArgs : EventArgs
-	{
-		public int TabIndex { get; }
-		public string TabName { get; }
-
-		public TabEventArgs(int tabIndex, string tabName)
-		{
-			TabIndex = tabIndex;
-			TabName = tabName;
-		}
-	}
+        public TabEventArgs(int tabIndex, string tabName)
+        {
+            TabIndex = tabIndex;
+            TabName = tabName;
+        }
+    }
 }

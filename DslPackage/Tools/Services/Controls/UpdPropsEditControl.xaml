@@ -35,8 +35,29 @@
                   Background="{DynamicResource Theme.DataGrid.Background}"
                   RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
                   AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
+            <DataGrid.Resources>
+                <!-- Centered column header style with theme colors -->
+                <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="4,2"/>
+                </Style>
+            </DataGrid.Resources>
+            <!-- Default column header style for all columns -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="4,2"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="" Width="50">
+                <DataGridTemplateColumn Header="" Width="50" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsIncluded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
@@ -45,7 +66,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding PropertyName}" IsReadOnly="True"/>
-                <DataGridTemplateColumn Header="Opt" Width="60">
+                <DataGridTemplateColumn Header="Opt" Width="60" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsOptional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 

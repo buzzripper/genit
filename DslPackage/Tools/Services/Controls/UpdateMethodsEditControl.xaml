@@ -6,6 +6,33 @@
              xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Tools.Services.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <!-- Toolbar button style - subtle hover effect -->
+        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="Transparent" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}" Opacity="0.3"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" MinWidth="300"/>
@@ -24,16 +51,16 @@
             <Border Grid.Row="0" Background="{DynamicResource Theme.Background.ToolBar}" Padding="2">
                 <Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button x:Name="btnAdd" ToolTip="Add Method" Click="btnAdd_Click" Padding="4" Background="Transparent" BorderThickness="0">
+                        <Button x:Name="btnAdd" ToolTip="Add Method" Click="btnAdd_Click" Style="{StaticResource ToolbarButtonStyle}">
                             <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="btnUp" ToolTip="Move Up" Click="btnUp_Click" Padding="4" Background="Transparent" BorderThickness="0">
+                        <Button x:Name="btnUp" ToolTip="Move Up" Click="btnUp_Click" Style="{StaticResource ToolbarButtonStyle}">
                             <Path Data="M0,6 L6,0 L12,6" Stroke="{DynamicResource Theme.Foreground}" StrokeThickness="2" 
                                   Width="12" Height="8" Stretch="Uniform"/>
                         </Button>
-                        <Button x:Name="btnDown" ToolTip="Move Down" Click="btnDown_Click" Padding="4" Margin="2,0,0,0" Background="Transparent" BorderThickness="0">
+                        <Button x:Name="btnDown" ToolTip="Move Down" Click="btnDown_Click" Style="{StaticResource ToolbarButtonStyle}" Margin="2,0,0,0">
                             <Path Data="M0,0 L6,6 L12,0" Stroke="{DynamicResource Theme.Foreground}" StrokeThickness="2" 
                                   Width="12" Height="8" Stretch="Uniform"/>
                         </Button>
@@ -60,14 +87,55 @@
                 <DataGrid.Resources>
                     <!-- Keep selection highlighting when DataGrid loses focus -->
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" 
-                                     Color="{x:Static SystemColors.HighlightColor}"/>
+                                     Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" 
-                                     Color="{x:Static SystemColors.HighlightTextColor}"/>
-                    <!-- Centered column header style -->
+                                     Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
+                    <!-- Centered column header style with theme colors -->
                     <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                        <Setter Property="BorderThickness" Value="0,1,1,1"/>
+                        <Setter Property="Padding" Value="4,2"/>
                     </Style>
                 </DataGrid.Resources>
+                <!-- Default column header style for all columns -->
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                        <Setter Property="BorderThickness" Value="0,1,1,1"/>
+                        <Setter Property="Padding" Value="4,2"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <!-- Row style with selection highlighting -->
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="{DynamicResource Theme.DataGrid.RowBackground}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <!-- Cell style with selection highlighting -->
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="100"/>
                     <DataGridTemplateColumn Header="Use DTO" Width="80" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">

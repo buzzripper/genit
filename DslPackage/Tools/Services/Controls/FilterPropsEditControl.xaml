@@ -35,9 +35,35 @@
                   Background="{DynamicResource Theme.DataGrid.Background}"
                   RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
                   AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
+            <DataGrid.Resources>
+                <!-- Centered column header style with theme colors -->
+                <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="4,2"/>
+                </Style>
+                <!-- Left-aligned column header style with theme colors -->
+                <Style x:Key="LeftColumnHeaderStyle" TargetType="DataGridColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="4,2"/>
+                </Style>
+            </DataGrid.Resources>
+            <!-- Default column header style for all columns -->
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
+                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                    <Setter Property="Padding" Value="4,2"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
@@ -49,13 +75,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Property" Width="*" Binding="{Binding PropertyName}" IsReadOnly="True">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Property" Width="*" Binding="{Binding PropertyName}" IsReadOnly="True"
+                                    HeaderStyle="{StaticResource LeftColumnHeaderStyle}"/>
                 <DataGridTemplateColumn Header="Opt" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -72,13 +93,8 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Value" Width="120" Binding="{Binding InternalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                        </Style>
-                    </DataGridTextColumn.HeaderStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Value" Width="120" Binding="{Binding InternalValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    HeaderStyle="{StaticResource LeftColumnHeaderStyle}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

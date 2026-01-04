@@ -21,6 +21,8 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 			_service = entityViewModel.Services.FirstOrDefault(s => s.Version == serviceModelVersion);
 			if (_service == null)
 				throw new System.Exception($"Service model version '{serviceModelVersion}' not found in entity '{entityViewModel.Name}'.");
+
+			PopulateControls();
 		}
 
 		private void PopulateControls()
@@ -28,6 +30,10 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 			if (_service == null || _entity == null) return;
 
 			_suspendUpdates = true;
+
+			// Set entity name and version
+			txtEntityName.Text = _entity.Name;
+			txtVersion.Text = _service.Version ?? "v1";
 
 			ckbEnabled.IsChecked = _service.Enabled;
 			ckbInclCreate.IsChecked = _service.InclCreate;
