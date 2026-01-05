@@ -184,6 +184,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ReadMethodModel), "InclSorting", ReadMethodModel.InclSortingDomainPropertyId, typeof(ReadMethodModel.InclSortingPropertyHandler)),
 				new DomainMemberInfo(typeof(ReadMethodModel), "DisplayOrder", ReadMethodModel.DisplayOrderDomainPropertyId, typeof(ReadMethodModel.DisplayOrderPropertyHandler)),
 				new DomainMemberInfo(typeof(ReadMethodModel), "Attributes", ReadMethodModel.AttributesDomainPropertyId, typeof(ReadMethodModel.AttributesPropertyHandler)),
+				new DomainMemberInfo(typeof(ReadMethodModel), "InclNavProperties", ReadMethodModel.InclNavPropertiesDomainPropertyId, typeof(ReadMethodModel.InclNavPropertiesPropertyHandler)),
 				new DomainMemberInfo(typeof(UpdatePropertyModel), "IsOptional", UpdatePropertyModel.IsOptionalDomainPropertyId, typeof(UpdatePropertyModel.IsOptionalPropertyHandler)),
 				new DomainMemberInfo(typeof(UpdateMethodModel), "ItemId", UpdateMethodModel.ItemIdDomainPropertyId, typeof(UpdateMethodModel.ItemIdPropertyHandler)),
 				new DomainMemberInfo(typeof(UpdateMethodModel), "UseDto", UpdateMethodModel.UseDtoDomainPropertyId, typeof(UpdateMethodModel.UseDtoPropertyHandler)),
@@ -586,6 +587,10 @@ namespace Dyvenix.GenIt
 			DomainRoles.Add(global::Dyvenix.GenIt.InterfaceHasOperation.OperationDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId, true);
 			#endregion
 		}

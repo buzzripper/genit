@@ -813,6 +813,14 @@
     <value>Attributes</value>
     <comment>DisplayName for DomainProperty &apos;Attributes&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclNavProperties.Description" xml:space="preserve">
+    <value>Comma-separated list of navigation property names to include in the query</value>
+    <comment>Description for DomainProperty &apos;InclNavProperties&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/InclNavProperties.DisplayName" xml:space="preserve">
+    <value>Incl Nav Properties</value>
+    <comment>DisplayName for DomainProperty &apos;InclNavProperties&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.UpdatePropertyModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.UpdatePropertyModel</value>
     <comment>Description for DomainClass &apos;UpdatePropertyModel&apos;</comment>
@@ -885,6 +893,10 @@
     <value>Incl Create</value>
     <comment>DisplayName for DomainProperty &apos;InclCreate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclCreate.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;InclCreate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ServiceModel/InclUpdate.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Incl Update</value>
     <comment>Description for DomainProperty &apos;InclUpdate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
@@ -892,6 +904,10 @@
   <data name="Dyvenix.GenIt.ServiceModel/InclUpdate.DisplayName" xml:space="preserve">
     <value>Incl Update</value>
     <comment>DisplayName for DomainProperty &apos;InclUpdate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclUpdate.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;InclUpdate&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/InclDelete.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Incl Delete</value>
@@ -901,6 +917,10 @@
     <value>Incl Delete</value>
     <comment>DisplayName for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclDelete.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ServiceModel/InclController.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Incl Controller</value>
     <comment>Description for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
@@ -908,6 +928,10 @@
   <data name="Dyvenix.GenIt.ServiceModel/InclController.DisplayName" xml:space="preserve">
     <value>Incl Controller</value>
     <comment>DisplayName for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclController.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/Version.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Version</value>

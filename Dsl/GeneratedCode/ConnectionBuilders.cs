@@ -685,6 +685,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.ReadMethodModel sourceReadMethodModel = (global::Dyvenix.GenIt.ReadMethodModel)candidateSource;
 						global::Dyvenix.GenIt.FilterPropertyModel targetFilterPropertyModel = (global::Dyvenix.GenIt.FilterPropertyModel)candidateTarget;
+						if(targetFilterPropertyModel == null || global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.GetLinkToReadMethodModeled(targetFilterPropertyModel) != null) return false;
 						if(targetFilterPropertyModel == null || sourceReadMethodModel == null || global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.GetLinks(sourceReadMethodModel, targetFilterPropertyModel).Count > 0) return false;
 						return true;
 					}
@@ -947,6 +948,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.UpdateMethodModel sourceUpdateMethodModel = (global::Dyvenix.GenIt.UpdateMethodModel)candidateSource;
 						global::Dyvenix.GenIt.UpdatePropertyModel targetUpdatePropertyModel = (global::Dyvenix.GenIt.UpdatePropertyModel)candidateTarget;
+						if(targetUpdatePropertyModel == null || global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.GetLinkToUpdateMethodModeled(targetUpdatePropertyModel) != null) return false;
 						if(targetUpdatePropertyModel == null || sourceUpdateMethodModel == null || global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.GetLinks(sourceUpdateMethodModel, targetUpdatePropertyModel).Count > 0) return false;
 						return true;
 					}
@@ -1077,6 +1079,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.ServiceModel sourceServiceModel = (global::Dyvenix.GenIt.ServiceModel)candidateSource;
 						global::Dyvenix.GenIt.ReadMethodModel targetReadMethodModel = (global::Dyvenix.GenIt.ReadMethodModel)candidateTarget;
+						if(targetReadMethodModel == null || global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.GetLinkToServiceModeled(targetReadMethodModel) != null) return false;
 						if(targetReadMethodModel == null || sourceServiceModel == null || global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.GetLinks(sourceServiceModel, targetReadMethodModel).Count > 0) return false;
 						return true;
 					}
@@ -1207,6 +1210,7 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.ServiceModel sourceServiceModel = (global::Dyvenix.GenIt.ServiceModel)candidateSource;
 						global::Dyvenix.GenIt.UpdateMethodModel targetUpdateMethodModel = (global::Dyvenix.GenIt.UpdateMethodModel)candidateTarget;
+						if(targetUpdateMethodModel == null || global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.GetLinkToServiceModeled(targetUpdateMethodModel) != null) return false;
 						if(targetUpdateMethodModel == null || sourceServiceModel == null || global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.GetLinks(sourceServiceModel, targetUpdateMethodModel).Count > 0) return false;
 						return true;
 					}

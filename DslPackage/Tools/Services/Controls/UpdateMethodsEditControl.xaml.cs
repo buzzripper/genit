@@ -1,6 +1,6 @@
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
+using Microsoft.VisualStudio.Modeling;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,24 +9,26 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 {
 	public partial class UpdateMethodsEditControl : UserControlBase
 	{
-		private ObservableCollection<UpdateMethodViewModel> _updateMethods;
-		private ObservableCollection<PropertyViewModel> _properties;
+		private ServiceModel _serviceModel;
+		private LinkedElementCollection<UpdateMethodModel> _updateMethods;
 
 		public UpdateMethodsEditControl()
 		{
 			InitializeComponent();
 		}
 
-		public void SetData(ObservableCollection<UpdateMethodViewModel> updateMethods, ObservableCollection<PropertyViewModel> properties)
+		public void SetData(
+			ServiceModel serviceModel,
+			LinkedElementCollection<UpdateMethodModel> updateMethods,
+			LinkedElementCollection<PropertyModel> properties)
 		{
 			_suspendUpdates = true;
 			try
 			{
+				_serviceModel = serviceModel;
 				_updateMethods = updateMethods;
-				_properties = properties;
 
-				var sortedMethods = new ObservableCollection<UpdateMethodViewModel>(updateMethods.OrderBy(m => m.DisplayOrder));
-				grdMethods.ItemsSource = sortedMethods;
+				RefreshGrid();
 
 				updPropsEditCtl.SetProperties(properties);
 
@@ -43,26 +45,42 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
-			if (_updateMethods == null) return;
+			if (_updateMethods == null || _serviceModel == null)
+				return;
 
 			int nextNum = _updateMethods.Count + 1;
-			var newMethod = UpdateMethodViewModel.CreateNew(Guid.NewGuid(), $"UpdateMethod{nextNum}", _updateMethods.Count);
-			_updateMethods.Add(newMethod);
+
+			DslTransactionHelper.ExecuteInTransaction(_serviceModel, "Add Update Method", () =>
+			{
+				var newMethod = new UpdateMethodModel(_serviceModel.Store);
+				newMethod.Name = $"UpdateMethod{nextNum}";
+				newMethod.ItemId = Guid.NewGuid();
+				newMethod.DisplayOrder = _updateMethods.Count;
+				_updateMethods.Add(newMethod);
+			});
+
 			RefreshGrid();
 
-			grdMethods.SelectedItem = newMethod;
+			var addedMethod = _updateMethods.LastOrDefault();
+			if (addedMethod != null)
+			{
+				grdMethods.SelectedItem = addedMethod;
+			}
 		}
 
 		private void btnDelete_Click(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button btn && btn.DataContext is UpdateMethodViewModel method && _updateMethods != null)
+			if (sender is Button btn && btn.DataContext is UpdateMethodModel method && _updateMethods != null)
 			{
 				var result = MessageBox.Show("Delete this item?", "Confirm Delete",
 					MessageBoxButton.OKCancel, MessageBoxImage.Question);
 
 				if (result == MessageBoxResult.OK)
 				{
-					_updateMethods.Remove(method);
+					DslTransactionHelper.ExecuteInTransaction(method, "Delete Update Method", () =>
+					{
+						method.Delete();
+					});
 					RefreshGrid();
 				}
 			}
@@ -70,7 +88,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
 		private void btnUp_Click(object sender, RoutedEventArgs e)
 		{
-			if (grdMethods.SelectedItem is UpdateMethodViewModel selectedMethod && _updateMethods != null)
+			if (grdMethods.SelectedItem is UpdateMethodModel selectedMethod && _updateMethods != null)
 			{
 				var currentIdx = selectedMethod.DisplayOrder;
 				if (currentIdx > 0)
@@ -82,7 +100,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
 		private void btnDown_Click(object sender, RoutedEventArgs e)
 		{
-			if (grdMethods.SelectedItem is UpdateMethodViewModel selectedMethod && _updateMethods != null)
+			if (grdMethods.SelectedItem is UpdateMethodModel selectedMethod && _updateMethods != null)
 			{
 				var currentIdx = selectedMethod.DisplayOrder;
 				if (currentIdx < _updateMethods.Count - 1)
@@ -100,8 +118,11 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 			var targetMethod = _updateMethods.First(m => m.DisplayOrder == targetIdx);
 			var srcItemId = srcMethod.ItemId;
 
-			srcMethod.DisplayOrder = targetIdx;
-			targetMethod.DisplayOrder = srcIdx;
+			DslTransactionHelper.ExecuteInTransaction(srcMethod, "Reorder Update Methods", () =>
+			{
+				srcMethod.DisplayOrder = targetIdx;
+				targetMethod.DisplayOrder = srcIdx;
+			});
 
 			_suspendUpdates = true;
 			try
@@ -110,7 +131,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 				grdMethods.UpdateLayout();
 
 				// Find the same method in the new collection by ItemId and select it
-				var newSelectedItem = grdMethods.Items.Cast<UpdateMethodViewModel>()
+				var newSelectedItem = grdMethods.Items.Cast<UpdateMethodModel>()
 					.FirstOrDefault(m => m.ItemId == srcItemId);
 
 				if (newSelectedItem != null)
@@ -136,13 +157,13 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 		{
 			if (_updateMethods == null) return;
 
-			var sortedMethods = new ObservableCollection<UpdateMethodViewModel>(_updateMethods.OrderBy(m => m.DisplayOrder));
+			var sortedMethods = _updateMethods.OrderBy(m => m.DisplayOrder).ToList();
 			grdMethods.ItemsSource = sortedMethods;
 		}
 
 		private void UpdateButtonStates()
 		{
-			var selectedMethod = grdMethods.SelectedItem as UpdateMethodViewModel;
+			var selectedMethod = grdMethods.SelectedItem as UpdateMethodModel;
 			btnUp.IsEnabled = selectedMethod != null && grdMethods.SelectedIndex > 0;
 			btnDown.IsEnabled = selectedMethod != null && grdMethods.SelectedIndex < grdMethods.Items.Count - 1;
 		}
@@ -153,15 +174,15 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
 			UpdateButtonStates();
 
-			var selectedMethod = grdMethods.SelectedItem as UpdateMethodViewModel;
+			var selectedMethod = grdMethods.SelectedItem as UpdateMethodModel;
 			if (selectedMethod != null)
 			{
-				updPropsEditCtl.SetUpdateProperties(selectedMethod.UpdateProperties);
+				updPropsEditCtl.SetUpdateProperties(selectedMethod.PropertyModels, selectedMethod);
 				updPropsEditCtl.Readonly = false;
 			}
 			else
 			{
-				updPropsEditCtl.SetUpdateProperties(null);
+				updPropsEditCtl.SetUpdateProperties(null, null);
 				updPropsEditCtl.Readonly = true;
 				updPropsEditCtl.Clear();
 			}

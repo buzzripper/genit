@@ -1039,35 +1039,31 @@ namespace Dyvenix.GenIt
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				DslModeling::DomainClassXmlSerializer newModelTypeOfModelRootHasTypesSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
-				global::System.Diagnostics.Debug.Assert(newModelTypeOfModelRootHasTypesSerializer != null, "Cannot find serializer for ModelType!");
-				ModelType newModelTypeOfModelRootHasTypes = newModelTypeOfModelRootHasTypesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as ModelType;
-				if (newModelTypeOfModelRootHasTypes != null)
+				DslModeling::DomainClassXmlSerializer newModelRootHasTypesSerializer = serializationContext.Directory.GetSerializer(ModelRootHasTypes.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(newModelRootHasTypesSerializer != null, "Cannot find serializer for ModelRootHasTypes!");
+				ModelRootHasTypes newModelRootHasTypes = newModelRootHasTypesSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as ModelRootHasTypes;
+				if (newModelRootHasTypes != null)
 				{
-					element.Types.Add(newModelTypeOfModelRootHasTypes);
-					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newModelTypeOfModelRootHasTypes.GetDomainClass().Id);	
-					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newModelTypeOfModelRootHasTypes.GetDomainClass().Name + "!");
-					targetSerializer.Read(serializationContext, newModelTypeOfModelRootHasTypes, reader);
+					DslModeling::DomainRoleInfo.SetRolePlayer (newModelRootHasTypes, ModelRootHasTypes.ModelRootDomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newModelRootHasTypes.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newModelRootHasTypes.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, newModelRootHasTypes, reader);
 				}
 				else
-				{
-					global::System.Type typeofModelRootHasTypes = typeof(ModelRootHasTypes);
-					DslModeling::DomainRelationshipXmlSerializer newModelRootHasTypesSerializer = serializationContext.Directory.GetSerializer(ModelRootHasTypes.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-					global::System.Diagnostics.Debug.Assert(newModelRootHasTypesSerializer != null, "Cannot find serializer for ModelRootHasTypes!");
-					ModelRootHasTypes newModelRootHasTypes = newModelRootHasTypesSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as ModelRootHasTypes;
-					if (newModelRootHasTypes != null)
+				{	// Maybe the relationship is serialized in short-form by mistake.
+					DslModeling::DomainClassXmlSerializer newModelTypeOfModelRootHasTypesSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newModelTypeOfModelRootHasTypesSerializer != null, "Cannot find serializer for ModelType!");
+					ModelType newModelTypeOfModelRootHasTypes = newModelTypeOfModelRootHasTypesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as ModelType;
+					if (newModelTypeOfModelRootHasTypes != null)
 					{
-						if (newModelRootHasTypes.GetType() == typeofModelRootHasTypes)
-						{	// The relationship should be serialized in short-form.
-							GenItSerializationBehaviorSerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(ModelRootHasTypes));
-						}
-						DslModeling::DomainRoleInfo.SetRolePlayer (newModelRootHasTypes, ModelRootHasTypes.ModelRootDomainRoleId, element);
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newModelRootHasTypes.GetDomainClass().Id);	
-						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newModelRootHasTypes.GetDomainClass().Name + "!");
-						targetSerializer.Read(serializationContext, newModelRootHasTypes, reader);
+						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(ModelRootHasTypes));
+						element.Types.Add(newModelTypeOfModelRootHasTypes);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newModelTypeOfModelRootHasTypes.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newModelTypeOfModelRootHasTypes.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newModelTypeOfModelRootHasTypes, reader);
 					}
 					else
-					{	// Unknown element, skip
+					{	// Unknown element, skip.
 						DslModeling::SerializationUtilities.Skip(reader);
 					}
 				}
@@ -1692,25 +1688,14 @@ namespace Dyvenix.GenIt
 			if (!serializationContext.Result.Failed && allModelRootHasTypesInstances.Count > 0)
 			{
 				writer.WriteStartElement("types");
-				global::System.Type typeofModelRootHasTypes = typeof(ModelRootHasTypes);
 				foreach (ModelRootHasTypes eachModelRootHasTypesInstance in allModelRootHasTypesInstances)
 				{
 					if (serializationContext.Result.Failed)
 						break;
 	
-					if (eachModelRootHasTypesInstance.GetType() != typeofModelRootHasTypes)
-					{	// Derived relationships will be serialized in full-form.
-						DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(eachModelRootHasTypesInstance.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + eachModelRootHasTypesInstance.GetDomainClass().Name + "!");			
-						derivedRelSerializer.Write(serializationContext, eachModelRootHasTypesInstance, writer);
-					}
-					else
-					{	// No need to serialize the relationship itself, just serialize the role-player directly.
-						DslModeling::ModelElement targetElement = eachModelRootHasTypesInstance.Type;
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");			
-						targetSerializer.Write(serializationContext, targetElement, writer);
-					}
+					DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(eachModelRootHasTypesInstance.GetDomainClass().Id);
+					global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + eachModelRootHasTypesInstance.GetDomainClass().Name + "!");
+					relSerializer.Write(serializationContext, eachModelRootHasTypesInstance, writer);
 				}
 				writer.WriteEndElement();
 			}
@@ -4327,33 +4312,29 @@ namespace Dyvenix.GenIt
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				DslModeling::DomainClassXmlSerializer newModelTypeMonikerOfCommentReferencesSubjectsSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
-				global::System.Diagnostics.Debug.Assert(newModelTypeMonikerOfCommentReferencesSubjectsSerializer != null, "Cannot find serializer for ModelType!");
-				DslModeling::Moniker newModelTypeMonikerOfCommentReferencesSubjects = newModelTypeMonikerOfCommentReferencesSubjectsSerializer.TryCreateMonikerInstance(serializationContext, reader, element, CommentReferencesSubjects.DomainClassId, element.Partition);
-				if (newModelTypeMonikerOfCommentReferencesSubjects != null)
+				DslModeling::DomainClassXmlSerializer newCommentReferencesSubjectsSerializer = serializationContext.Directory.GetSerializer(CommentReferencesSubjects.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(newCommentReferencesSubjectsSerializer != null, "Cannot find serializer for CommentReferencesSubjects!");
+				CommentReferencesSubjects newCommentReferencesSubjects = newCommentReferencesSubjectsSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as CommentReferencesSubjects;
+				if (newCommentReferencesSubjects != null)
 				{
-					new CommentReferencesSubjects(element.Partition, new DslModeling::RoleAssignment(CommentReferencesSubjects.CommentDomainRoleId, element), new DslModeling::RoleAssignment(CommentReferencesSubjects.SubjectDomainRoleId, newModelTypeMonikerOfCommentReferencesSubjects));
-					DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+					DslModeling::DomainRoleInfo.SetRolePlayer (newCommentReferencesSubjects, CommentReferencesSubjects.CommentDomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newCommentReferencesSubjects.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newCommentReferencesSubjects.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, newCommentReferencesSubjects, reader);
 				}
 				else
-				{
-					global::System.Type typeofCommentReferencesSubjects = typeof(CommentReferencesSubjects);
-					DslModeling::DomainRelationshipXmlSerializer newCommentReferencesSubjectsSerializer = serializationContext.Directory.GetSerializer(CommentReferencesSubjects.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-					global::System.Diagnostics.Debug.Assert(newCommentReferencesSubjectsSerializer != null, "Cannot find serializer for CommentReferencesSubjects!");
-					CommentReferencesSubjects newCommentReferencesSubjects = newCommentReferencesSubjectsSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as CommentReferencesSubjects;
-					if (newCommentReferencesSubjects != null)
+				{	// Maybe the relationship is serialized in short-form by mistake.
+					DslModeling::DomainClassXmlSerializer newModelTypeMonikerOfCommentReferencesSubjectsSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newModelTypeMonikerOfCommentReferencesSubjectsSerializer != null, "Cannot find serializer for ModelType!");
+					DslModeling::Moniker newModelTypeMonikerOfCommentReferencesSubjects = newModelTypeMonikerOfCommentReferencesSubjectsSerializer.TryCreateMonikerInstance(serializationContext, reader, element, CommentReferencesSubjects.DomainClassId, element.Partition);
+					if (newModelTypeMonikerOfCommentReferencesSubjects != null)
 					{
-						if (newCommentReferencesSubjects.GetType() == typeofCommentReferencesSubjects)
-						{	// The relationship should be serialized in short-form.
-							GenItSerializationBehaviorSerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(CommentReferencesSubjects));
-						}
-						DslModeling::DomainRoleInfo.SetRolePlayer (newCommentReferencesSubjects, CommentReferencesSubjects.CommentDomainRoleId, element);
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newCommentReferencesSubjects.GetDomainClass().Id);	
-						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newCommentReferencesSubjects.GetDomainClass().Name + "!");
-						targetSerializer.Read(serializationContext, newCommentReferencesSubjects, reader);
+						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(CommentReferencesSubjects));
+						new CommentReferencesSubjects(element.Partition, new DslModeling::RoleAssignment(CommentReferencesSubjects.CommentDomainRoleId, element), new DslModeling::RoleAssignment(CommentReferencesSubjects.SubjectDomainRoleId, newModelTypeMonikerOfCommentReferencesSubjects));
+						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
 					}
 					else
-					{	// Unknown element, skip
+					{	// Unknown element, skip.
 						DslModeling::SerializationUtilities.Skip(reader);
 					}
 				}
@@ -4808,29 +4789,15 @@ namespace Dyvenix.GenIt
 			global::System.Collections.ObjectModel.ReadOnlyCollection<CommentReferencesSubjects> allCommentReferencesSubjectsInstances = CommentReferencesSubjects.GetLinksToSubjects(element);
 			if (!serializationContext.Result.Failed && allCommentReferencesSubjectsInstances.Count > 0)
 			{
-				DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(CommentReferencesSubjects.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-				global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for CommentReferencesSubjects!");
-	
 				writer.WriteStartElement("subjects");
-				global::System.Type typeofCommentReferencesSubjects = typeof(CommentReferencesSubjects);
 				foreach (CommentReferencesSubjects eachCommentReferencesSubjectsInstance in allCommentReferencesSubjectsInstances)
 				{
 					if (serializationContext.Result.Failed)
 						break;
 	
-					if (eachCommentReferencesSubjectsInstance.GetType() != typeofCommentReferencesSubjects)
-					{	// Derived relationships will be serialized in full-form.
-						DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(eachCommentReferencesSubjectsInstance.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + eachCommentReferencesSubjectsInstance.GetDomainClass().Name + "!");			
-						derivedRelSerializer.Write(serializationContext, eachCommentReferencesSubjectsInstance, writer);
-					}
-					else
-					{	// No need to serialize the relationship itself, just serialize the role-player directly.
-						DslModeling::ModelElement targetElement = eachCommentReferencesSubjectsInstance.Subject;
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");			
-						targetSerializer.WriteMoniker(serializationContext, targetElement, writer, element, relSerializer);
-					}
+					DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(eachCommentReferencesSubjectsInstance.GetDomainClass().Id);
+					global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + eachCommentReferencesSubjectsInstance.GetDomainClass().Name + "!");
+					relSerializer.Write(serializationContext, eachCommentReferencesSubjectsInstance, writer);
 				}
 				writer.WriteEndElement();
 			}
@@ -5752,33 +5719,29 @@ namespace Dyvenix.GenIt
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				DslModeling::DomainClassXmlSerializer newModelTypeMonikerOfImplementationSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
-				global::System.Diagnostics.Debug.Assert(newModelTypeMonikerOfImplementationSerializer != null, "Cannot find serializer for ModelType!");
-				DslModeling::Moniker newModelTypeMonikerOfImplementation = newModelTypeMonikerOfImplementationSerializer.TryCreateMonikerInstance(serializationContext, reader, element, Implementation.DomainClassId, element.Partition);
-				if (newModelTypeMonikerOfImplementation != null)
+				DslModeling::DomainClassXmlSerializer newImplementationSerializer = serializationContext.Directory.GetSerializer(Implementation.DomainClassId);
+				global::System.Diagnostics.Debug.Assert(newImplementationSerializer != null, "Cannot find serializer for Implementation!");
+				Implementation newImplementation = newImplementationSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as Implementation;
+				if (newImplementation != null)
 				{
-					new Implementation(element.Partition, new DslModeling::RoleAssignment(Implementation.ImplementDomainRoleId, element), new DslModeling::RoleAssignment(Implementation.ImplementorDomainRoleId, newModelTypeMonikerOfImplementation));
-					DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+					DslModeling::DomainRoleInfo.SetRolePlayer (newImplementation, Implementation.ImplementDomainRoleId, element);
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newImplementation.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newImplementation.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, newImplementation, reader);
 				}
 				else
-				{
-					global::System.Type typeofImplementation = typeof(Implementation);
-					DslModeling::DomainRelationshipXmlSerializer newImplementationSerializer = serializationContext.Directory.GetSerializer(Implementation.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-					global::System.Diagnostics.Debug.Assert(newImplementationSerializer != null, "Cannot find serializer for Implementation!");
-					Implementation newImplementation = newImplementationSerializer.TryCreateInstance (serializationContext, reader, element.Partition) as Implementation;
-					if (newImplementation != null)
+				{	// Maybe the relationship is serialized in short-form by mistake.
+					DslModeling::DomainClassXmlSerializer newModelTypeMonikerOfImplementationSerializer = serializationContext.Directory.GetSerializer(ModelType.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newModelTypeMonikerOfImplementationSerializer != null, "Cannot find serializer for ModelType!");
+					DslModeling::Moniker newModelTypeMonikerOfImplementation = newModelTypeMonikerOfImplementationSerializer.TryCreateMonikerInstance(serializationContext, reader, element, Implementation.DomainClassId, element.Partition);
+					if (newModelTypeMonikerOfImplementation != null)
 					{
-						if (newImplementation.GetType() == typeofImplementation)
-						{	// The relationship should be serialized in short-form.
-							GenItSerializationBehaviorSerializationMessages.ExpectingShortFormRelationship(serializationContext, reader, typeof(Implementation));
-						}
-						DslModeling::DomainRoleInfo.SetRolePlayer (newImplementation, Implementation.ImplementDomainRoleId, element);
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newImplementation.GetDomainClass().Id);	
-						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newImplementation.GetDomainClass().Name + "!");
-						targetSerializer.Read(serializationContext, newImplementation, reader);
+						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(Implementation));
+						new Implementation(element.Partition, new DslModeling::RoleAssignment(Implementation.ImplementDomainRoleId, element), new DslModeling::RoleAssignment(Implementation.ImplementorDomainRoleId, newModelTypeMonikerOfImplementation));
+						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
 					}
 					else
-					{	// Unknown element, skip
+					{	// Unknown element, skip.
 						DslModeling::SerializationUtilities.Skip(reader);
 					}
 				}
@@ -6219,29 +6182,15 @@ namespace Dyvenix.GenIt
 			global::System.Collections.ObjectModel.ReadOnlyCollection<Implementation> allImplementationInstances = Implementation.GetLinksToImplementors(element);
 			if (!serializationContext.Result.Failed && allImplementationInstances.Count > 0)
 			{
-				DslModeling::DomainRelationshipXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(Implementation.DomainClassId) as DslModeling::DomainRelationshipXmlSerializer;
-				global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for Implementation!");
-	
 				writer.WriteStartElement("implementors");
-				global::System.Type typeofImplementation = typeof(Implementation);
 				foreach (Implementation eachImplementationInstance in allImplementationInstances)
 				{
 					if (serializationContext.Result.Failed)
 						break;
 	
-					if (eachImplementationInstance.GetType() != typeofImplementation)
-					{	// Derived relationships will be serialized in full-form.
-						DslModeling::DomainClassXmlSerializer derivedRelSerializer = serializationContext.Directory.GetSerializer(eachImplementationInstance.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(derivedRelSerializer != null, "Cannot find serializer for " + eachImplementationInstance.GetDomainClass().Name + "!");			
-						derivedRelSerializer.Write(serializationContext, eachImplementationInstance, writer);
-					}
-					else
-					{	// No need to serialize the relationship itself, just serialize the role-player directly.
-						DslModeling::ModelElement targetElement = eachImplementationInstance.Implementor;
-						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-						global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");			
-						targetSerializer.WriteMoniker(serializationContext, targetElement, writer, element, relSerializer);
-					}
+					DslModeling::DomainClassXmlSerializer relSerializer = serializationContext.Directory.GetSerializer(eachImplementationInstance.GetDomainClass().Id);
+					global::System.Diagnostics.Debug.Assert(relSerializer != null, "Cannot find serializer for " + eachImplementationInstance.GetDomainClass().Name + "!");
+					relSerializer.Write(serializationContext, eachImplementationInstance, writer);
 				}
 				writer.WriteEndElement();
 			}
@@ -10070,7 +10019,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Serializer FilterPropertyModelSerializer for DomainClass FilterPropertyModel.
 	/// </summary>
-	public partial class FilterPropertyModelSerializer : ModelRootSerializer
+	public partial class FilterPropertyModelSerializer : NamedElementSerializer
 	{
 		#region Constructor
 		/// <summary>
@@ -10933,7 +10882,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Serializer ReadMethodModelSerializer for DomainClass ReadMethodModel.
 	/// </summary>
-	public partial class ReadMethodModelSerializer : ModelRootSerializer
+	public partial class ReadMethodModelSerializer : NamedElementSerializer
 	{
 		#region Constructor
 		/// <summary>
@@ -11174,6 +11123,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// InclNavProperties
+			if (!serializationContext.Result.Failed)
+			{
+				string attribInclNavProperties = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "inclNavProperties");
+				if (attribInclNavProperties != null)
+				{
+					global::System.String valueOfInclNavProperties;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribInclNavProperties, out valueOfInclNavProperties))
+					{
+						instanceOfReadMethodModel.InclNavProperties = valueOfInclNavProperties;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclNavProperties", typeof(global::System.String), attribInclNavProperties);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -11251,7 +11217,6 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="element">In-memory ReadMethodModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
 		private static void ReadReadMethodModelHasFilterPropertiesInstances(DslModeling::SerializationContext serializationContext, ReadMethodModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
@@ -11268,14 +11233,16 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{	// Maybe the relationship is serialized in short-form by mistake.
-					DslModeling::DomainClassXmlSerializer newFilterPropertyModelMonikerOfReadMethodModelHasFilterPropertiesSerializer = serializationContext.Directory.GetSerializer(FilterPropertyModel.DomainClassId);
-					global::System.Diagnostics.Debug.Assert(newFilterPropertyModelMonikerOfReadMethodModelHasFilterPropertiesSerializer != null, "Cannot find serializer for FilterPropertyModel!");
-					DslModeling::Moniker newFilterPropertyModelMonikerOfReadMethodModelHasFilterProperties = newFilterPropertyModelMonikerOfReadMethodModelHasFilterPropertiesSerializer.TryCreateMonikerInstance(serializationContext, reader, element, ReadMethodModelHasFilterProperties.DomainClassId, element.Partition);
-					if (newFilterPropertyModelMonikerOfReadMethodModelHasFilterProperties != null)
+					DslModeling::DomainClassXmlSerializer newFilterPropertyModelOfReadMethodModelHasFilterPropertiesSerializer = serializationContext.Directory.GetSerializer(FilterPropertyModel.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newFilterPropertyModelOfReadMethodModelHasFilterPropertiesSerializer != null, "Cannot find serializer for FilterPropertyModel!");
+					FilterPropertyModel newFilterPropertyModelOfReadMethodModelHasFilterProperties = newFilterPropertyModelOfReadMethodModelHasFilterPropertiesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as FilterPropertyModel;
+					if (newFilterPropertyModelOfReadMethodModelHasFilterProperties != null)
 					{
 						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(ReadMethodModelHasFilterProperties));
-						new ReadMethodModelHasFilterProperties(element.Partition, new DslModeling::RoleAssignment(ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId, element), new DslModeling::RoleAssignment(ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, newFilterPropertyModelMonikerOfReadMethodModelHasFilterProperties));
-						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+						element.FilterPropertyModeled.Add(newFilterPropertyModelOfReadMethodModelHasFilterProperties);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newFilterPropertyModelOfReadMethodModelHasFilterProperties.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newFilterPropertyModelOfReadMethodModelHasFilterProperties.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newFilterPropertyModelOfReadMethodModelHasFilterProperties, reader);
 					}
 					else
 					{	// Unknown element, skip.
@@ -11733,6 +11700,17 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
+			// InclNavProperties
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfReadMethodModel.InclNavProperties;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclNavProperties", propValue);
+	
+				}
+			}
 		}
 	
 		/// <summary>
@@ -11874,7 +11852,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Serializer UpdatePropertyModelSerializer for DomainClass UpdatePropertyModel.
 	/// </summary>
-	public partial class UpdatePropertyModelSerializer : ModelRootSerializer
+	public partial class UpdatePropertyModelSerializer : NamedElementSerializer
 	{
 		#region Constructor
 		/// <summary>
@@ -12682,7 +12660,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Serializer UpdateMethodModelSerializer for DomainClass UpdateMethodModel.
 	/// </summary>
-	public partial class UpdateMethodModelSerializer : ModelRootSerializer
+	public partial class UpdateMethodModelSerializer : NamedElementSerializer
 	{
 		#region Constructor
 		/// <summary>
@@ -12949,7 +12927,6 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="element">In-memory UpdateMethodModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
 		private static void ReadUpdateMethodModelHasUpdatePropertiesInstances(DslModeling::SerializationContext serializationContext, UpdateMethodModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
@@ -12966,14 +12943,16 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{	// Maybe the relationship is serialized in short-form by mistake.
-					DslModeling::DomainClassXmlSerializer newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdatePropertiesSerializer = serializationContext.Directory.GetSerializer(UpdatePropertyModel.DomainClassId);
-					global::System.Diagnostics.Debug.Assert(newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdatePropertiesSerializer != null, "Cannot find serializer for UpdatePropertyModel!");
-					DslModeling::Moniker newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdateProperties = newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdatePropertiesSerializer.TryCreateMonikerInstance(serializationContext, reader, element, UpdateMethodModelHasUpdateProperties.DomainClassId, element.Partition);
-					if (newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdateProperties != null)
+					DslModeling::DomainClassXmlSerializer newUpdatePropertyModelOfUpdateMethodModelHasUpdatePropertiesSerializer = serializationContext.Directory.GetSerializer(UpdatePropertyModel.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newUpdatePropertyModelOfUpdateMethodModelHasUpdatePropertiesSerializer != null, "Cannot find serializer for UpdatePropertyModel!");
+					UpdatePropertyModel newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties = newUpdatePropertyModelOfUpdateMethodModelHasUpdatePropertiesSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as UpdatePropertyModel;
+					if (newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties != null)
 					{
 						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(UpdateMethodModelHasUpdateProperties));
-						new UpdateMethodModelHasUpdateProperties(element.Partition, new DslModeling::RoleAssignment(UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId, element), new DslModeling::RoleAssignment(UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, newUpdatePropertyModelMonikerOfUpdateMethodModelHasUpdateProperties));
-						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+						element.PropertyModels.Add(newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newUpdatePropertyModelOfUpdateMethodModelHasUpdateProperties, reader);
 					}
 					else
 					{	// Unknown element, skip.
@@ -13397,7 +13376,10 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayOrder", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayOrder", serializedPropValue);
+					}
 				}
 			}
 		}
@@ -13541,7 +13523,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Serializer ServiceModelSerializer for DomainClass ServiceModel.
 	/// </summary>
-	public partial class ServiceModelSerializer : ModelRootSerializer
+	public partial class ServiceModelSerializer : NamedElementSerializer
 	{
 		#region Constructor
 		/// <summary>
@@ -13943,7 +13925,6 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="element">In-memory ServiceModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
 		private static void ReadServiceModelHasReadMethodModelsInstances(DslModeling::SerializationContext serializationContext, ServiceModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
@@ -13960,14 +13941,16 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{	// Maybe the relationship is serialized in short-form by mistake.
-					DslModeling::DomainClassXmlSerializer newReadMethodModelMonikerOfServiceModelHasReadMethodModelsSerializer = serializationContext.Directory.GetSerializer(ReadMethodModel.DomainClassId);
-					global::System.Diagnostics.Debug.Assert(newReadMethodModelMonikerOfServiceModelHasReadMethodModelsSerializer != null, "Cannot find serializer for ReadMethodModel!");
-					DslModeling::Moniker newReadMethodModelMonikerOfServiceModelHasReadMethodModels = newReadMethodModelMonikerOfServiceModelHasReadMethodModelsSerializer.TryCreateMonikerInstance(serializationContext, reader, element, ServiceModelHasReadMethodModels.DomainClassId, element.Partition);
-					if (newReadMethodModelMonikerOfServiceModelHasReadMethodModels != null)
+					DslModeling::DomainClassXmlSerializer newReadMethodModelOfServiceModelHasReadMethodModelsSerializer = serializationContext.Directory.GetSerializer(ReadMethodModel.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newReadMethodModelOfServiceModelHasReadMethodModelsSerializer != null, "Cannot find serializer for ReadMethodModel!");
+					ReadMethodModel newReadMethodModelOfServiceModelHasReadMethodModels = newReadMethodModelOfServiceModelHasReadMethodModelsSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as ReadMethodModel;
+					if (newReadMethodModelOfServiceModelHasReadMethodModels != null)
 					{
 						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(ServiceModelHasReadMethodModels));
-						new ServiceModelHasReadMethodModels(element.Partition, new DslModeling::RoleAssignment(ServiceModelHasReadMethodModels.ServiceModelDomainRoleId, element), new DslModeling::RoleAssignment(ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, newReadMethodModelMonikerOfServiceModelHasReadMethodModels));
-						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+						element.ReadMethods.Add(newReadMethodModelOfServiceModelHasReadMethodModels);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newReadMethodModelOfServiceModelHasReadMethodModels.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newReadMethodModelOfServiceModelHasReadMethodModels.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newReadMethodModelOfServiceModelHasReadMethodModels, reader);
 					}
 					else
 					{	// Unknown element, skip.
@@ -13988,7 +13971,6 @@ namespace Dyvenix.GenIt
 		/// <param name="serializationContext">Serialization context.</param>
 		/// <param name="element">In-memory ServiceModel instance that will get the deserialized data.</param>
 		/// <param name="reader">XmlReader to read serialized data from.</param>
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806")]
 		private static void ReadServiceModelHasUpdateMethodsInstances(DslModeling::SerializationContext serializationContext, ServiceModel element, global::System.Xml.XmlReader reader)
 		{
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
@@ -14005,14 +13987,16 @@ namespace Dyvenix.GenIt
 				}
 				else
 				{	// Maybe the relationship is serialized in short-form by mistake.
-					DslModeling::DomainClassXmlSerializer newUpdateMethodModelMonikerOfServiceModelHasUpdateMethodsSerializer = serializationContext.Directory.GetSerializer(UpdateMethodModel.DomainClassId);
-					global::System.Diagnostics.Debug.Assert(newUpdateMethodModelMonikerOfServiceModelHasUpdateMethodsSerializer != null, "Cannot find serializer for UpdateMethodModel!");
-					DslModeling::Moniker newUpdateMethodModelMonikerOfServiceModelHasUpdateMethods = newUpdateMethodModelMonikerOfServiceModelHasUpdateMethodsSerializer.TryCreateMonikerInstance(serializationContext, reader, element, ServiceModelHasUpdateMethods.DomainClassId, element.Partition);
-					if (newUpdateMethodModelMonikerOfServiceModelHasUpdateMethods != null)
+					DslModeling::DomainClassXmlSerializer newUpdateMethodModelOfServiceModelHasUpdateMethodsSerializer = serializationContext.Directory.GetSerializer(UpdateMethodModel.DomainClassId);
+					global::System.Diagnostics.Debug.Assert(newUpdateMethodModelOfServiceModelHasUpdateMethodsSerializer != null, "Cannot find serializer for UpdateMethodModel!");
+					UpdateMethodModel newUpdateMethodModelOfServiceModelHasUpdateMethods = newUpdateMethodModelOfServiceModelHasUpdateMethodsSerializer.TryCreateInstance(serializationContext, reader, element.Partition) as UpdateMethodModel;
+					if (newUpdateMethodModelOfServiceModelHasUpdateMethods != null)
 					{
 						GenItSerializationBehaviorSerializationMessages.ExpectingFullFormRelationship(serializationContext, reader, typeof(ServiceModelHasUpdateMethods));
-						new ServiceModelHasUpdateMethods(element.Partition, new DslModeling::RoleAssignment(ServiceModelHasUpdateMethods.ServiceModelDomainRoleId, element), new DslModeling::RoleAssignment(ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, newUpdateMethodModelMonikerOfServiceModelHasUpdateMethods));
-						DslModeling::SerializationUtilities.Skip(reader);	// Moniker contains no child XML elements, so just skip.
+						element.UpdateMethods.Add(newUpdateMethodModelOfServiceModelHasUpdateMethods);
+						DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (newUpdateMethodModelOfServiceModelHasUpdateMethods.GetDomainClass().Id);	
+						global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + newUpdateMethodModelOfServiceModelHasUpdateMethods.GetDomainClass().Name + "!");
+						targetSerializer.Read(serializationContext, newUpdateMethodModelOfServiceModelHasUpdateMethods, reader);
 					}
 					else
 					{	// Unknown element, skip.
@@ -14416,7 +14400,10 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enabled", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enabled", serializedPropValue);
+					}
 				}
 			}
 			// InclCreate
@@ -14456,7 +14443,10 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclController", serializedPropValue);
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclController", serializedPropValue);
+					}
 				}
 			}
 			// Version
@@ -18746,7 +18736,60 @@ namespace Dyvenix.GenIt
 		/// </param>
 		public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
 		{
-			throw new global::System.NotSupportedException();
+			#region Check Parameters
+			global::System.Diagnostics.Debug.Assert (serializationContext != null);
+			if (serializationContext == null)
+				throw new global::System.ArgumentNullException ("serializationContext");
+			global::System.Diagnostics.Debug.Assert (element != null);
+			if (element == null)
+				throw new global::System.ArgumentNullException ("element");
+			global::System.Diagnostics.Debug.Assert (writer != null);
+			if (writer == null)
+				throw new global::System.ArgumentNullException ("writer");
+			#endregion
+	
+			// Write start of element, including schema target namespace if specified.
+			if (rootElementSettings != null && !string.IsNullOrEmpty(rootElementSettings.SchemaTargetNamespace))
+			{
+				writer.WriteStartElement(this.XmlTagName, rootElementSettings.SchemaTargetNamespace);
+				DslModeling::SerializationUtilities.WriteDomainModelNamespaces(serializationContext.Directory, writer, rootElementSettings.SchemaTargetNamespace);
+			}
+			else
+			{
+				writer.WriteStartElement(this.XmlTagName);
+			}
+				
+			// Write version info (in the format 1.2.3.4), if necessary
+			if (rootElementSettings != null && rootElementSettings.Version != null)
+				writer.WriteAttributeString("dslVersion", rootElementSettings.Version.ToString(4));
+	
+			// Write out element Id.
+			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
+	
+			WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+			// Write out any extension data if this is the root element
+			if (rootElementSettings != null && !serializationContext.Result.Failed)
+			{
+				GenItSerializationHelper.Instance.WriteExtensions(serializationContext, element, writer);
+			}
+	
+			// Write the target role-player instance.
+			ModelRootHasTypes instance = element as ModelRootHasTypes;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of ModelRootHasTypes!");
+	
+			DslModeling::ModelElement targetElement = instance.Type;
+			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
+			targetSerializer.Write(serializationContext, targetElement, writer);
+	
+			if (!serializationContext.Result.Failed)
+			{
+				// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
+				WriteElements(serializationContext, element, writer);
+			}
+	
+			writer.WriteEndElement();
 		}
 	
 		/// <summary>
@@ -18848,7 +18891,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return false;
+				return true;
 			}
 		}
 		#endregion
@@ -20208,7 +20251,60 @@ namespace Dyvenix.GenIt
 		/// </param>
 		public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
 		{
-			throw new global::System.NotSupportedException();
+			#region Check Parameters
+			global::System.Diagnostics.Debug.Assert (serializationContext != null);
+			if (serializationContext == null)
+				throw new global::System.ArgumentNullException ("serializationContext");
+			global::System.Diagnostics.Debug.Assert (element != null);
+			if (element == null)
+				throw new global::System.ArgumentNullException ("element");
+			global::System.Diagnostics.Debug.Assert (writer != null);
+			if (writer == null)
+				throw new global::System.ArgumentNullException ("writer");
+			#endregion
+	
+			// Write start of element, including schema target namespace if specified.
+			if (rootElementSettings != null && !string.IsNullOrEmpty(rootElementSettings.SchemaTargetNamespace))
+			{
+				writer.WriteStartElement(this.XmlTagName, rootElementSettings.SchemaTargetNamespace);
+				DslModeling::SerializationUtilities.WriteDomainModelNamespaces(serializationContext.Directory, writer, rootElementSettings.SchemaTargetNamespace);
+			}
+			else
+			{
+				writer.WriteStartElement(this.XmlTagName);
+			}
+				
+			// Write version info (in the format 1.2.3.4), if necessary
+			if (rootElementSettings != null && rootElementSettings.Version != null)
+				writer.WriteAttributeString("dslVersion", rootElementSettings.Version.ToString(4));
+	
+			// Write out element Id.
+			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
+	
+			WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+			// Write out any extension data if this is the root element
+			if (rootElementSettings != null && !serializationContext.Result.Failed)
+			{
+				GenItSerializationHelper.Instance.WriteExtensions(serializationContext, element, writer);
+			}
+	
+			// Write the target role-player instance.
+			CommentReferencesSubjects instance = element as CommentReferencesSubjects;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of CommentReferencesSubjects!");
+	
+			DslModeling::ModelElement targetElement = instance.Subject;
+			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
+			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.Comment, this);
+	
+			if (!serializationContext.Result.Failed)
+			{
+				// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
+				WriteElements(serializationContext, element, writer);
+			}
+	
+			writer.WriteEndElement();
 		}
 	
 		/// <summary>
@@ -20401,7 +20497,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return false;
+				return true;
 			}
 		}
 		#endregion
@@ -21029,7 +21125,60 @@ namespace Dyvenix.GenIt
 		/// </param>
 		public override void Write(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer, DslModeling::RootElementSettings rootElementSettings)
 		{
-			throw new global::System.NotSupportedException();
+			#region Check Parameters
+			global::System.Diagnostics.Debug.Assert (serializationContext != null);
+			if (serializationContext == null)
+				throw new global::System.ArgumentNullException ("serializationContext");
+			global::System.Diagnostics.Debug.Assert (element != null);
+			if (element == null)
+				throw new global::System.ArgumentNullException ("element");
+			global::System.Diagnostics.Debug.Assert (writer != null);
+			if (writer == null)
+				throw new global::System.ArgumentNullException ("writer");
+			#endregion
+	
+			// Write start of element, including schema target namespace if specified.
+			if (rootElementSettings != null && !string.IsNullOrEmpty(rootElementSettings.SchemaTargetNamespace))
+			{
+				writer.WriteStartElement(this.XmlTagName, rootElementSettings.SchemaTargetNamespace);
+				DslModeling::SerializationUtilities.WriteDomainModelNamespaces(serializationContext.Directory, writer, rootElementSettings.SchemaTargetNamespace);
+			}
+			else
+			{
+				writer.WriteStartElement(this.XmlTagName);
+			}
+				
+			// Write version info (in the format 1.2.3.4), if necessary
+			if (rootElementSettings != null && rootElementSettings.Version != null)
+				writer.WriteAttributeString("dslVersion", rootElementSettings.Version.ToString(4));
+	
+			// Write out element Id.
+			writer.WriteAttributeString("Id", element.Id.ToString("D", global::System.Globalization.CultureInfo.CurrentCulture));
+	
+			WritePropertiesAsAttributes(serializationContext, element, writer);
+	
+			// Write out any extension data if this is the root element
+			if (rootElementSettings != null && !serializationContext.Result.Failed)
+			{
+				GenItSerializationHelper.Instance.WriteExtensions(serializationContext, element, writer);
+			}
+	
+			// Write the target role-player instance.
+			Implementation instance = element as Implementation;
+			global::System.Diagnostics.Debug.Assert(instance != null, "Expecting an instance of Implementation!");
+	
+			DslModeling::ModelElement targetElement = instance.Implementor;
+			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
+			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
+			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.Implement, this);
+	
+			if (!serializationContext.Result.Failed)
+			{
+				// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
+				WriteElements(serializationContext, element, writer);
+			}
+	
+			writer.WriteEndElement();
 		}
 	
 		/// <summary>
@@ -21222,7 +21371,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return false;
+				return true;
 			}
 		}
 		#endregion
@@ -23661,7 +23810,7 @@ namespace Dyvenix.GenIt
 			// Read properties serialized as XML attributes.
 			ReadPropertiesFromAttributes(serializationContext, element, reader);
 				
-			// Read nested XML elements, which include at least the monikerized instance of target role-player FilterPropertyModel
+			// Read nested XML elements, which include at least the instance of target role-player FilterPropertyModel
 			if (!serializationContext.Result.Failed)
 			{
 				if (!reader.IsEmptyElement)
@@ -23730,27 +23879,29 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException ("reader");
 			#endregion
 	
-			// Read the monikerized instance of target role-player FilterPropertyModel
-			DslModeling::Moniker targetRoleMoniker = null;
+			// Read the instance of target role-player FilterPropertyModel
+			DslModeling::ModelElement targetRolePlayer = null;
 			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(FilterPropertyModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for FilterPropertyModel!");
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((ReadMethodModelHasFilterProperties)element).ReadMethodModel, ReadMethodModelHasFilterProperties.DomainClassId, element.Partition);
-				if (targetRoleMoniker != null)
+				targetRolePlayer = targetRoleSerializer.TryCreateInstance(serializationContext, reader, element.Partition);
+				if (targetRolePlayer != null)
 				{
-					// Attach the target role-player moniker.
-					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, targetRoleMoniker);
-					// Moniker tag has no child XML elements in it, so just skip to the next element.
-					DslModeling::SerializationUtilities.Skip(reader);
+					// Attach the target role-player.
+					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, targetRolePlayer);
+					// Read target role-player.
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (targetRolePlayer.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + targetRolePlayer.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, targetRolePlayer, reader);
 					break;
 				}
 				// Encountered one unknown XML element, skip it and keep reading.
 				GenItSerializationBehaviorSerializationMessages.UnexpectedXmlElement(serializationContext, reader);
 				DslModeling::SerializationUtilities.Skip(reader);
 			}
-			if (targetRoleMoniker == null)
+			if (targetRolePlayer == null)
 			{
 				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ReadMethodModelHasFilterProperties");
 			}
@@ -24233,7 +24384,7 @@ namespace Dyvenix.GenIt
 			DslModeling::ModelElement targetElement = instance.FilterPropertyModel;
 			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
 			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.ReadMethodModel, this);
+			targetSerializer.Write(serializationContext, targetElement, writer);
 	
 			if (!serializationContext.Result.Failed)
 			{
@@ -24321,97 +24472,6 @@ namespace Dyvenix.GenIt
 			#endregion	
 			
 			return string.Empty;
-		}
-		#endregion
-	
-		#region Monikerization Support
-		/// <summary>
-		/// Calculates a Moniker, given a reference to a FilterPropertyModel
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Instance of ReadMethodModel that contains the given serialized reference</param>
-		/// <param name="domainClassId">DomainClassId of the model element that the given moniker string will be resolved to.</param>
-		/// <param name="monikerString">Serialized string reference to an instance of FilterPropertyModel</param>
-		/// <param name="store">Store where the Moniker will be created</param>
-		/// <returns>A Moniker encapsulating the serialized string reference of FilterPropertyModel instance</returns>
-		public override DslModeling::Moniker MonikerizeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, global::System.Guid domainClassId, string monikerString, DslModeling::Store store)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ReadMethodModel, "Expecting an instance of ReadMethodModel!");
-			global::System.Diagnostics.Debug.Assert (!string.IsNullOrEmpty (monikerString));
-			if (string.IsNullOrEmpty (monikerString))
-				throw new global::System.ArgumentNullException ("monikerString");
-			global::System.Diagnostics.Debug.Assert(store != null);
-			if (store == null)
-				throw new global::System.ArgumentNullException ("store");
-			#endregion
-			
-			DslModeling::MonikerKey key = null;
-			if (DslModeling::SimpleMonikerResolver.IsFullyQualified(monikerString))
-			{
-				key = new DslModeling::MonikerKey(monikerString, ReadMethodModelHasFilterProperties.DomainClassId, domainClassId, store);
-			}
-			else
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), ReadMethodModelHasFilterProperties.DomainClassId, domainClassId, store);
-			}
-			return new DslModeling::Moniker(key, store);
-		}
-	
-		/// <summary>
-		/// Calculates a monikerized string reference to a FilterPropertyModel.
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Source side of reference relationship. The referenced target element will be serialized.</param>
-		/// <param name="targetElement">Target side of relationship that will be serialized.</param>
-		/// <returns>A monikerized string reference to target element.</returns>		
-		public override string SerializeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, DslModeling::ModelElement targetElement)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ReadMethodModel, "Expecting an instance of ReadMethodModel!");
-			global::System.Diagnostics.Debug.Assert(targetElement != null);
-			if (targetElement == null)
-				throw new global::System.ArgumentNullException ("targetElement");
-			global::System.Diagnostics.Debug.Assert (targetElement is FilterPropertyModel, "Expecting an instance of FilterPropertyModel!");
-			#endregion
-			
-			// full form reference
-			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			string targetMoniker = targetSerializer.CalculateQualifiedName(serializationContext.Directory, targetElement);
-			string targetQualifier = targetSerializer.GetMonikerQualifier(serializationContext.Directory, targetElement);
-			
-			if (!string.IsNullOrEmpty(targetQualifier))
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				if (string.Compare(targetQualifier, sourceQualifier, global::System.StringComparison.CurrentCulture) == 0)
-				{
-					// See if we can create a short form reference by omitting the qualifier
-					global::System.Diagnostics.Debug.Assert(targetMoniker.StartsWith(targetQualifier + "/", global::System.StringComparison.CurrentCulture));
-					string shortFormTargetMoniker = targetMoniker.Substring(targetQualifier.Length + 1);
-					if (!DslModeling::SimpleMonikerResolver.IsFullyQualified(shortFormTargetMoniker))
-						targetMoniker = shortFormTargetMoniker;
-				}
-			}
-	
-			return targetMoniker;
 		}
 		#endregion
 		
@@ -25409,7 +25469,7 @@ namespace Dyvenix.GenIt
 			// Read properties serialized as XML attributes.
 			ReadPropertiesFromAttributes(serializationContext, element, reader);
 				
-			// Read nested XML elements, which include at least the monikerized instance of target role-player UpdatePropertyModel
+			// Read nested XML elements, which include at least the instance of target role-player UpdatePropertyModel
 			if (!serializationContext.Result.Failed)
 			{
 				if (!reader.IsEmptyElement)
@@ -25478,27 +25538,29 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException ("reader");
 			#endregion
 	
-			// Read the monikerized instance of target role-player UpdatePropertyModel
-			DslModeling::Moniker targetRoleMoniker = null;
+			// Read the instance of target role-player UpdatePropertyModel
+			DslModeling::ModelElement targetRolePlayer = null;
 			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(UpdatePropertyModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for UpdatePropertyModel!");
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((UpdateMethodModelHasUpdateProperties)element).UpdateMethodModel, UpdateMethodModelHasUpdateProperties.DomainClassId, element.Partition);
-				if (targetRoleMoniker != null)
+				targetRolePlayer = targetRoleSerializer.TryCreateInstance(serializationContext, reader, element.Partition);
+				if (targetRolePlayer != null)
 				{
-					// Attach the target role-player moniker.
-					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, targetRoleMoniker);
-					// Moniker tag has no child XML elements in it, so just skip to the next element.
-					DslModeling::SerializationUtilities.Skip(reader);
+					// Attach the target role-player.
+					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, targetRolePlayer);
+					// Read target role-player.
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (targetRolePlayer.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + targetRolePlayer.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, targetRolePlayer, reader);
 					break;
 				}
 				// Encountered one unknown XML element, skip it and keep reading.
 				GenItSerializationBehaviorSerializationMessages.UnexpectedXmlElement(serializationContext, reader);
 				DslModeling::SerializationUtilities.Skip(reader);
 			}
-			if (targetRoleMoniker == null)
+			if (targetRolePlayer == null)
 			{
 				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "UpdateMethodModelHasUpdateProperties");
 			}
@@ -25981,7 +26043,7 @@ namespace Dyvenix.GenIt
 			DslModeling::ModelElement targetElement = instance.UpdatePropertyModel;
 			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
 			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.UpdateMethodModel, this);
+			targetSerializer.Write(serializationContext, targetElement, writer);
 	
 			if (!serializationContext.Result.Failed)
 			{
@@ -26069,97 +26131,6 @@ namespace Dyvenix.GenIt
 			#endregion	
 			
 			return string.Empty;
-		}
-		#endregion
-	
-		#region Monikerization Support
-		/// <summary>
-		/// Calculates a Moniker, given a reference to a UpdatePropertyModel
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Instance of UpdateMethodModel that contains the given serialized reference</param>
-		/// <param name="domainClassId">DomainClassId of the model element that the given moniker string will be resolved to.</param>
-		/// <param name="monikerString">Serialized string reference to an instance of UpdatePropertyModel</param>
-		/// <param name="store">Store where the Moniker will be created</param>
-		/// <returns>A Moniker encapsulating the serialized string reference of UpdatePropertyModel instance</returns>
-		public override DslModeling::Moniker MonikerizeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, global::System.Guid domainClassId, string monikerString, DslModeling::Store store)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is UpdateMethodModel, "Expecting an instance of UpdateMethodModel!");
-			global::System.Diagnostics.Debug.Assert (!string.IsNullOrEmpty (monikerString));
-			if (string.IsNullOrEmpty (monikerString))
-				throw new global::System.ArgumentNullException ("monikerString");
-			global::System.Diagnostics.Debug.Assert(store != null);
-			if (store == null)
-				throw new global::System.ArgumentNullException ("store");
-			#endregion
-			
-			DslModeling::MonikerKey key = null;
-			if (DslModeling::SimpleMonikerResolver.IsFullyQualified(monikerString))
-			{
-				key = new DslModeling::MonikerKey(monikerString, UpdateMethodModelHasUpdateProperties.DomainClassId, domainClassId, store);
-			}
-			else
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), UpdateMethodModelHasUpdateProperties.DomainClassId, domainClassId, store);
-			}
-			return new DslModeling::Moniker(key, store);
-		}
-	
-		/// <summary>
-		/// Calculates a monikerized string reference to a UpdatePropertyModel.
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Source side of reference relationship. The referenced target element will be serialized.</param>
-		/// <param name="targetElement">Target side of relationship that will be serialized.</param>
-		/// <returns>A monikerized string reference to target element.</returns>		
-		public override string SerializeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, DslModeling::ModelElement targetElement)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is UpdateMethodModel, "Expecting an instance of UpdateMethodModel!");
-			global::System.Diagnostics.Debug.Assert(targetElement != null);
-			if (targetElement == null)
-				throw new global::System.ArgumentNullException ("targetElement");
-			global::System.Diagnostics.Debug.Assert (targetElement is UpdatePropertyModel, "Expecting an instance of UpdatePropertyModel!");
-			#endregion
-			
-			// full form reference
-			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			string targetMoniker = targetSerializer.CalculateQualifiedName(serializationContext.Directory, targetElement);
-			string targetQualifier = targetSerializer.GetMonikerQualifier(serializationContext.Directory, targetElement);
-			
-			if (!string.IsNullOrEmpty(targetQualifier))
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				if (string.Compare(targetQualifier, sourceQualifier, global::System.StringComparison.CurrentCulture) == 0)
-				{
-					// See if we can create a short form reference by omitting the qualifier
-					global::System.Diagnostics.Debug.Assert(targetMoniker.StartsWith(targetQualifier + "/", global::System.StringComparison.CurrentCulture));
-					string shortFormTargetMoniker = targetMoniker.Substring(targetQualifier.Length + 1);
-					if (!DslModeling::SimpleMonikerResolver.IsFullyQualified(shortFormTargetMoniker))
-						targetMoniker = shortFormTargetMoniker;
-				}
-			}
-	
-			return targetMoniker;
 		}
 		#endregion
 		
@@ -26283,7 +26254,7 @@ namespace Dyvenix.GenIt
 			// Read properties serialized as XML attributes.
 			ReadPropertiesFromAttributes(serializationContext, element, reader);
 				
-			// Read nested XML elements, which include at least the monikerized instance of target role-player ReadMethodModel
+			// Read nested XML elements, which include at least the instance of target role-player ReadMethodModel
 			if (!serializationContext.Result.Failed)
 			{
 				if (!reader.IsEmptyElement)
@@ -26352,27 +26323,29 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException ("reader");
 			#endregion
 	
-			// Read the monikerized instance of target role-player ReadMethodModel
-			DslModeling::Moniker targetRoleMoniker = null;
+			// Read the instance of target role-player ReadMethodModel
+			DslModeling::ModelElement targetRolePlayer = null;
 			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(ReadMethodModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for ReadMethodModel!");
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((ServiceModelHasReadMethodModels)element).ServiceModel, ServiceModelHasReadMethodModels.DomainClassId, element.Partition);
-				if (targetRoleMoniker != null)
+				targetRolePlayer = targetRoleSerializer.TryCreateInstance(serializationContext, reader, element.Partition);
+				if (targetRolePlayer != null)
 				{
-					// Attach the target role-player moniker.
-					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, targetRoleMoniker);
-					// Moniker tag has no child XML elements in it, so just skip to the next element.
-					DslModeling::SerializationUtilities.Skip(reader);
+					// Attach the target role-player.
+					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, targetRolePlayer);
+					// Read target role-player.
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (targetRolePlayer.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + targetRolePlayer.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, targetRolePlayer, reader);
 					break;
 				}
 				// Encountered one unknown XML element, skip it and keep reading.
 				GenItSerializationBehaviorSerializationMessages.UnexpectedXmlElement(serializationContext, reader);
 				DslModeling::SerializationUtilities.Skip(reader);
 			}
-			if (targetRoleMoniker == null)
+			if (targetRolePlayer == null)
 			{
 				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ServiceModelHasReadMethodModels");
 			}
@@ -26855,7 +26828,7 @@ namespace Dyvenix.GenIt
 			DslModeling::ModelElement targetElement = instance.ReadMethodModel;
 			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
 			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.ServiceModel, this);
+			targetSerializer.Write(serializationContext, targetElement, writer);
 	
 			if (!serializationContext.Result.Failed)
 			{
@@ -26943,97 +26916,6 @@ namespace Dyvenix.GenIt
 			#endregion	
 			
 			return string.Empty;
-		}
-		#endregion
-	
-		#region Monikerization Support
-		/// <summary>
-		/// Calculates a Moniker, given a reference to a ReadMethodModel
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Instance of ServiceModel that contains the given serialized reference</param>
-		/// <param name="domainClassId">DomainClassId of the model element that the given moniker string will be resolved to.</param>
-		/// <param name="monikerString">Serialized string reference to an instance of ReadMethodModel</param>
-		/// <param name="store">Store where the Moniker will be created</param>
-		/// <returns>A Moniker encapsulating the serialized string reference of ReadMethodModel instance</returns>
-		public override DslModeling::Moniker MonikerizeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, global::System.Guid domainClassId, string monikerString, DslModeling::Store store)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ServiceModel, "Expecting an instance of ServiceModel!");
-			global::System.Diagnostics.Debug.Assert (!string.IsNullOrEmpty (monikerString));
-			if (string.IsNullOrEmpty (monikerString))
-				throw new global::System.ArgumentNullException ("monikerString");
-			global::System.Diagnostics.Debug.Assert(store != null);
-			if (store == null)
-				throw new global::System.ArgumentNullException ("store");
-			#endregion
-			
-			DslModeling::MonikerKey key = null;
-			if (DslModeling::SimpleMonikerResolver.IsFullyQualified(monikerString))
-			{
-				key = new DslModeling::MonikerKey(monikerString, ServiceModelHasReadMethodModels.DomainClassId, domainClassId, store);
-			}
-			else
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), ServiceModelHasReadMethodModels.DomainClassId, domainClassId, store);
-			}
-			return new DslModeling::Moniker(key, store);
-		}
-	
-		/// <summary>
-		/// Calculates a monikerized string reference to a ReadMethodModel.
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Source side of reference relationship. The referenced target element will be serialized.</param>
-		/// <param name="targetElement">Target side of relationship that will be serialized.</param>
-		/// <returns>A monikerized string reference to target element.</returns>		
-		public override string SerializeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, DslModeling::ModelElement targetElement)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ServiceModel, "Expecting an instance of ServiceModel!");
-			global::System.Diagnostics.Debug.Assert(targetElement != null);
-			if (targetElement == null)
-				throw new global::System.ArgumentNullException ("targetElement");
-			global::System.Diagnostics.Debug.Assert (targetElement is ReadMethodModel, "Expecting an instance of ReadMethodModel!");
-			#endregion
-			
-			// full form reference
-			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			string targetMoniker = targetSerializer.CalculateQualifiedName(serializationContext.Directory, targetElement);
-			string targetQualifier = targetSerializer.GetMonikerQualifier(serializationContext.Directory, targetElement);
-			
-			if (!string.IsNullOrEmpty(targetQualifier))
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				if (string.Compare(targetQualifier, sourceQualifier, global::System.StringComparison.CurrentCulture) == 0)
-				{
-					// See if we can create a short form reference by omitting the qualifier
-					global::System.Diagnostics.Debug.Assert(targetMoniker.StartsWith(targetQualifier + "/", global::System.StringComparison.CurrentCulture));
-					string shortFormTargetMoniker = targetMoniker.Substring(targetQualifier.Length + 1);
-					if (!DslModeling::SimpleMonikerResolver.IsFullyQualified(shortFormTargetMoniker))
-						targetMoniker = shortFormTargetMoniker;
-				}
-			}
-	
-			return targetMoniker;
 		}
 		#endregion
 		
@@ -27157,7 +27039,7 @@ namespace Dyvenix.GenIt
 			// Read properties serialized as XML attributes.
 			ReadPropertiesFromAttributes(serializationContext, element, reader);
 				
-			// Read nested XML elements, which include at least the monikerized instance of target role-player UpdateMethodModel
+			// Read nested XML elements, which include at least the instance of target role-player UpdateMethodModel
 			if (!serializationContext.Result.Failed)
 			{
 				if (!reader.IsEmptyElement)
@@ -27226,27 +27108,29 @@ namespace Dyvenix.GenIt
 				throw new global::System.ArgumentNullException ("reader");
 			#endregion
 	
-			// Read the monikerized instance of target role-player UpdateMethodModel
-			DslModeling::Moniker targetRoleMoniker = null;
+			// Read the instance of target role-player UpdateMethodModel
+			DslModeling::ModelElement targetRolePlayer = null;
 			DslModeling::DomainClassXmlSerializer targetRoleSerializer = serializationContext.Directory.GetSerializer(UpdateMethodModel.DomainClassId);
 			global::System.Diagnostics.Debug.Assert(targetRoleSerializer != null, "Cannot find serializer for UpdateMethodModel!");
 	
 			while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 			{
-				targetRoleMoniker = targetRoleSerializer.TryCreateMonikerInstance(serializationContext, reader, ((ServiceModelHasUpdateMethods)element).ServiceModel, ServiceModelHasUpdateMethods.DomainClassId, element.Partition);
-				if (targetRoleMoniker != null)
+				targetRolePlayer = targetRoleSerializer.TryCreateInstance(serializationContext, reader, element.Partition);
+				if (targetRolePlayer != null)
 				{
-					// Attach the target role-player moniker.
-					DslModeling::DomainRoleInfo.SetRolePlayerMoniker (element as DslModeling::ElementLink, ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, targetRoleMoniker);
-					// Moniker tag has no child XML elements in it, so just skip to the next element.
-					DslModeling::SerializationUtilities.Skip(reader);
+					// Attach the target role-player.
+					DslModeling::DomainRoleInfo.SetRolePlayer(element as DslModeling::ElementLink, ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, targetRolePlayer);
+					// Read target role-player.
+					DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer (targetRolePlayer.GetDomainClass().Id);	
+					global::System.Diagnostics.Debug.Assert (targetSerializer != null, "Cannot find serializer for " + targetRolePlayer.GetDomainClass().Name + "!");
+					targetSerializer.Read(serializationContext, targetRolePlayer, reader);
 					break;
 				}
 				// Encountered one unknown XML element, skip it and keep reading.
 				GenItSerializationBehaviorSerializationMessages.UnexpectedXmlElement(serializationContext, reader);
 				DslModeling::SerializationUtilities.Skip(reader);
 			}
-			if (targetRoleMoniker == null)
+			if (targetRolePlayer == null)
 			{
 				GenItSerializationBehaviorSerializationMessages.DanglingRelationship(serializationContext, reader, "ServiceModelHasUpdateMethods");
 			}
@@ -27729,7 +27613,7 @@ namespace Dyvenix.GenIt
 			DslModeling::ModelElement targetElement = instance.UpdateMethodModel;
 			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
 			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			targetSerializer.WriteMoniker(serializationContext, targetElement, writer, instance.ServiceModel, this);
+			targetSerializer.Write(serializationContext, targetElement, writer);
 	
 			if (!serializationContext.Result.Failed)
 			{
@@ -27817,97 +27701,6 @@ namespace Dyvenix.GenIt
 			#endregion	
 			
 			return string.Empty;
-		}
-		#endregion
-	
-		#region Monikerization Support
-		/// <summary>
-		/// Calculates a Moniker, given a reference to a UpdateMethodModel
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Instance of ServiceModel that contains the given serialized reference</param>
-		/// <param name="domainClassId">DomainClassId of the model element that the given moniker string will be resolved to.</param>
-		/// <param name="monikerString">Serialized string reference to an instance of UpdateMethodModel</param>
-		/// <param name="store">Store where the Moniker will be created</param>
-		/// <returns>A Moniker encapsulating the serialized string reference of UpdateMethodModel instance</returns>
-		public override DslModeling::Moniker MonikerizeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, global::System.Guid domainClassId, string monikerString, DslModeling::Store store)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ServiceModel, "Expecting an instance of ServiceModel!");
-			global::System.Diagnostics.Debug.Assert (!string.IsNullOrEmpty (monikerString));
-			if (string.IsNullOrEmpty (monikerString))
-				throw new global::System.ArgumentNullException ("monikerString");
-			global::System.Diagnostics.Debug.Assert(store != null);
-			if (store == null)
-				throw new global::System.ArgumentNullException ("store");
-			#endregion
-			
-			DslModeling::MonikerKey key = null;
-			if (DslModeling::SimpleMonikerResolver.IsFullyQualified(monikerString))
-			{
-				key = new DslModeling::MonikerKey(monikerString, ServiceModelHasUpdateMethods.DomainClassId, domainClassId, store);
-			}
-			else
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				key = new DslModeling::MonikerKey(string.Format(global::System.Globalization.CultureInfo.CurrentCulture, "{0}/{1}", sourceQualifier, monikerString), ServiceModelHasUpdateMethods.DomainClassId, domainClassId, store);
-			}
-			return new DslModeling::Moniker(key, store);
-		}
-	
-		/// <summary>
-		/// Calculates a monikerized string reference to a UpdateMethodModel.
-		/// </summary>
-		/// <param name="serializationContext">Serialization context.</param>
-		/// <param name="sourceElement">Source side of reference relationship. The referenced target element will be serialized.</param>
-		/// <param name="targetElement">Target side of relationship that will be serialized.</param>
-		/// <returns>A monikerized string reference to target element.</returns>		
-		public override string SerializeReference(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement sourceElement, DslModeling::ModelElement targetElement)
-		{
-			#region Check Parameters
-			global::System.Diagnostics.Debug.Assert(serializationContext != null);
-			if (serializationContext == null)
-				throw new global::System.ArgumentNullException("serializationContext");
-			global::System.Diagnostics.Debug.Assert(sourceElement != null);
-			if (sourceElement == null)
-				throw new global::System.ArgumentNullException ("sourceElement");
-			global::System.Diagnostics.Debug.Assert (sourceElement is ServiceModel, "Expecting an instance of ServiceModel!");
-			global::System.Diagnostics.Debug.Assert(targetElement != null);
-			if (targetElement == null)
-				throw new global::System.ArgumentNullException ("targetElement");
-			global::System.Diagnostics.Debug.Assert (targetElement is UpdateMethodModel, "Expecting an instance of UpdateMethodModel!");
-			#endregion
-			
-			// full form reference
-			DslModeling::DomainClassXmlSerializer targetSerializer = serializationContext.Directory.GetSerializer(targetElement.GetDomainClass().Id);
-			global::System.Diagnostics.Debug.Assert(targetSerializer != null, "Cannot find serializer for " + targetElement.GetDomainClass().Name + "!");
-			string targetMoniker = targetSerializer.CalculateQualifiedName(serializationContext.Directory, targetElement);
-			string targetQualifier = targetSerializer.GetMonikerQualifier(serializationContext.Directory, targetElement);
-			
-			if (!string.IsNullOrEmpty(targetQualifier))
-			{
-				DslModeling::DomainClassXmlSerializer sourceSerializer = serializationContext.Directory.GetSerializer(sourceElement.GetDomainClass().Id);
-				global::System.Diagnostics.Debug.Assert(sourceSerializer != null, "Cannot find serializer for " + sourceElement.GetDomainClass().Name + "!");
-				string sourceQualifier = sourceSerializer.GetMonikerQualifier(serializationContext.Directory, sourceElement);
-				if (string.Compare(targetQualifier, sourceQualifier, global::System.StringComparison.CurrentCulture) == 0)
-				{
-					// See if we can create a short form reference by omitting the qualifier
-					global::System.Diagnostics.Debug.Assert(targetMoniker.StartsWith(targetQualifier + "/", global::System.StringComparison.CurrentCulture));
-					string shortFormTargetMoniker = targetMoniker.Substring(targetQualifier.Length + 1);
-					if (!DslModeling::SimpleMonikerResolver.IsFullyQualified(shortFormTargetMoniker))
-						targetMoniker = shortFormTargetMoniker;
-				}
-			}
-	
-			return targetMoniker;
 		}
 		#endregion
 		

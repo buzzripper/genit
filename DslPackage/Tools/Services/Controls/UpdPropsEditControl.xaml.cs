@@ -1,14 +1,16 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 {
     public partial class UpdPropsEditControl : UserControlBase
     {
-        private ObservableCollection<PropertyViewModel> _properties;
-        private ObservableCollection<UpdatePropertyViewModel> _updateProps;
+        private LinkedElementCollection<PropertyModel> _properties;
+        private LinkedElementCollection<UpdatePropertyModel> _updateProps;
+        private UpdateMethodModel _updateMethod;
         private ObservableCollection<UpdatePropertyDisplayViewModel> _viewModels = new ObservableCollection<UpdatePropertyDisplayViewModel>();
 
         public UpdPropsEditControl()
@@ -17,7 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             grdProps.ItemsSource = _viewModels;
         }
 
-        public void SetProperties(ObservableCollection<PropertyViewModel> properties)
+        public void SetProperties(LinkedElementCollection<PropertyModel> properties)
         {
             _suspendUpdates = true;
             try
@@ -41,12 +43,13 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             }
         }
 
-        public void SetUpdateProperties(ObservableCollection<UpdatePropertyViewModel> updateProperties)
+        public void SetUpdateProperties(LinkedElementCollection<UpdatePropertyModel> updateProperties, UpdateMethodModel updateMethod)
         {
             _suspendUpdates = true;
             try
             {
                 _updateProps = updateProperties;
+                _updateMethod = updateMethod;
 
                 foreach (var vm in _viewModels)
                 {
@@ -55,7 +58,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
                 if (updateProperties == null || updateProperties.Count == 0)
                 {
-                    grdProps.IsEnabled = false;
+                    grdProps.IsEnabled = updateProperties != null;
                     return;
                 }
 
@@ -63,11 +66,12 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var updProp = updateProperties.FirstOrDefault(up => up.Property == vm.Property);
+                    var updProp = updateProperties.FirstOrDefault(up => up.Name == vm.Property.Name);
                     if (updProp != null)
                     {
                         vm.IsIncluded = true;
                         vm.IsOptional = updProp.IsOptional;
+                        vm.UpdatePropertyModel = updProp;
                     }
                 }
             }
@@ -91,26 +95,40 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var vm = sender as UpdatePropertyDisplayViewModel;
-            if (_suspendUpdates || _updateProps == null || vm == null)
+            if (_suspendUpdates || _updateProps == null || _updateMethod == null || vm == null)
                 return;
-
-            var updProp = _updateProps.FirstOrDefault(up => up.Property == vm.Property);
 
             if (e.PropertyName == nameof(UpdatePropertyDisplayViewModel.IsIncluded))
             {
-                if (vm.IsIncluded && updProp == null)
+                if (vm.IsIncluded && vm.UpdatePropertyModel == null)
                 {
-                    _updateProps.Add(UpdatePropertyViewModel.CreateNew(vm.Property, false));
+                    // Add new UpdatePropertyModel
+                    DslTransactionHelper.ExecuteInTransaction(_updateMethod, "Add Update Property", () =>
+                    {
+                        var newUpdProp = new UpdatePropertyModel(_updateMethod.Store);
+                        newUpdProp.Name = vm.Property.Name;
+                        newUpdProp.IsOptional = vm.IsOptional;
+                        _updateProps.Add(newUpdProp);
+                        vm.UpdatePropertyModel = newUpdProp;
+                    });
                 }
-                else if (!vm.IsIncluded && updProp != null)
+                else if (!vm.IsIncluded && vm.UpdatePropertyModel != null)
                 {
-                    _updateProps.Remove(updProp);
+                    // Remove UpdatePropertyModel
+                    var updPropToRemove = vm.UpdatePropertyModel;
+                    DslTransactionHelper.ExecuteInTransaction(_updateMethod, "Remove Update Property", () =>
+                    {
+                        updPropToRemove.Delete();
+                    });
+                    vm.UpdatePropertyModel = null;
                     vm.IsOptional = false;
                 }
             }
-            else if (e.PropertyName == nameof(UpdatePropertyDisplayViewModel.IsOptional) && updProp != null)
+            else if (e.PropertyName == nameof(UpdatePropertyDisplayViewModel.IsOptional) && vm.UpdatePropertyModel != null)
             {
-                updProp.IsOptional = vm.IsOptional;
+                var updProp = vm.UpdatePropertyModel;
+                DslTransactionHelper.SetPropertyIfChanged(updProp, nameof(UpdatePropertyModel.IsOptional),
+                    updProp.IsOptional, vm.IsOptional, () => updProp.IsOptional = vm.IsOptional);
             }
         }
     }
@@ -120,10 +138,11 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         private bool _isIncluded;
         private bool _isOptional;
 
-        public PropertyViewModel Property { get; }
+        public PropertyModel Property { get; }
+        public UpdatePropertyModel UpdatePropertyModel { get; set; }
         public string PropertyName { get { return Property.Name; } }
 
-        public UpdatePropertyDisplayViewModel(PropertyViewModel property)
+        public UpdatePropertyDisplayViewModel(PropertyModel property)
         {
             Property = property;
         }
@@ -144,6 +163,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         {
             _isIncluded = false;
             _isOptional = false;
+            UpdatePropertyModel = null;
             OnPropertyChanged(string.Empty);
         }
 

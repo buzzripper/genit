@@ -5492,7 +5492,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("e97460a8-b0c2-4ad1-8647-ea4e27d2a20d")]
-	public partial class FilterPropertyModel : ModelRoot
+	public partial class FilterPropertyModel : NamedElement
 	{
 		#region Constructors, domain class Id
 	
@@ -5798,18 +5798,22 @@ namespace Dyvenix.GenIt
 		}
 		#endregion
 		#region ReadMethodModeled opposite domain role accessor
-		
 		/// <summary>
-		/// Gets a list of ReadMethodModeled.
+		/// Gets or sets ReadMethodModeled.
 		/// Description for
 		/// Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ReadMethodModel> ReadMethodModeled
+		public virtual ReadMethodModel ReadMethodModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId);
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId) as ReadMethodModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -5826,7 +5830,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("d1adda56-215a-4935-b298-b323e4db36ae")]
-	public partial class ReadMethodModel : ModelRoot
+	public partial class ReadMethodModel : NamedElement
 	{
 		#region Constructors, domain class Id
 	
@@ -6376,6 +6380,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region InclNavProperties domain property code
+		
+		/// <summary>
+		/// InclNavProperties domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InclNavPropertiesDomainPropertyId = new global::System.Guid(0x1a2b3c4d, 0x5e6f, 0x4a7b, 0x8c, 0x9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d);
+		
+		/// <summary>
+		/// Storage for InclNavProperties
+		/// </summary>
+		private global::System.String inclNavPropertiesPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of InclNavProperties domain property.
+		/// Comma-separated list of navigation property names to include in the query
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModel/InclNavProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModel/InclNavProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("1a2b3c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d")]
+		public global::System.String InclNavProperties
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return inclNavPropertiesPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InclNavPropertiesPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ReadMethodModel.InclNavProperties domain property.
+		/// </summary>
+		internal sealed partial class InclNavPropertiesPropertyHandler : DslModeling::DomainPropertyValueHandler<ReadMethodModel, global::System.String>
+		{
+			private InclNavPropertiesPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ReadMethodModel.InclNavProperties domain property value handler.
+			/// </summary>
+			public static readonly InclNavPropertiesPropertyHandler Instance = new InclNavPropertiesPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ReadMethodModel.InclNavProperties domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InclNavPropertiesDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ReadMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.inclNavPropertiesPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ReadMethodModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.inclNavPropertiesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region FilterPropertyModeled opposite domain role accessor
 		
 		/// <summary>
@@ -6392,17 +6483,21 @@ namespace Dyvenix.GenIt
 		}
 		#endregion
 		#region ServiceModeled opposite domain role accessor
-		
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets or sets ServiceModeled.
 		/// Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ServiceModel> ServiceModeled
+		public virtual ServiceModel ServiceModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId);
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId) as ServiceModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -6419,7 +6514,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("dfb40532-a576-4b0e-bebe-90c3c47c3ae3")]
-	public partial class UpdatePropertyModel : ModelRoot
+	public partial class UpdatePropertyModel : NamedElement
 	{
 		#region Constructors, domain class Id
 	
@@ -6555,18 +6650,22 @@ namespace Dyvenix.GenIt
 		}
 		#endregion
 		#region UpdateMethodModeled opposite domain role accessor
-		
 		/// <summary>
-		/// Gets a list of UpdateMethodModeled.
+		/// Gets or sets UpdateMethodModeled.
 		/// Description for
 		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<UpdateMethodModel> UpdateMethodModeled
+		public virtual UpdateMethodModel UpdateMethodModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdateMethodModel>, UpdateMethodModel>(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId);
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId) as UpdateMethodModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -6583,7 +6682,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("0d0babe0-406d-490d-ae7a-47ad0ddb6081")]
-	public partial class UpdateMethodModel : ModelRoot
+	public partial class UpdateMethodModel : NamedElement
 	{
 		#region Constructors, domain class Id
 	
@@ -6889,17 +6988,21 @@ namespace Dyvenix.GenIt
 		}
 		#endregion
 		#region ServiceModeled opposite domain role accessor
-		
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets or sets ServiceModeled.
 		/// Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<ServiceModel> ServiceModeled
+		public virtual ServiceModel ServiceModeled
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId);
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId) as ServiceModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, value);
 			}
 		}
 		#endregion
@@ -6916,7 +7019,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("2d802e08-f549-40a0-8cd2-80ca5f72acbc")]
-	public partial class ServiceModel : ModelRoot
+	public partial class ServiceModel : NamedElement
 	{
 		#region Constructors, domain class Id
 	
@@ -6954,7 +7057,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for Enabled
 		/// </summary>
-		private global::System.Boolean enabledPropertyStorage;
+		private global::System.Boolean enabledPropertyStorage = true;
 		
 		/// <summary>
 		/// Gets or sets the value of Enabled domain property.
@@ -6962,6 +7065,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/Enabled.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/Enabled.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("e8ddf73c-45d6-4deb-9842-3bea5db66783")]
 		public global::System.Boolean Enabled
 		{
@@ -7048,6 +7152,7 @@ namespace Dyvenix.GenIt
 		/// Description for Dyvenix.GenIt.ServiceModel.Incl Create
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclCreate.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclCreate.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclCreate.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("4ab8767e-1987-49f2-9b86-f8e91cef4b2c")]
 		public global::System.Boolean InclCreate
@@ -7135,6 +7240,7 @@ namespace Dyvenix.GenIt
 		/// Description for Dyvenix.GenIt.ServiceModel.Incl Update
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclUpdate.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclUpdate.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclUpdate.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("9775b002-4da4-48be-8b5b-9671a6809e89")]
 		public global::System.Boolean InclUpdate
@@ -7222,6 +7328,7 @@ namespace Dyvenix.GenIt
 		/// Description for Dyvenix.GenIt.ServiceModel.Incl Delete
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclDelete.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclDelete.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclDelete.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("4d35b8b7-148d-44a9-9cca-71c517a19c6c")]
 		public global::System.Boolean InclDelete
@@ -7302,14 +7409,16 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for InclController
 		/// </summary>
-		private global::System.Boolean inclControllerPropertyStorage;
+		private global::System.Boolean inclControllerPropertyStorage = true;
 		
 		/// <summary>
 		/// Gets or sets the value of InclController domain property.
 		/// Description for Dyvenix.GenIt.ServiceModel.Incl Controller
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclController.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclController.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclController.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("f91b7374-a09f-48e5-8d9c-2f756727a568")]
 		public global::System.Boolean InclController
 		{

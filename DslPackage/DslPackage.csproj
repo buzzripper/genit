@@ -115,6 +115,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
+    <Compile Include="Tools\Services\Adapters\ServiceModelAdapter.cs" />
     <Compile Include="Tools\Services\Controls\FilterPropsEditControl.xaml.cs">
       <DependentUpon>FilterPropsEditControl.xaml</DependentUpon>
     </Compile>
@@ -138,16 +139,9 @@
     <Compile Include="Tools\Services\GenItEditorWindowControl.xaml.cs">
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Tools\Services\Helpers\DslTransactionHelper.cs" />
     <Compile Include="Tools\Services\SelectionTracker.cs" />
     <Compile Include="Tools\Services\ViewModels\EditableString.cs" />
-    <Compile Include="Tools\Services\ViewModels\EntityViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\FilterPropertyViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\NavigationPropertyViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\PropertyViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\ReadMethodViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\ServiceViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\UpdateMethodViewModel.cs" />
-    <Compile Include="Tools\Services\ViewModels\UpdatePropertyViewModel.cs" />
     <EmbeddedResource Include="Resources\Templates\ApiClientCollExt.tmpl" />
     <EmbeddedResource Include="Resources\Templates\ApiClients.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Controllers.tmpl" />

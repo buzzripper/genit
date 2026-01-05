@@ -1,4 +1,3 @@
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,14 +15,15 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services
 		}
 
 		/// <summary>
-		/// Shows the service editor with the specified entity view model.
+		/// Shows the service editor with the specified entity model.
 		/// </summary>
-		/// <param name="serviceModel">The ServiceModel to display.</param>
-		public void ShowServiceEditor(EntityViewModel entityViewModel, string serviceModelVersion)
+		/// <param name="entityModel">The EntityModel to display.</param>
+		/// <param name="serviceModelVersion">The version of the ServiceModel to display.</param>
+		public void ShowServiceEditor(EntityModel entityModel, string serviceModelVersion)
 		{
-			if (entityViewModel != null)
+			if (entityModel != null)
 			{
-				svcEditControl.Initialize(entityViewModel, serviceModelVersion);
+				svcEditControl.Initialize(entityModel, serviceModelVersion);
 				svcEditControl.Visibility = Visibility.Visible;
 				txtNoSelection.Visibility = Visibility.Collapsed;
 			}

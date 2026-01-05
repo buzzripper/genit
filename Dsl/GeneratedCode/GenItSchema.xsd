@@ -70,18 +70,11 @@
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:choice minOccurs="0" maxOccurs="unbounded" >
-                  <xsd:element ref="modelRootHasTypes">
-                    <xsd:annotation>
-                      <xsd:documentation>[Relationship deriving from ModelRootHasTypes needs to be serialized in full-form]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element ref="modelType" >
-                    <xsd:annotation>
-                      <xsd:documentation>[Target role-player]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                </xsd:choice>
+                <xsd:element ref="modelRootHasTypes" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of ModelRootHasTypes needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
@@ -381,18 +374,11 @@
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:choice minOccurs="0" maxOccurs="unbounded" >
-                  <xsd:element ref="commentReferencesSubjects">
-                    <xsd:annotation>
-                      <xsd:documentation>[Relationship deriving from CommentReferencesSubjects needs to be serialized in full-form]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element ref="modelTypeMoniker" >
-                    <xsd:annotation>
-                      <xsd:documentation>[Target role-player]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                </xsd:choice>
+                <xsd:element ref="commentReferencesSubjects" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of CommentReferencesSubjects needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
@@ -499,18 +485,11 @@
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:choice minOccurs="0" maxOccurs="unbounded" >
-                  <xsd:element ref="implementation">
-                    <xsd:annotation>
-                      <xsd:documentation>[Relationship deriving from Implementation needs to be serialized in full-form]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                  <xsd:element ref="modelTypeMoniker" >
-                    <xsd:annotation>
-                      <xsd:documentation>[Target role-player]</xsd:documentation>
-                    </xsd:annotation>
-                  </xsd:element>
-                </xsd:choice>
+                <xsd:element ref="implementation" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of Implementation needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
@@ -778,10 +757,10 @@
   </xsd:complexType>
   
   <!-- FilterPropertyModel -->
-  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="modelRoot" />
+  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="namedElement" />
   <xsd:complexType name="FilterPropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="ModelRoot">
+      <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: FilterPropertyModelHasProperty -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -816,22 +795,22 @@
   </xsd:complexType>
   
   <!-- FilterPropertyModel Moniker -->
-  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="namedElementMoniker" />
   <xsd:complexType name="FilterPropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for FilterPropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="ModelRootMoniker">
+      <xsd:extension base="NamedElementMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- ReadMethodModel -->
-  <xsd:element name="readMethodModel" type="ReadMethodModel" substitutionGroup="modelRoot" />
+  <xsd:element name="readMethodModel" type="ReadMethodModel" substitutionGroup="namedElement" />
   <xsd:complexType name="ReadMethodModel">
     <xsd:complexContent>
-      <xsd:extension base="ModelRoot">
+      <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: ReadMethodModelHasFilterProperties -->
           <xsd:element name="filterPropertyModeled" minOccurs="0" maxOccurs="1">
@@ -867,27 +846,33 @@
         <xsd:attribute name="displayOrder" type="xsd:integer" />
         <!-- Property: Attributes -->
         <xsd:attribute name="attributes" type="xsd:string" />
+        <!-- Property: InclNavProperties -->
+        <xsd:attribute name="inclNavProperties" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of navigation property names to include in the query</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- ReadMethodModel Moniker -->
-  <xsd:element name="readMethodModelMoniker" type="ReadMethodModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:element name="readMethodModelMoniker" type="ReadMethodModelMoniker" substitutionGroup="namedElementMoniker" />
   <xsd:complexType name="ReadMethodModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ReadMethodModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="ModelRootMoniker">
+      <xsd:extension base="NamedElementMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- UpdatePropertyModel -->
-  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="modelRoot" />
+  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="namedElement" />
   <xsd:complexType name="UpdatePropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="ModelRoot">
+      <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: UpdatePropertyModelHasPropertyModel -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -918,31 +903,31 @@
   </xsd:complexType>
   
   <!-- UpdatePropertyModel Moniker -->
-  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="namedElementMoniker" />
   <xsd:complexType name="UpdatePropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for UpdatePropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="ModelRootMoniker">
+      <xsd:extension base="NamedElementMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- UpdateMethodModel -->
-  <xsd:element name="updateMethodModel" type="UpdateMethodModel" substitutionGroup="modelRoot" />
+  <xsd:element name="updateMethodModel" type="UpdateMethodModel" substitutionGroup="namedElement" />
   <xsd:complexType name="UpdateMethodModel">
     <xsd:complexContent>
-      <xsd:extension base="ModelRoot">
+      <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: UpdateMethodModelHasUpdateProperties -->
-          <xsd:element name="propertyModels" minOccurs="1" maxOccurs="1">
+          <xsd:element name="propertyModels" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>Instances of UpdateMethodModelHasUpdateProperties</xsd:documentation>
             </xsd:annotation>
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element ref="updateMethodModelHasUpdateProperties" minOccurs="1" maxOccurs="unbounded">
+                <xsd:element ref="updateMethodModelHasUpdateProperties" minOccurs="0" maxOccurs="unbounded">
                   <xsd:annotation>
                     <xsd:documentation>[Instance of UpdateMethodModelHasUpdateProperties needs to be serialized in full-form]</xsd:documentation>
                   </xsd:annotation>
@@ -968,22 +953,22 @@
   </xsd:complexType>
   
   <!-- UpdateMethodModel Moniker -->
-  <xsd:element name="updateMethodModelMoniker" type="UpdateMethodModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:element name="updateMethodModelMoniker" type="UpdateMethodModelMoniker" substitutionGroup="namedElementMoniker" />
   <xsd:complexType name="UpdateMethodModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for UpdateMethodModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="ModelRootMoniker">
+      <xsd:extension base="NamedElementMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- ServiceModel -->
-  <xsd:element name="serviceModel" type="ServiceModel" substitutionGroup="modelRoot" />
+  <xsd:element name="serviceModel" type="ServiceModel" substitutionGroup="namedElement" />
   <xsd:complexType name="ServiceModel">
     <xsd:complexContent>
-      <xsd:extension base="ModelRoot">
+      <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: ServiceModelHasReadMethodModels -->
           <xsd:element name="readMethods" minOccurs="0" maxOccurs="1">
@@ -1047,13 +1032,13 @@
   </xsd:complexType>
   
   <!-- ServiceModel Moniker -->
-  <xsd:element name="serviceModelMoniker" type="ServiceModelMoniker" substitutionGroup="modelRootMoniker" />
+  <xsd:element name="serviceModelMoniker" type="ServiceModelMoniker" substitutionGroup="namedElementMoniker" />
   <xsd:complexType name="ServiceModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ServiceModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="ModelRootMoniker">
+      <xsd:extension base="NamedElementMoniker">
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1253,8 +1238,8 @@
   </xsd:complexType>
   
   <!-- ModelRootHasTypes -->
-  <xsd:element name="modelRootHasTypes" abstract="true" type="ModelRootHasTypes" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="ModelRootHasTypes" abstract="true" >
+  <xsd:element name="modelRootHasTypes" type="ModelRootHasTypes" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="ModelRootHasTypes">
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
@@ -1333,8 +1318,8 @@
   </xsd:complexType>
   
   <!-- CommentReferencesSubjects -->
-  <xsd:element name="commentReferencesSubjects" abstract="true" type="CommentReferencesSubjects" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="CommentReferencesSubjects" abstract="true" >
+  <xsd:element name="commentReferencesSubjects" type="CommentReferencesSubjects" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="CommentReferencesSubjects">
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
@@ -1373,8 +1358,8 @@
   </xsd:complexType>
   
   <!-- Implementation -->
-  <xsd:element name="implementation" abstract="true" type="Implementation" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="Implementation" abstract="true" >
+  <xsd:element name="implementation" type="Implementation" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="Implementation">
     <xsd:complexContent>
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
@@ -1539,7 +1524,7 @@
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Target end FilterPropertyModel -->
-          <xsd:element ref="filterPropertyModelMoniker" minOccurs="1" maxOccurs="1">
+          <xsd:element ref="filterPropertyModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
@@ -1619,7 +1604,7 @@
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Target end UpdatePropertyModel -->
-          <xsd:element ref="updatePropertyModelMoniker" minOccurs="1" maxOccurs="1">
+          <xsd:element ref="updatePropertyModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
@@ -1659,7 +1644,7 @@
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Target end ReadMethodModel -->
-          <xsd:element ref="readMethodModelMoniker" minOccurs="1" maxOccurs="1">
+          <xsd:element ref="readMethodModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>
@@ -1699,7 +1684,7 @@
       <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Target end UpdateMethodModel -->
-          <xsd:element ref="updateMethodModelMoniker" minOccurs="1" maxOccurs="1">
+          <xsd:element ref="updateMethodModel" minOccurs="1" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>[Target role-player]</xsd:documentation>
             </xsd:annotation>

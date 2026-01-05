@@ -3269,7 +3269,7 @@ namespace Dyvenix.GenIt
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
 	[DslModeling::DomainObjectId("32cb6cdb-1478-47f4-829d-937554a834f2")]
 	public partial class ReadMethodModelHasFilterProperties : DslModeling::ElementLink
 	{
@@ -3347,7 +3347,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "FilterPropertyModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "FilterPropertyModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("0f995100-09ad-4176-ade0-88937e672b83")]
 		public virtual ReadMethodModel ReadMethodModel
 		{
@@ -3366,13 +3366,23 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Static methods to access ReadMethodModeled of a FilterPropertyModel
 		/// <summary>
-		/// Gets a list of ReadMethodModeled.
+		/// Gets ReadMethodModeled.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ReadMethodModel> GetReadMethodModeled(FilterPropertyModel element)
+		public static ReadMethodModel GetReadMethodModeled(FilterPropertyModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(element, FilterPropertyModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, FilterPropertyModelDomainRoleId) as ReadMethodModel;
+		}
+		
+		/// <summary>
+		/// Sets ReadMethodModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetReadMethodModeled(FilterPropertyModel element, ReadMethodModel newReadMethodModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, FilterPropertyModelDomainRoleId, newReadMethodModel);
 		}
 		#endregion
 		#region FilterPropertyModel domain role code
@@ -3389,7 +3399,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelHasFilterProperties/FilterPropertyModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
 		[DslModeling::DomainObjectId("a86dafce-f80a-4f02-93e8-25e90ad5cfa9")]
 		public virtual FilterPropertyModel FilterPropertyModel
 		{
@@ -3430,13 +3440,22 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region FilterPropertyModel link accessor
 		/// <summary>
-		/// Get the list of ReadMethodModelHasFilterProperties links to a FilterPropertyModel.
+		/// Get the ReadMethodModelHasFilterProperties link to a FilterPropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> GetLinksToReadMethodModeled ( global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance )
+		public static global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties GetLinkToReadMethodModeled (global::Dyvenix.GenIt.FilterPropertyModel filterPropertyModelInstance)
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(filterPropertyModelInstance, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties>(filterPropertyModelInstance, global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of FilterPropertyModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
 		}
 		#endregion
 		#region ReadMethodModelHasFilterProperties instance accessors
@@ -3749,7 +3768,7 @@ namespace Dyvenix.GenIt
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
 	[DslModeling::DomainObjectId("b00efb37-ec59-40d2-af39-bdd942b5d4f4")]
 	public partial class UpdateMethodModelHasUpdateProperties : DslModeling::ElementLink
 	{
@@ -3828,7 +3847,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.OneMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdateMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("c15ab607-9c3b-49cb-b70a-f87377d319d7")]
 		public virtual UpdateMethodModel UpdateMethodModel
 		{
@@ -3847,13 +3866,23 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Static methods to access UpdateMethodModeled of a UpdatePropertyModel
 		/// <summary>
-		/// Gets a list of UpdateMethodModeled.
+		/// Gets UpdateMethodModeled.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<UpdateMethodModel> GetUpdateMethodModeled(UpdatePropertyModel element)
+		public static UpdateMethodModel GetUpdateMethodModeled(UpdatePropertyModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<UpdateMethodModel>, UpdateMethodModel>(element, UpdatePropertyModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, UpdatePropertyModelDomainRoleId) as UpdateMethodModel;
+		}
+		
+		/// <summary>
+		/// Sets UpdateMethodModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetUpdateMethodModeled(UpdatePropertyModel element, UpdateMethodModel newUpdateMethodModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, UpdatePropertyModelDomainRoleId, newUpdateMethodModel);
 		}
 		#endregion
 		#region UpdatePropertyModel domain role code
@@ -3870,7 +3899,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdateMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdateMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties/UpdatePropertyModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
 		[DslModeling::DomainObjectId("cc20809a-f025-4bd0-bc76-5167422fd873")]
 		public virtual UpdatePropertyModel UpdatePropertyModel
 		{
@@ -3911,13 +3940,22 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region UpdatePropertyModel link accessor
 		/// <summary>
-		/// Get the list of UpdateMethodModelHasUpdateProperties links to a UpdatePropertyModel.
+		/// Get the UpdateMethodModelHasUpdateProperties link to a UpdatePropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> GetLinksToUpdateMethodModeled ( global::Dyvenix.GenIt.UpdatePropertyModel updatePropertyModelInstance )
+		public static global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties GetLinkToUpdateMethodModeled (global::Dyvenix.GenIt.UpdatePropertyModel updatePropertyModelInstance)
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(updatePropertyModelInstance, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties>(updatePropertyModelInstance, global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of UpdatePropertyModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
 		}
 		#endregion
 		#region UpdateMethodModelHasUpdateProperties instance accessors
@@ -3971,7 +4009,7 @@ namespace Dyvenix.GenIt
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasReadMethodModels.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
 	[DslModeling::DomainObjectId("7c30f2e5-9b25-42da-8022-ef5f910ee008")]
 	public partial class ServiceModelHasReadMethodModels : DslModeling::ElementLink
 	{
@@ -4049,7 +4087,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ReadMethods", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ReadMethods", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("284505c4-32a3-4097-9cdb-16f78636473f")]
 		public virtual ServiceModel ServiceModel
 		{
@@ -4068,13 +4106,23 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Static methods to access ServiceModeled of a ReadMethodModel
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets ServiceModeled.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ServiceModel> GetServiceModeled(ReadMethodModel element)
+		public static ServiceModel GetServiceModeled(ReadMethodModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(element, ReadMethodModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ReadMethodModelDomainRoleId) as ServiceModel;
+		}
+		
+		/// <summary>
+		/// Sets ServiceModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetServiceModeled(ReadMethodModel element, ServiceModel newServiceModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ReadMethodModelDomainRoleId, newServiceModel);
 		}
 		#endregion
 		#region ReadMethodModel domain role code
@@ -4090,7 +4138,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasReadMethodModels/ReadMethodModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
 		[DslModeling::DomainObjectId("c78062b8-cc0c-4f7f-b968-0ebdc5f82bc0")]
 		public virtual ReadMethodModel ReadMethodModel
 		{
@@ -4131,13 +4179,22 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region ReadMethodModel link accessor
 		/// <summary>
-		/// Get the list of ServiceModelHasReadMethodModels links to a ReadMethodModel.
+		/// Get the ServiceModelHasReadMethodModels link to a ReadMethodModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ServiceModelHasReadMethodModels> GetLinksToServiceModeled ( global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance )
+		public static global::Dyvenix.GenIt.ServiceModelHasReadMethodModels GetLinkToServiceModeled (global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance)
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasReadMethodModels>(readMethodModelInstance, global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ServiceModelHasReadMethodModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasReadMethodModels>(readMethodModelInstance, global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ReadMethodModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
 		}
 		#endregion
 		#region ServiceModelHasReadMethodModels instance accessors
@@ -4191,7 +4248,7 @@ namespace Dyvenix.GenIt
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasUpdateMethods.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
-	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
 	[DslModeling::DomainObjectId("2d057002-0041-4aa6-a842-c86b328c05ad")]
 	public partial class ServiceModelHasUpdateMethods : DslModeling::ElementLink
 	{
@@ -4269,7 +4326,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UpdateMethods", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "UpdateMethods", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasUpdateMethods/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("46b0dfdc-44ac-4aaa-96f7-b9a089e1ca06")]
 		public virtual ServiceModel ServiceModel
 		{
@@ -4288,13 +4345,23 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region Static methods to access ServiceModeled of a UpdateMethodModel
 		/// <summary>
-		/// Gets a list of ServiceModeled.
+		/// Gets ServiceModeled.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static DslModeling::LinkedElementCollection<ServiceModel> GetServiceModeled(UpdateMethodModel element)
+		public static ServiceModel GetServiceModeled(UpdateMethodModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(element, UpdateMethodModelDomainRoleId);
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, UpdateMethodModelDomainRoleId) as ServiceModel;
+		}
+		
+		/// <summary>
+		/// Sets ServiceModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetServiceModeled(UpdateMethodModel element, ServiceModel newServiceModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, UpdateMethodModelDomainRoleId, newServiceModel);
 		}
 		#endregion
 		#region UpdateMethodModel domain role code
@@ -4310,7 +4377,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ServiceModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasUpdateMethods/UpdateMethodModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
 		[DslModeling::DomainObjectId("7e877f3f-d760-41f7-80bd-7f7437fd59f8")]
 		public virtual UpdateMethodModel UpdateMethodModel
 		{
@@ -4351,13 +4418,22 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region UpdateMethodModel link accessor
 		/// <summary>
-		/// Get the list of ServiceModelHasUpdateMethods links to a UpdateMethodModel.
+		/// Get the ServiceModelHasUpdateMethods link to a UpdateMethodModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ServiceModelHasUpdateMethods> GetLinksToServiceModeled ( global::Dyvenix.GenIt.UpdateMethodModel updateMethodModelInstance )
+		public static global::Dyvenix.GenIt.ServiceModelHasUpdateMethods GetLinkToServiceModeled (global::Dyvenix.GenIt.UpdateMethodModel updateMethodModelInstance)
 		{
-			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasUpdateMethods>(updateMethodModelInstance, global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId);
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ServiceModelHasUpdateMethods> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasUpdateMethods>(updateMethodModelInstance, global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of UpdateMethodModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
 		}
 		#endregion
 		#region ServiceModelHasUpdateMethods instance accessors

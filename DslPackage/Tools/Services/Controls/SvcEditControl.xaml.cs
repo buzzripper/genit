@@ -1,3 +1,4 @@
+using Dyvenix.GenIt.DslPackage.Tools.Services.Adapters;
 using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
 using System.Linq;
 using System.Windows;
@@ -7,50 +8,52 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 {
 	public partial class SvcEditControl : UserControlBase
 	{
-		private EntityViewModel _entity;
-		private ServiceViewModel _service;
+		private EntityModel _entity;
+		private ServiceModelAdapter _serviceAdapter;
 
 		public SvcEditControl()
 		{
 			InitializeComponent();
 		}
 
-		public void Initialize(EntityViewModel entityViewModel, string serviceModelVersion)
+		public void Initialize(EntityModel entityModel, string serviceModelVersion)
 		{
-			_entity = entityViewModel;
-			_service = entityViewModel.Services.FirstOrDefault(s => s.Version == serviceModelVersion);
-			if (_service == null)
-				throw new System.Exception($"Service model version '{serviceModelVersion}' not found in entity '{entityViewModel.Name}'.");
+			_entity = entityModel;
+			var serviceModel = entityModel.ServiceModels.FirstOrDefault(s => s.Version == serviceModelVersion);
+			if (serviceModel == null)
+				throw new System.Exception($"Service model version '{serviceModelVersion}' not found in entity '{entityModel.Name}'.");
 
-			PopulateControls();
+			_serviceAdapter = new ServiceModelAdapter(serviceModel);
+			PopulateControls(serviceModel);
 		}
 
-		private void PopulateControls()
+		private void PopulateControls(ServiceModel serviceModel)
 		{
-			if (_service == null || _entity == null) return;
+			if (_serviceAdapter == null || _entity == null)
+				return;
 
 			_suspendUpdates = true;
 
 			// Set entity name and version
 			txtEntityName.Text = _entity.Name;
-			txtVersion.Text = _service.Version ?? "v1";
+			txtVersion.Text = _serviceAdapter.Version ?? "v1";
 
-			ckbEnabled.IsChecked = _service.Enabled;
-			ckbInclCreate.IsChecked = _service.InclCreate;
-			ckbInclUpdate.IsChecked = _service.InclUpdate;
-			ckbInclDelete.IsChecked = _service.InclDelete;
-			ckbInclController.IsChecked = _service.InclController;
+			ckbEnabled.IsChecked = _serviceAdapter.Enabled;
+			ckbInclCreate.IsChecked = _serviceAdapter.InclCreate;
+			ckbInclUpdate.IsChecked = _serviceAdapter.InclUpdate;
+			ckbInclDelete.IsChecked = _serviceAdapter.InclDelete;
+			ckbInclController.IsChecked = _serviceAdapter.InclController;
 
-			readMethodsEditCtl.SetData(_service.ReadMethods, _entity.Properties, _entity.NavProperties);
-			updMethodsEditCtl.SetData(_service.UpdateMethods, _entity.Properties);
+			readMethodsEditCtl.SetData(serviceModel, _serviceAdapter.ReadMethods, _entity.Properties, _entity.NavigationProperties);
+			updMethodsEditCtl.SetData(serviceModel, _serviceAdapter.Model.UpdateMethods, _entity.Properties);
 
-			// Bind Service tab grids
-			grdServiceUsings.ItemsSource = _service.ServiceUsings;
-			grdServiceAttributes.ItemsSource = _service.ServiceAttributes;
+			// Bind Service tab grids using the adapter's collection properties
+			grdServiceUsings.ItemsSource = _serviceAdapter.ServiceUsingsList;
+			grdServiceAttributes.ItemsSource = _serviceAdapter.ServiceAttributesList;
 
 			// Bind Controller tab grids
-			grdControllerUsings.ItemsSource = _service.ControllerUsings;
-			grdControllerAttributes.ItemsSource = _service.ControllerAttributes;
+			grdControllerUsings.ItemsSource = _serviceAdapter.ControllerUsingsList;
+			grdControllerAttributes.ItemsSource = _serviceAdapter.ControllerAttributesList;
 
 			// Update Controller tab visibility
 			UpdateControllerTabVisibility();
@@ -75,33 +78,41 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
 		private void ckbEnabled_Changed(object sender, RoutedEventArgs e)
 		{
-			if (!_suspendUpdates && _service != null)
-				_service.Enabled = ckbEnabled.IsChecked ?? false;
+			if (!_suspendUpdates && _serviceAdapter != null)
+			{
+				_serviceAdapter.Enabled = ckbEnabled.IsChecked ?? false;
+			}
 		}
 
 		private void ckbInclCreate_Changed(object sender, RoutedEventArgs e)
 		{
-			if (!_suspendUpdates && _service != null)
-				_service.InclCreate = ckbInclCreate.IsChecked ?? false;
+			if (!_suspendUpdates && _serviceAdapter != null)
+			{
+				_serviceAdapter.InclCreate = ckbInclCreate.IsChecked ?? false;
+			}
 		}
 
 		private void ckbInclUpdate_Changed(object sender, RoutedEventArgs e)
 		{
-			if (!_suspendUpdates && _service != null)
-				_service.InclUpdate = ckbInclUpdate.IsChecked ?? false;
+			if (!_suspendUpdates && _serviceAdapter != null)
+			{
+				_serviceAdapter.InclUpdate = ckbInclUpdate.IsChecked ?? false;
+			}
 		}
 
 		private void ckbInclDelete_Changed(object sender, RoutedEventArgs e)
 		{
-			if (!_suspendUpdates && _service != null)
-				_service.InclDelete = ckbInclDelete.IsChecked ?? false;
+			if (!_suspendUpdates && _serviceAdapter != null)
+			{
+				_serviceAdapter.InclDelete = ckbInclDelete.IsChecked ?? false;
+			}
 		}
 
 		private void ckbInclController_Changed(object sender, RoutedEventArgs e)
 		{
-			if (!_suspendUpdates && _service != null)
+			if (!_suspendUpdates && _serviceAdapter != null)
 			{
-				_service.InclController = ckbInclController.IsChecked ?? false;
+				_serviceAdapter.InclController = ckbInclController.IsChecked ?? false;
 				UpdateControllerTabVisibility();
 			}
 		}
@@ -109,62 +120,62 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 		// Service tab event handlers
 		private void btnAddServiceUsing_Click(object sender, RoutedEventArgs e)
 		{
-			if (_service == null) return;
-			int nextNum = _service.ServiceUsings.Count + 1;
-			_service.ServiceUsings.Add(new EditableString($"Using{nextNum}"));
+			if (_serviceAdapter == null) return;
+			int nextNum = _serviceAdapter.ServiceUsingsList.Count + 1;
+			_serviceAdapter.ServiceUsingsList.Add(new EditableString($"Using{nextNum}"));
 		}
 
 		private void btnDeleteServiceUsing_Click(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button btn && btn.DataContext is EditableString item && _service != null)
+			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_service.ServiceUsings.Remove(item);
+				_serviceAdapter.ServiceUsingsList.Remove(item);
 			}
 		}
 
 		private void btnAddServiceAttribute_Click(object sender, RoutedEventArgs e)
 		{
-			if (_service == null) return;
-			int nextNum = _service.ServiceAttributes.Count + 1;
-			_service.ServiceAttributes.Add(new EditableString($"Attribute{nextNum}"));
+			if (_serviceAdapter == null) return;
+			int nextNum = _serviceAdapter.ServiceAttributesList.Count + 1;
+			_serviceAdapter.ServiceAttributesList.Add(new EditableString($"Attribute{nextNum}"));
 		}
 
 		private void btnDeleteServiceAttribute_Click(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button btn && btn.DataContext is EditableString item && _service != null)
+			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_service.ServiceAttributes.Remove(item);
+				_serviceAdapter.ServiceAttributesList.Remove(item);
 			}
 		}
 
 		// Controller tab event handlers
 		private void btnAddControllerUsing_Click(object sender, RoutedEventArgs e)
 		{
-			if (_service == null) return;
-			int nextNum = _service.ControllerUsings.Count + 1;
-			_service.ControllerUsings.Add(new EditableString($"Using{nextNum}"));
+			if (_serviceAdapter == null) return;
+			int nextNum = _serviceAdapter.ControllerUsingsList.Count + 1;
+			_serviceAdapter.ControllerUsingsList.Add(new EditableString($"Using{nextNum}"));
 		}
 
 		private void btnDeleteControllerUsing_Click(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button btn && btn.DataContext is EditableString item && _service != null)
+			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_service.ControllerUsings.Remove(item);
+				_serviceAdapter.ControllerUsingsList.Remove(item);
 			}
 		}
 
 		private void btnAddControllerAttribute_Click(object sender, RoutedEventArgs e)
 		{
-			if (_service == null) return;
-			int nextNum = _service.ControllerAttributes.Count + 1;
-			_service.ControllerAttributes.Add(new EditableString($"Attribute{nextNum}"));
+			if (_serviceAdapter == null) return;
+			int nextNum = _serviceAdapter.ControllerAttributesList.Count + 1;
+			_serviceAdapter.ControllerAttributesList.Add(new EditableString($"Attribute{nextNum}"));
 		}
 
 		private void btnDeleteControllerAttribute_Click(object sender, RoutedEventArgs e)
 		{
-			if (sender is Button btn && btn.DataContext is EditableString item && _service != null)
+			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_service.ControllerAttributes.Remove(item);
+				_serviceAdapter.ControllerAttributesList.Remove(item);
 			}
 		}
 	}

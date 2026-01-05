@@ -1,14 +1,15 @@
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 {
     public partial class InclNavPropEditControl : UserControlBase
     {
-        private ObservableCollection<NavigationPropertyViewModel> _navProperties;
-        private ObservableCollection<NavigationPropertyViewModel> _inclNavProps;
+        private LinkedElementCollection<NavigationProperty> _navProperties;
+        private ReadMethodModel _readMethod;
         private ObservableCollection<NavPropertyDisplayViewModel> _viewModels = new ObservableCollection<NavPropertyDisplayViewModel>();
 
         public InclNavPropEditControl()
@@ -17,7 +18,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             grdNavProps.ItemsSource = _viewModels;
         }
 
-        public void SetNavProperties(ObservableCollection<NavigationPropertyViewModel> navProperties)
+        public void SetNavProperties(LinkedElementCollection<NavigationProperty> navProperties)
         {
             _suspendUpdates = true;
             try
@@ -38,19 +39,20 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             }
         }
 
-        public void SetInclNavProperties(ObservableCollection<NavigationPropertyViewModel> inclNavProperties)
+        public void SetInclNavProperties(ReadMethodModel readMethod)
         {
             _suspendUpdates = true;
             try
             {
-                _inclNavProps = inclNavProperties;
+                _readMethod = readMethod;
 
+                // Reset all to unchecked
                 foreach (var vm in _viewModels)
                 {
                     vm.IsIncluded = false;
                 }
 
-                if (inclNavProperties == null || inclNavProperties.Count == 0)
+                if (readMethod == null)
                 {
                     grdNavProps.IsEnabled = false;
                     return;
@@ -58,10 +60,18 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
                 grdNavProps.IsEnabled = true;
 
-                foreach (var vm in _viewModels)
+                // Load included nav properties from the model
+                var inclNavProps = readMethod.InclNavProperties;
+                if (!string.IsNullOrEmpty(inclNavProps))
                 {
-                    var inclProp = inclNavProperties.FirstOrDefault(np => np == vm.NavProperty);
-                    vm.IsIncluded = inclProp != null;
+                    var inclNames = inclNavProps.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                                                .Select(n => n.Trim())
+                                                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+                    foreach (var vm in _viewModels)
+                    {
+                        vm.IsIncluded = inclNames.Contains(vm.NavPropertyName);
+                    }
                 }
             }
             finally
@@ -79,20 +89,23 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var vm = sender as NavPropertyDisplayViewModel;
-            if (_suspendUpdates || _inclNavProps == null || vm == null)
+            if (_suspendUpdates || _readMethod == null || vm == null)
                 return;
 
             if (e.PropertyName == nameof(NavPropertyDisplayViewModel.IsIncluded))
             {
-                var existingProp = _inclNavProps.FirstOrDefault(np => np == vm.NavProperty);
+                // Persist the included navigation properties
+                var includedNames = _viewModels
+                    .Where(v => v.IsIncluded)
+                    .Select(v => v.NavPropertyName)
+                    .ToList();
 
-                if (vm.IsIncluded && existingProp == null)
+                var newValue = string.Join(",", includedNames);
+
+                using (var tx = _readMethod.Store.TransactionManager.BeginTransaction("Update Included Nav Properties"))
                 {
-                    _inclNavProps.Add(vm.NavProperty);
-                }
-                else if (!vm.IsIncluded && existingProp != null)
-                {
-                    _inclNavProps.Remove(existingProp);
+                    _readMethod.InclNavProperties = newValue;
+                    tx.Commit();
                 }
             }
         }
@@ -102,10 +115,10 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
     {
         private bool _isIncluded;
 
-        public NavigationPropertyViewModel NavProperty { get; }
+        public NavigationProperty NavProperty { get; }
         public string NavPropertyName { get { return NavProperty.Name; } }
 
-        public NavPropertyDisplayViewModel(NavigationPropertyViewModel navProperty)
+        public NavPropertyDisplayViewModel(NavigationProperty navProperty)
         {
             NavProperty = navProperty;
         }

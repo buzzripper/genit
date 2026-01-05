@@ -1,13 +1,16 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
+using Microsoft.VisualStudio.Modeling;
 
 namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 {
     public partial class FilterPropsEditControl : UserControlBase
     {
-        private ObservableCollection<FilterPropertyViewModel> _filterProps;
+        private LinkedElementCollection<FilterPropertyModel> _filterProps;
+        private ReadMethodModel _readMethod;
+        private LinkedElementCollection<PropertyModel> _properties;
         private ObservableCollection<FilterPropertyDisplayViewModel> _viewModels = new ObservableCollection<FilterPropertyDisplayViewModel>();
 
         public FilterPropsEditControl()
@@ -16,11 +19,12 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             grdProps.ItemsSource = _viewModels;
         }
 
-        public void SetProperties(ObservableCollection<PropertyViewModel> properties)
+        public void SetProperties(LinkedElementCollection<PropertyModel> properties)
         {
             _suspendUpdates = true;
             try
             {
+                _properties = properties;
                 _viewModels.Clear();
                 foreach (var prop in properties)
                 {
@@ -35,12 +39,13 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             }
         }
 
-        public void SetFilterProperties(ObservableCollection<FilterPropertyViewModel> filterProps)
+        public void SetFilterProperties(LinkedElementCollection<FilterPropertyModel> filterProps, ReadMethodModel readMethod)
         {
             _suspendUpdates = true;
             try
             {
                 _filterProps = filterProps;
+                _readMethod = readMethod;
 
                 foreach (var vm in _viewModels)
                 {
@@ -49,7 +54,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
                 if (filterProps == null || filterProps.Count == 0)
                 {
-                    grdProps.IsEnabled = false;
+                    grdProps.IsEnabled = filterProps != null;
                     return;
                 }
 
@@ -57,13 +62,14 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var filterProp = filterProps.FirstOrDefault(fp => fp.Property == vm.Property);
+                    var filterProp = filterProps.FirstOrDefault(fp => fp.Name == vm.Property.Name);
                     if (filterProp != null)
                     {
                         vm.IsIncluded = true;
                         vm.IsOptional = filterProp.IsOptional;
                         vm.IsInternal = filterProp.IsInternal;
                         vm.InternalValue = filterProp.InternalValue;
+                        vm.FilterPropertyModel = filterProp;
                     }
                 }
             }
@@ -82,33 +88,57 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var vm = sender as FilterPropertyDisplayViewModel;
-            if (_suspendUpdates || _filterProps == null || vm == null)
+            if (_suspendUpdates || _filterProps == null || _readMethod == null || vm == null)
                 return;
-
-            var filterProp = _filterProps.FirstOrDefault(fp => fp.Property == vm.Property);
 
             if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.IsIncluded))
             {
-                if (vm.IsIncluded && filterProp == null)
+                if (vm.IsIncluded && vm.FilterPropertyModel == null)
                 {
-                    _filterProps.Add(FilterPropertyViewModel.CreateNew(vm.Property));
+                    // Add new FilterPropertyModel
+                    DslTransactionHelper.ExecuteInTransaction(_readMethod, "Add Filter Property", () =>
+                    {
+                        var newFilterProp = new FilterPropertyModel(_readMethod.Store);
+                        newFilterProp.Name = vm.Property.Name;
+                        newFilterProp.IsOptional = vm.IsOptional;
+                        newFilterProp.IsInternal = vm.IsInternal;
+                        newFilterProp.InternalValue = vm.InternalValue;
+                        _filterProps.Add(newFilterProp);
+                        vm.FilterPropertyModel = newFilterProp;
+                    });
                 }
-                else if (!vm.IsIncluded && filterProp != null)
+                else if (!vm.IsIncluded && vm.FilterPropertyModel != null)
                 {
-                    _filterProps.Remove(filterProp);
+                    // Remove FilterPropertyModel
+                    var filterPropToRemove = vm.FilterPropertyModel;
+                    DslTransactionHelper.ExecuteInTransaction(_readMethod, "Remove Filter Property", () =>
+                    {
+                        filterPropToRemove.Delete();
+                    });
+                    vm.FilterPropertyModel = null;
                     vm.IsOptional = false;
                     vm.IsInternal = false;
                     vm.InternalValue = string.Empty;
                 }
             }
-            else if (filterProp != null)
+            else if (vm.FilterPropertyModel != null)
             {
+                var filterProp = vm.FilterPropertyModel;
                 if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.IsOptional))
-                    filterProp.IsOptional = vm.IsOptional;
+                {
+                    DslTransactionHelper.SetPropertyIfChanged(filterProp, nameof(FilterPropertyModel.IsOptional),
+                        filterProp.IsOptional, vm.IsOptional, () => filterProp.IsOptional = vm.IsOptional);
+                }
                 else if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.IsInternal))
-                    filterProp.IsInternal = vm.IsInternal;
+                {
+                    DslTransactionHelper.SetPropertyIfChanged(filterProp, nameof(FilterPropertyModel.IsInternal),
+                        filterProp.IsInternal, vm.IsInternal, () => filterProp.IsInternal = vm.IsInternal);
+                }
                 else if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.InternalValue))
-                    filterProp.InternalValue = vm.InternalValue;
+                {
+                    DslTransactionHelper.SetPropertyIfChanged(filterProp, nameof(FilterPropertyModel.InternalValue),
+                        filterProp.InternalValue, vm.InternalValue, () => filterProp.InternalValue = vm.InternalValue);
+                }
             }
         }
     }
@@ -120,10 +150,11 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
         private bool _isInternal;
         private string _internalValue = string.Empty;
 
-        public PropertyViewModel Property { get; }
+        public PropertyModel Property { get; }
+        public FilterPropertyModel FilterPropertyModel { get; set; }
         public string PropertyName { get { return Property.Name; } }
 
-        public FilterPropertyDisplayViewModel(PropertyViewModel property)
+        public FilterPropertyDisplayViewModel(PropertyModel property)
         {
             Property = property;
         }
@@ -158,6 +189,7 @@ namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
             _isOptional = false;
             _isInternal = false;
             _internalValue = string.Empty;
+            FilterPropertyModel = null;
             OnPropertyChanged(string.Empty);
         }
 
