@@ -110,14 +110,23 @@
     <Compile Include="CustomCode\SolutionRootCache.cs" />
     <Compile Include="CustomCode\VsDocument.cs" />
     <Compile Include="CustomCode\VsServices.cs" />
+    <Compile Include="Editors\Association\Controls\AssociationEditControl.xaml.cs">
+      <DependentUpon>AssociationEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
+    <Compile Include="Editors\Entity\Controls\EntityEditControl.xaml.cs">
+      <DependentUpon>EntityEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\GenItEditorWindow.cs" />
     <Compile Include="Editors\GenItEditorWindowControl.xaml.cs">
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
       <DependentUpon>ModelRootEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
+      <DependentUpon>PropertyEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
     <Compile Include="Editors\UserControlBase.cs" />
@@ -321,10 +330,19 @@
     <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Editors\Association\Controls\AssociationEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Entity\Controls\EntityEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Editors\GenItEditorWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">

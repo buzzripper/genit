@@ -51,18 +51,49 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 {
                     if (toolWindow?.Control != null)
                     {
-                        // Get the EntityModel from the ServiceModel and pass it directly
                         var entityModel = selectedServiceModel.EntityModeled;
                         if (entityModel != null)
                         {
                             toolWindow.Control.ShowServiceEditor(entityModel, selectedServiceModel.Version);
-
-                            // Ensure the tool window is visible
-                            var frame = (IVsWindowFrame)toolWindow.Frame;
-                            frame?.Show();
-
+                            ShowToolWindow(toolWindow);
                             return VSConstants.S_OK;
                         }
+                    }
+                }
+
+                // Try to get PropertyModel from the selection
+                var selectedPropertyModel = GetSelectedPropertyModel(selectionContainer);
+                if (selectedPropertyModel != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowPropertyEditor(selectedPropertyModel);
+                        ShowToolWindow(toolWindow);
+                        return VSConstants.S_OK;
+                    }
+                }
+
+                // Try to get Association from the selection
+                var selectedAssociation = GetSelectedAssociation(selectionContainer);
+                if (selectedAssociation != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowAssociationEditor(selectedAssociation);
+                        ShowToolWindow(toolWindow);
+                        return VSConstants.S_OK;
+                    }
+                }
+
+                // Try to get EntityModel from the selection (ClassShape)
+                var selectedEntityModel = GetSelectedEntityModel(selectionContainer);
+                if (selectedEntityModel != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowEntityEditor(selectedEntityModel);
+                        ShowToolWindow(toolWindow);
+                        return VSConstants.S_OK;
                     }
                 }
 
@@ -73,11 +104,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                     if (toolWindow?.Control != null)
                     {
                         toolWindow.Control.ShowModelRootEditor(selectedModelRoot);
-
-                        // Ensure the tool window is visible
-                        var frame = (IVsWindowFrame)toolWindow.Frame;
-                        frame?.Show();
-
+                        ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
                 }
@@ -92,37 +119,86 @@ namespace Dyvenix.GenIt.DslPackage.Editors
             return VSConstants.S_OK;
         }
 
+        private void ShowToolWindow(GenItEditorWindow toolWindow)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var frame = (IVsWindowFrame)toolWindow.Frame;
+            frame?.Show();
+        }
+
         private ServiceModel GetSelectedServiceModel(ISelectionContainer selectionContainer)
         {
-            if (selectionContainer is GenItDocView docView)
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            return selectedElement as ServiceModel;
+        }
+
+        private PropertyModel GetSelectedPropertyModel(ISelectionContainer selectionContainer)
+        {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            return selectedElement as PropertyModel;
+        }
+
+        private Dyvenix.GenIt.Association GetSelectedAssociation(ISelectionContainer selectionContainer)
+        {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            
+            // Check if it's directly an Association
+            if (selectedElement is Dyvenix.GenIt.Association association)
+                return association;
+            
+            // Check if it's an AssociationConnector shape
+            if (selectedElement is BinaryLinkShape linkShape)
             {
-                var selectedElements = typeof(GenItDocView).GetProperty("SelectedElements", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)?.GetValue(selectionContainer) as ArrayList;
-                if (selectedElements != null && selectedElements.Count == 1 && selectedElements[0] is ServiceModel)
-                    return selectedElements[0] as ServiceModel;
+                return linkShape.ModelElement as Dyvenix.GenIt.Association;
             }
+            
+            return null;
+        }
+
+        private EntityModel GetSelectedEntityModel(ISelectionContainer selectionContainer)
+        {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            
+            // Check if it's directly an EntityModel
+            if (selectedElement is EntityModel entityModel)
+                return entityModel;
+            
+            // Check if it's a ClassShape
+            if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is EntityModel entity)
+            {
+                return entity;
+            }
+            
             return null;
         }
 
         private ModelRoot GetSelectedModelRoot(ISelectionContainer selectionContainer)
         {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            
+            // Check if the diagram itself is selected (clicking on the surface)
+            if (selectedElement is Diagram diagram)
+            {
+                return diagram.ModelElement as ModelRoot;
+            }
+            
+            // Check if ModelRoot is directly selected
+            if (selectedElement is ModelRoot modelRoot)
+            {
+                return modelRoot;
+            }
+            
+            return null;
+        }
+
+        private object GetSingleSelectedElement(ISelectionContainer selectionContainer)
+        {
             if (selectionContainer is GenItDocView docView)
             {
                 var selectedElements = typeof(GenItDocView).GetProperty("SelectedElements", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)?.GetValue(selectionContainer) as ArrayList;
-                
-                // Check if the diagram itself is selected (clicking on the surface)
                 if (selectedElements != null && selectedElements.Count == 1)
                 {
-                    // If the selected element is the diagram, get the ModelRoot from it
-                    if (selectedElements[0] is Diagram diagram)
-                    {
-                        return diagram.ModelElement as ModelRoot;
-                    }
-                    
-                    // If ModelRoot is directly selected
-                    if (selectedElements[0] is ModelRoot modelRoot)
-                    {
-                        return modelRoot;
-                    }
+                    return selectedElements[0];
                 }
             }
             return null;
