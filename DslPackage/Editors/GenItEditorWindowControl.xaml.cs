@@ -1,3 +1,4 @@
+using Dyvenix.GenIt.DslPackage.Editors.Model.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Services.Controls;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
     public partial class GenItEditorWindowControl : UserControl
     {
         private SvcEditControl _svcEditControl;
+        private ModelRootEditControl _modelRootEditControl;
 
         public GenItEditorWindowControl()
         {
@@ -34,6 +36,31 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 
                 _svcEditControl.Initialize(entityModel, serviceModelVersion);
                 editorContentHost.Content = _svcEditControl;
+                editorContentHost.Visibility = Visibility.Visible;
+                txtNoSelection.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HideEditor();
+            }
+        }
+
+        /// <summary>
+        /// Shows the ModelRoot editor with the specified model root.
+        /// </summary>
+        /// <param name="modelRoot">The ModelRoot to display.</param>
+        public void ShowModelRootEditor(ModelRoot modelRoot)
+        {
+            if (modelRoot != null)
+            {
+                // Lazy-create the model root edit control
+                if (_modelRootEditControl == null)
+                {
+                    _modelRootEditControl = new ModelRootEditControl();
+                }
+
+                _modelRootEditControl.Initialize(modelRoot);
+                editorContentHost.Content = _modelRootEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
             }

@@ -116,6 +116,9 @@
     <Compile Include="Editors\GenItEditorWindowControl.xaml.cs">
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
+      <DependentUpon>ModelRootEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
     <Compile Include="Editors\UserControlBase.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
@@ -319,6 +322,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Editors\GenItEditorWindowControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">

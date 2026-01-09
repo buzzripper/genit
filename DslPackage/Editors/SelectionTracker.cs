@@ -1,5 +1,6 @@
 using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
 using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -38,10 +39,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             GenItEditorWindow toolWindow = GetToolWindow();
+            
+            // Use the NEW selection container to detect current selection
+            var selectionContainer = pSCNew;
+            
             try
             {
                 // Try to get a ServiceModel from the selection
-                var selectedServiceModel = GetSelectedServiceModel(pSCOld);
+                var selectedServiceModel = GetSelectedServiceModel(selectionContainer);
                 if (selectedServiceModel != null)
                 {
                     if (toolWindow?.Control != null)
@@ -61,10 +66,21 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                     }
                 }
 
-                // Future: Add additional selection handlers for other model elements here
-                // Example:
-                // var selectedEntityModel = GetSelectedEntityModel(pSCOld);
-                // if (selectedEntityModel != null) { ... }
+                // Try to get ModelRoot from the selection (diagram surface clicked)
+                var selectedModelRoot = GetSelectedModelRoot(selectionContainer);
+                if (selectedModelRoot != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowModelRootEditor(selectedModelRoot);
+
+                        // Ensure the tool window is visible
+                        var frame = (IVsWindowFrame)toolWindow.Frame;
+                        frame?.Show();
+
+                        return VSConstants.S_OK;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -83,6 +99,31 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 var selectedElements = typeof(GenItDocView).GetProperty("SelectedElements", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)?.GetValue(selectionContainer) as ArrayList;
                 if (selectedElements != null && selectedElements.Count == 1 && selectedElements[0] is ServiceModel)
                     return selectedElements[0] as ServiceModel;
+            }
+            return null;
+        }
+
+        private ModelRoot GetSelectedModelRoot(ISelectionContainer selectionContainer)
+        {
+            if (selectionContainer is GenItDocView docView)
+            {
+                var selectedElements = typeof(GenItDocView).GetProperty("SelectedElements", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public)?.GetValue(selectionContainer) as ArrayList;
+                
+                // Check if the diagram itself is selected (clicking on the surface)
+                if (selectedElements != null && selectedElements.Count == 1)
+                {
+                    // If the selected element is the diagram, get the ModelRoot from it
+                    if (selectedElements[0] is Diagram diagram)
+                    {
+                        return diagram.ModelElement as ModelRoot;
+                    }
+                    
+                    // If ModelRoot is directly selected
+                    if (selectedElements[0] is ModelRoot modelRoot)
+                    {
+                        return modelRoot;
+                    }
+                }
             }
             return null;
         }
