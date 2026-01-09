@@ -1,10 +1,10 @@
-using Dyvenix.GenIt.DslPackage.Tools.Services.Adapters;
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Dyvenix.GenIt.DslPackage.Editors;
+using Dyvenix.GenIt.DslPackage.Editors.Services.Adapters;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
+namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 {
 	public partial class SvcEditControl : UserControlBase
 	{

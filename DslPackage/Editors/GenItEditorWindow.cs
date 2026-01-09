@@ -2,12 +2,11 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Shell;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services
+namespace Dyvenix.GenIt.DslPackage.Editors
 {
     /// <summary>
-    /// GenItEditorWindow - A tool window that hosts the SvcEditControl for editing ServiceModel properties.
-    /// This window displays when a ServiceModel is selected in the DSL designer and hides when
-    /// any other element (or none) is selected.
+    /// GenItEditorWindow - A tool window that hosts editor controls for various model elements.
+    /// This window displays context-sensitive editors based on the currently selected DSL element.
     /// </summary>
     [Guid(GenItEditorWindowGuids.GenItEditorWindowGuidString)]
     public class GenItEditorWindow : ToolWindowPane

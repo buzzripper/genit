@@ -3,10 +3,9 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
-using Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels;
+using Dyvenix.GenIt.DslPackage.Editors;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.Adapters
+namespace Dyvenix.GenIt.DslPackage.Editors.Services.Adapters
 {
     /// <summary>
     /// Adapter class that wraps a DSL ServiceModel and provides WPF-friendly observable collection properties.

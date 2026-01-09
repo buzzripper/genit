@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using Dyvenix.GenIt.DslPackage.Tools.Services;
+using Dyvenix.GenIt.DslPackage.Editors;
 
 namespace Dyvenix.GenIt
 {

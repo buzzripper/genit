@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.ViewModels
+namespace Dyvenix.GenIt.DslPackage.Editors
 {
     /// <summary>
     /// A wrapper class for string values that enables two-way data binding in WPF.

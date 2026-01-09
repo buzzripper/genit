@@ -1,11 +1,11 @@
-using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
+using Dyvenix.GenIt.DslPackage.Editors;
 using Microsoft.VisualStudio.Modeling;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
+namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 {
 	public partial class ReadMethodsEditControl : UserControlBase
 	{

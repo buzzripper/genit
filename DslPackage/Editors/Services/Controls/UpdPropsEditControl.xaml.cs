@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using Dyvenix.GenIt.DslPackage.Tools.Services.Helpers;
+using Dyvenix.GenIt.DslPackage.Editors;
 using Microsoft.VisualStudio.Modeling;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.Controls
+namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 {
     public partial class UpdPropsEditControl : UserControlBase
     {

@@ -1,9 +1,10 @@
-<local:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Tools.Services.Controls.UpdPropsEditControl"
+<editors:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Editors.Services.Controls.UpdPropsEditControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Tools.Services.Controls"
+             xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Services.Controls"
+             xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="350">
     <Grid>
@@ -77,4 +78,4 @@
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
-</local:UserControlBase>
+</editors:UserControlBase>

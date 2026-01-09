@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.Modeling;
 using System;
 
-namespace Dyvenix.GenIt.DslPackage.Tools.Services.Helpers
+namespace Dyvenix.GenIt.DslPackage.Editors
 {
     /// <summary>
     /// Helper class for executing DSL model changes within transactions.

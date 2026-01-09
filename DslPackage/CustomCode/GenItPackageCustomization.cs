@@ -1,5 +1,5 @@
 using Dyvenix.GenIt.DslPackage.CustomCode;
-using Dyvenix.GenIt.DslPackage.Tools.Services;
+using Dyvenix.GenIt.DslPackage.Editors;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
