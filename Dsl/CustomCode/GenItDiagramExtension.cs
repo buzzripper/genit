@@ -26,6 +26,20 @@ namespace Dyvenix.GenIt
 		}
 
 		/// <summary>
+		/// Called after deserialization to perform additional setup.
+		/// </summary>
+		public override void PostDeserialization(bool loadSucceeded)
+		{
+			base.PostDeserialization(loadSucceeded);
+			if (loadSucceeded)
+			{
+				// Apply colors after the model is fully loaded
+				ApplyBackgroundColorFromModel();
+				ApplyConnectorColorsFromModel();
+			}
+		}
+
+		/// <summary>
 		/// Applies the background color from the associated ModelRoot.
 		/// </summary>
 		public void ApplyBackgroundColorFromModel()
@@ -35,25 +49,58 @@ namespace Dyvenix.GenIt
 				Color bgColor = modelRoot.DiagramBackgroundColor;
 				if (bgColor != Color.Empty && bgColor != Color.Transparent)
 				{
-					SetBackgroundColor(bgColor);
+					SetBackgroundColorInternal(bgColor);
 				}
 			}
 		}
 
 		/// <summary>
-		/// Sets the background color of the diagram.
+		/// Applies connector colors to all connectors on this diagram.
+		/// </summary>
+		public void ApplyConnectorColorsFromModel()
+		{
+			foreach (var shape in this.NestedChildShapes)
+			{
+				if (shape is AssociationConnector assocConnector)
+				{
+					assocConnector.ApplyLineColorFromModel();
+				}
+				else if (shape is EnumAssociationConnector enumConnector)
+				{
+					enumConnector.ApplyLineColorFromModel();
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sets the background color of the diagram (internal, no transaction).
+		/// </summary>
+		private void SetBackgroundColorInternal(Color color)
+		{
+			// Use the StyleSet to override the diagram background brush
+			BrushSettings brushSettings = new BrushSettings();
+			brushSettings.Color = color;
+			this.StyleSet.OverrideBrush(DiagramBrushes.DiagramBackground, brushSettings);
+			this.Invalidate(true);
+		}
+
+		/// <summary>
+		/// Sets the background color of the diagram (wraps in transaction if needed).
 		/// </summary>
 		private void SetBackgroundColor(Color color)
 		{
-			// Use the StyleSet to override the diagram background brush
-			using (var transaction = this.Store.TransactionManager.BeginTransaction("Set Diagram Background"))
+			if (this.Store.TransactionManager.InTransaction)
 			{
-				BrushSettings brushSettings = new BrushSettings();
-				brushSettings.Color = color;
-				this.StyleSet.OverrideBrush(DiagramBrushes.DiagramBackground, brushSettings);
-				transaction.Commit();
+				SetBackgroundColorInternal(color);
 			}
-			this.Invalidate(true);
+			else
+			{
+				using (var transaction = this.Store.TransactionManager.BeginTransaction("Set Diagram Background"))
+				{
+					SetBackgroundColorInternal(color);
+					transaction.Commit();
+				}
+			}
 		}
 
 		/// <summary>
