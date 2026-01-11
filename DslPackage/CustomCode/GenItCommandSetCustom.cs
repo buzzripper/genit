@@ -52,7 +52,7 @@ namespace Dyvenix.GenIt
 			if (command == null)
 				return;
 
-			command.Visible = false;
+			command.Visible = true;
 			command.Enabled = false;
 
 			// Check if we have a valid document with a ModelRoot
@@ -62,7 +62,6 @@ namespace Dyvenix.GenIt
 				var modelRoots = docData.Store.ElementDirectory.FindElements<ModelRoot>();
 				if (modelRoots != null && modelRoots.Count > 0)
 				{
-					command.Visible = true;
 					command.Enabled = true;
 				}
 			}
