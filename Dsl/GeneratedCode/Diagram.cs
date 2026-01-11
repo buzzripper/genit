@@ -290,6 +290,12 @@ namespace Dyvenix.GenIt
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
+			if(element is global::Dyvenix.GenIt.ModuleModel)
+			{
+				global::Dyvenix.GenIt.ModuleShape newShape = new global::Dyvenix.GenIt.ModuleShape(this.Partition);
+				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
+				return newShape;
+			}
 			if(element is global::Dyvenix.GenIt.Comment)
 			{
 				global::Dyvenix.GenIt.CommentBoxShape newShape = new global::Dyvenix.GenIt.CommentBoxShape(this.Partition);
@@ -331,6 +337,7 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.InterfaceShape.DecoratorsInitialized += InterfaceShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.EnumShape.DecoratorsInitialized += EnumShapeDecoratorMap.OnDecoratorsInitialized;
+			global::Dyvenix.GenIt.ModuleShape.DecoratorsInitialized += ModuleShapeDecoratorMap.OnDecoratorsInitialized;
 		}
 		
 		/// <summary>
@@ -394,6 +401,24 @@ namespace Dyvenix.GenIt
 		{
 			/// <summary>
 			/// Event handler called when decorator initialization is complete for EnumShape.  Adds decorator mappings for this shape or connector.
+			/// </summary>
+			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
+			{
+				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
+				DslDiagrams::AssociatedPropertyInfo propertyInfo;
+				
+				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId);
+				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
+			}
+		}
+		
+		/// <summary>
+		/// Class containing decorator path traversal methods for ModuleShape.
+		/// </summary>
+		internal static partial class ModuleShapeDecoratorMap
+		{
+			/// <summary>
+			/// Event handler called when decorator initialization is complete for ModuleShape.  Adds decorator mappings for this shape or connector.
 			/// </summary>
 			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
 			{
@@ -575,6 +600,7 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
+		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModuleModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
@@ -606,6 +632,10 @@ namespace Dyvenix.GenIt
 				if(childElement is global::Dyvenix.GenIt.EnumModel)
 				{
 					parentElement = GetParentForEnumModel((global::Dyvenix.GenIt.EnumModel)childElement);
+				} else
+				if(childElement is global::Dyvenix.GenIt.ModuleModel)
+				{
+					parentElement = GetParentForModuleModel((global::Dyvenix.GenIt.ModuleModel)childElement);
 				} else
 				if(childElement is global::Dyvenix.GenIt.Comment)
 				{
@@ -642,6 +672,13 @@ namespace Dyvenix.GenIt
 				return result;
 			}
 			public static global::Dyvenix.GenIt.ModelRoot GetParentForEnumModel( global::Dyvenix.GenIt.ModelType root )
+			{
+				// Segments 0 and 1
+				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
+				if ( result == null ) return null;
+				return result;
+			}
+			public static global::Dyvenix.GenIt.ModelRoot GetParentForModuleModel( global::Dyvenix.GenIt.ModelType root )
 			{
 				// Segments 0 and 1
 				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;

@@ -102,7 +102,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return 7;
+				return 8;
 			}
 		}
 		
@@ -183,11 +183,27 @@ namespace Dyvenix.GenIt
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
 						});
 					break;
+				case "Dyvenix.GenIt.ModuleModelToolboxItem":
+					// Add ModuleModel shape tool.
+					result = new DslDesign::ModelingToolboxItem(
+						"Dyvenix.GenIt.ModuleModelToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						3, // Position relative to other items in the same toolbox tab.
+						resourceManager.GetString("ModuleModelToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModuleModelToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
+						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"ModuleModelF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("ModuleModelToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						CreateElementToolPrototype(store, global::Dyvenix.GenIt.ModuleModel.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
+						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
+						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
+						});
+					break;
 				case "Dyvenix.GenIt.ModelInterfaceToolboxItem":
 					// Add ModelInterface shape tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.ModelInterfaceToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						3, // Position relative to other items in the same toolbox tab.
+						4, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("ModelInterfaceToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModelInterfaceToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
@@ -203,7 +219,7 @@ namespace Dyvenix.GenIt
 					// Add InterfaceOperation shape tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.InterfaceOperationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						4, // Position relative to other items in the same toolbox tab.
+						5, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("InterfaceOperationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("InterfaceOperationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
@@ -220,7 +236,7 @@ namespace Dyvenix.GenIt
 					// Add Association connector tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.AssociationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						5, // Position relative to other items in the same toolbox tab.
+						6, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("AssociationToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("AssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
@@ -237,7 +253,7 @@ namespace Dyvenix.GenIt
 					// Add Comment shape tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.CommentToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						6, // Position relative to other items in the same toolbox tab.
+						7, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
@@ -254,7 +270,7 @@ namespace Dyvenix.GenIt
 					// Add CommentsReferenceTypes connector tool.
 					result = new DslDesign::ModelingToolboxItem(
 						"Dyvenix.GenIt.CommentsReferenceTypesToolboxItem", // Unique identifier (non-localized) for the toolbox item.
-						7, // Position relative to other items in the same toolbox tab.
+						8, // Position relative to other items in the same toolbox tab.
 						resourceManager.GetString("CommentsReferenceTypesToolboxItem", resourceCulture), // Localized display name for the item.
 						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("CommentsReferenceTypesToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.

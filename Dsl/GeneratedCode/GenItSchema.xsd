@@ -1043,6 +1043,37 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- ModuleModel -->
+  <xsd:element name="moduleModel" type="ModuleModel" substitutionGroup="modelType" />
+  <xsd:complexType name="ModuleModel">
+    <xsd:complexContent>
+      <xsd:extension base="ModelType">
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: RootFolder -->
+        <xsd:attribute name="rootFolder" type="xsd:string" />
+        <!-- Property: Namespace -->
+        <xsd:attribute name="namespace" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- ModuleModel Moniker -->
+  <xsd:element name="moduleModelMoniker" type="ModuleModelMoniker" substitutionGroup="modelTypeMoniker" />
+  <xsd:complexType name="ModuleModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for ModuleModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="ModelTypeMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
   <!-- Association -->
   <xsd:element name="association" type="Association" substitutionGroup="core:modelElement" />
   <xsd:complexType name="Association">
@@ -1477,6 +1508,46 @@
     </xsd:complexContent>
   </xsd:complexType>
   
+  <!-- EntityModelHasServiceModels -->
+  <xsd:element name="entityModelHasServiceModels" type="EntityModelHasServiceModels" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EntityModelHasServiceModels">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end ServiceModel -->
+          <xsd:element ref="serviceModel" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EntityModelHasServiceModels Moniker -->
+  <xsd:element name="entityModelHasServiceModelsMoniker" type="EntityModelHasServiceModelsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EntityModelHasServiceModelsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EntityModelHasServiceModels instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
   <!-- FilterPropertyModelHasProperty -->
   <xsd:element name="filterPropertyModelHasProperty" type="FilterPropertyModelHasProperty" substitutionGroup="core:modelElement" />
   <xsd:complexType name="FilterPropertyModelHasProperty">
@@ -1705,46 +1776,6 @@
   <xsd:complexType name="ServiceModelHasUpdateMethodsMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ServiceModelHasUpdateMethods instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElementMoniker">
-        <xsd:attribute name="Id" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- EntityModelHasServiceModels -->
-  <xsd:element name="entityModelHasServiceModels" type="EntityModelHasServiceModels" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="EntityModelHasServiceModels">
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElement">
-        <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end ServiceModel -->
-          <xsd:element ref="serviceModel" minOccurs="1" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>[Target role-player]</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:sequence>
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- EntityModelHasServiceModels Moniker -->
-  <xsd:element name="entityModelHasServiceModelsMoniker" type="EntityModelHasServiceModelsMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="EntityModelHasServiceModelsMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for EntityModelHasServiceModels instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">
