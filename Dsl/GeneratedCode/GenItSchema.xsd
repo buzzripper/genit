@@ -242,6 +242,21 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
+          <!-- Relationship: EnumAssociation -->
+          <xsd:element name="usedEnums" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of EnumAssociation</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="enumAssociation" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of EnumAssociation needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -813,7 +828,7 @@
       <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: ReadMethodModelHasFilterProperties -->
-          <xsd:element name="filterPropertyModeled" minOccurs="0" maxOccurs="1">
+          <xsd:element name="filterProperties" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>Instances of ReadMethodModelHasFilterProperties</xsd:documentation>
             </xsd:annotation>
@@ -921,7 +936,7 @@
       <xsd:extension base="NamedElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: UpdateMethodModelHasUpdateProperties -->
-          <xsd:element name="propertyModels" minOccurs="0" maxOccurs="1">
+          <xsd:element name="updateProperties" minOccurs="0" maxOccurs="1">
             <xsd:annotation>
               <xsd:documentation>Instances of UpdateMethodModelHasUpdateProperties</xsd:documentation>
             </xsd:annotation>
@@ -1776,6 +1791,55 @@
   <xsd:complexType name="ServiceModelHasUpdateMethodsMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ServiceModelHasUpdateMethods instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumAssociation -->
+  <xsd:element name="enumAssociation" type="EnumAssociation" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EnumAssociation">
+    <xsd:annotation>
+      <xsd:documentation>Association between Entity and Enum creating a property</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end EnumModel -->
+          <xsd:element ref="enumModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: PropertyName -->
+        <xsd:attribute name="propertyName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name of the property created on the entity</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EnumAssociation Moniker -->
+  <xsd:element name="enumAssociationMoniker" type="EnumAssociationMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EnumAssociationMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EnumAssociation instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

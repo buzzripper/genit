@@ -737,7 +737,7 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b" Description="" Name="EnumHasMembers" DisplayName="Enum Has Members" Namespace="Dyvenix.GenIt" IsEmbedding="true">
+    <DomainRelationship Id="f5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b" Description="" Name="EnumHasMembers" DisplayName="Enum Has Members" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
         <DomainRole Id="f6a7b8c9-d0e1-4f2a-3b4c-5d6e7f8a9b0c" Description="" Name="EnumModel" DisplayName="Enum Model" PropertyName="Members" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Members">
           <RolePlayer>
@@ -794,7 +794,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="One" PropertyDisplayName="Filter Property Model">
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="ZeroOne" PropertyDisplayName="Filter Property Model">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
@@ -803,14 +803,14 @@
     </DomainRelationship>
     <DomainRelationship Id="32cb6cdb-1478-47f4-829d-937554a834f2" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties" Name="ReadMethodModelHasFilterProperties" DisplayName="Read Method Model Has Filter Properties" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="0f995100-09ad-4176-ade0-88937e672b83" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="FilterPropertyModeled" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Filter Property Modeled">
+        <DomainRole Id="0f995100-09ad-4176-ade0-88937e672b83" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="FilterProperties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Filter Properties">
           <RolePlayer>
             <DomainClassMoniker Name="ReadMethodModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="a86dafce-f80a-4f02-93e8-25e90ad5cfa9" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="ReadMethodModeled" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Read Method Modeled">
+        <DomainRole Id="a86dafce-f80a-4f02-93e8-25e90ad5cfa9" Description="Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" PropertyName="ReadMethodModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Read Method Model">
           <RolePlayer>
             <DomainClassMoniker Name="FilterPropertyModel" />
           </RolePlayer>
@@ -826,7 +826,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModel" Multiplicity="One" PropertyDisplayName="Update Property Model">
+        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModel" Multiplicity="ZeroOne" PropertyDisplayName="Update Property Model">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
@@ -835,14 +835,14 @@
     </DomainRelationship>
     <DomainRelationship Id="b00efb37-ec59-40d2-af39-bdd942b5d4f4" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties" Name="UpdateMethodModelHasUpdateProperties" DisplayName="Update Method Model Has Update Properties" Namespace="Dyvenix.GenIt" IsEmbedding="true">
       <Source>
-        <DomainRole Id="c15ab607-9c3b-49cb-b70a-f87377d319d7" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" PropertyName="PropertyModels" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Property Models">
+        <DomainRole Id="c15ab607-9c3b-49cb-b70a-f87377d319d7" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" PropertyName="UpdateProperties" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Update Properties">
           <RolePlayer>
             <DomainClassMoniker Name="UpdateMethodModel" />
           </RolePlayer>
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="cc20809a-f025-4bd0-bc76-5167422fd873" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" PropertyName="UpdateMethodModeled" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Update Method Modeled">
+        <DomainRole Id="cc20809a-f025-4bd0-bc76-5167422fd873" Description="Description for Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" PropertyName="UpdateMethodModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Update Method Model">
           <RolePlayer>
             <DomainClassMoniker Name="UpdatePropertyModel" />
           </RolePlayer>
@@ -858,7 +858,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="c78062b8-cc0c-4f7f-b968-0ebdc5f82bc0" Description="Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="ServiceModeled" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Service Modeled">
+        <DomainRole Id="c78062b8-cc0c-4f7f-b968-0ebdc5f82bc0" Description="Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="ServiceModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Service Model">
           <RolePlayer>
             <DomainClassMoniker Name="ReadMethodModel" />
           </RolePlayer>
@@ -874,9 +874,32 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="7e877f3f-d760-41f7-80bd-7f7437fd59f8" Description="Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" PropertyName="ServiceModeled" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Service Modeled">
+        <DomainRole Id="7e877f3f-d760-41f7-80bd-7f7437fd59f8" Description="Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModel" Name="UpdateMethodModel" DisplayName="Update Method Model" PropertyName="ServiceModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Service Model">
           <RolePlayer>
             <DomainClassMoniker Name="UpdateMethodModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d" Description="Association between Entity and Enum creating a property" Name="EnumAssociation" DisplayName="Enum Association" Namespace="Dyvenix.GenIt">
+      <Properties>
+        <DomainProperty Id="a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d" Description="Name of the property created on the entity" Name="PropertyName" DisplayName="Property Name" DefaultValue="">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+      <Source>
+        <DomainRole Id="b3c4d5e6-f7a8-4b9c-0d1e-2f3a4b5c6d7e" Description="" Name="Entity" DisplayName="Entity" PropertyName="UsedEnums" PropertyDisplayName="Used Enums">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="c4d5e6f7-a8b9-4c0d-1e2f-3a4b5c6d7e8f" Description="" Name="Enum" DisplayName="Enum" PropertyName="UsingEntities" PropertyDisplayName="Using Entities">
+          <RolePlayer>
+            <DomainClassMoniker Name="EnumModel" />
           </RolePlayer>
         </DomainRole>
       </Target>
@@ -998,6 +1021,7 @@
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
+    <Connector Id="d5e6f7a8-b9c0-4d1e-2f3a-4b5c6d7e8f9a" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="218, 165, 32" DashStyle="Dash" Thickness="0.01" />
   </Connectors>
   <XmlSerializationBehavior Name="GenItSerializationBehavior" Namespace="Dyvenix.GenIt">
     <ClassData>
@@ -1137,6 +1161,9 @@
           </XmlRelationshipData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="serviceModels">
             <DomainRelationshipMoniker Name="EntityModelHasServiceModels" />
+          </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="usedEnums">
+            <DomainRelationshipMoniker Name="EnumAssociation" />
           </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
@@ -1290,6 +1317,35 @@
       </XmlClassData>
       <XmlClassData TypeName="ModuleShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleShapeMoniker" ElementName="moduleShape" MonikerTypeName="ModuleShapeMoniker">
         <GeometryShapeMoniker Name="ModuleShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="EnumAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationMoniker" ElementName="enumAssociation" MonikerTypeName="EnumAssociationMoniker">
+        <DomainRelationshipMoniker Name="EnumAssociation" />
+        <ElementData>
+          <XmlPropertyData XmlName="propertyName">
+            <DomainPropertyMoniker Name="EnumAssociation/PropertyName" />
+          </XmlPropertyData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="FilterPropertyModelHasProperty" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelHasPropertyMoniker" ElementName="filterPropertyModelHasProperty" MonikerTypeName="FilterPropertyModelHasPropertyMoniker">
+        <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
+      </XmlClassData>
+      <XmlClassData TypeName="ReadMethodModelHasFilterProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelHasFilterPropertiesMoniker" ElementName="readMethodModelHasFilterProperties" MonikerTypeName="ReadMethodModelHasFilterPropertiesMoniker">
+        <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
+      </XmlClassData>
+      <XmlClassData TypeName="UpdatePropertyModelHasPropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updatePropertyModelHasPropertyModelMoniker" ElementName="updatePropertyModelHasPropertyModel" MonikerTypeName="UpdatePropertyModelHasPropertyModelMoniker">
+        <DomainRelationshipMoniker Name="UpdatePropertyModelHasPropertyModel" />
+      </XmlClassData>
+      <XmlClassData TypeName="UpdateMethodModelHasUpdateProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="updateMethodModelHasUpdatePropertiesMoniker" ElementName="updateMethodModelHasUpdateProperties" MonikerTypeName="UpdateMethodModelHasUpdatePropertiesMoniker">
+        <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
+      </XmlClassData>
+      <XmlClassData TypeName="ServiceModelHasReadMethodModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelHasReadMethodModelsMoniker" ElementName="serviceModelHasReadMethodModels" MonikerTypeName="ServiceModelHasReadMethodModelsMoniker">
+        <DomainRelationshipMoniker Name="ServiceModelHasReadMethodModels" />
+      </XmlClassData>
+      <XmlClassData TypeName="ServiceModelHasUpdateMethods" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelHasUpdateMethodsMoniker" ElementName="serviceModelHasUpdateMethods" MonikerTypeName="ServiceModelHasUpdateMethodsMoniker">
+        <DomainRelationshipMoniker Name="ServiceModelHasUpdateMethods" />
+      </XmlClassData>
+      <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
+        <ConnectorMoniker Name="EnumAssociationConnector" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -1512,6 +1568,25 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
+    <ConnectionBuilder Name="EnumAssociationBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="EnumAssociation" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="EntityModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="EnumModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
   </ConnectionBuilders>
   <Diagram Id="2f556c0f-616b-4b70-9e3e-12f9045d12d7" Description="" Name="GenItDiagram" DisplayName="Class Diagram" Namespace="Dyvenix.GenIt">
     <Class>
@@ -1666,6 +1741,10 @@
         <ConnectorMoniker Name="CommentConnector" />
         <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
       </ConnectorMap>
+      <ConnectorMap>
+        <ConnectorMoniker Name="EnumAssociationConnector" />
+        <DomainRelationshipMoniker Name="EnumAssociation" />
+      </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
   <Designer CopyPasteGeneration="CopyPasteOnly" FileExtension="gmdl" EditorGuid="185dd91f-393a-4f15-8ba0-9406fa4ffc9b">
@@ -1699,6 +1778,9 @@
       </ElementTool>
       <ConnectionTool Name="CommentsReferenceTypes" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceTypesF1Keyword">
         <ConnectionBuilderMoniker Name="GenIt/CommentReferencesSubjectsBuilder" />
+      </ConnectionTool>
+      <ConnectionTool Name="EnumAssociation" ToolboxIcon="Resources\AssociationTool.bmp" Caption="Enum Association" Tooltip="Create an Enum Association link" HelpKeyword="ConnectEnumAssociationF1Keyword">
+        <ConnectionBuilderMoniker Name="GenIt/EnumAssociationBuilder" />
       </ConnectionTool>
     </ToolboxTab>
     <Validation UsesMenu="false" UsesOpen="false" UsesSave="false" UsesLoad="false" />

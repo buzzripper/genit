@@ -91,6 +91,7 @@
     <Compile Include="CustomCode\EntityModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\EntityUsesEnumRules.cs" />
+    <Compile Include="CustomCode\EnumAssociationRules.cs" />
     <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />

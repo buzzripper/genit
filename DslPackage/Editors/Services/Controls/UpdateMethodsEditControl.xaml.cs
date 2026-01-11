@@ -177,7 +177,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			var selectedMethod = grdMethods.SelectedItem as UpdateMethodModel;
 			if (selectedMethod != null)
 			{
-				updPropsEditCtl.SetUpdateProperties(selectedMethod.PropertyModels, selectedMethod);
+				updPropsEditCtl.SetUpdateProperties(selectedMethod.UpdateProperties, selectedMethod);
 				updPropsEditCtl.Readonly = false;
 			}
 			else

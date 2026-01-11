@@ -190,7 +190,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			var selectedMethod = grdMethods.SelectedItem as ReadMethodModel;
 			if (selectedMethod != null)
 			{
-				filterPropsCtl.SetFilterProperties(selectedMethod.FilterPropertyModeled, selectedMethod);
+				filterPropsCtl.SetFilterProperties(selectedMethod.FilterProperties, selectedMethod);
 				filterPropsCtl.Readonly = false;
 				inclNavPropEditCtl.SetInclNavProperties(selectedMethod);
 				inclNavPropEditCtl.Readonly = false;

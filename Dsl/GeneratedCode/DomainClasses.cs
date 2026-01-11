@@ -2137,6 +2137,20 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region UsedEnums opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of UsedEnums.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EnumModel> UsedEnums
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
+			}
+		}
+		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -5148,6 +5162,20 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region UsingEntities opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of UsingEntities.
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EntityModel> UsingEntities
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EnumAssociation.EnumDomainRoleId);
+			}
+		}
+		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -5797,13 +5825,13 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region ReadMethodModeled opposite domain role accessor
+		#region ReadMethodModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets ReadMethodModeled.
+		/// Gets or sets ReadMethodModel.
 		/// Description for
 		/// Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModel
 		/// </summary>
-		public virtual ReadMethodModel ReadMethodModeled
+		public virtual ReadMethodModel ReadMethodModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -6467,13 +6495,13 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region FilterPropertyModeled opposite domain role accessor
+		#region FilterProperties opposite domain role accessor
 		
 		/// <summary>
-		/// Gets a list of FilterPropertyModeled.
+		/// Gets a list of FilterProperties.
 		/// Description for Dyvenix.GenIt.ReadMethodModelHasFilterProperties.ReadMethodModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<FilterPropertyModel> FilterPropertyModeled
+		public virtual DslModeling::LinkedElementCollection<FilterPropertyModel> FilterProperties
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -6482,12 +6510,12 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region ServiceModeled opposite domain role accessor
+		#region ServiceModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets ServiceModeled.
+		/// Gets or sets ServiceModel.
 		/// Description for Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModel
 		/// </summary>
-		public virtual ServiceModel ServiceModeled
+		public virtual ServiceModel ServiceModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -6649,13 +6677,13 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region UpdateMethodModeled opposite domain role accessor
+		#region UpdateMethodModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets UpdateMethodModeled.
+		/// Gets or sets UpdateMethodModel.
 		/// Description for
 		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModel
 		/// </summary>
-		public virtual UpdateMethodModel UpdateMethodModeled
+		public virtual UpdateMethodModel UpdateMethodModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -6971,14 +6999,14 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region PropertyModels opposite domain role accessor
+		#region UpdateProperties opposite domain role accessor
 		
 		/// <summary>
-		/// Gets a list of PropertyModels.
+		/// Gets a list of UpdateProperties.
 		/// Description for
 		/// Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdateMethodModel
 		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<UpdatePropertyModel> PropertyModels
+		public virtual DslModeling::LinkedElementCollection<UpdatePropertyModel> UpdateProperties
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -6987,12 +7015,12 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region ServiceModeled opposite domain role accessor
+		#region ServiceModel opposite domain role accessor
 		/// <summary>
-		/// Gets or sets ServiceModeled.
+		/// Gets or sets ServiceModel.
 		/// Description for Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModel
 		/// </summary>
-		public virtual ServiceModel ServiceModeled
+		public virtual ServiceModel ServiceModel
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
