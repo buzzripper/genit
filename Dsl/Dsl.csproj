@@ -95,6 +95,7 @@
     <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
+    <Compile Include="CustomCode\GenItSerializationHelperCustom.cs" />
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
     <Compile Include="CustomCode\ModelRootPartial.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />
