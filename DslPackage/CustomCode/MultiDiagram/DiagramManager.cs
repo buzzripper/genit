@@ -74,7 +74,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		public void Initialize()
 		{
-			// Find all existing diagrams in the diagram partition
+			// First, try to find diagrams in the specified diagram partition
 			var existingDiagrams = _diagramPartition.ElementDirectory.FindElements<GenItDiagram>();
 
 			foreach (var diagram in existingDiagrams)
@@ -82,7 +82,40 @@ namespace Dyvenix.GenIt
 				_diagrams.Add(diagram);
 			}
 
-			// If no diagrams exist, create a default one
+			// If no diagrams found in the diagram partition, check if there are any
+			// diagrams linked to the model root via PresentationViewsSubject
+			if (_diagrams.Count == 0)
+			{
+				var linkedDiagrams = PresentationViewsSubject.GetPresentation(_modelRoot)
+					.OfType<GenItDiagram>()
+					.ToList();
+				
+				foreach (var diagram in linkedDiagrams)
+				{
+					if (!_diagrams.Contains(diagram))
+					{
+						_diagrams.Add(diagram);
+					}
+				}
+			}
+
+			// If still no diagrams found, search ALL partitions in the store
+			if (_diagrams.Count == 0)
+			{
+				foreach (var partition in _store.Partitions.Values)
+				{
+					var partitionDiagrams = partition.ElementDirectory.FindElements<GenItDiagram>();
+					foreach (var diagram in partitionDiagrams)
+					{
+						if (!_diagrams.Contains(diagram))
+						{
+							_diagrams.Add(diagram);
+						}
+					}
+				}
+			}
+
+			// If still no diagrams exist, create a default one
 			if (_diagrams.Count == 0)
 			{
 				CreateDiagram("Default", showAllElements: true);

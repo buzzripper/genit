@@ -37,14 +37,21 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		protected override bool LoadView()
 		{
-			System.Diagnostics.Debug.Assert(this.DocData.RootElement != null);
-			if (this.DocData.RootElement == null)
+			// IMPORTANT: Call base.LoadView() first - this does essential setup including
+			// finding the diagram in the partition and setting this.Diagram
+			if (!base.LoadView())
 			{
 				return false;
 			}
 
+			// At this point, base.LoadView() has already set this.Diagram to the loaded diagram
+			// Now we set up our DiagramManager for multi-diagram support
+
 			var docData = this.DocData as GenItDocDataBase;
-			System.Diagnostics.Debug.Assert(docData != null, "DocData should be GenItDocDataBase!");
+			if (docData == null)
+			{
+				return false;
+			}
 
 			var diagramPartition = docData.GetDiagramPartition();
 			if (diagramPartition == null)
@@ -52,27 +59,22 @@ namespace Dyvenix.GenIt
 				return false;
 			}
 
-			// Initialize the diagram manager
 			var modelRoot = this.DocData.RootElement as ModelRoot;
 			if (modelRoot == null)
 			{
 				return false;
 			}
 
+			// Initialize the diagram manager with existing diagrams
 			_diagramManager = new DiagramManager(docData.Store, modelRoot, diagramPartition);
 			_diagramManager.Initialize();
 			_diagramManager.ActiveDiagramChanged += OnActiveDiagramChanged;
 
-			// Set the initial diagram
+			// If the diagram manager found a diagram, use it; otherwise keep the one from base.LoadView()
 			if (_diagramManager.ActiveDiagram != null)
 			{
 				this.Diagram = _diagramManager.ActiveDiagram;
-				// Set as active creation diagram so new shapes only appear on this diagram
 				GenItDiagram.ActiveCreationDiagram = _diagramManager.ActiveDiagram;
-			}
-			else
-			{
-				return false;
 			}
 
 			// Initialize the container's tab control after diagram manager is ready
@@ -89,7 +91,6 @@ namespace Dyvenix.GenIt
 			if (e.NewDiagram != null)
 			{
 				this.Diagram = e.NewDiagram;
-				// Update active creation diagram so new shapes only appear on the active diagram
 				GenItDiagram.ActiveCreationDiagram = e.NewDiagram;
 			}
 		}

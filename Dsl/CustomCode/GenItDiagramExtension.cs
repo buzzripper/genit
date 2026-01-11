@@ -25,13 +25,6 @@ namespace Dyvenix.GenIt
 		private static GenItDiagram _activeCreationDiagram;
 
 		/// <summary>
-		/// Thread-static flag to indicate document is being loaded.
-		/// When true, shape filtering is disabled to allow all shapes to load.
-		/// </summary>
-		[System.ThreadStatic]
-		private static bool _isLoading;
-
-		/// <summary>
 		/// Gets or sets the diagram that should receive new shapes.
 		/// When null, shapes are created on all diagrams (default DSL behavior for loading).
 		/// </summary>
@@ -39,15 +32,6 @@ namespace Dyvenix.GenIt
 		{
 			get => _activeCreationDiagram;
 			set => _activeCreationDiagram = value;
-		}
-
-		/// <summary>
-		/// Gets or sets whether the document is being loaded.
-		/// </summary>
-		public static bool IsLoading
-		{
-			get => _isLoading;
-			set => _isLoading = value;
 		}
 
 		/// <summary>
@@ -354,11 +338,11 @@ namespace Dyvenix.GenIt
 			if (e.ModelElement.Store.InUndoRedoOrRollback)
 				return;
 
-			// Skip during document load
-			if (GenItDiagram.IsLoading)
+			// Skip during serialization (loading or saving)
+			if (e.ModelElement.Store.InSerializationTransaction)
 				return;
 
-			// Must have an active diagram set to filter
+			// Must have an active diagram set to filter - if null, allow all shapes (default behavior)
 			if (GenItDiagram.ActiveCreationDiagram == null)
 				return;
 
