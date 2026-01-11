@@ -217,6 +217,22 @@ namespace Dyvenix.GenIt
 				}
 			}
 
+			// Add modules
+			foreach (var module in _modelRoot.Types.OfType<ModuleModel>())
+			{
+				AddShapeForElement(diagram, module, x, y);
+				count++;
+				if (count % itemsPerRow == 0)
+				{
+					x = 1.0;
+					y += ySpacing;
+				}
+				else
+				{
+					x += xSpacing;
+				}
+			}
+
 			// Add interfaces
 			foreach (var iface in _modelRoot.Types.OfType<ModelInterface>())
 			{
@@ -280,6 +296,8 @@ namespace Dyvenix.GenIt
 				yield return typeof(ClassShape);
 			else if (element is EnumModel)
 				yield return typeof(EnumShape);
+			else if (element is ModuleModel)
+				yield return typeof(ModuleShape);
 			else if (element is ModelInterface)
 				yield return typeof(InterfaceShape);
 			else if (element is Comment)

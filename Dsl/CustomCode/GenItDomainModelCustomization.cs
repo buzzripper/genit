@@ -52,6 +52,17 @@ namespace Dyvenix.GenIt
                 
                 // Association line color rule
                 typeof(AssociationLineColorChangeRule),
+                
+                // ServiceModel add rule (sets Version property)
+                typeof(ServiceModelAddRule),
+                
+                // EnumAssociation rules
+                typeof(EnumAssociationAddRule),
+                typeof(EnumAssociationDeleteRule),
+                typeof(EnumAssociationPropertyNameChangeRule),
+                typeof(EnumModelNameChangeRule),
+                typeof(EnumPropertyDeleteRule),
+                typeof(EnumPropertyNameChangeRule),
 			};
 		}
 	}

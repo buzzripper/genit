@@ -91,6 +91,7 @@
     <Compile Include="CustomCode\EntityModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\EntityUsesEnumRules.cs" />
+    <Compile Include="CustomCode\EnumAssociationRules.cs" />
     <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
+    <Compile Include="CustomCode\ServiceModelCustomization.cs" />
+    <Compile Include="CustomCode\ServiceModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\TypeDescriptorHelper.cs" />
     <Compile Include="GeneratedCode\ConnectionBuilders.cs">
       <AutoGen>True</AutoGen>

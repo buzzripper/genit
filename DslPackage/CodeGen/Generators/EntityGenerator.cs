@@ -102,6 +102,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					GenerateProperty(property, fileContent);
 			}
 
+			// Navigation Properties
 			if (entity.NavigationProperties.Count > 0)
 			{
 				fileContent.AddLine();
@@ -109,20 +110,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var navProperty in entity.NavigationProperties)
 				{
 					var dataType = navProperty.IsCollection ? $"List<{navProperty.TargetEntityName}>" : navProperty.TargetEntityName;
-					fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}");
+					var initValue = navProperty.IsCollection ? $" = new();" : string.Empty;
+					fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}{initValue}");
 				}
 			}
 
 			// Property names
 			fileContent.AddLine();
+			fileContent.AddLine(1, "#region PropNames");
+			fileContent.AddLine();
 			fileContent.AddLine(1, "public static class PropNames");
 			fileContent.AddLine(1, "{");
 			foreach (var prop in entity.Properties)
-			{
 				fileContent.AddLine(2, $"public const string {prop.Name} = \"{prop.Name}\";");
-			}
+			foreach (var navProp in entity.NavigationProperties)
+				fileContent.AddLine(2, $"public const string {navProp.Name} = \"{navProp.Name}\";");
 			fileContent.AddLine(1, "}");
 
+			fileContent.AddLine();
+			fileContent.AddLine(1, "#endregion");
 			fileContent.AddLine(0, "}");
 
 			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
@@ -139,7 +145,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
 			var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-			var nullInit = !prop.IsNullable ? " = null!;" : string.Empty;
+			var nullInit = prop.IsRowVersion || (!prop.IsNullable && prop.DataType == DataType.String && !prop.IsPrimaryKey && !prop.IsForeignKey) ? " = null!;" : string.Empty;
 
 			fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
 		}

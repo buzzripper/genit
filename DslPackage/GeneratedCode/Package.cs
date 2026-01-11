@@ -46,11 +46,11 @@ namespace Dyvenix.GenIt
 					0xff00ff,
 					Index = 1)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
-					"@ClassOperationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
-					"Dyvenix.GenIt.ClassOperationToolboxItem", 
+					"@ModuleModelToolboxItem;Dyvenix.GenIt.Dsl.dll", 
+					"Dyvenix.GenIt.ModuleModelToolboxItem", 
 					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
-					"ClassOperationF1Keyword", 
-					"@ClassOperationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
+					"ModuleModelF1Keyword", 
+					"@ModuleModelToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
 					Index = 2)]
 	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
@@ -93,6 +93,14 @@ namespace Dyvenix.GenIt
 					"@CommentsReferenceTypesToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
 					0xff00ff,
 					Index = 7)]
+	[VSShell::ProvideStaticToolboxItem("Dyvenix.GenIt.Class DiagramsToolboxTab",
+					"@EnumAssociationToolboxItem;Dyvenix.GenIt.Dsl.dll", 
+					"Dyvenix.GenIt.EnumAssociationToolboxItem", 
+					"CF_TOOLBOXITEMCONTAINER,CF_TOOLBOXITEMCONTAINER_HASH,CF_TOOLBOXITEMCONTAINER_CONTENTS", 
+					"ConnectEnumAssociationF1Keyword", 
+					"@EnumAssociationToolboxBitmap;Dyvenix.GenIt.Dsl.dll", 
+					0xff00ff,
+					Index = 8)]
 	[VSShell::ProvideEditorFactory(typeof(GenItEditorFactory), 103, TrustLevel = VSShellInterop::__VSEDITORTRUSTLEVEL.ETL_AlwaysTrusted)]
 	[VSShell::ProvideEditorExtension(typeof(GenItEditorFactory), "." + Constants.DesignerFileExtension, 50)]
 	[VSShell::ProvideEditorLogicalView(typeof(GenItEditorFactory), "{7651A702-06E5-11D1-8EBD-00A0C90F26EA}")] // Designer logical view GUID i.e. VSConstants.LOGVIEWID_Designer
@@ -208,7 +216,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Double-derived class to allow easier code customization.
 	/// </summary>
-	[VSShell::ProvideMenuResource("1000.ctmenu", 2)]
+	[VSShell::ProvideMenuResource("1000.ctmenu", 5)]
 	[VSShell::ProvideToolboxItems(1)]
 	[global::Microsoft.VisualStudio.TextTemplating.VSHost.ProvideDirectiveProcessor(typeof(global::Dyvenix.GenIt.GenItDirectiveProcessor), global::Dyvenix.GenIt.GenItDirectiveProcessor.GenItDirectiveProcessorName, "A directive processor that provides access to GenIt files")]
 	[global::System.Runtime.InteropServices.Guid(Constants.GenItPackageId)]

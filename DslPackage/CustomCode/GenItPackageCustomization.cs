@@ -1,4 +1,5 @@
 using Dyvenix.GenIt.DslPackage.CustomCode;
+using Dyvenix.GenIt.DslPackage.Editors;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -18,6 +19,7 @@ namespace Dyvenix.GenIt
 	{
 		private IVsSolution _solution;
 		private uint _solutionEventsCookie;
+		private SelectionTracker _selectionTracker;
 
 
 		/// <summary>
@@ -45,11 +47,18 @@ namespace Dyvenix.GenIt
 					System.Diagnostics.Debug.WriteLine($"GenItPackage.InitializeAsync: Solution already open, set SolutionRootPath to '{solutionDirectory}'");
 				}
 			}
+
+			// Initialize the selection tracker for the GenItEditorWindow
+			_selectionTracker = new SelectionTracker(this);
 		}
 
 		protected override void Dispose(bool disposing)
 		{
 			VSShell.ThreadHelper.ThrowIfNotOnUIThread();
+
+			// Dispose the selection tracker
+			_selectionTracker?.Dispose();
+			_selectionTracker = null;
 
 			// Unsubscribe from solution events
 			if (_solutionEventsCookie != 0 && _solution != null)

@@ -55,6 +55,10 @@ namespace Dyvenix.GenIt
 		/// Toolbox item filter string used to identify CommentsReferenceTypes connector tool.
 		/// </summary>
 		public const string CommentsReferenceTypesFilterString = "CommentsReferenceTypes.1.0";
+		/// <summary>
+		/// Toolbox item filter string used to identify EnumAssociation connector tool.
+		/// </summary>
+		public const string EnumAssociationFilterString = "EnumAssociation.1.0";
 
 	
 		private global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem> toolboxItemCache = new global::System.Collections.Generic.Dictionary<string, DslDesign::ModelingToolboxItem>();
@@ -102,7 +106,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return 8;
+				return 9;
 			}
 		}
 		
@@ -183,18 +187,18 @@ namespace Dyvenix.GenIt
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
 						});
 					break;
-				case "Dyvenix.GenIt.ClassOperationToolboxItem":
-					// Add ClassOperation shape tool.
+				case "Dyvenix.GenIt.ModuleModelToolboxItem":
+					// Add ModuleModel shape tool.
 					result = new DslDesign::ModelingToolboxItem(
-						"Dyvenix.GenIt.ClassOperationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						"Dyvenix.GenIt.ModuleModelToolboxItem", // Unique identifier (non-localized) for the toolbox item.
 						3, // Position relative to other items in the same toolbox tab.
-						resourceManager.GetString("ClassOperationToolboxItem", resourceCulture), // Localized display name for the item.
-						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ClassOperationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
+						resourceManager.GetString("ModuleModelToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("ModuleModelToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.
 						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
 						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
-						"ClassOperationF1Keyword", // F1 help keyword for the toolbox item.
-						resourceManager.GetString("ClassOperationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
-						CreateElementToolPrototype(store, global::Dyvenix.GenIt.ClassOperation.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
+						"ModuleModelF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("ModuleModelToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						CreateElementToolPrototype(store, global::Dyvenix.GenIt.ModuleModel.DomainClassId), // ElementGroupPrototype (data object) representing model element on the toolbox.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 						new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require) 
 						});
@@ -281,6 +285,24 @@ namespace Dyvenix.GenIt
 						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
 							new global::System.ComponentModel.ToolboxItemFilterAttribute(CommentsReferenceTypesFilterString)
+						});
+					break;
+				case "Dyvenix.GenIt.EnumAssociationToolboxItem":
+
+					// Add EnumAssociation connector tool.
+					result = new DslDesign::ModelingToolboxItem(
+						"Dyvenix.GenIt.EnumAssociationToolboxItem", // Unique identifier (non-localized) for the toolbox item.
+						9, // Position relative to other items in the same toolbox tab.
+						resourceManager.GetString("EnumAssociationToolboxItem", resourceCulture), // Localized display name for the item.
+						(global::System.Drawing.Bitmap)DslDiagrams::ImageHelper.GetImage(resourceManager.GetObject("EnumAssociationToolboxBitmap", resourceCulture)), // Image displayed next to the toolbox item.				
+						"Dyvenix.GenIt.Class DiagramsToolboxTab", // Unique identifier (non-localized) for the toolbox item tab.
+						resourceManager.GetString("Class DiagramsToolboxTab", resourceCulture), // Localized display name for the toolbox tab.
+						"ConnectEnumAssociationF1Keyword", // F1 help keyword for the toolbox item.
+						resourceManager.GetString("EnumAssociationToolboxTooltip", resourceCulture), // Localized tooltip text for the toolbox item.
+						null, // Connector toolbox items do not have an underlying data object.
+						new global::System.ComponentModel.ToolboxItemFilterAttribute[] { // Collection of ToolboxItemFilterAttribute objects that determine visibility of the toolbox item.
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(ToolboxFilterString, global::System.ComponentModel.ToolboxItemFilterType.Require), 
+							new global::System.ComponentModel.ToolboxItemFilterAttribute(EnumAssociationFilterString)
 						});
 					break;
 				default:

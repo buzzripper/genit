@@ -679,4 +679,41 @@ namespace Dyvenix.GenIt
             }
         }
     }
+
+    /// <summary>
+    /// Rule that fires when a ServiceModel is added.
+    /// Automatically sets the Version property based on how many services already exist on the EntityModel.
+    /// </summary>
+    [RuleOn(typeof(EntityModelHasServiceModels), FireTime = TimeToFire.TopLevelCommit)]
+    public class ServiceModelAddRule : AddRule
+    {
+        public override void ElementAdded(ElementAddedEventArgs e)
+        {
+            var link = e.ModelElement as EntityModelHasServiceModels;
+            if (link == null || link.IsDeleting || link.IsDeleted)
+                return;
+
+            // Don't set version if we're deserializing from file
+            if (link.Store.InSerializationTransaction)
+                return;
+
+            var serviceModel = link.ServiceModel;
+            var entityModel = link.EntityModel;
+
+            if (serviceModel == null || entityModel == null)
+                return;
+
+            // Only set version if it's empty (not already set)
+            if (string.IsNullOrEmpty(serviceModel.Version))
+            {
+                // Count is already updated to include the new service, so use it directly
+                // e.g., if this is the first service, Count = 1, so Version = "v1"
+                int versionNumber = entityModel.ServiceModels.Count;
+                serviceModel.Version = $"v{versionNumber}";
+            }
+
+            // Set default values for new service
+            serviceModel.Enabled = true;
+        }
+    }
 }
