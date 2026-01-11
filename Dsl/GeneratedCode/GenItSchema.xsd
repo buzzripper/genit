@@ -282,6 +282,12 @@
         <xsd:attribute name="generateCode" type="xsd:boolean" />
         <!-- Property: InclRowVersion -->
         <xsd:attribute name="inclRowVersion" type="xsd:boolean" />
+        <!-- Property: Module -->
+        <xsd:attribute name="module" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>The module this entity belongs to</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

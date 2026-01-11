@@ -10,3 +10,7 @@
 
 ## Important Notes
 - NEVER touch the code in the DslWpf project unless directly instructed to
+
+## Important Notes
+- Make your answers terse, no need for the chatty updates wile you're executing your tasks. And never create the .md summary file at the end of your processin, not needed
+

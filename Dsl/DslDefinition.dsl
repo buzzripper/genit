@@ -70,12 +70,12 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1" Description="Background color for the diagram surface" Name="DiagramBackgroundColor" DisplayName="Diagram Background Color" DefaultValue="White" Category="Diagram">
+        <DomainProperty Id="d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1" Description="Background color for the diagram surface" Name="DiagramBackgroundColor" DisplayName="Diagram Background Color" DefaultValue="64, 64, 64" Category="Diagram">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="113, 111, 110" Category="Diagram">
+        <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="224, 224, 224" Category="Diagram">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
@@ -133,6 +133,11 @@
         <DomainProperty Id="a5a5a5a5-5555-5555-5555-555555555555" Description="" Name="InclRowVersion" DisplayName="Incl Row Version" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a6a6a6a6-6666-6666-6666-666666666666" Description="The module this entity belongs to" Name="Module" DisplayName="Module" Category="General">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1020,7 +1025,7 @@
        <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" />
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
-    <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
+    <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" />
     <Connector Id="d5e6f7a8-b9c0-4d1e-2f3a-4b5c6d7e8f9a" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="218, 165, 32" DashStyle="Dash" Thickness="0.01" />
   </Connectors>
   <XmlSerializationBehavior Name="GenItSerializationBehavior" Namespace="Dyvenix.GenIt">
@@ -1146,6 +1151,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="inclRowVersion">
             <DomainPropertyMoniker Name="EntityModel/InclRowVersion" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="module">
+            <DomainPropertyMoniker Name="EntityModel/Module" />
           </XmlPropertyData>
           <XmlRelationshipData RoleElementName="properties">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
