@@ -14,6 +14,7 @@ namespace Dyvenix.GenIt
 		private Button _okButton;
 		private Button _cancelButton;
 		private Label _nameLabel;
+		private Font _dialogFont;
 
 		/// <summary>
 		/// Gets the view name entered by the user.
@@ -41,27 +42,33 @@ namespace Dyvenix.GenIt
 
 		private void InitializeComponent()
 		{
+			// Use a larger font throughout
+			_dialogFont = new Font("Segoe UI", 12f, FontStyle.Regular);
+
 			this.Text = "Add View";
-			this.Size = new Size(350, 140);
-			this.MinimumSize = new Size(300, 130);
+			this.Size = new Size(500, 200);
+			this.MinimumSize = new Size(450, 180);
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.ShowInTaskbar = false;
 			this.StartPosition = FormStartPosition.CenterParent;
 			this.FormBorderStyle = FormBorderStyle.FixedDialog;
+			this.Font = _dialogFont;
 
 			_nameLabel = new Label
 			{
 				Text = "View name:",
-				Location = new Point(12, 18),
-				Size = new Size(70, 20),
-				TextAlign = ContentAlignment.MiddleLeft
+				Location = new Point(20, 30),
+				Size = new Size(110, 30),
+				TextAlign = ContentAlignment.MiddleLeft,
+				Font = _dialogFont
 			};
 
 			_nameTextBox = new TextBox
 			{
-				Location = new Point(90, 15),
-				Size = new Size(230, 23),
+				Location = new Point(135, 28),
+				Size = new Size(330, 30),
+				Font = _dialogFont,
 				Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
 			};
 			_nameTextBox.KeyDown += (s, e) =>
@@ -77,16 +84,18 @@ namespace Dyvenix.GenIt
 			{
 				Text = "OK",
 				DialogResult = DialogResult.OK,
-				Location = new Point(160, 55),
-				Size = new Size(75, 28)
+				Location = new Point(260, 100),
+				Size = new Size(100, 38),
+				Font = _dialogFont
 			};
 
 			_cancelButton = new Button
 			{
 				Text = "Cancel",
 				DialogResult = DialogResult.Cancel,
-				Location = new Point(245, 55),
-				Size = new Size(75, 28)
+				Location = new Point(370, 100),
+				Size = new Size(100, 38),
+				Font = _dialogFont
 			};
 
 			this.Controls.Add(_nameLabel);
@@ -127,6 +136,7 @@ namespace Dyvenix.GenIt
 			if (disposing)
 			{
 				VSColorTheme.ThemeChanged -= OnThemeChanged;
+				_dialogFont?.Dispose();
 			}
 			base.Dispose(disposing);
 		}

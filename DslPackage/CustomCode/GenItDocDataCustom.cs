@@ -16,78 +16,89 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		protected override void Load(string fileName, bool isReload)
 		{
-			SerializationResult serializationResult = new SerializationResult();
-			ModelRoot modelRoot = null;
-			ISchemaResolver schemaResolver = new ModelingSchemaResolver(this.ServiceProvider);
+			// Set loading flag to prevent shape filtering during load
+			GenItDiagram.IsLoading = true;
 			
-			// Clear the current root element
-			this.SetRootElement(null);
-			
-			// Enable diagram fixup rules in our store
-			GenItDomainModel.EnableDiagramRules(this.Store);
-			
-			string diagramFileName = fileName + this.DiagramExtension;
-
-			// Load model and all diagrams
-			IList<GenItDiagram> loadedDiagrams;
-			modelRoot = GenItSerializationHelper.Instance.LoadModelAndDiagrams(
-				serializationResult, 
-				this.GetModelPartition(), 
-				fileName, 
-				this.GetDiagramPartition(), 
-				diagramFileName, 
-				schemaResolver, 
-				null, // no load-time validation
-				this.SerializerLocator,
-				out loadedDiagrams);
-
-			// Report serialization messages
-			this.SuspendErrorListRefresh();
 			try
 			{
-				foreach (SerializationMessage serializationMessage in serializationResult)
-				{
-					this.AddErrorListItem(new SerializationErrorListItem(this.ServiceProvider, serializationMessage));
-				}
-			}
-			finally
-			{
-				this.ResumeErrorListRefresh();
-			}
+				SerializationResult serializationResult = new SerializationResult();
+				ModelRoot modelRoot = null;
+				ISchemaResolver schemaResolver = new ModelingSchemaResolver(this.ServiceProvider);
+				
+				// Clear the current root element
+				this.SetRootElement(null);
+				
+				// Enable diagram fixup rules in our store
+				GenItDomainModel.EnableDiagramRules(this.Store);
+				
+				string diagramFileName = fileName + this.DiagramExtension;
 
-			if (serializationResult.Failed)
-			{
-				throw new global::System.InvalidOperationException(GenItDomainModel.SingletonResourceManager.GetString("CannotOpenDocument"));
-			}
-			else
-			{
-				this.SetRootElement(modelRoot);
+				// Load model and all diagrams
+				IList<GenItDiagram> loadedDiagrams;
+				modelRoot = GenItSerializationHelper.Instance.LoadModelAndDiagrams(
+					serializationResult, 
+					this.GetModelPartition(), 
+					fileName, 
+					this.GetDiagramPartition(), 
+					diagramFileName, 
+					schemaResolver, 
+					null, // no load-time validation
+					this.SerializerLocator,
+					out loadedDiagrams);
 
-				// Attempt to set the encoding
-				if (serializationResult.Encoding != null)
+				// Report serialization messages
+				this.SuspendErrorListRefresh();
+				try
 				{
-					this.ModelingDocStore.SetEncoding(serializationResult.Encoding);
-					global::Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(this.SetDocDataDirty(0));
-				}
-
-				if (this.Hierarchy != null && global::System.IO.File.Exists(diagramFileName))
-				{
-					// Add a lock to the subordinate diagram file
-					if (this.diagramDocumentLockHolder == null)
+					foreach (SerializationMessage serializationMessage in serializationResult)
 					{
-						uint itemId = SubordinateFileHelper.GetChildProjectItemId(this.Hierarchy, this.ItemId, this.DiagramExtension);
-						if (itemId != global::Microsoft.VisualStudio.VSConstants.VSITEMID_NIL)
+						this.AddErrorListItem(new SerializationErrorListItem(this.ServiceProvider, serializationMessage));
+					}
+				}
+				finally
+				{
+					this.ResumeErrorListRefresh();
+				}
+
+				if (serializationResult.Failed)
+				{
+					throw new global::System.InvalidOperationException(GenItDomainModel.SingletonResourceManager.GetString("CannotOpenDocument"));
+				}
+				else
+				{
+					this.SetRootElement(modelRoot);
+
+					// Attempt to set the encoding
+					if (serializationResult.Encoding != null)
+					{
+						this.ModelingDocStore.SetEncoding(serializationResult.Encoding);
+						global::Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(this.SetDocDataDirty(0));
+					}
+
+					if (this.Hierarchy != null && global::System.IO.File.Exists(diagramFileName))
+					{
+						// Add a lock to the subordinate diagram file
+						if (this.diagramDocumentLockHolder == null)
 						{
-							this.diagramDocumentLockHolder = SubordinateFileHelper.LockSubordinateDocument(this.ServiceProvider, this, diagramFileName, itemId);
-							if (this.diagramDocumentLockHolder == null)
+							uint itemId = SubordinateFileHelper.GetChildProjectItemId(this.Hierarchy, this.ItemId, this.DiagramExtension);
+							if (itemId != global::Microsoft.VisualStudio.VSConstants.VSITEMID_NIL)
 							{
-								throw new global::System.InvalidOperationException(string.Format(global::System.Globalization.CultureInfo.CurrentCulture,
-									GenItDomainModel.SingletonResourceManager.GetString("CannotCloseExistingDiagramDocument"),
-									diagramFileName));
+								this.diagramDocumentLockHolder = SubordinateFileHelper.LockSubordinateDocument(this.ServiceProvider, this, diagramFileName, itemId);
+								if (this.diagramDocumentLockHolder == null)
+								{
+									throw new global::System.InvalidOperationException(string.Format(global::System.Globalization.CultureInfo.CurrentCulture,
+										GenItDomainModel.SingletonResourceManager.GetString("CannotCloseExistingDiagramDocument"),
+										diagramFileName));
+								}
 							}
 						}
 					}
 				}
+			}
+			finally
+			{
+				// Clear loading flag after load completes
+				GenItDiagram.IsLoading = false;
 			}
 		}
 

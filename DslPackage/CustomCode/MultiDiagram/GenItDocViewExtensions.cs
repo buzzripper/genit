@@ -67,6 +67,8 @@ namespace Dyvenix.GenIt
 			if (_diagramManager.ActiveDiagram != null)
 			{
 				this.Diagram = _diagramManager.ActiveDiagram;
+				// Set as active creation diagram so new shapes only appear on this diagram
+				GenItDiagram.ActiveCreationDiagram = _diagramManager.ActiveDiagram;
 			}
 			else
 			{
@@ -87,6 +89,8 @@ namespace Dyvenix.GenIt
 			if (e.NewDiagram != null)
 			{
 				this.Diagram = e.NewDiagram;
+				// Update active creation diagram so new shapes only appear on the active diagram
+				GenItDiagram.ActiveCreationDiagram = e.NewDiagram;
 			}
 		}
 	}
@@ -184,7 +188,7 @@ namespace Dyvenix.GenIt
 				{
 					try
 					{
-						_diagramManager.CreateDiagram(dialog.ViewName, showAllElements: false);
+						var newDiagram = _diagramManager.CreateDiagram(dialog.ViewName, showAllElements: false);
 						RefreshTabs();
 
 						// Switch to the new tab

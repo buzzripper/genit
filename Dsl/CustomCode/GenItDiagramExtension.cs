@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -15,6 +16,39 @@ namespace Dyvenix.GenIt
 		/// Custom data format for elements dragged from the Model Explorer.
 		/// </summary>
 		private const string ModelElementDataFormat = "GenItModelElement";
+
+		/// <summary>
+		/// Thread-static field to track which diagram is currently active for shape creation.
+		/// When set, only this diagram will create shapes for new elements.
+		/// </summary>
+		[System.ThreadStatic]
+		private static GenItDiagram _activeCreationDiagram;
+
+		/// <summary>
+		/// Thread-static flag to indicate document is being loaded.
+		/// When true, shape filtering is disabled to allow all shapes to load.
+		/// </summary>
+		[System.ThreadStatic]
+		private static bool _isLoading;
+
+		/// <summary>
+		/// Gets or sets the diagram that should receive new shapes.
+		/// When null, shapes are created on all diagrams (default DSL behavior for loading).
+		/// </summary>
+		public static GenItDiagram ActiveCreationDiagram
+		{
+			get => _activeCreationDiagram;
+			set => _activeCreationDiagram = value;
+		}
+
+		/// <summary>
+		/// Gets or sets whether the document is being loaded.
+		/// </summary>
+		public static bool IsLoading
+		{
+			get => _isLoading;
+			set => _isLoading = value;
+		}
 
 		/// <summary>
 		/// Override to apply background color from ModelRoot when diagram initializes.
@@ -142,11 +176,22 @@ namespace Dyvenix.GenIt
 						// Get drop position
 						PointD dropPoint = e.MousePosition;
 
-						// Create shape for the element
-						using (var tx = this.Store.TransactionManager.BeginTransaction("Add to View"))
+						// Set this diagram as active for the drop operation
+						var previousActive = _activeCreationDiagram;
+						_activeCreationDiagram = this;
+						try
 						{
-							CreateShapeForExistingElement(element, dropPoint);
-							tx.Commit();
+							// Create shape for the element
+							using (var tx = this.Store.TransactionManager.BeginTransaction("Add to View"))
+							{
+								CreateShapeForExistingElement(element, dropPoint);
+								tx.Commit();
+							}
+						}
+						finally
+						{
+							// Restore previous active diagram
+							_activeCreationDiagram = previousActive;
 						}
 					}
 					e.Effect = DragDropEffects.Copy;
@@ -187,7 +232,6 @@ namespace Dyvenix.GenIt
 			// Use the diagram's built-in FixUpDiagram mechanism to create the shape properly
 			// This ensures all the compartment initialization, decorators, etc. are set up correctly
 
-			// First, use FixUpDiagram to create the shape with proper initialization
 			// Get the parent element for the shape (ModelRoot for top-level elements)
 			ModelElement parentElement = null;
 
@@ -294,6 +338,57 @@ namespace Dyvenix.GenIt
 
 			// Use FixUpDiagram to create the connector properly
 			FixUpDiagram(this.ModelElement, link);
+		}
+	}
+
+	/// <summary>
+	/// Rule that fires when new ModelType elements are added to the model.
+	/// Cleans up shapes on non-active diagrams after the FixUpDiagram rules have run.
+	/// </summary>
+	[RuleOn(typeof(ModelRootHasTypes), FireTime = TimeToFire.TopLevelCommit, Priority = DiagramFixupConstants.AddShapeRulePriority + 1000)]
+	internal sealed class FilterShapeCreationRule : AddRule
+	{
+		public override void ElementAdded(ElementAddedEventArgs e)
+		{
+			// Skip during undo/redo/rollback
+			if (e.ModelElement.Store.InUndoRedoOrRollback)
+				return;
+
+			// Skip during document load
+			if (GenItDiagram.IsLoading)
+				return;
+
+			// Must have an active diagram set to filter
+			if (GenItDiagram.ActiveCreationDiagram == null)
+				return;
+
+			var link = e.ModelElement as ModelRootHasTypes;
+			if (link == null)
+				return;
+
+			var modelType = link.Type;
+			if (modelType == null)
+				return;
+
+			// Find all shapes for this element and delete those on non-active diagrams
+			var shapesToDelete = new List<ShapeElement>();
+			foreach (var pe in PresentationViewsSubject.GetPresentation(modelType))
+			{
+				if (pe is NodeShape ns)
+				{
+					var diagram = ns.Diagram as GenItDiagram;
+					if (diagram != null && diagram != GenItDiagram.ActiveCreationDiagram)
+					{
+						shapesToDelete.Add(ns);
+					}
+				}
+			}
+
+			// Delete the shapes on non-active diagrams
+			foreach (var shape in shapesToDelete)
+			{
+				shape.Delete();
+			}
 		}
 	}
 

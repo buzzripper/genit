@@ -109,6 +109,9 @@ namespace Dyvenix.GenIt
 				// Associate the diagram with the model root
 				newDiagram.ModelElement = _modelRoot;
 
+				// Apply background color from model root (same as other diagrams)
+				newDiagram.ApplyBackgroundColorFromModel();
+
 				if (showAllElements)
 				{
 					// Create shapes for all model elements

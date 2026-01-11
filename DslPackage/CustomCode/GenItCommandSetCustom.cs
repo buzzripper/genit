@@ -15,6 +15,7 @@ namespace Dyvenix.GenIt
 	{
 		private CommandID _generateCodeCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0100);
 		private CommandID _addServiceCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0101);
+		private CommandID _removeFromViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0102);
 
 		/// <summary>
 		/// Provide the menu commands that this command set handles
@@ -37,6 +38,13 @@ namespace Dyvenix.GenIt
 				new EventHandler(OnMenuAddNewService),
 				_addServiceCommandId);
 			commands.Add(addServiceCommand);
+
+			// Add the "Remove from View" command
+			DynamicStatusMenuCommand removeFromViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusRemoveFromView),
+				new EventHandler(OnMenuRemoveFromView),
+				_removeFromViewCommandId);
+			commands.Add(removeFromViewCommand);
 
 			return commands;
 		}
@@ -251,6 +259,163 @@ namespace Dyvenix.GenIt
 				MessageBox.Show(
 					$"Error adding new service: {ex.Message}",
 					"Add New Service Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
+		#endregion
+
+		#region Remove from View Command
+
+		/// <summary>
+		/// Determines whether the "Remove from View" menu item should be visible and enabled.
+		/// Only visible when right-clicking on an EntityModel, EnumModel, or ModuleModel shape.
+		/// </summary>
+		private void OnStatusRemoveFromView(object sender, EventArgs args)
+		{
+			MenuCommand command = sender as MenuCommand;
+			if (command == null)
+				return;
+
+			command.Visible = false;
+			command.Enabled = false;
+
+			// Check if we have a valid selection
+			var selection = this.CurrentSelection;
+			if (selection == null || selection.Count == 0)
+				return;
+
+			// Check each selected object for valid shape types
+			foreach (object selectedObject in selection)
+			{
+				if (selectedObject is ClassShape classShape && classShape.ModelElement is EntityModel)
+				{
+					command.Visible = true;
+					command.Enabled = true;
+					return;
+				}
+
+				if (selectedObject is EnumShape enumShape && enumShape.ModelElement is EnumModel)
+				{
+					command.Visible = true;
+					command.Enabled = true;
+					return;
+				}
+
+				if (selectedObject is ModuleShape moduleShape && moduleShape.ModelElement is ModuleModel)
+				{
+					command.Visible = true;
+					command.Enabled = true;
+					return;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Event handler to remove the selected shape from the current view.
+		/// Does not delete the underlying model element.
+		/// </summary>
+		private void OnMenuRemoveFromView(object sender, EventArgs args)
+		{
+			try
+			{
+				var selection = this.CurrentSelection;
+				if (selection == null || selection.Count == 0)
+					return;
+
+				// Collect all shapes to remove
+				var shapesToRemove = new System.Collections.Generic.List<NodeShape>();
+				string elementName = null;
+
+				foreach (object selectedObject in selection)
+				{
+					NodeShape shapeToRemove = null;
+
+					if (selectedObject is ClassShape classShape && classShape.ModelElement is EntityModel entityModel)
+					{
+						shapeToRemove = classShape;
+						elementName = entityModel.Name;
+					}
+					else if (selectedObject is EnumShape enumShape && enumShape.ModelElement is EnumModel enumModel)
+					{
+						shapeToRemove = enumShape;
+						elementName = enumModel.Name;
+					}
+					else if (selectedObject is ModuleShape moduleShape && moduleShape.ModelElement is ModuleModel moduleModel)
+					{
+						shapeToRemove = moduleShape;
+						elementName = moduleModel.Name;
+					}
+
+					if (shapeToRemove != null && !shapesToRemove.Contains(shapeToRemove))
+					{
+						shapesToRemove.Add(shapeToRemove);
+					}
+				}
+
+				if (shapesToRemove.Count == 0)
+					return;
+
+				// Show confirmation dialog
+				string message = shapesToRemove.Count == 1
+					? $"Remove '{elementName}' from this view?\n\nThe element will remain in the model and can be added back to this view later."
+					: $"Remove {shapesToRemove.Count} elements from this view?\n\nThe elements will remain in the model and can be added back to this view later.";
+
+				DialogResult result = MessageBox.Show(
+					message,
+					"Remove from View",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Question,
+					MessageBoxDefaultButton.Button2);
+
+				if (result != DialogResult.Yes)
+					return;
+
+				// Get the document data to mark it dirty
+				GenItDocData docData = this.CurrentGenItDocData;
+
+				// Remove shapes within a transaction
+				using (Transaction transaction = shapesToRemove[0].Store.TransactionManager.BeginTransaction("Remove from View"))
+				{
+					foreach (var shape in shapesToRemove)
+					{
+						// Also remove any connectors connected to this shape
+						var connectorsToRemove = new System.Collections.Generic.List<LinkShape>();
+						foreach (LinkShape ls in shape.FromRoleLinkShapes)
+						{
+							connectorsToRemove.Add(ls);
+						}
+						foreach (LinkShape ls in shape.ToRoleLinkShapes)
+						{
+							connectorsToRemove.Add(ls);
+						}
+						foreach (var connector in connectorsToRemove)
+						{
+							if (!connector.IsDeleted && !connector.IsDeleting)
+							{
+								connector.Delete();
+							}
+						}
+
+						// Delete only the shape, not the model element
+						shape.Delete();
+					}
+
+					transaction.Commit();
+				}
+
+				// Mark the document as changed so it will be saved
+				if (docData != null)
+				{
+					docData.MarkDocumentChangedForBackup();
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(
+					$"Error removing element from view: {ex.Message}",
+					"Remove from View Error",
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 			}

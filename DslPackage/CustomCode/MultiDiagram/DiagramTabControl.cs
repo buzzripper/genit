@@ -17,6 +17,7 @@ namespace Dyvenix.GenIt
 
         private ContextMenuStrip _tabContextMenu;
         private int _rightClickedTabIndex = -1;
+        private Font _tabFont;
 
         /// <summary>
         /// Event raised when user requests to add a new tab.
@@ -36,13 +37,17 @@ namespace Dyvenix.GenIt
         public DiagramTabControl()
         {
             this.Dock = DockStyle.Bottom;
-            this.Height = 24;
+            this.Height = 36;
             this.Alignment = TabAlignment.Bottom;
             this.SizeMode = TabSizeMode.Normal;
             this.Multiline = false;
             this.HotTrack = true;
             this.DrawMode = TabDrawMode.OwnerDrawFixed;
-            this.ItemSize = new Size(80, 20);
+            this.ItemSize = new Size(120, 28);
+            this.Padding = new Point(12, 0);
+
+            // Create a larger font for tabs
+            _tabFont = new Font("Segoe UI", 10f, FontStyle.Regular);
 
             // Enable custom painting
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -58,6 +63,7 @@ namespace Dyvenix.GenIt
         private void CreateContextMenu()
         {
             _tabContextMenu = new ContextMenuStrip();
+            _tabContextMenu.Font = new Font("Segoe UI", 10f, FontStyle.Regular);
 
             var addItem = new ToolStripMenuItem("Add View...");
             addItem.Click += (s, e) => AddTabRequested?.Invoke(this, EventArgs.Empty);
@@ -153,12 +159,16 @@ namespace Dyvenix.GenIt
             var foreColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTextColorKey);
             var selectedBackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTabSelectedTabColorKey);
             var borderColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowBorderColorKey);
+            var hoverBackColor = VSColorTheme.GetThemedColor(EnvironmentColors.ToolWindowTabMouseOverBackgroundBeginColorKey);
 
             // Fill the entire background
             using (var backBrush = new SolidBrush(backColor))
             {
                 e.Graphics.FillRectangle(backBrush, ClientRectangle);
             }
+
+            // Enable text anti-aliasing
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
 
             // Draw each tab
             for (int i = 0; i < TabCount; i++)
@@ -167,8 +177,12 @@ namespace Dyvenix.GenIt
                 var tabPage = TabPages[i];
                 bool isSelected = (SelectedIndex == i);
 
+                // Inflate the rect slightly for better text fit
+                var textRect = new Rectangle(tabRect.X + 6, tabRect.Y + 2, tabRect.Width - 12, tabRect.Height - 4);
+
                 // Draw tab background
-                using (var tabBrush = new SolidBrush(isSelected ? selectedBackColor : backColor))
+                Color tabBackColor = isSelected ? selectedBackColor : backColor;
+                using (var tabBrush = new SolidBrush(tabBackColor))
                 {
                     e.Graphics.FillRectangle(tabBrush, tabRect);
                 }
@@ -179,16 +193,18 @@ namespace Dyvenix.GenIt
                     e.Graphics.DrawRectangle(borderPen, tabRect);
                 }
 
-                // Draw tab text
+                // Draw tab text with proper formatting
                 var textFormat = new StringFormat
                 {
                     Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
+                    LineAlignment = StringAlignment.Center,
+                    Trimming = StringTrimming.EllipsisCharacter,
+                    FormatFlags = StringFormatFlags.NoWrap
                 };
 
                 using (var textBrush = new SolidBrush(foreColor))
                 {
-                    e.Graphics.DrawString(tabPage.Text, Font, textBrush, tabRect, textFormat);
+                    e.Graphics.DrawString(tabPage.Text, _tabFont, textBrush, textRect, textFormat);
                 }
             }
         }
@@ -224,6 +240,7 @@ namespace Dyvenix.GenIt
             {
                 VSColorTheme.ThemeChanged -= OnThemeChanged;
                 _tabContextMenu?.Dispose();
+                _tabFont?.Dispose();
             }
             base.Dispose(disposing);
         }
