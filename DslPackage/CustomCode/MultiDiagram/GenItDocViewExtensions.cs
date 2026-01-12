@@ -1,5 +1,7 @@
 using System;
 using System.Windows.Forms;
+using DslModeling = Microsoft.VisualStudio.Modeling;
+using DslDiagrams = Microsoft.VisualStudio.Modeling.Diagrams;
 
 namespace Dyvenix.GenIt
 {
@@ -34,18 +36,17 @@ namespace Dyvenix.GenIt
 
 		/// <summary>
 		/// Called to initialize the view after the corresponding document has been loaded.
+		/// Overridden to handle multiple diagrams without triggering the base class Assert.
 		/// </summary>
 		protected override bool LoadView()
 		{
-			// IMPORTANT: Call base.LoadView() first - this does essential setup including
-			// finding the diagram in the partition and setting this.Diagram
-			if (!base.LoadView())
+			// DO NOT call base.LoadView() - it asserts when diagrams.Count > 1
+			// Instead, replicate the essential setup here with multi-diagram support
+
+			if (this.DocData.RootElement == null)
 			{
 				return false;
 			}
-
-			// At this point, base.LoadView() has already set this.Diagram to the loaded diagram
-			// Now we set up our DiagramManager for multi-diagram support
 
 			var docData = this.DocData as GenItDocDataBase;
 			if (docData == null)
@@ -53,7 +54,7 @@ namespace Dyvenix.GenIt
 				return false;
 			}
 
-			var diagramPartition = docData.GetDiagramPartition();
+			DslModeling::Partition diagramPartition = docData.GetDiagramPartition();
 			if (diagramPartition == null)
 			{
 				return false;
@@ -65,12 +66,22 @@ namespace Dyvenix.GenIt
 				return false;
 			}
 
+			// Find all diagrams in the partition
+			var diagrams = diagramPartition.ElementDirectory.FindElements<GenItDiagram>();
+			if (diagrams.Count == 0)
+			{
+				return false;
+			}
+
+			// Set the first diagram as the active one (this is what base.LoadView() does)
+			this.Diagram = (DslDiagrams::Diagram)diagrams[0];
+
 			// Initialize the diagram manager with existing diagrams
 			_diagramManager = new DiagramManager(docData.Store, modelRoot, diagramPartition);
 			_diagramManager.Initialize();
 			_diagramManager.ActiveDiagramChanged += OnActiveDiagramChanged;
 
-			// If the diagram manager found a diagram, use it; otherwise keep the one from base.LoadView()
+			// If the diagram manager found a diagram, use it
 			if (_diagramManager.ActiveDiagram != null)
 			{
 				this.Diagram = _diagramManager.ActiveDiagram;

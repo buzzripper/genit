@@ -138,11 +138,12 @@ namespace Dyvenix.GenIt
 			using (XmlWriter writer = XmlWriter.Create(newFileContent, settings))
 			{
 				writer.WriteStartElement("diagrams");
+				writer.WriteAttributeString("dslVersion", "1.0.0.0");
 				writer.WriteAttributeString("xmlns", "dslDiagrams", null, "http://schemas.microsoft.com/VisualStudio/2005/DslTools/CoreDesignSurface");
 
 				foreach (var diagram in diagrams)
 				{
-					// Serialize each diagram
+					// Serialize each diagram using WriteRootElement (this serializes the diagram and all its nested shapes)
 					this.WriteRootElement(serializationContext, diagram, writer);
 				}
 
@@ -172,19 +173,28 @@ namespace Dyvenix.GenIt
 			// For single diagram files (legacy), use the standard serialization
 			if (!isMultiDiagramFile)
 			{
-				ModelRoot modelRoot = this.LoadModelAndDiagram(serializationResult, modelPartition, modelFileName, diagramPartition, diagramFileName, schemaResolver, validationController, serializerLocator);
-				
-				// Find the diagram that was loaded
-				if (!serializationResult.Failed)
+				// Suppress auto shape creation during load to prevent shapes from appearing on wrong diagrams
+				GenItDiagram.SuppressAutoShapeCreation = true;
+				try
 				{
-					var diagrams = diagramPartition.ElementDirectory.FindElements<GenItDiagram>();
-					foreach (var d in diagrams)
+					ModelRoot modelRoot = this.LoadModelAndDiagram(serializationResult, modelPartition, modelFileName, diagramPartition, diagramFileName, schemaResolver, validationController, serializerLocator);
+					
+					// Find the diagram that was loaded
+					if (!serializationResult.Failed)
 					{
-						loadedDiagrams.Add(d);
+						var diagrams = diagramPartition.ElementDirectory.FindElements<GenItDiagram>();
+						foreach (var d in diagrams)
+						{
+							loadedDiagrams.Add(d);
+						}
 					}
+					
+					return modelRoot;
 				}
-				
-				return modelRoot;
+				finally
+				{
+					GenItDiagram.SuppressAutoShapeCreation = false;
+				}
 			}
 
 			// For multi-diagram files, use custom loading
@@ -194,99 +204,132 @@ namespace Dyvenix.GenIt
 				throw new global::System.InvalidOperationException(GenItDomainModel.SingletonResourceManager.GetString("MissingTransaction"));
 			}
 
-			// Load the model first
-			ModelRoot result = this.LoadModel(serializationResult, modelPartition, modelFileName, schemaResolver, validationController, serializerLocator);
-
-			if (serializationResult.Failed)
+			// Suppress auto shape creation for the entire multi-diagram loading process
+			GenItDiagram.SuppressAutoShapeCreation = true;
+			
+			try
 			{
-				return result;
-			}
+				// Load the model first
+				ModelRoot result = this.LoadModel(serializationResult, modelPartition, modelFileName, schemaResolver, validationController, serializerLocator);
 
-			// Load multiple diagrams
-			DomainXmlSerializerDirectory directory = this.GetDirectory(diagramPartition.Store);
-
-			using (FileStream fileStream = File.OpenRead(diagramFileName))
-			{
-				SerializationContext serializationContext = new SerializationContext(directory, fileStream.Name, serializationResult);
-				this.InitializeSerializationContext(diagramPartition, serializationContext, true);
-				TransactionContext transactionContext = new TransactionContext();
-				transactionContext.Add(SerializationContext.TransactionContextKey, serializationContext);
-
-				using (Transaction t = diagramPartition.Store.TransactionManager.BeginTransaction("LoadDiagrams", true, transactionContext))
+				if (serializationResult.Failed)
 				{
-					if (fileStream.Length > 5)
-					{
-						XmlReaderSettings settings = GenItSerializationHelper.Instance.CreateXmlReaderSettings(serializationContext, false);
-						try
-						{
-							using (XmlReader reader = XmlReader.Create(fileStream, settings))
-							{
-								reader.MoveToContent();
+					return result;
+				}
 
-								// Read multiple diagrams from wrapper element
-								if (reader.LocalName == "diagrams" && reader.Read())
+				// Load multiple diagrams
+				DomainXmlSerializerDirectory directory = this.GetDirectory(diagramPartition.Store);
+				DomainClassXmlSerializer diagramSerializer = directory.GetSerializer(GenItDiagram.DomainClassId);
+
+				using (FileStream fileStream = File.OpenRead(diagramFileName))
+				{
+					SerializationContext serializationContext = new SerializationContext(directory, fileStream.Name, serializationResult);
+					this.InitializeSerializationContext(diagramPartition, serializationContext, true);
+					TransactionContext transactionContext = new TransactionContext();
+					transactionContext.Add(SerializationContext.TransactionContextKey, serializationContext);
+
+					using (Transaction t = diagramPartition.Store.TransactionManager.BeginTransaction("LoadDiagrams", true, transactionContext))
+					{
+						if (fileStream.Length > 5)
+						{
+							XmlReaderSettings settings = GenItSerializationHelper.Instance.CreateXmlReaderSettings(serializationContext, false);
+							try
+							{
+								using (XmlReader reader = XmlReader.Create(fileStream, settings))
 								{
-									while (reader.NodeType != XmlNodeType.EndElement || reader.LocalName != "diagrams")
+									reader.MoveToContent();
+
+									// Read multiple diagrams from wrapper element
+									if (reader.LocalName == "diagrams")
 									{
-										if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "genItDiagram")
+										// Skip to first child element
+										if (reader.Read())
 										{
-											DomainClassXmlSerializer diagramSerializer = directory.GetSerializer(GenItDiagram.DomainClassId);
-											GenItDiagram diagram = diagramSerializer.TryCreateInstance(serializationContext, reader, diagramPartition) as GenItDiagram;
-											if (diagram != null)
+											while (!reader.EOF)
 											{
-												diagramSerializer.Read(serializationContext, diagram, reader);
-												diagram.ModelElement = result;
-												loadedDiagrams.Add(diagram);
+												// Skip whitespace and other non-element nodes
+												if (reader.NodeType == XmlNodeType.Element)
+												{
+													if (reader.LocalName == "genItDiagram")
+													{
+														// Create diagram instance
+														GenItDiagram diagram = diagramSerializer.TryCreateInstance(serializationContext, reader, diagramPartition) as GenItDiagram;
+														if (diagram != null)
+														{
+															// Read the diagram content (this reads all nested shapes too)
+															diagramSerializer.Read(serializationContext, diagram, reader);
+															diagram.ModelElement = result;
+															loadedDiagrams.Add(diagram);
+														}
+													}
+													else
+													{
+														// Skip unknown elements
+														reader.Skip();
+													}
+												}
+												else if (reader.NodeType == XmlNodeType.EndElement && reader.LocalName == "diagrams")
+												{
+													// End of diagrams wrapper
+													break;
+												}
+												else
+												{
+													// Move to next node
+													if (!reader.Read())
+														break;
+												}
 											}
-										}
-										else if (!reader.Read())
-										{
-											break;
 										}
 									}
 								}
 							}
-						}
-						catch (XmlException xEx)
-						{
-							SerializationUtilities.AddMessage(serializationContext, SerializationMessageKind.Error, xEx);
+							catch (XmlException xEx)
+							{
+								SerializationUtilities.AddMessage(serializationContext, SerializationMessageKind.Error, xEx);
+							}
+
+							if (serializationResult.Failed)
+							{
+								loadedDiagrams.Clear();
+								t.Rollback();
+							}
 						}
 
-						if (serializationResult.Failed)
+						if (loadedDiagrams.Count == 0 && !serializationResult.Failed)
 						{
-							loadedDiagrams.Clear();
-							t.Rollback();
+							// Create default diagram if none were loaded
+							GenItDiagram diagram = this.CreateDiagramHelper(diagramPartition, result);
+							diagram.ModelElement = result;
+							loadedDiagrams.Add(diagram);
 						}
+
+						if (t.IsActive)
+							t.Commit();
 					}
 
-					if (loadedDiagrams.Count == 0 && !serializationResult.Failed)
+					// Call PostDeserialization on all diagrams (still with suppression active to prevent fixup issues)
+					foreach (var diagram in loadedDiagrams)
 					{
-						// Create default diagram if none were loaded
-						GenItDiagram diagram = this.CreateDiagramHelper(diagramPartition, result);
-						diagram.ModelElement = result;
-						loadedDiagrams.Add(diagram);
+						if (!serializationResult.Failed)
+						{
+							diagram.PostDeserialization(true);
+							this.CheckForOrphanedShapes(diagram, serializationResult);
+						}
+						else
+						{
+							diagram.PostDeserialization(false);
+						}
 					}
-
-					if (t.IsActive)
-						t.Commit();
 				}
 
-				// Call PostDeserialization on all diagrams
-				foreach (var diagram in loadedDiagrams)
-				{
-					if (!serializationResult.Failed)
-					{
-						diagram.PostDeserialization(true);
-						this.CheckForOrphanedShapes(diagram, serializationResult);
-					}
-					else
-					{
-						diagram.PostDeserialization(false);
-					}
-				}
+				return result;
 			}
-
-			return result;
+			finally
+			{
+				// Always restore the flag
+				GenItDiagram.SuppressAutoShapeCreation = false;
+			}
 		}
 
 		/// <summary>

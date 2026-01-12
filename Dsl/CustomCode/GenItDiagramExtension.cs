@@ -35,6 +35,23 @@ namespace Dyvenix.GenIt
 		}
 
 		/// <summary>
+		/// Flag indicating whether shape auto-creation is suppressed.
+		/// When true, the FixUpDiagram rules will skip creating shapes.
+		/// </summary>
+		[System.ThreadStatic]
+		private static bool _suppressAutoShapeCreation;
+
+		/// <summary>
+		/// Gets or sets whether automatic shape creation is suppressed.
+		/// Set to true during multi-diagram loading to prevent shapes from being auto-created.
+		/// </summary>
+		public static bool SuppressAutoShapeCreation
+		{
+			get => _suppressAutoShapeCreation;
+			set => _suppressAutoShapeCreation = value;
+		}
+
+		/// <summary>
 		/// Override to apply background color from ModelRoot when diagram initializes.
 		/// </summary>
 		public override void OnInitialize()
@@ -48,6 +65,19 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		public override void PostDeserialization(bool loadSucceeded)
 		{
+			// During multi-diagram loading, we don't want base PostDeserialization to trigger
+			// any view fixup that would create shapes on all diagrams
+			if (SuppressAutoShapeCreation)
+			{
+				// Only do minimal post-deserialization without triggering shape creation
+				if (loadSucceeded)
+				{
+					ApplyBackgroundColorFromModel();
+					ApplyConnectorColorsFromModel();
+				}
+				return;
+			}
+			
 			base.PostDeserialization(loadSucceeded);
 			if (loadSucceeded)
 			{
@@ -322,6 +352,24 @@ namespace Dyvenix.GenIt
 
 			// Use FixUpDiagram to create the connector properly
 			FixUpDiagram(this.ModelElement, link);
+		}
+	}
+
+	/// <summary>
+	/// Partial implementation of FixUpDiagram to skip shape creation during multi-diagram loading.
+	/// </summary>
+	internal sealed partial class FixUpDiagram
+	{
+		/// <summary>
+		/// Override to check if shape creation should be skipped during multi-diagram loading.
+		/// </summary>
+		protected override bool SkipFixup(ModelElement childElement)
+		{
+			// If auto-shape creation is suppressed (during multi-diagram loading), skip fixup
+			if (GenItDiagram.SuppressAutoShapeCreation)
+				return true;
+
+			return base.SkipFixup(childElement);
 		}
 	}
 
