@@ -39,11 +39,12 @@ namespace Dyvenix.GenIt
 			{
 				_solution.AdviseSolutionEvents(this, out _solutionEventsCookie);
 
-				// Check if a solution is already open
+			// Check if a solution is already open
 				if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK
 					&& !string.IsNullOrEmpty(solutionDirectory))
 				{
 					PackageUtils.SolutionRootPath = solutionDirectory;
+					SolutionRootCache.Set(solutionDirectory);
 					System.Diagnostics.Debug.WriteLine($"GenItPackage.InitializeAsync: Solution already open, set SolutionRootPath to '{solutionDirectory}'");
 				}
 			}
@@ -91,6 +92,7 @@ namespace Dyvenix.GenIt
 					if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK)
 					{
 						PackageUtils.SolutionRootPath = solutionDirectory;
+						SolutionRootCache.Set(solutionDirectory);
 						System.Diagnostics.Debug.WriteLine($"GenItPackage.OnAfterOpenSolution: Set SolutionRootPath to '{solutionDirectory}'");
 					}
 				}

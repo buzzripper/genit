@@ -1009,6 +1009,18 @@
     <value>Namespace</value>
     <comment>DisplayName for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.Description" xml:space="preserve">
+    <value>Permissions for this module (newline-separated)</value>
+    <comment>Description for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.Category" xml:space="preserve">
+    <value>Security</value>
+    <comment>Category for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>

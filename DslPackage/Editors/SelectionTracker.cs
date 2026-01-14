@@ -97,6 +97,30 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                     }
                 }
 
+                // Try to get ModuleModel from the selection (ModuleShape)
+                var selectedModuleModel = GetSelectedModuleModel(selectionContainer);
+                if (selectedModuleModel != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowModuleEditor(selectedModuleModel);
+                        ShowToolWindow(toolWindow);
+                        return VSConstants.S_OK;
+                    }
+                }
+
+                // Try to get EnumModel from the selection (EnumShape)
+                var selectedEnumModel = GetSelectedEnumModel(selectionContainer);
+                if (selectedEnumModel != null)
+                {
+                    if (toolWindow?.Control != null)
+                    {
+                        toolWindow.Control.ShowEnumEditor(selectedEnumModel);
+                        ShowToolWindow(toolWindow);
+                        return VSConstants.S_OK;
+                    }
+                }
+
                 // Try to get ModelRoot from the selection (diagram surface clicked)
                 var selectedModelRoot = GetSelectedModelRoot(selectionContainer);
                 if (selectedModelRoot != null)
@@ -167,6 +191,40 @@ namespace Dyvenix.GenIt.DslPackage.Editors
             if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is EntityModel entity)
             {
                 return entity;
+            }
+            
+            return null;
+        }
+
+        private ModuleModel GetSelectedModuleModel(ISelectionContainer selectionContainer)
+        {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            
+            // Check if it's directly a ModuleModel
+            if (selectedElement is ModuleModel moduleModel)
+                return moduleModel;
+            
+            // Check if it's a ModuleShape
+            if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is ModuleModel module)
+            {
+                return module;
+            }
+            
+            return null;
+        }
+
+        private EnumModel GetSelectedEnumModel(ISelectionContainer selectionContainer)
+        {
+            var selectedElement = GetSingleSelectedElement(selectionContainer);
+            
+            // Check if it's directly an EnumModel
+            if (selectedElement is EnumModel enumModel)
+                return enumModel;
+            
+            // Check if it's an EnumShape
+            if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is EnumModel enumElement)
+            {
+                return enumElement;
             }
             
             return null;

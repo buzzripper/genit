@@ -95,23 +95,14 @@
     </Compile>
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
-    <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
-      <DependentUpon>EnumEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Entity\Controls\EntityEditControl.xaml.cs">
+    <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">`n      <DependentUpon>EnumEditControl.xaml</DependentUpon>`n    </Compile>`n    <Compile Include="Editors\Entity\Controls\EntityEditControl.xaml.cs">
       <DependentUpon>EntityEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\GenItEditorWindow.cs" />
     <Compile Include="Editors\GenItEditorWindowControl.xaml.cs">
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Module\Controls\AddPermissionDialog.xaml.cs">
-      <DependentUpon>AddPermissionDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
-      <DependentUpon>ModuleEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
+    <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">`n      <DependentUpon>ModuleEditControl.xaml</DependentUpon>`n    </Compile>`n    <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
       <DependentUpon>ModelRootEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
@@ -324,22 +315,13 @@
     <Page Include="Editors\Association\Controls\AssociationEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Entity\Controls\EntityEditControl.xaml">
+    <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">`n      <Generator>MSBuild:Compile</Generator>`n    </Page>`n    <Page Include="Editors\Entity\Controls\EntityEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\GenItEditorWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Editors\Module\Controls\AddPermissionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Module\Controls\ModuleEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
+    <Page Include="Editors\Module\Controls\ModuleEditControl.xaml">`n      <Generator>MSBuild:Compile</Generator>`n    </Page>`n    <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">

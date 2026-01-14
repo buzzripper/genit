@@ -1079,6 +1079,12 @@
         <xsd:attribute name="rootFolder" type="xsd:string" />
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" />
+        <!-- Property: PermissionsStorage -->
+        <xsd:attribute name="permissionsStorage" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Permissions for this module (newline-separated)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

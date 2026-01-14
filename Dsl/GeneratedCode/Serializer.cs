@@ -14937,6 +14937,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// PermissionsStorage
+			if (!serializationContext.Result.Failed)
+			{
+				string attribPermissionsStorage = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "permissionsStorage");
+				if (attribPermissionsStorage != null)
+				{
+					global::System.String valueOfPermissionsStorage;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribPermissionsStorage, out valueOfPermissionsStorage))
+					{
+						instanceOfModuleModel.PermissionsStorage = valueOfPermissionsStorage;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "permissionsStorage", typeof(global::System.String), attribPermissionsStorage);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -15345,6 +15362,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "namespace", propValue);
+	
+				}
+			}
+			// PermissionsStorage
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModuleModel.PermissionsStorage;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissionsStorage", propValue);
 	
 				}
 			}

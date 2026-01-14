@@ -8303,5 +8303,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region PermissionsStorage domain property code
+		
+		/// <summary>
+		/// PermissionsStorage domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsStorageDomainPropertyId = new global::System.Guid(0x7f8a9b0c, 0x1d2e, 0x3f4a, 0x5b, 0x6c, 0x7d, 0x8e, 0x9f, 0x0a, 0x1b, 0x2c);
+		
+		/// <summary>
+		/// Storage for PermissionsStorage
+		/// </summary>
+		private global::System.String permissionsStoragePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of PermissionsStorage domain property.
+		/// Permissions for this module (newline-separated)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/PermissionsStorage.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModuleModel/PermissionsStorage.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/PermissionsStorage.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c")]
+		public global::System.String PermissionsStorage
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsStoragePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsStoragePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.PermissionsStorage domain property.
+		/// </summary>
+		internal sealed partial class PermissionsStoragePropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private PermissionsStoragePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.PermissionsStorage domain property value handler.
+			/// </summary>
+			public static readonly PermissionsStoragePropertyHandler Instance = new PermissionsStoragePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.PermissionsStorage domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsStorageDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsStoragePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsStoragePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 	}
 }

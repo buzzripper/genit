@@ -1,6 +1,8 @@
 using Dyvenix.GenIt.DslPackage.Editors.Association.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Entity.Controls;
+using Dyvenix.GenIt.DslPackage.Editors.Enum.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Model.Controls;
+using Dyvenix.GenIt.DslPackage.Editors.Module.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Property.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Services.Controls;
 using System.Windows;
@@ -19,6 +21,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
         private EntityEditControl _entityEditControl;
         private PropertyEditControl _propertyEditControl;
         private AssociationEditControl _associationEditControl;
+        private ModuleEditControl _moduleEditControl;
+        private EnumEditControl _enumEditControl;
 
         public GenItEditorWindowControl()
         {
@@ -142,6 +146,56 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 
                 _associationEditControl.Initialize(association);
                 editorContentHost.Content = _associationEditControl;
+                editorContentHost.Visibility = Visibility.Visible;
+                txtNoSelection.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HideEditor();
+            }
+        }
+
+        /// <summary>
+        /// Shows the Module editor with the specified module model.
+        /// </summary>
+        /// <param name="moduleModel">The ModuleModel to display.</param>
+        public void ShowModuleEditor(ModuleModel moduleModel)
+        {
+            if (moduleModel != null)
+            {
+                // Lazy-create the module edit control
+                if (_moduleEditControl == null)
+                {
+                    _moduleEditControl = new ModuleEditControl();
+                }
+
+                _moduleEditControl.Initialize(moduleModel);
+                editorContentHost.Content = _moduleEditControl;
+                editorContentHost.Visibility = Visibility.Visible;
+                txtNoSelection.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                HideEditor();
+            }
+        }
+
+        /// <summary>
+        /// Shows the Enum editor with the specified enum model.
+        /// </summary>
+        /// <param name="enumModel">The EnumModel to display.</param>
+        public void ShowEnumEditor(EnumModel enumModel)
+        {
+            if (enumModel != null)
+            {
+                // Lazy-create the enum edit control
+                if (_enumEditControl == null)
+                {
+                    _enumEditControl = new EnumEditControl();
+                }
+
+                _enumEditControl.Initialize(enumModel);
+                editorContentHost.Content = _enumEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
             }

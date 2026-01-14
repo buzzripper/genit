@@ -98,6 +98,7 @@
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
     <Compile Include="CustomCode\ModelRootPartial.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />
+    <Compile Include="CustomCode\ModuleModel.cs" />
     <Compile Include="CustomCode\ModuleModelRules.cs" />
     <Compile Include="CustomCode\MultiplicityConverter.cs" />
     <Compile Include="CustomCode\NavigationPropertyCustom.cs" />

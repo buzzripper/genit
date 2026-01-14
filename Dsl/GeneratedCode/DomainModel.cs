@@ -206,6 +206,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ServiceModel), "ControllerAttributes", ServiceModel.ControllerAttributesDomainPropertyId, typeof(ServiceModel.ControllerAttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "RootFolder", ModuleModel.RootFolderDomainPropertyId, typeof(ModuleModel.RootFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "Namespace", ModuleModel.NamespaceDomainPropertyId, typeof(ModuleModel.NamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(ModuleModel), "PermissionsStorage", ModuleModel.PermissionsStorageDomainPropertyId, typeof(ModuleModel.PermissionsStoragePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceRoleName", Association.SourceRoleNameDomainPropertyId, typeof(Association.SourceRoleNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "GenSourceNavProperty", Association.GenSourceNavPropertyDomainPropertyId, typeof(Association.GenSourceNavPropertyPropertyHandler)),
