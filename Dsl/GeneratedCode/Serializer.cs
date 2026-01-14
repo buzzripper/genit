@@ -892,6 +892,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEditorSplitterPosition = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "editorSplitterPosition");
+				if (attribEditorSplitterPosition != null)
+				{
+					global::System.Double valueOfEditorSplitterPosition;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Double>(serializationContext, attribEditorSplitterPosition, out valueOfEditorSplitterPosition))
+					{
+						instanceOfModelRoot.EditorSplitterPosition = valueOfEditorSplitterPosition;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "editorSplitterPosition", typeof(global::System.Double), attribEditorSplitterPosition);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1620,6 +1637,19 @@ namespace Dyvenix.GenIt
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclHeader", serializedPropValue);
+					}
+				}
+			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Double propValue = instanceOfModelRoot.EditorSplitterPosition;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Double>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "editorSplitterPosition", serializedPropValue);
 					}
 				}
 			}

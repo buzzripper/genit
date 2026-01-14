@@ -148,6 +148,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "DiagramBackgroundColor", ModelRoot.DiagramBackgroundColorDomainPropertyId, typeof(ModelRoot.DiagramBackgroundColorPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "AssociationLineColor", ModelRoot.AssociationLineColorDomainPropertyId, typeof(ModelRoot.AssociationLineColorPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "InclHeader", ModelRoot.InclHeaderDomainPropertyId, typeof(ModelRoot.InclHeaderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "EditorSplitterPosition", ModelRoot.EditorSplitterPositionDomainPropertyId, typeof(ModelRoot.EditorSplitterPositionPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),

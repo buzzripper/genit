@@ -131,6 +131,12 @@
         </xsd:attribute>
         <!-- Property: InclHeader -->
         <xsd:attribute name="inclHeader" type="xsd:boolean" />
+        <!-- Property: EditorSplitterPosition -->
+        <xsd:attribute name="editorSplitterPosition" type="xsd:double" >
+          <xsd:annotation>
+            <xsd:documentation>Splitter position for the Model editor</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

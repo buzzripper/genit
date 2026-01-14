@@ -85,6 +85,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3" Description="Splitter position for the Model editor" Name="EditorSplitterPosition" DisplayName="Editor Splitter Position" DefaultValue="0" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Double" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1137,6 +1142,9 @@
           <XmlPropertyData XmlName="inclHeader">
             <DomainPropertyMoniker Name="ModelRoot/InclHeader" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="editorSplitterPosition">
+            <DomainPropertyMoniker Name="ModelRoot/EditorSplitterPosition" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -1930,10 +1938,10 @@
       <ElementTool Name="EntityModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Entity" Tooltip="Create an Entity" HelpKeyword="EntityModelF1Keyword">
         <DomainClassMoniker Name="EntityModel" />
       </ElementTool>
-      <ElementTool Name="EnumModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Enum" Tooltip="Create an Enumeration" HelpKeyword="EnumModelF1Keyword">
+      <ElementTool Name="EnumModel" ToolboxIcon="Resources\EnumTool.bmp" Caption="Enum" Tooltip="Create an Enumeration" HelpKeyword="EnumModelF1Keyword">
         <DomainClassMoniker Name="EnumModel" />
       </ElementTool>
-      <ElementTool Name="ModuleModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Module" Tooltip="Create a Module" HelpKeyword="ModuleModelF1Keyword">
+      <ElementTool Name="ModuleModel" ToolboxIcon="Resources\ModuleTool.bmp" Caption="Module" Tooltip="Create a Module" HelpKeyword="ModuleModelF1Keyword">
         <DomainClassMoniker Name="ModuleModel" />
       </ElementTool>
       <ElementTool Name="ModelInterface" ToolboxIcon="Resources\InterfaceTool.bmp" Caption="Interface" Tooltip="Create an Interface" HelpKeyword="ModelInterfaceF1Keyword">

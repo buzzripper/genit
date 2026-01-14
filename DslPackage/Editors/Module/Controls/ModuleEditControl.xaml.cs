@@ -1,7 +1,5 @@
-using Dyvenix.GenIt.DslPackage.CustomCode;
+using Dyvenix.GenIt.DslPackage.Editors.Helpers;
 using System;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Windows;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
@@ -14,13 +12,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 	{
 		private ModuleModel _moduleModel;
 		private bool _isUpdating;
-		private ObservableCollection<string> _permissions;
 
 		public ModuleEditControl()
 		{
 			InitializeComponent();
-			_permissions = new ObservableCollection<string>();
-			lstPermissions.ItemsSource = _permissions;
 		}
 
 		/// <summary>
@@ -45,11 +40,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
 				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
 
-				_permissions.Clear();
-				foreach (var permission in _moduleModel.Permissions)
-				{
-					_permissions.Add(permission);
-				}
+				permissionsControl.SetItems(_moduleModel.Permissions);
 			}
 			finally
 			{
@@ -86,141 +77,30 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			if (_moduleModel == null)
 				return;
 
-			string solutionRoot = SolutionRootCache.Current;
-			
-			// Determine initial folder - use solution root if text box is empty
-			string initialFolder;
-			if (string.IsNullOrWhiteSpace(txtRootFolder.Text))
+			if (FolderBrowserHelper.BrowseForFolder(txtRootFolder.Text, "Select Root Folder", out string selectedPath))
 			{
-				initialFolder = solutionRoot;
-			}
-			else
-			{
-				initialFolder = GetAbsolutePath(txtRootFolder.Text, solutionRoot);
-			}
-
-			using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
-			{
-				dialog.Description = "Select Root Folder";
-				dialog.ShowNewFolderButton = true;
-
-				// Set the initial folder if it exists
-				if (!string.IsNullOrEmpty(initialFolder) && Directory.Exists(initialFolder))
+				_isUpdating = true;
+				try
 				{
-					dialog.SelectedPath = initialFolder;
+					txtRootFolder.Text = selectedPath;
 				}
-				else if (!string.IsNullOrEmpty(solutionRoot) && Directory.Exists(solutionRoot))
+				finally
 				{
-					// Fallback to solution root if initial folder doesn't exist
-					dialog.SelectedPath = solutionRoot;
+					_isUpdating = false;
 				}
 
-				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-				{
-					string selectedPath = dialog.SelectedPath;
-					
-					// Normalize both paths for comparison
-					string normalizedSelected = Path.GetFullPath(selectedPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-					string normalizedSolutionRoot = string.IsNullOrEmpty(solutionRoot) 
-						? string.Empty 
-						: Path.GetFullPath(solutionRoot).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
-					string resultPath;
-					
-					// Check if selected path equals solution root
-					if (!string.IsNullOrEmpty(normalizedSolutionRoot) && 
-					    string.Equals(normalizedSelected, normalizedSolutionRoot, StringComparison.OrdinalIgnoreCase))
-					{
-						resultPath = ".";
-					}
-					// Check if selected path is under solution root
-					else if (!string.IsNullOrEmpty(normalizedSolutionRoot))
-					{
-						string solutionRootWithSeparator = normalizedSolutionRoot + Path.DirectorySeparatorChar;
-						if (normalizedSelected.StartsWith(solutionRootWithSeparator, StringComparison.OrdinalIgnoreCase))
-						{
-							// Get the relative part
-							resultPath = normalizedSelected.Substring(solutionRootWithSeparator.Length);
-						}
-						else
-						{
-							// Outside solution root - use absolute path
-							resultPath = selectedPath;
-						}
-					}
-					else
-					{
-						// No solution root available - use absolute path
-						resultPath = selectedPath;
-					}
-
-					_isUpdating = true;
-					try
-					{
-						txtRootFolder.Text = resultPath;
-					}
-					finally
-					{
-						_isUpdating = false;
-					}
-
-					UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, resultPath);
-				}
+				UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, selectedPath);
 			}
 		}
 
-		private string GetAbsolutePath(string path, string solutionRoot)
+		private void permissionsControl_ItemsChanged(object sender, EventArgs e)
 		{
-			if (string.IsNullOrEmpty(path))
-				return solutionRoot;
-
-			if (Path.IsPathRooted(path))
-				return path;
-
-			// It's a relative path, combine with solution root
-			if (!string.IsNullOrEmpty(solutionRoot))
-				return Path.GetFullPath(Path.Combine(solutionRoot, path));
-
-			return path;
-		}
-
-		private void btnAddPermission_Click(object sender, RoutedEventArgs e)
-		{
-			if (_moduleModel == null)
+			if (_isUpdating || _moduleModel == null)
 				return;
-
-			var dialog = new AddPermissionDialog();
-			dialog.Owner = Window.GetWindow(this);
-			if (dialog.ShowDialog() == true && !string.IsNullOrWhiteSpace(dialog.PermissionName))
-			{
-				_permissions.Add(dialog.PermissionName.Trim());
-				SavePermissionsToModel();
-			}
-		}
-
-		private void btnDeletePermission_Click(object sender, RoutedEventArgs e)
-		{
-			if (_moduleModel == null || lstPermissions.SelectedItem == null)
-				return;
-
-			var selectedPermission = lstPermissions.SelectedItem as string;
-			if (selectedPermission != null)
-			{
-				_permissions.Remove(selectedPermission);
-				SavePermissionsToModel();
-			}
-		}
-
-		private void SavePermissionsToModel()
-		{
-			if (_moduleModel == null)
-				return;
-
-			var permissionsList = new System.Collections.Generic.List<string>(_permissions);
 
 			using (var transaction = _moduleModel.Store.TransactionManager.BeginTransaction("Update Permissions"))
 			{
-				_moduleModel.Permissions = permissionsList;
+				_moduleModel.Permissions = permissionsControl.Items;
 				transaction.Commit();
 			}
 		}

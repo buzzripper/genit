@@ -1403,6 +1403,95 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region EditorSplitterPosition domain property code
+		
+		/// <summary>
+		/// EditorSplitterPosition domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EditorSplitterPositionDomainPropertyId = new global::System.Guid(0xe3e3e3e3, 0xe3e3, 0xe3e3, 0xe3, 0xe3, 0xe3, 0xe3, 0xe3, 0xe3, 0xe3, 0xe3);
+		
+		/// <summary>
+		/// Storage for EditorSplitterPosition
+		/// </summary>
+		private global::System.Double editorSplitterPositionPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of EditorSplitterPosition domain property.
+		/// Splitter position for the Model editor
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/EditorSplitterPosition.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/EditorSplitterPosition.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3")]
+		public global::System.Double EditorSplitterPosition
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return editorSplitterPositionPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EditorSplitterPositionPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.EditorSplitterPosition domain property.
+		/// </summary>
+		internal sealed partial class EditorSplitterPositionPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.Double>
+		{
+			private EditorSplitterPositionPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.EditorSplitterPosition domain property value handler.
+			/// </summary>
+			public static readonly EditorSplitterPositionPropertyHandler Instance = new EditorSplitterPositionPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.EditorSplitterPosition domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EditorSplitterPositionDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Double GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.editorSplitterPositionPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.Double newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Double oldValue = GetValue(element);
+				// double type precision is guaranteed only to 15th digit.
+				if (global::System.Math.Abs(newValue - oldValue) > 1e-15)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.editorSplitterPositionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

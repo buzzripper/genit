@@ -93,6 +93,12 @@
     <Compile Include="Editors\Association\Controls\AssociationEditControl.xaml.cs">
       <DependentUpon>AssociationEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Controls\StringInputDialog.xaml.cs">
+      <DependentUpon>StringInputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Controls\StringListControl.xaml.cs">
+      <DependentUpon>StringListControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
@@ -105,14 +111,15 @@
     <Compile Include="Editors\GenItEditorWindowControl.xaml.cs">
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Helpers\FolderBrowserHelper.cs" />
     <Compile Include="Editors\Module\Controls\AddPermissionDialog.xaml.cs">
       <DependentUpon>AddPermissionDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
-      <DependentUpon>ModuleEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
       <DependentUpon>ModelRootEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
+      <DependentUpon>ModuleEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
       <DependentUpon>PropertyEditControl.xaml</DependentUpon>
@@ -322,6 +329,12 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Editors\Association\Controls\AssociationEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Controls\StringInputDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Controls\StringListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">

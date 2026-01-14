@@ -5,21 +5,282 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Model.Controls"
              xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
+             xmlns:controls="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Controls"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="450" d:DesignWidth="900"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
         </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="Padding" Value="4,2"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Border" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                                BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
+                                BorderThickness="1,1,1,0" Padding="8,4" Margin="0,0,2,0">
+                            <ContentPresenter x:Name="ContentSite" ContentSource="Header" 
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" 
+                                        Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTabSelectedTabKey}}"/>
+                                <Setter TargetName="Border" Property="Margin" Value="0,0,2,-1"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource {x:Static vsshell:VsColors.ToolWindowTabGradientBeginKey}}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="{DynamicResource {x:Static vsshell:VsColors.ToolWindowTabMouseOverBackgroundBeginKey}}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Small button style for browse button -->
+        <Style x:Key="SmallButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="MinWidth" Value="24"/>
+        </Style>
+        <!-- Color button style -->
+        <Style x:Key="ColorButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
     </UserControl.Resources>
     
-    <Grid>
-        <TextBlock Text="Model Root" 
-                   FontSize="18" 
-                   FontWeight="SemiBold"
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center"/>
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="leftColumn" Width="*" MinWidth="300"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition x:Name="rightColumn" Width="*" MinWidth="300"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Panel - General Settings -->
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Model Header -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Model" 
+                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+            <!-- Name -->
+            <Label Grid.Row="1" Grid.Column="0" Content="Name:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtName" VerticalAlignment="Center" Margin="0,0,0,8"
+                     TextChanged="txtName_TextChanged"/>
+
+            <!-- Include Headers -->
+            <Label Grid.Row="2" Grid.Column="0" Content="Include Headers:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+            <CheckBox Grid.Row="2" Grid.Column="1" x:Name="chkInclHeader" VerticalAlignment="Center" Margin="0,0,0,8"
+                      Checked="chkInclHeader_Changed" Unchecked="chkInclHeader_Changed"/>
+
+            <!-- Templates Folder -->
+            <Label Grid.Row="3" Grid.Column="0" Content="Templates Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+            <Grid Grid.Row="3" Grid.Column="1" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="txtTemplatesFolder" VerticalAlignment="Center"
+                         TextChanged="txtTemplatesFolder_TextChanged"/>
+                <Button Grid.Column="1" x:Name="btnBrowseTemplates" Content="..." 
+                        Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+                        Click="btnBrowseTemplates_Click" ToolTip="Browse for folder"/>
+            </Grid>
+
+            <!-- Diagram Background Color -->
+            <Label Grid.Row="4" Grid.Column="0" Content="Background Color:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+            <Button Grid.Row="4" Grid.Column="1" x:Name="btnDiagramBackgroundColor" 
+                    Style="{StaticResource ColorButtonStyle}" HorizontalAlignment="Left" Margin="0,0,0,8"
+                    Click="btnDiagramBackgroundColor_Click" ToolTip="Click to change color"/>
+
+            <!-- Association Line Color -->
+            <Label Grid.Row="5" Grid.Column="0" Content="Line Color:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+            <Button Grid.Row="5" Grid.Column="1" x:Name="btnAssociationLineColor" 
+                    Style="{StaticResource ColorButtonStyle}" HorizontalAlignment="Left" Margin="0,0,0,8"
+                    Click="btnAssociationLineColor_Click" ToolTip="Click to change color"/>
+        </Grid>
+
+        <!-- GridSplitter -->
+        <GridSplitter x:Name="gridSplitter" Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
+                      Margin="8,0" DragCompleted="gridSplitter_DragCompleted"/>
+
+        <!-- Right Panel - Tab Control -->
+        <TabControl Grid.Column="2" x:Name="tabControl">
+            <!-- DbContext Tab -->
+            <TabItem Header="DbContext">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Enabled checkbox at top-right -->
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkDbContextEnabled" Content="Enabled"
+                              HorizontalAlignment="Right" Margin="0,0,0,12"
+                              Checked="chkDbContextEnabled_Changed" Unchecked="chkDbContextEnabled_Changed"/>
+
+                    <!-- Output Folder -->
+                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="txtDbContextOutputFolder" VerticalAlignment="Center"
+                                 TextChanged="txtDbContextOutputFolder_TextChanged"/>
+                        <Button Grid.Column="1" x:Name="btnBrowseDbContextFolder" Content="..." 
+                                Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+                                Click="btnBrowseDbContextFolder_Click" ToolTip="Browse for folder"/>
+                    </Grid>
+
+                    <!-- Namespace -->
+                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDbContextNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+                             TextChanged="txtDbContextNamespace_TextChanged"/>
+
+                    <!-- Usings -->
+                    <controls:StringListControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dbContextUsingsControl"
+                                                Title="Usings" DialogTitle="Add Using" DialogLabel="Using:"
+                                                ItemsChanged="dbContextUsingsControl_ItemsChanged"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Entities Tab -->
+            <TabItem Header="Entities">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Enabled checkbox at top-right -->
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkEntitiesEnabled" Content="Enabled"
+                              HorizontalAlignment="Right" Margin="0,0,0,12"
+                              Checked="chkEntitiesEnabled_Changed" Unchecked="chkEntitiesEnabled_Changed"/>
+
+                    <!-- Output Folder -->
+                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="txtEntitiesOutputFolder" VerticalAlignment="Center"
+                                 TextChanged="txtEntitiesOutputFolder_TextChanged"/>
+                        <Button Grid.Column="1" x:Name="btnBrowseEntitiesFolder" Content="..." 
+                                Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+                                Click="btnBrowseEntitiesFolder_Click" ToolTip="Browse for folder"/>
+                    </Grid>
+
+                    <!-- Namespace -->
+                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtEntitiesNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+                             TextChanged="txtEntitiesNamespace_TextChanged"/>
+                </Grid>
+            </TabItem>
+
+            <!-- Enums Tab -->
+            <TabItem Header="Enums">
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Enabled checkbox at top-right -->
+                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkEnumsEnabled" Content="Enabled"
+                              HorizontalAlignment="Right" Margin="0,0,0,12"
+                              Checked="chkEnumsEnabled_Changed" Unchecked="chkEnumsEnabled_Changed"/>
+
+                    <!-- Output Folder -->
+                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="txtEnumsOutputFolder" VerticalAlignment="Center"
+                                 TextChanged="txtEnumsOutputFolder_TextChanged"/>
+                        <Button Grid.Column="1" x:Name="btnBrowseEnumsFolder" Content="..." 
+                                Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+                                Click="btnBrowseEnumsFolder_Click" ToolTip="Browse for folder"/>
+                    </Grid>
+
+                    <!-- Namespace -->
+                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtEnumsNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+                             TextChanged="txtEnumsNamespace_TextChanged"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </editors:UserControlBase>
