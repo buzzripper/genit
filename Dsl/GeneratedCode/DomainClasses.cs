@@ -1147,7 +1147,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for DiagramBackgroundColor
 		/// </summary>
-		private global::System.Drawing.Color diagramBackgroundColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("White");
+		private global::System.Drawing.Color diagramBackgroundColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("64, 64, 64");
 		
 		/// <summary>
 		/// Gets or sets the value of DiagramBackgroundColor domain property.
@@ -1156,7 +1156,7 @@ namespace Dyvenix.GenIt
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DiagramBackgroundColor.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "White")]
+		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "64, 64, 64")]
 		[DslModeling::DomainObjectId("d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1")]
 		public global::System.Drawing.Color DiagramBackgroundColor
 		{
@@ -1236,7 +1236,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for AssociationLineColor
 		/// </summary>
-		private global::System.Drawing.Color associationLineColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("113, 111, 110");
+		private global::System.Drawing.Color associationLineColorPropertyStorage = DslModeling::SerializationUtilities.GetValue<global::System.Drawing.Color>("224, 224, 224");
 		
 		/// <summary>
 		/// Gets or sets the value of AssociationLineColor domain property.
@@ -1245,7 +1245,7 @@ namespace Dyvenix.GenIt
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/AssociationLineColor.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "113, 111, 110")]
+		[global::System.ComponentModel.DefaultValue(typeof(global::System.Drawing.Color), "224, 224, 224")]
 		[DslModeling::DomainObjectId("d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2")]
 		public global::System.Drawing.Color AssociationLineColor
 		{
@@ -2028,6 +2028,94 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.inclRowVersionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Module domain property code
+		
+		/// <summary>
+		/// Module domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid ModuleDomainPropertyId = new global::System.Guid(0xa6a6a6a6, 0x6666, 0x6666, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66);
+		
+		/// <summary>
+		/// Storage for Module
+		/// </summary>
+		private global::System.String modulePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Module domain property.
+		/// The module this entity belongs to
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/Module.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.EntityModel/Module.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/Module.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("a6a6a6a6-6666-6666-6666-666666666666")]
+		public global::System.String Module
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return modulePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				ModulePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.Module domain property.
+		/// </summary>
+		internal sealed partial class ModulePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
+		{
+			private ModulePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.Module domain property value handler.
+			/// </summary>
+			public static readonly ModulePropertyHandler Instance = new ModulePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.Module domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return ModuleDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.modulePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.modulePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

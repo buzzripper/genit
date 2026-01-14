@@ -381,6 +381,18 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;InclRowVersion&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/Module.Description" xml:space="preserve">
+    <value>The module this entity belongs to</value>
+    <comment>Description for DomainProperty &apos;Module&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Module.DisplayName" xml:space="preserve">
+    <value>Module</value>
+    <comment>DisplayName for DomainProperty &apos;Module&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Module.Category" xml:space="preserve">
+    <value>General</value>
+    <comment>Category for DomainProperty &apos;Module&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>

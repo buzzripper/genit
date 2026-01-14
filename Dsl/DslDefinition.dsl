@@ -70,12 +70,12 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1" Description="Background color for the diagram surface" Name="DiagramBackgroundColor" DisplayName="Diagram Background Color" DefaultValue="White" Category="Diagram">
+        <DomainProperty Id="d1d1d1d1-d1d1-d1d1-d1d1-d1d1d1d1d1d1" Description="Background color for the diagram surface" Name="DiagramBackgroundColor" DisplayName="Diagram Background Color" DefaultValue="64, 64, 64" Category="Diagram">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="113, 111, 110" Category="Diagram">
+        <DomainProperty Id="d2d2d2d2-d2d2-d2d2-d2d2-d2d2d2d2d2d2" Description="Color for association connector lines" Name="AssociationLineColor" DisplayName="Association Line Color" DefaultValue="224, 224, 224" Category="Diagram">
           <Type>
             <ExternalTypeMoniker Name="/System.Drawing/Color" />
           </Type>
@@ -133,6 +133,11 @@
         <DomainProperty Id="a5a5a5a5-5555-5555-5555-555555555555" Description="" Name="InclRowVersion" DisplayName="Incl Row Version" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a6a6a6a6-6666-6666-6666-666666666666" Description="The module this entity belongs to" Name="Module" DisplayName="Module" Category="General">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1010,18 +1015,18 @@
       </ShapeHasDecorators>
       <Compartment TitleFillColor="235, 235, 235" Name="MembersCompartment" Title="Members" />
     </CompartmentShape>
-    <GeometryShape Id="a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5e" Description="" Name="ModuleShape" DisplayName="Module Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Module Shape" FillColor="255, 228, 225" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" Geometry="RoundedRectangle">
+    <GeometryShape Id="a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5e" Description="" Name="ModuleShape" DisplayName="Module Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Module Shape" FillColor="MistyRose" InitialHeight="0.3" OutlineThickness="0.01" FillGradientMode="None" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="InnerTopCenter" HorizontalOffset="0" VerticalOffset="0">
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="ModuleName" />
       </ShapeHasDecorators>
     </GeometryShape>
   </Shapes>
   <Connectors>
-       <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" />
+    <Connector Id="2a47bfc7-ca8d-42ba-bfdf-e4805a7ad87b" Description="" Name="AssociationConnector" DisplayName="Association Connector" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Association Connector" Color="113, 111, 110" Thickness="0.01" />
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
-    <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" RoutingStyle="Straight" />
-    <Connector Id="d5e6f7a8-b9c0-4d1e-2f3a-4b5c6d7e8f9a" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="218, 165, 32" DashStyle="Dash" Thickness="0.01" />
+    <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" />
+    <Connector Id="d5e6f7a8-b9c0-4d1e-2f3a-4b5c6d7e8f9a" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="Goldenrod" DashStyle="Dash" Thickness="0.01" />
   </Connectors>
   <XmlSerializationBehavior Name="GenItSerializationBehavior" Namespace="Dyvenix.GenIt">
     <ClassData>
@@ -1146,6 +1151,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="inclRowVersion">
             <DomainPropertyMoniker Name="EntityModel/InclRowVersion" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="module">
+            <DomainPropertyMoniker Name="EntityModel/Module" />
           </XmlPropertyData>
           <XmlRelationshipData RoleElementName="properties">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
@@ -1346,6 +1354,165 @@
       </XmlClassData>
       <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
         <ConnectorMoniker Name="EnumAssociationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="FilterPropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelMoniker" ElementName="filterPropertyModel" MonikerTypeName="FilterPropertyModelMoniker">
+        <DomainClassMoniker Name="FilterPropertyModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="isOptional">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsOptional" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isInternal">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsInternal" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="internalValue">
+            <DomainPropertyMoniker Name="FilterPropertyModel/InternalValue" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
+            <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ReadMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelMoniker" ElementName="readMethodModel" MonikerTypeName="ReadMethodModelMoniker">
+        <DomainClassMoniker Name="ReadMethodModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="itemId">
+            <DomainPropertyMoniker Name="ReadMethodModel/ItemId" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclPaging">
+            <DomainPropertyMoniker Name="ReadMethodModel/InclPaging" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useQuery">
+            <DomainPropertyMoniker Name="ReadMethodModel/UseQuery" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclSorting">
+            <DomainPropertyMoniker Name="ReadMethodModel/InclSorting" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayOrder">
+            <DomainPropertyMoniker Name="ReadMethodModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="attributes">
+            <DomainPropertyMoniker Name="ReadMethodModel/Attributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclNavProperties">
+            <DomainPropertyMoniker Name="ReadMethodModel/InclNavProperties" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="filterProperties">
+            <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="UpdatePropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updatePropertyModelMoniker" ElementName="updatePropertyModel" MonikerTypeName="UpdatePropertyModelMoniker">
+        <DomainClassMoniker Name="UpdatePropertyModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="isOptional">
+            <DomainPropertyMoniker Name="UpdatePropertyModel/IsOptional" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
+            <DomainRelationshipMoniker Name="UpdatePropertyModelHasPropertyModel" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="UpdateMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updateMethodModelMoniker" ElementName="updateMethodModel" MonikerTypeName="UpdateMethodModelMoniker">
+        <DomainClassMoniker Name="UpdateMethodModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="itemId">
+            <DomainPropertyMoniker Name="UpdateMethodModel/ItemId" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="useDto">
+            <DomainPropertyMoniker Name="UpdateMethodModel/UseDto" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayOrder">
+            <DomainPropertyMoniker Name="UpdateMethodModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="updateProperties">
+            <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ServiceModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelMoniker" ElementName="serviceModel" MonikerTypeName="ServiceModelMoniker">
+        <DomainClassMoniker Name="ServiceModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="enabled">
+            <DomainPropertyMoniker Name="ServiceModel/Enabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclCreate">
+            <DomainPropertyMoniker Name="ServiceModel/InclCreate" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclUpdate">
+            <DomainPropertyMoniker Name="ServiceModel/InclUpdate" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclDelete">
+            <DomainPropertyMoniker Name="ServiceModel/InclDelete" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="inclController">
+            <DomainPropertyMoniker Name="ServiceModel/InclController" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="version">
+            <DomainPropertyMoniker Name="ServiceModel/Version" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="serviceUsings">
+            <DomainPropertyMoniker Name="ServiceModel/ServiceUsings" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="serviceAttributes">
+            <DomainPropertyMoniker Name="ServiceModel/ServiceAttributes" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="controllerUsings">
+            <DomainPropertyMoniker Name="ServiceModel/ControllerUsings" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="controllerAttributes">
+            <DomainPropertyMoniker Name="ServiceModel/ControllerAttributes" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="readMethods">
+            <DomainRelationshipMoniker Name="ServiceModelHasReadMethodModels" />
+          </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="updateMethods">
+            <DomainRelationshipMoniker Name="ServiceModelHasUpdateMethods" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
+        <DomainClassMoniker Name="ModuleModel" />
+        <ElementData>
+          <XmlPropertyData XmlName="rootFolder">
+            <DomainPropertyMoniker Name="ModuleModel/RootFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="namespace">
+            <DomainPropertyMoniker Name="ModuleModel/Namespace" />
+          </XmlPropertyData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ModelRootHasTypes" MonikerAttributeName="" SerializeId="true" MonikerElementName="modelRootHasTypesMoniker" ElementName="modelRootHasTypes" MonikerTypeName="ModelRootHasTypesMoniker">
+        <DomainRelationshipMoniker Name="ModelRootHasTypes" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentReferencesSubjects" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentReferencesSubjectsMoniker" ElementName="commentReferencesSubjects" MonikerTypeName="CommentReferencesSubjectsMoniker">
+        <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
+      </XmlClassData>
+      <XmlClassData TypeName="Implementation" MonikerAttributeName="" SerializeId="true" MonikerElementName="implementationMoniker" ElementName="implementation" MonikerTypeName="ImplementationMoniker">
+        <DomainRelationshipMoniker Name="Implementation" />
+      </XmlClassData>
+      <XmlClassData TypeName="EntityModelHasServiceModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelHasServiceModelsMoniker" ElementName="entityModelHasServiceModels" MonikerTypeName="EntityModelHasServiceModelsMoniker">
+        <DomainRelationshipMoniker Name="EntityModelHasServiceModels" />
+      </XmlClassData>
+      <XmlClassData TypeName="ClassShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="classShapeMoniker" ElementName="classShape" MonikerTypeName="ClassShapeMoniker">
+        <CompartmentShapeMoniker Name="ClassShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="InterfaceShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="interfaceShapeMoniker" ElementName="interfaceShape" MonikerTypeName="InterfaceShapeMoniker">
+        <CompartmentShapeMoniker Name="InterfaceShape" />
+      </XmlClassData>
+      <XmlClassData TypeName="AssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="associationConnectorMoniker" ElementName="associationConnector" MonikerTypeName="AssociationConnectorMoniker">
+        <ConnectorMoniker Name="AssociationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="GeneralizationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="generalizationConnectorMoniker" ElementName="generalizationConnector" MonikerTypeName="GeneralizationConnectorMoniker">
+        <ConnectorMoniker Name="GeneralizationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="ImplementationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="implementationConnectorMoniker" ElementName="implementationConnector" MonikerTypeName="ImplementationConnectorMoniker">
+        <ConnectorMoniker Name="ImplementationConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="CommentConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="commentConnectorMoniker" ElementName="commentConnector" MonikerTypeName="CommentConnectorMoniker">
+        <ConnectorMoniker Name="CommentConnector" />
+      </XmlClassData>
+      <XmlClassData TypeName="GenItDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="genItDiagramMoniker" ElementName="genItDiagram" MonikerTypeName="GenItDiagramMoniker">
+        <DiagramMoniker Name="GenItDiagram" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>

@@ -1591,7 +1591,7 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "White") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "64, 64, 64") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "diagramBackgroundColor", serializedPropValue);
 					}
@@ -1604,7 +1604,7 @@ namespace Dyvenix.GenIt
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Drawing.Color>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
-					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "113, 111, 110") != 0)
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "224, 224, 224") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "associationLineColor", serializedPropValue);
 					}
@@ -2013,6 +2013,23 @@ namespace Dyvenix.GenIt
 					else
 					{	// Invalid property value, ignored.
 						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclRowVersion", typeof(global::System.Boolean), attribInclRowVersion);
+					}
+				}
+			}
+			// Module
+			if (!serializationContext.Result.Failed)
+			{
+				string attribModule = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "module");
+				if (attribModule != null)
+				{
+					global::System.String valueOfModule;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribModule, out valueOfModule))
+					{
+						instanceOfEntityModel.Module = valueOfModule;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "module", typeof(global::System.String), attribModule);
 					}
 				}
 			}
@@ -2867,6 +2884,17 @@ namespace Dyvenix.GenIt
 				if (!serializationContext.Result.Failed)
 				{
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclRowVersion", serializedPropValue);
+				}
+			}
+			// Module
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfEntityModel.Module;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "module", propValue);
+	
 				}
 			}
 		}

@@ -1,5 +1,4 @@
 <Solution>
   <Project Path="Dsl/Dsl.csproj" Id="fbb1f84f-2786-4f29-8fc5-ac6e0e2d4bec" />
   <Project Path="DslPackage/DslPackage.csproj" Id="a3c8e824-c4d6-4635-b689-e32508b2c1b6" />
-  <Project Path="DslWpf/DslWpf.csproj" />
 </Solution>

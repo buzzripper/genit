@@ -63,6 +63,10 @@ namespace Dyvenix.GenIt
                 typeof(EnumModelNameChangeRule),
                 typeof(EnumPropertyDeleteRule),
                 typeof(EnumPropertyNameChangeRule),
+                
+                // ModuleModel rules (sync EntityModel.Module property)
+                typeof(ModuleModelNameChangeRule),
+                typeof(ModuleModelDeleteRule),
 			};
 		}
 	}
