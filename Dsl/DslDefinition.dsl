@@ -85,6 +85,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e3e3e3e3-e3e3-e3e3-e3e3-e3e3e3e3e3e3" Description="Splitter position for the Model editor" Name="EditorSplitterPosition" DisplayName="Editor Splitter Position" DefaultValue="0" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Double" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -138,6 +143,16 @@
         <DomainProperty Id="a6a6a6a6-6666-6666-6666-666666666666" Description="The module this entity belongs to" Name="Module" DisplayName="Module" Category="General">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="a7a7a7a7-7777-7777-7777-777777777777" Description="Splitter position for the Entity editor" Name="EditorSplitterPosition" DisplayName="Editor Splitter Position" DefaultValue="0" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Double" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6b5a8d44-501a-4b10-98f6-69a91fa1d1ba" Description="Description for Dyvenix.GenIt.EntityModel.Enabled" Name="Enabled" DisplayName="Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -558,6 +573,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="26295d67-7789-42c1-a156-daf408e1149b" Description="Description for Dyvenix.GenIt.ModuleModel.Namespace" Name="Namespace" DisplayName="Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c" Description="Permissions for this module (newline-separated)" Name="PermissionsStorage" DisplayName="Permissions" Category="Security" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1132,6 +1152,9 @@
           <XmlPropertyData XmlName="inclHeader">
             <DomainPropertyMoniker Name="ModelRoot/InclHeader" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="editorSplitterPosition">
+            <DomainPropertyMoniker Name="ModelRoot/EditorSplitterPosition" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -1155,6 +1178,9 @@
           <XmlPropertyData XmlName="module">
             <DomainPropertyMoniker Name="EntityModel/Module" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="editorSplitterPosition">
+            <DomainPropertyMoniker Name="EntityModel/EditorSplitterPosition" />
+          </XmlPropertyData>
           <XmlRelationshipData RoleElementName="properties">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
           </XmlRelationshipData>
@@ -1173,6 +1199,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="usedEnums">
             <DomainRelationshipMoniker Name="EnumAssociation" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="enabled">
+            <DomainPropertyMoniker Name="EntityModel/Enabled" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1478,6 +1507,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="namespace">
             <DomainPropertyMoniker Name="ModuleModel/Namespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="permissionsStorage">
+            <DomainPropertyMoniker Name="ModuleModel/PermissionsStorage" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1925,10 +1957,10 @@
       <ElementTool Name="EntityModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Entity" Tooltip="Create an Entity" HelpKeyword="EntityModelF1Keyword">
         <DomainClassMoniker Name="EntityModel" />
       </ElementTool>
-      <ElementTool Name="EnumModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Enum" Tooltip="Create an Enumeration" HelpKeyword="EnumModelF1Keyword">
+      <ElementTool Name="EnumModel" ToolboxIcon="Resources\EnumTool.bmp" Caption="Enum" Tooltip="Create an Enumeration" HelpKeyword="EnumModelF1Keyword">
         <DomainClassMoniker Name="EnumModel" />
       </ElementTool>
-      <ElementTool Name="ModuleModel" ToolboxIcon="Resources\ClassTool.bmp" Caption="Module" Tooltip="Create a Module" HelpKeyword="ModuleModelF1Keyword">
+      <ElementTool Name="ModuleModel" ToolboxIcon="Resources\ModuleTool.bmp" Caption="Module" Tooltip="Create a Module" HelpKeyword="ModuleModelF1Keyword">
         <DomainClassMoniker Name="ModuleModel" />
       </ElementTool>
       <ElementTool Name="ModelInterface" ToolboxIcon="Resources\InterfaceTool.bmp" Caption="Interface" Tooltip="Create an Interface" HelpKeyword="ModelInterfaceF1Keyword">

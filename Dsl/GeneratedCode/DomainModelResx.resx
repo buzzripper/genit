@@ -313,6 +313,14 @@
     <value>Incl Header</value>
     <comment>DisplayName for DomainProperty &apos;InclHeader&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EditorSplitterPosition.Description" xml:space="preserve">
+    <value>Splitter position for the Model editor</value>
+    <comment>Description for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/EditorSplitterPosition.DisplayName" xml:space="preserve">
+    <value>Editor Splitter Position</value>
+    <comment>DisplayName for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>
@@ -392,6 +400,22 @@
   <data name="Dyvenix.GenIt.EntityModel/Module.Category" xml:space="preserve">
     <value>General</value>
     <comment>Category for DomainProperty &apos;Module&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/EditorSplitterPosition.Description" xml:space="preserve">
+    <value>Splitter position for the Entity editor</value>
+    <comment>Description for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/EditorSplitterPosition.DisplayName" xml:space="preserve">
+    <value>Editor Splitter Position</value>
+    <comment>DisplayName for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Enabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Enabled</value>
+    <comment>Description for DomainProperty &apos;Enabled&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Enabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;Enabled&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
@@ -1008,6 +1032,18 @@
   <data name="Dyvenix.GenIt.ModuleModel/Namespace.DisplayName" xml:space="preserve">
     <value>Namespace</value>
     <comment>DisplayName for DomainProperty &apos;Namespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.Description" xml:space="preserve">
+    <value>Permissions for this module (newline-separated)</value>
+    <comment>Description for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.Category" xml:space="preserve">
+    <value>Security</value>
+    <comment>Category for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
@@ -2251,11 +2287,11 @@ A DomainClass can be serialized as a moniker only if
     <comment>Toolbox item image</comment>
   </data>
   <data name="EnumModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\EnumTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModuleModelToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">
-    <value>..\Resources\ClassTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\ModuleTool.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
     <comment>Toolbox item image</comment>
   </data>
   <data name="ModelInterfaceToolboxBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms" xml:space="preserve">

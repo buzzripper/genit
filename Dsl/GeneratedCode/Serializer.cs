@@ -892,6 +892,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEditorSplitterPosition = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "editorSplitterPosition");
+				if (attribEditorSplitterPosition != null)
+				{
+					global::System.Double valueOfEditorSplitterPosition;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Double>(serializationContext, attribEditorSplitterPosition, out valueOfEditorSplitterPosition))
+					{
+						instanceOfModelRoot.EditorSplitterPosition = valueOfEditorSplitterPosition;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "editorSplitterPosition", typeof(global::System.Double), attribEditorSplitterPosition);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1623,6 +1640,19 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Double propValue = instanceOfModelRoot.EditorSplitterPosition;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Double>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "editorSplitterPosition", serializedPropValue);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2030,6 +2060,40 @@ namespace Dyvenix.GenIt
 					else
 					{	// Invalid property value, ignored.
 						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "module", typeof(global::System.String), attribModule);
+					}
+				}
+			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEditorSplitterPosition = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "editorSplitterPosition");
+				if (attribEditorSplitterPosition != null)
+				{
+					global::System.Double valueOfEditorSplitterPosition;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Double>(serializationContext, attribEditorSplitterPosition, out valueOfEditorSplitterPosition))
+					{
+						instanceOfEntityModel.EditorSplitterPosition = valueOfEditorSplitterPosition;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "editorSplitterPosition", typeof(global::System.Double), attribEditorSplitterPosition);
+					}
+				}
+			}
+			// Enabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "enabled");
+				if (attribEnabled != null)
+				{
+					global::System.Boolean valueOfEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribEnabled, out valueOfEnabled))
+					{
+						instanceOfEntityModel.Enabled = valueOfEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "enabled", typeof(global::System.Boolean), attribEnabled);
 					}
 				}
 			}
@@ -2895,6 +2959,29 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "module", propValue);
 	
+				}
+			}
+			// EditorSplitterPosition
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Double propValue = instanceOfEntityModel.EditorSplitterPosition;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Double>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "editorSplitterPosition", serializedPropValue);
+					}
+				}
+			}
+			// Enabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.Enabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enabled", serializedPropValue);
 				}
 			}
 		}
@@ -14937,6 +15024,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// PermissionsStorage
+			if (!serializationContext.Result.Failed)
+			{
+				string attribPermissionsStorage = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "permissionsStorage");
+				if (attribPermissionsStorage != null)
+				{
+					global::System.String valueOfPermissionsStorage;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribPermissionsStorage, out valueOfPermissionsStorage))
+					{
+						instanceOfModuleModel.PermissionsStorage = valueOfPermissionsStorage;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "permissionsStorage", typeof(global::System.String), attribPermissionsStorage);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -15345,6 +15449,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "namespace", propValue);
+	
+				}
+			}
+			// PermissionsStorage
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModuleModel.PermissionsStorage;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissionsStorage", propValue);
 	
 				}
 			}

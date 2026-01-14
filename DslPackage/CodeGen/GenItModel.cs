@@ -17,6 +17,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			var entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
 
+			var x = modelRoot.Types.OfType<ModuleModel>().ToList();
+
 			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 

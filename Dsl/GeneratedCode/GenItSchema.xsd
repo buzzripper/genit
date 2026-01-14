@@ -131,6 +131,12 @@
         </xsd:attribute>
         <!-- Property: InclHeader -->
         <xsd:attribute name="inclHeader" type="xsd:boolean" />
+        <!-- Property: EditorSplitterPosition -->
+        <xsd:attribute name="editorSplitterPosition" type="xsd:double" >
+          <xsd:annotation>
+            <xsd:documentation>Splitter position for the Model editor</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -288,6 +294,14 @@
             <xsd:documentation>The module this entity belongs to</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: EditorSplitterPosition -->
+        <xsd:attribute name="editorSplitterPosition" type="xsd:double" >
+          <xsd:annotation>
+            <xsd:documentation>Splitter position for the Entity editor</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Enabled -->
+        <xsd:attribute name="enabled" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1079,6 +1093,12 @@
         <xsd:attribute name="rootFolder" type="xsd:string" />
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" />
+        <!-- Property: PermissionsStorage -->
+        <xsd:attribute name="permissionsStorage" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Permissions for this module (newline-separated)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
