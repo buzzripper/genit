@@ -67,9 +67,6 @@ namespace Dyvenix.GenIt
                 // ModuleModel rules (sync EntityModel.Module property)
                 typeof(ModuleModelNameChangeRule),
                 typeof(ModuleModelDeleteRule),
-                
-                // Multi-view shape filtering rule
-                typeof(FilterShapeCreationRule),
 			};
 		}
 	}

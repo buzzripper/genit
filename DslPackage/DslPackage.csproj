@@ -83,30 +83,9 @@
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
-    <Compile Include="CustomCode\GenItDocDataCustom.cs" />
     <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
     <Compile Include="CustomCode\OutputHelper.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
-    <Compile Include="CustomCode\ModelView\AddViewDialog.cs" />
-    <Compile Include="CustomCode\ModelView\GenItPackageViewAttributes.cs" />
-    <Compile Include="CustomCode\ModelView\GenItViewDocData.cs" />
-    <Compile Include="CustomCode\ModelView\GenItViewDocView.cs" />
-    <Compile Include="CustomCode\ModelView\GenItViewEditorFactory.cs" />
-    <Compile Include="CustomCode\ModelView\ModelExplorerDragSource.cs" />
-    <Compile Include="CustomCode\ModelView\ViewConstants.cs" />
-    <Compile Include="CustomCode\ModelView\ViewFileData.cs" />
-    <Compile Include="CustomCode\MultiDiagram\AddViewDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CustomCode\MultiDiagram\DiagramManager.cs" />
-    <Compile Include="CustomCode\MultiDiagram\DiagramTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomCode\MultiDiagram\GenItDocViewExtensions.cs" />
-    <Compile Include="CustomCode\MultiDiagram\GenItExplorerThemeExtension.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="CustomCode\MultiDiagram\GenItExplorerToolWindowExtension.cs" />
     <Compile Include="CustomCode\PackageExtensions.cs" />
     <Compile Include="CustomCode\SolutionRootCache.cs" />
     <Compile Include="CustomCode\VsDocument.cs" />
@@ -326,6 +305,8 @@
     <Content Include="Resources\ModelExplorerToolWindowBitmaps.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CustomCode\ModelView\" />
+    <Folder Include="CustomCode\MultiDiagram\" />
     <Folder Include="Editors\Services\Helpers\" />
     <Folder Include="Editors\Services\ViewModels\" />
     <Folder Include="Resources\Images\" />
