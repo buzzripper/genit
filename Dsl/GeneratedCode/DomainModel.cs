@@ -155,6 +155,8 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(EntityModel), "GenerateCode", EntityModel.GenerateCodeDomainPropertyId, typeof(EntityModel.GenerateCodePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "InclRowVersion", EntityModel.InclRowVersionDomainPropertyId, typeof(EntityModel.InclRowVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Module", EntityModel.ModuleDomainPropertyId, typeof(EntityModel.ModulePropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "EditorSplitterPosition", EntityModel.EditorSplitterPositionDomainPropertyId, typeof(EntityModel.EditorSplitterPositionPropertyHandler)),
+				new DomainMemberInfo(typeof(EntityModel), "Enabled", EntityModel.EnabledDomainPropertyId, typeof(EntityModel.EnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "DataType", PropertyModel.DataTypeDomainPropertyId, typeof(PropertyModel.DataTypePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "EnumTypeName", PropertyModel.EnumTypeNameDomainPropertyId, typeof(PropertyModel.EnumTypeNamePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "Length", PropertyModel.LengthDomainPropertyId, typeof(PropertyModel.LengthPropertyHandler)),

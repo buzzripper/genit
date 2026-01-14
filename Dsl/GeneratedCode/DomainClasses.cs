@@ -2211,6 +2211,182 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region EditorSplitterPosition domain property code
+		
+		/// <summary>
+		/// EditorSplitterPosition domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EditorSplitterPositionDomainPropertyId = new global::System.Guid(0xa7a7a7a7, 0x7777, 0x7777, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77);
+		
+		/// <summary>
+		/// Storage for EditorSplitterPosition
+		/// </summary>
+		private global::System.Double editorSplitterPositionPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of EditorSplitterPosition domain property.
+		/// Splitter position for the Entity editor
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/EditorSplitterPosition.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/EditorSplitterPosition.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("a7a7a7a7-7777-7777-7777-777777777777")]
+		public global::System.Double EditorSplitterPosition
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return editorSplitterPositionPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EditorSplitterPositionPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.EditorSplitterPosition domain property.
+		/// </summary>
+		internal sealed partial class EditorSplitterPositionPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Double>
+		{
+			private EditorSplitterPositionPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.EditorSplitterPosition domain property value handler.
+			/// </summary>
+			public static readonly EditorSplitterPositionPropertyHandler Instance = new EditorSplitterPositionPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.EditorSplitterPosition domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EditorSplitterPositionDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Double GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.editorSplitterPositionPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.Double newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Double oldValue = GetValue(element);
+				// double type precision is guaranteed only to 15th digit.
+				if (global::System.Math.Abs(newValue - oldValue) > 1e-15)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.editorSplitterPositionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Enabled domain property code
+		
+		/// <summary>
+		/// Enabled domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid EnabledDomainPropertyId = new global::System.Guid(0x6b5a8d44, 0x501a, 0x4b10, 0x98, 0xf6, 0x69, 0xa9, 0x1f, 0xa1, 0xd1, 0xba);
+		
+		/// <summary>
+		/// Storage for Enabled
+		/// </summary>
+		private global::System.Boolean enabledPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of Enabled domain property.
+		/// Description for Dyvenix.GenIt.EntityModel.Enabled
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/Enabled.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/Enabled.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6b5a8d44-501a-4b10-98f6-69a91fa1d1ba")]
+		public global::System.Boolean Enabled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return enabledPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				EnabledPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.Enabled domain property.
+		/// </summary>
+		internal sealed partial class EnabledPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Boolean>
+		{
+			private EnabledPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.Enabled domain property value handler.
+			/// </summary>
+			public static readonly EnabledPropertyHandler Instance = new EnabledPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.Enabled domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return EnabledDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.enabledPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.enabledPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>

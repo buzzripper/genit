@@ -401,6 +401,22 @@
     <value>General</value>
     <comment>Category for DomainProperty &apos;Module&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/EditorSplitterPosition.Description" xml:space="preserve">
+    <value>Splitter position for the Entity editor</value>
+    <comment>Description for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/EditorSplitterPosition.DisplayName" xml:space="preserve">
+    <value>Editor Splitter Position</value>
+    <comment>DisplayName for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Enabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Enabled</value>
+    <comment>Description for DomainProperty &apos;Enabled&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/Enabled.DisplayName" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;Enabled&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>

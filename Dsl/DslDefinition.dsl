@@ -145,6 +145,16 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="a7a7a7a7-7777-7777-7777-777777777777" Description="Splitter position for the Entity editor" Name="EditorSplitterPosition" DisplayName="Editor Splitter Position" DefaultValue="0" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Double" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6b5a8d44-501a-4b10-98f6-69a91fa1d1ba" Description="Description for Dyvenix.GenIt.EntityModel.Enabled" Name="Enabled" DisplayName="Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1168,6 +1178,9 @@
           <XmlPropertyData XmlName="module">
             <DomainPropertyMoniker Name="EntityModel/Module" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="editorSplitterPosition">
+            <DomainPropertyMoniker Name="EntityModel/EditorSplitterPosition" />
+          </XmlPropertyData>
           <XmlRelationshipData RoleElementName="properties">
             <DomainRelationshipMoniker Name="ClassHasProperties" />
           </XmlRelationshipData>
@@ -1186,6 +1199,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="usedEnums">
             <DomainRelationshipMoniker Name="EnumAssociation" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="enabled">
+            <DomainPropertyMoniker Name="EntityModel/Enabled" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1491,6 +1507,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="namespace">
             <DomainPropertyMoniker Name="ModuleModel/Namespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="permissionsStorage">
+            <DomainPropertyMoniker Name="ModuleModel/PermissionsStorage" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
