@@ -302,6 +302,12 @@
         </xsd:attribute>
         <!-- Property: Enabled -->
         <xsd:attribute name="enabled" type="xsd:boolean" />
+        <!-- Property: TableName -->
+        <xsd:attribute name="tableName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Database table name for the entity</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -378,6 +384,12 @@
         <xsd:attribute name="isRowVersion" type="xsd:boolean" >
           <xsd:annotation>
             <xsd:documentation>Indicates this is an auto-generated RowVersion property</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DisplayOrder -->
+        <xsd:attribute name="displayOrder" type="xsd:integer" >
+          <xsd:annotation>
+            <xsd:documentation>Display order for property in the editor grid</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>

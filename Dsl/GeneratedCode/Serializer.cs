@@ -2097,6 +2097,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// TableName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribTableName = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "tableName");
+				if (attribTableName != null)
+				{
+					global::System.String valueOfTableName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribTableName, out valueOfTableName))
+					{
+						instanceOfEntityModel.TableName = valueOfTableName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "tableName", typeof(global::System.String), attribTableName);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -2984,6 +3001,17 @@ namespace Dyvenix.GenIt
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "enabled", serializedPropValue);
 				}
 			}
+			// TableName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfEntityModel.TableName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "tableName", propValue);
+	
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3609,6 +3637,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DisplayOrder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDisplayOrder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "displayOrder");
+				if (attribDisplayOrder != null)
+				{
+					global::System.Int32 valueOfDisplayOrder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Int32>(serializationContext, attribDisplayOrder, out valueOfDisplayOrder))
+					{
+						instanceOfPropertyModel.DisplayOrder = valueOfDisplayOrder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "displayOrder", typeof(global::System.Int32), attribDisplayOrder);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -4168,6 +4213,19 @@ namespace Dyvenix.GenIt
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "false") != 0)
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isRowVersion", serializedPropValue);
+					}
+				}
+			}
+			// DisplayOrder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Int32 propValue = instanceOfPropertyModel.DisplayOrder;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Int32>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "0") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayOrder", serializedPropValue);
 					}
 				}
 			}

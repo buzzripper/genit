@@ -2387,6 +2387,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region TableName domain property code
+		
+		/// <summary>
+		/// TableName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TableNameDomainPropertyId = new global::System.Guid(0x8fb79ab2, 0xec55, 0x423f, 0xa7, 0x95, 0x2d, 0x82, 0xcb, 0xe9, 0x9c, 0x10);
+		
+		/// <summary>
+		/// Storage for TableName
+		/// </summary>
+		private global::System.String tableNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TableName domain property.
+		/// Database table name for the entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/TableName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.EntityModel/TableName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/TableName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8fb79ab2-ec55-423f-a795-2d82cbe99c10")]
+		public global::System.String TableName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return tableNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TableNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.TableName domain property.
+		/// </summary>
+		internal sealed partial class TableNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
+		{
+			private TableNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.TableName domain property value handler.
+			/// </summary>
+			public static readonly TableNamePropertyHandler Instance = new TableNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.TableName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TableNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.tableNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.tableNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -3918,6 +4006,94 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isRowVersionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DisplayOrder domain property code
+		
+		/// <summary>
+		/// DisplayOrder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DisplayOrderDomainPropertyId = new global::System.Guid(0xc0c0c0c0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+		
+		/// <summary>
+		/// Storage for DisplayOrder
+		/// </summary>
+		private global::System.Int32 displayOrderPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of DisplayOrder domain property.
+		/// Display order for property in the editor grid
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/DisplayOrder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/DisplayOrder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("c0c0c0c0-0000-0000-0000-000000000000")]
+		public global::System.Int32 DisplayOrder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return displayOrderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DisplayOrderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.DisplayOrder domain property.
+		/// </summary>
+		internal sealed partial class DisplayOrderPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Int32>
+		{
+			private DisplayOrderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.DisplayOrder domain property value handler.
+			/// </summary>
+			public static readonly DisplayOrderPropertyHandler Instance = new DisplayOrderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.DisplayOrder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DisplayOrderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Int32 GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.displayOrderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Int32 newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Int32 oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.displayOrderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

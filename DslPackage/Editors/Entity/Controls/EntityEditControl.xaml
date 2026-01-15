@@ -5,27 +5,56 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Entity.Controls"
              xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
-             xmlns:controls="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Controls"
              xmlns:vsshell="clr-namespace:Microsoft.VisualStudio.Shell;assembly=Microsoft.VisualStudio.Shell.15.0"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="900"
+             d:DesignHeight="550" d:DesignWidth="950"
              Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
     <UserControl.Resources>
+        <!-- Base text styles -->
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
             <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        
+        <!-- Link button style -->
+        <Style x:Key="LinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#FF3399FF"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{TemplateBinding Content}" 
+                                   Foreground="{TemplateBinding Foreground}"
+                                   TextDecorations="Underline"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF66B2FF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- ComboBox style for dark theme -->
         <Style TargetType="ComboBox">
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
@@ -37,8 +66,7 @@
                             <ToggleButton x:Name="ToggleButton" 
                                           Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                                           BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
-                                          BorderThickness="1"
-                                          Focusable="False"
+                                          BorderThickness="1" Focusable="False"
                                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                           ClickMode="Press">
                                 <ToggleButton.Template>
@@ -67,14 +95,11 @@
                                               Content="{TemplateBinding SelectionBoxItem}"
                                               ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                                               ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                              Margin="6,3,23,3"
-                                              IsHitTestVisible="False"
-                                              HorizontalAlignment="Left"
-                                              VerticalAlignment="Center"/>
+                                              Margin="6,3,23,3" IsHitTestVisible="False"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             <Popup x:Name="Popup" Placement="Bottom"
                                    IsOpen="{TemplateBinding IsDropDownOpen}"
-                                   AllowsTransparency="True" Focusable="False"
-                                   PopupAnimation="Slide">
+                                   AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
                                 <Grid x:Name="DropDown" MinWidth="{TemplateBinding ActualWidth}"
                                       MaxHeight="{TemplateBinding MaxDropDownHeight}" SnapsToDevicePixels="True">
                                     <Border x:Name="DropDownBorder"
@@ -101,95 +126,236 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
+        <!-- DataGrid styles for dark theme -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="RowBackground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="AlternatingRowBackground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTabMouseOverBackgroundBeginKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTabMouseOverBackgroundBeginKey}}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     
-    <Grid Margin="16">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="leftColumn" Width="*" MinWidth="250"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition x:Name="rightColumn" Width="*" MinWidth="250"/>
-        </Grid.ColumnDefinitions>
+    <Grid Margin="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!-- Left Panel - Basic Properties -->
-        <Grid Grid.Column="0">
+        <!-- Row 1: Entity name (left), checkboxes (right) -->
+        <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Entity Header -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Entity" 
-                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,12"/>
-
-            <!-- Name -->
-            <Label Grid.Row="1" Grid.Column="0" Content="Name:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtName" VerticalAlignment="Center" Margin="0,0,0,8"
-                     TextChanged="txtName_TextChanged"/>
-
-            <!-- Description -->
-            <Label Grid.Row="2" Grid.Column="0" Content="Description:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDescription" VerticalAlignment="Center" Margin="0,0,0,8"
-                     TextChanged="txtDescription_TextChanged"/>
-
-            <!-- Module -->
-            <Label Grid.Row="3" Grid.Column="0" Content="Module:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cboModule" VerticalAlignment="Center" Margin="0,0,0,8"
-                      SelectionChanged="cboModule_SelectionChanged"/>
-
-            <!-- Generate Code -->
-            <Label Grid.Row="4" Grid.Column="0" Content="Generate Code:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <CheckBox Grid.Row="4" Grid.Column="1" x:Name="chkGenerateCode" VerticalAlignment="Center" Margin="0,0,0,8"
-                      Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
-
-            <!-- Auditable -->
-            <Label Grid.Row="5" Grid.Column="0" Content="Auditable:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <CheckBox Grid.Row="5" Grid.Column="1" x:Name="chkAuditable" VerticalAlignment="Center" Margin="0,0,0,8"
-                      Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
-
-            <!-- Include Row Version -->
-            <Label Grid.Row="6" Grid.Column="0" Content="Incl Row Version:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <CheckBox Grid.Row="6" Grid.Column="1" x:Name="chkInclRowVersion" VerticalAlignment="Center" Margin="0,0,0,8"
-                      Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
+            
+            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="Entity" 
+                       FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,16,0"
+                          Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
+                <CheckBox x:Name="chkInclRowVersion" Content="Incl RowVersion" Margin="0,0,16,0"
+                          Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
+                <CheckBox x:Name="chkGenerateCode" Content="Gen Code"
+                          Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
+            </StackPanel>
         </Grid>
-
-        <!-- GridSplitter -->
-        <GridSplitter x:Name="gridSplitter" Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"
-                      Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
-                      Margin="8,0" DragCompleted="gridSplitter_DragCompleted"/>
-
-        <!-- Right Panel - Attributes and Usings -->
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Enabled checkbox at top-right -->
-            <CheckBox Grid.Row="0" x:Name="chkEnabled" Content="Enabled"
-                      HorizontalAlignment="Right" Margin="0,0,0,12"
-                      Checked="chkEnabled_Changed" Unchecked="chkEnabled_Changed"/>
-
-            <!-- Attributes -->
-            <controls:StringListControl Grid.Row="1" x:Name="attributesControl"
-                                        Title="Attributes" DialogTitle="Add Attribute" DialogLabel="Attribute:"
-                                        Margin="0,0,0,8"
-                                        ItemsChanged="attributesControl_ItemsChanged"/>
-
-            <!-- Usings -->
-            <controls:StringListControl Grid.Row="2" x:Name="usingsControl"
-                                        Title="Usings" DialogTitle="Add Using" DialogLabel="Using:"
-                                        ItemsChanged="usingsControl_ItemsChanged"/>
+        
+        <!-- Row 2: Name textbox, Module dropdown, Usings link -->
+        <Grid Grid.Row="1" Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" Content="Name:" Margin="0,0,8,0"/>
+            <TextBox Grid.Column="1" x:Name="txtName" TextChanged="txtName_TextChanged"/>
+            
+            <Label Grid.Column="3" Content="Module:" Margin="0,0,8,0"/>
+            <ComboBox Grid.Column="4" x:Name="cboModule" SelectionChanged="cboModule_SelectionChanged"/>
+            
+            <Button Grid.Column="6" x:Name="btnUsings" Content="Usings (0)" 
+                    Style="{StaticResource LinkButtonStyle}" Click="btnUsings_Click"/>
         </Grid>
+        
+        <!-- Row 3: TableName textbox, Attributes link -->
+        <Grid Grid.Row="2" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" Content="Table Name:" Margin="0,0,8,0"/>
+            <TextBox Grid.Column="1" x:Name="txtTableName" TextChanged="txtTableName_TextChanged"/>
+            
+            <Button Grid.Column="3" x:Name="btnAttributes" Content="Attributes (0)" 
+                    Style="{StaticResource LinkButtonStyle}" Click="btnAttributes_Click"/>
+        </Grid>
+        
+        <!-- Row 4: Properties header with add/delete buttons -->
+        <Grid Grid.Row="3" Margin="0,0,0,4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0" Text="Properties" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
+            
+            <Button Grid.Column="2" x:Name="btnAddProperty" Content="+" Width="24" Height="24" 
+                    Margin="0,0,8,0" Click="btnAddProperty_Click" ToolTip="Add Property"
+                    Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
+                    BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Button Grid.Column="3" x:Name="btnDeleteProperty" Content="??" Width="24" Height="24"
+                    Click="btnDeleteProperty_Click" ToolTip="Delete Selected Property"
+                    Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                    Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
+                    BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+        </Grid>
+        
+        <!-- Row 5: Properties DataGrid -->
+        <DataGrid Grid.Row="4" x:Name="dgProperties" 
+                  AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserReorderColumns="False" CanUserSortColumns="False"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  HeadersVisibility="Column" RowHeaderWidth="0"
+                  AllowDrop="True"
+                  PreviewMouseLeftButtonDown="dgProperties_PreviewMouseLeftButtonDown"
+                  PreviewMouseMove="dgProperties_PreviewMouseMove"
+                  Drop="dgProperties_Drop"
+                  CellEditEnding="dgProperties_CellEditEnding">
+            <DataGrid.Columns>
+                <!-- Handle column for drag -->
+                <DataGridTemplateColumn Width="24" CanUserResize="False">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="?" FontWeight="Bold" HorizontalAlignment="Center"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="?" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                       Cursor="SizeAll" FontWeight="Bold"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <!-- Name -->
+                <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="120" />
+                
+                <!-- DataType -->
+                <DataGridComboBoxColumn x:Name="colDataType" Header="DataType" Width="100"
+                                        SelectedItemBinding="{Binding DataType, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <!-- Enum (only enabled when DataType is Enum) -->
+                <DataGridComboBoxColumn x:Name="colEnumType" Header="Enum" Width="100"
+                                        SelectedItemBinding="{Binding EnumTypeName, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <!-- Max Len (only shown for String/ByteArray) -->
+                <DataGridTextColumn Header="Max Len" Binding="{Binding Length, UpdateSourceTrigger=PropertyChanged}" 
+                                    Width="60"/>
+                
+                <!-- Pri Key -->
+                <DataGridCheckBoxColumn Header="PK" Binding="{Binding IsPrimaryKey, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="35"/>
+                
+                <!-- Identity -->
+                <DataGridCheckBoxColumn Header="Idnt" Binding="{Binding IsIdentity, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="35"/>
+                
+                <!-- Nullable -->
+                <DataGridCheckBoxColumn Header="Null" Binding="{Binding IsNullable, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="35"/>
+                
+                <!-- Indexed -->
+                <DataGridCheckBoxColumn Header="Idx" Binding="{Binding IsIndexed, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="35"/>
+                
+                <!-- Unique Index -->
+                <DataGridCheckBoxColumn Header="UIdx" Binding="{Binding IsIndexUnique, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="40"/>
+                
+                <!-- Clustered Index -->
+                <DataGridCheckBoxColumn Header="CIdx" Binding="{Binding IsIndexClustered, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="40"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <!-- Popup for multiline text editing (Usings/Attributes) -->
+        <Popup x:Name="popupEditor" Placement="Center" StaysOpen="False" 
+               PlacementTarget="{Binding ElementName=dgProperties}">
+            <Border Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                    BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
+                    BorderThickness="1" Padding="12">
+                <Grid Width="350" Height="250">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" x:Name="popupTitle" Text="Edit" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox Grid.Row="1" x:Name="txtPopupEditor" AcceptsReturn="True" TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto"
+                             Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                             Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
+                             BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button Content="OK" Width="70" Margin="0,0,8,0" Click="popupOK_Click"
+                                Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                                Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
+                                BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+                        <Button Content="Cancel" Width="70" Click="popupCancel_Click"
+                                Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
+                                Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
+                                BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Popup>
     </Grid>
 </editors:UserControlBase>

@@ -155,6 +155,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="8fb79ab2-ec55-423f-a795-2d82cbe99c10" Description="Database table name for the entity" Name="TableName" DisplayName="Table Name" Category="Database">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -256,6 +261,11 @@
         <DomainProperty Id="b9b9b9b9-9999-9999-9999-999999999999" Description="Indicates this is an auto-generated RowVersion property" Name="IsRowVersion" DisplayName="Is Row Version" DefaultValue="false" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="c0c0c0c0-0000-0000-0000-000000000000" Description="Display order for property in the editor grid" Name="DisplayOrder" DisplayName="Display Order" DefaultValue="0" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Int32" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1202,6 +1212,9 @@
           <XmlPropertyData XmlName="enabled">
             <DomainPropertyMoniker Name="EntityModel/Enabled" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="tableName">
+            <DomainPropertyMoniker Name="EntityModel/TableName" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1248,6 +1261,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isRowVersion">
             <DomainPropertyMoniker Name="PropertyModel/IsRowVersion" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="displayOrder">
+            <DomainPropertyMoniker Name="PropertyModel/DisplayOrder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

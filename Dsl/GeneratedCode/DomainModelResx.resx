@@ -417,6 +417,18 @@
     <value>Enabled</value>
     <comment>DisplayName for DomainProperty &apos;Enabled&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/TableName.Description" xml:space="preserve">
+    <value>Database table name for the entity</value>
+    <comment>Description for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/TableName.DisplayName" xml:space="preserve">
+    <value>Table Name</value>
+    <comment>DisplayName for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/TableName.Category" xml:space="preserve">
+    <value>Database</value>
+    <comment>Category for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>
@@ -584,6 +596,14 @@
   <data name="Dyvenix.GenIt.PropertyModel/IsRowVersion.DisplayName" xml:space="preserve">
     <value>Is Row Version</value>
     <comment>DisplayName for DomainProperty &apos;IsRowVersion&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/DisplayOrder.Description" xml:space="preserve">
+    <value>Display order for property in the editor grid</value>
+    <comment>Description for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/DisplayOrder.DisplayName" xml:space="preserve">
+    <value>Display Order</value>
+    <comment>DisplayName for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
