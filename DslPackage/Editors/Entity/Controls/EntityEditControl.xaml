@@ -145,6 +145,7 @@
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
             <Setter Property="Padding" Value="6,4"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
         <Style TargetType="DataGridCell">
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
@@ -351,9 +352,10 @@
                   AllowDrop="True"
                   PreviewMouseLeftButtonDown="dgProperties_PreviewMouseLeftButtonDown"
                   PreviewMouseMove="dgProperties_PreviewMouseMove"
+                  DragOver="dgProperties_DragOver"
                   Drop="dgProperties_Drop"
                   BeginningEdit="dgProperties_BeginningEdit"
-                  CellEditEnding="dgProperties_CellEditEnding">
+                  CellEditEnding="dgProperties_CellEditEnding" SelectionChanged="dgProperties_SelectionChanged">
             <DataGrid.Columns>
                 <!-- Handle column for drag - blank header, drag handle icon -->
                 <DataGridTemplateColumn Width="24" CanUserResize="False">
@@ -416,28 +418,29 @@
                 
                 <!-- Pri Key -->
                 <DataGridCheckBoxColumn Header="PK" Binding="{Binding IsPrimaryKey, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="35"/>
-                
-                <!-- Identity -->
-                <DataGridCheckBoxColumn Header="Idnt" Binding="{Binding IsIdentity, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="35"/>
-                
-                <!-- Nullable -->
-                <DataGridCheckBoxColumn Header="Null" Binding="{Binding IsNullable, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="35"/>
-                
-                <!-- Indexed -->
-                <DataGridCheckBoxColumn Header="Idx" Binding="{Binding IsIndexed, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="35"/>
+                                        Width="35">
+				</DataGridCheckBoxColumn>
+
+				<!-- Indexed -->
+				<DataGridCheckBoxColumn Header="Index" Binding="{Binding IsIndexed, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="100"/>
+
+				<!-- Nullable -->
+                <DataGridCheckBoxColumn Header="Nullable" Binding="{Binding IsNullable, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="100"/>
                 
                 <!-- Unique Index -->
-                <DataGridCheckBoxColumn Header="UIdx" Binding="{Binding IsIndexUnique, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="40"/>
+                <DataGridCheckBoxColumn Header="Unique Idx" Binding="{Binding IsIndexUnique, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="100"/>
                 
                 <!-- Clustered Index -->
-                <DataGridCheckBoxColumn Header="CIdx" Binding="{Binding IsIndexClustered, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="40"/>
-            </DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Clustered Idx" Binding="{Binding IsIndexClustered, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="100"/>
+
+				<!-- Identity -->
+				<DataGridCheckBoxColumn Header="Identity" Binding="{Binding IsIdentity, UpdateSourceTrigger=PropertyChanged}" 
+                                        Width="100"/>
+			</DataGrid.Columns>
         </DataGrid>
         
         <!-- Popup for multiline text editing (Usings/Attributes) - 30% smaller, fixed textbox -->

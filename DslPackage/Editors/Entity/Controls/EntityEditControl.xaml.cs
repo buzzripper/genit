@@ -439,6 +439,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			return false;
 		}
 
+		private void dgProperties_DragOver(object sender, DragEventArgs e)
+		{
+			if (e.Data.GetDataPresent(typeof(PropertyModel)))
+			{
+				e.Effects = DragDropEffects.Move;
+			}
+			else
+			{
+				e.Effects = DragDropEffects.None;
+			}
+			e.Handled = true;
+		}
+
 		private void dgProperties_Drop(object sender, DragEventArgs e)
 		{
 			if (!e.Data.GetDataPresent(typeof(PropertyModel)))
@@ -462,15 +475,38 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Reorder Properties"))
 			{
-				_properties.Move(oldIndex, newIndex);
-
-				// Update DisplayOrder for all properties
-				for (int i = 0; i < _properties.Count; i++)
+				// Update DisplayOrder for all properties based on new order
+				if (oldIndex < newIndex)
 				{
-					_properties[i].DisplayOrder = i;
+					// Moving down: shift items up
+					for (int i = oldIndex; i < newIndex; i++)
+					{
+						_properties[i + 1].DisplayOrder = i;
+					}
+					droppedProperty.DisplayOrder = newIndex;
+				}
+				else
+				{
+					// Moving up: shift items down
+					for (int i = oldIndex; i > newIndex; i--)
+					{
+						_properties[i - 1].DisplayOrder = i;
+					}
+					droppedProperty.DisplayOrder = newIndex;
 				}
 
 				transaction.Commit();
+			}
+
+			// Refresh the collection outside the transaction
+			_isUpdating = true;
+			try
+			{
+				_properties.Move(oldIndex, newIndex);
+			}
+			finally
+			{
+				_isUpdating = false;
 			}
 		}
 
@@ -502,6 +538,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				property.SetValue(_entityModel, value);
 				transaction.Commit();
 			}
+		}
+
+		private void dgProperties_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
 		}
 	}
 }
