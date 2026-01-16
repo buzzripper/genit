@@ -21,7 +21,7 @@
             <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
-            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="Padding" Value="6,4"/>
         </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
@@ -46,8 +46,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="Background" 
-                                        Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTabSelectedTabKey}}"/>
+                                <Setter TargetName="Border" Property="Background" Value="#3D3D3D"/>
                                 <Setter TargetName="Border" Property="Margin" Value="0,0,2,-1"/>
                             </Trigger>
                             <Trigger Property="IsSelected" Value="False">

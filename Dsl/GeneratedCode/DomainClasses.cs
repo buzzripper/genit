@@ -2941,7 +2941,7 @@ namespace Dyvenix.GenIt
 				global::System.Int32 oldValue = GetValue(element);
 				if (newValue != oldValue)
 				{
-					00ValueChanging(element, oldValue, newValue);
+					ValueChanging(element, oldValue, newValue);
 					element.lengthPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}

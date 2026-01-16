@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="b3081785-32c3-43d8-86ec-cdde4eaea381" name="Db" entitiesOutputFolder="Common\Data.Shared\Entities" entitiesNamespace="Dyvenix.App1.Data.Shared.Entities" dbContextOutputFolder="Common\Data" dbContextNamespace="Dyvenix.App1.Data" enumsOutputFolder="Common\Data.Shared\Entities" enumsNamespace="Dyvenix.App1.Data.Shared.Entities" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
+  <types>
+    <modelRootHasTypes Id="3851d301-f498-4633-8b39-b904e64c098b">
+      <entityModel Id="7737d42a-be9b-493f-ab68-c8ecb86cc614" name="Company" auditable="true" inclRowVersion="false" enabled="false">
+        <properties>
+          <propertyModel Id="a13ed45d-29b6-4742-ac05-9c6e7d266081" name="Id" description="Primary key" dataType="ByteArray" isPrimaryKey="true" isIndexed="true" isIndexUnique="true" isForeignKey="false" />
+          <propertyModel Id="5d2d5df9-8163-473d-991b-37126c57e34e" name="CompanyType" dataType="CompanyType" length="50" isForeignKey="false" />
+          <propertyModel Id="4c631023-3199-4b26-8ea3-c692dec5c8aa" name="Name" length="50" isForeignKey="false" displayOrder="1" />
+        </properties>
+        <navigationProperties>
+          <navigationProperty Id="48f4f764-a8d9-4c68-89fb-259e840d860b" name="Employees" description="Navigation to EntityModel2" targetEntityName="Employee" isCollection="true" />
+        </navigationProperties>
+        <targets>
+          <association Id="c1bdee03-bad4-41da-b471-52e85192a7b9" sourceMultiplicity="1" sourceRoleName="Employees" targetMultiplicity="*" fkPropertyName="EntityModel1Id">
+            <entityModelMoniker name="/Db/Employee" />
+          </association>
+        </targets>
+        <serviceModels>
+          <entityModelHasServiceModels Id="2543a135-21e3-458c-b575-da26462f2fc2">
+            <serviceModel Id="42d2705a-7654-4fa3-abb3-ed85ba530727" name="ServiceModel1" inclCreate="false" inclUpdate="false" inclDelete="false" version="v1" />
+          </entityModelHasServiceModels>
+        </serviceModels>
+      </entityModel>
+    </modelRootHasTypes>
+    <modelRootHasTypes Id="24ef8396-c16b-4911-a682-71b590e74a48">
+      <entityModel Id="9d8a3515-a049-4bed-aa26-321e8b6e2da2" name="Employee" auditable="false" inclRowVersion="false" enabled="false">
+        <properties>
+          <propertyModel Id="6b61cd4b-44b0-4be3-8731-71adff37b788" name="Id" description="Primary key" dataType="Guid" isPrimaryKey="true" isIndexed="true" isIndexUnique="true" isForeignKey="false" />
+          <propertyModel Id="f706f5d2-9c62-4dbc-9b1a-a325e0a36098" name="CompanyId" description="Foreign key to EntityModel1" dataType="Int32" isForeignKey="true" />
+        </properties>
+      </entityModel>
+    </modelRootHasTypes>
+    <modelRootHasTypes Id="642b3622-958e-410b-957f-e9fd45bdbab8">
+      <enumModel Id="bc5d38ff-6989-40e5-be0d-0b89e3d0361c" name="CompanyType">
+        <members>
+          <enumMember Id="117ccc2d-5974-4f20-b357-13003e8ee942" name="Standard" />
+          <enumMember Id="79b87e17-9181-4533-af3b-f75216d62a2e" name="Gold" />
+        </members>
+      </enumModel>
+    </modelRootHasTypes>
+  </types>
+</modelRoot>

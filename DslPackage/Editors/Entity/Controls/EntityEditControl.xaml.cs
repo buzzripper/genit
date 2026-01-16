@@ -1,12 +1,38 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 {
+	/// <summary>
+	/// Converter that enables/shows the Length field only for String and ByteArray types.
+	/// </summary>
+	public class DataTypeLengthEnabledConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			var dataType = value as string;
+			var isEnabled = dataType == "String" || dataType == "ByteArray";
+			
+			// If parameter is "bool", return boolean for IsEnabled binding
+			if (parameter as string == "bool")
+				return isEnabled;
+			
+			// Otherwise return Visibility
+			return isEnabled ? Visibility.Visible : Visibility.Hidden;
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	public partial class EntityEditControl : UserControlBase
 	{
 		private EntityModel _entityModel;
@@ -15,6 +41,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private Point _dragStartPoint;
 		private bool _isDragging;
 		private string _popupEditingField; // "Usings" or "Attributes"
+		private string[] _dataTypes;
 
 		public EntityEditControl()
 		{
@@ -90,9 +117,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private void LoadDataTypes()
 		{
 			// Load primitive types + enum names from the model
-			var dataTypes = DataTypeHelper.GetAllDataTypes(_entityModel.Store);
-			colDataType.ItemsSource = dataTypes;
+			_dataTypes = DataTypeHelper.GetAllDataTypes(_entityModel.Store).ToArray();
 		}
+
+		/// <summary>
+		/// Gets the available data types for ComboBox binding in the DataGrid.
+		/// </summary>
+		public string[] DataTypes => _dataTypes;
 
 		private void LoadProperties()
 		{
@@ -267,6 +298,15 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				transaction.Commit();
 
 				_properties.Remove(selectedProperty);
+			}
+		}
+
+		private void DataTypeComboBox_Loaded(object sender, RoutedEventArgs e)
+		{
+			var comboBox = sender as ComboBox;
+			if (comboBox != null && _dataTypes != null)
+			{
+				comboBox.ItemsSource = _dataTypes;
 			}
 		}
 
