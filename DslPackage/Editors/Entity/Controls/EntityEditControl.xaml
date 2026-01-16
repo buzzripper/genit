@@ -325,11 +325,13 @@
             
             <TextBlock Grid.Column="0" Text="Properties" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
             
-            <Button Grid.Column="2" x:Name="btnAddProperty" Content="+" Width="24" Height="24" 
+            <Button Grid.Column="2" x:Name="btnAddProperty" Width="28" Height="28" 
                     Margin="0,0,8,0" Click="btnAddProperty_Click" ToolTip="Add Property"
                     Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                     Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
-                    BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+                    BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}">
+                <TextBlock Text="+" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Button>
             <Button Grid.Column="3" x:Name="btnDeleteProperty" Width="24" Height="24"
                     Click="btnDeleteProperty_Click" ToolTip="Delete Selected Property"
                     Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
@@ -350,6 +352,7 @@
                   PreviewMouseLeftButtonDown="dgProperties_PreviewMouseLeftButtonDown"
                   PreviewMouseMove="dgProperties_PreviewMouseMove"
                   Drop="dgProperties_Drop"
+                  BeginningEdit="dgProperties_BeginningEdit"
                   CellEditEnding="dgProperties_CellEditEnding">
             <DataGrid.Columns>
                 <!-- Handle column for drag - blank header, drag handle icon -->
@@ -359,12 +362,13 @@
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!-- Drag handle icon: two horizontal lines -->
-                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="SizeAll" Width="12" Height="10">
+                            <!-- Drag handle icon: two horizontal lines (dimmed) -->
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="SizeAll" Width="12" Height="10"
+                                  Tag="DragHandle" Background="Transparent">
                                 <Rectangle Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
-                                           Height="2" VerticalAlignment="Top" Margin="0,1,0,0"/>
+                                           Height="2" VerticalAlignment="Top" Margin="0,1,0,0" Opacity="0.6"/>
                                 <Rectangle Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
-                                           Height="2" VerticalAlignment="Bottom" Margin="0,0,0,1"/>
+                                           Height="2" VerticalAlignment="Bottom" Margin="0,0,0,1" Opacity="0.6"/>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -385,6 +389,7 @@
                         <DataTemplate>
                             <ComboBox SelectedItem="{Binding DataType, UpdateSourceTrigger=PropertyChanged}"
                                       Loaded="DataTypeComboBox_Loaded"
+                                      SelectionChanged="DataTypeComboBox_SelectionChanged"
                                       Style="{StaticResource DataGridComboBoxStyle}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>

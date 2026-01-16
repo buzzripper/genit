@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.Modeling;
 using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -18,11 +19,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		{
 			var dataType = value as string;
 			var isEnabled = dataType == "String" || dataType == "ByteArray";
-			
+
 			// If parameter is "bool", return boolean for IsEnabled binding
 			if (parameter as string == "bool")
 				return isEnabled;
-			
+
 			// Otherwise return Visibility
 			return isEnabled ? Visibility.Visible : Visibility.Hidden;
 		}
@@ -42,6 +43,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private bool _isDragging;
 		private string _popupEditingField; // "Usings" or "Attributes"
 		private string[] _dataTypes;
+		private Transaction _currentEditTransaction;
 
 		public EntityEditControl()
 		{
@@ -310,7 +312,43 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			}
 		}
 
+		private void DataTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			// Skip if this is triggered during ComboBox initialization (no removed items means initial load)
+			if (e.RemovedItems.Count == 0)
+				return;
+
+			// Commit edit and refresh the row to update Max Len visibility
+			if (dgProperties.SelectedItem != null)
+			{
+				dgProperties.CommitEdit(DataGridEditingUnit.Cell, true);
+				dgProperties.CommitEdit(DataGridEditingUnit.Row, true);
+				dgProperties.Items.Refresh();
+			}
+		}
+
 		private void dgProperties_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+		{
+			if (_isUpdating || _entityModel == null)
+				return;
+
+			// Commit or rollback the transaction started in BeginningEdit
+			if (_currentEditTransaction != null)
+			{
+				if (e.EditAction == DataGridEditAction.Commit)
+				{
+					_currentEditTransaction.Commit();
+				}
+				else
+				{
+					_currentEditTransaction.Rollback();
+				}
+				_currentEditTransaction.Dispose();
+				_currentEditTransaction = null;
+			}
+		}
+
+		private void dgProperties_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
 		{
 			if (_isUpdating || _entityModel == null)
 				return;
@@ -319,14 +357,32 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			if (property == null)
 				return;
 
-			// Changes are automatically committed via binding; we just need to ensure transaction
-			Dispatcher.BeginInvoke(new Action(() =>
+			// Start a transaction for this edit operation
+			string propertyName = GetEditedPropertyName(e.Column);
+			_currentEditTransaction = property.Store.TransactionManager.BeginTransaction("Update " + propertyName);
+		}
+
+
+
+		private string GetEditedPropertyName(DataGridColumn column)
+		{
+			if (column.Header == null)
+				return null;
+
+			var header = column.Header.ToString();
+			switch (header)
 			{
-				if (!property.Store.TransactionManager.InTransaction)
-				{
-					// Property already updated via binding
-				}
-			}));
+				case "Name": return "Name";
+				case "DataType": return "DataType";
+				case "Max Len": return "Length";
+				case "PK": return "IsPrimaryKey";
+				case "Idnt": return "IsIdentity";
+				case "Null": return "IsNullable";
+				case "Idx": return "IsIndexed";
+				case "UIdx": return "IsIndexUnique";
+				case "CIdx": return "IsIndexClustered";
+				default: return header;
+			}
 		}
 
 		#endregion
@@ -335,12 +391,24 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 		private void dgProperties_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
-			_dragStartPoint = e.GetPosition(null);
+			// Only start drag from the handle column
+			if (IsOverDragHandle(e.OriginalSource as DependencyObject))
+			{
+				_dragStartPoint = e.GetPosition(null);
+			}
+			else
+			{
+				_dragStartPoint = new Point(0, 0);
+			}
 		}
 
 		private void dgProperties_PreviewMouseMove(object sender, MouseEventArgs e)
 		{
 			if (e.LeftButton != MouseButtonState.Pressed)
+				return;
+
+			// Only drag if started from handle
+			if (_dragStartPoint.X == 0 && _dragStartPoint.Y == 0)
 				return;
 
 			var mousePos = e.GetPosition(null);
@@ -355,8 +423,20 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 					_isDragging = true;
 					DragDrop.DoDragDrop(row, property, DragDropEffects.Move);
 					_isDragging = false;
+					_dragStartPoint = new Point(0, 0);
 				}
 			}
+		}
+
+		private bool IsOverDragHandle(DependencyObject source)
+		{
+			while (source != null)
+			{
+				if (source is FrameworkElement element && element.Tag as string == "DragHandle")
+					return true;
+				source = System.Windows.Media.VisualTreeHelper.GetParent(source);
+			}
+			return false;
 		}
 
 		private void dgProperties_Drop(object sender, DragEventArgs e)
