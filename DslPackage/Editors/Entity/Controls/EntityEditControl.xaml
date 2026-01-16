@@ -153,7 +153,12 @@
             <Setter Property="Padding" Value="4,2"/>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTabMouseOverBackgroundBeginKey}}"/>
+                    <Setter Property="Background" Value="#3D3D3D"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#4D4D4D"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -287,13 +292,9 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" 
                                     Width="120" />
                 
-                <!-- DataType -->
-                <DataGridComboBoxColumn x:Name="colDataType" Header="DataType" Width="100"
+                <!-- DataType - now a string with dynamic dropdown populated in code-behind -->
+                <DataGridComboBoxColumn x:Name="colDataType" Header="DataType" Width="120"
                                         SelectedItemBinding="{Binding DataType, UpdateSourceTrigger=PropertyChanged}"/>
-                
-                <!-- Enum (only enabled when DataType is Enum) -->
-                <DataGridComboBoxColumn x:Name="colEnumType" Header="Enum" Width="100"
-                                        SelectedItemBinding="{Binding EnumTypeName, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!-- Max Len (only shown for String/ByteArray) -->
                 <DataGridTextColumn Header="Max Len" Binding="{Binding Length, UpdateSourceTrigger=PropertyChanged}" 
@@ -331,16 +332,16 @@
             <Border Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                     BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"
                     BorderThickness="1" Padding="12">
-                <Grid Width="350" Height="250">
+                <Grid Width="350" Height="175">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="120"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     
                     <TextBlock Grid.Row="0" x:Name="popupTitle" Text="Edit" FontWeight="SemiBold" Margin="0,0,0,8"/>
                     <TextBox Grid.Row="1" x:Name="txtPopupEditor" AcceptsReturn="True" TextWrapping="Wrap"
-                             VerticalScrollBarVisibility="Auto"
+                             VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
                              Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                              Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
                              BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>

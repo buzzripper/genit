@@ -58,10 +58,6 @@ namespace Dyvenix.GenIt
 				{
 					assocConnector.ApplyLineColorFromModel();
 				}
-				else if (shape is EnumAssociationConnector enumConnector)
-				{
-					enumConnector.ApplyLineColorFromModel();
-				}
 			}
 		}
 

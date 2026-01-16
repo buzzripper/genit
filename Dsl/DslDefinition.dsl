@@ -193,12 +193,7 @@
         <DomainClassMoniker Name="ClassModelElement" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="" Name="DataType" DisplayName="Data Type" DefaultValue="String" Category="Type">
-          <Type>
-            <DomainEnumerationMoniker Name="DataType" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a" Description="Name of the enum type when DataType is Enum" Name="EnumTypeName" DisplayName="Enum Type Name" DefaultValue="" Category="Type">
+        <DomainProperty Id="4ef9ef25-f6e7-46f2-9e48-ed9323cc081f" Description="Data type - primitives or enum name from model" Name="DataType" DisplayName="Data Type" DefaultValue="String" Category="Type">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -916,29 +911,6 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
-    <DomainRelationship Id="f1e2d3c4-b5a6-4978-8c9d-0e1f2a3b4c5d" Description="Association between Entity and Enum creating a property" Name="EnumAssociation" DisplayName="Enum Association" Namespace="Dyvenix.GenIt">
-      <Properties>
-        <DomainProperty Id="a2b3c4d5-e6f7-4a8b-9c0d-1e2f3a4b5c6d" Description="Name of the property created on the entity" Name="PropertyName" DisplayName="Property Name" DefaultValue="">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-      </Properties>
-      <Source>
-        <DomainRole Id="b3c4d5e6-f7a8-4b9c-0d1e-2f3a4b5c6d7e" Description="" Name="Entity" DisplayName="Entity" PropertyName="UsedEnums" PropertyDisplayName="Used Enums">
-          <RolePlayer>
-            <DomainClassMoniker Name="EntityModel" />
-          </RolePlayer>
-        </DomainRole>
-      </Source>
-      <Target>
-        <DomainRole Id="c4d5e6f7-a8b9-4c0d-1e2f-3a4b5c6d7e8f" Description="" Name="Enum" DisplayName="Enum" PropertyName="UsingEntities" PropertyDisplayName="Using Entities">
-          <RolePlayer>
-            <DomainClassMoniker Name="EnumModel" />
-          </RolePlayer>
-        </DomainRole>
-      </Target>
-    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -972,32 +944,6 @@
         <EnumerationLiteral Description="Sequential execution" Name="Sequential" Value="0" />
         <EnumerationLiteral Description="Guarded execution" Name="Guarded" Value="1" />
         <EnumerationLiteral Description="Concurrent execution" Name="Concurrent" Value="2" />
-      </Literals>
-    </DomainEnumeration>
-    <DomainEnumeration Name="DataType" Namespace="Dyvenix.GenIt" Description="Common C# data types">
-      <Literals>
-        <EnumerationLiteral Description="System.String" Name="String" Value="0" />
-        <EnumerationLiteral Description="System.Int32" Name="Int32" Value="5" />
-        <EnumerationLiteral Description="System.Boolean" Name="Boolean" Value="1" />
-        <EnumerationLiteral Description="System.Guid" Name="Guid" Value="17" />
-        <EnumerationLiteral Description="System.DateTime" Name="DateTime" Value="14" />
-        <EnumerationLiteral Description="System.Byte" Name="Byte" Value="2" />
-        <EnumerationLiteral Description="System.SByte" Name="SByte" Value="3" />
-        <EnumerationLiteral Description="System.Int16" Name="Int16" Value="4" />
-        <EnumerationLiteral Description="System.Int64" Name="Int64" Value="6" />
-        <EnumerationLiteral Description="System.UInt16" Name="UInt16" Value="7" />
-        <EnumerationLiteral Description="System.UInt32" Name="UInt32" Value="8" />
-        <EnumerationLiteral Description="System.UInt64" Name="UInt64" Value="9" />
-        <EnumerationLiteral Description="System.Single" Name="Single" Value="10" />
-        <EnumerationLiteral Description="System.Double" Name="Double" Value="11" />
-        <EnumerationLiteral Description="System.Decimal" Name="Decimal" Value="12" />
-        <EnumerationLiteral Description="System.Char" Name="Char" Value="13" />
-        <EnumerationLiteral Description="System.DateTimeOffset" Name="DateTimeOffset" Value="15" />
-        <EnumerationLiteral Description="System.TimeSpan" Name="TimeSpan" Value="16" />
-        <EnumerationLiteral Description="Byte array (byte[])" Name="ByteArray" Value="18" />
-        <EnumerationLiteral Description="System.Object" Name="Object" Value="19" />
-        <EnumerationLiteral Description="Enum type - see EnumTypeName property" Name="Enum" Value="20" />
-        <EnumerationLiteral Description="List of strings (List&lt;string&gt;)" Name="StringList" Value="21" />
       </Literals>
     </DomainEnumeration>
   </Types>
@@ -1056,7 +1002,6 @@
     <Connector Id="b3bba042-d28b-47b6-9a19-569fd62ec876" Description="" Name="GeneralizationConnector" DisplayName="Generalization Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Generalization Connector" Color="113, 111, 110" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="43c88c4d-0054-4bc1-84dd-7592973d5c05" Description="" Name="ImplementationConnector" DisplayName="Implementation Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Implementation Connector" Color="113, 111, 110" DashStyle="Dash" SourceEndStyle="HollowArrow" Thickness="0.01" />
     <Connector Id="0485a32c-16a6-4fd4-880a-503be4641fad" Description="" Name="CommentConnector" DisplayName="Comment Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Comment Connector" Color="113, 111, 110" DashStyle="Dot" Thickness="0.01" />
-    <Connector Id="d5e6f7a8-b9c0-4d1e-2f3a-4b5c6d7e8f9a" Description="" Name="EnumAssociationConnector" DisplayName="Enum Association Connector" Namespace="Dyvenix.GenIt" FixedTooltipText="Enum Association Connector" Color="Goldenrod" DashStyle="Dash" Thickness="0.01" />
   </Connectors>
   <XmlSerializationBehavior Name="GenItSerializationBehavior" Namespace="Dyvenix.GenIt">
     <ClassData>
@@ -1206,9 +1151,6 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="serviceModels">
             <DomainRelationshipMoniker Name="EntityModelHasServiceModels" />
           </XmlRelationshipData>
-          <XmlRelationshipData UseFullForm="true" RoleElementName="usedEnums">
-            <DomainRelationshipMoniker Name="EnumAssociation" />
-          </XmlRelationshipData>
           <XmlPropertyData XmlName="enabled">
             <DomainPropertyMoniker Name="EntityModel/Enabled" />
           </XmlPropertyData>
@@ -1222,9 +1164,6 @@
         <ElementData>
           <XmlPropertyData XmlName="dataType">
             <DomainPropertyMoniker Name="PropertyModel/DataType" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="enumTypeName">
-            <DomainPropertyMoniker Name="PropertyModel/EnumTypeName" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="length">
             <DomainPropertyMoniker Name="PropertyModel/Length" />
@@ -1371,14 +1310,6 @@
       <XmlClassData TypeName="ModuleShape" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleShapeMoniker" ElementName="moduleShape" MonikerTypeName="ModuleShapeMoniker">
         <GeometryShapeMoniker Name="ModuleShape" />
       </XmlClassData>
-      <XmlClassData TypeName="EnumAssociation" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationMoniker" ElementName="enumAssociation" MonikerTypeName="EnumAssociationMoniker">
-        <DomainRelationshipMoniker Name="EnumAssociation" />
-        <ElementData>
-          <XmlPropertyData XmlName="propertyName">
-            <DomainPropertyMoniker Name="EnumAssociation/PropertyName" />
-          </XmlPropertyData>
-        </ElementData>
-      </XmlClassData>
       <XmlClassData TypeName="FilterPropertyModelHasProperty" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelHasPropertyMoniker" ElementName="filterPropertyModelHasProperty" MonikerTypeName="FilterPropertyModelHasPropertyMoniker">
         <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
       </XmlClassData>
@@ -1396,9 +1327,6 @@
       </XmlClassData>
       <XmlClassData TypeName="ServiceModelHasUpdateMethods" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelHasUpdateMethodsMoniker" ElementName="serviceModelHasUpdateMethods" MonikerTypeName="ServiceModelHasUpdateMethodsMoniker">
         <DomainRelationshipMoniker Name="ServiceModelHasUpdateMethods" />
-      </XmlClassData>
-      <XmlClassData TypeName="EnumAssociationConnector" MonikerAttributeName="" SerializeId="true" MonikerElementName="enumAssociationConnectorMoniker" ElementName="enumAssociationConnector" MonikerTypeName="EnumAssociationConnectorMoniker">
-        <ConnectorMoniker Name="EnumAssociationConnector" />
       </XmlClassData>
       <XmlClassData TypeName="FilterPropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="filterPropertyModelMoniker" ElementName="filterPropertyModel" MonikerTypeName="FilterPropertyModelMoniker">
         <DomainClassMoniker Name="FilterPropertyModel" />
@@ -1783,25 +1711,6 @@
         </TargetDirectives>
       </LinkConnectDirective>
     </ConnectionBuilder>
-    <ConnectionBuilder Name="EnumAssociationBuilder">
-      <LinkConnectDirective>
-        <DomainRelationshipMoniker Name="EnumAssociation" />
-        <SourceDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="EntityModel" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </SourceDirectives>
-        <TargetDirectives>
-          <RolePlayerConnectDirective>
-            <AcceptingClass>
-              <DomainClassMoniker Name="EnumModel" />
-            </AcceptingClass>
-          </RolePlayerConnectDirective>
-        </TargetDirectives>
-      </LinkConnectDirective>
-    </ConnectionBuilder>
   </ConnectionBuilders>
   <Diagram Id="2f556c0f-616b-4b70-9e3e-12f9045d12d7" Description="" Name="GenItDiagram" DisplayName="Class Diagram" Namespace="Dyvenix.GenIt">
     <Class>
@@ -1956,10 +1865,6 @@
         <ConnectorMoniker Name="CommentConnector" />
         <DomainRelationshipMoniker Name="CommentReferencesSubjects" />
       </ConnectorMap>
-      <ConnectorMap>
-        <ConnectorMoniker Name="EnumAssociationConnector" />
-        <DomainRelationshipMoniker Name="EnumAssociation" />
-      </ConnectorMap>
     </ConnectorMaps>
   </Diagram>
   <Designer CopyPasteGeneration="CopyPasteOnly" FileExtension="gmdl" EditorGuid="185dd91f-393a-4f15-8ba0-9406fa4ffc9b">
@@ -1993,9 +1898,6 @@
       </ElementTool>
       <ConnectionTool Name="CommentsReferenceTypes" ToolboxIcon="resources\commentlinktool.bmp" Caption="Comment Link" Tooltip="Link a comment to an element" HelpKeyword="CommentsReferenceTypesF1Keyword">
         <ConnectionBuilderMoniker Name="GenIt/CommentReferencesSubjectsBuilder" />
-      </ConnectionTool>
-      <ConnectionTool Name="EnumAssociation" ToolboxIcon="Resources\AssociationTool.bmp" Caption="Enum Association" Tooltip="Create an Enum Association link" HelpKeyword="ConnectEnumAssociationF1Keyword">
-        <ConnectionBuilderMoniker Name="GenIt/EnumAssociationBuilder" />
       </ConnectionTool>
     </ToolboxTab>
     <Validation UsesMenu="false" UsesOpen="false" UsesSave="false" UsesLoad="false" />

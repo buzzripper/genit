@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
@@ -33,53 +33,64 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 			return $"${{{{{tokenTitle}}}}}";
 		}
 
-		public static string GetCSharpType(DataType dataType)
+		/// <summary>
+		/// Converts a DataType string to its C# type representation.
+		/// For primitive types, returns the appropriate C# keyword.
+		/// For enum types (non-primitives), returns the type name as-is.
+		/// </summary>
+		public static string GetCSharpType(string dataType)
 		{
+			if (string.IsNullOrEmpty(dataType))
+				return "string";
+
 			switch (dataType)
 			{
-				case DataType.String:
+				case "String":
 					return "string";
-				case DataType.Boolean:
+				case "Boolean":
 					return "bool";
-				case DataType.Int32:
+				case "Int32":
 					return "int";
-				case DataType.TimeSpan:
-					return "string";
-				case DataType.DateTime:
+				case "TimeSpan":
+					return "TimeSpan";
+				case "DateTime":
 					return "DateTime";
-				case DataType.Guid:
+				case "Guid":
 					return "Guid";
-				case DataType.Int64:
+				case "Int64":
 					return "long";
-				case DataType.Int16:
+				case "Int16":
 					return "short";
-				case DataType.ByteArray:
+				case "ByteArray":
 					return "byte[]";
-				case DataType.Object:
+				case "Object":
 					return "object";
-				case DataType.Byte:
+				case "Byte":
 					return "byte";
-				case DataType.Char:
+				case "SByte":
+					return "sbyte";
+				case "Char":
 					return "char";
-				case DataType.DateTimeOffset:
+				case "DateTimeOffset":
 					return "DateTimeOffset";
-				case DataType.Decimal:
+				case "Decimal":
 					return "decimal";
-				case DataType.Double:
+				case "Double":
 					return "double";
-				case DataType.Single:
-					return "single";
-				case DataType.StringList:
+				case "Single":
+					return "float";
+				case "StringList":
 					return "List<string>";
-				case DataType.UInt16:
+				case "UInt16":
 					return "ushort";
-				case DataType.UInt32:
+				case "UInt32":
 					return "uint";
-				case DataType.UInt64:
+				case "UInt64":
 					return "ulong";
+				default:
+					// For enum types, return the type name as-is
+					return dataType;
 			}
-
-			return dataType.ToString();
 		}
 	}
 }

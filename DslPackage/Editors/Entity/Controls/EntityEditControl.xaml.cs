@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.VisualStudio.Modeling;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 {
@@ -56,11 +54,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				UpdateUsingsLabel();
 				UpdateAttributesLabel();
 
-				// Load DataType enum values
-				colDataType.ItemsSource = System.Enum.GetValues(typeof(DataType)).Cast<DataType>();
-
-				// Load Enum types
-				LoadEnumTypes();
+				// Load DataType values (primitives + enum names from model)
+				LoadDataTypes();
 
 				// Load properties grid
 				LoadProperties();
@@ -92,16 +87,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				cboModule.SelectedIndex = 0;
 		}
 
-		private void LoadEnumTypes()
+		private void LoadDataTypes()
 		{
-			var enumTypes = new List<string> { string.Empty };
-			var modelRoot = _entityModel.ModelRoot;
-			if (modelRoot != null)
-			{
-				var enums = modelRoot.Types.OfType<EnumModel>().OrderBy(e => e.Name);
-				enumTypes.AddRange(enums.Select(e => e.Name));
-			}
-			colEnumType.ItemsSource = enumTypes;
+			// Load primitive types + enum names from the model
+			var dataTypes = DataTypeHelper.GetAllDataTypes(_entityModel.Store);
+			colDataType.ItemsSource = dataTypes;
 		}
 
 		private void LoadProperties()
@@ -239,7 +229,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			{
 				var newProperty = new PropertyModel(_entityModel.Store);
 				newProperty.Name = GenerateNewPropertyName();
-				newProperty.DataType = DataType.String;
+				newProperty.DataType = "String";
 				newProperty.DisplayOrder = _properties.Count > 0 ? _properties.Max(p => p.DisplayOrder) + 1 : 0;
 				_entityModel.Properties.Add(newProperty);
 				transaction.Commit();

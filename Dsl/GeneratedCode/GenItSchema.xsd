@@ -248,21 +248,6 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
-          <!-- Relationship: EnumAssociation -->
-          <xsd:element name="usedEnums" minOccurs="0" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>Instances of EnumAssociation</xsd:documentation>
-            </xsd:annotation>
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element ref="enumAssociation" minOccurs="0" maxOccurs="unbounded">
-                  <xsd:annotation>
-                    <xsd:documentation>[Instance of EnumAssociation needs to be serialized in full-form]</xsd:documentation>
-                  </xsd:annotation>
-                </xsd:element>
-              </xsd:sequence>
-            </xsd:complexType>
-          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -339,11 +324,9 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DataType -->
-        <xsd:attribute name="dataType" type="DataType" />
-        <!-- Property: EnumTypeName -->
-        <xsd:attribute name="enumTypeName" type="xsd:string" >
+        <xsd:attribute name="dataType" type="xsd:string" >
           <xsd:annotation>
-            <xsd:documentation>Name of the enum type when DataType is Enum</xsd:documentation>
+            <xsd:documentation>Data type - primitives or enum name from model</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: Length -->
@@ -1841,55 +1824,6 @@
     </xsd:complexContent>
   </xsd:complexType>
   
-  <!-- EnumAssociation -->
-  <xsd:element name="enumAssociation" type="EnumAssociation" substitutionGroup="core:modelElement" />
-  <xsd:complexType name="EnumAssociation">
-    <xsd:annotation>
-      <xsd:documentation>Association between Entity and Enum creating a property</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElement">
-        <xsd:sequence minOccurs="0" maxOccurs="1">
-          <!-- Target end EnumModel -->
-          <xsd:element ref="enumModelMoniker" minOccurs="1" maxOccurs="1">
-            <xsd:annotation>
-              <xsd:documentation>[Target role-player]</xsd:documentation>
-            </xsd:annotation>
-          </xsd:element>
-        </xsd:sequence>
-        <!-- Id -->
-        <xsd:attribute name="Id" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-        <!-- Property: PropertyName -->
-        <xsd:attribute name="propertyName" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Name of the property created on the entity</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
-  <!-- EnumAssociation Moniker -->
-  <xsd:element name="enumAssociationMoniker" type="EnumAssociationMoniker" substitutionGroup="core:modelElementMoniker" />
-  <xsd:complexType name="EnumAssociationMoniker">
-    <xsd:annotation>
-      <xsd:documentation>Moniker for EnumAssociation instance.</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexContent>
-      <xsd:extension base="core:ModelElementMoniker">
-        <xsd:attribute name="Id" type="xsd:string" >
-          <xsd:annotation>
-            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
-          </xsd:annotation>
-        </xsd:attribute>
-      </xsd:extension>
-    </xsd:complexContent>
-  </xsd:complexType>
-  
   <!-- Enum AccessModifier -->
   <xsd:simpleType name="AccessModifier">
     <xsd:restriction base="xsd:string">
@@ -1945,125 +1879,6 @@
       <xsd:enumeration value="Concurrent">
         <xsd:annotation>
           <xsd:documentation>Concurrent execution</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-    </xsd:restriction>
-  </xsd:simpleType>
-  
-  <!-- Enum DataType -->
-  <xsd:simpleType name="DataType">
-    <xsd:annotation>
-      <xsd:documentation>Common C# data types</xsd:documentation>
-    </xsd:annotation>
-    <xsd:restriction base="xsd:string">
-      <xsd:enumeration value="String">
-        <xsd:annotation>
-          <xsd:documentation>System.String</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Int32">
-        <xsd:annotation>
-          <xsd:documentation>System.Int32</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Boolean">
-        <xsd:annotation>
-          <xsd:documentation>System.Boolean</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Guid">
-        <xsd:annotation>
-          <xsd:documentation>System.Guid</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="DateTime">
-        <xsd:annotation>
-          <xsd:documentation>System.DateTime</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Byte">
-        <xsd:annotation>
-          <xsd:documentation>System.Byte</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="SByte">
-        <xsd:annotation>
-          <xsd:documentation>System.SByte</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Int16">
-        <xsd:annotation>
-          <xsd:documentation>System.Int16</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Int64">
-        <xsd:annotation>
-          <xsd:documentation>System.Int64</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="UInt16">
-        <xsd:annotation>
-          <xsd:documentation>System.UInt16</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="UInt32">
-        <xsd:annotation>
-          <xsd:documentation>System.UInt32</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="UInt64">
-        <xsd:annotation>
-          <xsd:documentation>System.UInt64</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Single">
-        <xsd:annotation>
-          <xsd:documentation>System.Single</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Double">
-        <xsd:annotation>
-          <xsd:documentation>System.Double</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Decimal">
-        <xsd:annotation>
-          <xsd:documentation>System.Decimal</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Char">
-        <xsd:annotation>
-          <xsd:documentation>System.Char</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="DateTimeOffset">
-        <xsd:annotation>
-          <xsd:documentation>System.DateTimeOffset</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="TimeSpan">
-        <xsd:annotation>
-          <xsd:documentation>System.TimeSpan</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="ByteArray">
-        <xsd:annotation>
-          <xsd:documentation>Byte array (byte[])</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Object">
-        <xsd:annotation>
-          <xsd:documentation>System.Object</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="Enum">
-        <xsd:annotation>
-          <xsd:documentation>Enum type - see EnumTypeName property</xsd:documentation>
-        </xsd:annotation>
-      </xsd:enumeration>
-      <xsd:enumeration value="StringList">
-        <xsd:annotation>
-          <xsd:documentation>List of strings (List&lt;string&gt;)</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>

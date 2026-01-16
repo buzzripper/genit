@@ -59,36 +59,10 @@ namespace Dyvenix.GenIt
 			// Only show Length property when DataType is String or ByteArray
 			if (property.Name.Equals("Length", StringComparison.OrdinalIgnoreCase))
 			{
-				return _propertyModel.DataType == DataType.String || _propertyModel.DataType == DataType.ByteArray;
-			}
-
-			// Only show EnumTypeName when DataType is Enum
-			if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
-			{
-				return _propertyModel.DataType == DataType.Enum;
+				return DataTypeHelper.HasLength(_propertyModel.DataType);
 			}
 
 			return true;
-		}
-
-		/// <summary>
-		/// Checks if the property is associated with an EnumAssociation.
-		/// </summary>
-		private bool IsEnumAssociationProperty()
-		{
-			if (_propertyModel.DataType != DataType.Enum)
-				return false;
-
-			var entity = _propertyModel.EntityModel;
-			if (entity == null)
-				return false;
-
-			// Check if there's an EnumAssociation with a matching PropertyName
-			var enumAssociations = EnumAssociation.GetLinksToUsedEnums(entity);
-			return enumAssociations.Any(assoc =>
-				!assoc.IsDeleting &&
-				!assoc.IsDeleted &&
-				assoc.PropertyName == _propertyModel.Name);
 		}
 
 		private PropertyDescriptor ModifyProperty(PropertyDescriptor property)
@@ -111,21 +85,10 @@ namespace Dyvenix.GenIt
 				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
 			}
 
-			// Make DataType and EnumTypeName read-only when associated with an EnumAssociation
-			if (property.Name.Equals("DataType", StringComparison.OrdinalIgnoreCase) ||
-				property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
+			// Add dropdown with dynamic data types (primitives + enums) for DataType property
+			if (property.Name.Equals("DataType", StringComparison.OrdinalIgnoreCase))
 			{
-				if (IsEnumAssociationProperty())
-				{
-					return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
-				}
-			}
-
-			// Add dropdown with enum names for EnumTypeName property (only if not read-only)
-			if (property.Name.Equals("EnumTypeName", StringComparison.OrdinalIgnoreCase))
-			{
-				// Add the custom enum dropdown editor
-				return TypeDescriptorHelper.CreateEnumTypeNamePropertyDescriptor(property);
+				return TypeDescriptorHelper.CreateDataTypePropertyDescriptor(property);
 			}
 
 			return property;

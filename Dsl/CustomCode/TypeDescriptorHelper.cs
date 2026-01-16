@@ -30,11 +30,11 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// Creates a property descriptor that adds an enum type name dropdown editor.
+        /// Creates a property descriptor that adds a DataType dropdown editor (primitives + enums).
         /// </summary>
-        public static PropertyDescriptor CreateEnumTypeNamePropertyDescriptor(PropertyDescriptor baseDescriptor)
+        public static PropertyDescriptor CreateDataTypePropertyDescriptor(PropertyDescriptor baseDescriptor)
         {
-            return new EnumTypeNamePropertyDescriptor(baseDescriptor);
+            return new DataTypePropertyDescriptor(baseDescriptor);
         }
 
         /// <summary>
@@ -52,6 +52,43 @@ namespace Dyvenix.GenIt
         public static PropertyDescriptor CreateDropdownOnlyModuleNamePropertyDescriptor(PropertyDescriptor baseDescriptor)
         {
             return new DropdownOnlyModuleNamePropertyDescriptor(baseDescriptor);
+        }
+
+        /// <summary>
+        /// A property descriptor wrapper that adds the DataType dropdown editor.
+        /// </summary>
+        private class DataTypePropertyDescriptor : PropertyDescriptor
+        {
+            private readonly PropertyDescriptor _innerDescriptor;
+            private static readonly UITypeEditor _dataTypeEditor = new DataTypeEditor();
+
+            public DataTypePropertyDescriptor(PropertyDescriptor innerDescriptor)
+                : base(innerDescriptor)
+            {
+                _innerDescriptor = innerDescriptor;
+            }
+
+            public override Type ComponentType => _innerDescriptor.ComponentType;
+            public override bool IsReadOnly => _innerDescriptor.IsReadOnly;
+            public override Type PropertyType => _innerDescriptor.PropertyType;
+            public override string Category => _innerDescriptor.Category;
+            public override string Description => _innerDescriptor.Description;
+            public override string DisplayName => _innerDescriptor.DisplayName;
+
+            public override bool CanResetValue(object component) => _innerDescriptor.CanResetValue(component);
+            public override object GetValue(object component) => _innerDescriptor.GetValue(component);
+            public override void ResetValue(object component) => _innerDescriptor.ResetValue(component);
+            public override void SetValue(object component, object value) => _innerDescriptor.SetValue(component, value);
+            public override bool ShouldSerializeValue(object component) => _innerDescriptor.ShouldSerializeValue(component);
+
+            public override object GetEditor(Type editorBaseType)
+            {
+                if (editorBaseType == typeof(UITypeEditor))
+                {
+                    return _dataTypeEditor;
+                }
+                return base.GetEditor(editorBaseType);
+            }
         }
 
         /// <summary>
@@ -97,6 +134,7 @@ namespace Dyvenix.GenIt
             /// </summary>
             public override TypeConverter Converter => _noEditConverter;
         }
+
 
         /// <summary>
         /// TypeConverter that prevents manual text entry by not allowing conversion from string.
@@ -199,46 +237,6 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// A property descriptor wrapper that adds the enum type name dropdown editor.
-        /// </summary>
-        private class EnumTypeNamePropertyDescriptor : PropertyDescriptor
-        {
-            private readonly PropertyDescriptor _innerDescriptor;
-            private static readonly UITypeEditor _enumEditor = new EnumTypeNameEditor();
-
-            public EnumTypeNamePropertyDescriptor(PropertyDescriptor innerDescriptor)
-                : base(innerDescriptor)
-            {
-                _innerDescriptor = innerDescriptor;
-            }
-
-            public override Type ComponentType => _innerDescriptor.ComponentType;
-            public override bool IsReadOnly => _innerDescriptor.IsReadOnly;
-            public override Type PropertyType => _innerDescriptor.PropertyType;
-            public override string Category => _innerDescriptor.Category;
-            public override string Description => _innerDescriptor.Description;
-            public override string DisplayName => _innerDescriptor.DisplayName;
-
-            public override bool CanResetValue(object component) => _innerDescriptor.CanResetValue(component);
-            public override object GetValue(object component) => _innerDescriptor.GetValue(component);
-            public override void ResetValue(object component) => _innerDescriptor.ResetValue(component);
-            public override void SetValue(object component, object value) => _innerDescriptor.SetValue(component, value);
-            public override bool ShouldSerializeValue(object component) => _innerDescriptor.ShouldSerializeValue(component);
-
-            /// <summary>
-            /// Returns the editor to use for this property - the enum type name editor.
-            /// </summary>
-            public override object GetEditor(Type editorBaseType)
-            {
-                if (editorBaseType == typeof(UITypeEditor))
-                {
-                    return _enumEditor;
-                }
-                return base.GetEditor(editorBaseType);
-            }
-        }
-
-        /// <summary>
         /// A property descriptor wrapper that adds the module name dropdown editor.
         /// </summary>
         private class ModuleNamePropertyDescriptor : PropertyDescriptor
@@ -311,9 +309,9 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// UITypeEditor for EnumTypeName property that provides a dropdown of available enum types.
+        /// UITypeEditor for DataType property that provides a dropdown of primitives + enum types.
         /// </summary>
-        private class EnumTypeNameEditor : UITypeEditor
+        private class DataTypeEditor : UITypeEditor
         {
             public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
             {
@@ -322,91 +320,66 @@ namespace Dyvenix.GenIt
 
             public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
             {
-                if (provider != null)
+                if (provider == null)
+                    return value;
+
+                var editorService = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
+                if (editorService == null)
+                    return value;
+
+                // Get the Store from the PropertyModel
+                Store store = null;
+                if (context?.Instance is PropertyModel property)
                 {
-                    var editorService = provider.GetService(typeof(IWindowsFormsEditorService)) as IWindowsFormsEditorService;
-                    if (editorService != null && context?.Instance is PropertyModel property)
+                    store = property.Store;
+                }
+                else if (context?.Instance is object[] instances && instances.Length > 0 && instances[0] is PropertyModel firstProperty)
+                {
+                    store = firstProperty.Store;
+                }
+
+                // Get all data types (primitives + enum names)
+                var dataTypes = DataTypeHelper.GetAllDataTypes(store);
+
+                // Create and show the listbox
+                var listBox = new ListBox();
+                listBox.SelectionMode = SelectionMode.One;
+                listBox.BorderStyle = BorderStyle.None;
+
+                foreach (var dataType in dataTypes)
+                {
+                    listBox.Items.Add(dataType);
+                }
+
+                // Pre-select current value if it exists
+                if (value is string currentValue && !string.IsNullOrEmpty(currentValue))
+                {
+                    int index = listBox.Items.IndexOf(currentValue);
+                    if (index >= 0)
                     {
-                        // Get enum names from the model
-                        var enumNames = GetEnumNames(property);
-
-                        if (enumNames.Count > 0)
-                        {
-                            // Create and show the listbox
-                            var listBox = new ListBox();
-                            listBox.SelectionMode = SelectionMode.One;
-                            listBox.BorderStyle = BorderStyle.None;
-
-                            foreach (var enumName in enumNames)
-                            {
-                                listBox.Items.Add(enumName);
-                            }
-
-                            // Pre-select current value if it exists
-                            if (value is string currentValue && !string.IsNullOrEmpty(currentValue))
-                            {
-                                int index = listBox.Items.IndexOf(currentValue);
-                                if (index >= 0)
-                                {
-                                    listBox.SelectedIndex = index;
-                                }
-                            }
-
-                            // Handle selection
-                            listBox.Click += (sender, e) =>
-                            {
-                                if (listBox.SelectedItem != null)
-                                {
-                                    editorService.CloseDropDown();
-                                }
-                            };
-
-                            // Show the dropdown
-                            editorService.DropDownControl(listBox);
-
-                            // Return selected value
-                            if (listBox.SelectedItem != null)
-                            {
-                                return listBox.SelectedItem.ToString();
-                            }
-                        }
+                        listBox.SelectedIndex = index;
                     }
+                }
+
+                // Handle selection
+                listBox.Click += (sender, e) =>
+                {
+                    if (listBox.SelectedItem != null)
+                    {
+                        editorService.CloseDropDown();
+                    }
+                };
+
+                // Show the dropdown
+                editorService.DropDownControl(listBox);
+
+                // Return selected value
+                if (listBox.SelectedItem != null)
+                {
+                    return listBox.SelectedItem.ToString();
                 }
 
                 return value;
-            }
-
-            /// <summary>
-            /// Gets the list of enum names from the model.
-            /// </summary>
-            private System.Collections.Generic.List<string> GetEnumNames(PropertyModel property)
-            {
-                var enumNames = new System.Collections.Generic.List<string>();
-
-                try
-                {
-                    var entity = property.EntityModel;
-                    if (entity?.Store != null)
-                    {
-                        var store = entity.Store;
-                        var root = store.ElementDirectory.FindElements<ModelRoot>().FirstOrDefault();
-                        if (root != null)
-                        {
-                            enumNames = root.Types
-                                .OfType<EnumModel>()
-                                .Select(e => e.Name)
-                                .Where(name => !string.IsNullOrWhiteSpace(name))
-                                .OrderBy(name => name)
-                                .ToList();
-                        }
-                    }
-                }
-                catch
-                {
-                    // If we can't read the model, return empty list
-                }
-
-                return enumNames;
             }
         }
 
