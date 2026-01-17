@@ -98,7 +98,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, $"// Properties");
-				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion))
+				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion).OrderBy(p => p.DisplayOrder))
 					GenerateProperty(property, fileContent);
 			}
 

@@ -135,9 +135,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey || p.IsForeignKey || p.IsIndexed))
 				{
 					var line = $"entity.HasIndex(e => e.{prop.Name}, \"IX_{entity.Name}_{prop.Name}\")";
-					if (!prop.IsIndexUnique)
+					if (prop.IsIndexUnique)
 						line += ".IsUnique()";
-					if (!prop.IsIndexClustered)
+					if (prop.IsIndexClustered)
 						line += ".IsClustered()";
 					line += ";";
 					fileContent.AddLine(3, line);

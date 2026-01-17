@@ -30,9 +30,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		{
 			errors = new List<string>();
 
-			_entityGenerator.Validate(errors);
-			_enumGenerator.Validate(errors);
-			_dbContextGenerator.Validate(errors);
+			if (_entityGenerator.Enabled)
+				_entityGenerator.Validate(errors);
+			else
+				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
+
+			if (_enumGenerator.Enabled)
+				_enumGenerator.Validate(errors);
+			else
+				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
+
+			if (_dbContextGenerator.Enabled)
+				_dbContextGenerator.Validate(errors);
+			else
+				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 
 			return errors.Count == 0;
 		}
@@ -43,18 +54,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 			if (_entityGenerator.Enabled)
 				_entityGenerator.GenerateCode();
-			else
-				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
 
 			if (_enumGenerator.Enabled)
 				_enumGenerator.GenerateCode();
-			else
-				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
 
 			if (_dbContextGenerator.Enabled)
 				_dbContextGenerator.GenerateCode();
-			else
-				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 		}
 	}
 }

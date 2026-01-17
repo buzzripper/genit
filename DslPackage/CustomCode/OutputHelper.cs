@@ -75,14 +75,27 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 					pane.OutputStringThreadSafe(message + Environment.NewLine);
 
 					if (activate)
-					{
 						pane.Activate();
-					}
 				}
 			}
 			catch (Exception ex)
 			{
 				System.Diagnostics.Debug.WriteLine($"Failed to write to output window: {ex.Message}");
+			}
+		}
+
+		public static void ShowOutputToolWindow()
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			// Show the Output tool window
+			var shell = Package.GetGlobalService(typeof(SVsUIShell)) as IVsUIShell;
+			if (shell != null)
+			{
+				var outputWindowGuid = new Guid(ToolWindowGuids.Outputwindow);
+				IVsWindowFrame frame;
+				shell.FindToolWindow((uint)__VSFINDTOOLWIN.FTW_fForceCreate, ref outputWindowGuid, out frame);
+				frame?.Show();
 			}
 		}
 

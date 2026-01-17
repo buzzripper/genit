@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -36,11 +37,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 	public partial class EntityEditControl : UserControlBase
 	{
+		private const string PropertyModelDragFormat = "GenIt.PropertyModel";
 		private EntityModel _entityModel;
 		private bool _isUpdating;
 		private ObservableCollection<PropertyModel> _properties;
 		private Point _dragStartPoint;
 		private bool _isDragging;
+		private PropertyModel _draggedProperty;
 		private string _popupEditingField; // "Usings" or "Attributes"
 		private string[] _dataTypes;
 		private Transaction _currentEditTransaction;
@@ -421,8 +424,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				if (row != null && row.Item is PropertyModel property)
 				{
 					_isDragging = true;
-					DragDrop.DoDragDrop(row, property, DragDropEffects.Move);
+					_draggedProperty = property;
+					var dataObject = new DataObject(PropertyModelDragFormat, true);
+					DragDrop.DoDragDrop(row, dataObject, DragDropEffects.Move);
 					_isDragging = false;
+					_draggedProperty = null;
 					_dragStartPoint = new Point(0, 0);
 				}
 			}
@@ -441,7 +447,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 		private void dgProperties_DragOver(object sender, DragEventArgs e)
 		{
-			if (e.Data.GetDataPresent(typeof(PropertyModel)))
+			if (e.Data.GetDataPresent(PropertyModelDragFormat))
 			{
 				e.Effects = DragDropEffects.Move;
 			}
@@ -454,59 +460,68 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 		private void dgProperties_Drop(object sender, DragEventArgs e)
 		{
-			if (!e.Data.GetDataPresent(typeof(PropertyModel)))
-				return;
-
-			var droppedProperty = e.Data.GetData(typeof(PropertyModel)) as PropertyModel;
-			var targetRow = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
-
-			if (droppedProperty == null || targetRow == null)
-				return;
-
-			var targetProperty = targetRow.Item as PropertyModel;
-			if (targetProperty == null || droppedProperty == targetProperty)
-				return;
-
-			var oldIndex = _properties.IndexOf(droppedProperty);
-			var newIndex = _properties.IndexOf(targetProperty);
-
-			if (oldIndex < 0 || newIndex < 0)
-				return;
-
-			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Reorder Properties"))
-			{
-				// Update DisplayOrder for all properties based on new order
-				if (oldIndex < newIndex)
-				{
-					// Moving down: shift items up
-					for (int i = oldIndex; i < newIndex; i++)
-					{
-						_properties[i + 1].DisplayOrder = i;
-					}
-					droppedProperty.DisplayOrder = newIndex;
-				}
-				else
-				{
-					// Moving up: shift items down
-					for (int i = oldIndex; i > newIndex; i--)
-					{
-						_properties[i - 1].DisplayOrder = i;
-					}
-					droppedProperty.DisplayOrder = newIndex;
-				}
-
-				transaction.Commit();
-			}
-
-			// Refresh the collection outside the transaction
-			_isUpdating = true;
 			try
 			{
-				_properties.Move(oldIndex, newIndex);
+				if (!e.Data.GetDataPresent(PropertyModelDragFormat) || _draggedProperty == null)
+					return;
+
+				var targetRow = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
+				if (targetRow == null)
+					return;
+
+				var targetProperty = targetRow.Item as PropertyModel;
+				if (targetProperty == null || _draggedProperty == targetProperty)
+					return;
+
+				var oldIndex = _properties.IndexOf(_draggedProperty);
+				var newIndex = _properties.IndexOf(targetProperty);
+
+				if (oldIndex < 0 || newIndex < 0)
+					return;
+
+				using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Reorder Properties"))
+				{
+					// Update DisplayOrder for all properties based on new order
+					if (oldIndex < newIndex)
+					{
+						// Moving down: shift items up
+						for (int i = oldIndex; i < newIndex; i++)
+						{
+							_properties[i + 1].DisplayOrder = i;
+						}
+						_draggedProperty.DisplayOrder = newIndex;
+					}
+					else
+					{
+						// Moving up: shift items down
+						for (int i = oldIndex; i > newIndex; i--)
+						{
+							_properties[i - 1].DisplayOrder = i;
+						}
+						_draggedProperty.DisplayOrder = newIndex;
+					}
+
+					transaction.Commit();
+				}
+
+				// Refresh the collection outside the transaction
+				_isUpdating = true;
+				try
+				{
+					_properties.Move(oldIndex, newIndex);
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+			}
+			catch (COMException ex) when (ex.ErrorCode == unchecked((int)0x80040064))
+			{
+				// DV_E_FORMATETC - suppress this harmless COM error
 			}
 			finally
 			{
-				_isUpdating = false;
+				e.Handled = true;
 			}
 		}
 
