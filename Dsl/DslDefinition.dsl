@@ -948,7 +948,7 @@
     </DomainEnumeration>
   </Types>
   <Shapes>
-    <CompartmentShape Id="90f1ac4d-6ba9-4b0a-8559-20e1108d187b" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Dyvenix.GenIt" FixedTooltipText="Class Shape" FillColor="211, 220, 239" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
+    <CompartmentShape Id="90f1ac4d-6ba9-4b0a-8559-20e1108d187b" Description="" Name="ClassShape" DisplayName="Class Shape" Namespace="Dyvenix.GenIt" GeneratesDoubleDerived="true" FixedTooltipText="Class Shape" FillColor="211, 220, 239" InitialHeight="0.3" OutlineThickness="0.01" Geometry="RoundedRectangle">
       <ShapeHasDecorators Position="InnerTopCenter" HorizontalOffset="0" VerticalOffset="0">
         <TextDecorator Name="Name" DisplayName="Name" DefaultText="Name" />
       </ShapeHasDecorators>

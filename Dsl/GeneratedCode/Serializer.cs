@@ -29365,15 +29365,15 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Serializer ClassShapeSerializer for DomainClass ClassShape.
+	/// Serializer ClassShapeSerializerBase for DomainClass ClassShape.
 	/// </summary>
-	public partial class ClassShapeSerializer : DslDiagrams::CompartmentShapeSerializer
+	public abstract partial class ClassShapeSerializerBase : DslDiagrams::CompartmentShapeSerializer
 	{
 		#region Constructor
 		/// <summary>
-		/// ClassShapeSerializer Constructor
+		/// ClassShapeSerializerBase Constructor
 		/// </summary>
-		public ClassShapeSerializer ()
+		protected ClassShapeSerializerBase ()
 			: base ()
 		{
 		}
@@ -29471,7 +29471,7 @@ namespace Dyvenix.GenIt
 					// model elements.
 					while (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 					{
-						base.ReadElements(serializationContext, element, reader);
+						ReadElements(serializationContext, element, reader);
 						if (!serializationContext.Result.Failed && !reader.EOF && reader.NodeType == global::System.Xml.XmlNodeType.Element)
 						{
 							// Encountered one unknown XML element, skip it and keep reading.
@@ -29486,6 +29486,29 @@ namespace Dyvenix.GenIt
 			DslModeling::SerializationUtilities.Skip(reader);
 		}
 		
+	
+		/// <summary>
+		/// This methods deserializes nested XML elements inside the passed-in element.
+		/// </summary>
+		/// <remarks>
+		/// The caller will guarantee that the current element does have nested XML elements, and the call will position the 
+		/// reader at the open tag of the first child XML element.
+		/// This method will read as many child XML elements as it can. It returns under three circumstances:
+		/// 1) When an unknown child XML element is encountered. In this case, this method will position the reader at the open 
+		///    tag of the unknown element. This implies that if the first child XML element is unknown, this method should return 
+		///    immediately and do nothing.
+		/// 2) When all child XML elemnets are read. In this case, the reader will be positioned at the end tag of the parent element.
+		/// 3) EOF.
+		/// </remarks>
+		/// <param name="serializationContext">Serialization context.</param>
+		/// <param name="element">In-memory ClassShape instance that will get the deserialized data.</param>
+		/// <param name="reader">XmlReader to read serialized data from.</param>
+		protected override void ReadElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlReader reader)
+		{
+			// Always call the base class so any extensions are deserialized
+			base.ReadElements(serializationContext, element, reader);
+	
+		}
 	
 		#region TryCreateInstance
 		/// <summary>
@@ -29531,7 +29554,7 @@ namespace Dyvenix.GenIt
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClasses.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class instance.
-						ClassShapeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassShapeSerializer;
+						ClassShapeSerializerBase derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassShapeSerializerBase;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateInstance(serializationContext, reader, partition);
 					}
@@ -29677,7 +29700,7 @@ namespace Dyvenix.GenIt
 					DslModeling::DomainClassInfo derivedClass = null;
 					if (this.derivedClassMonikers.TryGetValue (localName, out derivedClass) && derivedClass != null)
 					{	// New derived class moniker instance.
-						ClassShapeSerializer derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassShapeSerializer;
+						ClassShapeSerializerBase derivedSerializer = serializationContext.Directory.GetSerializer(derivedClass.Id) as ClassShapeSerializerBase;
 						global::System.Diagnostics.Debug.Assert(derivedSerializer != null, "Cannot find serializer for " + derivedClass.Name + "!");
 						result = derivedSerializer.CreateMonikerInstance(serializationContext, reader, sourceRolePlayer, relDomainClassId, partition);
 					}
@@ -29866,11 +29889,25 @@ namespace Dyvenix.GenIt
 			if (!serializationContext.Result.Failed)
 			{
 				// Write 1) properties serialized as nested XML elements and 2) child model elements into XML.
-				base.WriteElements(serializationContext, element, writer);
+				WriteElements(serializationContext, element, writer);
 			}
 	
 			writer.WriteEndElement();
 		}
+	
+		/// <summary>
+		/// This methods serializes 1) properties serialized as nested XML elements and 2) child model elements into XML. 
+		/// </summary>
+		/// <param name="serializationContext">Serialization context.</param>
+		/// <param name="element">ClassShape instance to be serialized.</param>
+		/// <param name="writer">XmlWriter to write serialized data to.</param>        
+		protected override void WriteElements(DslModeling::SerializationContext serializationContext, DslModeling::ModelElement element, global::System.Xml.XmlWriter writer)
+		{
+			// Always call the base class so any extensions are serialized
+			base.WriteElements(serializationContext, element, writer);
+	
+		}
+		
 		#endregion
 	
 		#region Moniker Support
@@ -29920,6 +29957,22 @@ namespace Dyvenix.GenIt
 			#endregion	
 			
 			return string.Empty;
+		}
+		#endregion
+	}
+	
+	/// <summary>
+	/// Serializer ClassShapeSerializer for DomainClass ClassShape.
+	/// </summary>
+	public partial class ClassShapeSerializer : ClassShapeSerializerBase
+	{
+		#region Constructor
+		/// <summary>
+		/// ClassShapeSerializer Constructor
+		/// </summary>
+		public ClassShapeSerializer ()
+			: base ()
+		{
 		}
 		#endregion
 	}

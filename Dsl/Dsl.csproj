@@ -89,6 +89,7 @@
     <Compile Include="CustomCode\AssociationCustomization.cs" />
     <Compile Include="CustomCode\AssociationNavigationPropertyRules.cs" />
     <Compile Include="CustomCode\AssociationTypeDescriptor.cs" />
+    <Compile Include="CustomCode\ClassShapeCustom.cs" />
     <Compile Include="CustomCode\DataTypeHelper.cs" />
     <Compile Include="CustomCode\EntityModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelTypeDescriptor.cs" />
