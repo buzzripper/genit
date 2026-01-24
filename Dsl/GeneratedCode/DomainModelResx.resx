@@ -865,6 +865,14 @@
     <value>Incl Nav Properties</value>
     <comment>DisplayName for DomainProperty &apos;InclNavProperties&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/Permissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for this method</value>
+    <comment>Description for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModel/Permissions.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.UpdatePropertyModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.UpdatePropertyModel</value>
     <comment>Description for DomainClass &apos;UpdatePropertyModel&apos;</comment>
@@ -912,6 +920,14 @@
   <data name="Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.DisplayName" xml:space="preserve">
     <value>Display Order</value>
     <comment>DisplayName for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/Permissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for this method</value>
+    <comment>Description for DomainProperty &apos;Permissions&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/Permissions.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel</value>

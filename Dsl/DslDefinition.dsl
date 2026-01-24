@@ -474,6 +474,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e" Description="Comma-separated list of required permissions for this method" Name="Permissions" DisplayName="Permissions">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="dfb40532-a576-4b0e-bebe-90c3c47c3ae3" Description="Description for Dyvenix.GenIt.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" Namespace="Dyvenix.GenIt">
@@ -506,6 +511,11 @@
         <DomainProperty Id="2d1897ce-b2a7-4cfb-af36-b5f0c6c1cd13" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Display Order" Name="DisplayOrder" DisplayName="Display Order" DefaultValue="0">
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f" Description="Comma-separated list of required permissions for this method" Name="Permissions" DisplayName="Permissions">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1369,6 +1379,9 @@
           <XmlPropertyData XmlName="inclNavProperties">
             <DomainPropertyMoniker Name="ReadMethodModel/InclNavProperties" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="ReadMethodModel/Permissions" />
+          </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="filterProperties">
             <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
           </XmlRelationshipData>
@@ -1396,6 +1409,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="displayOrder">
             <DomainPropertyMoniker Name="UpdateMethodModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="UpdateMethodModel/Permissions" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="updateProperties">
             <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />

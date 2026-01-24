@@ -110,9 +110,11 @@
     <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
+    <Compile Include="CustomCode\ReadMethodModelPartial.cs" />
     <Compile Include="CustomCode\ServiceModelCustomization.cs" />
     <Compile Include="CustomCode\ServiceModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\TypeDescriptorHelper.cs" />
+    <Compile Include="CustomCode\UpdateMethodModelPartial.cs" />
     <Compile Include="GeneratedCode\ConnectionBuilders.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

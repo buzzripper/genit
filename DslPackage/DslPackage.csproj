@@ -69,6 +69,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -84,6 +86,7 @@
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
+    <Compile Include="CustomCode\GenItDocDataCustom.cs" />
     <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
     <Compile Include="CustomCode\OutputHelper.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
@@ -122,6 +125,11 @@
     <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
       <DependentUpon>ModuleEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Permissions\PermissionModel.cs" />
+    <Compile Include="Editors\Permissions\PermissionsEditorDialog.xaml.cs">
+      <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Permissions\PermissionsManager.cs" />
     <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
       <DependentUpon>PropertyEditControl.xaml</DependentUpon>
     </Compile>
@@ -163,6 +171,7 @@
     <EmbeddedResource Include="Resources\Templates\Query.tmpl" />
     <EmbeddedResource Include="Resources\Templates\ServiceCollExt.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Services.tmpl" />
+    <None Include="ProjectItemTemplates\gmdl.gmdl.extdata" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
@@ -354,6 +363,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">

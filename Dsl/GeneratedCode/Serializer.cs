@@ -11283,6 +11283,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// Permissions
+			if (!serializationContext.Result.Failed)
+			{
+				string attribPermissions = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "permissions");
+				if (attribPermissions != null)
+				{
+					global::System.String valueOfPermissions;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribPermissions, out valueOfPermissions))
+					{
+						instanceOfReadMethodModel.Permissions = valueOfPermissions;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "permissions", typeof(global::System.String), attribPermissions);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -11851,6 +11868,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclNavProperties", propValue);
+	
+				}
+			}
+			// Permissions
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfReadMethodModel.Permissions;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissions", propValue);
 	
 				}
 			}
@@ -12993,6 +13021,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// Permissions
+			if (!serializationContext.Result.Failed)
+			{
+				string attribPermissions = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "permissions");
+				if (attribPermissions != null)
+				{
+					global::System.String valueOfPermissions;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribPermissions, out valueOfPermissions))
+					{
+						instanceOfUpdateMethodModel.Permissions = valueOfPermissions;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "permissions", typeof(global::System.String), attribPermissions);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -13523,6 +13568,17 @@ namespace Dyvenix.GenIt
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayOrder", serializedPropValue);
 					}
+				}
+			}
+			// Permissions
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfUpdateMethodModel.Permissions;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissions", propValue);
+	
 				}
 			}
 		}
