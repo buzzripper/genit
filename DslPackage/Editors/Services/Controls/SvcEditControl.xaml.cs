@@ -47,6 +47,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			readMethodsEditCtl.SetData(serviceModel, _serviceAdapter.ReadMethods, _entity.Properties, _entity.NavigationProperties);
 			updMethodsEditCtl.SetData(serviceModel, _serviceAdapter.Model.UpdateMethods, _entity.Properties);
 
+			// Update permission counts for standard methods
+			UpdatePermissionsCounts();
+
 			// Bind Service tab grids using the adapter's collection properties
 			grdServiceUsings.ItemsSource = _serviceAdapter.ServiceUsingsList;
 			grdServiceAttributes.ItemsSource = _serviceAdapter.ServiceAttributesList;
@@ -88,7 +91,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (!_suspendUpdates && _serviceAdapter != null)
 			{
-				_serviceAdapter.InclCreate = ckbInclCreate.IsChecked ?? false;
+				var isChecked = ckbInclCreate.IsChecked ?? false;
+				_serviceAdapter.InclCreate = isChecked;
+				btnCreatePerms.IsEnabled = isChecked;
+				if (!isChecked)
+				{
+					DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Clear Create Permissions", () =>
+					{
+						_serviceAdapter.Model.CreatePermissions = string.Empty;
+					});
+					UpdatePermissionsCounts();
+				}
 			}
 		}
 
@@ -96,7 +109,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (!_suspendUpdates && _serviceAdapter != null)
 			{
-				_serviceAdapter.InclUpdate = ckbInclUpdate.IsChecked ?? false;
+				var isChecked = ckbInclUpdate.IsChecked ?? false;
+				_serviceAdapter.InclUpdate = isChecked;
+				btnUpdatePerms.IsEnabled = isChecked;
+				if (!isChecked)
+				{
+					DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Clear Update Permissions", () =>
+					{
+						_serviceAdapter.Model.UpdatePermissions = string.Empty;
+					});
+					UpdatePermissionsCounts();
+				}
 			}
 		}
 
@@ -104,7 +127,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (!_suspendUpdates && _serviceAdapter != null)
 			{
-				_serviceAdapter.InclDelete = ckbInclDelete.IsChecked ?? false;
+				var isChecked = ckbInclDelete.IsChecked ?? false;
+				_serviceAdapter.InclDelete = isChecked;
+				btnDeletePerms.IsEnabled = isChecked;
+				if (!isChecked)
+				{
+					DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Clear Delete Permissions", () =>
+					{
+						_serviceAdapter.Model.DeletePermissions = string.Empty;
+					});
+					UpdatePermissionsCounts();
+				}
 			}
 		}
 
@@ -177,6 +210,77 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			{
 				_serviceAdapter.ControllerAttributesList.Remove(item);
 			}
+		}
+
+		// Standard Methods permission button handlers
+		private void btnCreatePerms_Click(object sender, RoutedEventArgs e)
+		{
+			if (_serviceAdapter == null) return;
+
+			var ownerWindow = Window.GetWindow(this);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.CreatePermissions);
+
+			if (newPermissions != null)
+			{
+				DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Update Create Permissions", () =>
+				{
+					_serviceAdapter.Model.CreatePermissions = newPermissions;
+				});
+				UpdatePermissionsCounts();
+			}
+		}
+
+		private void btnUpdatePerms_Click(object sender, RoutedEventArgs e)
+		{
+			if (_serviceAdapter == null) return;
+
+			var ownerWindow = Window.GetWindow(this);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.UpdatePermissions);
+
+			if (newPermissions != null)
+			{
+				DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Update Update Permissions", () =>
+				{
+					_serviceAdapter.Model.UpdatePermissions = newPermissions;
+				});
+				UpdatePermissionsCounts();
+			}
+		}
+
+		private void btnDeletePerms_Click(object sender, RoutedEventArgs e)
+		{
+			if (_serviceAdapter == null) return;
+
+			var ownerWindow = Window.GetWindow(this);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.DeletePermissions);
+
+			if (newPermissions != null)
+			{
+				DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Update Delete Permissions", () =>
+				{
+					_serviceAdapter.Model.DeletePermissions = newPermissions;
+				});
+				UpdatePermissionsCounts();
+			}
+		}
+
+		private void UpdatePermissionsCounts()
+		{
+			btnCreatePerms.Content = CountPermissions(_serviceAdapter.Model.CreatePermissions).ToString();
+			btnUpdatePerms.Content = CountPermissions(_serviceAdapter.Model.UpdatePermissions).ToString();
+			btnDeletePerms.Content = CountPermissions(_serviceAdapter.Model.DeletePermissions).ToString();
+
+			// Update button enabled states based on checkbox states
+			btnCreatePerms.IsEnabled = ckbInclCreate.IsChecked ?? false;
+			btnUpdatePerms.IsEnabled = ckbInclUpdate.IsChecked ?? false;
+			btnDeletePerms.IsEnabled = ckbInclDelete.IsChecked ?? false;
+		}
+
+		private int CountPermissions(string permissions)
+		{
+			if (string.IsNullOrWhiteSpace(permissions))
+				return 0;
+			return permissions.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries).Length;
 		}
 	}
 }

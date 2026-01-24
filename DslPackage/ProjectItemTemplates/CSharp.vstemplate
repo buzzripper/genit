@@ -11,8 +11,7 @@
 	</TemplateData>
 	<TemplateContent>
 		<ProjectItem TargetFileName="$fileinputname$.gmdl">gmdl.gmdl</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.gmdl.diagram" DependentUpon="$fileinputname$.gmdl">gmdl.diagram</ProjectItem>
-		<ProjectItem TargetFileName="$fileinputname$.gmdl.extdata" DependentUpon="$fileinputname$.gmdl">gmdl.gmdl.extdata</ProjectItem>
+		<ProjectItem TargetFileName="$fileinputname$.gmdl.diagram">gmdl.diagram</ProjectItem>
 	</TemplateContent>
 </VSTemplate>
 

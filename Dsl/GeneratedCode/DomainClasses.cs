@@ -8538,6 +8538,270 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region CreatePermissions domain property code
+		
+		/// <summary>
+		/// CreatePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CreatePermissionsDomainPropertyId = new global::System.Guid(0x5a6b7c8d, 0x9e0f, 0x1a2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d);
+		
+		/// <summary>
+		/// Storage for CreatePermissions
+		/// </summary>
+		private global::System.String createPermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CreatePermissions domain property.
+		/// Comma-separated list of required permissions for create method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d")]
+		public global::System.String CreatePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return createPermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CreatePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.CreatePermissions domain property.
+		/// </summary>
+		internal sealed partial class CreatePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private CreatePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.CreatePermissions domain property value handler.
+			/// </summary>
+			public static readonly CreatePermissionsPropertyHandler Instance = new CreatePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.CreatePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CreatePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.createPermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.createPermissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region UpdatePermissions domain property code
+		
+		/// <summary>
+		/// UpdatePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UpdatePermissionsDomainPropertyId = new global::System.Guid(0x6b7c8d9e, 0x0f1a, 0x2b3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d, 0x1e);
+		
+		/// <summary>
+		/// Storage for UpdatePermissions
+		/// </summary>
+		private global::System.String updatePermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of UpdatePermissions domain property.
+		/// Comma-separated list of required permissions for update method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e")]
+		public global::System.String UpdatePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return updatePermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UpdatePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.UpdatePermissions domain property.
+		/// </summary>
+		internal sealed partial class UpdatePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private UpdatePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.UpdatePermissions domain property value handler.
+			/// </summary>
+			public static readonly UpdatePermissionsPropertyHandler Instance = new UpdatePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.UpdatePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UpdatePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.updatePermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.updatePermissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DeletePermissions domain property code
+		
+		/// <summary>
+		/// DeletePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DeletePermissionsDomainPropertyId = new global::System.Guid(0x7c8d9e0f, 0x1a2b, 0x3c4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d, 0x1e, 0x2f);
+		
+		/// <summary>
+		/// Storage for DeletePermissions
+		/// </summary>
+		private global::System.String deletePermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DeletePermissions domain property.
+		/// Comma-separated list of required permissions for delete method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f")]
+		public global::System.String DeletePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return deletePermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DeletePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.DeletePermissions domain property.
+		/// </summary>
+		internal sealed partial class DeletePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private DeletePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.DeletePermissions domain property value handler.
+			/// </summary>
+			public static readonly DeletePermissionsPropertyHandler Instance = new DeletePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.DeletePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DeletePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.deletePermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.deletePermissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModeled opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModeled.

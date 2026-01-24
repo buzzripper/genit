@@ -1069,6 +1069,24 @@
         <xsd:attribute name="controllerUsings" type="xsd:string" />
         <!-- Property: ControllerAttributes -->
         <xsd:attribute name="controllerAttributes" type="xsd:string" />
+        <!-- Property: CreatePermissions -->
+        <xsd:attribute name="createPermissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of required permissions for create method</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: UpdatePermissions -->
+        <xsd:attribute name="updatePermissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of required permissions for update method</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: DeletePermissions -->
+        <xsd:attribute name="deletePermissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of required permissions for delete method</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

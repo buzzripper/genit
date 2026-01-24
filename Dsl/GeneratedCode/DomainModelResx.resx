@@ -1033,6 +1033,42 @@
     <value>Controller Attributes</value>
     <comment>DisplayName for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/CreatePermissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for create method</value>
+    <comment>Description for DomainProperty &apos;CreatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/CreatePermissions.DisplayName" xml:space="preserve">
+    <value>Create Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;CreatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/CreatePermissions.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;CreatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/UpdatePermissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for update method</value>
+    <comment>Description for DomainProperty &apos;UpdatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/UpdatePermissions.DisplayName" xml:space="preserve">
+    <value>Update Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;UpdatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/UpdatePermissions.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;UpdatePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/DeletePermissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for delete method</value>
+    <comment>Description for DomainProperty &apos;DeletePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/DeletePermissions.DisplayName" xml:space="preserve">
+    <value>Delete Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;DeletePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/DeletePermissions.Category" xml:space="preserve">
+    <value>ServiceModel</value>
+    <comment>Category for DomainProperty &apos;DeletePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModuleModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel</value>
     <comment>Description for DomainClass &apos;ModuleModel&apos;</comment>

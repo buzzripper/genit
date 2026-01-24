@@ -14031,6 +14031,57 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// CreatePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCreatePermissions = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "createPermissions");
+				if (attribCreatePermissions != null)
+				{
+					global::System.String valueOfCreatePermissions;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCreatePermissions, out valueOfCreatePermissions))
+					{
+						instanceOfServiceModel.CreatePermissions = valueOfCreatePermissions;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "createPermissions", typeof(global::System.String), attribCreatePermissions);
+					}
+				}
+			}
+			// UpdatePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUpdatePermissions = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "updatePermissions");
+				if (attribUpdatePermissions != null)
+				{
+					global::System.String valueOfUpdatePermissions;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUpdatePermissions, out valueOfUpdatePermissions))
+					{
+						instanceOfServiceModel.UpdatePermissions = valueOfUpdatePermissions;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "updatePermissions", typeof(global::System.String), attribUpdatePermissions);
+					}
+				}
+			}
+			// DeletePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDeletePermissions = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "deletePermissions");
+				if (attribDeletePermissions != null)
+				{
+					global::System.String valueOfDeletePermissions;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDeletePermissions, out valueOfDeletePermissions))
+					{
+						instanceOfServiceModel.DeletePermissions = valueOfDeletePermissions;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "deletePermissions", typeof(global::System.String), attribDeletePermissions);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -14700,6 +14751,39 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "controllerAttributes", propValue);
+	
+				}
+			}
+			// CreatePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfServiceModel.CreatePermissions;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "createPermissions", propValue);
+	
+				}
+			}
+			// UpdatePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfServiceModel.UpdatePermissions;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "updatePermissions", propValue);
+	
+				}
+			}
+			// DeletePermissions
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfServiceModel.DeletePermissions;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "deletePermissions", propValue);
 	
 				}
 			}
