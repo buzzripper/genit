@@ -123,13 +123,6 @@
             <elementListCompartment Id="757c4807-42f6-4bbe-88b2-70bed98f3180" absoluteBounds="1.6, 71.272281015713986, 0.125, 0.2531941831111908" name="Properties" titleTextColor="Black" itemTextColor="Black" />
           </nestedChildShapes>
         </microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape>
-        <microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape Id="0468d765-dd3c-478b-9d5a-80ab2e26695e" absoluteBounds="1.6, 37.528130029042565, 1.35, 0.80803197185198483">
-          <DomainRelationshipMoniker Name="/Dyvenix.GenIt/EnumAssociation" />
-          <relativeChildShapes />
-          <nestedChildShapes>
-            <elementListCompartment Id="1a9f4c2f-315e-4e0c-8f48-be69246e2f51" absoluteBounds="1.6150000000000002, 37.788130029042563, 1.3200000000000003, 0.44803197185198462" name="Properties" titleTextColor="Black" itemTextColor="Black" />
-          </nestedChildShapes>
-        </microsoft.VisualStudio.Modeling.DslDesigner.RelationshipShape>
         <microsoft.VisualStudio.Modeling.DslDesigner.ClassShape Id="3ab82c21-7629-4f06-8af3-7727ba002974" absoluteBounds="0.5, 71.842281015714, 1.6666666716337204, 1.3377075493335724">
           <RootNodeMoniker Id="0c41ad65-912b-4a6c-b613-db9c1aefaf48" />
           <nestedChildShapes>
@@ -1202,11 +1195,6 @@
                 <ClassHasBaseClassMoniker Name="/Dyvenix.GenIt/ModuleModel" />
               </InheritanceLink>
             </InheritanceNode>
-            <SourceRoleNode Id="e0e0c4b4-7268-4594-81b5-722c4f47efd4" IsLeaf="true">
-              <Role>
-                <DomainRoleMoniker Name="/Dyvenix.GenIt/EnumAssociation/Entity" />
-              </Role>
-            </SourceRoleNode>
           </Arcs>
         </DslDesignerDiagramTree>
       </DomainModelElementTree>
@@ -1261,11 +1249,6 @@
             <RootNode Id="d660c761-ec9e-44ee-b491-99de2a50debb">
               <Class>
                 <GeometryShapeMoniker Name="/Dyvenix.GenIt/ModuleShape" />
-              </Class>
-            </RootNode>
-            <RootNode Id="e7d24507-bab2-465c-8938-4ae3d31479dd">
-              <Class>
-                <ConnectorMoniker Name="/Dyvenix.GenIt/EnumAssociationConnector" />
               </Class>
             </RootNode>
           </Roots>
