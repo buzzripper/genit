@@ -8,6 +8,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 {
 	internal class GenItModel
 	{
+		private readonly ModelRoot _modelRoot;
 		private readonly EntityGenerator _entityGenerator;
 		private readonly EnumGenerator _enumGenerator;
 		private readonly DbContextGenerator _dbContextGenerator;
@@ -17,18 +18,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			var entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
 
-			var x = modelRoot.Types.OfType<ModuleModel>().ToList();
-
 			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
-			//var dbContext = modelRoot.Types.OfType<EnumModel>().ToList();
 			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.Name, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
+
+			_modelRoot = modelRoot;
 		}
 
 		internal bool Validate(out List<string> errors)
 		{
 			errors = new List<string>();
+
+			if (string.IsNullOrEmpty(_modelRoot.Name))
+				errors.Add("Model name is required.");
 
 			if (_entityGenerator.Enabled)
 				_entityGenerator.Validate(errors);

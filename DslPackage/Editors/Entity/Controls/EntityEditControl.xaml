@@ -417,29 +417,64 @@
                 </DataGridTemplateColumn>
                 
                 <!-- Pri Key -->
-                <DataGridCheckBoxColumn Header="PK" Binding="{Binding IsPrimaryKey, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="35">
-				</DataGridCheckBoxColumn>
+                <DataGridTemplateColumn Header="PK" Width="35">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsPrimaryKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-				<!-- Indexed -->
-				<DataGridCheckBoxColumn Header="Index" Binding="{Binding IsIndexed, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="100"/>
+                <!-- Indexed -->
+                <DataGridTemplateColumn Header="Index" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsIndexed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-				<!-- Nullable -->
-                <DataGridCheckBoxColumn Header="Nullable" Binding="{Binding IsNullable, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="100"/>
+                <!-- Nullable -->
+                <DataGridTemplateColumn Header="Nullable" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsNullable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 
                 <!-- Unique Index -->
-                <DataGridCheckBoxColumn Header="Unique Idx" Binding="{Binding IsIndexUnique, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="100"/>
+                <DataGridTemplateColumn Header="Unique Idx" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsIndexUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 
                 <!-- Clustered Index -->
-                <DataGridCheckBoxColumn Header="Clustered Idx" Binding="{Binding IsIndexClustered, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="100"/>
+                <DataGridTemplateColumn Header="Clustered Idx" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsIndexClustered, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
-				<!-- Identity -->
-				<DataGridCheckBoxColumn Header="Identity" Binding="{Binding IsIdentity, UpdateSourceTrigger=PropertyChanged}" 
-                                        Width="100"/>
+                <!-- Identity -->
+                <DataGridTemplateColumn Header="Identity" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsIdentity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 			</DataGrid.Columns>
         </DataGrid>
         

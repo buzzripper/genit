@@ -9,11 +9,11 @@ param(
 
 # Values to set (from Test.gmdl)
 $entitiesOutputFolder = "Common\Data.Shared\Entities"
-$entitiesNamespace = "yvenix.App1.Data.Shared.Entities"
+$entitiesNamespace = "Dyvenix.App1.Data.Shared.Entities"
 $dbContextOutputFolder = "Common\Data"
 $dbContextNamespace = "Dyvenix.App1.Data"
 $enumsOutputFolder = "Common\Data.Shared\Entities"
-$enumsNamespace = "yvenix.App1.Data.Shared.Entities"
+$enumsNamespace = "Dyvenix.App1.Data.Shared.Entities"
 
 # Check if file exists
 if (-not (Test-Path $FilePath)) {
