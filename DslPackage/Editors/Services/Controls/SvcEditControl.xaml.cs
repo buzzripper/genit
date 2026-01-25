@@ -217,8 +217,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (_serviceAdapter == null) return;
 
+			var modelRoot = GetModelRoot();
+			if (modelRoot == null) return;
+
 			var ownerWindow = Window.GetWindow(this);
-			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.CreatePermissions);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, _serviceAdapter.Model.CreatePermissions);
 
 			if (newPermissions != null)
 			{
@@ -234,8 +237,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (_serviceAdapter == null) return;
 
+			var modelRoot = GetModelRoot();
+			if (modelRoot == null) return;
+
 			var ownerWindow = Window.GetWindow(this);
-			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.UpdatePermissions);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, _serviceAdapter.Model.UpdatePermissions);
 
 			if (newPermissions != null)
 			{
@@ -251,8 +257,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (_serviceAdapter == null) return;
 
+			var modelRoot = GetModelRoot();
+			if (modelRoot == null) return;
+
 			var ownerWindow = Window.GetWindow(this);
-			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, _serviceAdapter.Model.DeletePermissions);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, _serviceAdapter.Model.DeletePermissions);
 
 			if (newPermissions != null)
 			{
@@ -262,6 +271,18 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 				});
 				UpdatePermissionsCounts();
 			}
+		}
+
+		private ModelRoot GetModelRoot()
+		{
+			if (_serviceAdapter?.Model?.Store == null) return null;
+			
+			foreach (var element in _serviceAdapter.Model.Store.ElementDirectory.AllElements)
+			{
+				if (element is ModelRoot modelRoot)
+					return modelRoot;
+			}
+			return null;
 		}
 
 		private void UpdatePermissionsCounts()

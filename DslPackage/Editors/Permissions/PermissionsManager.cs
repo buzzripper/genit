@@ -5,127 +5,43 @@ using System.Linq;
 namespace Dyvenix.GenIt.DslPackage.Editors.Permissions
 {
 	/// <summary>
-	/// Manages permissions for a model, including loading, caching, and validation.
+	/// Represents a permission with name and description for the permissions dialog.
 	/// </summary>
-	public class PermissionsManager
+	public class Permission
 	{
-		private static PermissionsManager _current;
-		private PermissionsExtData _extData;
-		private string _extDataFilePath;
+		public string Name { get; set; }
+		public string Description { get; set; }
 
-		/// <summary>
-		/// Gets the current PermissionsManager instance.
-		/// </summary>
-		public static PermissionsManager Current
+		public Permission()
 		{
-			get
-			{
-				if (_current == null)
-					_current = new PermissionsManager();
-				return _current;
-			}
+			Name = string.Empty;
+			Description = string.Empty;
 		}
 
-		/// <summary>
-		/// Gets the loaded permissions.
-		/// </summary>
-		public IReadOnlyList<Permission> Permissions => _extData?.Permissions ?? new List<Permission>();
-
-		/// <summary>
-		/// Gets whether permissions have been loaded.
-		/// </summary>
-		public bool IsLoaded => _extData != null;
-
-		/// <summary>
-		/// Gets the current extdata file path.
-		/// </summary>
-		public string ExtDataFilePath => _extDataFilePath;
-
-		/// <summary>
-		/// Loads permissions from the extdata file for the given gmdl file.
-		/// </summary>
-		/// <param name="gmdlFilePath">Path to the .gmdl file</param>
-		/// <exception cref="PermissionsExtDataException">Thrown if file is missing or malformed</exception>
-		public void Load(string gmdlFilePath)
+		public Permission(string name, string description)
 		{
-			_extDataFilePath = PermissionsExtData.GetExtDataFilePath(gmdlFilePath);
-			_extData = PermissionsExtData.Load(_extDataFilePath);
+			Name = name ?? string.Empty;
+			Description = description ?? string.Empty;
 		}
+	}
 
+	/// <summary>
+	/// Helper class for parsing and formatting permissions strings.
+	/// </summary>
+	public static class PermissionsHelper
+	{
 		/// <summary>
-		/// Unloads the current permissions data.
+		/// Gets permissions from a ModelRoot as Permission objects.
 		/// </summary>
-		public void Unload()
+		public static List<Permission> GetPermissions(ModelRoot modelRoot)
 		{
-			_extData = null;
-			_extDataFilePath = null;
-		}
+			if (modelRoot == null)
+				return new List<Permission>();
 
-		/// <summary>
-		/// Creates an empty extdata file for the given gmdl file.
-		/// </summary>
-		public void CreateEmpty(string gmdlFilePath)
-		{
-			var extDataPath = PermissionsExtData.GetExtDataFilePath(gmdlFilePath);
-			PermissionsExtData.CreateEmpty(extDataPath);
-		}
-
-		/// <summary>
-		/// Gets all permission names.
-		/// </summary>
-		public IEnumerable<string> GetPermissionNames()
-		{
-			return _extData?.GetPermissionNames() ?? Enumerable.Empty<string>();
-		}
-
-		/// <summary>
-		/// Gets a permission by name.
-		/// </summary>
-		public Permission GetPermission(string name)
-		{
-			return _extData?.Permissions.FirstOrDefault(p => 
-				string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
-		}
-
-		/// <summary>
-		/// Checks if a permission name is valid.
-		/// </summary>
-		public bool IsValidPermission(string name)
-		{
-			return _extData?.HasPermission(name) ?? false;
-		}
-
-		/// <summary>
-		/// Validates a comma-separated permissions string and returns only the valid permissions.
-		/// </summary>
-		/// <param name="permissionsString">Comma-separated permissions string</param>
-		/// <param name="removedPermissions">List of permissions that were removed because they're invalid</param>
-		/// <returns>Validated comma-separated permissions string with invalid permissions removed</returns>
-		public string ValidateAndCleanPermissions(string permissionsString, out List<string> removedPermissions)
-		{
-			removedPermissions = new List<string>();
-
-			if (string.IsNullOrWhiteSpace(permissionsString))
-				return string.Empty;
-
-			var permissions = permissionsString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-				.Select(p => p.Trim())
+			return modelRoot.PermissionsList
+				.Select(p => new Permission(p.Name, p.Description))
+				.OrderBy(p => p.Name, StringComparer.OrdinalIgnoreCase)
 				.ToList();
-
-			var validPermissions = new List<string>();
-			foreach (var perm in permissions)
-			{
-				if (IsValidPermission(perm))
-				{
-					validPermissions.Add(perm);
-				}
-				else
-				{
-					removedPermissions.Add(perm);
-				}
-			}
-
-			return string.Join(",", validPermissions);
 		}
 
 		/// <summary>

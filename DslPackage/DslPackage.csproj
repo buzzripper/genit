@@ -126,7 +126,6 @@
       <DependentUpon>ModuleEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\PermissionModel.cs" />
-    <Compile Include="Editors\Permissions\PermissionModel.cs" />
     <Compile Include="Editors\Permissions\PermissionsEditorDialog.xaml.cs">
       <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
     </Compile>
@@ -135,6 +134,12 @@
       <DependentUpon>PropertyEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
+    <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
+      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
+      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\UserControlBase.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
@@ -148,14 +153,8 @@
     <Compile Include="Editors\Services\Controls\InclNavPropEditControl.xaml.cs">
       <DependentUpon>InclNavPropEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
-      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\Services\Controls\SvcEditControl.xaml.cs">
       <DependentUpon>SvcEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
-      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Services\Controls\UpdPropsEditControl.xaml.cs">
       <DependentUpon>UpdPropsEditControl.xaml</DependentUpon>
@@ -172,7 +171,6 @@
     <EmbeddedResource Include="Resources\Templates\Query.tmpl" />
     <EmbeddedResource Include="Resources\Templates\ServiceCollExt.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Services.tmpl" />
-    <None Include="ProjectItemTemplates\gmdl.gmdl.extdata" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>

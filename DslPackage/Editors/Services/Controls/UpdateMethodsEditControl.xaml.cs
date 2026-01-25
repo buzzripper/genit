@@ -90,8 +90,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		{
 			if (sender is Button btn && btn.DataContext is UpdateMethodModel method)
 			{
+				var modelRoot = GetModelRoot();
+				if (modelRoot == null) return;
+
 				var ownerWindow = Window.GetWindow(this);
-				var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, method.Permissions);
+				var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, method.Permissions);
 				
 				if (newPermissions != null)
 				{
@@ -102,6 +105,18 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 					RefreshGrid();
 				}
 			}
+		}
+
+		private ModelRoot GetModelRoot()
+		{
+			if (_serviceModel?.Store == null) return null;
+			
+			foreach (var element in _serviceModel.Store.ElementDirectory.AllElements)
+			{
+				if (element is ModelRoot modelRoot)
+					return modelRoot;
+			}
+			return null;
 		}
 
 		private void btnUp_Click(object sender, RoutedEventArgs e)
