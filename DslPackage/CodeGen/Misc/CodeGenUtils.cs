@@ -12,18 +12,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 			FileHeader += $"//------------------------------------------------------------------------------------------------------------";
 		}
 
-		public static string SolutionRootPath { get; set; }
 		public static string FileHeader { get; }
 
 		public static string ResolveRelativePath(string path)
 		{
-			if (string.IsNullOrWhiteSpace(SolutionRootPath) || string.IsNullOrWhiteSpace(path))
+			if (string.IsNullOrWhiteSpace(PackageUtils.SolutionRootPath) || string.IsNullOrWhiteSpace(path))
 				return path;
 
 			if (Path.IsPathRooted(path))
 				return path;
 
-			var bp = Path.GetDirectoryName(SolutionRootPath);   // In case it's a filepath
+			var bp = Path.GetDirectoryName(PackageUtils.SolutionRootPath);   // In case it's a filepath
 
 			return Path.GetFullPath(Path.Combine(bp, path));
 		}
@@ -91,6 +90,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 					// For enum types, return the type name as-is
 					return dataType;
 			}
+		}
+
+		public static string ToCamelCase(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+				return input;
+
+			if (input.Length == 1)
+				return input.ToLower();
+
+			var firstChar = input.Substring(0, 1).ToLower();
+			return $"{firstChar}{input.Substring(1)}";
 		}
 	}
 }

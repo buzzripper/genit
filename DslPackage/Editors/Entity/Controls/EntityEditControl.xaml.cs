@@ -42,7 +42,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private bool _isUpdating;
 		private ObservableCollection<PropertyModel> _properties;
 		private Point _dragStartPoint;
-		private bool _isDragging;
 		private PropertyModel _draggedProperty;
 		private string _popupEditingField; // "Usings" or "Attributes"
 		private string[] _dataTypes;
@@ -423,11 +422,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				var row = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
 				if (row != null && row.Item is PropertyModel property)
 				{
-					_isDragging = true;
 					_draggedProperty = property;
 					var dataObject = new DataObject(PropertyModelDragFormat, true);
 					DragDrop.DoDragDrop(row, dataObject, DragDropEffects.Move);
-					_isDragging = false;
 					_draggedProperty = null;
 					_dragStartPoint = new Point(0, 0);
 				}

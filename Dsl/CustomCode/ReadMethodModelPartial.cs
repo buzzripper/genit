@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dyvenix.GenIt
 {
@@ -30,6 +32,32 @@ namespace Dyvenix.GenIt
 				if (string.IsNullOrWhiteSpace(Permissions))
 					return 0;
 				return Permissions.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Length;
+			}
+		}
+
+		public bool IsList
+		{
+			get
+			{
+				if (this.FilterProperties.Count == 1 && !this.FilterProperties[0].IsOptional && (this.FilterProperties[0].PropertyModel.IsPrimaryKey || this.FilterProperties[0].PropertyModel.IsIndexUnique))
+					return false;
+				return true;
+			}
+		}
+
+
+		public List<string> InclNavPropertiesList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.InclNavProperties))
+					return new List<string>();
+
+				return this.InclNavProperties
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
 			}
 		}
 	}

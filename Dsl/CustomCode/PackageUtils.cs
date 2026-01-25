@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Dyvenix.GenIt
 {
 	/// <summary>
@@ -9,5 +11,27 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the root path of the current solution.
 		/// </summary>
 		public static string SolutionRootPath { get; set; }
+
+		public static string ToCamelCase(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+				return input;
+
+			if (input.Length == 1)
+				return input.ToLower();
+
+			var firstChar = input.Substring(0, 1).ToLower();
+			return $"{firstChar}{input.Substring(1)}";
+		}
+
+		public static bool IsPrimitiveDataType(string dataType)
+		{
+			return DataTypeHelper.PrimitiveTypes.Contains(dataType);
+		}
+
+		public static bool IsString(string dataType)
+		{
+			return dataType?.ToLower() == "string";
+		}
 	}
 }

@@ -53,6 +53,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateCode()
 		{
+			var className = $"{_dbContextName}Db";
+
 			var fileContent = new List<string>();
 
 			if (_inclHeader)
@@ -70,9 +72,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Declaration
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"public partial class {_dbContextName} : DbContext");
+			fileContent.AddLine(0, $"public partial class {className} : DbContext");
 			fileContent.AddLine(0, "{");
-			fileContent.AddLine(1, $"public {_dbContextName}(DbContextOptions<{_dbContextName}> options)");
+			fileContent.AddLine(1, $"public {className}(DbContextOptions<{className}> options)");
 			fileContent.AddLine(2, ": base(options)");
 			fileContent.AddLine(1, "{");
 			fileContent.AddLine(1, "}");
@@ -157,7 +159,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"{_dbContextName}.cs");
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{className}.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 		}
 
