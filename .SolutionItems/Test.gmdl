@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="d0eec036-72bc-4e1b-997b-52819aa9aff4" name="" entitiesOutputFolder="Common\Data.Shared\Entities" entitiesNamespace="yvenix.App1.Data.Shared.Entities" dbContextOutputFolder="Common\Data" dbContextNamespace="Dyvenix.App1.Data" enumsOutputFolder="Common\Data.Shared\Entities" enumsNamespace="yvenix.App1.Data.Shared.Entities" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
+  <types>
+    <modelRootHasTypes Id="310f5e01-c687-448e-a75b-563595c377c2">
+      <entityModel Id="4970e19d-ecfb-4568-881e-6f578b6b794d" name="EntityModel1" auditable="false" inclRowVersion="false" enabled="false">
+        <properties>
+          <propertyModel Id="838c9faf-4b28-4050-8f48-368e589727e5" name="Id" description="Primary key" dataType="Guid" isPrimaryKey="true" isIndexed="true" isIndexUnique="true" isForeignKey="false" />
+          <propertyModel Id="ff2d2741-dce8-4d8e-9e99-f81be8e47402" name="Name" length="50" isForeignKey="false" displayOrder="2" />
+          <propertyModel Id="31824930-5de4-47d4-80c7-0235d4b5139e" name="Email" length="50" isForeignKey="false" displayOrder="1" />
+          <propertyModel Id="d03affa5-b025-4b21-a3b9-9cbc9c92f4bb" name="City" length="50" isForeignKey="false" displayOrder="3" />
+        </properties>
+      </entityModel>
+    </modelRootHasTypes>
+  </types>
+</modelRoot>

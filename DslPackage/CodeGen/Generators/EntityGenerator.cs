@@ -98,7 +98,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, $"// Properties");
-				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion))
+				foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion).OrderBy(p => p.DisplayOrder))
 					GenerateProperty(property, fileContent);
 			}
 
@@ -143,9 +143,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var attr in prop.AttributesList)
 					fileContent.AddLine(1, $"[{attr}]");
 
-			var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
-			var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-			var nullInit = prop.IsRowVersion || (!prop.IsNullable && prop.DataType == DataType.String && !prop.IsPrimaryKey && !prop.IsForeignKey) ? " = null!;" : string.Empty;
+			var dataTypeName = CodeGenUtils.GetCSharpType(prop.DataType);
+			var nullTypeSuffix = prop.IsNullable && prop.DataType == "String" ? "?" : string.Empty;
+			var nullInit = prop.IsRowVersion || (!prop.IsNullable && prop.DataType == "String" && !prop.IsPrimaryKey && !prop.IsForeignKey) ? " = null!;" : string.Empty;
 
 			fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
 		}

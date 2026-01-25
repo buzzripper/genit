@@ -8,6 +8,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 {
 	internal class GenItModel
 	{
+		private readonly ModelRoot _modelRoot;
 		private readonly EntityGenerator _entityGenerator;
 		private readonly EnumGenerator _enumGenerator;
 		private readonly DbContextGenerator _dbContextGenerator;
@@ -17,22 +18,35 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			var entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			_entityGenerator = new EntityGenerator(entities, modelRoot.EntitiesNamespace, modelRoot.EntitiesOutputFolder, modelRoot.EntitiesEnabled, modelRoot.InclHeader);
 
-			var x = modelRoot.Types.OfType<ModuleModel>().ToList();
-
 			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
-			//var dbContext = modelRoot.Types.OfType<EnumModel>().ToList();
 			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.Name, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
+
+			_modelRoot = modelRoot;
 		}
 
 		internal bool Validate(out List<string> errors)
 		{
 			errors = new List<string>();
 
-			_entityGenerator.Validate(errors);
-			_enumGenerator.Validate(errors);
-			_dbContextGenerator.Validate(errors);
+			if (string.IsNullOrEmpty(_modelRoot.Name))
+				errors.Add("Model name is required.");
+
+			if (_entityGenerator.Enabled)
+				_entityGenerator.Validate(errors);
+			else
+				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
+
+			if (_enumGenerator.Enabled)
+				_enumGenerator.Validate(errors);
+			else
+				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
+
+			if (_dbContextGenerator.Enabled)
+				_dbContextGenerator.Validate(errors);
+			else
+				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 
 			return errors.Count == 0;
 		}
@@ -43,18 +57,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 			if (_entityGenerator.Enabled)
 				_entityGenerator.GenerateCode();
-			else
-				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
 
 			if (_enumGenerator.Enabled)
 				_enumGenerator.GenerateCode();
-			else
-				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
 
 			if (_dbContextGenerator.Enabled)
 				_dbContextGenerator.GenerateCode();
-			else
-				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 		}
 	}
 }

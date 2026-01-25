@@ -143,6 +143,35 @@
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
             <Setter Property="Padding" Value="4"/>
         </Style>
+        
+        <!-- Permission link button style with disabled state -->
+        <Style x:Key="PermissionLinkButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ControlLinkTextKey}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter x:Name="contentPresenter" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.GrayTextKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Cursor" Value="Arrow"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     
     <Grid Margin="4">
@@ -151,16 +180,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Top Row - Entity Name, Version, Checkboxes and Options -->
+        <!-- Top Row - Entity Name, Version, Include Controller, Enabled -->
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
@@ -168,23 +194,11 @@
             
             <TextBlock Grid.Column="1" x:Name="txtVersion" Text="v1" VerticalAlignment="Center" Margin="0,0,12,0" FontSize="12"/>
 
-            <CheckBox Grid.Column="2" x:Name="ckbInclCreate" Content="Include Create Method" 
-                      VerticalAlignment="Center" Margin="0,0,16,0"
-                      Checked="ckbInclCreate_Changed" Unchecked="ckbInclCreate_Changed"/>
-
-            <CheckBox Grid.Column="3" x:Name="ckbInclUpdate" Content="Include Update Method" 
-                      VerticalAlignment="Center" Margin="0,0,16,0"
-                      Checked="ckbInclUpdate_Changed" Unchecked="ckbInclUpdate_Changed"/>
-
-            <CheckBox Grid.Column="4" x:Name="ckbInclDelete" Content="Include Delete Method" 
-                      VerticalAlignment="Center" Margin="0,0,16,0"
-                      Checked="ckbInclDelete_Changed" Unchecked="ckbInclDelete_Changed"/>
-
-            <CheckBox Grid.Column="5" x:Name="ckbInclController" Content="Include Controller" 
+            <CheckBox Grid.Column="3" x:Name="ckbInclController" Content="Include Controller" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclController_Changed" Unchecked="ckbInclController_Changed"/>
 
-            <CheckBox Grid.Column="7" x:Name="ckbEnabled" Content="Enabled" 
+            <CheckBox Grid.Column="4" x:Name="ckbEnabled" Content="Enabled" 
                       VerticalAlignment="Center" HorizontalAlignment="Right"
                       Checked="ckbEnabled_Changed" Unchecked="ckbEnabled_Changed"/>
         </Grid>
@@ -192,6 +206,50 @@
         <!-- Tab Control with themed panel background -->
         <Border Grid.Row="1" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
             <TabControl x:Name="tabControl">
+                <!-- Standard Methods Tab (first position) -->
+                <TabItem Header="Standard Methods">
+                    <Grid Margin="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- Create Method Row -->
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                            <CheckBox x:Name="ckbInclCreate" Content="Include Create Method" 
+                                      VerticalAlignment="Center" Width="180"
+                                      Checked="ckbInclCreate_Changed" Unchecked="ckbInclCreate_Changed"/>
+                            <Button x:Name="btnCreatePerms" Content="0" 
+                                    Click="btnCreatePerms_Click"
+                                    Style="{StaticResource PermissionLinkButtonStyle}"
+                                    ToolTip="Edit Create Permissions" Margin="8,0,0,0"/>
+                        </StackPanel>
+                        
+                        <!-- Update Method Row -->
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
+                            <CheckBox x:Name="ckbInclUpdate" Content="Include Update Method" 
+                                      VerticalAlignment="Center" Width="180"
+                                      Checked="ckbInclUpdate_Changed" Unchecked="ckbInclUpdate_Changed"/>
+                            <Button x:Name="btnUpdatePerms" Content="0" 
+                                    Click="btnUpdatePerms_Click"
+                                    Style="{StaticResource PermissionLinkButtonStyle}"
+                                    ToolTip="Edit Update Permissions" Margin="8,0,0,0"/>
+                        </StackPanel>
+                        
+                        <!-- Delete Method Row -->
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,12">
+                            <CheckBox x:Name="ckbInclDelete" Content="Include Delete Method" 
+                                      VerticalAlignment="Center" Width="180"
+                                      Checked="ckbInclDelete_Changed" Unchecked="ckbInclDelete_Changed"/>
+                            <Button x:Name="btnDeletePerms" Content="0" 
+                                    Click="btnDeletePerms_Click"
+                                    Style="{StaticResource PermissionLinkButtonStyle}"
+                                    ToolTip="Edit Delete Permissions" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
                 <TabItem Header="Read Methods">
                     <local:ReadMethodsEditControl x:Name="readMethodsEditCtl"/>
                 </TabItem>

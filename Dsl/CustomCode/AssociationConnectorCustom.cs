@@ -78,82 +78,6 @@ namespace Dyvenix.GenIt
 	}
 
 	/// <summary>
-	/// Custom partial class for EnumAssociationConnector to support dynamic line color from ModelRoot.
-	/// </summary>
-	public partial class EnumAssociationConnector
-	{
-		/// <summary>
-		/// Override InitializeInstanceResources to set the line color from ModelRoot.
-		/// </summary>
-		protected override void InitializeInstanceResources()
-		{
-			base.InitializeInstanceResources();
-			ApplyLineColorFromModel();
-		}
-
-		/// <summary>
-		/// Applies the line color from the associated ModelRoot.
-		/// </summary>
-		public void ApplyLineColorFromModel()
-		{
-			ModelRoot modelRoot = GetModelRoot();
-			if (modelRoot != null)
-			{
-				Color lineColor = modelRoot.AssociationLineColor;
-				if (lineColor != Color.Empty && lineColor != Color.Transparent)
-				{
-					SetLineColor(lineColor);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Sets the line color, decorator color, and text decorator color for this connector instance.
-		/// </summary>
-		private void SetLineColor(Color color)
-		{
-			// Override the pen for the connection line
-			PenSettings penSettings = new PenSettings();
-			penSettings.Color = color;
-			penSettings.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash; // Keep dashed style
-			this.StyleSet.OverridePen(DiagramPens.ConnectionLine, penSettings);
-
-			// Override the pen for connection line decorators (arrows, shapes)
-			PenSettings decoratorPen = new PenSettings();
-			decoratorPen.Color = color;
-			this.StyleSet.OverridePen(DiagramPens.ConnectionLineDecorator, decoratorPen);
-
-			// Override the brush for filled decorators
-			BrushSettings brushSettings = new BrushSettings();
-			brushSettings.Color = color;
-			this.StyleSet.OverrideBrush(DiagramBrushes.ConnectionLineDecorator, brushSettings);
-
-			// Override the text brush for text on this connector
-			this.StyleSet.OverrideBrush(DiagramBrushes.ShapeText, brushSettings);
-		}
-
-		/// <summary>
-		/// Gets the ModelRoot associated with this connector.
-		/// </summary>
-		private ModelRoot GetModelRoot()
-		{
-			// Get the underlying EnumAssociation relationship
-			EnumAssociation association = this.ModelElement as EnumAssociation;
-			if (association != null)
-			{
-				// Get the entity and navigate to ModelRoot
-				EntityModel entity = association.Entity;
-				if (entity != null)
-				{
-					return entity.ModelRoot;
-				}
-			}
-
-			return null;
-		}
-	}
-
-	/// <summary>
 	/// Rule to update association connector colors when ModelRoot.AssociationLineColor changes.
 	/// </summary>
 	[RuleOn(typeof(ModelRoot), FireTime = TimeToFire.TopLevelCommit)]
@@ -177,20 +101,6 @@ namespace Dyvenix.GenIt
 							foreach (var pel in PresentationViewsSubject.GetPresentation(association))
 							{
 								if (pel is AssociationConnector connector)
-								{
-									connector.ApplyLineColorFromModel();
-									connector.Invalidate(true);
-								}
-							}
-						}
-
-						// Get all enum associations where this entity is the source
-						foreach (var enumAssociation in EnumAssociation.GetLinksToUsedEnums(entity))
-						{
-							// Find all presentation elements (connectors) for this enum association
-							foreach (var pel in PresentationViewsSubject.GetPresentation(enumAssociation))
-							{
-								if (pel is EnumAssociationConnector connector)
 								{
 									connector.ApplyLineColorFromModel();
 									connector.Invalidate(true);

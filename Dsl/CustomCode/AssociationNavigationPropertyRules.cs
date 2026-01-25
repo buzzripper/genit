@@ -29,7 +29,7 @@ namespace Dyvenix.GenIt
             var pkProperty = new PropertyModel(entity.Partition)
             {
                 Name = "Id",
-                DataType = DataType.Guid,
+                DataType = "Guid",
                 IsPrimaryKey = true,
                 IsNullable = false,
                 IsIndexed = true,
@@ -146,7 +146,7 @@ namespace Dyvenix.GenIt
             var fkProp = new PropertyModel(target.Partition)
             {
                 Name = fkPropName,
-                DataType = DataType.Guid,
+                DataType = "Guid",
                 Description = $"Foreign key to {source.Name}",
                 IsForeignKey = true
             };
@@ -545,7 +545,7 @@ namespace Dyvenix.GenIt
                 return;
 
             // Set default Length to 50 for String type properties
-            if (property.DataType == DataType.String && property.Length == 0)
+            if (property.DataType == "String" && property.Length == 0)
             {
                 property.Length = 50;
             }
@@ -594,7 +594,7 @@ namespace Dyvenix.GenIt
             var rowVersionProp = new PropertyModel(entity.Partition)
             {
                 Name = RowVersionPropertyName,
-                DataType = DataType.ByteArray,
+                DataType = "ByteArray",
                 IsNullable = false,
                 IsRowVersion = true,
                 Description = "Concurrency token for optimistic locking"

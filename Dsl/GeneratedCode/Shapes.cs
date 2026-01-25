@@ -14,14 +14,14 @@ using DslDiagrams = global::Microsoft.VisualStudio.Modeling.Diagrams;
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// DomainClass ClassShape
+	/// Double-derived base class for DomainClass ClassShape
 	/// </summary>
 	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ClassShape.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslDesign::DescriptionResource("Dyvenix.GenIt.ClassShape.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("90f1ac4d-6ba9-4b0a-8559-20e1108d187b")]
-	public partial class ClassShape : DslDiagrams::CompartmentShape
+	public abstract partial class ClassShapeBase : DslDiagrams::CompartmentShape
 	{
 		#region DiagramElement boilerplate
 		private static DslDiagrams::StyleSet classStyleSet;
@@ -424,6 +424,25 @@ namespace Dyvenix.GenIt
 		/// ClassShape domain class Id.
 		/// </summary>
 		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x90f1ac4d, 0x6ba9, 0x4b0a, 0x85, 0x59, 0x20, 0xe1, 0x10, 0x8d, 0x18, 0x7b);
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		protected ClassShapeBase(DslModeling::Partition partition, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+	}
+	/// <summary>
+	/// DomainClass ClassShape
+	/// </summary>
+	[global::System.CLSCompliant(true)]
+			
+	public partial class ClassShape : ClassShapeBase
+	{
+		#region Constructors
 		/// <summary>
 		/// Constructor
 		/// </summary>

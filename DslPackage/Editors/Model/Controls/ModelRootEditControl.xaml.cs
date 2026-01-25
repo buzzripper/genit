@@ -1,8 +1,10 @@
 using Dyvenix.GenIt.DslPackage.Editors.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
@@ -16,6 +18,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 	{
 		private ModelRoot _modelRoot;
 		private bool _isUpdating;
+		private ObservableCollection<PermissionModel> _permissions;
 
 		public ModelRootEditControl()
 		{
@@ -63,7 +66,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Enums tab
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
-				txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+			txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+
+				// Permissions tab
+				_permissions = new ObservableCollection<PermissionModel>(ParsePermissions(_modelRoot.Permissions));
+				grdPermissions.ItemsSource = _permissions;
 
 				// Restore splitter position
 				if (_modelRoot.EditorSplitterPosition > 0)
@@ -339,6 +346,71 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.EnumsNamespaceDomainPropertyId, txtEnumsNamespace.Text);
+		}
+
+		#endregion
+
+		#region Permissions Tab Event Handlers
+
+		private void btnAddPermission_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null || _permissions == null)
+				return;
+
+			var newPermission = new PermissionModel($"Permission{_permissions.Count + 1}", string.Empty);
+			_permissions.Add(newPermission);
+			SavePermissions();
+			grdPermissions.SelectedItem = newPermission;
+		}
+
+		private void btnDeletePermission_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null || _permissions == null || grdPermissions.SelectedItem == null)
+				return;
+
+			var selectedPermission = grdPermissions.SelectedItem as PermissionModel;
+			if (selectedPermission != null)
+			{
+				_permissions.Remove(selectedPermission);
+				SavePermissions();
+			}
+		}
+
+		private void grdPermissions_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			// Use Dispatcher to save after the edit is committed
+			Dispatcher.BeginInvoke(new Action(() => SavePermissions()), System.Windows.Threading.DispatcherPriority.Background);
+		}
+
+		private void SavePermissions()
+		{
+			if (_modelRoot == null || _permissions == null)
+				return;
+
+			var permissionsValue = SerializePermissions(_permissions);
+			UpdateModelProperty(ModelRoot.PermissionsDomainPropertyId, permissionsValue);
+		}
+
+		private IEnumerable<PermissionModel> ParsePermissions(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+				return Enumerable.Empty<PermissionModel>();
+
+			return value.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+						.Select(s => s.Trim())
+						.Where(s => !string.IsNullOrEmpty(s))
+						.Select(s => PermissionModel.Deserialize(s));
+		}
+
+		private string SerializePermissions(IEnumerable<PermissionModel> permissions)
+		{
+			if (permissions == null)
+				return string.Empty;
+
+			return string.Join("\n", permissions.Select(p => p.Serialize()));
 		}
 
 		#endregion

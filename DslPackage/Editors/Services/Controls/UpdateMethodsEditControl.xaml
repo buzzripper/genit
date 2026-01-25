@@ -147,6 +147,15 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Perms" Width="60" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding PermsCount}" Click="btnPerms_Click" 
+                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
+                                        Foreground="{DynamicResource Theme.HotTrack}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="" Width="40">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

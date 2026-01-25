@@ -69,6 +69,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -79,10 +81,12 @@
     <Compile Include="CodeGen\Generators\EntityGenerator.cs" />
     <Compile Include="CodeGen\GenItModel.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
+    <Compile Include="CodeGen\Misc\CodeGenUtils_new.cs" />
     <Compile Include="CodeGen\Misc\FileHelper.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
+    <Compile Include="CustomCode\GenItDocDataCustom.cs" />
     <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
     <Compile Include="CustomCode\OutputHelper.cs" />
     <Compile Include="CustomCode\GenItPackageCustomization.cs" />
@@ -121,10 +125,21 @@
     <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
       <DependentUpon>ModuleEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\PermissionModel.cs" />
+    <Compile Include="Editors\Permissions\PermissionsEditorDialog.xaml.cs">
+      <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Permissions\PermissionsManager.cs" />
     <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
       <DependentUpon>PropertyEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
+    <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
+      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
+      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\UserControlBase.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
@@ -138,14 +153,8 @@
     <Compile Include="Editors\Services\Controls\InclNavPropEditControl.xaml.cs">
       <DependentUpon>InclNavPropEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
-      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\Services\Controls\SvcEditControl.xaml.cs">
       <DependentUpon>SvcEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
-      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Services\Controls\UpdPropsEditControl.xaml.cs">
       <DependentUpon>UpdPropsEditControl.xaml</DependentUpon>
@@ -353,6 +362,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">

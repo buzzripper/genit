@@ -4,9 +4,9 @@ using Microsoft.VisualStudio.Modeling;
 using Microsoft.VisualStudio.Modeling.Diagrams;
 using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.ComponentModel.Design;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
@@ -82,8 +82,20 @@ namespace Dyvenix.GenIt
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
+			// Confirmation popup
+			int result = VsShellUtilities.ShowMessageBox(
+				this.ServiceProvider,
+				"Are you sure you want to generate code?",
+				"Confirm Code Generation",
+				OLEMSGICON.OLEMSGICON_QUERY,
+				OLEMSGBUTTON.OLEMSGBUTTON_YESNO,
+				OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+			if (result != (int)DialogResult.Yes)
+				return;
+
 			try
 			{
+				OutputHelper.Write("=".PadRight(80, '='));
 				OutputHelper.WriteAndActivate("Reading model file...");
 
 				GenItDocData docData = this.CurrentGenItDocData;
@@ -109,33 +121,49 @@ namespace Dyvenix.GenIt
 				{
 					OutputHelper.WriteError("Model validation failed with the following errors:");
 					foreach (var error in errors)
-					{
-						OutputHelper.WriteError($"  {error}");
-					}
-
-					MessageBox.Show("Model validation failed. Check the output window for details.", "Validation Error",
-						MessageBoxButtons.OK, MessageBoxIcon.Error);
+						OutputHelper.Write($"•  {error}");
+					OutputHelper.ShowOutputToolWindow();
+					VsShellUtilities.ShowMessageBox(
+						this.ServiceProvider,
+						"Model validation failed. Check the output window for details.",
+						"Validation Error",
+						OLEMSGICON.OLEMSGICON_CRITICAL,
+						OLEMSGBUTTON.OLEMSGBUTTON_OK,
+						OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 					return;
 				}
 				OutputHelper.Write("Model validated.");
 
 				OutputHelper.Write("Starting code generation...");
-				OutputHelper.Write("=".PadRight(80, '='));
 
 				model.GenerateCode();
 
 				OutputHelper.Write("=".PadRight(80, '='));
 				OutputHelper.Write("Code generation completed successfully!");
+
+				VsShellUtilities.ShowMessageBox(
+					this.ServiceProvider,
+					"Code generation completed successfully.",
+					"Code Generation",
+					OLEMSGICON.OLEMSGICON_INFO,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "Code Generation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				VsShellUtilities.ShowMessageBox(
+					this.ServiceProvider,
+					ex.Message,
+					"Code Generation Error",
+					OLEMSGICON.OLEMSGICON_CRITICAL,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
 				OutputHelper.WriteError($"Code generation failed: {ex.Message}");
 				OutputHelper.WriteError(ex.StackTrace);
 			}
 			finally
 			{
-
+				OutputHelper.Write("=".PadRight(80, '='));
 			}
 		}
 
@@ -240,7 +268,7 @@ namespace Dyvenix.GenIt
 					ServiceModel newService = new ServiceModel(entityModel.Store);
 					newService.Name = $"Service{nextVersion}";
 					newService.Version = versionString;
-					
+
 					// Set default properties
 					newService.Enabled = true;
 					newService.InclCreate = true;

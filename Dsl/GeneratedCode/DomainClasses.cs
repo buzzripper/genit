@@ -1492,6 +1492,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region Permissions domain property code
+		
+		/// <summary>
+		/// Permissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsDomainPropertyId = new global::System.Guid(0x8a9b0c1d, 0x2e3f, 0x4a5b, 0x6c, 0x7d, 0x8e, 0x9f, 0x0a, 0x1b, 0x2c, 0x3d);
+		
+		/// <summary>
+		/// Storage for Permissions
+		/// </summary>
+		private global::System.String permissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Permissions domain property.
+		/// Available permissions for the model (newline-separated)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/Permissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/Permissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/Permissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d")]
+		public global::System.String Permissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.Permissions domain property.
+		/// </summary>
+		internal sealed partial class PermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private PermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.Permissions domain property value handler.
+			/// </summary>
+			public static readonly PermissionsPropertyHandler Instance = new PermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.Permissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -2387,6 +2475,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region TableName domain property code
+		
+		/// <summary>
+		/// TableName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid TableNameDomainPropertyId = new global::System.Guid(0x8fb79ab2, 0xec55, 0x423f, 0xa7, 0x95, 0x2d, 0x82, 0xcb, 0xe9, 0x9c, 0x10);
+		
+		/// <summary>
+		/// Storage for TableName
+		/// </summary>
+		private global::System.String tableNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of TableName domain property.
+		/// Database table name for the entity
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/TableName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.EntityModel/TableName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/TableName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8fb79ab2-ec55-423f-a795-2d82cbe99c10")]
+		public global::System.String TableName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return tableNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				TableNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.TableName domain property.
+		/// </summary>
+		internal sealed partial class TableNamePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.String>
+		{
+			private TableNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.TableName domain property value handler.
+			/// </summary>
+			public static readonly TableNamePropertyHandler Instance = new TableNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.TableName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return TableNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.tableNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.tableNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -2487,20 +2663,6 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(global::Dyvenix.GenIt.EntityModelHasServiceModels.EntityModelDomainRoleId);
-			}
-		}
-		#endregion
-		#region UsedEnums opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UsedEnums.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EnumModel> UsedEnums
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EnumModel>, EnumModel>(global::Dyvenix.GenIt.EnumAssociation.EntityDomainRoleId);
 			}
 		}
 		#endregion
@@ -2708,17 +2870,18 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Storage for DataType
 		/// </summary>
-		private DataType dataTypePropertyStorage = DataType.String;
+		private global::System.String dataTypePropertyStorage = "String";
 		
 		/// <summary>
 		/// Gets or sets the value of DataType domain property.
+		/// Data type - primitives or enum name from model
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/DataType.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/DataType.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/DataType.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue(DataType.String)]
+		[global::System.ComponentModel.DefaultValue("String")]
 		[DslModeling::DomainObjectId("4ef9ef25-f6e7-46f2-9e48-ed9323cc081f")]
-		public DataType DataType
+		public global::System.String DataType
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
@@ -2734,7 +2897,7 @@ namespace Dyvenix.GenIt
 		/// <summary>
 		/// Value handler for the PropertyModel.DataType domain property.
 		/// </summary>
-		internal sealed partial class DataTypePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, DataType>
+		internal sealed partial class DataTypePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
 		{
 			private DataTypePropertyHandler() { }
 		
@@ -2760,99 +2923,10 @@ namespace Dyvenix.GenIt
 			/// </summary>
 			/// <param name="element">Element which owns the property.</param>
 			/// <returns>Property value.</returns>
-			public override sealed DataType GetValue(PropertyModel element)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.dataTypePropertyStorage;
-			}
-		
-			/// <summary>
-			/// Sets property value on an element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <param name="newValue">New property value.</param>
-			public override sealed void SetValue(PropertyModel element, DataType newValue)
-			{
-				if (element == null) throw new global::System.ArgumentNullException("element");
-		
-				DataType oldValue = GetValue(element);
-				if (newValue != oldValue)
-				{
-					ValueChanging(element, oldValue, newValue);
-					element.dataTypePropertyStorage = newValue;
-					ValueChanged(element, oldValue, newValue);
-				}
-			}
-		}
-		
-		#endregion
-		#region EnumTypeName domain property code
-		
-		/// <summary>
-		/// EnumTypeName domain property Id.
-		/// </summary>
-		public static readonly global::System.Guid EnumTypeNameDomainPropertyId = new global::System.Guid(0xd1e2f3a4, 0xb5c6, 0x4d7e, 0x8f, 0x9a, 0x0b, 0x1c, 0x2d, 0x3e, 0x4f, 0x5a);
-		
-		/// <summary>
-		/// Storage for EnumTypeName
-		/// </summary>
-		private global::System.String enumTypeNamePropertyStorage = string.Empty;
-		
-		/// <summary>
-		/// Gets or sets the value of EnumTypeName domain property.
-		/// Name of the enum type when DataType is Enum
-		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/EnumTypeName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[global::System.ComponentModel.DefaultValue("")]
-		[DslModeling::DomainObjectId("d1e2f3a4-b5c6-4d7e-8f9a-0b1c2d3e4f5a")]
-		public global::System.String EnumTypeName
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return enumTypeNamePropertyStorage;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				EnumTypeNamePropertyHandler.Instance.SetValue(this, value);
-			}
-		}
-		/// <summary>
-		/// Value handler for the PropertyModel.EnumTypeName domain property.
-		/// </summary>
-		internal sealed partial class EnumTypeNamePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.String>
-		{
-			private EnumTypeNamePropertyHandler() { }
-		
-			/// <summary>
-			/// Gets the singleton instance of the PropertyModel.EnumTypeName domain property value handler.
-			/// </summary>
-			public static readonly EnumTypeNamePropertyHandler Instance = new EnumTypeNamePropertyHandler();
-		
-			/// <summary>
-			/// Gets the Id of the PropertyModel.EnumTypeName domain property.
-			/// </summary>
-			public sealed override global::System.Guid DomainPropertyId
-			{
-				[global::System.Diagnostics.DebuggerStepThrough]
-				get
-				{
-					return EnumTypeNameDomainPropertyId;
-				}
-			}
-			
-			/// <summary>
-			/// Gets a strongly-typed value of the property on specified element.
-			/// </summary>
-			/// <param name="element">Element which owns the property.</param>
-			/// <returns>Property value.</returns>
 			public override sealed global::System.String GetValue(PropertyModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.enumTypeNamePropertyStorage;
+				return element.dataTypePropertyStorage;
 			}
 		
 			/// <summary>
@@ -2868,7 +2942,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.enumTypeNamePropertyStorage = newValue;
+					element.dataTypePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -3918,6 +3992,94 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.isRowVersionPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DisplayOrder domain property code
+		
+		/// <summary>
+		/// DisplayOrder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DisplayOrderDomainPropertyId = new global::System.Guid(0xc0c0c0c0, 0x0000, 0x0000, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+		
+		/// <summary>
+		/// Storage for DisplayOrder
+		/// </summary>
+		private global::System.Int32 displayOrderPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of DisplayOrder domain property.
+		/// Display order for property in the editor grid
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/DisplayOrder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/DisplayOrder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[global::System.ComponentModel.Browsable(false)]
+		[DslModeling::DomainObjectId("c0c0c0c0-0000-0000-0000-000000000000")]
+		public global::System.Int32 DisplayOrder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return displayOrderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DisplayOrderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.DisplayOrder domain property.
+		/// </summary>
+		internal sealed partial class DisplayOrderPropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Int32>
+		{
+			private DisplayOrderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.DisplayOrder domain property value handler.
+			/// </summary>
+			public static readonly DisplayOrderPropertyHandler Instance = new DisplayOrderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.DisplayOrder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DisplayOrderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Int32 GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.displayOrderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Int32 newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Int32 oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.displayOrderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -5515,20 +5677,6 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region UsingEntities opposite domain role accessor
-		
-		/// <summary>
-		/// Gets a list of UsingEntities.
-		/// </summary>
-		public virtual DslModeling::LinkedElementCollection<EntityModel> UsingEntities
-		{
-			[global::System.Diagnostics.DebuggerStepThrough]
-			get
-			{
-				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EnumAssociation.EnumDomainRoleId);
-			}
-		}
-		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -6848,6 +6996,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region Permissions domain property code
+		
+		/// <summary>
+		/// Permissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsDomainPropertyId = new global::System.Guid(0x2b3c4d5e, 0x6f7a, 0x4b8c, 0x9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d, 0x6e);
+		
+		/// <summary>
+		/// Storage for Permissions
+		/// </summary>
+		private global::System.String permissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Permissions domain property.
+		/// Comma-separated list of required permissions for this method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModel/Permissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModel/Permissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e")]
+		public global::System.String Permissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ReadMethodModel.Permissions domain property.
+		/// </summary>
+		internal sealed partial class PermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ReadMethodModel, global::System.String>
+		{
+			private PermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ReadMethodModel.Permissions domain property value handler.
+			/// </summary>
+			public static readonly PermissionsPropertyHandler Instance = new PermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ReadMethodModel.Permissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ReadMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ReadMethodModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region FilterProperties opposite domain role accessor
 		
 		/// <summary>
@@ -7346,6 +7581,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.displayOrderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Permissions domain property code
+		
+		/// <summary>
+		/// Permissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsDomainPropertyId = new global::System.Guid(0x3c4d5e6f, 0x7a8b, 0x4c9d, 0x0e, 0x1f, 0x2a, 0x3b, 0x4c, 0x5d, 0x6e, 0x7f);
+		
+		/// <summary>
+		/// Storage for Permissions
+		/// </summary>
+		private global::System.String permissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Permissions domain property.
+		/// Comma-separated list of required permissions for this method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/Permissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/Permissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("3c4d5e6f-7a8b-4c9d-0e1f-2a3b4c5d6e7f")]
+		public global::System.String Permissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.Permissions domain property.
+		/// </summary>
+		internal sealed partial class PermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.String>
+		{
+			private PermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.Permissions domain property value handler.
+			/// </summary>
+			public static readonly PermissionsPropertyHandler Instance = new PermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.Permissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -8298,6 +8620,270 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.controllerAttributesPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region CreatePermissions domain property code
+		
+		/// <summary>
+		/// CreatePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CreatePermissionsDomainPropertyId = new global::System.Guid(0x5a6b7c8d, 0x9e0f, 0x1a2b, 0x3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d);
+		
+		/// <summary>
+		/// Storage for CreatePermissions
+		/// </summary>
+		private global::System.String createPermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CreatePermissions domain property.
+		/// Comma-separated list of required permissions for create method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/CreatePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("5a6b7c8d-9e0f-1a2b-3c4d-5e6f7a8b9c0d")]
+		public global::System.String CreatePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return createPermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CreatePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.CreatePermissions domain property.
+		/// </summary>
+		internal sealed partial class CreatePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private CreatePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.CreatePermissions domain property value handler.
+			/// </summary>
+			public static readonly CreatePermissionsPropertyHandler Instance = new CreatePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.CreatePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CreatePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.createPermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.createPermissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region UpdatePermissions domain property code
+		
+		/// <summary>
+		/// UpdatePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UpdatePermissionsDomainPropertyId = new global::System.Guid(0x6b7c8d9e, 0x0f1a, 0x2b3c, 0x4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d, 0x1e);
+		
+		/// <summary>
+		/// Storage for UpdatePermissions
+		/// </summary>
+		private global::System.String updatePermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of UpdatePermissions domain property.
+		/// Comma-separated list of required permissions for update method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/UpdatePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6b7c8d9e-0f1a-2b3c-4d5e-6f7a8b9c0d1e")]
+		public global::System.String UpdatePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return updatePermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UpdatePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.UpdatePermissions domain property.
+		/// </summary>
+		internal sealed partial class UpdatePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private UpdatePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.UpdatePermissions domain property value handler.
+			/// </summary>
+			public static readonly UpdatePermissionsPropertyHandler Instance = new UpdatePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.UpdatePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UpdatePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.updatePermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.updatePermissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DeletePermissions domain property code
+		
+		/// <summary>
+		/// DeletePermissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DeletePermissionsDomainPropertyId = new global::System.Guid(0x7c8d9e0f, 0x1a2b, 0x3c4d, 0x5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d, 0x1e, 0x2f);
+		
+		/// <summary>
+		/// Storage for DeletePermissions
+		/// </summary>
+		private global::System.String deletePermissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DeletePermissions domain property.
+		/// Comma-separated list of required permissions for delete method
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/DeletePermissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f")]
+		public global::System.String DeletePermissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return deletePermissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DeletePermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.DeletePermissions domain property.
+		/// </summary>
+		internal sealed partial class DeletePermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private DeletePermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.DeletePermissions domain property value handler.
+			/// </summary>
+			public static readonly DeletePermissionsPropertyHandler Instance = new DeletePermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.DeletePermissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DeletePermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.deletePermissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.deletePermissionsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

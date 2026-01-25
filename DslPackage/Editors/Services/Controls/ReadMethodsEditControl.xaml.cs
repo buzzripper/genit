@@ -99,6 +99,39 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			}
 		}
 
+		private void btnPerms_Click(object sender, RoutedEventArgs e)
+		{
+			if (sender is Button btn && btn.DataContext is ReadMethodModel method)
+			{
+				var modelRoot = GetModelRoot();
+				if (modelRoot == null) return;
+
+				var ownerWindow = Window.GetWindow(this);
+				var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, method.Permissions);
+				
+				if (newPermissions != null)
+				{
+					DslTransactionHelper.ExecuteInTransaction(method, "Update Permissions", () =>
+					{
+						method.Permissions = newPermissions;
+					});
+					RefreshGrid();
+				}
+			}
+		}
+
+		private ModelRoot GetModelRoot()
+		{
+			if (_serviceModel?.Store == null) return null;
+			
+			foreach (var element in _serviceModel.Store.ElementDirectory.AllElements)
+			{
+				if (element is ModelRoot modelRoot)
+					return modelRoot;
+			}
+			return null;
+		}
+
 		private void btnUp_Click(object sender, RoutedEventArgs e)
 		{
 			if (grdMethods.SelectedItem is ReadMethodModel selectedMethod && _readMethods != null)

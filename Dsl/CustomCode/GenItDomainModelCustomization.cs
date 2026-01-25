@@ -56,13 +56,8 @@ namespace Dyvenix.GenIt
                 // ServiceModel add rule (sets Version property)
                 typeof(ServiceModelAddRule),
                 
-                // EnumAssociation rules
-                typeof(EnumAssociationAddRule),
-                typeof(EnumAssociationDeleteRule),
-                typeof(EnumAssociationPropertyNameChangeRule),
+                // EnumModel name change rule (syncs DataType values)
                 typeof(EnumModelNameChangeRule),
-                typeof(EnumPropertyDeleteRule),
-                typeof(EnumPropertyNameChangeRule),
                 
                 // ModuleModel rules (sync EntityModel.Module property)
                 typeof(ModuleModelNameChangeRule),
