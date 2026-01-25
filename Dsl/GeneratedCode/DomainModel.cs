@@ -212,6 +212,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ServiceModel), "CreatePermissions", ServiceModel.CreatePermissionsDomainPropertyId, typeof(ServiceModel.CreatePermissionsPropertyHandler)),
 				new DomainMemberInfo(typeof(ServiceModel), "UpdatePermissions", ServiceModel.UpdatePermissionsDomainPropertyId, typeof(ServiceModel.UpdatePermissionsPropertyHandler)),
 				new DomainMemberInfo(typeof(ServiceModel), "DeletePermissions", ServiceModel.DeletePermissionsDomainPropertyId, typeof(ServiceModel.DeletePermissionsPropertyHandler)),
+				new DomainMemberInfo(typeof(ServiceModel), "Permissions", ServiceModel.PermissionsDomainPropertyId, typeof(ServiceModel.PermissionsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "RootFolder", ModuleModel.RootFolderDomainPropertyId, typeof(ModuleModel.RootFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "Namespace", ModuleModel.NamespaceDomainPropertyId, typeof(ModuleModel.NamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "PermissionsStorage", ModuleModel.PermissionsStorageDomainPropertyId, typeof(ModuleModel.PermissionsStoragePropertyHandler)),

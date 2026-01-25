@@ -1093,6 +1093,12 @@
             <xsd:documentation>Comma-separated list of required permissions for delete method</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: Permissions -->
+        <xsd:attribute name="permissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of required permissions for the service</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -8890,6 +8890,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region Permissions domain property code
+		
+		/// <summary>
+		/// Permissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsDomainPropertyId = new global::System.Guid(0x8d9e0f1a, 0x2b3c, 0x4d5e, 0x6f, 0x7a, 0x8b, 0x9c, 0x0d, 0x1e, 0x2f, 0x3a);
+		
+		/// <summary>
+		/// Storage for Permissions
+		/// </summary>
+		private global::System.String permissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Permissions domain property.
+		/// Comma-separated list of required permissions for the service
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/Permissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/Permissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a")]
+		public global::System.String Permissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.Permissions domain property.
+		/// </summary>
+		internal sealed partial class PermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		{
+			private PermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.Permissions domain property value handler.
+			/// </summary>
+			public static readonly PermissionsPropertyHandler Instance = new PermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.Permissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModeled opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModeled.

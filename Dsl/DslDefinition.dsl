@@ -595,6 +595,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a" Description="Comma-separated list of required permissions for the service" Name="Permissions" DisplayName="Permissions">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="9bb79222-91f7-40de-bd0c-2286c1c84644" Description="Description for Dyvenix.GenIt.ModuleModel" Name="ModuleModel" DisplayName="Module Model" Namespace="Dyvenix.GenIt">
@@ -1488,6 +1493,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="deletePermissions">
             <DomainPropertyMoniker Name="ServiceModel/DeletePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="ServiceModel/Permissions" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

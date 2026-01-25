@@ -180,12 +180,13 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Top Row - Entity Name, Version, Include Controller, Enabled -->
+        <!-- Top Row - Entity Name, Version, Permissions, Include Controller, Enabled -->
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
@@ -194,11 +195,17 @@
             
             <TextBlock Grid.Column="1" x:Name="txtVersion" Text="v1" VerticalAlignment="Center" Margin="0,0,12,0" FontSize="12"/>
 
-            <CheckBox Grid.Column="3" x:Name="ckbInclController" Content="Include Controller" 
+            <Button Grid.Column="3" x:Name="btnPermissions" Content="Permissions (0)" 
+                    Click="btnPermissions_Click"
+                    Style="{StaticResource PermissionLinkButtonStyle}"
+                    VerticalAlignment="Center" Margin="0,0,16,0"
+                    ToolTip="Edit Service Permissions"/>
+
+            <CheckBox Grid.Column="4" x:Name="ckbInclController" Content="Include Controller" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclController_Changed" Unchecked="ckbInclController_Changed"/>
 
-            <CheckBox Grid.Column="4" x:Name="ckbEnabled" Content="Enabled" 
+            <CheckBox Grid.Column="5" x:Name="ckbEnabled" Content="Enabled" 
                       VerticalAlignment="Center" HorizontalAlignment="Right"
                       Checked="ckbEnabled_Changed" Unchecked="ckbEnabled_Changed"/>
         </Grid>

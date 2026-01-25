@@ -212,6 +212,27 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			}
 		}
 
+		// Service Permissions popup handler
+		private void btnPermissions_Click(object sender, RoutedEventArgs e)
+		{
+			if (_serviceAdapter == null) return;
+
+			var modelRoot = GetModelRoot();
+			if (modelRoot == null) return;
+
+			var ownerWindow = Window.GetWindow(this);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, _serviceAdapter.Model.Permissions);
+
+			if (newPermissions != null)
+			{
+				DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Update Service Permissions", () =>
+				{
+					_serviceAdapter.Model.Permissions = newPermissions;
+				});
+				UpdatePermissionsCounts();
+			}
+		}
+
 		// Standard Methods permission button handlers
 		private void btnCreatePerms_Click(object sender, RoutedEventArgs e)
 		{
@@ -290,6 +311,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			btnCreatePerms.Content = CountPermissions(_serviceAdapter.Model.CreatePermissions).ToString();
 			btnUpdatePerms.Content = CountPermissions(_serviceAdapter.Model.UpdatePermissions).ToString();
 			btnDeletePerms.Content = CountPermissions(_serviceAdapter.Model.DeletePermissions).ToString();
+
+			// Update service permissions button text
+			var permsCount = CountPermissions(_serviceAdapter.Model.Permissions);
+			btnPermissions.Content = $"Permissions ({permsCount})";
 
 			// Update button enabled states based on checkbox states
 			btnCreatePerms.IsEnabled = ckbInclCreate.IsChecked ?? false;

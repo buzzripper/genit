@@ -1081,6 +1081,14 @@
     <value>ServiceModel</value>
     <comment>Category for DomainProperty &apos;DeletePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Permissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for the service</value>
+    <comment>Description for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Permissions.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModuleModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel</value>
     <comment>Description for DomainClass &apos;ModuleModel&apos;</comment>
