@@ -21,6 +21,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 			list.Add($"{Tabs(tabCount)}{line}");
 		}
 
+		public static void AddLines(this List<string> list, int tabCount, List<string> lines)
+		{
+			foreach (var line in lines)
+			{
+				list.Add($"{Tabs(tabCount)}{line}");
+			}
+		}
+
 		public static void AddLine(this List<string> list)
 		{
 			list.Add(string.Empty);

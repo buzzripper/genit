@@ -1140,6 +1140,9 @@
           <XmlPropertyData XmlName="editorSplitterPosition">
             <DomainPropertyMoniker Name="ModelRoot/EditorSplitterPosition" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="ModelRoot/Permissions" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -1477,6 +1480,15 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="updateMethods">
             <DomainRelationshipMoniker Name="ServiceModelHasUpdateMethods" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="createPermissions">
+            <DomainPropertyMoniker Name="ServiceModel/CreatePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="updatePermissions">
+            <DomainPropertyMoniker Name="ServiceModel/UpdatePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="deletePermissions">
+            <DomainPropertyMoniker Name="ServiceModel/DeletePermissions" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
