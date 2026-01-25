@@ -321,6 +321,18 @@
     <value>Editor Splitter Position</value>
     <comment>DisplayName for DomainProperty &apos;EditorSplitterPosition&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Permissions.Description" xml:space="preserve">
+    <value>Available permissions for the model (newline-separated)</value>
+    <comment>Description for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Permissions.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Permissions.Category" xml:space="preserve">
+    <value>Security</value>
+    <comment>Category for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

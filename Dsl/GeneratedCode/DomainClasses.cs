@@ -1492,6 +1492,94 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region Permissions domain property code
+		
+		/// <summary>
+		/// Permissions domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid PermissionsDomainPropertyId = new global::System.Guid(0x8a9b0c1d, 0x2e3f, 0x4a5b, 0x6c, 0x7d, 0x8e, 0x9f, 0x0a, 0x1b, 0x2c, 0x3d);
+		
+		/// <summary>
+		/// Storage for Permissions
+		/// </summary>
+		private global::System.String permissionsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Permissions domain property.
+		/// Available permissions for the model (newline-separated)
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/Permissions.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/Permissions.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/Permissions.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d")]
+		public global::System.String Permissions
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return permissionsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				PermissionsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.Permissions domain property.
+		/// </summary>
+		internal sealed partial class PermissionsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private PermissionsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.Permissions domain property value handler.
+			/// </summary>
+			public static readonly PermissionsPropertyHandler Instance = new PermissionsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.Permissions domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return PermissionsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.permissionsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.permissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

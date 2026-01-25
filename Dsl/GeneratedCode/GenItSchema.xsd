@@ -137,6 +137,12 @@
             <xsd:documentation>Splitter position for the Model editor</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: Permissions -->
+        <xsd:attribute name="permissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Available permissions for the model (newline-separated)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

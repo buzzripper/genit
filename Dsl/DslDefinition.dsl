@@ -90,6 +90,11 @@
             <ExternalTypeMoniker Name="/System/Double" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="8a9b0c1d-2e3f-4a5b-6c7d-8e9f0a1b2c3d" Description="Available permissions for the model (newline-separated)" Name="Permissions" DisplayName="Permissions" Category="Security">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>

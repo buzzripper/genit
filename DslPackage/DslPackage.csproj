@@ -125,6 +125,7 @@
     <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
       <DependentUpon>ModuleEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\PermissionModel.cs" />
     <Compile Include="Editors\Permissions\PermissionModel.cs" />
     <Compile Include="Editors\Permissions\PermissionsEditorDialog.xaml.cs">
       <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
