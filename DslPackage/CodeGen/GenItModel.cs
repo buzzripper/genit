@@ -12,6 +12,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly EntityGenerator _entityGenerator;
 		private readonly EnumGenerator _enumGenerator;
 		private readonly DbContextGenerator _dbContextGenerator;
+		private readonly ServiceGenerator _serviceGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
@@ -22,6 +23,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
 			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.Name, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
+
+			_serviceGenerator = new ServiceGenerator(modelRoot);
 
 			_modelRoot = modelRoot;
 		}
@@ -48,6 +51,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			else
 				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
 
+			_serviceGenerator.Validate(errors);
+
 			return errors.Count == 0;
 		}
 
@@ -63,6 +68,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 			if (_dbContextGenerator.Enabled)
 				_dbContextGenerator.GenerateCode();
+
+			_serviceGenerator.GenerateCode();
 		}
 	}
 }

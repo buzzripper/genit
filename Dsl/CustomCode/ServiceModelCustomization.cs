@@ -43,5 +43,53 @@ namespace Dyvenix.GenIt
 					.ToList();
 			}
 		}
+
+		[Browsable(false)]
+		public List<string> PermissionsList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.Permissions))
+					return new List<string>();
+
+				return this.Permissions
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		[Browsable(false)]
+		public List<string> ServiceAttributesList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.ServiceAttributes))
+					return new List<string>();
+
+				return this.ServiceAttributes
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		[Browsable(false)]
+		public List<string> ControllerAttributesList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.ControllerAttributes))
+					return new List<string>();
+
+				return this.ControllerAttributes
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
 	}
 }
