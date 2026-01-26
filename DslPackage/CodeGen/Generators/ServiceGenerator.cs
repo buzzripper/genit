@@ -174,14 +174,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, serviceAttrs);
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
-			fileContent.AddLines(1, fields);
-			fileContent.AddLines(1, createMethodOutput);
-			fileContent.AddLines(1, deleteMethodsOutput);
-			fileContent.AddLines(1, updMethodsOutput);
+			fileContent.AddLines(0, fields);
+			fileContent.AddLines(0, createMethodOutput);
+			fileContent.AddLines(0, deleteMethodsOutput);
+			fileContent.AddLines(0, updMethodsOutput);
 			//fileContent.AddLines(1, singleMethodsOutput);
 			//fileContent.AddLines(1, listMethodsOutput);
 			//fileContent.AddLines(1, queryMethodsOutput);
-			fileContent.AddLine(1, "}");
 			fileContent.AddLine(0, "}");
 
 			var fileContents = fileContent.AsString();
@@ -205,8 +204,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			usings.Add("System.Linq");
 			usings.Add("System.Threading.Tasks");
 			usings.Add("Microsoft.Extensions.Logging");
-
-			Microsoft.EntityFrameworkCore
+			usings.Add("Microsoft.EntityFrameworkCore");
+			usings.Add("Dyvenix.App1.Common.Core.Exceptions");
 
 			usings.AddIfNotExists(_modelRoot.EntitiesNamespace);
 			usings.AddIfNotExists(_modelRoot.DbContextNamespace);

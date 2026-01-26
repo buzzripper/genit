@@ -33,7 +33,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, $"return {varName}.Id;");
 			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\", _logger.CorrelationId);");
+			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 
@@ -96,7 +96,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine();
 			}
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, $"throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\", _logger.CorrelationId);");
+			output.AddLine(tc + 2, $"throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
@@ -158,7 +158,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, $"return {varName}.RowVersion;");
 			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\", _logger.CorrelationId);");
+			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
