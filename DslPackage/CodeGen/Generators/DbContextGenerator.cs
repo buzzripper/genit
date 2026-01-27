@@ -121,7 +121,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					var line = $"entity.Property(e => e.{prop.Name})";
 					if (!prop.IsNullable)
 						line += ".IsRequired()";
-					if (prop.DataType == "String" && prop.Length > 0)
+					if (prop.DataType == DataTypes.String && prop.Length > 0)
 						line += $".HasMaxLength({prop.Length})";
 					line += ";";
 					fileContent.AddLine(3, line);

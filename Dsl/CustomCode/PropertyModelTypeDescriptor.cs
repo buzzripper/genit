@@ -59,7 +59,7 @@ namespace Dyvenix.GenIt
 			// Only show Length property when DataType is String or ByteArray
 			if (property.Name.Equals("Length", StringComparison.OrdinalIgnoreCase))
 			{
-				return DataTypeHelper.HasLength(_propertyModel.DataType);
+				return DataTypes.HasLength(_propertyModel.DataType);
 			}
 
 			return true;

@@ -3,18 +3,10 @@ using System.Linq;
 namespace Dyvenix.GenIt
 {
 	/// <summary>
-	/// Partial class for UpdatePropertyModel to add calculated properties for UI binding.
+	/// Partial class for FilterPropertyModel to add calculated properties.
 	/// </summary>
-	public partial class UpdatePropertyModel
+	public partial class FilterPropertyModel
 	{
-		public string ArgName
-		{
-			get
-			{
-				return PackageUtils.ToCamelCase(this.Name);
-			}
-		}
-
 		/// <summary>
 		/// Gets the resolved PropertyModel. If the PropertyModel link is null, resolves by name from the parent entity.
 		/// </summary>
@@ -25,8 +17,8 @@ namespace Dyvenix.GenIt
 				if (this.PropertyModel != null)
 					return this.PropertyModel;
 
-				// Navigate to parent entity: UpdatePropertyModel -> UpdateMethodModel -> ServiceModel -> EntityModeled
-				var entity = this.UpdateMethodModel?.ServiceModel?.EntityModeled;
+				// Navigate to parent entity: FilterPropertyModel -> ReadMethodModel -> ServiceModel -> EntityModeled
+				var entity = this.ReadMethodModel?.ServiceModel?.EntityModeled;
 				if (entity == null)
 					return null;
 

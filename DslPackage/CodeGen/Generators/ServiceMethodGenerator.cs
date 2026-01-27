@@ -7,14 +7,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
 	internal class ServiceMethodGenerator
 	{
-		/// <summary>
-		/// Resolves the PropertyModel for a FilterPropertyModel, falling back to lookup by name if the link is null.
-		/// </summary>
-		private PropertyModel ResolvePropertyModel(FilterPropertyModel filterProp, EntityModel entity)
-		{
-			return filterProp.PropertyModel ?? entity.Properties.FirstOrDefault(p => p.Name == filterProp.Name);
-		}
-
 		internal void GenerateCreateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 1;
@@ -151,7 +143,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "{");
 			if (entity.InclRowVersion)
 				output.AddLine(tc + 1, "ArgumentNullException.ThrowIfNull(rowVersion);");
-			foreach (var (updProp, propModel) in updateProps.Where(p => !p.UpdProp.IsOptional && p.PropModel.CSType == "string"))
+			foreach (var (updProp, propModel) in updateProps.Where(p => !p.UpdProp.IsOptional && p.PropModel.DataType == DataTypes.String))
 				output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({propModel.ArgName});");
 			output.AddLine();
 			output.AddLine(tc + 1, "try {");
@@ -184,7 +176,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateReadMethod(EntityModel entity, ReadMethodModel method, List<string> output, List<string> interfaceOutput)
 		{
-			var tc = 1;
+			var tc = 0;
 			output.AddLine();
 
 			// Attributes
@@ -203,7 +195,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				if (c++ > 0)
 					sbSigArgs.Append(", ");
-				sbSigArgs.Append($"{filterProp.PropertyModel.DataType} {filterProp.PropertyModel.ArgName}");
+				sbSigArgs.Append($"{filterProp.ResolvedPropertyModel.CSType} {filterProp.ResolvedPropertyModel.ArgName}");
 			}
 
 			// Optional properties next
@@ -213,7 +205,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					sbSigArgs.Append(", ");
 				//var nullChar =  filterProp.PropertyModel.PrimitiveType?.Id != PrimitiveType.String.Id ? "?" : string.Empty;
 				var nullChar = "?";
-				sbSigArgs.Append($"{filterProp.PropertyModel.DataType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
+				sbSigArgs.Append($"{filterProp.ResolvedPropertyModel.DataType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
 			}
 
 			// Finally paging
@@ -239,12 +231,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			foreach (var inclNavProp in method.InclNavPropertiesList)
 				output.AddLine(tc + 1, $"dbQuery = dbQuery.Include(x => x.{inclNavProp});");
 
-		// Filters
+			// Filters
 			if (method.FilterProperties.Any())
 			{
 				// Required
 				foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && !fp.IsOptional))
-					GenerateFilter(filterProp, entity, output, 1);
+					GenerateFilter(filterProp, entity, output, 0);
 
 				// Optional
 				var optFilterProps = method.FilterProperties.Where(fp => !fp.IsInternal && fp.IsOptional);
@@ -252,7 +244,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					output.AddLine(2, "// Optional");
 					foreach (var filterProp in optFilterProps)
-						GenerateFilter(filterProp, entity, output, 1);
+						GenerateFilter(filterProp, entity, output, 0);
 				}
 
 				// Internal
@@ -287,52 +279,47 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output, int tc)
 		{
-			var propModel = ResolvePropertyModel(filterProp, entity);
-			if (propModel.DataType == "String")
+			if (filterProp.ResolvedPropertyModel.DataType == DataTypes.String)
 			{
-				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({propModel.ArgName}))");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{propModel.Name}, {propModel.ArgName}));");
-
-				//} else if (filterProp.Property.PrimitiveType?.Id == PrimitiveType.Int.Id || filterProp.Property.PrimitiveType?.Id == PrimitiveType.Bool.Id || filterProp.Property.PrimitiveType?.Id == PrimitiveType.Guid.Id) {
+				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({filterProp.ResolvedPropertyModel.ArgName}))");
+				output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.ResolvedPropertyModel.Name}, {filterProp.ResolvedPropertyModel.ArgName}));");
 			}
 			else
 			{
 				var indent = tc + 1;
 				if (filterProp.IsOptional)
 				{
-					output.AddLine(indent, $"if ({propModel.ArgName}.HasValue)");
+					output.AddLine(indent, $"if ({filterProp.ResolvedPropertyModel.ArgName}.HasValue)");
 					indent++;
 				}
-				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{propModel.Name} == {propModel.ArgName});");
+				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.ResolvedPropertyModel.Name} == {filterProp.ResolvedPropertyModel.ArgName});");
 			}
 		}
 
 		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output, int tc)
 		{
-			var propModel = ResolvePropertyModel(filterProp, entity);
 			var indent = tc;
 
-			if (propModel.DataType == "String")
+			if (filterProp.ResolvedPropertyModel.DataType == DataTypes.String)
 			{
-				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{propModel.Name}, \"{filterProp.InternalValue}\"));");
+				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.ResolvedPropertyModel.Name}, \"{filterProp.InternalValue}\"));");
 
 			}
 			else
 			{
 				if (filterProp.IsOptional)
 				{
-					output.AddLine(indent, $"if ({propModel.ArgName}.HasValue)");
+					output.AddLine(indent, $"if ({filterProp.ResolvedPropertyModel.ArgName}.HasValue)");
 					indent++;
 				}
 
-				if (!PackageUtils.IsPrimitiveDataType(propModel.DataType))
+				if (!PackageUtils.IsPrimitiveDataType(filterProp.ResolvedPropertyModel.DataType))
 				{
-					//output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{propModel.Name} == {propModel.EnumType.Name}.{filterProp.InternalValue});");
-					output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{propModel.Name} == {propModel.DataType}.{filterProp.InternalValue});");
+					output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.ResolvedPropertyModel.Name} == {filterProp.ResolvedPropertyModel.DataType}.{filterProp.InternalValue});");
 				}
 				else
 				{
-					output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{propModel.Name} == {filterProp.InternalValue});");
+					output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.ResolvedPropertyModel.Name} == {filterProp.InternalValue});");
 				}
 			}
 		}
@@ -359,19 +346,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 1, $"var result = new EntityList<{entity.Name}>();");
 			output.AddLine();
 
-		output.AddLine(tc + 1, $"// Filters");
+			output.AddLine(tc + 1, $"// Filters");
 			foreach (var filterProp in queryMethod.FilterProperties)
 			{
-				var propModel = ResolvePropertyModel(filterProp, entity);
-				if (PackageUtils.IsString(propModel.DataType))
+				if (PackageUtils.IsString(filterProp.ResolvedPropertyModel.DataType))
 				{
-					output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(query.{propModel.Name}))");
-					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{propModel.Name}, query.{propModel.Name}));");
+					output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(query.{filterProp.ResolvedPropertyModel.Name}))");
+					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.ResolvedPropertyModel.Name}, query.{filterProp.ResolvedPropertyModel.Name}));");
 				}
-				else if (propModel.DataType == "Int32" || propModel.DataType == "Boolean" || propModel.DataType == "Guid")
+				else if (filterProp.ResolvedPropertyModel.DataType == DataTypes.Int32 || filterProp.ResolvedPropertyModel.DataType == DataTypes.Boolean || filterProp.ResolvedPropertyModel.DataType == DataTypes.Guid)
 				{
-					output.AddLine(tc + 1, $"if (query.{propModel.Name}.HasValue)");
-					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => x.{propModel.Name} == query.{propModel.Name});");
+					output.AddLine(tc + 1, $"if (query.{filterProp.ResolvedPropertyModel.Name}.HasValue)");
+					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => x.{filterProp.ResolvedPropertyModel.Name} == query.{filterProp.ResolvedPropertyModel.Name});");
 				}
 			}
 

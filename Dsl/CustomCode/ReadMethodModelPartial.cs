@@ -39,7 +39,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				if (this.FilterProperties.Count == 1 && !this.FilterProperties[0].IsOptional && (this.FilterProperties[0].PropertyModel.IsPrimaryKey || this.FilterProperties[0].PropertyModel.IsIndexUnique))
+				if (this.FilterProperties.Count == 1 && !this.FilterProperties[0].IsOptional && (this.FilterProperties[0].ResolvedPropertyModel.IsPrimaryKey || this.FilterProperties[0].ResolvedPropertyModel.IsIndexUnique))
 					return false;
 				return true;
 			}

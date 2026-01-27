@@ -84,6 +84,7 @@
     <Compile Include="CodeGen\GenItModel.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils_new.cs" />
+    <Compile Include="CodeGen\Misc\DataTypes.cs" />
     <Compile Include="CodeGen\Misc\FileHelper.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />

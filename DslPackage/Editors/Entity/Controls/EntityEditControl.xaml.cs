@@ -121,7 +121,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private void LoadDataTypes()
 		{
 			// Load primitive types + enum names from the model
-			_dataTypes = DataTypeHelper.GetAllDataTypes(_entityModel.Store).ToArray();
+			_dataTypes = GenIt.DataTypes.GetAllDataTypes(_entityModel.Store).ToArray();
 		}
 
 		/// <summary>

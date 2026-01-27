@@ -26,7 +26,7 @@ namespace Dyvenix.GenIt
 
 		public static bool IsPrimitiveDataType(string dataType)
 		{
-			return DataTypeHelper.PrimitiveTypes.Contains(dataType);
+			return DataTypes.PrimitiveTypes.Contains(dataType);
 		}
 
 		public static bool IsString(string dataType)
