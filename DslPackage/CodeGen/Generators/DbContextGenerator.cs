@@ -15,23 +15,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly string _outputFolderpath;
 		private readonly bool _inclHeader;
 
-		internal DbContextGenerator(List<EntityModel> entities, string dbContextName, string dbContextNamespace, string entitiesNamespace, string outputFolderpath, bool enabled, bool inclHeader, List<string> dbContextUsings)
+		internal DbContextGenerator(ModelRoot modelRoot)
 		{
-			_entities = entities;
-			_dbContextName = dbContextName;
-			_dbContextNamespace = dbContextNamespace;
-			_dbContextUsings = dbContextUsings;
-			_entitiesNamespace = entitiesNamespace;
-			_outputFolderpath = FileHelper.GetAbsolutePath(outputFolderpath);
-			_inclHeader = inclHeader;
-
-			this.Enabled = enabled;
+			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
+			_dbContextName = modelRoot.DbContextName;
+			_dbContextNamespace = modelRoot.DbContextNamespace;
+			_entitiesNamespace = modelRoot.EntitiesNamespace;
+			_outputFolderpath = FileHelper.GetAbsolutePath(modelRoot.DbContextOutputFolder);
+			_inclHeader = modelRoot.InclHeader;
+			_dbContextUsings = modelRoot.DbContextUsingsList;
 		}
 
 		internal void Validate(List<string> errors)
 		{
 			if (_entities == null || _entities.Count == 0)
 				errors.Add("No entities found in the model. Add some entities first.");
+
+			if (string.IsNullOrEmpty(_dbContextName))
+				errors.Add("DbContextNames is not set. Please set it in the ModelRoot properties.");
 
 			if (string.IsNullOrEmpty(_dbContextNamespace))
 				errors.Add("DbContextNamespace is not set. Please set it in the ModelRoot properties.");
@@ -45,15 +46,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				errors.Add("DbContextOutputFolder does not exist. Please select a valid folder.");
 		}
 
-		#region Properties
-
-		internal bool Enabled { get; private set; }
-
-		#endregion
-
 		internal void GenerateCode()
 		{
-			var className = $"{_dbContextName}Db";
+			var className = $"{_dbContextName}";
 
 			var fileContent = new List<string>();
 

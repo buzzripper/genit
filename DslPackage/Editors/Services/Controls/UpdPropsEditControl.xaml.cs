@@ -72,6 +72,15 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         vm.IsIncluded = true;
                         vm.IsOptional = updProp.IsOptional;
                         vm.UpdatePropertyModel = updProp;
+
+                        // Establish PropertyModel link if missing (for models saved before this link was added)
+                        if (updProp.PropertyModel == null)
+                        {
+                            DslTransactionHelper.ExecuteInTransaction(updateMethod, "Link PropertyModel", () =>
+                            {
+                                updProp.PropertyModel = vm.Property;
+                            });
+                        }
                     }
                 }
             }
@@ -108,6 +117,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         var newUpdProp = new UpdatePropertyModel(_updateMethod.Store);
                         newUpdProp.Name = vm.Property.Name;
                         newUpdProp.IsOptional = vm.IsOptional;
+                        newUpdProp.PropertyModel = vm.Property;
                         _updateProps.Add(newUpdProp);
                         vm.UpdatePropertyModel = newUpdProp;
                     });

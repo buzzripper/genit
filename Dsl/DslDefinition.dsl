@@ -95,6 +95,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="712df36a-37d0-45e2-bb6a-5c557deb7c24" Description="Description for Dyvenix.GenIt.ModelRoot.Db Context Name" Name="DbContextName" DisplayName="Db Context Name">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1147,6 +1152,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="permissions">
             <DomainPropertyMoniker Name="ModelRoot/Permissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextName">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextName" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

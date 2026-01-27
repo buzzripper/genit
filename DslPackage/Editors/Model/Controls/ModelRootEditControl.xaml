@@ -212,6 +212,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -220,9 +221,14 @@
                               HorizontalAlignment="Right" Margin="0,0,0,12"
                               Checked="chkDbContextEnabled_Changed" Unchecked="chkDbContextEnabled_Changed"/>
 
+                    <!-- DbContext Name -->
+                    <Label Grid.Row="1" Grid.Column="0" Content="DbContext Name:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtDbContextName" VerticalAlignment="Center" Margin="0,0,0,8"
+                             TextChanged="txtDbContextName_TextChanged"/>
+
                     <!-- Output Folder -->
-                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
+                    <Label Grid.Row="2" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
@@ -235,12 +241,12 @@
                     </Grid>
 
                     <!-- Namespace -->
-                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtDbContextNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+                    <Label Grid.Row="3" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtDbContextNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
                              TextChanged="txtDbContextNamespace_TextChanged"/>
 
                     <!-- Usings -->
-                    <controls:StringListControl Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dbContextUsingsControl"
+                    <controls:StringListControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dbContextUsingsControl"
                                                 Title="Usings" DialogTitle="Add Using" DialogLabel="Using:"
                                                 ItemsChanged="dbContextUsingsControl_ItemsChanged"/>
                 </Grid>

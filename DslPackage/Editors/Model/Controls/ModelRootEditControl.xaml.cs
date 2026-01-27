@@ -57,11 +57,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				txtEntitiesOutputFolder.Text = _modelRoot.EntitiesOutputFolder ?? string.Empty;
 				txtEntitiesNamespace.Text = _modelRoot.EntitiesNamespace ?? string.Empty;
 
-				// DbContext tab
-				chkDbContextEnabled.IsChecked = _modelRoot.DbContextEnabled;
-				txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
-				txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
-				dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
+			// DbContext tab
+			chkDbContextEnabled.IsChecked = _modelRoot.DbContextEnabled;
+			txtDbContextName.Text = _modelRoot.DbContextName ?? string.Empty;
+			txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
+			txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
+			dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
 
 				// Enums tab
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
@@ -251,6 +252,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.DbContextEnabledDomainPropertyId, chkDbContextEnabled.IsChecked ?? false);
+		}
+
+		private void txtDbContextName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.DbContextNameDomainPropertyId, txtDbContextName.Text);
 		}
 
 		private void txtDbContextOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

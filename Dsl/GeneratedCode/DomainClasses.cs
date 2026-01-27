@@ -1580,6 +1580,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DbContextName domain property code
+		
+		/// <summary>
+		/// DbContextName domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextNameDomainPropertyId = new global::System.Guid(0x712df36a, 0x37d0, 0x45e2, 0xbb, 0x6a, 0x5c, 0x55, 0x7d, 0xeb, 0x7c, 0x24);
+		
+		/// <summary>
+		/// Storage for DbContextName
+		/// </summary>
+		private global::System.String dbContextNamePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextName domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("712df36a-37d0-45e2-bb6a-5c557deb7c24")]
+		public global::System.String DbContextName
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextNamePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextNamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextName domain property.
+		/// </summary>
+		internal sealed partial class DbContextNamePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextNamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextName domain property value handler.
+			/// </summary>
+			public static readonly DbContextNamePropertyHandler Instance = new DbContextNamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextName domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextNameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextNamePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

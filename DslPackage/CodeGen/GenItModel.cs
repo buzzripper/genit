@@ -22,7 +22,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			var enums = modelRoot.Types.OfType<EnumModel>().ToList();
 			_enumGenerator = new EnumGenerator(enums, modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
 
-			_dbContextGenerator = new DbContextGenerator(entities, modelRoot.Name, modelRoot.DbContextNamespace, modelRoot.EntitiesNamespace, modelRoot.DbContextOutputFolder, modelRoot.DbContextEnabled, modelRoot.InclHeader, modelRoot.DbContextUsingsList);
+			_dbContextGenerator = new DbContextGenerator(modelRoot);
 
 			_serviceGenerator = new ServiceGenerator(modelRoot);
 
@@ -46,7 +46,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			else
 				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
 
-			if (_dbContextGenerator.Enabled)
+			if (_modelRoot.DbContextEnabled)
 				_dbContextGenerator.Validate(errors);
 			else
 				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
@@ -66,7 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			if (_enumGenerator.Enabled)
 				_enumGenerator.GenerateCode();
 
-			if (_dbContextGenerator.Enabled)
+			if (_modelRoot.DbContextEnabled)
 				_dbContextGenerator.GenerateCode();
 
 			_serviceGenerator.GenerateCode();

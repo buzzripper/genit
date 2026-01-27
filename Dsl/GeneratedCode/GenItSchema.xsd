@@ -143,6 +143,8 @@
             <xsd:documentation>Available permissions for the model (newline-separated)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DbContextName -->
+        <xsd:attribute name="dbContextName" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

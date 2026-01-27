@@ -72,7 +72,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Fields
 			var fields = new List<string>();
 			fields.AddLine(1, $"private readonly ILogger _logger;");
-			fields.AddLine(1, $"private readonly {_modelRoot.Name}Db _db;");
+			fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
 			fields.AddLine(1, $"private readonly IDbContextFactory _dbContextFactory;");
 
 			var serviceMethodGenerator = new ServiceMethodGenerator();
@@ -108,18 +108,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				updMethodsOutput.AddLine(1, "#endregion");
 			}
 
-			//// Read methods - single
-			//var singleMethodsOutput = new List<string>();
-			//foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.UseQuery && !m.IsList))
-			//{
-			//	if (singleMethodsOutput.Count == 0)
-			//	{
-			//		singleMethodsOutput.AddLine(1, "#region Single Methods");
-			//	}
-			//	serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceContent);
-			//}
-			//if (singleMethodsOutput.Count > 0)
-			//	singleMethodsOutput.AddLine(1, "#endregion");
+			// Read methods - single
+			var singleMethodsOutput = new List<string>();
+			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.UseQuery && !m.IsList))
+			{
+				if (singleMethodsOutput.Count == 0)
+				{
+					singleMethodsOutput.AddLine(1, "#region Single Methods");
+				}
+				serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceContent);
+			}
+			if (singleMethodsOutput.Count > 0)
+				singleMethodsOutput.AddLine(1, "#endregion");
 
 			//// Read methods - list
 			//var listMethodsOutput = new List<string>();

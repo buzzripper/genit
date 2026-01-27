@@ -333,6 +333,14 @@
     <value>Security</value>
     <comment>Category for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Db Context Name</value>
+    <comment>Description for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.DisplayName" xml:space="preserve">
+    <value>Db Context Name</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

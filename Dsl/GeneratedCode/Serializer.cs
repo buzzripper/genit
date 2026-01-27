@@ -926,6 +926,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DbContextName
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextName = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextName");
+				if (attribDbContextName != null)
+				{
+					global::System.String valueOfDbContextName;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDbContextName, out valueOfDbContextName))
+					{
+						instanceOfModelRoot.DbContextName = valueOfDbContextName;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextName", typeof(global::System.String), attribDbContextName);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1678,6 +1695,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissions", propValue);
+	
+				}
+			}
+			// DbContextName
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DbContextName;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextName", propValue);
 	
 				}
 			}

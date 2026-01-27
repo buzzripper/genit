@@ -114,6 +114,7 @@
     <Compile Include="CustomCode\ServiceModelCustomization.cs" />
     <Compile Include="CustomCode\ServiceModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\TypeDescriptorHelper.cs" />
+    <Compile Include="CustomCode\UpdatePropertyModelPartial.cs" />
     <Compile Include="CustomCode\UpdateMethodModelPartial.cs" />
     <Compile Include="GeneratedCode\ConnectionBuilders.cs">
       <AutoGen>True</AutoGen>

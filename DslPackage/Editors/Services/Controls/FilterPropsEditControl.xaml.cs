@@ -70,6 +70,15 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         vm.IsInternal = filterProp.IsInternal;
                         vm.InternalValue = filterProp.InternalValue;
                         vm.FilterPropertyModel = filterProp;
+
+                        // Establish PropertyModel link if missing (for models saved before this link was added)
+                        if (filterProp.PropertyModel == null)
+                        {
+                            DslTransactionHelper.ExecuteInTransaction(readMethod, "Link PropertyModel", () =>
+                            {
+                                filterProp.PropertyModel = vm.Property;
+                            });
+                        }
                     }
                 }
             }
@@ -103,6 +112,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         newFilterProp.IsOptional = vm.IsOptional;
                         newFilterProp.IsInternal = vm.IsInternal;
                         newFilterProp.InternalValue = vm.InternalValue;
+                        newFilterProp.PropertyModel = vm.Property;
                         _filterProps.Add(newFilterProp);
                         vm.FilterPropertyModel = newFilterProp;
                     });
