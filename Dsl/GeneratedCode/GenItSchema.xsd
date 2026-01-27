@@ -795,10 +795,10 @@
   </xsd:complexType>
   
   <!-- FilterPropertyModel -->
-  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="namedElement" />
+  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="core:modelElement" />
   <xsd:complexType name="FilterPropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="NamedElement">
+      <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: FilterPropertyModelHasProperty -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -833,13 +833,18 @@
   </xsd:complexType>
   
   <!-- FilterPropertyModel Moniker -->
-  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="namedElementMoniker" />
+  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="FilterPropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for FilterPropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="NamedElementMoniker">
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -913,10 +918,10 @@
   </xsd:complexType>
   
   <!-- UpdatePropertyModel -->
-  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="namedElement" />
+  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="core:modelElement" />
   <xsd:complexType name="UpdatePropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="NamedElement">
+      <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: UpdatePropertyModelHasPropertyModel -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -947,13 +952,18 @@
   </xsd:complexType>
   
   <!-- UpdatePropertyModel Moniker -->
-  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="namedElementMoniker" />
+  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="UpdatePropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for UpdatePropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="NamedElementMoniker">
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

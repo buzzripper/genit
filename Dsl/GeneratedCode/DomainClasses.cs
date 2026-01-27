@@ -4191,22 +4191,18 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region FilterPropertyModel opposite domain role accessor
+		#region FilterPropertyModels opposite domain role accessor
+		
 		/// <summary>
-		/// Gets or sets FilterPropertyModel.
+		/// Gets a list of FilterPropertyModels.
 		/// Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel
 		/// </summary>
-		public virtual FilterPropertyModel FilterPropertyModel
+		public virtual DslModeling::LinkedElementCollection<FilterPropertyModel> FilterPropertyModels
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId) as FilterPropertyModel;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId, value);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -6108,7 +6104,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("e97460a8-b0c2-4ad1-8647-ea4e27d2a20d")]
-	public partial class FilterPropertyModel : NamedElement
+	public partial class FilterPropertyModel : DslModeling::ModelElement
 	{
 		#region Constructors, domain class Id
 	
@@ -7217,7 +7213,7 @@ namespace Dyvenix.GenIt
 	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
 	[global::System.CLSCompliant(true)]
 	[DslModeling::DomainObjectId("dfb40532-a576-4b0e-bebe-90c3c47c3ae3")]
-	public partial class UpdatePropertyModel : NamedElement
+	public partial class UpdatePropertyModel : DslModeling::ModelElement
 	{
 		#region Constructors, domain class Id
 	

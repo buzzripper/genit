@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 {
@@ -320,13 +322,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			if (e.RemovedItems.Count == 0)
 				return;
 
-			// Commit edit and refresh the row to update Max Len visibility
+			// Commit edit; view refresh is deferred to RowEditEnding to avoid refreshing during an active edit transaction.
 			if (dgProperties.SelectedItem != null)
 			{
 				dgProperties.CommitEdit(DataGridEditingUnit.Cell, true);
 				dgProperties.CommitEdit(DataGridEditingUnit.Row, true);
-				dgProperties.Items.Refresh();
 			}
+		}
+
+		private void dgProperties_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+		{
+			// Ensure dependent templates (e.g., Max Len visibility/enabled state based on DataType) re-evaluate
+			// AFTER the DataGrid has completed its edit transaction.
+			if (dgProperties.ItemsSource == null)
+				return;
+
+			void RefreshViewSafely()
+			{
+				var view = CollectionViewSource.GetDefaultView(dgProperties.ItemsSource);
+				if (view is IEditableCollectionView iecv && (iecv.IsAddingNew || iecv.IsEditingItem))
+				{
+					Dispatcher.BeginInvoke((Action)RefreshViewSafely, DispatcherPriority.ContextIdle);
+					return;
+				}
+
+				view?.Refresh();
+			}
+
+			// RowEditEnding occurs before the underlying view exits its edit transaction.
+			Dispatcher.BeginInvoke((Action)RefreshViewSafely, DispatcherPriority.ContextIdle);
 		}
 
 		private void dgProperties_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)

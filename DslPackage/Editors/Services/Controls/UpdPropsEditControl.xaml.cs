@@ -66,7 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var updProp = updateProperties.FirstOrDefault(up => up.Name == vm.Property.Name);
+                    var updProp = updateProperties.FirstOrDefault(up => up.PropertyModel == vm.Property);
                     if (updProp != null)
                     {
                         vm.IsIncluded = true;
@@ -78,6 +78,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         {
                             DslTransactionHelper.ExecuteInTransaction(updateMethod, "Link PropertyModel", () =>
                             {
+                                // Clear any existing link first (PropertyModel can only link to one UpdatePropertyModel)
+                                if (vm.Property.UpdatePropertyModel != null)
+                                {
+                                    vm.Property.UpdatePropertyModel = null;
+                                }
                                 updProp.PropertyModel = vm.Property;
                             });
                         }
@@ -115,10 +120,16 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     DslTransactionHelper.ExecuteInTransaction(_updateMethod, "Add Update Property", () =>
                     {
                         var newUpdProp = new UpdatePropertyModel(_updateMethod.Store);
-                        newUpdProp.Name = vm.Property.Name;
                         newUpdProp.IsOptional = vm.IsOptional;
-                        newUpdProp.PropertyModel = vm.Property;
+                        // Add to collection first to establish the UpdateMethodModel link
                         _updateProps.Add(newUpdProp);
+                        // Clear any existing link from PropertyModel before creating new one
+                        // (PropertyModel can only link to one UpdatePropertyModel at a time)
+                        if (vm.Property.UpdatePropertyModel != null)
+                        {
+                            vm.Property.UpdatePropertyModel = null;
+                        }
+                        newUpdProp.PropertyModel = vm.Property;
                         vm.UpdatePropertyModel = newUpdProp;
                     });
                 }

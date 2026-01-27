@@ -110,6 +110,7 @@
     <Compile Include="CustomCode\PropertyModelCustomization.cs" />
     <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
+    <Compile Include="CustomCode\PropertyModelRenamePropagationRules.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\ReadMethodModelPartial.cs" />
     <Compile Include="CustomCode\ServiceModelCustomization.cs" />

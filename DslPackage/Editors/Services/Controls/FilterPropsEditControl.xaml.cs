@@ -62,7 +62,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var filterProp = filterProps.FirstOrDefault(fp => fp.Name == vm.Property.Name);
+                    var filterProp = filterProps.FirstOrDefault(fp => fp.PropertyModel == vm.Property);
                     if (filterProp != null)
                     {
                         vm.IsIncluded = true;
@@ -70,15 +70,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                         vm.IsInternal = filterProp.IsInternal;
                         vm.InternalValue = filterProp.InternalValue;
                         vm.FilterPropertyModel = filterProp;
-
-                        // Establish PropertyModel link if missing (for models saved before this link was added)
-                        if (filterProp.PropertyModel == null)
-                        {
-                            DslTransactionHelper.ExecuteInTransaction(readMethod, "Link PropertyModel", () =>
-                            {
-                                filterProp.PropertyModel = vm.Property;
-                            });
-                        }
                     }
                 }
             }
@@ -108,12 +99,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     DslTransactionHelper.ExecuteInTransaction(_readMethod, "Add Filter Property", () =>
                     {
                         var newFilterProp = new FilterPropertyModel(_readMethod.Store);
-                        newFilterProp.Name = vm.Property.Name;
                         newFilterProp.IsOptional = vm.IsOptional;
                         newFilterProp.IsInternal = vm.IsInternal;
                         newFilterProp.InternalValue = vm.InternalValue;
-                        newFilterProp.PropertyModel = vm.Property;
+                        // Add to collection first to establish the ReadMethodModel link
                         _filterProps.Add(newFilterProp);
+                        newFilterProp.PropertyModel = vm.Property;
                         vm.FilterPropertyModel = newFilterProp;
                     });
                 }
@@ -124,11 +115,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     DslTransactionHelper.ExecuteInTransaction(_readMethod, "Remove Filter Property", () =>
                     {
                         filterPropToRemove.Delete();
+                        vm.FilterPropertyModel = null;
+                        vm.IsOptional = false;
+                        vm.IsInternal = false;
+                        vm.InternalValue = string.Empty;
                     });
-                    vm.FilterPropertyModel = null;
-                    vm.IsOptional = false;
-                    vm.IsInternal = false;
-                    vm.InternalValue = string.Empty;
                 }
             }
             else if (vm.FilterPropertyModel != null)

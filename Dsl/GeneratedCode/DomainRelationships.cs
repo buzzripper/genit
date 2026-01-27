@@ -9,6 +9,8 @@
 
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
+using System.Collections.Generic;
+using System.Linq;
 namespace Dyvenix.GenIt
 {
 	/// <summary>
@@ -3345,25 +3347,15 @@ namespace Dyvenix.GenIt
 		}
 				
 		#endregion
-		#region Static methods to access FilterPropertyModel of a PropertyModel
+		#region Static methods to access FilterPropertyModels of a PropertyModel
 		/// <summary>
-		/// Gets FilterPropertyModel.
+		/// Gets a list of FilterPropertyModels.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static FilterPropertyModel GetFilterPropertyModel(PropertyModel element)
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<FilterPropertyModel> GetFilterPropertyModels(PropertyModel element)
 		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, PropertyModelDomainRoleId) as FilterPropertyModel;
-		}
-		
-		/// <summary>
-		/// Sets FilterPropertyModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetFilterPropertyModel(PropertyModel element, FilterPropertyModel newFilterPropertyModel)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, PropertyModelDomainRoleId, newFilterPropertyModel);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(element, PropertyModelDomainRoleId).ToList().AsReadOnly();
 		}
 		#endregion
 		#region PropertyModel domain role code
@@ -3379,7 +3371,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "FilterPropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "FilterPropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("0b288384-2de6-4188-b81d-dd343d2c541a")]
 		public virtual PropertyModel PropertyModel
 		{

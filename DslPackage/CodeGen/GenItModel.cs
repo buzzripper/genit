@@ -36,6 +36,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			if (string.IsNullOrEmpty(_modelRoot.Name))
 				errors.Add("Model name is required.");
 
+			ValidateModules(errors);
+
 			if (_entityGenerator.Enabled)
 				_entityGenerator.Validate(errors);
 			else
@@ -70,6 +72,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				_dbContextGenerator.GenerateCode();
 
 			_serviceGenerator.GenerateCode();
+		}
+
+		private void ValidateModules(List<string> errors)
+		{
+			foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
+			{
+				if (string.IsNullOrWhiteSpace(module.Namespace))
+					errors.Add($"Module '{module.Name}' - Namespace is missing .");
+				if (string.IsNullOrWhiteSpace(module.RootFolder))
+					errors.Add($"Module '{module.Name}' - RootFolder is missing.");
+			}
 		}
 	}
 }

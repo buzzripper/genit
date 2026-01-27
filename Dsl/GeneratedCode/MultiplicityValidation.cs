@@ -27,7 +27,7 @@ namespace Dyvenix.GenIt
 				context.LogViolation(DslValidation::ViolationType.Error,
 					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
 						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
-						"FilterPropertyModel", this.Name, "PropertyModel"),
+						"FilterPropertyModel", "", "PropertyModel"),
 						"DSL0001", this);
 			}
 		} // ValidateFilterPropertyModelMultiplicity
@@ -51,7 +51,7 @@ namespace Dyvenix.GenIt
 				context.LogViolation(DslValidation::ViolationType.Error,
 					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
 						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
-						"UpdatePropertyModel", this.Name, "PropertyModel"),
+						"UpdatePropertyModel", "", "PropertyModel"),
 						"DSL0001", this);
 			}
 		} // ValidateUpdatePropertyModelMultiplicity

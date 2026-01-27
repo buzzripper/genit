@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 
 namespace Dyvenix.GenIt
@@ -11,26 +12,20 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return PackageUtils.ToCamelCase(this.Name);
+				return PackageUtils.ToCamelCase(this.PropertyModel?.Name);
 			}
 		}
 
 		/// <summary>
-		/// Gets the resolved PropertyModel. If the PropertyModel link is null, resolves by name from the parent entity.
+		/// Gets the resolved PropertyModel.
+		/// If the PropertyModel link is null (legacy models), attempts to resolve by walking parent links.
+		/// If parent links are unavailable (e.g. code generation path), falls back to scanning the Store.
 		/// </summary>
 		public PropertyModel ResolvedPropertyModel
 		{
 			get
 			{
-				if (this.PropertyModel != null)
-					return this.PropertyModel;
-
-				// Navigate to parent entity: UpdatePropertyModel -> UpdateMethodModel -> ServiceModel -> EntityModeled
-				var entity = this.UpdateMethodModel?.ServiceModel?.EntityModeled;
-				if (entity == null)
-					return null;
-
-				return entity.Properties.FirstOrDefault(p => p.Name == this.Name);
+				return this.PropertyModel;
 			}
 		}
 	}

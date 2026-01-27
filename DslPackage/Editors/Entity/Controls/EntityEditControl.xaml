@@ -355,7 +355,9 @@
                   DragOver="dgProperties_DragOver"
                   Drop="dgProperties_Drop"
                   BeginningEdit="dgProperties_BeginningEdit"
-                  CellEditEnding="dgProperties_CellEditEnding" SelectionChanged="dgProperties_SelectionChanged">
+                  CellEditEnding="dgProperties_CellEditEnding"
+                  RowEditEnding="dgProperties_RowEditEnding"
+                  SelectionChanged="dgProperties_SelectionChanged">
             <DataGrid.Columns>
                 <!-- Handle column for drag - blank header, drag handle icon -->
                 <DataGridTemplateColumn Width="24" CanUserResize="False">

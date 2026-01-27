@@ -10,6 +10,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly ModelRoot _modelRoot;
 		private readonly List<EntityModel> _entities;
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
+		private readonly List<string> _usings = new List<string>();
 
 		internal ServiceGenerator(ModelRoot modelRoot)
 		{
@@ -22,6 +23,34 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				if (!_modules.ContainsKey(module.Name))
 					_modules.Add(module.Name, module);
 			}
+		}
+
+		private void ResetUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
+		{
+			_usings.Clear();
+
+			// Default usings
+			_usings.Add("System");
+			_usings.Add("System.Collections.Generic");
+			_usings.Add("System.Linq");
+			_usings.Add("System.Threading.Tasks");
+			_usings.Add("Microsoft.Extensions.Logging");
+			_usings.Add("Microsoft.EntityFrameworkCore");
+			_usings.Add("Dyvenix.App1.Common.Core.Exceptions");
+			_usings.Add(_modelRoot.EntitiesNamespace);
+			_usings.Add(_modelRoot.DbContextNamespace);
+
+			foreach (var u in entity.UsingsList)
+				_usings.AddIfNotExists(u);
+
+			foreach (var u in serviceModel.ServiceUsingsList)
+				_usings.AddIfNotExists(u);
+
+			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
+				_usings.AddIfNotExists($"{module.Namespace}.Shared.Queries.{serviceModel.Version}");
+
+			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
+				_usings.AddIfNotExists($"{module.Namespace}.Shared.DTOs.{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -53,11 +82,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var module = _modules[entity.Module];
 			var serviceOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RootFolder, "Services", serviceModel.Version);
+			ResetUsings(entity, serviceModel, module);
 
 			Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
-
-			// Addl usings
-			var usings = BuildServiceUsings(entity, serviceModel, module);
 
 			// Interface contents
 			var interfaceContent = new List<string>();
@@ -73,7 +100,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var fields = new List<string>();
 			fields.AddLine(1, $"private readonly ILogger _logger;");
 			fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
-			fields.AddLine(1, $"private readonly IDbContextFactory _dbContextFactory;");
+			fields.AddLine(1, $"private readonly IDbContextFactory<{_modelRoot.DbContextName}> _dbContextFactory;");
 
 			var serviceMethodGenerator = new ServiceMethodGenerator();
 
@@ -140,6 +167,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				listMethodsOutput.AddLine();
 				listMethodsOutput.AddLine(0, "#endregion");
+				_usings.AddIfNotExists("Dyvenix.App1.Common.Core.Entities");
 			}
 
 			// Read methods - query
@@ -158,6 +186,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				queryMethodsOutput.AddLine();
 				queryMethodsOutput.AddLine(1, "#endregion");
+				_usings.AddIfNotExists("Dyvenix.App1.Common.Core.Entities");
 			}
 
 			// Sorting method
@@ -171,7 +200,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContent = new List<string>();
 
-			fileContent.AddLines(0, usings);
+			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.{serviceModel.Version}.Services;");
 			fileContent.AddLine();
@@ -203,40 +232,28 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}
 
-		private List<string> BuildServiceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
-		{
-			var usings = new List<string>();
+		//private List<string> BuildServiceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
+		//{
+		//	//var usings = new List<string>();
 
-			// Default usings
-			usings.Add("System");
-			usings.Add("System.Collections.Generic");
-			usings.Add("System.Linq");
-			usings.Add("System.Threading.Tasks");
-			usings.Add("Microsoft.Extensions.Logging");
-			usings.Add("Microsoft.EntityFrameworkCore");
-			usings.Add("Dyvenix.App1.Common.Core.Exceptions");
+		//	// Entity usings
+		//	foreach (var u in entity.UsingsList)
+		//		_usings.AddIfNotExists(u);
 
-			usings.AddIfNotExists(_modelRoot.EntitiesNamespace);
-			usings.AddIfNotExists(_modelRoot.DbContextNamespace);
+		//	// Service model usings
+		//	foreach (var u in serviceModel.ServiceUsingsList)
+		//		_usings.AddIfNotExists(u);
 
-			// Entity usings
-			foreach (var u in entity.UsingsList)
-				usings.AddIfNotExists(u);
+		//	// Queries namespace if used
+		//	if (serviceModel.ReadMethods.Any(m => m.UseQuery))
+		//		_usings.AddIfNotExists($"{module.Namespace}.Shared.Queries.{serviceModel.Version}");
 
-			// Service model usings
-			foreach (var u in serviceModel.ServiceUsingsList)
-				usings.AddIfNotExists(u);
+		//	// DTOs namespace if used
+		//	if (serviceModel.UpdateMethods.Any(m => m.UseDto))
+		//		_usings.AddIfNotExists($"{module.Namespace}.Shared.DTOs.{serviceModel.Version}");
 
-			// Queries namespace if used
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				usings.AddIfNotExists($"{module.Namespace}.Shared.Queries.{serviceModel.Version}");
-
-			// DTOs namespace if used
-			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				usings.AddIfNotExists($"{module.Namespace}.Shared.DTOs.{serviceModel.Version}");
-
-			return usings.Select(u => $"using {u};").ToList();
-		}
+		//	return _usings.Select(u => $"using {u};").ToList();
+		//}
 
 		private List<string> BuildServiceAttributes(ServiceModel serviceModel)
 		{

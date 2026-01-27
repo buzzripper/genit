@@ -10,7 +10,10 @@
 
 ## Important Notes
 - NEVER touch the code in the DslWpf project unless directly instructed to
+- Do not touch the CodeGen folder
+- Remove name-matching fallbacks; enforce invariant via model links
 
-## Important Notes
-- Make your answers terse, no need for the chatty updates wile you're executing your tasks. And never create the .md summary file at the end of your processin, not needed
+## Communication Guidelines
+- Make your answers terse; no need for chatty updates while executing tasks
+- Never create the .md summary file at the end of your processing, not needed
 

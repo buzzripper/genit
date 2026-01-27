@@ -14,6 +14,7 @@ $dbContextOutputFolder = "Common\Data"
 $dbContextNamespace = "Dyvenix.App1.Data"
 $enumsOutputFolder = "Common\Data.Shared\Entities"
 $enumsNamespace = "Dyvenix.App1.Data.Shared.Entities"
+$dbContextName = "App1Db"
 
 # Check if file exists
 if (-not (Test-Path $FilePath)) {
@@ -40,6 +41,7 @@ try {
     $modelRoot.SetAttribute("dbContextNamespace", $dbContextNamespace)
     $modelRoot.SetAttribute("enumsOutputFolder", $enumsOutputFolder)
     $modelRoot.SetAttribute("enumsNamespace", $enumsNamespace)
+    $modelRoot.SetAttribute("dbContextName", $dbContextName)
 
     # Save the file
     $xml.Save($FilePath)
@@ -51,6 +53,7 @@ try {
     Write-Host "  dbContextNamespace = $dbContextNamespace"
     Write-Host "  enumsOutputFolder = $enumsOutputFolder"
     Write-Host "  enumsNamespace = $enumsNamespace"
+    Write-Host "  dbContextName = $dbContextName"
 }
 catch {
     Write-Error "Error processing file: $_"

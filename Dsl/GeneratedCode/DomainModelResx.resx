@@ -1602,7 +1602,7 @@
     <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName" xml:space="preserve">
-    <value>Filter Property Model</value>
+    <value>Filter Property Models</value>
     <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties.Description" xml:space="preserve">

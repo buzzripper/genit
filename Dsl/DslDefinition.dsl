@@ -423,9 +423,6 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="e97460a8-b0c2-4ad1-8647-ea4e27d2a20d" Description="Description for Dyvenix.GenIt.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" Namespace="Dyvenix.GenIt">
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
       <Properties>
         <DomainProperty Id="a62c7c1d-5ab4-4917-bd52-a13a77f94d63" Description="" Name="IsOptional" DisplayName="Is Optional">
           <Type>
@@ -492,9 +489,6 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="dfb40532-a576-4b0e-bebe-90c3c47c3ae3" Description="Description for Dyvenix.GenIt.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" Namespace="Dyvenix.GenIt">
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
       <Properties>
         <DomainProperty Id="f5660c8b-88ae-4d6d-8304-0d0800788262" Description="Description for Dyvenix.GenIt.UpdatePropertyModel.Is Optional" Name="IsOptional" DisplayName="Is Optional">
           <Type>
@@ -864,7 +858,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="ZeroOne" PropertyDisplayName="Filter Property Model">
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModels" Multiplicity="Many" PropertyDisplayName="Filter Property Models">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
