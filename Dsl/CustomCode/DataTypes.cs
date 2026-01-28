@@ -126,5 +126,12 @@ namespace Dyvenix.GenIt
 		{
 			return dataType == "String" || dataType == "ByteArray";
 		}
+
+		public static bool IsPrimitiveType(string dataType)
+		{
+			if (string.IsNullOrWhiteSpace(dataType))
+				return false;
+			return PrimitiveTypes.Contains(dataType);
+		}
 	}
 }

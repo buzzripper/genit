@@ -17,7 +17,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Convenience vars
 			_modelRoot = modelRoot;
 			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
-
 			foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
 			{
 				if (!_modules.ContainsKey(module.Name))
@@ -47,10 +46,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists(u);
 
 			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				_usings.AddIfNotExists($"{module.Namespace}.Shared.Queries.{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.QueryNamespace}.{serviceModel.Version}");
 
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				_usings.AddIfNotExists($"{module.Namespace}.Shared.DTOs.{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.DtoNamespace}.{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -231,29 +230,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}
-
-		//private List<string> BuildServiceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
-		//{
-		//	//var usings = new List<string>();
-
-		//	// Entity usings
-		//	foreach (var u in entity.UsingsList)
-		//		_usings.AddIfNotExists(u);
-
-		//	// Service model usings
-		//	foreach (var u in serviceModel.ServiceUsingsList)
-		//		_usings.AddIfNotExists(u);
-
-		//	// Queries namespace if used
-		//	if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-		//		_usings.AddIfNotExists($"{module.Namespace}.Shared.Queries.{serviceModel.Version}");
-
-		//	// DTOs namespace if used
-		//	if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-		//		_usings.AddIfNotExists($"{module.Namespace}.Shared.DTOs.{serviceModel.Version}");
-
-		//	return _usings.Select(u => $"using {u};").ToList();
-		//}
 
 		private List<string> BuildServiceAttributes(ServiceModel serviceModel)
 		{
