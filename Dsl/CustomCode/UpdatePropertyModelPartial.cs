@@ -1,6 +1,3 @@
-using System.Diagnostics;
-using System.Linq;
-
 namespace Dyvenix.GenIt
 {
 	/// <summary>
@@ -12,7 +9,7 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				return PackageUtils.ToCamelCase(this.PropertyModel?.Name);
+				return this.PropertyModel?.Name.ToCamelCase();
 			}
 		}
 

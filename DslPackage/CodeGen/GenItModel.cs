@@ -16,6 +16,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly ServiceGenerator _serviceGenerator;
 		private readonly DtoGenerator _dtoGenerator;
 		private readonly QueryGenerator _queryGenerator;
+		private readonly ControllerGenerator _controllerGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
@@ -28,6 +29,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_serviceGenerator = new ServiceGenerator(modelRoot);
 			_dtoGenerator = new DtoGenerator(modelRoot);
 			_queryGenerator = new QueryGenerator(modelRoot);
+			_controllerGenerator = new ControllerGenerator(modelRoot);
 		}
 
 		internal bool Validate(out List<string> errors)
@@ -73,6 +75,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_serviceGenerator.GenerateCode();
 			_dtoGenerator.GenerateCode();
 			_queryGenerator.GenerateCode();
+			_controllerGenerator.GenerateCode();
 		}
 
 		private void ValidateModules(List<string> errors)

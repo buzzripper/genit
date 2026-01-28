@@ -79,6 +79,7 @@
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\QueryGenerator.cs" />
     <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
     <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\EnumGenerator.cs" />
     <Compile Include="CodeGen\Generators\EntityGenerator.cs" />

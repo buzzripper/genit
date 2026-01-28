@@ -14,7 +14,7 @@ namespace Dyvenix.GenIt
 
 		public string ArgName
 		{
-			get { return PackageUtils.ToCamelCase(this.Name); }
+			get { return this.Name.ToCamelCase(); }
 		}
 	}
 }

@@ -9,7 +9,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 	{
 		private readonly ModelRoot _modelRoot;
 		private readonly List<EntityModel> _entities;
-		private readonly string _entitiesNamespace;
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 		private readonly List<string> _usings = new List<string>();
 		private readonly List<string> _modelUsings;
@@ -55,7 +54,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// If any non-primitive property, add entities namespace
 			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))
-				_usings.AddIfNotExists(_entitiesNamespace);
+				_usings.AddIfNotExists(_modelRoot.EntitiesNamespace);
 
 			// DateTime needs System namespace
 			if (updateMethod.UpdateProperties.Any(x => x.PropertyModel.DataType == DataTypes.DateTime))
