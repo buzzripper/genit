@@ -12,18 +12,19 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly string _entitiesNamespace;
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 		private readonly List<string> _usings = new List<string>();
+		private readonly List<string> _modelUsings;
 
 		internal DtoGenerator(ModelRoot modelRoot)
 		{
 			// Convenience vars
 			_modelRoot = modelRoot;
-			_entitiesNamespace = modelRoot.EntitiesNamespace;
 			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
 			{
 				if (!_modules.ContainsKey(module.Name))
 					_modules.Add(module.Name, module);
 			}
+			_modelUsings = modelRoot.UsingsList;
 		}
 
 		internal void GenerateCode()
@@ -40,11 +41,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
+		private void ResetUsings()
+		{
+			_usings.Clear();
+			_usings.AddLines(0, _modelUsings);
+		}
+
 		private void GenerateDto(ModuleModel module, EntityModel entity, ServiceModel service, UpdateMethodModel updateMethod)
 		{
 			var dtoName = $"{updateMethod.Name}Req";
 
-			_usings.Clear();
+			this.ResetUsings();
 
 			// If any non-primitive property, add entities namespace
 			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))

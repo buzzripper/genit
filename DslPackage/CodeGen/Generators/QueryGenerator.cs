@@ -29,12 +29,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void ResetUsings(EntityModel entity, ModuleModel module)
 		{
 			_usings.Clear();
-
-			// Default usings
 			_usings.Add("System");
-			_usings.Add(_entitiesNamespace);
-			foreach (var u in entity.UsingsList)
-				_usings.AddIfNotExists(u);
+			_usings.AddLines(0, _modelRoot.UsingsList);
 		}
 
 		internal void GenerateCode()
@@ -70,7 +66,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				paging.AddLine(1, "public bool RecalcRowCount { get; set; }");
 				paging.AddLine(1, "public bool GetRowCountOnly { get; set; }");
 				interfaceDecl = "IPagingQuery";
-				_usings.AddIfNotExists("PAGING NS");
 			}
 
 			// Sorting

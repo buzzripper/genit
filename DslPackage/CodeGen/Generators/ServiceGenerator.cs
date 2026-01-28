@@ -35,7 +35,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.Add("System.Threading.Tasks");
 			_usings.Add("Microsoft.Extensions.Logging");
 			_usings.Add("Microsoft.EntityFrameworkCore");
-			_usings.Add("Dyvenix.App1.Common.Core.Exceptions");
+			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
 			_usings.Add(_modelRoot.DbContextNamespace);
 
@@ -166,7 +166,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				listMethodsOutput.AddLine();
 				listMethodsOutput.AddLine(0, "#endregion");
-				_usings.AddIfNotExists("Dyvenix.App1.Common.Core.Entities");
 			}
 
 			// Read methods - query
@@ -185,7 +184,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				queryMethodsOutput.AddLine();
 				queryMethodsOutput.AddLine(1, "#endregion");
-				_usings.AddIfNotExists("Dyvenix.App1.Common.Core.Entities");
 			}
 
 			// Sorting method

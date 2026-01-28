@@ -135,9 +135,6 @@
       <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Permissions\PermissionsManager.cs" />
-    <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
-      <DependentUpon>PropertyEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
     <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
       <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
@@ -337,6 +334,7 @@
   <ItemGroup>
     <Folder Include="CustomCode\ModelView\" />
     <Folder Include="CustomCode\MultiDiagram\" />
+    <Folder Include="Editors\Property\Controls\" />
     <Folder Include="Editors\Services\Helpers\" />
     <Folder Include="Editors\Services\ViewModels\" />
     <Folder Include="Resources\Images\" />
@@ -370,9 +368,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">

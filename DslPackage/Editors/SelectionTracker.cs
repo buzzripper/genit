@@ -67,7 +67,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 {
                     if (toolWindow?.Control != null)
                     {
-                        toolWindow.Control.ShowPropertyEditor(selectedPropertyModel);
+                    toolWindow.Control.ShowEntityEditor(ClassHasProperties.GetEntityModel(selectedPropertyModel), selectedPropertyModel);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }

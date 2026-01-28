@@ -265,14 +265,16 @@
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="Entity" 
+            <TextBlock Grid.Column="0" Text="Entity:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock Grid.Column="1" x:Name="txtEntityName" Text="Entity" 
                        FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
             
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
                 <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,16,0"
                           Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
                 <CheckBox x:Name="chkInclRowVersion" Content="Incl RowVersion" Margin="0,0,16,0"
@@ -350,6 +352,8 @@
                   SelectionMode="Single" SelectionUnit="FullRow"
                   HeadersVisibility="Column" RowHeaderWidth="0"
                   AllowDrop="True"
+                  SelectedCellsChanged="dgProperties_SelectedCellsChanged"
+                  PreviewKeyDown="dgProperties_PreviewKeyDown"
                   PreviewMouseLeftButtonDown="dgProperties_PreviewMouseLeftButtonDown"
                   PreviewMouseMove="dgProperties_PreviewMouseMove"
                   DragOver="dgProperties_DragOver"

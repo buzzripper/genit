@@ -60,6 +60,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			LoadFromModel();
 		}
 
+		public void SelectProperty(PropertyModel propertyModel)
+		{
+			if (propertyModel == null)
+				return;
+			if (_properties == null)
+				return;
+			if (!_properties.Contains(propertyModel))
+				return;
+
+			dgProperties.SelectedItem = propertyModel;
+			dgProperties.ScrollIntoView(propertyModel);
+		}
+
 		private void LoadFromModel()
 		{
 			if (_entityModel == null)
@@ -579,6 +592,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private void dgProperties_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+		}
+
+		private void dgProperties_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+		{
+			if (_isUpdating)
+				return;
+
+			if (sender is DataGrid grid && grid.CurrentCell != null && grid.CurrentCell.Column != null)
+			{
+				grid.Dispatcher.BeginInvoke(new Action(() =>
+				{
+					if (grid.CurrentCell.IsValid && !grid.IsReadOnly)
+					{
+						grid.BeginEdit();
+					}
+				}));
+			}
+		}
+
+		private void dgProperties_PreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			if (_isUpdating || _entityModel == null)
+				return;
+
+			if (e.Key == Key.Insert)
+			{
+				btnAddProperty_Click(btnAddProperty, new RoutedEventArgs());
+				e.Handled = true;
+			}
 		}
 	}
 }
