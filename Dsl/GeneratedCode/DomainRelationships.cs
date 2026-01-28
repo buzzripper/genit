@@ -9,8 +9,6 @@
 
 using DslModeling = global::Microsoft.VisualStudio.Modeling;
 using DslDesign = global::Microsoft.VisualStudio.Modeling.Design;
-using System.Collections.Generic;
-using System.Linq;
 namespace Dyvenix.GenIt
 {
 	/// <summary>
@@ -3353,9 +3351,9 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::System.Collections.ObjectModel.ReadOnlyCollection<FilterPropertyModel> GetFilterPropertyModels(PropertyModel element)
+		public static DslModeling::LinkedElementCollection<FilterPropertyModel> GetFilterPropertyModels(PropertyModel element)
 		{
-			return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(element, PropertyModelDomainRoleId).ToList().AsReadOnly();
+			return GetRoleCollection<DslModeling::LinkedElementCollection<FilterPropertyModel>, FilterPropertyModel>(element, PropertyModelDomainRoleId);
 		}
 		#endregion
 		#region PropertyModel domain role code
@@ -3431,22 +3429,13 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region PropertyModel link accessor
 		/// <summary>
-		/// Get the FilterPropertyModelHasProperty link to a PropertyModel.
+		/// Get the list of FilterPropertyModelHasProperty links to a PropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.FilterPropertyModelHasProperty GetLinkToFilterPropertyModel (global::Dyvenix.GenIt.PropertyModel propertyModelInstance)
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> GetLinksToFilterPropertyModels ( global::Dyvenix.GenIt.PropertyModel propertyModelInstance )
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.FilterPropertyModelHasProperty> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(propertyModelInstance, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of PropertyModel not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.FilterPropertyModelHasProperty>(propertyModelInstance, global::Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModelDomainRoleId);
 		}
 		#endregion
 		#region FilterPropertyModelHasProperty instance accessors

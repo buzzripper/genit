@@ -621,6 +621,26 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="33b84685-eda8-47b3-89b9-9d22d86f34bc" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Namespace" Name="DtoNamespace" DisplayName="Dto Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8e3535e4-285c-44af-804b-45b52eb83ad8" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Output Folder" Name="DtoOutputFolder" DisplayName="Dto Output Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d" Description="Description for Dyvenix.GenIt.ModuleModel.Query Namespace" Name="QueryNamespace" DisplayName="Query Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="688aa4d0-a69f-4123-be19-ff8c4e389e1d" Description="Description for Dyvenix.GenIt.ModuleModel.Query Output Folder" Name="QueryOutputFolder" DisplayName="Query Output Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
   </Classes>
@@ -858,7 +878,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModels" Multiplicity="Many" PropertyDisplayName="Filter Property Models">
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModels" PropertyDisplayName="Filter Property Models">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
@@ -1512,6 +1532,18 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="permissionsStorage">
             <DomainPropertyMoniker Name="ModuleModel/PermissionsStorage" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dtoNamespace">
+            <DomainPropertyMoniker Name="ModuleModel/DtoNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dtoOutputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/DtoOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="queryNamespace">
+            <DomainPropertyMoniker Name="ModuleModel/QueryNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="queryOutputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/QueryOutputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

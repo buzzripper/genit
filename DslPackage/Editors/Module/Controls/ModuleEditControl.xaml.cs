@@ -39,6 +39,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtName.Text = _moduleModel.Name ?? string.Empty;
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
 				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
+				txtDtoOutputFolder.Text = _moduleModel.DtoOutputFolder ?? string.Empty;
+				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
+				txtQueryOutputFolder.Text = _moduleModel.QueryOutputFolder ?? string.Empty;
+				txtQueryNamespace.Text = _moduleModel.QueryNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
 			}
@@ -46,6 +50,80 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			{
 				_isUpdating = false;
 			}
+		}
+
+		private void txtDtoOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.DtoOutputFolderDomainPropertyId, txtDtoOutputFolder.Text);
+		}
+
+		private void btnBrowseDtoFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_moduleModel == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtDtoOutputFolder.Text, "Select DTO Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtDtoOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModuleModel.DtoOutputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtDtoNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.DtoNamespaceDomainPropertyId, txtDtoNamespace.Text);
+		}
+
+		private void txtQueryOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.QueryOutputFolderDomainPropertyId, txtQueryOutputFolder.Text);
+		}
+
+		private void btnBrowseQueryFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_moduleModel == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtQueryOutputFolder.Text, "Select Query Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtQueryOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModuleModel.QueryOutputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtQueryNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.QueryNamespaceDomainPropertyId, txtQueryNamespace.Text);
 		}
 
 		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

@@ -69,6 +69,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
 			txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
 
+
 				// Permissions tab
 				_permissions = new ObservableCollection<PermissionModel>(ParsePermissions(_modelRoot.Permissions));
 				grdPermissions.ItemsSource = _permissions;
@@ -194,6 +195,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 		}
 
 		#endregion
+
 
 		#region Entities Tab Event Handlers
 

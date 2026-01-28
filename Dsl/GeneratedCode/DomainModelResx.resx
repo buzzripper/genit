@@ -1133,6 +1133,38 @@
     <value>Security</value>
     <comment>Category for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Dto Namespace</value>
+    <comment>Description for DomainProperty &apos;DtoNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoNamespace.DisplayName" xml:space="preserve">
+    <value>Dto Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;DtoNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Dto Output Folder</value>
+    <comment>Description for DomainProperty &apos;DtoOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoOutputFolder.DisplayName" xml:space="preserve">
+    <value>Dto Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;DtoOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/QueryNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Query Namespace</value>
+    <comment>Description for DomainProperty &apos;QueryNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/QueryNamespace.DisplayName" xml:space="preserve">
+    <value>Query Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;QueryNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/QueryOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Query Output Folder</value>
+    <comment>Description for DomainProperty &apos;QueryOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/QueryOutputFolder.DisplayName" xml:space="preserve">
+    <value>Query Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;QueryOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
     <comment>Description for DomainClass &apos;Association&apos;</comment>

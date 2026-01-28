@@ -51,6 +51,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -81,6 +85,44 @@
                         Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
                         Click="btnBrowseFolder_Click" ToolTip="Browse for folder"/>
             </Grid>
+
+			<!-- DTO Output Folder -->
+			<Label Grid.Row="4" Grid.Column="0" Content="DTO Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+			<Grid Grid.Row="4" Grid.Column="1" Margin="0,0,0,8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBox Grid.Column="0" x:Name="txtDtoOutputFolder" VerticalAlignment="Center"
+						 TextChanged="txtDtoOutputFolder_TextChanged"/>
+				<Button Grid.Column="1" x:Name="btnBrowseDtoFolder" Content="..."
+						Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+						Click="btnBrowseDtoFolder_Click" ToolTip="Browse for folder"/>
+			</Grid>
+
+			<!-- DTO Namespace -->
+			<Label Grid.Row="5" Grid.Column="0" Content="DTO Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+			<TextBox Grid.Row="5" Grid.Column="1" x:Name="txtDtoNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+					 TextChanged="txtDtoNamespace_TextChanged"/>
+
+			<!-- Query Output Folder -->
+			<Label Grid.Row="6" Grid.Column="0" Content="Query Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+			<Grid Grid.Row="6" Grid.Column="1" Margin="0,0,0,8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="Auto"/>
+				</Grid.ColumnDefinitions>
+				<TextBox Grid.Column="0" x:Name="txtQueryOutputFolder" VerticalAlignment="Center"
+						 TextChanged="txtQueryOutputFolder_TextChanged"/>
+				<Button Grid.Column="1" x:Name="btnBrowseQueryFolder" Content="..."
+						Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
+						Click="btnBrowseQueryFolder_Click" ToolTip="Browse for folder"/>
+			</Grid>
+
+			<!-- Query Namespace -->
+			<Label Grid.Row="7" Grid.Column="0" Content="Query Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+			<TextBox Grid.Row="7" Grid.Column="1" x:Name="txtQueryNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
+					 TextChanged="txtQueryNamespace_TextChanged"/>
         </Grid>
 
         <!-- GridSplitter -->

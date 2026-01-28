@@ -1148,6 +1148,14 @@
             <xsd:documentation>Permissions for this module (newline-separated)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DtoNamespace -->
+        <xsd:attribute name="dtoNamespace" type="xsd:string" />
+        <!-- Property: DtoOutputFolder -->
+        <xsd:attribute name="dtoOutputFolder" type="xsd:string" />
+        <!-- Property: QueryNamespace -->
+        <xsd:attribute name="queryNamespace" type="xsd:string" />
+        <!-- Property: QueryOutputFolder -->
+        <xsd:attribute name="queryOutputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

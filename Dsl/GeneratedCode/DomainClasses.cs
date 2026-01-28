@@ -9413,5 +9413,353 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DtoNamespace domain property code
+		
+		/// <summary>
+		/// DtoNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoNamespaceDomainPropertyId = new global::System.Guid(0x33b84685, 0xeda8, 0x47b3, 0x89, 0xb9, 0x9d, 0x22, 0xd8, 0x6f, 0x34, 0xbc);
+		
+		/// <summary>
+		/// Storage for DtoNamespace
+		/// </summary>
+		private global::System.String dtoNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DtoNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Dto Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/DtoNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/DtoNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("33b84685-eda8-47b3-89b9-9d22d86f34bc")]
+		public global::System.String DtoNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dtoNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DtoNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.DtoNamespace domain property.
+		/// </summary>
+		internal sealed partial class DtoNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private DtoNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.DtoNamespace domain property value handler.
+			/// </summary>
+			public static readonly DtoNamespacePropertyHandler Instance = new DtoNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.DtoNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DtoNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dtoNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dtoNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region DtoOutputFolder domain property code
+		
+		/// <summary>
+		/// DtoOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoOutputFolderDomainPropertyId = new global::System.Guid(0x8e3535e4, 0x285c, 0x44af, 0x80, 0x4b, 0x45, 0xb5, 0x2e, 0xb8, 0x3a, 0xd8);
+		
+		/// <summary>
+		/// Storage for DtoOutputFolder
+		/// </summary>
+		private global::System.String dtoOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DtoOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Dto Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/DtoOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/DtoOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8e3535e4-285c-44af-804b-45b52eb83ad8")]
+		public global::System.String DtoOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dtoOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DtoOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.DtoOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class DtoOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private DtoOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.DtoOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly DtoOutputFolderPropertyHandler Instance = new DtoOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.DtoOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DtoOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dtoOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dtoOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region QueryNamespace domain property code
+		
+		/// <summary>
+		/// QueryNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid QueryNamespaceDomainPropertyId = new global::System.Guid(0xce0eea41, 0xa4ee, 0x4ed8, 0xb1, 0xcd, 0x9a, 0x44, 0xf9, 0xee, 0x8a, 0x6d);
+		
+		/// <summary>
+		/// Storage for QueryNamespace
+		/// </summary>
+		private global::System.String queryNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of QueryNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Query Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/QueryNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/QueryNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d")]
+		public global::System.String QueryNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return queryNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				QueryNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.QueryNamespace domain property.
+		/// </summary>
+		internal sealed partial class QueryNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private QueryNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.QueryNamespace domain property value handler.
+			/// </summary>
+			public static readonly QueryNamespacePropertyHandler Instance = new QueryNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.QueryNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return QueryNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.queryNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.queryNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region QueryOutputFolder domain property code
+		
+		/// <summary>
+		/// QueryOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid QueryOutputFolderDomainPropertyId = new global::System.Guid(0x688aa4d0, 0xa69f, 0x4123, 0xbe, 0x19, 0xff, 0x8c, 0x4e, 0x38, 0x9e, 0x1d);
+		
+		/// <summary>
+		/// Storage for QueryOutputFolder
+		/// </summary>
+		private global::System.String queryOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of QueryOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Query Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/QueryOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/QueryOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("688aa4d0-a69f-4123-be19-ff8c4e389e1d")]
+		public global::System.String QueryOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return queryOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				QueryOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.QueryOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class QueryOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private QueryOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.QueryOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly QueryOutputFolderPropertyHandler Instance = new QueryOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.QueryOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return QueryOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.queryOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.queryOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 	}
 }

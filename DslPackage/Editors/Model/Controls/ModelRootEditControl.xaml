@@ -260,7 +260,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="36"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -268,7 +268,7 @@
 
                     <!-- Enabled checkbox at top-right -->
                     <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkEntitiesEnabled" Content="Enabled"
-                              HorizontalAlignment="Right" Margin="0,0,0,12"
+                              HorizontalAlignment="Right" VerticalAlignment="Center"
                               Checked="chkEntitiesEnabled_Changed" Unchecked="chkEntitiesEnabled_Changed"/>
 
                     <!-- Output Folder -->
@@ -300,7 +300,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="36"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
@@ -308,7 +308,7 @@
 
                     <!-- Enabled checkbox at top-right -->
                     <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkEnumsEnabled" Content="Enabled"
-                              HorizontalAlignment="Right" Margin="0,0,0,12"
+                              HorizontalAlignment="Right" VerticalAlignment="Center"
                               Checked="chkEnumsEnabled_Changed" Unchecked="chkEnumsEnabled_Changed"/>
 
                     <!-- Output Folder -->

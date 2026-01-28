@@ -2,6 +2,7 @@
 
 ## Architecture
 - This is a DSL project using Visual Studio Modeling SDK
+- Workspace projects target .NET Framework 4.7.2
 - Target framework: .NET Framework 4.7.2
 
 ## Coding Conventions
