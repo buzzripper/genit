@@ -139,37 +139,33 @@
 
         <!-- Left Panel - General Settings -->
         <Grid Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Model Header -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Model" 
-                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,12"/>
+            <!-- Header row: Model + Include Headers (aligned) -->
+            <Grid Grid.Row="0" Margin="0,0,0,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Name -->
-            <Label Grid.Row="1" Grid.Column="0" Content="Name:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtName" VerticalAlignment="Center" Margin="0,0,0,8"
-                     TextChanged="txtName_TextChanged"/>
-
-            <!-- Include Headers -->
-            <Label Grid.Row="2" Grid.Column="0" Content="Include Headers:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <CheckBox Grid.Row="2" Grid.Column="1" x:Name="chkInclHeader" VerticalAlignment="Center" Margin="0,0,0,8"
-                      Checked="chkInclHeader_Changed" Unchecked="chkInclHeader_Changed"/>
+                <TextBlock Grid.Column="0" Text="Model" VerticalAlignment="Center" FontSize="14" FontWeight="SemiBold"/>
+                <CheckBox Grid.Column="1" x:Name="chkInclHeader" Content="Include Headers" VerticalAlignment="Center"
+                          Checked="chkInclHeader_Changed" Unchecked="chkInclHeader_Changed"/>
+            </Grid>
 
             <!-- Templates Folder -->
-            <Label Grid.Row="3" Grid.Column="0" Content="Templates Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <Grid Grid.Row="3" Grid.Column="1" Margin="0,0,0,8">
+            <Grid Grid.Row="1" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Templates Folder:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <Grid Grid.Column="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
@@ -179,19 +175,33 @@
                 <Button Grid.Column="1" x:Name="btnBrowseTemplates" Content="..." 
                         Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
                         Click="btnBrowseTemplates_Click" ToolTip="Browse for folder"/>
+                </Grid>
             </Grid>
 
-            <!-- Diagram Background Color -->
-            <Label Grid.Row="4" Grid.Column="0" Content="Background Color:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <Button Grid.Row="4" Grid.Column="1" x:Name="btnDiagramBackgroundColor" 
-                    Style="{StaticResource ColorButtonStyle}" HorizontalAlignment="Left" Margin="0,0,0,8"
-                    Click="btnDiagramBackgroundColor_Click" ToolTip="Click to change color"/>
+            <!-- Colors row: Background + Line (aligned horizontally) -->
+            <Grid Grid.Row="2" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- Association Line Color -->
-            <Label Grid.Row="5" Grid.Column="0" Content="Line Color:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-            <Button Grid.Row="5" Grid.Column="1" x:Name="btnAssociationLineColor" 
-                    Style="{StaticResource ColorButtonStyle}" HorizontalAlignment="Left" Margin="0,0,0,8"
-                    Click="btnAssociationLineColor_Click" ToolTip="Click to change color"/>
+                <Label Grid.Column="0" Content="Background Color:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <Button Grid.Column="1" x:Name="btnDiagramBackgroundColor" Style="{StaticResource ColorButtonStyle}"
+                        HorizontalAlignment="Left" Margin="0,0,24,0"
+                        Click="btnDiagramBackgroundColor_Click" ToolTip="Click to change color"/>
+
+                <Label Grid.Column="2" Content="Line Color:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <Button Grid.Column="3" x:Name="btnAssociationLineColor" Style="{StaticResource ColorButtonStyle}"
+                        HorizontalAlignment="Left"
+                        Click="btnAssociationLineColor_Click" ToolTip="Click to change color"/>
+            </Grid>
+
+            <!-- Usings (fill remaining space like Entity editor Service tab) -->
+            <controls:StringListControl Grid.Row="3" x:Name="modelRootUsingsControl"
+                                        Title="Usings" DialogTitle="Add Using" DialogLabel="Using:"
+                                        ItemsChanged="modelRootUsingsControl_ItemsChanged"/>
         </Grid>
 
         <!-- GridSplitter -->

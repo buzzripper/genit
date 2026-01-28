@@ -144,7 +144,17 @@
           </xsd:annotation>
         </xsd:attribute>
         <!-- Property: DbContextName -->
-        <xsd:attribute name="dbContextName" type="xsd:string" />
+        <xsd:attribute name="dbContextName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name for Db Context</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Global usings</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

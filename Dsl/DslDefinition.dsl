@@ -95,7 +95,12 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="712df36a-37d0-45e2-bb6a-5c557deb7c24" Description="Description for Dyvenix.GenIt.ModelRoot.Db Context Name" Name="DbContextName" DisplayName="Db Context Name">
+        <DomainProperty Id="712df36a-37d0-45e2-bb6a-5c557deb7c24" Description="Name for Db Context" Name="DbContextName" DisplayName="Db Context Name" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="7b4d8ffa-0d67-4efd-8c65-23cd20c39e90" Description="Global usings" Name="Usings" DisplayName="Usings">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1169,6 +1174,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="dbContextName">
             <DomainPropertyMoniker Name="ModelRoot/DbContextName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="usings">
+            <DomainPropertyMoniker Name="ModelRoot/Usings" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

@@ -1594,9 +1594,10 @@ namespace Dyvenix.GenIt
 		
 		/// <summary>
 		/// Gets or sets the value of DbContextName domain property.
-		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Name
+		/// Name for Db Context
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextName.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ModelRoot/DbContextName.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextName.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("712df36a-37d0-45e2-bb6a-5c557deb7c24")]
 		public global::System.String DbContextName
@@ -1661,6 +1662,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.dbContextNamePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region Usings domain property code
+		
+		/// <summary>
+		/// Usings domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid UsingsDomainPropertyId = new global::System.Guid(0x7b4d8ffa, 0x0d67, 0x4efd, 0x8c, 0x65, 0x23, 0xcd, 0x20, 0xc3, 0x9e, 0x90);
+		
+		/// <summary>
+		/// Storage for Usings
+		/// </summary>
+		private global::System.String usingsPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Usings domain property.
+		/// Global usings
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/Usings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/Usings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("7b4d8ffa-0d67-4efd-8c65-23cd20c39e90")]
+		public global::System.String Usings
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return usingsPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				UsingsPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.Usings domain property.
+		/// </summary>
+		internal sealed partial class UsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private UsingsPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.Usings domain property value handler.
+			/// </summary>
+			public static readonly UsingsPropertyHandler Instance = new UsingsPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.Usings domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return UsingsDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.usingsPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.usingsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

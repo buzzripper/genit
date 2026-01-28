@@ -44,13 +44,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			try
 			{
 				// General settings
-				txtName.Text = _modelRoot.Name ?? string.Empty;
 				chkInclHeader.IsChecked = _modelRoot.InclHeader;
 				txtTemplatesFolder.Text = _modelRoot.TemplatesFolder ?? string.Empty;
 
 				// Color buttons
 				UpdateColorButton(btnDiagramBackgroundColor, _modelRoot.DiagramBackgroundColor);
 				UpdateColorButton(btnAssociationLineColor, _modelRoot.AssociationLineColor);
+				modelRootUsingsControl.SetItems(ParseMultilineString(_modelRoot.Usings));
 
 				// Entities tab
 				chkEntitiesEnabled.IsChecked = _modelRoot.EntitiesEnabled;
@@ -110,14 +110,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 		}
 
 		#region General Settings Event Handlers
-
-		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(NamedElement.NameDomainPropertyId, txtName.Text);
-		}
 
 		private void chkInclHeader_Changed(object sender, RoutedEventArgs e)
 		{
@@ -192,6 +184,15 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 					UpdateModelProperty(ModelRoot.AssociationLineColorDomainPropertyId, dialog.Color);
 				}
 			}
+		}
+
+		private void modelRootUsingsControl_ItemsChanged(object sender, EventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			var usingsValue = JoinToMultilineString(modelRootUsingsControl.Items);
+			UpdateModelProperty(ModelRoot.UsingsDomainPropertyId, usingsValue);
 		}
 
 		#endregion

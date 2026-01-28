@@ -34,9 +34,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		{
 			errors = new List<string>();
 
-			if (string.IsNullOrEmpty(_modelRoot.Name))
-				errors.Add("Model name is required.");
-
 			// Modules don't have generators, so validate them here
 			ValidateModules(errors);
 

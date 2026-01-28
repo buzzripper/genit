@@ -334,12 +334,24 @@
     <comment>Category for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ModelRoot/DbContextName.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModelRoot.Db Context Name</value>
+    <value>Name for Db Context</value>
     <comment>Description for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ModelRoot/DbContextName.DisplayName" xml:space="preserve">
     <value>Db Context Name</value>
     <comment>DisplayName for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Usings.Description" xml:space="preserve">
+    <value>Global usings</value>
+    <comment>Description for DomainProperty &apos;Usings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Usings.DisplayName" xml:space="preserve">
+    <value>Usings</value>
+    <comment>DisplayName for DomainProperty &apos;Usings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
