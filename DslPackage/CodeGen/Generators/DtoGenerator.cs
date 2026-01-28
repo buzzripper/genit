@@ -26,17 +26,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		private void ResetUsings(EntityModel entity, ModuleModel module)
-		{
-			_usings.Clear();
-
-			// Default usings
-			_usings.Add("System");
-			_usings.Add(_entitiesNamespace);
-			foreach (var u in entity.UsingsList)
-				_usings.AddIfNotExists(u);
-		}
-
 		internal void GenerateCode()
 		{
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
@@ -53,12 +42,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateDto(ModuleModel module, EntityModel entity, ServiceModel service, UpdateMethodModel updateMethod)
 		{
-			ResetUsings(entity, module);
 			var dtoName = $"{updateMethod.Name}Req";
+
+			_usings.Clear();
 
 			// If any non-primitive property, add entities namespace
 			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))
 				_usings.AddIfNotExists(_entitiesNamespace);
+
+			// DateTime needs System namespace
+			if (updateMethod.UpdateProperties.Any(x => x.PropertyModel.DataType == DataTypes.DateTime))
+				_usings.AddIfNotExists("System");
 
 			var fileContent = new List<string>();
 
