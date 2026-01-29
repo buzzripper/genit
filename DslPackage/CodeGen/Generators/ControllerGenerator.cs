@@ -29,8 +29,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.Clear();
 
 			// Default usings
+			_usings.AddLine(0, "Microsoft.AspNetCore.Mvc");
 			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
+			_usings.Add($"{module.Namespace}.Services.{serviceModel.Version}");
 
 			foreach (var u in entity.UsingsList)
 				_usings.AddIfNotExists(u);
@@ -64,7 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateController(EntityModel entity, ServiceModel serviceModel)
 		{
 			var module = _modules[entity.Module];
-			var controllerOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RootFolder, "Controllers", serviceModel.Version);
+			var controllerOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", serviceModel.Version);
 			ResetUsings(entity, serviceModel, module);
 			Directory.CreateDirectory(controllerOutputDir);  // Ensure output dir exists
 			var controllerName = $"{entity.Name}Controller";
@@ -76,8 +78,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Declaration
 			var declaration = new List<string>();
-			declaration.AddLine(0, $"public class {controllerName} : ApiControllerBase<{controllerName}>");
-			declaration.AddLine(0, "{");
+			declaration.AddLine(0, $"public class {controllerName} : ControllerBase");
 
 			// Create
 			var createMethodsOutput = new List<string>();
@@ -169,7 +170,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RootFolder, "Controllers", serviceModel.Version);
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", serviceModel.Version);
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{controllerName}.cs");
 

@@ -80,7 +80,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var serviceName = $"{entity.Name}Service";
 
 			var module = _modules[entity.Module];
-			var serviceOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RootFolder, "Services", serviceModel.Version);
+			var serviceOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", serviceModel.Version);
 			ResetUsings(entity, serviceModel, module);
 
 			Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
@@ -199,7 +199,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.{serviceModel.Version}.Services;");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public interface I{entity.Name}Service");
 			fileContent.AddLine(0, "{");
@@ -220,7 +220,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RootFolder, "Services", serviceModel.Version);
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", serviceModel.Version);
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{serviceName}.cs");
 

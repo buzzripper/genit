@@ -15158,20 +15158,20 @@ namespace Dyvenix.GenIt
 			ModuleModel instanceOfModuleModel = element as ModuleModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfModuleModel != null, "Expecting an instance of ModuleModel");
 	
-			// RootFolder
+			// ApiRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				string attribRootFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "rootFolder");
-				if (attribRootFolder != null)
+				string attribApiRootFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "apiRootFolder");
+				if (attribApiRootFolder != null)
 				{
-					global::System.String valueOfRootFolder;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribRootFolder, out valueOfRootFolder))
+					global::System.String valueOfApiRootFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribApiRootFolder, out valueOfApiRootFolder))
 					{
-						instanceOfModuleModel.RootFolder = valueOfRootFolder;
+						instanceOfModuleModel.ApiRootFolder = valueOfApiRootFolder;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "rootFolder", typeof(global::System.String), attribRootFolder);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "apiRootFolder", typeof(global::System.String), attribApiRootFolder);
 					}
 				}
 			}
@@ -15666,14 +15666,14 @@ namespace Dyvenix.GenIt
 			ModuleModel instanceOfModuleModel = element as ModuleModel;
 			global::System.Diagnostics.Debug.Assert(instanceOfModuleModel != null, "Expecting an instance of ModuleModel");
 	
-			// RootFolder
+			// ApiRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModuleModel.RootFolder;
+				global::System.String propValue = instanceOfModuleModel.ApiRootFolder;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "rootFolder", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "apiRootFolder", propValue);
 	
 				}
 			}

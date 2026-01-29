@@ -1,7 +1,7 @@
 <Solution>
   <Folder Name="/.SolutionItems/">
-    <File Path=".SolutionItems/Test.gmdl" />
-    <File Path=".SolutionItems/Test.gmdl.diagram" />
+    <File Path=".SolutionItems/App1.gmdl" />
+    <File Path=".SolutionItems/App1.gmdl.diagram" />
   </Folder>
   <Folder Name="/.SolutionItems/Scripts/">
     <File Path=".SolutionItems/Scripts/GmdlUpdate.ps1" />

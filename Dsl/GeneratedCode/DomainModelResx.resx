@@ -1117,13 +1117,13 @@
     <value>Module Model</value>
     <comment>DisplayName for DomainClass &apos;ModuleModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModuleModel/RootFolder.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModuleModel.Root Folder</value>
-    <comment>Description for DomainProperty &apos;RootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ModuleModel/ApiRootFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Api Root Folder</value>
+    <comment>Description for DomainProperty &apos;ApiRootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModuleModel/RootFolder.DisplayName" xml:space="preserve">
-    <value>Root Folder</value>
-    <comment>DisplayName for DomainProperty &apos;RootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ModuleModel/ApiRootFolder.DisplayName" xml:space="preserve">
+    <value>Api Root Folder</value>
+    <comment>DisplayName for DomainProperty &apos;ApiRootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ModuleModel/Namespace.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel.Namespace</value>

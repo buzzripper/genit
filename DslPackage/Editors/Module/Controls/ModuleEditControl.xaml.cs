@@ -38,7 +38,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			{
 				txtName.Text = _moduleModel.Name ?? string.Empty;
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
-				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
+				txtRootFolder.Text = _moduleModel.ApiRootFolder ?? string.Empty;
 				txtDtoOutputFolder.Text = _moduleModel.DtoOutputFolder ?? string.Empty;
 				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
 				txtQueryOutputFolder.Text = _moduleModel.QueryOutputFolder ?? string.Empty;
@@ -147,7 +147,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			if (_isUpdating || _moduleModel == null)
 				return;
 
-			UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, txtRootFolder.Text);
+			UpdateModelProperty(ModuleModel.ApiRootFolderDomainPropertyId, txtRootFolder.Text);
 		}
 
 		private void btnBrowseFolder_Click(object sender, RoutedEventArgs e)
@@ -167,7 +167,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 					_isUpdating = false;
 				}
 
-				UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, selectedPath);
+				UpdateModelProperty(ModuleModel.ApiRootFolderDomainPropertyId, selectedPath);
 			}
 		}
 

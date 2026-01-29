@@ -85,7 +85,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				if (string.IsNullOrWhiteSpace(module.Namespace))
 					errors.Add($"Module '{module.Name}' - Namespace is missing .");
 
-				if (string.IsNullOrWhiteSpace(module.RootFolder))
+				if (string.IsNullOrWhiteSpace(module.ApiRootFolder))
 					errors.Add($"Module '{module.Name}' - RootFolder is missing.");
 
 				if (this.AnyDTOs(module))

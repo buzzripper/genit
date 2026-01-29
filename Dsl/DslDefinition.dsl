@@ -611,7 +611,7 @@
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="643cfb2a-53b7-4c18-ab98-0e98f6622bf3" Description="Description for Dyvenix.GenIt.ModuleModel.Root Folder" Name="RootFolder" DisplayName="Root Folder">
+        <DomainProperty Id="643cfb2a-53b7-4c18-ab98-0e98f6622bf3" Description="Description for Dyvenix.GenIt.ModuleModel.Api Root Folder" Name="ApiRootFolder" DisplayName="Api Root Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1532,8 +1532,8 @@
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
         <DomainClassMoniker Name="ModuleModel" />
         <ElementData>
-          <XmlPropertyData XmlName="rootFolder">
-            <DomainPropertyMoniker Name="ModuleModel/RootFolder" />
+          <XmlPropertyData XmlName="apiRootFolder">
+            <DomainPropertyMoniker Name="ModuleModel/ApiRootFolder" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="namespace">
             <DomainPropertyMoniker Name="ModuleModel/Namespace" />

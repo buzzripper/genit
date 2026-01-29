@@ -1148,8 +1148,8 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: RootFolder -->
-        <xsd:attribute name="rootFolder" type="xsd:string" />
+        <!-- Property: ApiRootFolder -->
+        <xsd:attribute name="apiRootFolder" type="xsd:string" />
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" />
         <!-- Property: PermissionsStorage -->

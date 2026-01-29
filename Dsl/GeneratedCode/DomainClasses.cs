@@ -9238,59 +9238,59 @@ namespace Dyvenix.GenIt
 		{
 		}
 		#endregion
-		#region RootFolder domain property code
+		#region ApiRootFolder domain property code
 		
 		/// <summary>
-		/// RootFolder domain property Id.
+		/// ApiRootFolder domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid RootFolderDomainPropertyId = new global::System.Guid(0x643cfb2a, 0x53b7, 0x4c18, 0xab, 0x98, 0x0e, 0x98, 0xf6, 0x62, 0x2b, 0xf3);
+		public static readonly global::System.Guid ApiRootFolderDomainPropertyId = new global::System.Guid(0x643cfb2a, 0x53b7, 0x4c18, 0xab, 0x98, 0x0e, 0x98, 0xf6, 0x62, 0x2b, 0xf3);
 		
 		/// <summary>
-		/// Storage for RootFolder
+		/// Storage for ApiRootFolder
 		/// </summary>
-		private global::System.String rootFolderPropertyStorage = string.Empty;
+		private global::System.String apiRootFolderPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of RootFolder domain property.
-		/// Description for Dyvenix.GenIt.ModuleModel.Root Folder
+		/// Gets or sets the value of ApiRootFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Api Root Folder
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/RootFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/RootFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/ApiRootFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/ApiRootFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("643cfb2a-53b7-4c18-ab98-0e98f6622bf3")]
-		public global::System.String RootFolder
+		public global::System.String ApiRootFolder
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return rootFolderPropertyStorage;
+				return apiRootFolderPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				RootFolderPropertyHandler.Instance.SetValue(this, value);
+				ApiRootFolderPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModuleModel.RootFolder domain property.
+		/// Value handler for the ModuleModel.ApiRootFolder domain property.
 		/// </summary>
-		internal sealed partial class RootFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		internal sealed partial class ApiRootFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
 		{
-			private RootFolderPropertyHandler() { }
+			private ApiRootFolderPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModuleModel.RootFolder domain property value handler.
+			/// Gets the singleton instance of the ModuleModel.ApiRootFolder domain property value handler.
 			/// </summary>
-			public static readonly RootFolderPropertyHandler Instance = new RootFolderPropertyHandler();
+			public static readonly ApiRootFolderPropertyHandler Instance = new ApiRootFolderPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModuleModel.RootFolder domain property.
+			/// Gets the Id of the ModuleModel.ApiRootFolder domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return RootFolderDomainPropertyId;
+					return ApiRootFolderDomainPropertyId;
 				}
 			}
 			
@@ -9302,7 +9302,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModuleModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.rootFolderPropertyStorage;
+				return element.apiRootFolderPropertyStorage;
 			}
 		
 			/// <summary>
@@ -9318,7 +9318,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.rootFolderPropertyStorage = newValue;
+					element.apiRootFolderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
