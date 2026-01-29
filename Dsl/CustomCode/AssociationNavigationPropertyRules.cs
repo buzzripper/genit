@@ -682,7 +682,7 @@ namespace Dyvenix.GenIt
 
     /// <summary>
     /// Rule that fires when a ServiceModel is added.
-    /// Automatically sets the Version property based on how many services already exist on the EntityModel.
+    /// Automatically sets the Version property to the next major version (x.0) based on existing services on the EntityModel.
     /// </summary>
     [RuleOn(typeof(EntityModelHasServiceModels), FireTime = TimeToFire.TopLevelCommit)]
     public class ServiceModelAddRule : AddRule
@@ -704,16 +704,42 @@ namespace Dyvenix.GenIt
                 return;
 
             // Only set version if it's empty (not already set)
-            if (string.IsNullOrEmpty(serviceModel.Version))
+            if (string.IsNullOrWhiteSpace(serviceModel.Version))
             {
-                // Count is already updated to include the new service, so use it directly
-                // e.g., if this is the first service, Count = 1, so Version = "v1"
-                int versionNumber = entityModel.ServiceModels.Count;
-                serviceModel.Version = $"v{versionNumber}";
+                int nextMajor = 1;
+
+                foreach (var existing in entityModel.ServiceModels)
+                {
+                    if (existing == null || existing == serviceModel)
+                        continue;
+
+                    var version = existing.Version;
+                    if (string.IsNullOrWhiteSpace(version))
+                        continue;
+
+                    if (TryGetMajor(version, out int major) && major >= nextMajor)
+                        nextMajor = major + 1;
+                }
+
+                serviceModel.Version = nextMajor.ToString(System.Globalization.CultureInfo.InvariantCulture) + ".0";
             }
 
             // Set default values for new service
             serviceModel.Enabled = true;
+        }
+
+        private static bool TryGetMajor(string version, out int major)
+        {
+            major = 0;
+
+            // Support legacy prefixes like "v1" while moving to "1.0".
+            var v = version.Trim();
+            if (v.Length > 0 && (v[0] == 'v' || v[0] == 'V'))
+                v = v.Substring(1);
+
+            var dotIdx = v.IndexOf('.');
+            var majorPart = dotIdx >= 0 ? v.Substring(0, dotIdx) : v;
+            return int.TryParse(majorPart.Trim(), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out major);
         }
     }
 }

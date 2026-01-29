@@ -19,6 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 		private ModelRoot _modelRoot;
 		private bool _isUpdating;
 		private ObservableCollection<PermissionModel> _permissions;
+		private ObservableCollection<EditableString> _usings;
 
 		public ModelRootEditControl()
 		{
@@ -50,7 +51,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Color buttons
 				UpdateColorButton(btnDiagramBackgroundColor, _modelRoot.DiagramBackgroundColor);
 				UpdateColorButton(btnAssociationLineColor, _modelRoot.AssociationLineColor);
-				modelRootUsingsControl.SetItems(ParseMultilineString(_modelRoot.Usings));
+				_usings = new ObservableCollection<EditableString>(ParseMultilineString(_modelRoot.Usings).Select(u => new EditableString(u)));
+				grdModelUsings.ItemsSource = _usings;
 
 				// Entities tab
 				chkEntitiesEnabled.IsChecked = _modelRoot.EntitiesEnabled;
@@ -107,6 +109,68 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return string.Empty;
 
 			return string.Join("\n", items);
+		}
+
+		private void btnAddUsing_Click(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
+
+			var newItem = new EditableString($"Using{_usings.Count + 1}");
+			_usings.Add(newItem);
+			SaveUsings();
+			grdModelUsings.SelectedItem = newItem;
+			grdModelUsings.ScrollIntoView(newItem);
+			grdModelUsings.Dispatcher.BeginInvoke(new Action(() =>
+			{
+				grdModelUsings.Focus();
+				grdModelUsings.CurrentCell = new DataGridCellInfo(newItem, grdModelUsings.Columns[0]);
+				grdModelUsings.BeginEdit();
+			}), System.Windows.Threading.DispatcherPriority.Background);
+		}
+
+		private void btnDeleteUsing_Click(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
+
+			if (grdModelUsings.SelectedItem is EditableString selected)
+			{
+				_usings.Remove(selected);
+				SaveUsings();
+			}
+		}
+
+		private void grdUsings_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			Dispatcher.BeginInvoke(new Action(() => SaveUsings()), System.Windows.Threading.DispatcherPriority.Background);
+		}
+
+		private void grdUsings_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+		{
+			if (_isUpdating)
+				return;
+
+			if (e.OriginalSource is DataGridCell cell && !cell.IsEditing)
+			{
+				grdModelUsings.Dispatcher.BeginInvoke(new Action(() =>
+				{
+					if (!cell.IsEditing)
+						grdModelUsings.BeginEdit();
+				}), System.Windows.Threading.DispatcherPriority.Background);
+			}
+		}
+
+		private void SaveUsings()
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
+
+			var value = JoinToMultilineString(_usings.Select(u => u.Value).Where(v => !string.IsNullOrWhiteSpace(v)).Select(v => v.Trim()));
+			UpdateModelProperty(ModelRoot.UsingsDomainPropertyId, value);
 		}
 
 		#region General Settings Event Handlers
@@ -184,15 +248,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 					UpdateModelProperty(ModelRoot.AssociationLineColorDomainPropertyId, dialog.Color);
 				}
 			}
-		}
-
-		private void modelRootUsingsControl_ItemsChanged(object sender, EventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			var usingsValue = JoinToMultilineString(modelRootUsingsControl.Items);
-			UpdateModelProperty(ModelRoot.UsingsDomainPropertyId, usingsValue);
 		}
 
 		#endregion

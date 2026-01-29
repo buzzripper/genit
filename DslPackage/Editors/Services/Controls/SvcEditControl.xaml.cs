@@ -36,7 +36,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
 			// Set entity name and version
 			txtEntityName.Text = _entity.Name;
-			txtVersion.Text = _serviceAdapter.Version ?? "v1";
+			txtVersion.Text = _serviceAdapter.Version ?? "1.0";
 
 			ckbEnabled.IsChecked = _serviceAdapter.Enabled;
 			ckbInclCreate.IsChecked = _serviceAdapter.InclCreate;
@@ -62,6 +62,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			UpdateControllerTabVisibility();
 
 			_suspendUpdates = false;
+		}
+
+		private void txtVersion_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (_suspendUpdates || _serviceAdapter == null)
+				return;
+
+			_serviceAdapter.Version = txtVersion.Text;
 		}
 
 		private void UpdateControllerTabVisibility()

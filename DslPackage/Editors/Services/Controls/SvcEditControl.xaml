@@ -35,6 +35,13 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
         </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+            <Setter Property="Padding" Value="6,4"/>
+        </Style>
         
         <!-- Toolbar button style - subtle hover effect -->
         <Style x:Key="ToolbarButtonStyle" TargetType="Button">
@@ -191,9 +198,12 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="" VerticalAlignment="Center" Margin="4,0,16,0" FontSize="14" FontWeight="SemiBold"/>
+            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="" VerticalAlignment="Center" Margin="4,0,16,0" FontSize="16" FontWeight="SemiBold"/>
             
-            <TextBlock Grid.Column="1" x:Name="txtVersion" Text="v1" VerticalAlignment="Center" Margin="0,0,12,0" FontSize="12"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,12,0">
+                <TextBlock Text="Version:" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="14"/>
+                <TextBox x:Name="txtVersion" Width="80" VerticalAlignment="Center" FontSize="12" TextChanged="txtVersion_TextChanged"/>
+            </StackPanel>
 
             <Button Grid.Column="3" x:Name="btnPermissions" Content="Permissions (0)" 
                     Click="btnPermissions_Click"

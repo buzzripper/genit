@@ -15,6 +15,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors
     /// </summary>
     public partial class GenItEditorWindowControl : UserControl
     {
+        public event System.EventHandler<string> CaptionRequested;
+
+        private void RequestCaption(string caption)
+        {
+            CaptionRequested?.Invoke(this, caption);
+        }
+
         private SvcEditControl _svcEditControl;
         private ModelRootEditControl _modelRootEditControl;
         private EntityEditControl _entityEditControl;
@@ -46,6 +53,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 editorContentHost.Content = _svcEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
+
+				RequestCaption("GenIt - Service / Controller");
             }
             else
             {
@@ -71,6 +80,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 editorContentHost.Content = _modelRootEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
+
+				RequestCaption("GenIt - Model");
             }
             else
             {
@@ -96,6 +107,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 editorContentHost.Content = _entityEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
+
+				RequestCaption("GenIt - Entity");
             }
             else
             {
@@ -156,6 +169,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 editorContentHost.Content = _moduleEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
+
+				RequestCaption("GenIt - Module");
             }
             else
             {
@@ -196,6 +211,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors
             editorContentHost.Content = null;
             editorContentHost.Visibility = Visibility.Collapsed;
             txtNoSelection.Visibility = Visibility.Hidden;
+
+			RequestCaption("GenIt");
         }
     }
 }
