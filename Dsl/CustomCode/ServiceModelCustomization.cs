@@ -61,6 +61,54 @@ namespace Dyvenix.GenIt
 		}
 
 		[Browsable(false)]
+		public List<string> CreatePermissionsList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.CreatePermissions))
+					return new List<string>();
+
+				return this.CreatePermissions
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		[Browsable(false)]
+		public List<string> UpdatePermissionsList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.UpdatePermissions))
+					return new List<string>();
+
+				return this.UpdatePermissions
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		[Browsable(false)]
+		public List<string> DeletePermissionsList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.DeletePermissions))
+					return new List<string>();
+
+				return this.DeletePermissions
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		[Browsable(false)]
 		public List<string> ServiceAttributesList
 		{
 			get

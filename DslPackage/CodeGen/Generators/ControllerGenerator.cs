@@ -30,9 +30,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Default usings
 			_usings.AddLine(0, "Microsoft.AspNetCore.Mvc");
+			_usings.AddLine(0, "Microsoft.AspNetCore.Authorization");
 			_usings.AddLines(0, _modelRoot.UsingsList);
+			_usings.Add($"{module.Namespace}.Filters");
 			_usings.Add(_modelRoot.EntitiesNamespace);
-			_usings.Add($"{module.Namespace}.Services.{serviceModel.Version}");
+			_usings.Add($"{module.Namespace}.Services.v{serviceModel.Version}");
 
 			foreach (var u in entity.UsingsList)
 				_usings.AddIfNotExists(u);
@@ -74,7 +76,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var serviceVarName = serviceName.ToCamelCase();
 
 			// Attributes
-			var attrs = BuildControllerAttributes(serviceModel);
+			var attrs = BuildControllerAttributes(serviceModel, module, serviceName);
 
 			// Declaration
 			var declaration = new List<string>();
@@ -83,39 +85,39 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Create
 			var createMethodsOutput = new List<string>();
 			if (serviceModel.InclCreate)
-				this.GenerateCreateControllerMethod(entity, serviceVarName, createMethodsOutput);
+				this.GenerateCreateControllerMethod(entity, serviceModel, serviceVarName, createMethodsOutput);
 
-			//// Delete
-			//var deleteMethodsOutput = new List<string>();
-			//if (entity.Service.InclDelete)
-			//	this.GenerateDeleteControllerMethod(entity, serviceVarName, deleteMethodsOutput);
+			// Delete
+			var deleteMethodsOutput = new List<string>();
+			if (serviceModel.InclDelete)
+				this.GenerateDeleteControllerMethod(entity, serviceModel, serviceVarName, deleteMethodsOutput);
 
-			//// Update methods
-			//var updMethodsOutput = new List<string>();
-			//if (entity.Service.InclUpdate || entity.Service.UpdateMethods.Any())
-			//{
-			//	updMethodsOutput.AddLine();
-			//	updMethodsOutput.AddLine(1, "#region Update");
+			// Update methods
+			var updMethodsOutput = new List<string>();
+			if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
+			{
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#region Update");
 
-			//	// Full update method
-			//	if (entity.Service.InclUpdate)
-			//		this.GenerateFullUpdateControllerMethod(entity, serviceVarName, updMethodsOutput);
+				//// Full update method
+				//if (serviceModel.InclUpdate)
+				//	this.GenerateFullUpdateControllerMethod(entity, serviceVarName, updMethodsOutput);
 
-			//	// Normal update methods
-			//	foreach (UpdateMethodModel updMethod in entity.Service.UpdateMethods)
-			//	{
-			//		if (updMethodsOutput.Count > 0)
-			//			updMethodsOutput.AddLine();
-			//		this.GenerateUpdateMethod(entity, updMethod, serviceVarName, updMethodsOutput);
-			//	}
+				//	// Normal update methods
+				//	foreach (UpdateMethodModel updMethod in serviceModel.UpdateMethods)
+				//	{
+				//		if (updMethodsOutput.Count > 0)
+				//			updMethodsOutput.AddLine();
+				//		this.GenerateUpdateMethod(entity, updMethod, serviceVarName, updMethodsOutput);
+				//	}
 
-			//	updMethodsOutput.AddLine();
-			//	updMethodsOutput.AddLine(1, "#endregion");
-			//}
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#endregion");
+			}
 
 			//// Read methods - single
 			//var singleMethodsOutput = new List<string>();
-			//foreach (ReadMethodModel singleMethod in entity.Service.ReadMethods.Where(m => !m.IsList))
+			//foreach (ReadMethodModel singleMethod in serviceModel.ReadMethods.Where(m => !m.IsList))
 			//{
 			//	if (singleMethodsOutput.Count > 0)
 			//		singleMethodsOutput.AddLine();
@@ -124,7 +126,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			//// Read methods - list
 			//var listMethodsOutput = new List<string>();
-			//foreach (ReadMethodModel listMethod in entity.Service.ReadMethods.Where(m => m.IsList && !m.UseQuery))
+			//foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseQuery))
 			//{
 			//	if (singleMethodsOutput.Count > 0)
 			//		singleMethodsOutput.AddLine();
@@ -134,14 +136,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			//// Read methods - query
 			//var queryMethodsOutput = new List<string>();
 			//var sortingMethodOutput = new List<string>();
-			//if (entity.Service.ReadMethods.Any(m => m.UseQuery))
+			//if (serviceModel.ReadMethods.Any(m => m.UseQuery))
 			//{
 			//	queryMethodsOutput.AddLine();
 			//	queryMethodsOutput.AddLine(1, "#region Queries");
-			//	foreach (ReadMethodModel queryMethod in entity.Service.ReadMethods.Where(m => m.UseQuery))
+			//	foreach (ReadMethodModel queryMethod in serviceModel.ReadMethods.Where(m => m.UseQuery))
 			//		this.GenerateQueryControllerMethod(entity, queryMethod, serviceVarName, queryMethodsOutput);
 			//	queryMethodsOutput.AddLine();
-			//	queryMethodsOutput.AddLine(1, "#endregion");
+			//queryMethodsOutput.AddLine(1, "#endregion");
 			//}
 
 			// Write the file
@@ -152,16 +154,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.{serviceModel.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.v{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLines(0, attrs);
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
 			//fileContent.AddLines(0, fields);
-			fileContent.AddLine(1, $"private readonly I{serviceName} _{serviceVarName}");
+			fileContent.AddLine(1, $"private readonly I{serviceName} _{serviceVarName};");
 			if (createMethodsOutput.Count > 0)
 				fileContent.AddLines(1, createMethodsOutput);
-			//fileContent.AddLines(0, deleteMethodsOutput);
+			fileContent.AddLines(1, deleteMethodsOutput);
 			//fileContent.AddLines(0, updMethodsOutput);
 			//fileContent.AddLines(1, singleMethodsOutput);
 			//fileContent.AddLines(1, listMethodsOutput);
@@ -170,7 +172,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", serviceModel.Version);
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", $"v{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{controllerName}.cs");
 
@@ -179,39 +181,50 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}
 
-		private List<string> BuildControllerAttributes(ServiceModel serviceModel)
+		private List<string> BuildControllerAttributes(ServiceModel serviceModel, ModuleModel module, string serviceClassName)
 		{
 			var attrs = new List<string>();
+
+			attrs.AddLine(0, "[ApiController]");
+			attrs.AddLine(0, $"[ServiceFilter(typeof({module.Name}ExceptionFilter<{serviceClassName}>))]");
+			attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
+			attrs.AddLine(0, $"[Route(\"api/v{{version:apiVersion}}/[controller]\")]");
+			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
 
 			foreach (var a in serviceModel.ControllerAttributesList)
 				attrs.AddIfNotExists(a);
 
-			return attrs.Select(a => $"[{a}]").ToList();
+			return attrs;
 		}
 
-		internal void GenerateCreateControllerMethod(EntityModel entity, string svcVarName, List<string> output)
+		internal void GenerateCreateControllerMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
 		{
-			var tc = 1;
-			var className = entity.Name;
+			output.AddLine();
+			output.AddLine(0, "#region Create");
+			output.AddLine();
+			output.AddLine(0, $"[HttpPost, Route(\"[action]\")]");
+			output.AddLine(0, $"[Authorize(\"{string.Join(",", serviceModel.CreatePermissionsList)}\")]");
+			output.AddLine(0, $"public async Task<ActionResult> Create{entity.Name}([FromBody] {entity.Name} {svcVarName})");
+			output.AddLine(0, "{");
+			output.AddLine(0 + 1, $"return Ok(await _{svcVarName}.Create{entity.Name}({svcVarName}));");
+			output.AddLine(0, "}");
+			output.AddLine();
+			output.AddLine(0, "#endregion");
+		}
 
+		internal void GenerateDeleteControllerMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
+		{
 			output.AddLine();
-			output.AddLine(tc, "#region Create");
+			output.AddLine(0, "#region Create");
 			output.AddLine();
-			output.AddLine(tc, $"[HttpPost, Route(\"[action]\")]");
-			output.AddLine(tc, $"public async Task<ActionResult> Create{className}({className} {svcVarName})");
-			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, "var apiResponse = CreateApiResponse<Guid>();");
-			output.AddLine(tc + 1, "try {");
-			output.AddLine(tc + 2, $"apiResponse.Data = await _{svcVarName}.Create{className}({svcVarName});");
+			output.AddLine(0, $"[HttpPost, Route(\"[action]\")]");
+			output.AddLine(0, $"[Authorize(\"{string.Join(",", serviceModel.DeletePermissionsList)}\")]");
+			output.AddLine(0, $"public async Task<ActionResult> Delete{entity.Name}(Guid id)");
+			output.AddLine(0, "{");
+			output.AddLine(0 + 1, $"return Ok(await _{svcVarName}.Delete{entity.Name}(id));");
+			output.AddLine(0, "}");
 			output.AddLine();
-			output.AddLine(tc + 2, "return Ok(apiResponse);");
-			output.AddLine();
-			output.AddLine(tc + 1, "} catch (Exception ex) {");
-			output.AddLine(tc + 2, "return LogErrorAndReturnErrorResponse(apiResponse, ex);");
-			output.AddLine(tc + 1, "}");
-			output.AddLine(tc, "}");
-			output.AddLine();
-			output.AddLine(tc, "#endregion");
+			output.AddLine(0, "#endregion");
 		}
 
 		//internal void GenerateDeleteControllerMethod(EntityModel entity, string svcVarName, List<string> output)
@@ -238,6 +251,21 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		//	output.AddLine(tc, "}");
 		//	output.AddLine();
 		//	output.AddLine(tc, "#endregion");
+		//}
+
+		//private void GenerateFullUpdateControllerMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
+		//{
+		//	output.AddLine();
+		//	output.AddLine(0, "#region Update");
+		//	output.AddLine();
+		//	output.AddLine(0, $"[HttpPost, Route(\"[action]\")]");
+		//	output.AddLine(0, $"[Authorize(\"{string.Join(",", serviceModel.UpdatePermissionsList)}\")]");
+		//	output.AddLine(0, $"public async Task<ActionResult> Update{entity.Name}([FromBody] {entity.Name} {svcVarName})");
+		//	output.AddLine(0, "{");
+		//	output.AddLine(0 + 1, $"return Ok(await _{svcVarName}.Update{entity.Name}({svcVarName}));");
+		//	output.AddLine(0, "}");
+		//	output.AddLine();
+		//	output.AddLine(0, "#endregion");
 		//}
 
 		//internal void GenerateFullUpdateControllerMethod(EntityModel entity, string svcVarName, List<string> output)

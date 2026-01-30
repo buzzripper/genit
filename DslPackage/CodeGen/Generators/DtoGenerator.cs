@@ -70,7 +70,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.DtoNamespace}.{service.Version};");
+			fileContent.AddLine(0, $"namespace {module.DtoNamespace}.v{service.Version};");
 
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public class {dtoName}");
@@ -103,7 +103,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.DtoOutputFolder, service.Version);
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.DtoOutputFolder, $"v{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{dtoName}.cs");
 

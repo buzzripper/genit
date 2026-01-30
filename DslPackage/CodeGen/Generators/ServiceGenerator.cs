@@ -46,10 +46,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists(u);
 
 			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				_usings.AddIfNotExists($"{module.QueryNamespace}.{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.QueryNamespace}.v{serviceModel.Version}");
 
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				_usings.AddIfNotExists($"{module.DtoNamespace}.{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -199,7 +199,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.{serviceModel.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.v{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public interface I{entity.Name}Service");
 			fileContent.AddLine(0, "{");
@@ -220,7 +220,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", serviceModel.Version);
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", $"v{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{serviceName}.cs");
 
