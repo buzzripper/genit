@@ -27,9 +27,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
 			output.AddLine();
 			output.AddLine(tc + 1, "try {");
-			output.AddLine(tc + 2, $"using var db = _dbContextFactory.CreateDbContext();");
-			output.AddLine(tc + 2, $"db.Add({varName});");
-			output.AddLine(tc + 2, "await db.SaveChangesAsync();");
+			output.AddLine(tc + 2, $"_db.Add({varName});");
+			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
 			output.AddLine();
 			output.AddLine(tc + 2, $"return {varName}.Id;");
 			output.AddLine();
@@ -58,9 +57,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"using var db = _dbContextFactory.CreateDbContext();");
-			output.AddLine();
-			output.AddLine(tc + 1, $"var result = await db.{className}.Where(a => a.Id == id).ExecuteDeleteAsync();");
+			output.AddLine(tc + 1, $"var result = await _db.{className}.Where(a => a.Id == id).ExecuteDeleteAsync();");
 			output.AddLine(tc + 1, $"return result == 1;");
 			output.AddLine(tc, "}");
 
@@ -84,12 +81,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
 			output.AddLine();
-			output.AddLine(tc + 1, $"using var db = _dbContextFactory.CreateDbContext();");
-			output.AddLine();
 			output.AddLine(tc + 1, "try {");
-			output.AddLine(tc + 2, $"db.Attach({varName});");
-			output.AddLine(tc + 2, $"db.Entry({varName}).State = EntityState.Modified;");
-			output.AddLine(tc + 2, $"await db.SaveChangesAsync();");
+			output.AddLine(tc + 2, $"_db.Attach({varName});");
+			output.AddLine(tc + 2, $"_db.Entry({varName}).State = EntityState.Modified;");
+			output.AddLine(tc + 2, $"await _db.SaveChangesAsync();");
 			output.AddLine();
 			if (entity.InclRowVersion)
 			{
@@ -149,12 +144,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, "};");
 			output.AddLine();
 
-			output.AddLine(tc + 2, "using var db = _dbContextFactory.CreateDbContext();");
-			output.AddLine(tc + 2, $"db.Attach({varName});");
+			output.AddLine(tc + 2, $"_db.Attach({varName});");
 			foreach (var updProp in updateProps)
-				output.AddLine(tc + 2, $"db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
+				output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
 			output.AddLine();
-			output.AddLine(tc + 2, "await db.SaveChangesAsync();");
+			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
 			output.AddLine();
 			if (entity.InclRowVersion)
 			{
@@ -221,7 +215,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var dbQuery = _dbContextFactory.CreateDbContext().{entity.Name}.AsQueryable();");
+			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsQueryable();");
 			output.AddLine();
 
 			// Include any nav properties
@@ -339,7 +333,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var dbQuery = _dbContextFactory.CreateDbContext().{entity.Name}.AsQueryable();");
+			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsQueryable();");
 			output.AddLine(tc + 1, $"var result = new EntityList<{entity.Name}>();");
 			output.AddLine();
 

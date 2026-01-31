@@ -89,6 +89,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var declaration = new List<string>();
 			declaration.AddLine(0, $"public class {controllerName} : ControllerBase");
 
+			// Constructor
+			var constructor = new List<string>();
+			constructor.AddLine(0, $"public {controllerName}(I{serviceName} {serviceVarName})");
+			constructor.AddLine(0, "{");
+			constructor.AddLine(1, $"_{serviceVarName} = {serviceVarName};");
+			constructor.AddLine(0, "}");
+
 			// Create
 			var createMethodsOutput = new List<string>();
 			if (serviceModel.InclCreate)
@@ -122,7 +129,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				if (singleReadMethodsOutput.Count > 0)
 					singleReadMethodsOutput.AddLine();
-				this.GenerateSingleReadMethod(entity, singleMethod, serviceVarName, singleReadMethodsOutput);
+				this.GenerateReadSingleMethod(entity, singleMethod, serviceVarName, singleReadMethodsOutput);
 			}
 
 			// Read methods - list
@@ -131,7 +138,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				if (listMethodsOutput.Count > 0)
 					listMethodsOutput.AddLine();
-				this.GenerateListControllerMethod(entity, listMethod, serviceVarName, listMethodsOutput);
+				this.GenerateReadListMethod(entity, listMethod, serviceVarName, listMethodsOutput);
 			}
 
 			// Read methods - query
@@ -159,6 +166,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
 			fileContent.AddLine(1, $"private readonly I{serviceName} _{serviceVarName};");
+			fileContent.AddLine();
+			fileContent.AddLines(1, constructor);
 
 			if (createMethodsOutput.Count > 0)
 				fileContent.AddLines(1, createMethodsOutput);
@@ -222,7 +231,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+			OutputHelper.Write($"Completed code gen for controller: {controllerName}");
 		}
 
 		private List<string> BuildControllerAttributes(ServiceModel serviceModel, ModuleModel module, string serviceClassName)
@@ -339,7 +348,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "}");
 		}
 
-		internal void GenerateSingleReadMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output)
+		internal void GenerateReadSingleMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output)
 		{
 			var tc = 0;
 
@@ -358,6 +367,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				filterParams = $"{method.FilterProperties[0].PropertyModel.CSType} {method.FilterProperties[0].PropertyModel.ArgName}";
 			}
 
+			output.AddLine();
 			output.AddLine(tc, $"[HttpGet, Route(\"[action]{filterRoute}\")]");
 			output.AddLine(tc, $"public async Task<ActionResult<{entity.Name}>> {method.Name}({filterParams})");
 			output.AddLine(tc, "{");
@@ -365,7 +375,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "}");
 		}
 
-		internal void GenerateListControllerMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output)
+		internal void GenerateReadListMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output)
 		{
 			var tc = 0;
 
@@ -452,7 +462,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "[HttpPost, Route(\"[action]\")]");
 			output.AddLine(tc, $"public async Task<ActionResult<EntityList<{entity.Name}>>> {queryMethod.Name}([FromBody] {queryClassName} {queryVarName})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 2, $"return Ok(await _{svcVarName}.{queryMethod.Name}({queryVarName}));");
+			output.AddLine(tc + 1, $"return Ok(await _{svcVarName}.{queryMethod.Name}({queryVarName}));");
 			output.AddLine(tc, "}");
 		}
 	}

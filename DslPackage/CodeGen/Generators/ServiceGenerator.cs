@@ -97,9 +97,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Fields
 			var fields = new List<string>();
-			fields.AddLine(1, $"private readonly ILogger _logger;");
+			fields.AddLine(1, $"private readonly ILogger<I{serviceName}> _logger;");
 			fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
-			fields.AddLine(1, $"private readonly IDbContextFactory<{_modelRoot.DbContextName}> _dbContextFactory;");
+
+			// Constructor
+			var constructor = new List<string>();
+			constructor.AddLine(0, $"public {serviceName}({_modelRoot.DbContextName} db, ILogger<I{serviceName}> logger)");
+			constructor.AddLine(0, "{");
+			constructor.AddLine(1, $"_db = db;");
+			constructor.AddLine(1, $"_logger = logger;");
+			constructor.AddLine(0, "}");
 
 			var serviceMethodGenerator = new ServiceMethodGenerator();
 
@@ -197,6 +204,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContent = new List<string>();
 
+			if (_modelRoot.InclHeader)
+				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.v{serviceModel.Version};");
@@ -210,6 +219,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
 			fileContent.AddLines(0, fields);
+			fileContent.AddLine();
+			fileContent.AddLines(1, constructor);
 			fileContent.AddLines(0, createMethodOutput);
 			fileContent.AddLines(0, deleteMethodsOutput);
 			fileContent.AddLines(0, updMethodsOutput);
@@ -226,7 +237,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+			OutputHelper.Write($"Completed code gen for service: {serviceName}");
 		}
 
 		private List<string> BuildServiceAttributes(ServiceModel serviceModel)
