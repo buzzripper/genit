@@ -273,7 +273,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
 				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({filterProp.PropertyModel.ArgName}))");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, {filterProp.PropertyModel.ArgName}));");
+				output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
 			}
 			else
 			{
