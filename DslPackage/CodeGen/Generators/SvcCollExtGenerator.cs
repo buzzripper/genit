@@ -82,8 +82,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					var ns = BuildNamespace(module, service.Version);
 					lines.AddLine(0, $"services.AddScoped<{ns}.I{entity.Name}Service, {ns}.{entity.Name}Service>();");
-					lines.AddLine(0, $"services.AddScoped<AuthExceptionFilter<{ns}.I{entity.Name}Service>>();");
-					lines.AddLine(0, $"services.AddScoped<ILogger<{entity.Name}Service>>();");
+					lines.AddLine(0, $"services.AddScoped<AuthExceptionFilter<{ns}.{entity.Name}Service>>();");
+					//lines.AddLine(0, $"services.AddScoped<ILogger<{entity.Name}Service>>();");
 				}
 
 			return lines;

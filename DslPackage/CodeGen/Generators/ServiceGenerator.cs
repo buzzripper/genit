@@ -97,12 +97,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Fields
 			var fields = new List<string>();
-			fields.AddLine(1, $"private readonly ILogger<I{serviceName}> _logger;");
+			fields.AddLine(1, $"private readonly ILogger<{serviceName}> _logger;");
 			fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
 
 			// Constructor
 			var constructor = new List<string>();
-			constructor.AddLine(0, $"public {serviceName}({_modelRoot.DbContextName} db, ILogger<I{serviceName}> logger)");
+			constructor.AddLine(0, $"public {serviceName}({_modelRoot.DbContextName} db, ILogger<{serviceName}> logger)");
 			constructor.AddLine(0, "{");
 			constructor.AddLine(1, $"_db = db;");
 			constructor.AddLine(1, $"_logger = logger;");

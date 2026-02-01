@@ -241,7 +241,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			attrs.AddLine(0, "[ApiController]");
 			attrs.AddLine(0, $"[ServiceFilter(typeof({module.Name}ExceptionFilter<{serviceClassName}>))]");
 			attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
-			attrs.AddLine(0, $"[Route(\"api/v{{version:apiVersion}}/[controller]\")]");
+			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/v{{version:apiVersion}}/[controller]\")]");
 			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
 
 			foreach (var a in serviceModel.ControllerAttributesList)
