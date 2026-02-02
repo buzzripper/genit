@@ -16,6 +16,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly ServiceGenerator _serviceGenerator;
 		private readonly DtoGenerator _dtoGenerator;
 		private readonly QueryGenerator _queryGenerator;
+		private readonly EndpointGenerator _endpointGenerator;
 		private readonly ControllerGenerator _controllerGenerator;
 		private readonly SvcCollExtGenerator _svcCollExtGenerator;
 
@@ -30,6 +31,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_serviceGenerator = new ServiceGenerator(modelRoot);
 			_dtoGenerator = new DtoGenerator(modelRoot);
 			_queryGenerator = new QueryGenerator(modelRoot);
+			_endpointGenerator = new EndpointGenerator(modelRoot);
 			_controllerGenerator = new ControllerGenerator(modelRoot);
 			_svcCollExtGenerator = new SvcCollExtGenerator(modelRoot);
 		}
@@ -77,7 +79,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_serviceGenerator.GenerateCode();
 			_dtoGenerator.GenerateCode();
 			_queryGenerator.GenerateCode();
-			_controllerGenerator.GenerateCode();
+			_endpointGenerator.GenerateCode();
+			//_controllerGenerator.GenerateCode();
 			_svcCollExtGenerator.GenerateCode();
 		}
 

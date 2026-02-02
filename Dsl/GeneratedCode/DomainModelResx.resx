@@ -1013,17 +1013,17 @@
     <value>ServiceModel</value>
     <comment>Category for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Controller</value>
-    <comment>Description for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Endpoints</value>
+    <comment>Description for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.DisplayName" xml:space="preserve">
-    <value>Incl Controller</value>
-    <comment>DisplayName for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.DisplayName" xml:space="preserve">
+    <value>Incl Endpoints</value>
+    <comment>DisplayName for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.Category" xml:space="preserve">
     <value>ServiceModel</value>
-    <comment>Category for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+    <comment>Category for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/Version.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Version</value>
@@ -1049,21 +1049,21 @@
     <value>Service Attributes</value>
     <comment>DisplayName for DomainProperty &apos;ServiceAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Usings</value>
-    <comment>Description for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsUsings.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Endpoints Usings</value>
+    <comment>Description for DomainProperty &apos;EndpointsUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.DisplayName" xml:space="preserve">
-    <value>Controller Usings</value>
-    <comment>DisplayName for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsUsings.DisplayName" xml:space="preserve">
+    <value>Endpoints Usings</value>
+    <comment>DisplayName for DomainProperty &apos;EndpointsUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Attributes</value>
-    <comment>Description for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsAttributes.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Endpoints Attributes</value>
+    <comment>Description for DomainProperty &apos;EndpointsAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.DisplayName" xml:space="preserve">
-    <value>Controller Attributes</value>
-    <comment>DisplayName for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsAttributes.DisplayName" xml:space="preserve">
+    <value>Endpoints Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;EndpointsAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/CreatePermissions.Description" xml:space="preserve">
     <value>Comma-separated list of required permissions for create method</value>

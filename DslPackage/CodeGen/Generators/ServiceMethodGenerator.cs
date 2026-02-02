@@ -18,7 +18,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "#region Create");
 
 			// Interface
-			var signature = $"Task<Guid> Create{className}({className} {varName})";
+			var signature = $"Task<Result<Guid>> Create{className}({className} {varName})";
 			interfaceOutput.Add($"{signature};");
 
 			output.AddLine();
@@ -30,10 +30,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, $"_db.Add({varName});");
 			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
 			output.AddLine();
-			output.AddLine(tc + 2, $"return {varName}.Id;");
+			output.AddLine(tc + 2, $"return Result<Guid>.Ok({varName}.Id);");
 			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, "return Result<Guid>.Conflict(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 
@@ -51,14 +51,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "#region Delete");
 
 			// Interface
-			var signature = $"Task<bool> Delete{className}(Guid id)";
+			var signature = $"Task<Result> Delete{className}(Guid id)";
 			interfaceOutput.Add($"{signature};");
 
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var result = await _db.{className}.Where(a => a.Id == id).ExecuteDeleteAsync();");
-			output.AddLine(tc + 1, $"return result == 1;");
+			output.AddLine(tc + 1, $"var rowsAffected = await _db.{className}.Where(a => a.Id == id).ExecuteDeleteAsync();");
+			output.AddLine();
+			output.AddLine(tc + 1, $"if (rowsAffected == 0)");
+			output.AddLine(tc + 2, $"return Result.NotFound($\"{className} {{id}} not found\");");
+			output.AddLine();
+			output.AddLine(tc + 1, $"return Result.Ok();");
 			output.AddLine(tc, "}");
 
 			output.AddLine();
@@ -72,7 +76,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var varName = CodeGenUtils.ToCamelCase(className);
 
 			// Interface
-			var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
+			var returnType = entity.InclRowVersion ? "Task<Result<byte[]>>" : "Task<Result>";
 			var signature = $"{returnType} Update{className}({className} {varName})";
 			interfaceOutput.Add($"{signature};");
 
@@ -88,11 +92,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			if (entity.InclRowVersion)
 			{
-				output.AddLine(tc + 2, $"return {varName}.RowVersion;");
+				output.AddLine(tc + 2, $"return Result.Ok({varName}.RowVersion);");
 				output.AddLine();
 			}
+			else
+			{
+				output.AddLine(tc + 1, "return Result.Ok();");
+			}
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, $"throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, $"return Result.Conflict(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
@@ -120,7 +128,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				sbSigArgs.Append($", {updProp.PropertyModel.CSType} {argName}");
 			}
 
-			var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
+			var returnType = entity.InclRowVersion ? "Task<Result<byte[]>>" : "Task<Result>";
 			var signature = $"{returnType} {method.Name}({sbSigArgs.ToString()})";
 
 			// Interface
@@ -151,12 +159,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
 			output.AddLine();
 			if (entity.InclRowVersion)
-			{
-				output.AddLine(tc + 2, $"return {varName}.RowVersion;");
-				output.AddLine();
-			}
+				output.AddLine(tc + 2, $"return Result.Ok({varName}.RowVersion);");
+			else
+				output.AddLine(tc + 2, $"return Result.Ok();");
+			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "throw new ConcurrencyApiException(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, "return Result.Conflict(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
@@ -176,7 +184,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = method.IsList ? $"Task<List<{entity.Name}>>" : $"Task<{entity.Name}>";
+			string returnType = method.IsList ? $"Task<Result<ResultList<{entity.Name}>>>" : $"Task<Result<{entity.Name}>>";
 
 			var sbSigArgs = new StringBuilder();
 			var c = 0;
@@ -194,7 +202,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				if (c++ > 0)
 					sbSigArgs.Append(", ");
-				//var nullChar =  filterProp.PropertyModel.PrimitiveType?.Id != PrimitiveType.String.Id ? "?" : string.Empty;
 				var nullChar = "?";
 				sbSigArgs.Append($"{filterProp.PropertyModel.DataType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
 			}
@@ -253,16 +260,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				output.AddLine(tc + 1, $"if (pageSize > 0)");
 				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);");
+				output.AddLine();
 			}
 
 			output.AddLine();
 			if (method.IsList)
 			{
-				output.AddLine(tc + 1, $"return await dbQuery.AsNoTracking().ToListAsync();");
+				output.AddLine(tc + 1, $"var queryResult = await dbQuery.AsNoTracking().ToListAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"return Result<List<{entity.Name}>>.Ok(queryResult);");
 			}
 			else
 			{
-				output.AddLine(tc + 1, $"return await dbQuery.AsNoTracking().FirstOrDefaultAsync();");
+				output.AddLine(tc + 1, $"var queryResult = await dbQuery.AsNoTracking().FirstOrDefaultAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"if (patient is null)");
+				output.AddLine(tc + 2, $"return Result<Patient>.NotFound($\"Patient with email '{{email}}' not found\");");
+				output.AddLine();
+				output.AddLine(tc + 1, $"return Result<List<{entity.Name}>>.Ok(queryResult);");
 			}
 
 			output.AddLine(tc, "}");

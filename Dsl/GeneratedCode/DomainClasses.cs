@@ -8273,61 +8273,61 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region InclController domain property code
+		#region InclEndpoints domain property code
 		
 		/// <summary>
-		/// InclController domain property Id.
+		/// InclEndpoints domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid InclControllerDomainPropertyId = new global::System.Guid(0xf91b7374, 0xa09f, 0x48e5, 0x8d, 0x9c, 0x2f, 0x75, 0x67, 0x27, 0xa5, 0x68);
+		public static readonly global::System.Guid InclEndpointsDomainPropertyId = new global::System.Guid(0xf91b7374, 0xa09f, 0x48e5, 0x8d, 0x9c, 0x2f, 0x75, 0x67, 0x27, 0xa5, 0x68);
 		
 		/// <summary>
-		/// Storage for InclController
+		/// Storage for InclEndpoints
 		/// </summary>
-		private global::System.Boolean inclControllerPropertyStorage = true;
+		private global::System.Boolean inclEndpointsPropertyStorage = true;
 		
 		/// <summary>
-		/// Gets or sets the value of InclController domain property.
-		/// Description for Dyvenix.GenIt.ServiceModel.Incl Controller
+		/// Gets or sets the value of InclEndpoints domain property.
+		/// Description for Dyvenix.GenIt.ServiceModel.Incl Endpoints
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclController.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclController.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclController.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclEndpoints.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::CategoryResource("Dyvenix.GenIt.ServiceModel/InclEndpoints.Category", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclEndpoints.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[global::System.ComponentModel.DefaultValue(true)]
 		[DslModeling::DomainObjectId("f91b7374-a09f-48e5-8d9c-2f756727a568")]
-		public global::System.Boolean InclController
+		public global::System.Boolean InclEndpoints
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return inclControllerPropertyStorage;
+				return inclEndpointsPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				InclControllerPropertyHandler.Instance.SetValue(this, value);
+				InclEndpointsPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ServiceModel.InclController domain property.
+		/// Value handler for the ServiceModel.InclEndpoints domain property.
 		/// </summary>
-		internal sealed partial class InclControllerPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.Boolean>
+		internal sealed partial class InclEndpointsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.Boolean>
 		{
-			private InclControllerPropertyHandler() { }
+			private InclEndpointsPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ServiceModel.InclController domain property value handler.
+			/// Gets the singleton instance of the ServiceModel.InclEndpoints domain property value handler.
 			/// </summary>
-			public static readonly InclControllerPropertyHandler Instance = new InclControllerPropertyHandler();
+			public static readonly InclEndpointsPropertyHandler Instance = new InclEndpointsPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ServiceModel.InclController domain property.
+			/// Gets the Id of the ServiceModel.InclEndpoints domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return InclControllerDomainPropertyId;
+					return InclEndpointsDomainPropertyId;
 				}
 			}
 			
@@ -8339,7 +8339,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.Boolean GetValue(ServiceModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.inclControllerPropertyStorage;
+				return element.inclEndpointsPropertyStorage;
 			}
 		
 			/// <summary>
@@ -8355,7 +8355,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.inclControllerPropertyStorage = newValue;
+					element.inclEndpointsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -8623,59 +8623,59 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region ControllerUsings domain property code
+		#region EndpointsUsings domain property code
 		
 		/// <summary>
-		/// ControllerUsings domain property Id.
+		/// EndpointsUsings domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid ControllerUsingsDomainPropertyId = new global::System.Guid(0xf56f4698, 0x6675, 0x4600, 0xbf, 0xe4, 0xba, 0xa4, 0x6b, 0xdb, 0x88, 0xd9);
+		public static readonly global::System.Guid EndpointsUsingsDomainPropertyId = new global::System.Guid(0xf56f4698, 0x6675, 0x4600, 0xbf, 0xe4, 0xba, 0xa4, 0x6b, 0xdb, 0x88, 0xd9);
 		
 		/// <summary>
-		/// Storage for ControllerUsings
+		/// Storage for EndpointsUsings
 		/// </summary>
-		private global::System.String controllerUsingsPropertyStorage = string.Empty;
+		private global::System.String endpointsUsingsPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of ControllerUsings domain property.
-		/// Description for Dyvenix.GenIt.ServiceModel.Controller Usings
+		/// Gets or sets the value of EndpointsUsings domain property.
+		/// Description for Dyvenix.GenIt.ServiceModel.Endpoints Usings
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/ControllerUsings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/ControllerUsings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/EndpointsUsings.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/EndpointsUsings.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("f56f4698-6675-4600-bfe4-baa46bdb88d9")]
-		public global::System.String ControllerUsings
+		public global::System.String EndpointsUsings
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return controllerUsingsPropertyStorage;
+				return endpointsUsingsPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				ControllerUsingsPropertyHandler.Instance.SetValue(this, value);
+				EndpointsUsingsPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ServiceModel.ControllerUsings domain property.
+		/// Value handler for the ServiceModel.EndpointsUsings domain property.
 		/// </summary>
-		internal sealed partial class ControllerUsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		internal sealed partial class EndpointsUsingsPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
 		{
-			private ControllerUsingsPropertyHandler() { }
+			private EndpointsUsingsPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ServiceModel.ControllerUsings domain property value handler.
+			/// Gets the singleton instance of the ServiceModel.EndpointsUsings domain property value handler.
 			/// </summary>
-			public static readonly ControllerUsingsPropertyHandler Instance = new ControllerUsingsPropertyHandler();
+			public static readonly EndpointsUsingsPropertyHandler Instance = new EndpointsUsingsPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ServiceModel.ControllerUsings domain property.
+			/// Gets the Id of the ServiceModel.EndpointsUsings domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return ControllerUsingsDomainPropertyId;
+					return EndpointsUsingsDomainPropertyId;
 				}
 			}
 			
@@ -8687,7 +8687,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ServiceModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.controllerUsingsPropertyStorage;
+				return element.endpointsUsingsPropertyStorage;
 			}
 		
 			/// <summary>
@@ -8703,66 +8703,66 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.controllerUsingsPropertyStorage = newValue;
+					element.endpointsUsingsPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
 		}
 		
 		#endregion
-		#region ControllerAttributes domain property code
+		#region EndpointsAttributes domain property code
 		
 		/// <summary>
-		/// ControllerAttributes domain property Id.
+		/// EndpointsAttributes domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid ControllerAttributesDomainPropertyId = new global::System.Guid(0xf06cdc0d, 0xc358, 0x4d2d, 0xbc, 0xaa, 0x49, 0x82, 0x26, 0x20, 0x2c, 0x8f);
+		public static readonly global::System.Guid EndpointsAttributesDomainPropertyId = new global::System.Guid(0xf06cdc0d, 0xc358, 0x4d2d, 0xbc, 0xaa, 0x49, 0x82, 0x26, 0x20, 0x2c, 0x8f);
 		
 		/// <summary>
-		/// Storage for ControllerAttributes
+		/// Storage for EndpointsAttributes
 		/// </summary>
-		private global::System.String controllerAttributesPropertyStorage = string.Empty;
+		private global::System.String endpointsAttributesPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of ControllerAttributes domain property.
-		/// Description for Dyvenix.GenIt.ServiceModel.Controller Attributes
+		/// Gets or sets the value of EndpointsAttributes domain property.
+		/// Description for Dyvenix.GenIt.ServiceModel.Endpoints Attributes
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/ControllerAttributes.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/ControllerAttributes.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/EndpointsAttributes.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/EndpointsAttributes.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("f06cdc0d-c358-4d2d-bcaa-498226202c8f")]
-		public global::System.String ControllerAttributes
+		public global::System.String EndpointsAttributes
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return controllerAttributesPropertyStorage;
+				return endpointsAttributesPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				ControllerAttributesPropertyHandler.Instance.SetValue(this, value);
+				EndpointsAttributesPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ServiceModel.ControllerAttributes domain property.
+		/// Value handler for the ServiceModel.EndpointsAttributes domain property.
 		/// </summary>
-		internal sealed partial class ControllerAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
+		internal sealed partial class EndpointsAttributesPropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.String>
 		{
-			private ControllerAttributesPropertyHandler() { }
+			private EndpointsAttributesPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ServiceModel.ControllerAttributes domain property value handler.
+			/// Gets the singleton instance of the ServiceModel.EndpointsAttributes domain property value handler.
 			/// </summary>
-			public static readonly ControllerAttributesPropertyHandler Instance = new ControllerAttributesPropertyHandler();
+			public static readonly EndpointsAttributesPropertyHandler Instance = new EndpointsAttributesPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ServiceModel.ControllerAttributes domain property.
+			/// Gets the Id of the ServiceModel.EndpointsAttributes domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return ControllerAttributesDomainPropertyId;
+					return EndpointsAttributesDomainPropertyId;
 				}
 			}
 			
@@ -8774,7 +8774,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ServiceModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.controllerAttributesPropertyStorage;
+				return element.endpointsAttributesPropertyStorage;
 			}
 		
 			/// <summary>
@@ -8790,7 +8790,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.controllerAttributesPropertyStorage = newValue;
+					element.endpointsAttributesPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

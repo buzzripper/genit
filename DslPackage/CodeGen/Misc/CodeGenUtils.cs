@@ -37,60 +37,60 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 		/// For primitive types, returns the appropriate C# keyword.
 		/// For enum types (non-primitives), returns the type name as-is.
 		/// </summary>
-		public static string GetCSharpType(string dataType)
-		{
-			if (string.IsNullOrEmpty(dataType))
-				return "string";
+		//public static string GetCSharpType(string dataType)
+		//{
+		//	if (string.IsNullOrEmpty(dataType))
+		//		return "string";
 
-			switch (dataType)
-			{
-				case "String":
-					return "string";
-				case "Boolean":
-					return "bool";
-				case "Int32":
-					return "int";
-				case "TimeSpan":
-					return "TimeSpan";
-				case "DateTime":
-					return "DateTime";
-				case "Guid":
-					return "Guid";
-				case "Int64":
-					return "long";
-				case "Int16":
-					return "short";
-				case "ByteArray":
-					return "byte[]";
-				case "Object":
-					return "object";
-				case "Byte":
-					return "byte";
-				case "SByte":
-					return "sbyte";
-				case "Char":
-					return "char";
-				case "DateTimeOffset":
-					return "DateTimeOffset";
-				case "Decimal":
-					return "decimal";
-				case "Double":
-					return "double";
-				case "Single":
-					return "float";
-				case "StringList":
-					return "List<string>";
-				case "UInt16":
-					return "ushort";
-				case "UInt32":
-					return "uint";
-				case "UInt64":
-					return "ulong";
-				default:
-					// For enum types, return the type name as-is
-					return dataType;
-			}
-		}
+		//	switch (dataType)
+		//	{
+		//		case "String":
+		//			return "string";
+		//		case "Boolean":
+		//			return "bool";
+		//		case "Int32":
+		//			return "int";
+		//		case "TimeSpan":
+		//			return "TimeSpan";
+		//		case "DateTime":
+		//			return "DateTime";
+		//		case "Guid":
+		//			return "Guid";
+		//		case "Int64":
+		//			return "long";
+		//		case "Int16":
+		//			return "short";
+		//		case "ByteArray":
+		//			return "byte[]";
+		//		case "Object":
+		//			return "object";
+		//		case "Byte":
+		//			return "byte";
+		//		case "SByte":
+		//			return "sbyte";
+		//		case "Char":
+		//			return "char";
+		//		case "DateTimeOffset":
+		//			return "DateTimeOffset";
+		//		case "Decimal":
+		//			return "decimal";
+		//		case "Double":
+		//			return "double";
+		//		case "Single":
+		//			return "float";
+		//		case "StringList":
+		//			return "List<string>";
+		//		case "UInt16":
+		//			return "ushort";
+		//		case "UInt32":
+		//			return "uint";
+		//		case "UInt64":
+		//			return "ulong";
+		//		default:
+		//			// For enum types, return the type name as-is
+		//			return dataType;
+		//	}
+		//}
 
 		public static string ToCamelCase(string input)
 		{

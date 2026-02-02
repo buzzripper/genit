@@ -64,7 +64,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 			lines.AddLine(0, "using Microsoft.Extensions.DependencyInjection;");
 			lines.AddLine(0, "using Microsoft.Extensions.Logging;");
-			lines.AddLine(0, "using Dyvenix.App1.Auth.Api.Filters;");
+			lines.AddLine(0, "using Dyvenix.App1.Common.Api.Filters;");
 
 			var versions = _modules[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
 			foreach (var version in versions)
@@ -77,13 +77,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var lines = new List<string>();
 
-			foreach (var entity in _modules[module])
-				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
+			foreach (var entity in _modules[module].Where(e => e.GenerateCode))
+				foreach (var service in entity.ServiceModels)
 				{
 					var ns = BuildNamespace(module, service.Version);
 					lines.AddLine(0, $"services.AddScoped<{ns}.I{entity.Name}Service, {ns}.{entity.Name}Service>();");
-					lines.AddLine(0, $"services.AddScoped<AuthExceptionFilter<{ns}.{entity.Name}Service>>();");
-					//lines.AddLine(0, $"services.AddScoped<ILogger<{entity.Name}Service>>();");
+					lines.AddLine(0, $"services.AddScoped<ApiExceptionFilter<{ns}.{entity.Name}Service>>();");
 				}
 
 			return lines;

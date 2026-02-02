@@ -554,7 +554,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f91b7374-a09f-48e5-8d9c-2f756727a568" Description="Description for Dyvenix.GenIt.ServiceModel.Incl Controller" Name="InclController" DisplayName="Incl Controller" DefaultValue="true" Category="ServiceModel">
+        <DomainProperty Id="f91b7374-a09f-48e5-8d9c-2f756727a568" Description="Description for Dyvenix.GenIt.ServiceModel.Incl Endpoints" Name="InclEndpoints" DisplayName="Incl Endpoints" DefaultValue="true" Category="ServiceModel">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -574,12 +574,12 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f56f4698-6675-4600-bfe4-baa46bdb88d9" Description="Description for Dyvenix.GenIt.ServiceModel.Controller Usings" Name="ControllerUsings" DisplayName="Controller Usings">
+        <DomainProperty Id="f56f4698-6675-4600-bfe4-baa46bdb88d9" Description="Description for Dyvenix.GenIt.ServiceModel.Endpoints Usings" Name="EndpointsUsings" DisplayName="Endpoints Usings">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f06cdc0d-c358-4d2d-bcaa-498226202c8f" Description="Description for Dyvenix.GenIt.ServiceModel.Controller Attributes" Name="ControllerAttributes" DisplayName="Controller Attributes">
+        <DomainProperty Id="f06cdc0d-c358-4d2d-bcaa-498226202c8f" Description="Description for Dyvenix.GenIt.ServiceModel.Endpoints Attributes" Name="EndpointsAttributes" DisplayName="Endpoints Attributes">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1491,8 +1491,8 @@
           <XmlPropertyData XmlName="inclDelete">
             <DomainPropertyMoniker Name="ServiceModel/InclDelete" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="inclController">
-            <DomainPropertyMoniker Name="ServiceModel/InclController" />
+          <XmlPropertyData XmlName="inclEndpoints">
+            <DomainPropertyMoniker Name="ServiceModel/InclEndpoints" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="version">
             <DomainPropertyMoniker Name="ServiceModel/Version" />
@@ -1503,11 +1503,11 @@
           <XmlPropertyData XmlName="serviceAttributes">
             <DomainPropertyMoniker Name="ServiceModel/ServiceAttributes" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="controllerUsings">
-            <DomainPropertyMoniker Name="ServiceModel/ControllerUsings" />
+          <XmlPropertyData XmlName="endpointsUsings">
+            <DomainPropertyMoniker Name="ServiceModel/EndpointsUsings" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="controllerAttributes">
-            <DomainPropertyMoniker Name="ServiceModel/ControllerAttributes" />
+          <XmlPropertyData XmlName="endpointsAttributes">
+            <DomainPropertyMoniker Name="ServiceModel/EndpointsAttributes" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="readMethods">
             <DomainRelationshipMoniker Name="ServiceModelHasReadMethodModels" />

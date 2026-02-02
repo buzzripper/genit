@@ -33,10 +33,10 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				if (string.IsNullOrWhiteSpace(this.ControllerUsings))
+				if (string.IsNullOrWhiteSpace(this.EndpointsUsings))
 					return new List<string>();
 
-				return this.ControllerUsings
+				return this.EndpointsUsings
 					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
 					.Select(line => line.Trim())
 					.Where(line => !string.IsNullOrWhiteSpace(line))
@@ -129,10 +129,10 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				if (string.IsNullOrWhiteSpace(this.ControllerAttributes))
+				if (string.IsNullOrWhiteSpace(this.EndpointsAttributes))
 					return new List<string>();
 
-				return this.ControllerAttributes
+				return this.EndpointsAttributes
 					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
 					.Select(line => line.Trim())
 					.Where(line => !string.IsNullOrWhiteSpace(line))

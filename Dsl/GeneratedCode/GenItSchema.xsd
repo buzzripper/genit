@@ -1085,18 +1085,18 @@
         <xsd:attribute name="inclUpdate" type="xsd:boolean" />
         <!-- Property: InclDelete -->
         <xsd:attribute name="inclDelete" type="xsd:boolean" />
-        <!-- Property: InclController -->
-        <xsd:attribute name="inclController" type="xsd:boolean" />
+        <!-- Property: InclEndpoints -->
+        <xsd:attribute name="inclEndpoints" type="xsd:boolean" />
         <!-- Property: Version -->
         <xsd:attribute name="version" type="xsd:string" />
         <!-- Property: ServiceUsings -->
         <xsd:attribute name="serviceUsings" type="xsd:string" />
         <!-- Property: ServiceAttributes -->
         <xsd:attribute name="serviceAttributes" type="xsd:string" />
-        <!-- Property: ControllerUsings -->
-        <xsd:attribute name="controllerUsings" type="xsd:string" />
-        <!-- Property: ControllerAttributes -->
-        <xsd:attribute name="controllerAttributes" type="xsd:string" />
+        <!-- Property: EndpointsUsings -->
+        <xsd:attribute name="endpointsUsings" type="xsd:string" />
+        <!-- Property: EndpointsAttributes -->
+        <xsd:attribute name="endpointsAttributes" type="xsd:string" />
         <!-- Property: CreatePermissions -->
         <xsd:attribute name="createPermissions" type="xsd:string" >
           <xsd:annotation>

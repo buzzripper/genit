@@ -13975,20 +13975,20 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// InclController
+			// InclEndpoints
 			if (!serializationContext.Result.Failed)
 			{
-				string attribInclController = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "inclController");
-				if (attribInclController != null)
+				string attribInclEndpoints = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "inclEndpoints");
+				if (attribInclEndpoints != null)
 				{
-					global::System.Boolean valueOfInclController;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribInclController, out valueOfInclController))
+					global::System.Boolean valueOfInclEndpoints;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribInclEndpoints, out valueOfInclEndpoints))
 					{
-						instanceOfServiceModel.InclController = valueOfInclController;
+						instanceOfServiceModel.InclEndpoints = valueOfInclEndpoints;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclController", typeof(global::System.Boolean), attribInclController);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclEndpoints", typeof(global::System.Boolean), attribInclEndpoints);
 					}
 				}
 			}
@@ -14043,37 +14043,37 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// ControllerUsings
+			// EndpointsUsings
 			if (!serializationContext.Result.Failed)
 			{
-				string attribControllerUsings = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "controllerUsings");
-				if (attribControllerUsings != null)
+				string attribEndpointsUsings = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "endpointsUsings");
+				if (attribEndpointsUsings != null)
 				{
-					global::System.String valueOfControllerUsings;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribControllerUsings, out valueOfControllerUsings))
+					global::System.String valueOfEndpointsUsings;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEndpointsUsings, out valueOfEndpointsUsings))
 					{
-						instanceOfServiceModel.ControllerUsings = valueOfControllerUsings;
+						instanceOfServiceModel.EndpointsUsings = valueOfEndpointsUsings;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "controllerUsings", typeof(global::System.String), attribControllerUsings);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "endpointsUsings", typeof(global::System.String), attribEndpointsUsings);
 					}
 				}
 			}
-			// ControllerAttributes
+			// EndpointsAttributes
 			if (!serializationContext.Result.Failed)
 			{
-				string attribControllerAttributes = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "controllerAttributes");
-				if (attribControllerAttributes != null)
+				string attribEndpointsAttributes = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "endpointsAttributes");
+				if (attribEndpointsAttributes != null)
 				{
-					global::System.String valueOfControllerAttributes;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribControllerAttributes, out valueOfControllerAttributes))
+					global::System.String valueOfEndpointsAttributes;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribEndpointsAttributes, out valueOfEndpointsAttributes))
 					{
-						instanceOfServiceModel.ControllerAttributes = valueOfControllerAttributes;
+						instanceOfServiceModel.EndpointsAttributes = valueOfEndpointsAttributes;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "controllerAttributes", typeof(global::System.String), attribControllerAttributes);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "endpointsAttributes", typeof(global::System.String), attribEndpointsAttributes);
 					}
 				}
 			}
@@ -14749,16 +14749,16 @@ namespace Dyvenix.GenIt
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclDelete", serializedPropValue);
 				}
 			}
-			// InclController
+			// InclEndpoints
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.Boolean propValue = instanceOfServiceModel.InclController;
+				global::System.Boolean propValue = instanceOfServiceModel.InclEndpoints;
 				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
 				if (!serializationContext.Result.Failed)
 				{
 					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
 					{	// No need to write the value out if it's the same as default value.
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclController", serializedPropValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclEndpoints", serializedPropValue);
 					}
 				}
 			}
@@ -14795,25 +14795,25 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
-			// ControllerUsings
+			// EndpointsUsings
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfServiceModel.ControllerUsings;
+				global::System.String propValue = instanceOfServiceModel.EndpointsUsings;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "controllerUsings", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "endpointsUsings", propValue);
 	
 				}
 			}
-			// ControllerAttributes
+			// EndpointsAttributes
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfServiceModel.ControllerAttributes;
+				global::System.String propValue = instanceOfServiceModel.EndpointsAttributes;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "controllerAttributes", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "endpointsAttributes", propValue);
 	
 				}
 			}

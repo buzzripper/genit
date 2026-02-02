@@ -104,5 +104,20 @@ namespace Dyvenix.GenIt
 				return this.DataType;
 			}
 		}
+
+		[Browsable(false)]
+		public bool RequiresInit
+		{
+			get
+			{
+				if (this.IsNullable)
+					return false;
+
+				if (this.DataType == DataTypes.String || this.DataType == DataTypes.StringList || this.DataType == DataTypes.ByteArray || this.DataType == DataTypes.Object)
+					return true;
+
+				return false;
+			}
+		}
 	}
 }

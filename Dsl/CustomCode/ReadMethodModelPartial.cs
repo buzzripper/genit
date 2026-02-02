@@ -54,7 +54,6 @@ namespace Dyvenix.GenIt
 			}
 		}
 
-
 		public List<string> InclNavPropertiesList
 		{
 			get
@@ -63,6 +62,21 @@ namespace Dyvenix.GenIt
 					return new List<string>();
 
 				return this.InclNavProperties
+					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
+					.Select(line => line.Trim())
+					.Where(line => !string.IsNullOrWhiteSpace(line))
+					.ToList();
+			}
+		}
+
+		public List<string> PermissionsList
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.Permissions))
+					return new List<string>();
+
+				return this.Permissions
 					.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
 					.Select(line => line.Trim())
 					.Where(line => !string.IsNullOrWhiteSpace(line))
