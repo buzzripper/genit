@@ -113,6 +113,7 @@
     <Compile Include="CustomCode\PropertyModelRenamePropagationRules.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\ReadMethodModelPartial.cs" />
+    <Compile Include="CustomCode\ReadMethodModelRules.cs" />
     <Compile Include="CustomCode\ServiceModelCustomization.cs" />
     <Compile Include="CustomCode\ServiceModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\StringExt.cs" />

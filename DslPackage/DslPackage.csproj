@@ -79,7 +79,7 @@
     <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\SvcCollExtGenerator.cs" />
-    <Compile Include="CodeGen\Generators\QueryGenerator.cs" />
+    <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
     <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
     <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
     <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
@@ -111,6 +111,7 @@
     <Compile Include="Editors\Controls\StringListControl.xaml.cs">
       <DependentUpon>StringListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Converters\UseRequestMultiConverter.cs" />
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">

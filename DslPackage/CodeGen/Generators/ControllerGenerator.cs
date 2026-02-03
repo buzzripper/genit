@@ -46,8 +46,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
 				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
 
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				_usings.AddIfNotExists($"{module.QueryNamespace}.v{serviceModel.Version}");
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -134,7 +134,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - list
 			var listMethodsOutput = new List<string>();
-			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseQuery))
+			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseRequest))
 			{
 				if (listMethodsOutput.Count > 0)
 					listMethodsOutput.AddLine();
@@ -144,11 +144,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Read methods - query
 			var queryMethodsOutput = new List<string>();
 			var sortingMethodOutput = new List<string>();
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
 			{
 				if (queryMethodsOutput.Count > 0)
 					queryMethodsOutput.AddLine();
-				foreach (ReadMethodModel queryMethod in serviceModel.ReadMethods.Where(m => m.UseQuery))
+				foreach (ReadMethodModel queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
 					this.GenerateQueryControllerMethod(entity, queryMethod, serviceVarName, queryMethodsOutput);
 			}
 

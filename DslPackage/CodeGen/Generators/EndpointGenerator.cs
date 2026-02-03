@@ -51,8 +51,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
 				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
 
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				_usings.AddIfNotExists($"{module.QueryNamespace}.v{serviceModel.Version}");
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -140,26 +140,22 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - list
 			var listMethodsOutput = new List<string>();
-			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseQuery))
+			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseRequest))
 			{
 				if (listMethodsOutput.Count > 0)
 					listMethodsOutput.AddLine();
 				this.GenerateReadListMethod(entity, listMethod, serviceVarName, listMethodsOutput, mapMethods);
 			}
 
-			// Read methods - query
-			var queryMethodsOutput = new List<string>();
+			// Read methods - request
+			var requestMethodsOutput = new List<string>();
 			var sortingMethodOutput = new List<string>();
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-			{
-				if (queryMethodsOutput.Count > 0)
-					queryMethodsOutput.AddLine();
-				foreach (ReadMethodModel queryMethod in serviceModel.ReadMethods.Where(m => m.UseQuery))
-					this.GenerateQueryMethod(entity, queryMethod, serviceVarName, queryMethodsOutput, mapMethods);
-			}
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				requestMethodsOutput.AddLine();
+			foreach (ReadMethodModel requestMethod in serviceModel.ReadMethods.Where(m => m.IsList && m.UseRequest))
+				this.GenerateRequestMethod(entity, requestMethod, serviceVarName, requestMethodsOutput, mapMethods);
 
 			// Write the file
-
 			var fileContent = new List<string>();
 
 			if (_modelRoot.InclHeader)
@@ -213,13 +209,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#endregion");
 			}
 
-			if (queryMethodsOutput.Count > 0)
+			if (requestMethodsOutput.Count > 0)
 			{
 				fileContent.AddLine();
-				fileContent.AddLine(1, "#region Query Methods");
+				fileContent.AddLine(1, "#region Request Methods");
 			}
-			fileContent.AddLines(0, queryMethodsOutput);
-			if (queryMethodsOutput.Count > 0)
+			fileContent.AddLines(0, requestMethodsOutput);
+			if (requestMethodsOutput.Count > 0)
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, "#endregion");
@@ -535,13 +531,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				sbArgs.Append($"[FromQuery] {filterProp.PropertyModel.CSType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
 			}
 
-			// Paging is always optional
-			if (method.InclPaging)
-			{
-				sbArgs.Append(", ");
-				sbArgs.Append("[FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0");
-			}
-
 			// Vars
 			StringBuilder sbVars = new StringBuilder();
 			foreach (var filterProp in reqFilterProps)
@@ -573,43 +562,43 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			mapMethods.AddLines(1, GenerateReadListMapMethod(method.Name, sbRoute.ToString(), method));
 		}
 
-		// Query
+		// Requests
 
-		private List<string> GenerateQueryMapMethod(string className, string methodName, ReadMethodModel queryMethod)
+		private List<string> GenerateRequestMapMethod(string className, string methodName, ReadMethodModel requestMethod)
 		{
 			var lines = new List<string>();
 
 			lines.AddLine();
 			lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
 			lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
-			if (queryMethod.PermissionsList.Count > 0)
-				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", queryMethod.PermissionsList)}\");");
+			if (requestMethod.PermissionsList.Count > 0)
+				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", requestMethod.PermissionsList)}\");");
 			else
 				lines.AppendToLast(";");
 
 			return lines;
 		}
 
-		internal void GenerateQueryMethod(EntityModel entity, ReadMethodModel queryMethod, string svcVarName, List<string> output, List<string> mapMethods)
+		internal void GenerateRequestMethod(EntityModel entity, ReadMethodModel requestMethod, string svcVarName, List<string> output, List<string> mapMethods)
 		{
 			var tc = 1;
 			output.AddLine();
-			var queryClassName = $"{queryMethod.Name}Query";
-			var queryVarName = queryClassName.ToCamelCase();
+			var requestClassName = $"{requestMethod.Name}Request";
+			var requestVarName = requestClassName.ToCamelCase();
 
 			// Attributes
-			if (queryMethod.Attributes.Any())
-				foreach (var attr in queryMethod.Attributes)
+			if (requestMethod.Attributes.Any())
+				foreach (var attr in requestMethod.Attributes)
 					output.AddLine(tc, $"[{attr}]");
 
 			// Method
-			output.AddLine(tc, $"public static async Task<IResult> {queryMethod.Name}(I{entity.Name}Service {svcVarName}, [FromBody] {queryClassName} {queryVarName})");
+			output.AddLine(tc, $"public static async Task<IResult> {requestMethod.Name}(I{entity.Name}Service {svcVarName}, [FromBody] {requestClassName} {requestVarName})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var result = await {svcVarName}.{queryMethod.Name}({queryVarName});");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{requestMethod.Name}({requestVarName});");
 			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
-			mapMethods.AddLines(1, GenerateQueryMapMethod(entity.Name, queryMethod.Name, queryMethod));
+			mapMethods.AddLines(1, GenerateRequestMapMethod(entity.Name, requestMethod.Name, requestMethod));
 		}
 	}
 }

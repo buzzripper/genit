@@ -15,7 +15,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly DbContextGenerator _dbContextGenerator;
 		private readonly ServiceGenerator _serviceGenerator;
 		private readonly DtoGenerator _dtoGenerator;
-		private readonly QueryGenerator _queryGenerator;
+		private readonly RequestGenerator _requestGenerator;
 		private readonly EndpointGenerator _endpointGenerator;
 		private readonly ControllerGenerator _controllerGenerator;
 		private readonly SvcCollExtGenerator _svcCollExtGenerator;
@@ -30,7 +30,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_dbContextGenerator = new DbContextGenerator(modelRoot);
 			_serviceGenerator = new ServiceGenerator(modelRoot);
 			_dtoGenerator = new DtoGenerator(modelRoot);
-			_queryGenerator = new QueryGenerator(modelRoot);
+			_requestGenerator = new RequestGenerator(modelRoot);
 			_endpointGenerator = new EndpointGenerator(modelRoot);
 			_controllerGenerator = new ControllerGenerator(modelRoot);
 			_svcCollExtGenerator = new SvcCollExtGenerator(modelRoot);
@@ -81,9 +81,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 			_serviceGenerator.GenerateCode();
 			_dtoGenerator.GenerateCode();
-			_queryGenerator.GenerateCode();
+			_requestGenerator.GenerateCode();
 			_endpointGenerator.GenerateCode();
-			//_controllerGenerator.GenerateCode();
 			_svcCollExtGenerator.GenerateCode();
 		}
 
@@ -107,9 +106,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 				if (this.AnyQueries(module))
 				{
-					if (string.IsNullOrWhiteSpace(module.QueryNamespace))
+					if (string.IsNullOrWhiteSpace(module.RequestNamespace))
 						errors.Add($"Module '{module.Name}' - QueryNamespace is missing.");
-					if (string.IsNullOrWhiteSpace(module.QueryOutputFolder))
+					if (string.IsNullOrWhiteSpace(module.RequestOutputFolder))
 						errors.Add($"Module '{module.Name}' - QueryOutputFolder is missing.");
 				}
 			}
@@ -134,7 +133,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			{
 				foreach (var service in entity.ServiceModels)
 				{
-					if (service.ReadMethods.Any(m => m.UseQuery))
+					if (service.ReadMethods.Any(m => m.UseRequest))
 						return true;
 				}
 			}

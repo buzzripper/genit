@@ -6819,59 +6819,59 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region UseQuery domain property code
+		#region UseRequest domain property code
 		
 		/// <summary>
-		/// UseQuery domain property Id.
+		/// UseRequest domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid UseQueryDomainPropertyId = new global::System.Guid(0x14903356, 0x51d9, 0x4bdc, 0x9d, 0x67, 0x4c, 0xec, 0xc1, 0xd5, 0x23, 0x6d);
+		public static readonly global::System.Guid UseRequestDomainPropertyId = new global::System.Guid(0x14903356, 0x51d9, 0x4bdc, 0x9d, 0x67, 0x4c, 0xec, 0xc1, 0xd5, 0x23, 0x6d);
 		
 		/// <summary>
-		/// Storage for UseQuery
+		/// Storage for UseRequest
 		/// </summary>
-		private global::System.Boolean useQueryPropertyStorage;
+		private global::System.Boolean useRequestPropertyStorage;
 		
 		/// <summary>
-		/// Gets or sets the value of UseQuery domain property.
-		/// Description for Dyvenix.GenIt.ReadMethodModel.Use Query
+		/// Gets or sets the value of UseRequest domain property.
+		/// Description for Dyvenix.GenIt.ReadMethodModel.Use Request
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModel/UseQuery.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModel/UseQuery.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModel/UseRequest.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModel/UseRequest.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("14903356-51d9-4bdc-9d67-4cecc1d5236d")]
-		public global::System.Boolean UseQuery
+		public global::System.Boolean UseRequest
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return useQueryPropertyStorage;
+				return useRequestPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				UseQueryPropertyHandler.Instance.SetValue(this, value);
+				UseRequestPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ReadMethodModel.UseQuery domain property.
+		/// Value handler for the ReadMethodModel.UseRequest domain property.
 		/// </summary>
-		internal sealed partial class UseQueryPropertyHandler : DslModeling::DomainPropertyValueHandler<ReadMethodModel, global::System.Boolean>
+		internal sealed partial class UseRequestPropertyHandler : DslModeling::DomainPropertyValueHandler<ReadMethodModel, global::System.Boolean>
 		{
-			private UseQueryPropertyHandler() { }
+			private UseRequestPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ReadMethodModel.UseQuery domain property value handler.
+			/// Gets the singleton instance of the ReadMethodModel.UseRequest domain property value handler.
 			/// </summary>
-			public static readonly UseQueryPropertyHandler Instance = new UseQueryPropertyHandler();
+			public static readonly UseRequestPropertyHandler Instance = new UseRequestPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ReadMethodModel.UseQuery domain property.
+			/// Gets the Id of the ReadMethodModel.UseRequest domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return UseQueryDomainPropertyId;
+					return UseRequestDomainPropertyId;
 				}
 			}
 			
@@ -6883,7 +6883,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.Boolean GetValue(ReadMethodModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.useQueryPropertyStorage;
+				return element.useRequestPropertyStorage;
 			}
 		
 			/// <summary>
@@ -6899,7 +6899,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.useQueryPropertyStorage = newValue;
+					element.useRequestPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -9762,59 +9762,59 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region QueryNamespace domain property code
+		#region RequestNamespace domain property code
 		
 		/// <summary>
-		/// QueryNamespace domain property Id.
+		/// RequestNamespace domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid QueryNamespaceDomainPropertyId = new global::System.Guid(0xce0eea41, 0xa4ee, 0x4ed8, 0xb1, 0xcd, 0x9a, 0x44, 0xf9, 0xee, 0x8a, 0x6d);
+		public static readonly global::System.Guid RequestNamespaceDomainPropertyId = new global::System.Guid(0xce0eea41, 0xa4ee, 0x4ed8, 0xb1, 0xcd, 0x9a, 0x44, 0xf9, 0xee, 0x8a, 0x6d);
 		
 		/// <summary>
-		/// Storage for QueryNamespace
+		/// Storage for RequestNamespace
 		/// </summary>
-		private global::System.String queryNamespacePropertyStorage = string.Empty;
+		private global::System.String requestNamespacePropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of QueryNamespace domain property.
-		/// Description for Dyvenix.GenIt.ModuleModel.Query Namespace
+		/// Gets or sets the value of RequestNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Request Namespace
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/QueryNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/QueryNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/RequestNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/RequestNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d")]
-		public global::System.String QueryNamespace
+		public global::System.String RequestNamespace
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return queryNamespacePropertyStorage;
+				return requestNamespacePropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				QueryNamespacePropertyHandler.Instance.SetValue(this, value);
+				RequestNamespacePropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModuleModel.QueryNamespace domain property.
+		/// Value handler for the ModuleModel.RequestNamespace domain property.
 		/// </summary>
-		internal sealed partial class QueryNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		internal sealed partial class RequestNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
 		{
-			private QueryNamespacePropertyHandler() { }
+			private RequestNamespacePropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModuleModel.QueryNamespace domain property value handler.
+			/// Gets the singleton instance of the ModuleModel.RequestNamespace domain property value handler.
 			/// </summary>
-			public static readonly QueryNamespacePropertyHandler Instance = new QueryNamespacePropertyHandler();
+			public static readonly RequestNamespacePropertyHandler Instance = new RequestNamespacePropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModuleModel.QueryNamespace domain property.
+			/// Gets the Id of the ModuleModel.RequestNamespace domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return QueryNamespaceDomainPropertyId;
+					return RequestNamespaceDomainPropertyId;
 				}
 			}
 			
@@ -9826,7 +9826,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModuleModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.queryNamespacePropertyStorage;
+				return element.requestNamespacePropertyStorage;
 			}
 		
 			/// <summary>
@@ -9842,66 +9842,66 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.queryNamespacePropertyStorage = newValue;
+					element.requestNamespacePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
 		}
 		
 		#endregion
-		#region QueryOutputFolder domain property code
+		#region RequestOutputFolder domain property code
 		
 		/// <summary>
-		/// QueryOutputFolder domain property Id.
+		/// RequestOutputFolder domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid QueryOutputFolderDomainPropertyId = new global::System.Guid(0x688aa4d0, 0xa69f, 0x4123, 0xbe, 0x19, 0xff, 0x8c, 0x4e, 0x38, 0x9e, 0x1d);
+		public static readonly global::System.Guid RequestOutputFolderDomainPropertyId = new global::System.Guid(0x688aa4d0, 0xa69f, 0x4123, 0xbe, 0x19, 0xff, 0x8c, 0x4e, 0x38, 0x9e, 0x1d);
 		
 		/// <summary>
-		/// Storage for QueryOutputFolder
+		/// Storage for RequestOutputFolder
 		/// </summary>
-		private global::System.String queryOutputFolderPropertyStorage = string.Empty;
+		private global::System.String requestOutputFolderPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of QueryOutputFolder domain property.
-		/// Description for Dyvenix.GenIt.ModuleModel.Query Output Folder
+		/// Gets or sets the value of RequestOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Request Output Folder
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/QueryOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/QueryOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/RequestOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/RequestOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("688aa4d0-a69f-4123-be19-ff8c4e389e1d")]
-		public global::System.String QueryOutputFolder
+		public global::System.String RequestOutputFolder
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return queryOutputFolderPropertyStorage;
+				return requestOutputFolderPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				QueryOutputFolderPropertyHandler.Instance.SetValue(this, value);
+				RequestOutputFolderPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModuleModel.QueryOutputFolder domain property.
+		/// Value handler for the ModuleModel.RequestOutputFolder domain property.
 		/// </summary>
-		internal sealed partial class QueryOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		internal sealed partial class RequestOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
 		{
-			private QueryOutputFolderPropertyHandler() { }
+			private RequestOutputFolderPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModuleModel.QueryOutputFolder domain property value handler.
+			/// Gets the singleton instance of the ModuleModel.RequestOutputFolder domain property value handler.
 			/// </summary>
-			public static readonly QueryOutputFolderPropertyHandler Instance = new QueryOutputFolderPropertyHandler();
+			public static readonly RequestOutputFolderPropertyHandler Instance = new RequestOutputFolderPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModuleModel.QueryOutputFolder domain property.
+			/// Gets the Id of the ModuleModel.RequestOutputFolder domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return QueryOutputFolderDomainPropertyId;
+					return RequestOutputFolderDomainPropertyId;
 				}
 			}
 			
@@ -9913,7 +9913,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModuleModel element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.queryOutputFolderPropertyStorage;
+				return element.requestOutputFolderPropertyStorage;
 			}
 		
 			/// <summary>
@@ -9929,7 +9929,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.queryOutputFolderPropertyStorage = newValue;
+					element.requestOutputFolderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

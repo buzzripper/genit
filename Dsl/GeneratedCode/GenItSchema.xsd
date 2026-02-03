@@ -893,8 +893,8 @@
         <xsd:attribute name="itemId" type="xsd:string" />
         <!-- Property: InclPaging -->
         <xsd:attribute name="inclPaging" type="xsd:boolean" />
-        <!-- Property: UseQuery -->
-        <xsd:attribute name="useQuery" type="xsd:boolean" />
+        <!-- Property: UseRequest -->
+        <xsd:attribute name="useRequest" type="xsd:boolean" />
         <!-- Property: InclSorting -->
         <xsd:attribute name="inclSorting" type="xsd:boolean" />
         <!-- Property: DisplayOrder -->
@@ -1164,10 +1164,10 @@
         <xsd:attribute name="dtoNamespace" type="xsd:string" />
         <!-- Property: DtoOutputFolder -->
         <xsd:attribute name="dtoOutputFolder" type="xsd:string" />
-        <!-- Property: QueryNamespace -->
-        <xsd:attribute name="queryNamespace" type="xsd:string" />
-        <!-- Property: QueryOutputFolder -->
-        <xsd:attribute name="queryOutputFolder" type="xsd:string" />
+        <!-- Property: RequestNamespace -->
+        <xsd:attribute name="requestNamespace" type="xsd:string" />
+        <!-- Property: RequestOutputFolder -->
+        <xsd:attribute name="requestOutputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

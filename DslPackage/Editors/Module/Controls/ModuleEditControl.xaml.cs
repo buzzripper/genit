@@ -41,8 +41,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtRootFolder.Text = _moduleModel.ApiRootFolder ?? string.Empty;
 				txtDtoOutputFolder.Text = _moduleModel.DtoOutputFolder ?? string.Empty;
 				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
-				txtQueryOutputFolder.Text = _moduleModel.QueryOutputFolder ?? string.Empty;
-				txtQueryNamespace.Text = _moduleModel.QueryNamespace ?? string.Empty;
+				txtRequestOutputFolder.Text = _moduleModel.RequestOutputFolder ?? string.Empty;
+				txtRequestNamespace.Text = _moduleModel.RequestNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
 			}
@@ -89,41 +89,41 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			UpdateModelProperty(ModuleModel.DtoNamespaceDomainPropertyId, txtDtoNamespace.Text);
 		}
 
-		private void txtQueryOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		private void txtRequestOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-			if (_isUpdating || _moduleModel == null)
-				return;
+		if (_isUpdating || _moduleModel == null)
+		return;
 
-			UpdateModelProperty(ModuleModel.QueryOutputFolderDomainPropertyId, txtQueryOutputFolder.Text);
+		UpdateModelProperty(ModuleModel.RequestOutputFolderDomainPropertyId, txtRequestOutputFolder.Text);
 		}
 
-		private void btnBrowseQueryFolder_Click(object sender, RoutedEventArgs e)
+		private void btnBrowseRequestFolder_Click(object sender, RoutedEventArgs e)
 		{
-			if (_moduleModel == null)
-				return;
+		if (_moduleModel == null)
+		return;
 
-			if (FolderBrowserHelper.BrowseForFolder(txtQueryOutputFolder.Text, "Select Query Output Folder", out string selectedPath))
-			{
-				_isUpdating = true;
-				try
-				{
-					txtQueryOutputFolder.Text = selectedPath;
-				}
-				finally
-				{
-					_isUpdating = false;
-				}
-
-				UpdateModelProperty(ModuleModel.QueryOutputFolderDomainPropertyId, selectedPath);
-			}
+		if (FolderBrowserHelper.BrowseForFolder(txtRequestOutputFolder.Text, "Select Request Output Folder", out string selectedPath))
+		{
+		_isUpdating = true;
+		try
+		{
+		txtRequestOutputFolder.Text = selectedPath;
+		}
+		finally
+		{
+		_isUpdating = false;
 		}
 
-		private void txtQueryNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _moduleModel == null)
-				return;
+		UpdateModelProperty(ModuleModel.RequestOutputFolderDomainPropertyId, selectedPath);
+		}
+		}
 
-			UpdateModelProperty(ModuleModel.QueryNamespaceDomainPropertyId, txtQueryNamespace.Text);
+		private void txtRequestNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+		if (_isUpdating || _moduleModel == null)
+		return;
+
+		UpdateModelProperty(ModuleModel.RequestNamespaceDomainPropertyId, txtRequestNamespace.Text);
 		}
 
 		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

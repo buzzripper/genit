@@ -45,8 +45,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			foreach (var u in serviceModel.ServiceUsingsList)
 				_usings.AddIfNotExists(u);
 
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
-				_usings.AddIfNotExists($"{module.QueryNamespace}.v{serviceModel.Version}");
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
 				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
@@ -146,7 +146,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - single
 			var singleMethodsOutput = new List<string>();
-			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.UseQuery && !m.IsList))
+			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.UseRequest && !m.IsList))
 			{
 				if (singleMethodsOutput.Count == 0)
 				{
@@ -163,7 +163,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - list
 			var listMethodsOutput = new List<string>();
-			foreach (var listMethod in serviceModel.ReadMethods.Where(m => !m.UseQuery && m.IsList))
+			foreach (var listMethod in serviceModel.ReadMethods.Where(m => !m.UseRequest && m.IsList))
 			{
 				if (listMethodsOutput.Count == 0)
 				{
@@ -180,15 +180,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - query
 			var queryMethodsOutput = new List<string>();
-			if (serviceModel.ReadMethods.Any(m => m.UseQuery))
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
 			{
 				if (queryMethodsOutput.Count == 0)
 				{
 					queryMethodsOutput.AddLine();
 					queryMethodsOutput.AddLine(1, "#region Query Methods");
 				}
-				foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseQuery))
-					serviceMethodGenerator.GenerateQueryMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
+				foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
+					serviceMethodGenerator.GenerateRequestMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
 			}
 			if (queryMethodsOutput.Count > 0)
 			{
@@ -197,7 +197,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// Sorting method
-			if (serviceModel.ReadMethods.Where(m => m.UseQuery && m.InclSorting).Any())
+			if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
 			{
 				serviceMethodGenerator.GenerateSortingMethod(entity, queryMethodsOutput);
 				queryMethodsOutput.AddLine();

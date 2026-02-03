@@ -466,7 +466,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="14903356-51d9-4bdc-9d67-4cecc1d5236d" Description="Description for Dyvenix.GenIt.ReadMethodModel.Use Query" Name="UseQuery" DisplayName="Use Query">
+        <DomainProperty Id="14903356-51d9-4bdc-9d67-4cecc1d5236d" Description="Description for Dyvenix.GenIt.ReadMethodModel.Use Request" Name="UseRequest" DisplayName="Use Request">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -641,12 +641,12 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d" Description="Description for Dyvenix.GenIt.ModuleModel.Query Namespace" Name="QueryNamespace" DisplayName="Query Namespace">
+        <DomainProperty Id="ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d" Description="Description for Dyvenix.GenIt.ModuleModel.Request Namespace" Name="RequestNamespace" DisplayName="Request Namespace">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="688aa4d0-a69f-4123-be19-ff8c4e389e1d" Description="Description for Dyvenix.GenIt.ModuleModel.Query Output Folder" Name="QueryOutputFolder" DisplayName="Query Output Folder">
+        <DomainProperty Id="688aa4d0-a69f-4123-be19-ff8c4e389e1d" Description="Description for Dyvenix.GenIt.ModuleModel.Request Output Folder" Name="RequestOutputFolder" DisplayName="Request Output Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1430,8 +1430,8 @@
           <XmlPropertyData XmlName="inclPaging">
             <DomainPropertyMoniker Name="ReadMethodModel/InclPaging" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="useQuery">
-            <DomainPropertyMoniker Name="ReadMethodModel/UseQuery" />
+          <XmlPropertyData XmlName="useRequest">
+            <DomainPropertyMoniker Name="ReadMethodModel/UseRequest" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="inclSorting">
             <DomainPropertyMoniker Name="ReadMethodModel/InclSorting" />
@@ -1555,11 +1555,11 @@
           <XmlPropertyData XmlName="dtoOutputFolder">
             <DomainPropertyMoniker Name="ModuleModel/DtoOutputFolder" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="queryNamespace">
-            <DomainPropertyMoniker Name="ModuleModel/QueryNamespace" />
+          <XmlPropertyData XmlName="requestNamespace">
+            <DomainPropertyMoniker Name="ModuleModel/RequestNamespace" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="queryOutputFolder">
-            <DomainPropertyMoniker Name="ModuleModel/QueryOutputFolder" />
+          <XmlPropertyData XmlName="requestOutputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/RequestOutputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

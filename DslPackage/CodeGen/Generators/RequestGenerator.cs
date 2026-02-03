@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-	internal class QueryGenerator
+	internal class RequestGenerator
 	{
 		private readonly ModelRoot _modelRoot;
 		private readonly List<EntityModel> _entities;
@@ -13,7 +13,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 		private readonly List<string> _usings = new List<string>();
 
-		internal QueryGenerator(ModelRoot modelRoot)
+		internal RequestGenerator(ModelRoot modelRoot)
 		{
 			// Convenience vars
 			_modelRoot = modelRoot;
@@ -30,7 +30,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			_usings.Clear();
 			_usings.Add("System");
-			_usings.AddLines(0, _modelRoot.UsingsList);
 		}
 
 		internal void GenerateCode()
@@ -39,19 +38,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
 				{
-					foreach (var queryMethod in service.ReadMethods.Where(m => m.UseQuery))
+					foreach (var requestMethod in service.ReadMethods.Where(m => m.UseRequest))
 					{
-						GenerateQuery(_modules[entity.Module], entity, service, queryMethod);
+						var module = _modules[entity.Module];
+						GenerateRequestClass(module, entity, service, requestMethod);
 					}
 				}
 			}
 		}
 
-		private void GenerateQuery(ModuleModel module, EntityModel entity, ServiceModel service, ReadMethodModel readMethod)
+		private void GenerateRequestClass(ModuleModel module, EntityModel entity, ServiceModel service, ReadMethodModel readMethod)
 		{
 			ResetUsings(entity, module);
-			var queryName = $"{readMethod.Name}Req";
+			var requestName = $"{readMethod.Name}Req";
 			string interfaceDecl = null;
+
+			// Need 'Models' namespace if using IPaging or ISorting
+			if (readMethod.InclPaging || readMethod.InclSorting)
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Models");
 
 			// If any non-primitive property, add entities namespace
 			if (readMethod.FilterProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))
@@ -65,7 +69,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				paging.AddLine(1, "public int PageOffset { get; set; }");
 				paging.AddLine(1, "public bool RecalcRowCount { get; set; }");
 				paging.AddLine(1, "public bool GetRowCountOnly { get; set; }");
-				interfaceDecl = "IPagingQuery";
+				interfaceDecl = "IPagingRequest";
 			}
 
 			// Sorting
@@ -74,7 +78,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				sorting.AddLine(1, "public string SortBy { get; set; } = null!;");
 				sorting.AddLine(1, "public bool SortDesc { get; set; }");
-				interfaceDecl = string.IsNullOrWhiteSpace(interfaceDecl) ? "ISortingQuery" : $"{interfaceDecl}, ISortingQuery";
+				interfaceDecl = string.IsNullOrWhiteSpace(interfaceDecl) ? "ISortingRequest" : $"{interfaceDecl}, ISortingRequest";
 			}
 
 			var fileContent = new List<string>();
@@ -87,13 +91,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.QueryNamespace}.v{service.Version};");
+			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.v{service.Version};");
 
 			// Class declaration
 			if (readMethod.InclPaging || readMethod.InclSorting)
 				interfaceDecl = $" : {interfaceDecl}";
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"public class {queryName}{interfaceDecl}");
+			fileContent.AddLine(0, $"public class {requestName}{interfaceDecl}");
 			fileContent.AddLine(0, "{");
 
 			// Paging
@@ -106,7 +110,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var filterProps = readMethod.FilterProperties.Where(x => !x.IsOptional);
 			if (filterProps.Any())
 			{
-				fileContent.AddLine();
 				string nullStr = null;
 				string initStr = null;
 				foreach (var filterProp in filterProps)
@@ -127,9 +130,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.QueryOutputFolder, $"v{service.Version}");
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"v{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{queryName}.cs");
+			var outputFilepath = Path.Combine(outputDir, $"{requestName}.cs");
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
