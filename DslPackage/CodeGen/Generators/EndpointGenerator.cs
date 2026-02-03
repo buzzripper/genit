@@ -57,13 +57,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void Validate(List<string> errors)
 		{
-			//foreach (var entity in _entities)
-			//{
-			//	if (!entity.GenerateCode || entity.ServiceModels.Count == 0)
-			//		continue;
-			//	if (string.IsNullOrEmpty(entity.Module))
-			//		errors.Add($"Entity '{entity.Name}' does not have a Module assigned. Please set it in the Entity properties.");
-			//}
 		}
 
 		internal void GenerateCode()
@@ -80,9 +73,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateEndpoints(EntityModel entity, ServiceModel serviceModel)
 		{
 			var module = _modules[entity.Module];
-			var endpointsOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Endpoints", serviceModel.Version);
 			ResetUsings(entity, serviceModel, module);
-			Directory.CreateDirectory(endpointsOutputDir);  // Ensure output dir exists
 			var className = $"{entity.Name}Endpoints";
 			var serviceName = $"{entity.Name}Service";
 			var serviceVarName = serviceName.ToCamelCase();
@@ -144,8 +135,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var singleReadMethodsOutput = new List<string>();
 			foreach (ReadMethodModel singleMethod in serviceModel.ReadMethods.Where(m => !m.IsList))
 			{
-				if (singleReadMethodsOutput.Count > 0)
-					singleReadMethodsOutput.AddLine();
 				this.GenerateReadSingleMethod(entity, singleMethod, serviceVarName, singleReadMethodsOutput, mapMethods);
 			}
 
@@ -206,7 +195,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#region Read Methods - Single");
 			}
 			fileContent.AddLines(1, singleReadMethodsOutput);
-			if (updMethodsOutput.Count > 0)
+			if (singleReadMethodsOutput.Count > 0)
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, "#endregion");
@@ -218,7 +207,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#region Read Methods - List");
 			}
 			fileContent.AddLines(1, listMethodsOutput);
-			if (updMethodsOutput.Count > 0)
+			if (listMethodsOutput.Count > 0)
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, "#endregion");
@@ -230,7 +219,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#region Query Methods");
 			}
 			fileContent.AddLines(0, queryMethodsOutput);
-			if (updMethodsOutput.Count > 0)
+			if (queryMethodsOutput.Count > 0)
 			{
 				fileContent.AddLine();
 				fileContent.AddLine(1, "#endregion");
@@ -249,21 +238,21 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			OutputHelper.Write($"Completed code gen for controller: {className}");
 		}
 
-		private List<string> BuildEndpointsAttributes(ServiceModel serviceModel, ModuleModel module, string serviceClassName)
-		{
-			var attrs = new List<string>();
+		//private List<string> BuildEndpointsAttributes(ServiceModel serviceModel, ModuleModel module, string serviceClassName)
+		//{
+		//	var attrs = new List<string>();
 
-			attrs.AddLine(0, "[ApiController]");
-			attrs.AddLine(0, $"[ServiceFilter(typeof(ApiExceptionFilter<{serviceClassName}>))]");
-			attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
-			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/v{{version:apiVersion}}/[controller]\")]");
-			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
+		//	attrs.AddLine(0, "[ApiController]");
+		//	attrs.AddLine(0, $"[ServiceFilter(typeof(ApiExceptionFilter<{serviceClassName}>))]");
+		//	attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
+		//	attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/v{{version:apiVersion}}/[controller]\")]");
+		//	attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
 
-			foreach (var a in serviceModel.ControllerAttributesList)
-				attrs.AddIfNotExists(a);
+		//	foreach (var a in serviceModel.ControllerAttributesList)
+		//		attrs.AddIfNotExists(a);
 
-			return attrs;
-		}
+		//	return attrs;
+		//}
 
 		internal List<string> GenerateMapEndpointsMethod(List<string> mapMethods, ModuleModel module, EntityModel entity, ServiceModel serviceModel)
 		{
@@ -338,7 +327,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(0, "#region Delete");
 			output.AddLine();
-			output.AddLine(0, $"public static async Task<IResult> Delete{entity.Name}(Guid id, I{entity.Name}Service {svcVarName})");
+			output.AddLine(0, $"public static async Task<IResult> Delete{entity.Name}(I{entity.Name}Service {svcVarName}, Guid id)");
 			output.AddLine(0, "{");
 			output.AddLine(0 + 1, $"var result = await {svcVarName}.Delete{entity.Name}(id);");
 			output.AddLine(0 + 1, $"return result.ToHttpResult();");
@@ -369,7 +358,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateFullUpdateMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
 		{
 			output.AddLine();
-			output.AddLine(0, $"public static async Task<IResult> Update{entity.Name}({entity.Name} {entity.Name.ToCamelCase()}, I{entity.Name}Service {svcVarName})");
+			output.AddLine(0, $"public static async Task<IResult> Update{entity.Name}(I{entity.Name}Service {svcVarName}, {entity.Name} {entity.Name.ToCamelCase()})");
 			output.AddLine(0, "{");
 			output.AddLine(1, $"var result = await {svcVarName}.Update{entity.Name}({entity.Name.ToCamelCase()});");
 			output.AddLine(1, $"return result.ToHttpResult();");
@@ -411,7 +400,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (method.UseDto)
 			{
-				inputArgs.Append($"[FromBody] {method.Name}Req request");
+				inputArgs.Append($", [FromBody] {method.Name}Req request");
 
 				args.Append("request.Id");
 				if (entity.InclRowVersion)
@@ -422,7 +411,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			else
 			{
 				route.Append($"/{{id}}");
-				inputArgs.Append("Guid id");
+				inputArgs.Append(", Guid id");
 				if (entity.InclRowVersion)
 				{
 					route.Append($"/{{rowVersion}}");
@@ -441,7 +430,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					args.Append($", {updProp.PropertyModel.ArgName}");
 			}
 
-			output.AddLine(tc, $"public static async Task<IResult> {method.Name}({inputArgs}, I{entity.Name}Service {svcVarName})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{inputArgs})");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({args});");
 			output.AddLine(tc + 1, $"return result.ToHttpResult();");
@@ -534,16 +523,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				// Required arguments go in the route
 				sbRoute.Append($"/{{{filterProp.PropertyModel.ArgName}}}");
-				if (sbArgs.Length > 0)
-					sbArgs.Append(", ");
+				sbArgs.Append(", ");
 				sbArgs.Append($"[FromRoute] {filterProp.PropertyModel.CSType} {filterProp.PropertyModel.ArgName}");
 			}
 
 			// Optional
 			foreach (var filterProp in optFilterProps)
 			{
-				if (sbArgs.Length > 0)
-					sbArgs.Append(", ");
+				sbArgs.Append(", ");
 				var nullChar = filterProp.PropertyModel.DataType != DataTypes.String ? "?" : string.Empty;
 				sbArgs.Append($"[FromQuery] {filterProp.PropertyModel.CSType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
 			}
@@ -551,8 +538,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Paging is always optional
 			if (method.InclPaging)
 			{
-				if (sbArgs.Length > 0)
-					sbArgs.Append(", ");
+				sbArgs.Append(", ");
 				sbArgs.Append("[FromQuery] int pgSize = 0, [FromQuery] int pgOffset = 0");
 			}
 
@@ -578,7 +564,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			output.AddLine();
-			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}, {sbArgs})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{sbArgs})");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({sbVars});");
 			output.AddLine(tc + 1, $"return result.ToHttpResult();");

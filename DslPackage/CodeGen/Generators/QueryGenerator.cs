@@ -50,7 +50,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateQuery(ModuleModel module, EntityModel entity, ServiceModel service, ReadMethodModel readMethod)
 		{
 			ResetUsings(entity, module);
-			var queryName = $"{readMethod.Name}Query";
+			var queryName = $"{readMethod.Name}Req";
 			string interfaceDecl = null;
 
 			// If any non-primitive property, add entities namespace
@@ -72,10 +72,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var sorting = new List<string>();
 			if (readMethod.InclSorting)
 			{
-				sorting.AddLine(1, "public string SortBy { get; set; }");
+				sorting.AddLine(1, "public string SortBy { get; set; } = null!;");
 				sorting.AddLine(1, "public bool SortDesc { get; set; }");
-				interfaceDecl = readMethod.InclPaging ? ", ISortingQuery" : "ISortingQuery";
-				_usings.AddIfNotExists("SORTING NS");
+				interfaceDecl = string.IsNullOrWhiteSpace(interfaceDecl) ? "ISortingQuery" : $"{interfaceDecl}, ISortingQuery";
 			}
 
 			var fileContent = new List<string>();
@@ -108,8 +107,22 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (filterProps.Any())
 			{
 				fileContent.AddLine();
+				string nullStr = null;
+				string initStr = null;
 				foreach (var filterProp in filterProps)
-					fileContent.AddLine(1, $"public {filterProp.PropertyModel.CSType} {filterProp.PropertyModel.Name} {{ get; set; }}");
+				{
+					if (filterProp.IsOptional)
+					{
+						nullStr = "?";
+						initStr = "";
+					}
+					else
+					{
+						nullStr = null;
+						initStr = " = null!;";
+					}
+					fileContent.AddLine(1, $"public {filterProp.PropertyModel.CSType}{nullStr} {filterProp.PropertyModel.Name} {{ get; set; }}{initStr}");
+				}
 			}
 
 			fileContent.AddLine(0, "}");

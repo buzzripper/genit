@@ -373,9 +373,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				}
 			}
 
-			output.AddLine();
-			output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
-
 			if (queryMethod.InclSorting)
 			{
 				output.AddLine();
@@ -383,23 +380,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(query.SortBy))");
 				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, query);");
 			}
-			else if (queryMethod.InclPaging)
+			if (queryMethod.InclPaging)
 			{
+				output.AddLine();
+				output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
 				output.AddLine();
 				output.AddLine(tc + 1, "// Stable ordering for paging");
 				foreach (var filterProp in queryMethod.FilterProperties)
 					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
-			}
 
-			output.AddLine();
-			output.AddLine(tc + 1, "// Count (only when requested)");
-			output.AddLine(tc + 1, "if (query.RecalcRowCount || query.GetRowCountOnly)");
-			output.AddLine(tc + 1, "{");
-			output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
-			output.AddLine();
-			output.AddLine(tc + 2, "if (query.GetRowCountOnly)");
-			output.AddLine(tc + 3, $"return Result<EntityList<{entity.Name}>>.Ok(entityList);");
-			output.AddLine(tc + 1, "}");
+				output.AddLine();
+				output.AddLine(tc + 1, "// Count (only when requested)");
+				output.AddLine(tc + 1, "if (query.RecalcRowCount || query.GetRowCountOnly)");
+				output.AddLine(tc + 1, "{");
+				output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
+				output.AddLine();
+				output.AddLine(tc + 2, "if (query.GetRowCountOnly)");
+				output.AddLine(tc + 3, $"return Result<EntityList<{entity.Name}>>.Ok(entityList);");
+				output.AddLine(tc + 1, "}");
+			}
 
 			if (queryMethod.InclPaging)
 			{
@@ -411,9 +410,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			output.AddLine();
 			output.AddLine(tc + 1, "// Data");
-			output.AddLine(tc + 1, "entityList.Data = await dbQuery.ToListAsync();");
-			output.AddLine();
-			output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
+			if (queryMethod.InclPaging)
+			{
+				output.AddLine(tc + 1, "entityList.Items = await dbQuery.ToListAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
+			}
+			else
+			{
+				output.AddLine(tc + 1, "var data = await dbQuery.ToListAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"return {returnType}.Ok(data);");
+			}
 			output.AddLine(tc, "}");
 		}
 
