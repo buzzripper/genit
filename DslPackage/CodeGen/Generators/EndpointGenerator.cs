@@ -35,11 +35,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.AddLine(0, "Microsoft.AspNetCore.Routing");
 			_usings.AddLine(0, "Microsoft.AspNetCore.Builder");
 			_usings.AddLine(0, "Microsoft.AspNetCore.Http");
-			_usings.AddLine(0, "Dyvenix.App1.Common.Api.Filters");
 
 			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
 			_usings.Add($"{module.Namespace}.Services.v{serviceModel.Version}");
+			_usings.AddLine(0, $"{module.Namespace}.Extensions");
+			_usings.AddLine(0, $"Dyvenix.App1.Common.Api.Filters");
 
 			foreach (var u in entity.UsingsList)
 				_usings.AddIfNotExists(u);
@@ -86,8 +87,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var serviceName = $"{entity.Name}Service";
 			var serviceVarName = serviceName.ToCamelCase();
 
-			// Attributes
-			var attrs = BuildEndpointsAttributes(serviceModel, module, serviceName);
+			//// Attributes
+			//var attrs = BuildEndpointsAttributes(serviceModel, module, serviceName);
 
 			// Declaration
 			var declaration = new List<string>();
@@ -178,7 +179,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.v{serviceModel.Version};");
 			fileContent.AddLine();
-			fileContent.AddLines(0, attrs);
+			//fileContent.AddLines(0, attrs);
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
 			fileContent.AddLines(1, GenerateMapEndpointsMethod(mapMethods, module, entity, serviceModel));
@@ -273,6 +274,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(1, $"var group = app.MapGroup(\"api/{module.Name.ToLower()}/{serviceModel.Version}/{entity.Name.ToLower()}\")");
 			lines.AddLine(2, $".WithTags(\"{entity.Name}\");");
 			lines.AddLines(1, mapMethods);
+			lines.AddLine();
 			lines.AddLine(1, "return app;");
 			lines.AddLine(0, "}");
 
@@ -292,7 +294,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.CreatePermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.CreatePermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -302,9 +305,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(0, "#region Create");
 			output.AddLine();
-			output.AddLine(0, $"public static async Task<ActionResult> Create{entity.Name}({entity.Name} {entity.Name.ToCamelCase()}, I{entity.Name}Service {svcVarName})");
+			output.AddLine(0, $"public static async Task<IResult> Create{entity.Name}({entity.Name} {entity.Name.ToCamelCase()}, I{entity.Name}Service {svcVarName})");
 			output.AddLine(0, "{");
-			output.AddLine(0 + 1, $"return Ok(await {svcVarName}.Create{entity.Name}({entity.Name.ToCamelCase()}));");
+			output.AddLine(0 + 1, $"var result = await {svcVarName}.Create{entity.Name}({entity.Name.ToCamelCase()});");
+			output.AddLine(0 + 1, $"return result.ToHttpResult();");
 			output.AddLine(0, "}");
 			output.AddLine();
 			output.AddLine(0, "#endregion");
@@ -323,7 +327,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.DeletePermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.DeletePermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -333,11 +338,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(0, "#region Delete");
 			output.AddLine();
-			output.AddLine(0, $"[HttpPost, Route(\"[action]\")]");
-			output.AddLine(0, $"[Authorize(\"{string.Join(",", serviceModel.DeletePermissionsList)}\")]");
-			output.AddLine(0, $"public async Task<ActionResult> Delete{entity.Name}(Guid id)");
+			output.AddLine(0, $"public static async Task<IResult> Delete{entity.Name}(Guid id, I{entity.Name}Service {svcVarName})");
 			output.AddLine(0, "{");
-			output.AddLine(0 + 1, $"return Ok(await _{svcVarName}.Delete{entity.Name}(id));");
+			output.AddLine(0 + 1, $"var result = await {svcVarName}.Delete{entity.Name}(id);");
+			output.AddLine(0 + 1, $"return result.ToHttpResult();");
 			output.AddLine(0, "}");
 			output.AddLine();
 			output.AddLine(0, "#endregion");
@@ -356,7 +360,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.UpdatePermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.UpdatePermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -364,12 +369,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateFullUpdateMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
 		{
 			output.AddLine();
-			output.AddLine(0, $"[HttpPost, Route(\"[action]\")]");
-			output.AddLine(0, $"[Authorize(\"{string.Join(",", serviceModel.UpdatePermissionsList)}\")]");
-			output.AddLine(0, $"public async Task<ActionResult> Update{entity.Name}([FromBody] {entity.Name} {svcVarName})");
+			output.AddLine(0, $"public static async Task<IResult> Update{entity.Name}({entity.Name} {entity.Name.ToCamelCase()}, I{entity.Name}Service {svcVarName})");
 			output.AddLine(0, "{");
-			output.AddLine(0 + 1, $"await _{svcVarName}.Update{entity.Name}({svcVarName});");
-			output.AddLine(0 + 1, $"return Ok();");
+			output.AddLine(1, $"var result = await {svcVarName}.Update{entity.Name}({entity.Name.ToCamelCase()});");
+			output.AddLine(1, $"return result.ToHttpResult();");
 			output.AddLine(0, "}");
 		}
 
@@ -380,12 +383,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"{methodUrl}\", {methodName})");
+			lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (updMethodModel.PermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", updMethodModel.PermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -437,14 +441,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					args.Append($", {updProp.PropertyModel.ArgName}");
 			}
 
-			output.AddLine(tc, $"[HttpPatch, Route(\"[action]{route}\")]");
-			output.AddLine(tc, $"public async Task<ActionResult> {method.Name}({inputArgs})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}({inputArgs}, I{entity.Name}Service {svcVarName})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"await _{svcVarName}.{method.Name}({args});");
-			output.AddLine(tc + 1, $"return Ok();");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({args});");
+			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
-			mapMethods.AddLines(0, this.GenerateUpdateMapMethod(method.Name, route.ToString(), method));
+			mapMethods.AddLines(1, this.GenerateUpdateMapMethod(method.Name, route.ToString(), method));
 		}
 
 		// Read Single
@@ -454,12 +457,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapGet(\"{methodUrl}\", {methodName})");
+			lines.AddLine(0, $"group.MapGet(\"{methodName}\", {methodName})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status404NotFound)");
 			if (readMethodModel.PermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -484,10 +488,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			output.AddLine();
-			output.AddLine(tc, $"[HttpGet, Route(\"[action]{filterRoute}\")]");
-			output.AddLine(tc, $"public async Task<ActionResult<{entity.Name}>> {method.Name}({filterParams})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}({filterParams}, I{entity.Name}Service {svcVarName})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return Ok(await _{svcVarName}.{method.Name}({filterArg}));");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({filterArg});");
+			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
 			mapMethods.AddLines(1, this.GenerateReadSingleMapMethod(method.Name, filterRoute, method));
@@ -500,11 +504,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapGet(\"{methodUrl}\", {methodName})");
+			lines.AddLine(0, $"group.MapGet(\"{methodName}\", {methodName})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			if (readMethodModel.PermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -573,13 +578,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			output.AddLine();
-			output.AddLine(tc, $"[HttpGet, Route(\"[action]{sbRoute}\")]");
-			output.AddLine(tc, $"public async Task<ActionResult<List<{entity.Name}>>> {method.Name}({sbArgs})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}, {sbArgs})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return Ok(await _{svcVarName}.{method.Name}({sbVars}));");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({sbVars});");
+			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
-			mapMethods.AddLines(0, GenerateReadListMapMethod(method.Name, sbRoute.ToString(), method));
+			mapMethods.AddLines(1, GenerateReadListMapMethod(method.Name, sbRoute.ToString(), method));
 		}
 
 		// Query
@@ -593,7 +598,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
 			if (queryMethod.PermissionsList.Count > 0)
 				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", queryMethod.PermissionsList)}\");");
-			lines.Add(";");
+			else
+				lines.AppendToLast(";");
 
 			return lines;
 		}
@@ -611,13 +617,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Method
-			output.AddLine(tc, "[HttpPost, Route(\"[action]\")]");
-			output.AddLine(tc, $"public async Task<ActionResult<EntityList<{entity.Name}>>> {queryMethod.Name}([FromBody] {queryClassName} {queryVarName})");
+			output.AddLine(tc, $"public static async Task<IResult> {queryMethod.Name}(I{entity.Name}Service {svcVarName}, [FromBody] {queryClassName} {queryVarName})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return Ok(await _{svcVarName}.{queryMethod.Name}({queryVarName}));");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{queryMethod.Name}({queryVarName});");
+			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
-			mapMethods.AddLines(0, GenerateQueryMapMethod(entity.Name, queryMethod.Name, queryMethod));
+			mapMethods.AddLines(1, GenerateQueryMapMethod(entity.Name, queryMethod.Name, queryMethod));
 		}
 	}
 }

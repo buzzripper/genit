@@ -155,6 +155,8 @@
             <xsd:documentation>Global usings</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: CommonNamespace -->
+        <xsd:attribute name="commonNamespace" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

@@ -46,6 +46,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 			return new string('\t', count);
 		}
 
+		public static void AppendToLast(this List<string> list, string appendStr)
+		{
+			if (list.Count == 0)
+				return;
 
+			var i = list.Count - 1;
+			list[i] = $"{list[i]}{appendStr}";
+		}
 	}
 }

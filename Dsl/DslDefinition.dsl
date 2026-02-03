@@ -105,6 +105,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="51ebdbed-3b62-41bf-a4ee-9c8709645987" Description="Description for Dyvenix.GenIt.ModelRoot.Common Namespace" Name="CommonNamespace" DisplayName="Common Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1177,6 +1182,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="usings">
             <DomainPropertyMoniker Name="ModelRoot/Usings" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="commonNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/CommonNamespace" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

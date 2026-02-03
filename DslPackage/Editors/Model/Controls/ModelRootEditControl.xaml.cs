@@ -47,6 +47,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// General settings
 				chkInclHeader.IsChecked = _modelRoot.InclHeader;
 				txtTemplatesFolder.Text = _modelRoot.TemplatesFolder ?? string.Empty;
+				txtCommonNamespace.Text = _modelRoot.CommonNamespace ?? string.Empty;
 
 				// Color buttons
 				UpdateColorButton(btnDiagramBackgroundColor, _modelRoot.DiagramBackgroundColor);
@@ -189,6 +190,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.TemplatesFolderDomainPropertyId, txtTemplatesFolder.Text);
+		}
+
+		private void txtCommonNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.CommonNamespaceDomainPropertyId, txtCommonNamespace.Text);
 		}
 
 		private void btnBrowseTemplates_Click(object sender, RoutedEventArgs e)

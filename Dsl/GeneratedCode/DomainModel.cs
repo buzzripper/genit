@@ -150,6 +150,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "Permissions", ModelRoot.PermissionsDomainPropertyId, typeof(ModelRoot.PermissionsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextName", ModelRoot.DbContextNameDomainPropertyId, typeof(ModelRoot.DbContextNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Usings", ModelRoot.UsingsDomainPropertyId, typeof(ModelRoot.UsingsPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "CommonNamespace", ModelRoot.CommonNamespaceDomainPropertyId, typeof(ModelRoot.CommonNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),

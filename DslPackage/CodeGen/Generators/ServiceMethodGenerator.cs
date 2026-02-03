@@ -171,7 +171,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateReadMethod(EntityModel entity, ReadMethodModel method, List<string> output, List<string> interfaceOutput)
 		{
+			var entityVarName = entity.Name.ToCamelCase();
 			var tc = 0;
+
 			output.AddLine();
 
 			var invalidFilterProp = method.FilterProperties.FirstOrDefault(fp => fp.PropertyModel == null);
@@ -184,7 +186,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = method.IsList ? $"Task<Result<ResultList<{entity.Name}>>>" : $"Task<Result<{entity.Name}>>";
+			string returnType = !method.IsList ? $"Result<{entity.Name}>" : method.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
 
 			var sbSigArgs = new StringBuilder();
 			var c = 0;
@@ -214,7 +216,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				sbSigArgs.Append("int pageSize = 0, int pageOffset = 0");
 			}
 
-			var signature = $"{returnType} {method.Name}({sbSigArgs.ToString()})";
+			var signature = $"Task<{returnType}> {method.Name}({sbSigArgs.ToString()})";
 
 			// Interface
 			interfaceOutput.Add($"{signature};");
@@ -263,21 +265,23 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine();
 			}
 
-			output.AddLine();
 			if (method.IsList)
 			{
-				output.AddLine(tc + 1, $"var queryResult = await dbQuery.AsNoTracking().ToListAsync();");
+				output.AddLine(tc + 1, $"var data = await dbQuery.AsNoTracking().ToListAsync();");
 				output.AddLine();
-				output.AddLine(tc + 1, $"return Result<List<{entity.Name}>>.Ok(queryResult);");
+				if (method.InclPaging)
+					output.AddLine(tc + 1, $"return {returnType}.Ok(data.ToEntityList<{entity.Name}>());");
+				else
+					output.AddLine(tc + 1, $"return {returnType}.Ok(data);");
 			}
 			else
 			{
-				output.AddLine(tc + 1, $"var queryResult = await dbQuery.AsNoTracking().FirstOrDefaultAsync();");
+				output.AddLine(tc + 1, $"var {entityVarName} = await dbQuery.AsNoTracking().FirstOrDefaultAsync();");
 				output.AddLine();
-				output.AddLine(tc + 1, $"if (patient is null)");
-				output.AddLine(tc + 2, $"return Result<Patient>.NotFound($\"Patient with email '{{email}}' not found\");");
+				output.AddLine(tc + 1, $"if ({entityVarName} is null)");
+				output.AddLine(tc + 2, $"return {returnType}.NotFound($\"{entity.Name} not found\");");
 				output.AddLine();
-				output.AddLine(tc + 1, $"return Result<List<{entity.Name}>>.Ok(queryResult);");
+				output.AddLine(tc + 1, $"return {returnType}.Ok({entityVarName});");
 			}
 
 			output.AddLine(tc, "}");
@@ -342,23 +346,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Interface
-			var signature = $"Task<EntityList<{entity.Name}>>{queryMethod.Name}({queryClassName} query)";
+			string returnType = !queryMethod.IsList ? $"Result<{entity.Name}>" : queryMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
+			var signature = $"Task<{returnType}>{queryMethod.Name}({queryClassName} query)";
 			interfaceOutput.Add($"{signature};");
 
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsQueryable();");
-			output.AddLine(tc + 1, $"var result = new EntityList<{entity.Name}>();");
+			output.AddLine(tc + 1, $"IQueryable<{entity.Name}> dbQuery = _db.{entity.Name}.AsNoTracking();");
 			output.AddLine();
-
 			output.AddLine(tc + 1, $"// Filters");
 			foreach (var filterProp in queryMethod.FilterProperties)
 			{
 				if (PackageUtils.IsString(filterProp.PropertyModel.DataType))
 				{
 					output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(query.{filterProp.PropertyModel.Name}))");
-					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, query.{filterProp.PropertyModel.Name}));");
+					output.AddLine(tc + 1, "{");
+					output.AddLine(tc + 2, $"var pattern = $\"%{{query.{filterProp.PropertyModel.Name}}}%\";");
+					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, pattern));");
+					output.AddLine(tc + 1, "}");
 				}
 				else if (filterProp.PropertyModel.DataType == DataTypes.Int32 || filterProp.PropertyModel.DataType == DataTypes.Boolean || filterProp.PropertyModel.DataType == DataTypes.Guid)
 				{
@@ -367,17 +373,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				}
 			}
 
-			if (queryMethod.InclPaging)
-			{
-				output.AddLine();
-				output.AddLine(tc + 1, "// Paging");
-				output.AddLine(tc + 1, "if (query.RecalcRowCount || query.GetRowCountOnly)");
-				output.AddLine(tc + 2, "result.TotalRowCount = dbQuery.Count();");
-				output.AddLine(tc + 1, "if (query.GetRowCountOnly)");
-				output.AddLine(tc + 2, "return result;");
-				output.AddLine(tc + 1, "if (query.PageSize > 0)");
-				output.AddLine(tc + 2, "dbQuery = dbQuery.Skip(query.PageOffset).Take(query.PageSize);");
-			}
+			output.AddLine();
+			output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
 
 			if (queryMethod.InclSorting)
 			{
@@ -386,11 +383,37 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(query.SortBy))");
 				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, query);");
 			}
+			else if (queryMethod.InclPaging)
+			{
+				output.AddLine();
+				output.AddLine(tc + 1, "// Stable ordering for paging");
+				foreach (var filterProp in queryMethod.FilterProperties)
+					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
+			}
 
 			output.AddLine();
-			output.AddLine(tc + 1, "result.Data = await dbQuery.AsNoTracking().ToListAsync();");
+			output.AddLine(tc + 1, "// Count (only when requested)");
+			output.AddLine(tc + 1, "if (query.RecalcRowCount || query.GetRowCountOnly)");
+			output.AddLine(tc + 1, "{");
+			output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
 			output.AddLine();
-			output.AddLine(tc + 1, "return result;");
+			output.AddLine(tc + 2, "if (query.GetRowCountOnly)");
+			output.AddLine(tc + 3, $"return Result<EntityList<{entity.Name}>>.Ok(entityList);");
+			output.AddLine(tc + 1, "}");
+
+			if (queryMethod.InclPaging)
+			{
+				output.AddLine();
+				output.AddLine(tc + 1, "// Paging");
+				output.AddLine(tc + 1, "if (query.PageSize > 0)");
+				output.AddLine(tc + 2, "dbQuery = dbQuery.Skip(query.PageOffset * query.PageSize).Take(query.PageSize);");
+			}
+
+			output.AddLine();
+			output.AddLine(tc + 1, "// Data");
+			output.AddLine(tc + 1, "entityList.Data = await dbQuery.ToListAsync();");
+			output.AddLine();
+			output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
 			output.AddLine(tc, "}");
 		}
 

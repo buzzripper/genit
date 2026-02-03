@@ -960,6 +960,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// CommonNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribCommonNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "commonNamespace");
+				if (attribCommonNamespace != null)
+				{
+					global::System.String valueOfCommonNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribCommonNamespace, out valueOfCommonNamespace))
+					{
+						instanceOfModelRoot.CommonNamespace = valueOfCommonNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "commonNamespace", typeof(global::System.String), attribCommonNamespace);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1734,6 +1751,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "usings", propValue);
+	
+				}
+			}
+			// CommonNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.CommonNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "commonNamespace", propValue);
 	
 				}
 			}

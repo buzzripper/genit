@@ -143,6 +143,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -179,7 +180,7 @@
             </Grid>
 
             <!-- Colors row: Background + Line (aligned horizontally) -->
-            <Grid Grid.Row="2" Margin="0,0,0,8">
+            <Grid Grid.Row="2" Margin="0,0,0,8" HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -187,19 +188,30 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0" Content="Background Color:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <Label Grid.Column="0" Content="Background Color:" VerticalAlignment="Center" Margin="0,0,8,0" HorizontalAlignment="Left"/>
                 <Button Grid.Column="1" x:Name="btnDiagramBackgroundColor" Style="{StaticResource ColorButtonStyle}"
                         HorizontalAlignment="Left" Margin="0,0,24,0"
                         Click="btnDiagramBackgroundColor_Click" ToolTip="Click to change color"/>
 
-                <Label Grid.Column="2" Content="Line Color:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <Label Grid.Column="2" Content="Line Color:" VerticalAlignment="Center" Margin="0,0,8,0" HorizontalAlignment="Left"/>
                 <Button Grid.Column="3" x:Name="btnAssociationLineColor" Style="{StaticResource ColorButtonStyle}"
                         HorizontalAlignment="Left"
                         Click="btnAssociationLineColor_Click" ToolTip="Click to change color"/>
             </Grid>
 
+            <!-- Common Namespace -->
+            <Grid Grid.Row="3" Margin="0,0,0,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Common Namespace:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <TextBox Grid.Column="1" x:Name="txtCommonNamespace" VerticalAlignment="Center"
+                         TextChanged="txtCommonNamespace_TextChanged"/>
+            </Grid>
+
             <!-- Usings (grid) -->
-            <Grid Grid.Row="3">
+            <Grid Grid.Row="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>

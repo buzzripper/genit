@@ -50,6 +50,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
 				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
+
+			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
 		}
 
 		internal void Validate(List<string> errors)

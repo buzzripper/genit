@@ -43,6 +43,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			// Modules don't have generators, so validate them here
 			ValidateModules(errors);
 
+			if (string.IsNullOrWhiteSpace(_modelRoot.CommonNamespace))
+				errors.Add("Common Namespace is missing.");
+
 			if (_entityGenerator.Enabled)
 				_entityGenerator.Validate(errors);
 			else

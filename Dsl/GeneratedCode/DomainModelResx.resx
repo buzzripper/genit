@@ -353,6 +353,14 @@
     <value>Usings</value>
     <comment>DisplayName for DomainProperty &apos;Usings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/CommonNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Common Namespace</value>
+    <comment>Description for DomainProperty &apos;CommonNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/CommonNamespace.DisplayName" xml:space="preserve">
+    <value>Common Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;CommonNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

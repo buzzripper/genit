@@ -1755,6 +1755,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region CommonNamespace domain property code
+		
+		/// <summary>
+		/// CommonNamespace domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid CommonNamespaceDomainPropertyId = new global::System.Guid(0x51ebdbed, 0x3b62, 0x41bf, 0xa4, 0xee, 0x9c, 0x87, 0x09, 0x64, 0x59, 0x87);
+		
+		/// <summary>
+		/// Storage for CommonNamespace
+		/// </summary>
+		private global::System.String commonNamespacePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of CommonNamespace domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Common Namespace
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/CommonNamespace.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/CommonNamespace.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("51ebdbed-3b62-41bf-a4ee-9c8709645987")]
+		public global::System.String CommonNamespace
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return commonNamespacePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				CommonNamespacePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.CommonNamespace domain property.
+		/// </summary>
+		internal sealed partial class CommonNamespacePropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private CommonNamespacePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.CommonNamespace domain property value handler.
+			/// </summary>
+			public static readonly CommonNamespacePropertyHandler Instance = new CommonNamespacePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.CommonNamespace domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return CommonNamespaceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.commonNamespacePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.commonNamespacePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
