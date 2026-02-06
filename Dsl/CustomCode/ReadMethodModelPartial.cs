@@ -39,16 +39,23 @@ namespace Dyvenix.GenIt
 		{
 			get
 			{
-				if (this.FilterProperties == null || this.FilterProperties.Count != 1)
+				if (this.InclPaging || this.InclSorting)
 					return true;
 
-				var filterProp = this.FilterProperties[0];
-				var propModel = filterProp?.PropertyModel;
-				if (filterProp == null || propModel == null)
-					return true;
-
-				if (!filterProp.IsOptional && (propModel.IsPrimaryKey || propModel.IsIndexUnique))
+				// If all properties are optional and there's only one property, and that property is a primary key or unique index, then it's not a list method
+				if (this.FilterProperties.All(fp => !fp.IsPartialMatch && fp.PropertyModel.IsIndexUnique))
 					return false;
+
+				//if (this.FilterProperties == null || this.FilterProperties.Count != 1)
+				//	return true;
+
+				//var filterProp = this.FilterProperties[0];
+				//var propModel = filterProp?.PropertyModel;
+				//if (filterProp == null || propModel == null)
+				//	return true;
+
+				//if (!filterProp.IsOptional && (propModel.IsPrimaryKey || propModel.IsIndexUnique))
+				//	return false;
 
 				return true;
 			}

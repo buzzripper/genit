@@ -189,6 +189,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(FilterPropertyModel), "IsOptional", FilterPropertyModel.IsOptionalDomainPropertyId, typeof(FilterPropertyModel.IsOptionalPropertyHandler)),
 				new DomainMemberInfo(typeof(FilterPropertyModel), "IsInternal", FilterPropertyModel.IsInternalDomainPropertyId, typeof(FilterPropertyModel.IsInternalPropertyHandler)),
 				new DomainMemberInfo(typeof(FilterPropertyModel), "InternalValue", FilterPropertyModel.InternalValueDomainPropertyId, typeof(FilterPropertyModel.InternalValuePropertyHandler)),
+				new DomainMemberInfo(typeof(FilterPropertyModel), "IsPartialMatch", FilterPropertyModel.IsPartialMatchDomainPropertyId, typeof(FilterPropertyModel.IsPartialMatchPropertyHandler)),
 				new DomainMemberInfo(typeof(ReadMethodModel), "ItemId", ReadMethodModel.ItemIdDomainPropertyId, typeof(ReadMethodModel.ItemIdPropertyHandler)),
 				new DomainMemberInfo(typeof(ReadMethodModel), "InclPaging", ReadMethodModel.InclPagingDomainPropertyId, typeof(ReadMethodModel.InclPagingPropertyHandler)),
 				new DomainMemberInfo(typeof(ReadMethodModel), "UseRequest", ReadMethodModel.UseRequestDomainPropertyId, typeof(ReadMethodModel.UseRequestPropertyHandler)),

@@ -10464,6 +10464,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsPartialMatch
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsPartialMatch = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isPartialMatch");
+				if (attribIsPartialMatch != null)
+				{
+					global::System.Boolean valueOfIsPartialMatch;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsPartialMatch, out valueOfIsPartialMatch))
+					{
+						instanceOfFilterPropertyModel.IsPartialMatch = valueOfIsPartialMatch;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isPartialMatch", typeof(global::System.Boolean), attribIsPartialMatch);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -11013,6 +11030,16 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "internalValue", propValue);
 	
+				}
+			}
+			// IsPartialMatch
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfFilterPropertyModel.IsPartialMatch;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isPartialMatch", serializedPropValue);
 				}
 			}
 		}

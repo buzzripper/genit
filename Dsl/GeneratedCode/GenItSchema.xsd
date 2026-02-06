@@ -840,6 +840,8 @@
         <xsd:attribute name="isInternal" type="xsd:boolean" />
         <!-- Property: InternalValue -->
         <xsd:attribute name="internalValue" type="xsd:string" />
+        <!-- Property: IsPartialMatch -->
+        <xsd:attribute name="isPartialMatch" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

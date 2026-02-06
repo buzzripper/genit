@@ -6565,6 +6565,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region IsPartialMatch domain property code
+		
+		/// <summary>
+		/// IsPartialMatch domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsPartialMatchDomainPropertyId = new global::System.Guid(0xc8718e01, 0x5b33, 0x48d8, 0x9b, 0x58, 0xb7, 0x13, 0x9b, 0x5b, 0xe9, 0x13);
+		
+		/// <summary>
+		/// Storage for IsPartialMatch
+		/// </summary>
+		private global::System.Boolean isPartialMatchPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsPartialMatch domain property.
+		/// Description for Dyvenix.GenIt.FilterPropertyModel.Is Partial Match
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c8718e01-5b33-48d8-9b58-b7139b5be913")]
+		public global::System.Boolean IsPartialMatch
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isPartialMatchPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsPartialMatchPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the FilterPropertyModel.IsPartialMatch domain property.
+		/// </summary>
+		internal sealed partial class IsPartialMatchPropertyHandler : DslModeling::DomainPropertyValueHandler<FilterPropertyModel, global::System.Boolean>
+		{
+			private IsPartialMatchPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the FilterPropertyModel.IsPartialMatch domain property value handler.
+			/// </summary>
+			public static readonly IsPartialMatchPropertyHandler Instance = new IsPartialMatchPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the FilterPropertyModel.IsPartialMatch domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsPartialMatchDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(FilterPropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isPartialMatchPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(FilterPropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isPartialMatchPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region PropertyModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets PropertyModel.

@@ -188,7 +188,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					queryMethodsOutput.AddLine(1, "#region Query Methods");
 				}
 				foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
-					serviceMethodGenerator.GenerateRequestMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
+					serviceMethodGenerator.GenerateSearchMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
 			}
 			if (queryMethodsOutput.Count > 0)
 			{

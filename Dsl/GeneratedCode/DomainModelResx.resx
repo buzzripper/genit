@@ -841,6 +841,14 @@
     <value>Internal Value</value>
     <comment>DisplayName for DomainProperty &apos;InternalValue&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModel.Is Partial Match</value>
+    <comment>Description for DomainProperty &apos;IsPartialMatch&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.DisplayName" xml:space="preserve">
+    <value>Is Partial Match</value>
+    <comment>DisplayName for DomainProperty &apos;IsPartialMatch&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ReadMethodModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ReadMethodModel</value>
     <comment>Description for DomainClass &apos;ReadMethodModel&apos;</comment>

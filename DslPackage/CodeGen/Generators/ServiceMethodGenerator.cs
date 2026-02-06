@@ -236,7 +236,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				// Required
 				foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && !fp.IsOptional))
-					GenerateFilter(filterProp, entity, output, 0);
+					GenerateFilter(filterProp, entity, output);
 
 				// Optional
 				var optFilterProps = method.FilterProperties.Where(fp => !fp.IsInternal && fp.IsOptional);
@@ -244,7 +244,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					output.AddLine(2, "// Optional");
 					foreach (var filterProp in optFilterProps)
-						GenerateFilter(filterProp, entity, output, 0);
+						GenerateFilter(filterProp, entity, output);
 				}
 
 				// Internal
@@ -254,7 +254,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine();
 					output.AddLine(2, "// Internal");
 					foreach (var filterProp in intFilterProps)
-						GenerateInternalFilter(filterProp, entity, output, 2);
+						GenerateInternalFilter(filterProp, entity, output);
 				}
 			}
 
@@ -287,16 +287,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output, int tc)
+		private void GenerateFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output)
 		{
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
-				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({filterProp.PropertyModel.ArgName}))");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
+				output.AddLine(1, $"if (!string.IsNullOrWhiteSpace({filterProp.PropertyModel.ArgName}))");
+				output.AddLine(2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
 			}
 			else
 			{
-				var indent = tc + 1;
+				var indent = 1;
 				if (filterProp.IsOptional)
 				{
 					output.AddLine(indent, $"if ({filterProp.PropertyModel.ArgName}.HasValue)");
@@ -306,9 +306,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output, int tc)
+		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output)
 		{
-			var indent = tc;
+			var indent = 0;
 
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
@@ -334,29 +334,29 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		internal void GenerateRequestMethod(EntityModel entity, ReadMethodModel requestMethod, List<string> output, List<string> interfaceOutput)
+		internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 1;
 			output.AddLine();
-			var reqClassName = $"{requestMethod.Name}Req";
+			var reqClassName = $"{searchMethod.Name}Req";
 
 			// Attributes
-			if (requestMethod.Attributes.Any())
-				foreach (var attr in requestMethod.Attributes)
+			if (searchMethod.Attributes.Any())
+				foreach (var attr in searchMethod.Attributes)
 					output.AddLine(tc, $"[{attr}]");
 
 			// Interface
-			string returnType = !requestMethod.IsList ? $"Result<{entity.Name}>" : requestMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
-			var signature = $"Task<{returnType}>{requestMethod.Name}({reqClassName} request)";
+			string returnType = !searchMethod.IsList ? $"Result<{entity.Name}>" : searchMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
+			var signature = $"Task<{returnType}>{searchMethod.Name}({reqClassName} request)";
 			interfaceOutput.Add($"{signature};");
 
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"IQueryable<{entity.Name}> dbQuery = _db.{entity.Name}.AsNoTracking();");
-			output.AddLine();
-			output.AddLine(tc + 1, $"// Filters");
-			foreach (var filterProp in requestMethod.FilterProperties)
+			if (searchMethod.FilterProperties.Any())
+				output.AddLine(tc + 1, $"// Filters");
+			foreach (var filterProp in searchMethod.FilterProperties)
 			{
 				if (PackageUtils.IsString(filterProp.PropertyModel.DataType))
 				{
@@ -373,20 +373,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				}
 			}
 
-			if (requestMethod.InclSorting)
+			if (searchMethod.InclSorting)
 			{
 				output.AddLine();
 				output.AddLine(tc + 1, "// Sorting");
 				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.SortBy))");
 				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, request);");
 			}
-			if (requestMethod.InclPaging)
+			if (searchMethod.InclPaging)
 			{
 				output.AddLine();
 				output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
-				output.AddLine();
-				output.AddLine(tc + 1, "// Stable ordering for paging");
-				foreach (var filterProp in requestMethod.FilterProperties)
+				if (searchMethod.FilterProperties.Any())
+					output.AddLine(tc + 1, "// Stable ordering for paging");
+				foreach (var filterProp in searchMethod.FilterProperties)
 					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
 
 				output.AddLine();
@@ -396,11 +396,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
 				output.AddLine();
 				output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
-				output.AddLine(tc + 3, $"return Result<EntityList<{entity.Name}>>.Ok(entityList);");
+				output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
 				output.AddLine(tc + 1, "}");
 			}
 
-			if (requestMethod.InclPaging)
+			if (searchMethod.InclPaging)
 			{
 				output.AddLine();
 				output.AddLine(tc + 1, "// Paging");
@@ -410,7 +410,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			output.AddLine();
 			output.AddLine(tc + 1, "// Data");
-			if (requestMethod.InclPaging)
+
+			if (!searchMethod.IsList)
+			{
+				output.AddLine(tc + 1, $"var {entity.Name.ToCamelCase()}= await dbQuery.FirstOrDefaultAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"return {returnType}.Ok({entity.Name.ToCamelCase()});");
+			}
+			else if (searchMethod.InclPaging)
 			{
 				output.AddLine(tc + 1, "entityList.Items = await dbQuery.ToListAsync();");
 				output.AddLine();
@@ -418,9 +425,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 			else
 			{
-				output.AddLine(tc + 1, "var data = await dbQuery.ToListAsync();");
+				output.AddLine(tc + 1, "var items = await dbQuery.ToListAsync();");
 				output.AddLine();
-				output.AddLine(tc + 1, $"return {returnType}.Ok(data);");
+				output.AddLine(tc + 1, $"return {returnType}.Ok(items);");
 			}
 			output.AddLine(tc, "}");
 		}
@@ -431,7 +438,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 
 			// Method
-			output.AddLine(tc, $"private void AddSorting(ref IQueryable<{entity.Name}> dbQuery, ISortingQuery sortingQuery)");
+			output.AddLine(tc, $"private void AddSorting(ref IQueryable<{entity.Name}> dbQuery, ISortingRequest sortingRequest)");
 			output.AddLine(tc, "{");
 
 			var c = 0;
@@ -440,8 +447,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				if (c++ > 0)
 					output.AddLine();
 
-				output.AddLine(tc + 1, $"if (string.Equals(sortingQuery.SortBy, {entity.Name}.PropNames.{prop.Name}, StringComparison.OrdinalIgnoreCase))");
-				output.AddLine(tc + 2, "if (sortingQuery.SortDesc)");
+				output.AddLine(tc + 1, $"if (string.Equals(sortingRequest.SortBy, {entity.Name}.PropNames.{prop.Name}, StringComparison.OrdinalIgnoreCase))");
+				output.AddLine(tc + 2, "if (sortingRequest.SortDesc)");
 				output.AddLine(tc + 3, $"dbQuery.OrderByDescending(x => x.{prop.Name});");
 				output.AddLine(tc + 2, "else");
 				output.AddLine(tc + 3, $"dbQuery.OrderBy(x => x.{prop.Name});");

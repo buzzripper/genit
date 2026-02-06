@@ -107,7 +107,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, sorting);
 
 			// Filter properties
-			var filterProps = readMethod.FilterProperties.Where(x => !x.IsOptional);
+			var filterProps = readMethod.FilterProperties;
 			if (filterProps.Any())
 			{
 				string nullStr = null;

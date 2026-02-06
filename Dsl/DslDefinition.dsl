@@ -449,6 +449,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c8718e01-5b33-48d8-9b58-b7139b5be913" Description="Description for Dyvenix.GenIt.FilterPropertyModel.Is Partial Match" Name="IsPartialMatch" DisplayName="Is Partial Match">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="d1adda56-215a-4935-b298-b323e4db36ae" Description="Description for Dyvenix.GenIt.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" Namespace="Dyvenix.GenIt">
@@ -1419,6 +1424,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
             <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="isPartialMatch">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsPartialMatch" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ReadMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelMoniker" ElementName="readMethodModel" MonikerTypeName="ReadMethodModelMoniker">
