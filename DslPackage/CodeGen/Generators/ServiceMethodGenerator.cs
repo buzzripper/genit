@@ -225,7 +225,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsQueryable();");
-			output.AddLine();
 
 			// Include any nav properties
 			foreach (var inclNavProp in method.InclNavPropertiesList)
@@ -252,7 +251,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				if (intFilterProps.Any())
 				{
 					output.AddLine();
-					output.AddLine(2, "// Internal");
+					output.AddLine(1, "// Internal");
 					foreach (var filterProp in intFilterProps)
 						GenerateInternalFilter(filterProp, entity, output);
 				}
@@ -292,7 +291,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
 				output.AddLine(1, $"if (!string.IsNullOrWhiteSpace({filterProp.PropertyModel.ArgName}))");
-				output.AddLine(2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
+				if (filterProp.IsPartialMatch)
+					output.AddLine(2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
+				else
+					output.AddLine(2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {filterProp.PropertyModel.ArgName});");
 			}
 			else
 			{
@@ -308,12 +310,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output)
 		{
-			var indent = 0;
+			var indent = 1;
 
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
 				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, \"{filterProp.InternalValue}\"));");
-
 			}
 			else
 			{
@@ -323,7 +324,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					indent++;
 				}
 
-				if (!PackageUtils.IsPrimitiveDataType(filterProp.PropertyModel.DataType))
+				if (!DataTypes.IsPrimitive(filterProp.PropertyModel.DataType))
 				{
 					output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {filterProp.PropertyModel.DataType}.{filterProp.InternalValue});");
 				}
@@ -358,7 +359,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"// Filters");
 			foreach (var filterProp in searchMethod.FilterProperties)
 			{
-				if (PackageUtils.IsString(filterProp.PropertyModel.DataType))
+				if (DataTypes.IsString(filterProp.PropertyModel.DataType) && filterProp.IsPartialMatch)
 				{
 					output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.{filterProp.PropertyModel.Name}))");
 					output.AddLine(tc + 1, "{");

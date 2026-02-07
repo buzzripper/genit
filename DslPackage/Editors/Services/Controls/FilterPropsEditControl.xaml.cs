@@ -187,6 +187,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
             set { _isPartialMatch = value; OnPropertyChanged(nameof(IsPartialMatch)); }
         }
 
+        public bool IsStringType
+        {
+            get { return Property != null && Property.DataType == "String"; }
+        }
+
         public bool IsInternal
         {
             get { return _isInternal; }

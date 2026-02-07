@@ -64,6 +64,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 				if (string.IsNullOrEmpty(entity.Module))
 					errors.Add($"Entity '{entity.Name}' does not have a Module assigned. Please set it in the Entity properties.");
+
+				foreach (var service in entity.ServiceModels)
+				{
+					foreach (var method in service.ReadMethods)
+					{
+						foreach (var filterProp in method.FilterProperties)
+						{
+							if (filterProp.IsInternal && string.IsNullOrWhiteSpace(filterProp.InternalValue))
+								errors.Add($"Read method {method.Name} (v{service.Version}) on entity '{entity.Name}' has filter property for '{filterProp.PropertyModel.Name}' which is set to Internal, but no value is supplied.");
+						}
+					}
+				}
 			}
 		}
 
@@ -146,7 +158,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - single
 			var singleMethodsOutput = new List<string>();
-			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.UseRequest && !m.IsList))
+			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.IsList))
 			{
 				if (singleMethodsOutput.Count == 0)
 				{
@@ -178,14 +190,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				listMethodsOutput.AddLine(0, "#endregion");
 			}
 
-			// Read methods - query
+			// Search methods - query
 			var queryMethodsOutput = new List<string>();
 			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
 			{
 				if (queryMethodsOutput.Count == 0)
 				{
 					queryMethodsOutput.AddLine();
-					queryMethodsOutput.AddLine(1, "#region Query Methods");
+					queryMethodsOutput.AddLine(1, "#region Search Methods");
 				}
 				foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
 					serviceMethodGenerator.GenerateSearchMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);

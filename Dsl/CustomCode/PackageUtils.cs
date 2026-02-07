@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Dyvenix.GenIt
 {
 	/// <summary>
@@ -12,14 +10,5 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		public static string SolutionRootPath { get; set; }
 
-		public static bool IsPrimitiveDataType(string dataType)
-		{
-			return DataTypes.PrimitiveTypes.Contains(dataType);
-		}
-
-		public static bool IsString(string dataType)
-		{
-			return dataType?.ToLower() == "string";
-		}
 	}
 }

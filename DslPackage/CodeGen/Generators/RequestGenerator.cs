@@ -58,7 +58,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Models");
 
 			// If any non-primitive property, add entities namespace
-			if (readMethod.FilterProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))
+			if (readMethod.FilterProperties.Any(x => !DataTypes.IsPrimitive(x.PropertyModel.DataType)))
 				_usings.AddIfNotExists(_entitiesNamespace);
 
 			// Paging

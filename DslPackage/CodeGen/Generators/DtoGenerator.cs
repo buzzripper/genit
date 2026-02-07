@@ -53,7 +53,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			this.ResetUsings();
 
 			// If any non-primitive property, add entities namespace
-			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitiveType(x.PropertyModel.DataType)))
+			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitive(x.PropertyModel.DataType)))
 				_usings.AddIfNotExists(_modelRoot.EntitiesNamespace);
 
 			// DateTime needs System namespace
