@@ -172,6 +172,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		internal void GenerateReadMethod(EntityModel entity, ReadMethodModel method, List<string> output, List<string> interfaceOutput)
 		{
 			var entityVarName = entity.Name.ToCamelCase();
+			var reqClassName = $"{method.Name}Req";
+			var reqVarName = "request";
 			var tc = 0;
 
 			output.AddLine();
@@ -186,34 +188,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = !method.IsList ? $"Result<{entity.Name}>" : method.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
+			string returnType = method.IsSingle ? $"Result<{entity.Name}>" : method.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
 
 			var sbSigArgs = new StringBuilder();
-			var c = 0;
-
-			// Required properties first
-			foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && !fp.IsOptional))
+			if (method.UseRequest)
 			{
-				if (c++ > 0)
-					sbSigArgs.Append(", ");
-				sbSigArgs.Append($"{filterProp.PropertyModel.CSType} {filterProp.PropertyModel.ArgName}");
+				sbSigArgs.Append($"{reqClassName} {reqVarName}");
 			}
-
-			// Optional properties next
-			foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && fp.IsOptional))
+			else
 			{
-				if (c++ > 0)
-					sbSigArgs.Append(", ");
-				var nullChar = "?";
-				sbSigArgs.Append($"{filterProp.PropertyModel.DataType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
-			}
-
-			// Finally paging
-			if (method.InclPaging)
-			{
-				if (sbSigArgs.Length > 0)
-					sbSigArgs.Append(", ");
-				sbSigArgs.Append("int pageSize = 0, int pageOffset = 0");
+				// Required params first, in url segments, and then optional as query params
+				var filterProps = method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal).ToList();
+				filterProps.AddRange(method.FilterProperties.Where(fp => fp.IsOptional && !fp.IsInternal));
+				foreach (var fp in filterProps)
+				{
+					var nullStr = fp.IsOptional ? "?" : null;
+					if (sbSigArgs.Length > 0)
+						sbSigArgs.Append(", ");
+					sbSigArgs.Append($"{fp.PropertyModel.CSType}{nullStr} {fp.PropertyModel.ArgName}");
+				}
 			}
 
 			var signature = $"Task<{returnType}> {method.Name}({sbSigArgs.ToString()})";
@@ -224,7 +217,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsQueryable();");
+			output.AddLine(tc + 1, $"var dbQuery = _db.{entity.Name}.AsNoTracking();");
 
 			// Include any nav properties
 			foreach (var inclNavProp in method.InclNavPropertiesList)
@@ -235,7 +228,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				// Required
 				foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && !fp.IsOptional))
-					GenerateFilter(filterProp, entity, output);
+				{
+					var varName = method.UseRequest ? $"{reqVarName}.{filterProp.PropertyModel.Name}" : filterProp.PropertyModel.ArgName;
+					GenerateFilter(filterProp, entity, varName, output);
+				}
 
 				// Optional
 				var optFilterProps = method.FilterProperties.Where(fp => !fp.IsInternal && fp.IsOptional);
@@ -243,7 +239,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					output.AddLine(2, "// Optional");
 					foreach (var filterProp in optFilterProps)
-						GenerateFilter(filterProp, entity, output);
+					{
+						var varName = method.UseRequest ? $"{reqVarName}.{filterProp.PropertyModel.Name}" : filterProp.PropertyModel.ArgName;
+						GenerateFilter(filterProp, entity, varName, output);
+					}
 				}
 
 				// Internal
@@ -253,20 +252,48 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine();
 					output.AddLine(1, "// Internal");
 					foreach (var filterProp in intFilterProps)
-						GenerateInternalFilter(filterProp, entity, output);
+					{
+						var varName = method.UseRequest ? $"{reqVarName}.{filterProp.PropertyModel.Name}" : filterProp.PropertyModel.ArgName;
+						GenerateInternalFilter(filterProp, entity, varName, output);
+					}
 				}
+			}
+
+			if (method.InclSorting)
+			{
+				output.AddLine();
+				output.AddLine(tc + 1, "// Sorting");
+				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({reqVarName}.SortBy))");
+				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, {reqVarName});");
 			}
 
 			if (method.InclPaging)
 			{
-				output.AddLine(tc + 1, $"if (pageSize > 0)");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip(pageOffset * pageSize).Take(pageSize);");
 				output.AddLine();
+				output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
+				if (method.FilterProperties.Any())
+					output.AddLine(tc + 1, "// Stable ordering for paging");
+				foreach (var filterProp in method.FilterProperties)
+					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
+
+				output.AddLine();
+				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
+				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
+				output.AddLine();
+				output.AddLine(tc + 1, "// Count (only when requested)");
+				output.AddLine(tc + 1, $"if ({reqVarName}.RecalcRowCount || {reqVarName}.GetRowCountOnly)");
+				output.AddLine(tc + 1, "{");
+				output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
+				output.AddLine();
+				output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
+				output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
+				output.AddLine(tc + 1, "}");
 			}
 
 			if (method.IsList)
 			{
-				output.AddLine(tc + 1, $"var data = await dbQuery.AsNoTracking().ToListAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"var data = await dbQuery.ToListAsync();");
 				output.AddLine();
 				if (method.InclPaging)
 					output.AddLine(tc + 1, $"return {returnType}.Ok(data.ToEntityList<{entity.Name}>());");
@@ -275,7 +302,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 			else
 			{
-				output.AddLine(tc + 1, $"var {entityVarName} = await dbQuery.AsNoTracking().FirstOrDefaultAsync();");
+				output.AddLine();
+				output.AddLine(tc + 1, $"var {entityVarName} = await dbQuery.FirstOrDefaultAsync();");
 				output.AddLine();
 				output.AddLine(tc + 1, $"if ({entityVarName} is null)");
 				output.AddLine(tc + 2, $"return {returnType}.NotFound($\"{entity.Name} not found\");");
@@ -286,41 +314,42 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output)
+		private void GenerateFilter(FilterPropertyModel filterProp, EntityModel entity, string varName, List<string> output)
 		{
+			output.AddLine();
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
-				output.AddLine(1, $"if (!string.IsNullOrWhiteSpace({filterProp.PropertyModel.ArgName}))");
+				output.AddLine(1, $"if (!string.IsNullOrWhiteSpace({varName}))");
 				if (filterProp.IsPartialMatch)
-					output.AddLine(2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.PropertyModel.ArgName}%\"));");
+					output.AddLine(2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{{{varName}}}%\"));");
 				else
-					output.AddLine(2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {filterProp.PropertyModel.ArgName});");
+					output.AddLine(2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {varName});");
 			}
 			else
 			{
 				var indent = 1;
 				if (filterProp.IsOptional)
 				{
-					output.AddLine(indent, $"if ({filterProp.PropertyModel.ArgName}.HasValue)");
+					output.AddLine(indent, $"if ({varName}.HasValue)");
 					indent++;
 				}
-				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {filterProp.PropertyModel.ArgName});");
+				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == {varName});");
 			}
 		}
 
-		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, List<string> output)
+		private void GenerateInternalFilter(FilterPropertyModel filterProp, EntityModel entity, string varName, List<string> output)
 		{
 			var indent = 1;
 
 			if (filterProp.PropertyModel.DataType == DataTypes.String)
 			{
-				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, \"{filterProp.InternalValue}\"));");
+				output.AddLine(indent, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, $\"%{filterProp.InternalValue}%\"));");
 			}
 			else
 			{
 				if (filterProp.IsOptional)
 				{
-					output.AddLine(indent, $"if ({filterProp.PropertyModel.ArgName}.HasValue)");
+					output.AddLine(indent, $"if ({varName}.HasValue)");
 					indent++;
 				}
 
@@ -335,103 +364,103 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, List<string> output, List<string> interfaceOutput)
-		{
-			var tc = 1;
-			output.AddLine();
-			var reqClassName = $"{searchMethod.Name}Req";
+		//internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, List<string> output, List<string> interfaceOutput)
+		//{
+		//	var tc = 1;
+		//	output.AddLine();
+		//	var reqClassName = $"{searchMethod.Name}Req";
 
-			// Attributes
-			if (searchMethod.Attributes.Any())
-				foreach (var attr in searchMethod.Attributes)
-					output.AddLine(tc, $"[{attr}]");
+		//	// Attributes
+		//	if (searchMethod.Attributes.Any())
+		//		foreach (var attr in searchMethod.Attributes)
+		//			output.AddLine(tc, $"[{attr}]");
 
-			// Interface
-			string returnType = !searchMethod.IsList ? $"Result<{entity.Name}>" : searchMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
-			var signature = $"Task<{returnType}>{searchMethod.Name}({reqClassName} request)";
-			interfaceOutput.Add($"{signature};");
+		//	// Interface
+		//	string returnType = !searchMethod.IsList ? $"Result<{entity.Name}>" : searchMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
+		//	var signature = $"Task<{returnType}>{searchMethod.Name}({reqClassName} request)";
+		//	interfaceOutput.Add($"{signature};");
 
-			// Method
-			output.AddLine(tc, $"public async {signature}");
-			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"IQueryable<{entity.Name}> dbQuery = _db.{entity.Name}.AsNoTracking();");
-			if (searchMethod.FilterProperties.Any())
-				output.AddLine(tc + 1, $"// Filters");
-			foreach (var filterProp in searchMethod.FilterProperties)
-			{
-				if (DataTypes.IsString(filterProp.PropertyModel.DataType) && filterProp.IsPartialMatch)
-				{
-					output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.{filterProp.PropertyModel.Name}))");
-					output.AddLine(tc + 1, "{");
-					output.AddLine(tc + 2, $"var pattern = $\"%{{request.{filterProp.PropertyModel.Name}}}%\";");
-					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, pattern));");
-					output.AddLine(tc + 1, "}");
-				}
-				else if (filterProp.PropertyModel.DataType == DataTypes.Int32 || filterProp.PropertyModel.DataType == DataTypes.Boolean || filterProp.PropertyModel.DataType == DataTypes.Guid)
-				{
-					output.AddLine(tc + 1, $"if (request.{filterProp.PropertyModel.Name}.HasValue)");
-					output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == request.{filterProp.PropertyModel.Name});");
-				}
-			}
+		//	// Method
+		//	output.AddLine(tc, $"public async {signature}");
+		//	output.AddLine(tc, "{");
+		//	output.AddLine(tc + 1, $"IQueryable<{entity.Name}> dbQuery = _db.{entity.Name}.AsNoTracking();");
+		//	if (searchMethod.FilterProperties.Any())
+		//		output.AddLine(tc + 1, $"// Filters");
+		//	foreach (var filterProp in searchMethod.FilterProperties)
+		//	{
+		//		if (DataTypes.IsString(filterProp.PropertyModel.DataType) && filterProp.IsPartialMatch)
+		//		{
+		//			output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.{filterProp.PropertyModel.Name}))");
+		//			output.AddLine(tc + 1, "{");
+		//			output.AddLine(tc + 2, $"var pattern = $\"%{{request.{filterProp.PropertyModel.Name}}}%\";");
+		//			output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, pattern));");
+		//			output.AddLine(tc + 1, "}");
+		//		}
+		//		else if (filterProp.PropertyModel.DataType == DataTypes.Int32 || filterProp.PropertyModel.DataType == DataTypes.Boolean || filterProp.PropertyModel.DataType == DataTypes.Guid)
+		//		{
+		//			output.AddLine(tc + 1, $"if (request.{filterProp.PropertyModel.Name}.HasValue)");
+		//			output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == request.{filterProp.PropertyModel.Name});");
+		//		}
+		//	}
 
-			if (searchMethod.InclSorting)
-			{
-				output.AddLine();
-				output.AddLine(tc + 1, "// Sorting");
-				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.SortBy))");
-				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, request);");
-			}
-			if (searchMethod.InclPaging)
-			{
-				output.AddLine();
-				output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
-				if (searchMethod.FilterProperties.Any())
-					output.AddLine(tc + 1, "// Stable ordering for paging");
-				foreach (var filterProp in searchMethod.FilterProperties)
-					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
+		//	if (searchMethod.InclSorting)
+		//	{
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, "// Sorting");
+		//		output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.SortBy))");
+		//		output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, request);");
+		//	}
+		//	if (searchMethod.InclPaging)
+		//	{
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
+		//		if (searchMethod.FilterProperties.Any())
+		//			output.AddLine(tc + 1, "// Stable ordering for paging");
+		//		foreach (var filterProp in searchMethod.FilterProperties)
+		//			output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
 
-				output.AddLine();
-				output.AddLine(tc + 1, "// Count (only when requested)");
-				output.AddLine(tc + 1, "if (request.RecalcRowCount || request.GetRowCountOnly)");
-				output.AddLine(tc + 1, "{");
-				output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
-				output.AddLine();
-				output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
-				output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
-				output.AddLine(tc + 1, "}");
-			}
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, "// Count (only when requested)");
+		//		output.AddLine(tc + 1, "if (request.RecalcRowCount || request.GetRowCountOnly)");
+		//		output.AddLine(tc + 1, "{");
+		//		output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
+		//		output.AddLine();
+		//		output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
+		//		output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
+		//		output.AddLine(tc + 1, "}");
+		//	}
 
-			if (searchMethod.InclPaging)
-			{
-				output.AddLine();
-				output.AddLine(tc + 1, "// Paging");
-				output.AddLine(tc + 1, "if (request.PageSize > 0)");
-				output.AddLine(tc + 2, "dbQuery = dbQuery.Skip(request.PageOffset * request.PageSize).Take(request.PageSize);");
-			}
+		//	if (searchMethod.InclPaging)
+		//	{
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, "// Paging");
+		//		output.AddLine(tc + 1, "if (request.PageSize > 0)");
+		//		output.AddLine(tc + 2, "dbQuery = dbQuery.Skip(request.PageOffset * request.PageSize).Take(request.PageSize);");
+		//	}
 
-			output.AddLine();
-			output.AddLine(tc + 1, "// Data");
+		//	output.AddLine();
+		//	output.AddLine(tc + 1, "// Data");
 
-			if (!searchMethod.IsList)
-			{
-				output.AddLine(tc + 1, $"var {entity.Name.ToCamelCase()}= await dbQuery.FirstOrDefaultAsync();");
-				output.AddLine();
-				output.AddLine(tc + 1, $"return {returnType}.Ok({entity.Name.ToCamelCase()});");
-			}
-			else if (searchMethod.InclPaging)
-			{
-				output.AddLine(tc + 1, "entityList.Items = await dbQuery.ToListAsync();");
-				output.AddLine();
-				output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
-			}
-			else
-			{
-				output.AddLine(tc + 1, "var items = await dbQuery.ToListAsync();");
-				output.AddLine();
-				output.AddLine(tc + 1, $"return {returnType}.Ok(items);");
-			}
-			output.AddLine(tc, "}");
-		}
+		//	if (!searchMethod.IsList)
+		//	{
+		//		output.AddLine(tc + 1, $"var {entity.Name.ToCamelCase()}= await dbQuery.FirstOrDefaultAsync();");
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, $"return {returnType}.Ok({entity.Name.ToCamelCase()});");
+		//	}
+		//	else if (searchMethod.InclPaging)
+		//	{
+		//		output.AddLine(tc + 1, "entityList.Items = await dbQuery.ToListAsync();");
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
+		//	}
+		//	else
+		//	{
+		//		output.AddLine(tc + 1, "var items = await dbQuery.ToListAsync();");
+		//		output.AddLine();
+		//		output.AddLine(tc + 1, $"return {returnType}.Ok(items);");
+		//	}
+		//	output.AddLine(tc, "}");
+		//}
 
 		internal void GenerateSortingMethod(EntityModel entity, List<string> output)
 		{

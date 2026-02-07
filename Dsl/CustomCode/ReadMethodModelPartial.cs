@@ -35,7 +35,11 @@ namespace Dyvenix.GenIt
 			}
 		}
 
-		public bool IsList => this.InclPaging || this.InclSorting || this.FilterProperties.Any(fp => fp.IsPartialMatch);
+		public bool IsSingle => !this.InclPaging && !this.InclSorting && !this.FilterProperties.Any(fp => fp.IsPartialMatch) && !this.FilterProperties.Any(fp => !fp.PropertyModel.IsIndexUnique);
+
+		public bool IsList => !this.IsSingle;
+
+		//public bool IsSearch => this.FilterProperties.Any(fp => fp.IsPartialMatch);
 
 		public List<string> InclNavPropertiesList
 		{

@@ -138,7 +138,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - single
 			var singleReadMethodsOutput = new List<string>();
-			foreach (ReadMethodModel singleMethod in serviceModel.ReadMethods.Where(m => !m.IsList))
+			foreach (ReadMethodModel singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
 			{
 				if (singleReadMethodsOutput.Count == 0)
 				{
@@ -149,8 +149,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// Read methods - list
+
 			var listMethodsOutput = new List<string>();
-			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList && !m.UseRequest))
+			foreach (ReadMethodModel listMethod in serviceModel.ReadMethods.Where(m => m.IsList))
 			{
 				if (listMethodsOutput.Count == 0)
 				{
@@ -161,16 +162,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// Read methods - search
-			var searchMethodsOutput = new List<string>();
-			foreach (ReadMethodModel searchMethod in serviceModel.ReadMethods.Where(m => m.IsList && m.UseRequest))
-			{
-				if (searchMethodsOutput.Count == 0)
-				{
-					mapMethods.AddLine();
-					mapMethods.AddLine(0, "// Search");
-				}
-				this.GenerateSearchMethod(entity, searchMethod, serviceVarName, searchMethodsOutput, mapMethods);
-			}
+
+			//var searchMethodsOutput = new List<string>();
+			//foreach (ReadMethodModel searchMethod in serviceModel.ReadMethods.Where(m => m.IsSearch))
+			//{
+			//	if (searchMethodsOutput.Count == 0)
+			//	{
+			//		mapMethods.AddLine();
+			//		mapMethods.AddLine(0, "// Search");
+			//	}
+			//	this.GenerateSearchMethod(entity, searchMethod, serviceVarName, searchMethodsOutput, mapMethods);
+			//}
 
 			// Write the file
 			var fileContent = new List<string>();
@@ -227,17 +229,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#endregion");
 			}
 
-			if (searchMethodsOutput.Count > 0)
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(1, "#region Search Methods");
-			}
-			fileContent.AddLines(0, searchMethodsOutput);
-			if (searchMethodsOutput.Count > 0)
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(1, "#endregion");
-			}
+			//if (searchMethodsOutput.Count > 0)
+			//{
+			//	fileContent.AddLine();
+			//	fileContent.AddLine(1, "#region Search Methods");
+			//}
+			//fileContent.AddLines(0, searchMethodsOutput);
+			//if (searchMethodsOutput.Count > 0)
+			//{
+			//	fileContent.AddLine();
+			//	fileContent.AddLine(1, "#endregion");
+			//}
 
 			fileContent.AddLine(0, "}");
 
@@ -461,14 +463,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var tc = 0;
 
-			var filterArg = string.Empty;
-			var filterRoute = string.Empty;
-			var filterParams = string.Empty;
-
 			// Args and map path
 
 			var sbMapUrl = new StringBuilder(method.Name);
-			var sbArgs = new StringBuilder();
+			var sbInArgs = new StringBuilder();
+			var sbOutArgs = new StringBuilder();
 			if (!method.UseRequest)
 			{
 				method.FilterProperties.Where(fp => !fp.IsInternal).ToList().ForEach(fp =>
@@ -477,9 +476,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					sbMapUrl.Append("/{");
 					sbMapUrl.Append(fp.PropertyModel.Name.ToCamelCase());
 					sbMapUrl.Append("}");
-					// Args
-					sbArgs.Append($", {method.FilterProperties[0].PropertyModel.CSType} {method.FilterProperties[0].PropertyModel.ArgName}");
-					sbArgs.Append(", ");
+					// Input arguments
+					sbInArgs.Append($", {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}");
+					// Output arguments
+					if (sbOutArgs.Length > 0)
+						sbOutArgs.Append(",");
+					sbOutArgs.Append($"{fp.PropertyModel.ArgName}");
 				});
 			}
 
@@ -488,9 +490,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var attr in method.Attributes)
 					output.AddLine(tc, $"[{attr}]");
 			output.AddLine();
-			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{sbArgs})");
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({filterArg});");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({sbOutArgs});");
 			output.AddLine(tc + 1, $"return result.ToHttpResult();");
 			output.AddLine(tc, "}");
 
@@ -517,12 +519,69 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		// Read List
 
+		internal void GenerateReadListMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output, List<string> mapMethods)
+		{
+			var tc = 0;
+
+			// Attributes
+			if (method.Attributes.Any())
+				foreach (var attr in method.Attributes)
+					output.AddLine(tc, $"[{attr}]");
+
+			// In/Out args and map path
+			var sbMapUrl = new StringBuilder(method.Name);
+			var sbInArgs = new StringBuilder();
+			var sbOutArgs = new StringBuilder();
+			if (method.UseRequest)
+			{
+				sbInArgs.Append($", {method.Name}Req {method.Name.ToCamelCase()}Req");
+				sbOutArgs.Append($"{method.Name.ToCamelCase()}Req");
+			}
+			else
+			{
+				// Required params first, in url segments, and then optional as query params
+				var filterProps = method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal).ToList();
+				filterProps.AddRange(method.FilterProperties.Where(fp => fp.IsOptional && !fp.IsInternal));
+				foreach (var fp in filterProps)
+				{
+					if (!fp.IsOptional)
+					{
+						// Url for map
+						sbMapUrl.Append("/{");
+						sbMapUrl.Append(fp.PropertyModel.Name.ToCamelCase());
+						sbMapUrl.Append("}");
+						// Input arg
+						sbInArgs.Append($", [FromRoute] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}");
+					}
+					else
+					{
+						// Input arg
+						sbInArgs.Append($", [FromQuery] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}");
+					}
+					// Output arguments
+					if (sbOutArgs.Length > 0)
+						sbOutArgs.Append(", ");
+					sbOutArgs.Append($"{fp.PropertyModel.ArgName}");
+				}
+				;
+			}
+
+			output.AddLine();
+			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
+			output.AddLine(tc, "{");
+			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({sbOutArgs});");
+			output.AddLine(tc + 1, $"return result.ToHttpResult();");
+			output.AddLine(tc, "}");
+
+			mapMethods.AddLines(0, GenerateReadListMapMethod(entity, method.Name, sbMapUrl.ToString(), method));
+		}
+
 		private List<string> GenerateReadListMapMethod(EntityModel entity, string methodName, string methodUrl, ReadMethodModel readMethodModel)
 		{
 			var lines = new List<string>();
-
+			var restVerb = readMethodModel.UseRequest ? "Post" : "Get";
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapGet(\"{methodName}\", {methodName})");
+			lines.AddLine(0, $"group.Map{restVerb}(\"{methodUrl}\", {methodName})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			if (entity.InclRowVersion)
 				lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
@@ -534,109 +593,46 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			return lines;
 		}
 
-		internal void GenerateReadListMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output, List<string> mapMethods)
-		{
-			var tc = 0;
-
-			// Attributes
-			if (method.Attributes.Any())
-				foreach (var attr in method.Attributes)
-					output.AddLine(tc, $"[{attr}]");
-
-			StringBuilder sbRoute = new StringBuilder();
-			StringBuilder sbArgs = new StringBuilder();
-
-			var reqFilterProps = method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal);
-			var optFilterProps = method.FilterProperties.Where(fp => fp.IsOptional && !fp.IsInternal);
-
-			// Required
-			foreach (var filterProp in reqFilterProps)
-			{
-				// Required arguments go in the route
-				sbRoute.Append($"/{{{filterProp.PropertyModel.ArgName}}}");
-				sbArgs.Append(", ");
-				sbArgs.Append($"[FromRoute] {filterProp.PropertyModel.CSType} {filterProp.PropertyModel.ArgName}");
-			}
-
-			// Optional
-			foreach (var filterProp in optFilterProps)
-			{
-				sbArgs.Append(", ");
-				var nullChar = filterProp.PropertyModel.DataType != DataTypes.String ? "?" : string.Empty;
-				sbArgs.Append($"[FromQuery] {filterProp.PropertyModel.CSType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
-			}
-
-			// Vars
-			StringBuilder sbVars = new StringBuilder();
-			foreach (var filterProp in reqFilterProps)
-			{
-				if (sbVars.Length > 0)
-					sbVars.Append(", ");
-				sbVars.Append(filterProp.PropertyModel.ArgName);
-			}
-			foreach (var filterProp in optFilterProps)
-			{
-				if (sbVars.Length > 0)
-					sbVars.Append(", ");
-				sbVars.Append(filterProp.PropertyModel.ArgName);
-			}
-			if (method.InclPaging)
-			{
-				if (sbVars.Length > 0)
-					sbVars.Append(", ");
-				sbVars.Append("pgSize, pgOffset");
-			}
-
-			output.AddLine();
-			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{sbArgs})");
-			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var result = await {svcVarName}.{method.Name}({sbVars});");
-			output.AddLine(tc + 1, $"return result.ToHttpResult();");
-			output.AddLine(tc, "}");
-
-			mapMethods.AddLines(0, GenerateReadListMapMethod(entity, method.Name, sbRoute.ToString(), method));
-		}
-
 		// Searches
 
-		private List<string> GenerateSearchMapMethod(EntityModel entity, string methodName, ReadMethodModel searchMethod)
-		{
-			var lines = new List<string>();
-			string className = entity.Name;
+		//internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, string svcVarName, List<string> output, List<string> mapMethods)
+		//{
+		//	var tc = 1;
+		//	output.AddLine();
+		//	var requestClassName = $"{searchMethod.Name}Req";
+		//	var searchVarName = requestClassName.ToCamelCase();
 
-			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
-			lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
-			if (entity.InclRowVersion)
-				lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
-			if (searchMethod.PermissionsList.Count > 0)
-				lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", searchMethod.PermissionsList)}\");");
-			else
-				lines.AppendToLast(";");
+		//	// Attributes
+		//	if (searchMethod.Attributes.Any())
+		//		foreach (var attr in searchMethod.Attributes)
+		//			output.AddLine(tc, $"[{attr}]");
 
-			return lines;
-		}
+		//	// Method
+		//	output.AddLine(tc, $"public static async Task<IResult> {searchMethod.Name}(I{entity.Name}Service {svcVarName}, {requestClassName} {searchVarName})");
+		//	output.AddLine(tc, "{");
+		//	output.AddLine(tc + 1, $"var result = await {svcVarName}.{searchMethod.Name}({searchVarName});");
+		//	output.AddLine(tc + 1, $"return result.ToHttpResult();");
+		//	output.AddLine(tc, "}");
 
-		internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, string svcVarName, List<string> output, List<string> mapMethods)
-		{
-			var tc = 1;
-			output.AddLine();
-			var requestClassName = $"{searchMethod.Name}Req";
-			var searchVarName = requestClassName.ToCamelCase();
+		//	mapMethods.AddLines(0, GenerateSearchMapMethod(entity, searchMethod.Name, searchMethod));
+		//}
 
-			// Attributes
-			if (searchMethod.Attributes.Any())
-				foreach (var attr in searchMethod.Attributes)
-					output.AddLine(tc, $"[{attr}]");
+		//private List<string> GenerateSearchMapMethod(EntityModel entity, string methodName, ReadMethodModel searchMethod)
+		//{
+		//	var lines = new List<string>();
+		//	string className = entity.Name;
 
-			// Method
-			output.AddLine(tc, $"public static async Task<IResult> {searchMethod.Name}(I{entity.Name}Service {svcVarName}, {requestClassName} {searchVarName})");
-			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"var result = await {svcVarName}.{searchMethod.Name}({searchVarName});");
-			output.AddLine(tc + 1, $"return result.ToHttpResult();");
-			output.AddLine(tc, "}");
+		//	lines.AddLine();
+		//	lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
+		//	lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
+		//	if (entity.InclRowVersion)
+		//		lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
+		//	if (searchMethod.PermissionsList.Count > 0)
+		//		lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", searchMethod.PermissionsList)}\");");
+		//	else
+		//		lines.AppendToLast(";");
 
-			mapMethods.AddLines(0, GenerateSearchMapMethod(entity, searchMethod.Name, searchMethod));
-		}
+		//	return lines;
+		//}
 	}
 }

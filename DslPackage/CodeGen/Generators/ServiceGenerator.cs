@@ -158,12 +158,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - single
 			var singleMethodsOutput = new List<string>();
-			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => !m.IsList))
+			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
 			{
 				if (singleMethodsOutput.Count == 0)
 				{
 					singleMethodsOutput.AddLine();
-					singleMethodsOutput.AddLine(0, "#region Single Methods");
+					singleMethodsOutput.AddLine(0, "#region Read - Single");
 				}
 				serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceContent);
 			}
@@ -175,12 +175,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Read methods - list
 			var listMethodsOutput = new List<string>();
-			foreach (var listMethod in serviceModel.ReadMethods.Where(m => !m.UseRequest && m.IsList))
+			foreach (var listMethod in serviceModel.ReadMethods.Where(m => m.IsList))
 			{
 				if (listMethodsOutput.Count == 0)
 				{
 					listMethodsOutput.AddLine();
-					listMethodsOutput.AddLine(0, "#region List Methods");
+					listMethodsOutput.AddLine(0, "#region Read - List");
 				}
 				serviceMethodGenerator.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceContent);
 			}
@@ -190,29 +190,28 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				listMethodsOutput.AddLine(0, "#endregion");
 			}
 
-			// Search methods - query
-			var queryMethodsOutput = new List<string>();
-			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
-			{
-				if (queryMethodsOutput.Count == 0)
-				{
-					queryMethodsOutput.AddLine();
-					queryMethodsOutput.AddLine(1, "#region Search Methods");
-				}
-				foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
-					serviceMethodGenerator.GenerateSearchMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
-			}
-			if (queryMethodsOutput.Count > 0)
-			{
-				queryMethodsOutput.AddLine();
-				queryMethodsOutput.AddLine(1, "#endregion");
-			}
+			//// Search methods - query
+			//var queryMethodsOutput = new List<string>();
+			//foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
+			//{
+			//	if (queryMethodsOutput.Count == 0)
+			//	{
+			//		queryMethodsOutput.AddLine();
+			//		queryMethodsOutput.AddLine(1, "#region Search Methods");
+			//	}
+			//	serviceMethodGenerator.GenerateSearchMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
+			//}
+			//if (queryMethodsOutput.Count > 0)
+			//{
+			//	queryMethodsOutput.AddLine();
+			//	queryMethodsOutput.AddLine(1, "#endregion");
+			//}
 
 			// Sorting method
 			if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
 			{
-				serviceMethodGenerator.GenerateSortingMethod(entity, queryMethodsOutput);
-				queryMethodsOutput.AddLine();
+				serviceMethodGenerator.GenerateSortingMethod(entity, listMethodsOutput);
+				listMethodsOutput.AddLine();
 			}
 
 			// Write the file
@@ -241,7 +240,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, updMethodsOutput);
 			fileContent.AddLines(1, singleMethodsOutput);
 			fileContent.AddLines(1, listMethodsOutput);
-			fileContent.AddLines(0, queryMethodsOutput);
+			//fileContent.AddLines(0, queryMethodsOutput);
 			fileContent.AddLine(0, "}");
 
 			var fileContents = fileContent.AsString();
