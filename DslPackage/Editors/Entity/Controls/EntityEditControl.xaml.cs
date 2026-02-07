@@ -37,6 +37,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		}
 	}
 
+	public class IsNotIdPropertyConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (value as string) != "Id";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	public partial class EntityEditControl : UserControlBase
 	{
 		private const string PropertyModelDragFormat = "GenIt.PropertyModel";
@@ -311,6 +324,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			if (selectedProperty == null)
 				return;
 
+			if (selectedProperty.Name == "Id")
+				return;
+
 			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Delete Property"))
 			{
 				selectedProperty.Delete();
@@ -395,6 +411,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			var property = e.Row.Item as PropertyModel;
 			if (property == null)
 				return;
+
+			if (property.Name == "Id" && GetEditedPropertyName(e.Column) == "Name")
+			{
+				e.Cancel = true;
+				return;
+			}
 
 			// Start a transaction for this edit operation
 			string propertyName = GetEditedPropertyName(e.Column);

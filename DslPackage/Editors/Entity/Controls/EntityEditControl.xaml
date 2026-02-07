@@ -174,6 +174,7 @@
         
         <!-- Converter for Max Len column visibility -->
         <local:DataTypeLengthEnabledConverter x:Key="DataTypeLengthEnabledConverter"/>
+        <local:IsNotIdPropertyConverter x:Key="IsNotIdPropertyConverter"/>
         
         <!-- Style for DataGrid ComboBox with darker dropdown -->
         <Style x:Key="DataGridComboBoxStyle" TargetType="ComboBox">
@@ -427,6 +428,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsPrimaryKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsEnabled="{Binding Name, Converter={StaticResource IsNotIdPropertyConverter}}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -457,6 +459,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsIndexUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsEnabled="{Binding Name, Converter={StaticResource IsNotIdPropertyConverter}}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
