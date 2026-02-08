@@ -48,9 +48,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
 				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 
-			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
-
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
 				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
 		}
@@ -95,7 +92,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var serviceName = $"{entity.Name}Service";
 
 			var module = _modules[entity.Module];
-			var serviceOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", serviceModel.Version);
+			var serviceOutputDir = Path.Combine(module.ServicesFolder, serviceModel.Version);
 			ResetUsings(entity, serviceModel, module);
 
 			Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
@@ -245,7 +242,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Services", $"v{serviceModel.Version}");
+			var outputDir = Path.Combine(module.ServicesFolder, $"v{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{serviceName}.cs");
 

@@ -522,11 +522,6 @@
             <ExternalTypeMoniker Name="/System/Guid" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e5e99a5a-7ed8-4c53-86b0-6cf9f4415a97" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto" Name="UseDto" DisplayName="Use Dto">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="2d1897ce-b2a7-4cfb-af36-b5f0c6c1cd13" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Display Order" Name="DisplayOrder" DisplayName="Display Order" DefaultValue="0">
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
@@ -621,7 +616,7 @@
         <DomainClassMoniker Name="ModelType" />
       </BaseClass>
       <Properties>
-        <DomainProperty Id="643cfb2a-53b7-4c18-ab98-0e98f6622bf3" Description="Description for Dyvenix.GenIt.ModuleModel.Api Root Folder" Name="ApiRootFolder" DisplayName="Api Root Folder">
+        <DomainProperty Id="643cfb2a-53b7-4c18-ab98-0e98f6622bf3" Description="Description for Dyvenix.GenIt.ModuleModel.Root Folder" Name="RootFolder" DisplayName="Root Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -641,17 +636,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="8e3535e4-285c-44af-804b-45b52eb83ad8" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Output Folder" Name="DtoOutputFolder" DisplayName="Dto Output Folder">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
         <DomainProperty Id="ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d" Description="Description for Dyvenix.GenIt.ModuleModel.Request Namespace" Name="RequestNamespace" DisplayName="Request Namespace">
-          <Type>
-            <ExternalTypeMoniker Name="/System/String" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="688aa4d0-a69f-4123-be19-ff8c4e389e1d" Description="Description for Dyvenix.GenIt.ModuleModel.Request Output Folder" Name="RequestOutputFolder" DisplayName="Request Output Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1478,9 +1463,6 @@
           <XmlPropertyData XmlName="itemId">
             <DomainPropertyMoniker Name="UpdateMethodModel/ItemId" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="useDto">
-            <DomainPropertyMoniker Name="UpdateMethodModel/UseDto" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="displayOrder">
             <DomainPropertyMoniker Name="UpdateMethodModel/DisplayOrder" />
           </XmlPropertyData>
@@ -1548,8 +1530,8 @@
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
         <DomainClassMoniker Name="ModuleModel" />
         <ElementData>
-          <XmlPropertyData XmlName="apiRootFolder">
-            <DomainPropertyMoniker Name="ModuleModel/ApiRootFolder" />
+          <XmlPropertyData XmlName="rootFolder">
+            <DomainPropertyMoniker Name="ModuleModel/RootFolder" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="namespace">
             <DomainPropertyMoniker Name="ModuleModel/Namespace" />
@@ -1560,14 +1542,8 @@
           <XmlPropertyData XmlName="dtoNamespace">
             <DomainPropertyMoniker Name="ModuleModel/DtoNamespace" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="dtoOutputFolder">
-            <DomainPropertyMoniker Name="ModuleModel/DtoOutputFolder" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="requestNamespace">
             <DomainPropertyMoniker Name="ModuleModel/RequestNamespace" />
-          </XmlPropertyData>
-          <XmlPropertyData XmlName="requestOutputFolder">
-            <DomainPropertyMoniker Name="ModuleModel/RequestOutputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

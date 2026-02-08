@@ -93,37 +93,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				if (string.IsNullOrWhiteSpace(module.Namespace))
 					errors.Add($"Module '{module.Name}' - Namespace is missing .");
 
-				if (string.IsNullOrWhiteSpace(module.ApiRootFolder))
+				if (string.IsNullOrWhiteSpace(module.RootFolder))
 					errors.Add($"Module '{module.Name}' - RootFolder is missing.");
 
 				if (this.AnyDTOs(module))
 				{
 					if (string.IsNullOrWhiteSpace(module.DtoNamespace))
 						errors.Add($"Module '{module.Name}' - DtoNamespace is missing.");
-					if (string.IsNullOrWhiteSpace(module.DtoOutputFolder))
-						errors.Add($"Module '{module.Name}' - DtoOutputFolder is missing.");
 				}
 
 				if (this.AnyQueries(module))
 				{
 					if (string.IsNullOrWhiteSpace(module.RequestNamespace))
 						errors.Add($"Module '{module.Name}' - QueryNamespace is missing.");
-					if (string.IsNullOrWhiteSpace(module.RequestOutputFolder))
-						errors.Add($"Module '{module.Name}' - QueryOutputFolder is missing.");
 				}
 			}
 		}
 
 		private bool AnyDTOs(ModuleModel module)
 		{
-			foreach (var entity in _entities.Where(e => e.Module == module.Name))
-			{
-				foreach (var service in entity.ServiceModels)
-				{
-					if (service.UpdateMethods.Any(m => m.UseDto))
-						return true;
-				}
-			}
 			return false;
 		}
 

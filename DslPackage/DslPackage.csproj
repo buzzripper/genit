@@ -76,6 +76,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
     <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\SvcCollExtGenerator.cs" />

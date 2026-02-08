@@ -38,10 +38,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			{
 				txtName.Text = _moduleModel.Name ?? string.Empty;
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
-				txtRootFolder.Text = _moduleModel.ApiRootFolder ?? string.Empty;
-				txtDtoOutputFolder.Text = _moduleModel.DtoOutputFolder ?? string.Empty;
+				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
 				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
-				txtRequestOutputFolder.Text = _moduleModel.RequestOutputFolder ?? string.Empty;
 				txtRequestNamespace.Text = _moduleModel.RequestNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
@@ -49,35 +47,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			finally
 			{
 				_isUpdating = false;
-			}
-		}
-
-		private void txtDtoOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _moduleModel == null)
-				return;
-
-			UpdateModelProperty(ModuleModel.DtoOutputFolderDomainPropertyId, txtDtoOutputFolder.Text);
-		}
-
-		private void btnBrowseDtoFolder_Click(object sender, RoutedEventArgs e)
-		{
-			if (_moduleModel == null)
-				return;
-
-			if (FolderBrowserHelper.BrowseForFolder(txtDtoOutputFolder.Text, "Select DTO Output Folder", out string selectedPath))
-			{
-				_isUpdating = true;
-				try
-				{
-					txtDtoOutputFolder.Text = selectedPath;
-				}
-				finally
-				{
-					_isUpdating = false;
-				}
-
-				UpdateModelProperty(ModuleModel.DtoOutputFolderDomainPropertyId, selectedPath);
 			}
 		}
 
@@ -89,41 +58,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			UpdateModelProperty(ModuleModel.DtoNamespaceDomainPropertyId, txtDtoNamespace.Text);
 		}
 
-		private void txtRequestOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-		if (_isUpdating || _moduleModel == null)
-		return;
-
-		UpdateModelProperty(ModuleModel.RequestOutputFolderDomainPropertyId, txtRequestOutputFolder.Text);
-		}
-
-		private void btnBrowseRequestFolder_Click(object sender, RoutedEventArgs e)
-		{
-		if (_moduleModel == null)
-		return;
-
-		if (FolderBrowserHelper.BrowseForFolder(txtRequestOutputFolder.Text, "Select Request Output Folder", out string selectedPath))
-		{
-		_isUpdating = true;
-		try
-		{
-		txtRequestOutputFolder.Text = selectedPath;
-		}
-		finally
-		{
-		_isUpdating = false;
-		}
-
-		UpdateModelProperty(ModuleModel.RequestOutputFolderDomainPropertyId, selectedPath);
-		}
-		}
-
 		private void txtRequestNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-		if (_isUpdating || _moduleModel == null)
-		return;
+			if (_isUpdating || _moduleModel == null)
+				return;
 
-		UpdateModelProperty(ModuleModel.RequestNamespaceDomainPropertyId, txtRequestNamespace.Text);
+			UpdateModelProperty(ModuleModel.RequestNamespaceDomainPropertyId, txtRequestNamespace.Text);
 		}
 
 		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -147,7 +87,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			if (_isUpdating || _moduleModel == null)
 				return;
 
-			UpdateModelProperty(ModuleModel.ApiRootFolderDomainPropertyId, txtRootFolder.Text);
+			UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, txtRootFolder.Text);
 		}
 
 		private void btnBrowseFolder_Click(object sender, RoutedEventArgs e)
@@ -167,7 +107,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 					_isUpdating = false;
 				}
 
-				UpdateModelProperty(ModuleModel.ApiRootFolderDomainPropertyId, selectedPath);
+				UpdateModelProperty(ModuleModel.RootFolderDomainPropertyId, selectedPath);
 			}
 		}
 

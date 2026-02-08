@@ -139,14 +139,6 @@
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="100"/>
-                    <DataGridTemplateColumn Header="Use DTO" Width="80" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding UseDto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="Perms" Width="60" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

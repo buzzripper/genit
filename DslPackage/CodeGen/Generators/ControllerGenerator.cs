@@ -43,9 +43,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			foreach (var u in serviceModel.ControllerUsingsList)
 				_usings.AddIfNotExists(u);
 
-			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
-
 			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
 				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 		}
@@ -75,7 +72,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private void GenerateController(EntityModel entity, ServiceModel serviceModel)
 		{
 			var module = _modules[entity.Module];
-			var controllerOutputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", serviceModel.Version);
+			var controllerOutputDir = Path.Combine(module.ControllersFolder, $"v{serviceModel.Version}");
 			ResetUsings(entity, serviceModel, module);
 			Directory.CreateDirectory(controllerOutputDir);  // Ensure output dir exists
 			var controllerName = $"{entity.Name}Controller";
@@ -225,7 +222,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Controllers", $"v{serviceModel.Version}");
+			var outputDir = Path.Combine(module.ControllersFolder, $"v{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{controllerName}.cs");
 
@@ -307,37 +304,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var inputArgs = new StringBuilder();
 			var args = new StringBuilder();
 
-			if (method.UseDto)
+			route.Append($"/{{id}}");
+			inputArgs.Append("Guid id");
+			if (entity.InclRowVersion)
 			{
-				inputArgs.Append($"[FromBody] {method.Name}Req request");
-
-				args.Append("request.Id");
-				if (entity.InclRowVersion)
-					args.Append(", request.RowVersion");
-				foreach (var updProp in updateProps)
-					args.Append($", request.{updProp.PropertyModel.Name}");
+				route.Append($"/{{rowVersion}}");
+				args.Append(", byte[] rowVersion");
 			}
-			else
+			foreach (var updProp in method.UpdateProperties)
 			{
-				route.Append($"/{{id}}");
-				inputArgs.Append("Guid id");
-				if (entity.InclRowVersion)
-				{
-					route.Append($"/{{rowVersion}}");
-					args.Append(", byte[] rowVersion");
-				}
-				foreach (var updProp in method.UpdateProperties)
-				{
-					route.Append($"/{{{updProp.PropertyModel.ArgName}}}");
-					inputArgs.Append($", {updProp.PropertyModel.CSType} {updProp.PropertyModel.ArgName}");
-				}
-
-				args.Append("id");
-				if (entity.InclRowVersion)
-					args.Append(", rowVersion");
-				foreach (var updProp in updateProps)
-					args.Append($", {updProp.PropertyModel.ArgName}");
+				route.Append($"/{{{updProp.PropertyModel.ArgName}}}");
+				inputArgs.Append($", {updProp.PropertyModel.CSType} {updProp.PropertyModel.ArgName}");
 			}
+
+			args.Append("id");
+			if (entity.InclRowVersion)
+				args.Append(", rowVersion");
+			foreach (var updProp in updateProps)
+				args.Append($", {updProp.PropertyModel.ArgName}");
 			route.Append("\"");
 
 			output.AddLine(tc, $"[HttpPatch, Route({route})]");

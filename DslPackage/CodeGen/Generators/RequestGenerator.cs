@@ -36,13 +36,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
 			{
+				var module = _modules[entity.Module];
 				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
 				{
 					foreach (var requestMethod in service.ReadMethods.Where(m => m.UseRequest))
-					{
-						var module = _modules[entity.Module];
 						GenerateRequestClass(module, entity, service, requestMethod);
-					}
 				}
 			}
 		}

@@ -32,7 +32,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
 				{
-					foreach (var updateMethod in service.UpdateMethods.Where(m => m.UseDto))
+					foreach (var updateMethod in service.UpdateMethods)
 					{
 						GenerateDto(_modules[entity.Module], entity, service, updateMethod);
 					}
@@ -70,7 +70,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.DtoNamespace}.v{service.Version};");
+			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.v{service.Version};");
 
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public class {dtoName}");
@@ -103,7 +103,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.DtoOutputFolder, $"v{service.Version}");
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"v{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{dtoName}.cs");
 

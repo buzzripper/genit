@@ -953,14 +953,6 @@
     <value>Item Id</value>
     <comment>DisplayName for DomainProperty &apos;ItemId&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto</value>
-    <comment>Description for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.DisplayName" xml:space="preserve">
-    <value>Use Dto</value>
-    <comment>DisplayName for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.UpdateMethodModel.Display Order</value>
     <comment>Description for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
@@ -1133,13 +1125,13 @@
     <value>Module Model</value>
     <comment>DisplayName for DomainClass &apos;ModuleModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModuleModel/ApiRootFolder.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModuleModel.Api Root Folder</value>
-    <comment>Description for DomainProperty &apos;ApiRootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ModuleModel/RootFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Root Folder</value>
+    <comment>Description for DomainProperty &apos;RootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModuleModel/ApiRootFolder.DisplayName" xml:space="preserve">
-    <value>Api Root Folder</value>
-    <comment>DisplayName for DomainProperty &apos;ApiRootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ModuleModel/RootFolder.DisplayName" xml:space="preserve">
+    <value>Root Folder</value>
+    <comment>DisplayName for DomainProperty &apos;RootFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ModuleModel/Namespace.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel.Namespace</value>
@@ -1169,14 +1161,6 @@
     <value>Dto Namespace</value>
     <comment>DisplayName for DomainProperty &apos;DtoNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ModuleModel/DtoOutputFolder.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModuleModel.Dto Output Folder</value>
-    <comment>Description for DomainProperty &apos;DtoOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModuleModel/DtoOutputFolder.DisplayName" xml:space="preserve">
-    <value>Dto Output Folder</value>
-    <comment>DisplayName for DomainProperty &apos;DtoOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.ModuleModel/RequestNamespace.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel.Request Namespace</value>
     <comment>Description for DomainProperty &apos;RequestNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
@@ -1184,14 +1168,6 @@
   <data name="Dyvenix.GenIt.ModuleModel/RequestNamespace.DisplayName" xml:space="preserve">
     <value>Request Namespace</value>
     <comment>DisplayName for DomainProperty &apos;RequestNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModuleModel/RequestOutputFolder.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ModuleModel.Request Output Folder</value>
-    <comment>Description for DomainProperty &apos;RequestOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.ModuleModel/RequestOutputFolder.DisplayName" xml:space="preserve">
-    <value>Request Output Folder</value>
-    <comment>DisplayName for DomainProperty &apos;RequestOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>

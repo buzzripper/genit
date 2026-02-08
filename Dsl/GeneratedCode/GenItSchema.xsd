@@ -1012,8 +1012,6 @@
         </xsd:attribute>
         <!-- Property: ItemId -->
         <xsd:attribute name="itemId" type="xsd:string" />
-        <!-- Property: UseDto -->
-        <xsd:attribute name="useDto" type="xsd:boolean" />
         <!-- Property: DisplayOrder -->
         <xsd:attribute name="displayOrder" type="xsd:integer" />
         <!-- Property: Permissions -->
@@ -1152,8 +1150,8 @@
             <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
-        <!-- Property: ApiRootFolder -->
-        <xsd:attribute name="apiRootFolder" type="xsd:string" />
+        <!-- Property: RootFolder -->
+        <xsd:attribute name="rootFolder" type="xsd:string" />
         <!-- Property: Namespace -->
         <xsd:attribute name="namespace" type="xsd:string" />
         <!-- Property: PermissionsStorage -->
@@ -1164,12 +1162,8 @@
         </xsd:attribute>
         <!-- Property: DtoNamespace -->
         <xsd:attribute name="dtoNamespace" type="xsd:string" />
-        <!-- Property: DtoOutputFolder -->
-        <xsd:attribute name="dtoOutputFolder" type="xsd:string" />
         <!-- Property: RequestNamespace -->
         <xsd:attribute name="requestNamespace" type="xsd:string" />
-        <!-- Property: RequestOutputFolder -->
-        <xsd:attribute name="requestOutputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

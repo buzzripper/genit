@@ -12,7 +12,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly List<EntityModel> _entities;
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 		private readonly List<string> _usings = new List<string>();
-
+		private readonly ApiClientGenerator _apiClientGenerator = new ApiClientGenerator();
 		internal EndpointGenerator(ModelRoot modelRoot)
 		{
 			// Convenience vars
@@ -39,8 +39,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
 			_usings.Add($"{module.Namespace}.Services.v{serviceModel.Version}");
-			_usings.AddLine(0, $"{module.Namespace}.Extensions");
-			_usings.AddLine(0, $"Dyvenix.App1.Common.Api.Filters");
+			_usings.AddLine(0, $"{module.Namespace}.Api.Extensions");
+			_usings.AddLine(0, $"{entity.ModelRoot.CommonNamespace}.Api.Filters");
+			_usings.AddLine(0, $"{entity.ModelRoot.CommonNamespace}.Shared.Requests");
 
 			foreach (var u in entity.UsingsList)
 				_usings.AddIfNotExists(u);
@@ -48,10 +49,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			foreach (var u in serviceModel.ControllerUsingsList)
 				_usings.AddIfNotExists(u);
 
-			if (serviceModel.UpdateMethods.Any(m => m.UseDto))
-				_usings.AddIfNotExists($"{module.DtoNamespace}.v{serviceModel.Version}");
-
-			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+			if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
 				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
 		}
 
@@ -66,6 +64,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var serviceModel in entity.ServiceModels)
 				{
 					GenerateEndpoints(entity, serviceModel);
+					_apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module]);
 				}
 			}
 		}
@@ -161,19 +160,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				this.GenerateReadListMethod(entity, listMethod, serviceVarName, listMethodsOutput, mapMethods);
 			}
 
-			// Read methods - search
-
-			//var searchMethodsOutput = new List<string>();
-			//foreach (ReadMethodModel searchMethod in serviceModel.ReadMethods.Where(m => m.IsSearch))
-			//{
-			//	if (searchMethodsOutput.Count == 0)
-			//	{
-			//		mapMethods.AddLine();
-			//		mapMethods.AddLine(0, "// Search");
-			//	}
-			//	this.GenerateSearchMethod(entity, searchMethod, serviceVarName, searchMethodsOutput, mapMethods);
-			//}
-
 			// Write the file
 			var fileContent = new List<string>();
 
@@ -181,7 +167,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.v{serviceModel.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Endpoints.v{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
@@ -229,23 +215,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(1, "#endregion");
 			}
 
-			//if (searchMethodsOutput.Count > 0)
-			//{
-			//	fileContent.AddLine();
-			//	fileContent.AddLine(1, "#region Search Methods");
-			//}
-			//fileContent.AddLines(0, searchMethodsOutput);
-			//if (searchMethodsOutput.Count > 0)
-			//{
-			//	fileContent.AddLine();
-			//	fileContent.AddLine(1, "#endregion");
-			//}
-
 			fileContent.AddLine(0, "}");
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.ApiRootFolder, "Endpoints", $"v{serviceModel.Version}");
+			var outputDir = Path.Combine(module.EndpointsFolder, $"v{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{className}.cs");
 
@@ -253,22 +227,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			OutputHelper.Write($"Completed code gen for controller: {className}");
 		}
-
-		//private List<string> BuildEndpointsAttributes(ServiceModel serviceModel, ModuleModel module, string serviceClassName)
-		//{
-		//	var attrs = new List<string>();
-
-		//	attrs.AddLine(0, "[ApiController]");
-		//	attrs.AddLine(0, $"[ServiceFilter(typeof(ApiExceptionFilter<{serviceClassName}>))]");
-		//	attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
-		//	attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/v{{version:apiVersion}}/[controller]\")]");
-		//	attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
-
-		//	foreach (var a in serviceModel.ControllerAttributesList)
-		//		attrs.AddIfNotExists(a);
-
-		//	return attrs;
-		//}
 
 		internal List<string> GenerateMapEndpointsMethod(List<string> mapMethods, ModuleModel module, EntityModel entity, ServiceModel serviceModel)
 		{
@@ -295,7 +253,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine();
 			lines.AddLine(0, "// Create");
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"Create{entity.Name}\", Create{entity.Name})");
+			lines.AddLine(0, $"group.MapPut(\"Create{entity.Name}\", Create{entity.Name})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.CreatePermissionsList.Count > 0)
@@ -329,7 +287,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine();
 			lines.AddLine(0, "// Delete");
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"Delete{entity.Name}\", Delete{entity.Name})");
+			lines.AddLine(0, $"group.MapDelete(\"Delete{entity.Name}\", Delete{entity.Name})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.DeletePermissionsList.Count > 0)
@@ -345,9 +303,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(0, "#region Delete");
 			output.AddLine();
-			output.AddLine(0, $"public static async Task<IResult> Delete{entity.Name}(I{entity.Name}Service {svcVarName}, Guid id)");
+			output.AddLine(0, $"public static async Task<IResult> Delete{entity.Name}(I{entity.Name}Service {svcVarName}, [FromBody] DeleteReq deleteReq)");
 			output.AddLine(0, "{");
-			output.AddLine(0 + 1, $"var result = await {svcVarName}.Delete{entity.Name}(id);");
+			output.AddLine(0 + 1, $"var result = await {svcVarName}.Delete{entity.Name}(deleteReq.Id);");
 			output.AddLine(0 + 1, $"return result.ToHttpResult();");
 			output.AddLine(0, "}");
 			output.AddLine();
@@ -363,7 +321,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine();
 			lines.AddLine(0, "// Full Update");
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"Update{entity.Name}\", Update{entity.Name})");
+			lines.AddLine(0, $"group.MapPatch(\"Update{entity.Name}\", Update{entity.Name})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (serviceModel.UpdatePermissionsList.Count > 0)
@@ -391,7 +349,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 
 			lines.AddLine();
-			lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
+			lines.AddLine(0, $"group.MapPatch(\"{methodName}\", {methodName})");
 			lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
 			lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
 			if (updMethodModel.PermissionsList.Count > 0)
@@ -416,37 +374,37 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var inputArgs = new StringBuilder();
 			var args = new StringBuilder();
 
-			if (method.UseDto)
-			{
-				inputArgs.Append($", [FromBody] {method.Name}Req request");
+			//if (method.UseDto)
+			//{
+			inputArgs.Append($", [FromBody] {method.Name}Req request");
 
-				args.Append("request.Id");
-				if (entity.InclRowVersion)
-					args.Append(", request.RowVersion");
-				foreach (var updProp in updateProps)
-					args.Append($", request.{updProp.PropertyModel.Name}");
-			}
-			else
-			{
-				route.Append($"/{{id}}");
-				inputArgs.Append(", Guid id");
-				if (entity.InclRowVersion)
-				{
-					route.Append($"/{{rowVersion}}");
-					args.Append(", byte[] rowVersion");
-				}
-				foreach (var updProp in method.UpdateProperties)
-				{
-					route.Append($"/{{{updProp.PropertyModel.ArgName}}}");
-					inputArgs.Append($", {updProp.PropertyModel.CSType} {updProp.PropertyModel.ArgName}");
-				}
+			args.Append("request.Id");
+			if (entity.InclRowVersion)
+				args.Append(", request.RowVersion");
+			foreach (var updProp in updateProps)
+				args.Append($", request.{updProp.PropertyModel.Name}");
+			//}
+			//else
+			//{
+			//	route.Append($"/{{id}}");
+			//	inputArgs.Append(", Guid id");
+			//	if (entity.InclRowVersion)
+			//	{
+			//		route.Append($"/{{rowVersion}}");
+			//		args.Append(", byte[] rowVersion");
+			//	}
+			//	foreach (var updProp in method.UpdateProperties)
+			//	{
+			//		route.Append($"/{{{updProp.PropertyModel.ArgName}}}");
+			//		inputArgs.Append($", {updProp.PropertyModel.CSType} {updProp.PropertyModel.ArgName}");
+			//	}
 
-				args.Append("id");
-				if (entity.InclRowVersion)
-					args.Append(", rowVersion");
-				foreach (var updProp in updateProps)
-					args.Append($", {updProp.PropertyModel.ArgName}");
-			}
+			//	args.Append("id");
+			//	if (entity.InclRowVersion)
+			//		args.Append(", rowVersion");
+			//	foreach (var updProp in updateProps)
+			//		args.Append($", {updProp.PropertyModel.ArgName}");
+			//}
 
 			output.AddLine(tc, $"public static async Task<IResult> {method.Name}(I{entity.Name}Service {svcVarName}{inputArgs})");
 			output.AddLine(tc, "{");
