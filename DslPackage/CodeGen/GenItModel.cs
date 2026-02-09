@@ -17,8 +17,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly DtoGenerator _dtoGenerator;
 		private readonly RequestGenerator _requestGenerator;
 		private readonly EndpointGenerator _endpointGenerator;
-		private readonly ControllerGenerator _controllerGenerator;
 		private readonly SvcCollExtGenerator _svcCollExtGenerator;
+		private readonly DataSetGenerator _dataSetGenerator;
+		private readonly IDataSetGenerator _iDataSetGenerator;
+		private readonly DataManagerGenerator _dataManagerGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
@@ -32,8 +34,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_dtoGenerator = new DtoGenerator(modelRoot);
 			_requestGenerator = new RequestGenerator(modelRoot);
 			_endpointGenerator = new EndpointGenerator(modelRoot);
-			_controllerGenerator = new ControllerGenerator(modelRoot);
 			_svcCollExtGenerator = new SvcCollExtGenerator(modelRoot);
+			_dataSetGenerator = new DataSetGenerator(modelRoot);
+			_iDataSetGenerator = new IDataSetGenerator(modelRoot);
+			_dataManagerGenerator = new DataManagerGenerator(modelRoot);
 		}
 
 		internal bool Validate(out List<string> errors)
@@ -84,6 +88,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_requestGenerator.GenerateCode();
 			_endpointGenerator.GenerateCode();
 			_svcCollExtGenerator.GenerateCode();
+
+			_dataSetGenerator.GenerateCode();
+			_iDataSetGenerator.GenerateCode();
+			_dataManagerGenerator.GenerateCode();
 		}
 
 		private void ValidateModules(List<string> errors)

@@ -70,8 +70,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Enums tab
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
-			txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+		txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
 
+				// Int Tests tab
+				chkIntTestsEnabled.IsChecked = _modelRoot.IntTestsEnabled;
+				txtIntTestsOutputFolder.Text = _modelRoot.IntTestsOutputFolder ?? string.Empty;
+				txtIntTestsNamespace.Text = _modelRoot.IntTestsNamespace ?? string.Empty;
+
+				// Unit Tests tab
+				chkUnitTestsEnabled.IsChecked = _modelRoot.UnitTestsEnabled;
+				txtUnitTestsOutputFolder.Text = _modelRoot.UnitTestsOutputFolder ?? string.Empty;
+				txtUnitTestsNamespace.Text = _modelRoot.UnitTestsNamespace ?? string.Empty;
 
 				// Permissions tab
 				_permissions = new ObservableCollection<PermissionModel>(ParsePermissions(_modelRoot.Permissions));
@@ -422,6 +431,104 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.EnumsNamespaceDomainPropertyId, txtEnumsNamespace.Text);
+		}
+
+		#endregion
+
+		#region Int Tests Tab Event Handlers
+
+		private void chkIntTestsEnabled_Changed(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsEnabledDomainPropertyId, chkIntTestsEnabled.IsChecked ?? false);
+		}
+
+		private void txtIntTestsOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsOutputFolderDomainPropertyId, txtIntTestsOutputFolder.Text);
+		}
+
+		private void btnBrowseIntTestsFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtIntTestsOutputFolder.Text, "Select Int Tests Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtIntTestsOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModelRoot.IntTestsOutputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtIntTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsNamespaceDomainPropertyId, txtIntTestsNamespace.Text);
+		}
+
+		#endregion
+
+		#region Unit Tests Tab Event Handlers
+
+		private void chkUnitTestsEnabled_Changed(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsEnabledDomainPropertyId, chkUnitTestsEnabled.IsChecked ?? false);
+		}
+
+		private void txtUnitTestsOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsOutputFolderDomainPropertyId, txtUnitTestsOutputFolder.Text);
+		}
+
+		private void btnBrowseUnitTestsFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtUnitTestsOutputFolder.Text, "Select Unit Tests Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtUnitTestsOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModelRoot.UnitTestsOutputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtUnitTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsNamespaceDomainPropertyId, txtUnitTestsNamespace.Text);
 		}
 
 		#endregion

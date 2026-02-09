@@ -977,6 +977,108 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IntTestsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIntTestsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "intTestsOutputFolder");
+				if (attribIntTestsOutputFolder != null)
+				{
+					global::System.String valueOfIntTestsOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribIntTestsOutputFolder, out valueOfIntTestsOutputFolder))
+					{
+						instanceOfModelRoot.IntTestsOutputFolder = valueOfIntTestsOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "intTestsOutputFolder", typeof(global::System.String), attribIntTestsOutputFolder);
+					}
+				}
+			}
+			// IntTestsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIntTestsNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "intTestsNamespace");
+				if (attribIntTestsNamespace != null)
+				{
+					global::System.String valueOfIntTestsNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribIntTestsNamespace, out valueOfIntTestsNamespace))
+					{
+						instanceOfModelRoot.IntTestsNamespace = valueOfIntTestsNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "intTestsNamespace", typeof(global::System.String), attribIntTestsNamespace);
+					}
+				}
+			}
+			// UnitTestsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUnitTestsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "unitTestsOutputFolder");
+				if (attribUnitTestsOutputFolder != null)
+				{
+					global::System.String valueOfUnitTestsOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUnitTestsOutputFolder, out valueOfUnitTestsOutputFolder))
+					{
+						instanceOfModelRoot.UnitTestsOutputFolder = valueOfUnitTestsOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "unitTestsOutputFolder", typeof(global::System.String), attribUnitTestsOutputFolder);
+					}
+				}
+			}
+			// UnitTestsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUnitTestsNamespace = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "unitTestsNamespace");
+				if (attribUnitTestsNamespace != null)
+				{
+					global::System.String valueOfUnitTestsNamespace;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUnitTestsNamespace, out valueOfUnitTestsNamespace))
+					{
+						instanceOfModelRoot.UnitTestsNamespace = valueOfUnitTestsNamespace;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "unitTestsNamespace", typeof(global::System.String), attribUnitTestsNamespace);
+					}
+				}
+			}
+			// IntTestsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIntTestsEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "intTestsEnabled");
+				if (attribIntTestsEnabled != null)
+				{
+					global::System.Boolean valueOfIntTestsEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIntTestsEnabled, out valueOfIntTestsEnabled))
+					{
+						instanceOfModelRoot.IntTestsEnabled = valueOfIntTestsEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "intTestsEnabled", typeof(global::System.Boolean), attribIntTestsEnabled);
+					}
+				}
+			}
+			// UnitTestsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				string attribUnitTestsEnabled = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "unitTestsEnabled");
+				if (attribUnitTestsEnabled != null)
+				{
+					global::System.Boolean valueOfUnitTestsEnabled;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribUnitTestsEnabled, out valueOfUnitTestsEnabled))
+					{
+						instanceOfModelRoot.UnitTestsEnabled = valueOfUnitTestsEnabled;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "unitTestsEnabled", typeof(global::System.Boolean), attribUnitTestsEnabled);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1763,6 +1865,70 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "commonNamespace", propValue);
 	
+				}
+			}
+			// IntTestsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.IntTestsOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "intTestsOutputFolder", propValue);
+	
+				}
+			}
+			// IntTestsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.IntTestsNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "intTestsNamespace", propValue);
+	
+				}
+			}
+			// UnitTestsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.UnitTestsOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsOutputFolder", propValue);
+	
+				}
+			}
+			// UnitTestsNamespace
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.UnitTestsNamespace;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsNamespace", propValue);
+	
+				}
+			}
+			// IntTestsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.IntTestsEnabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "intTestsEnabled", serializedPropValue);
+				}
+			}
+			// UnitTestsEnabled
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfModelRoot.UnitTestsEnabled;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsEnabled", serializedPropValue);
 				}
 			}
 		}

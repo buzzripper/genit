@@ -157,6 +157,18 @@
         </xsd:attribute>
         <!-- Property: CommonNamespace -->
         <xsd:attribute name="commonNamespace" type="xsd:string" />
+        <!-- Property: IntTestsOutputFolder -->
+        <xsd:attribute name="intTestsOutputFolder" type="xsd:string" />
+        <!-- Property: IntTestsNamespace -->
+        <xsd:attribute name="intTestsNamespace" type="xsd:string" />
+        <!-- Property: UnitTestsOutputFolder -->
+        <xsd:attribute name="unitTestsOutputFolder" type="xsd:string" />
+        <!-- Property: UnitTestsNamespace -->
+        <xsd:attribute name="unitTestsNamespace" type="xsd:string" />
+        <!-- Property: IntTestsEnabled -->
+        <xsd:attribute name="intTestsEnabled" type="xsd:boolean" />
+        <!-- Property: UnitTestsEnabled -->
+        <xsd:attribute name="unitTestsEnabled" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

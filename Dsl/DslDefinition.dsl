@@ -110,6 +110,36 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="e1cc2d7f-3a85-41b2-8471-869c36cbb440" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Output Folder" Name="IntTestsOutputFolder" DisplayName="Int Tests Output Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8ba48f4a-a393-4c11-a2ae-4760b07b9511" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Namespace" Name="IntTestsNamespace" DisplayName="Int Tests Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4d5b8979-532d-4b83-909d-b90ccea8846d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Output Folder" Name="UnitTestsOutputFolder" DisplayName="Unit Tests Output Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="09fd5edc-dd7b-41ff-9e77-17d3b6946d8d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Namespace" Name="UnitTestsNamespace" DisplayName="Unit Tests Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2f457050-ccee-46f4-84dc-2a7c1b3aa46d" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Enabled" Name="IntTestsEnabled" DisplayName="Int Tests Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f69d2148-1f21-46be-a554-d9e7f1111b64" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Enabled" Name="UnitTestsEnabled" DisplayName="Unit Tests Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1175,6 +1205,24 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="commonNamespace">
             <DomainPropertyMoniker Name="ModelRoot/CommonNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsOutputFolder">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsOutputFolder">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsEnabled" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

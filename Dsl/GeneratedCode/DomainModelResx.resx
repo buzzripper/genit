@@ -361,6 +361,54 @@
     <value>Common Namespace</value>
     <comment>DisplayName for DomainProperty &apos;CommonNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Output Folder</value>
+    <comment>Description for DomainProperty &apos;IntTestsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsOutputFolder.DisplayName" xml:space="preserve">
+    <value>Int Tests Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Namespace</value>
+    <comment>Description for DomainProperty &apos;IntTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsNamespace.DisplayName" xml:space="preserve">
+    <value>Int Tests Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Output Folder</value>
+    <comment>Description for DomainProperty &apos;UnitTestsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsOutputFolder.DisplayName" xml:space="preserve">
+    <value>Unit Tests Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsOutputFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Namespace</value>
+    <comment>Description for DomainProperty &apos;UnitTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsNamespace.DisplayName" xml:space="preserve">
+    <value>Unit Tests Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Enabled</value>
+    <comment>Description for DomainProperty &apos;IntTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsEnabled.DisplayName" xml:space="preserve">
+    <value>Int Tests Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Enabled</value>
+    <comment>Description for DomainProperty &apos;UnitTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsEnabled.DisplayName" xml:space="preserve">
+    <value>Unit Tests Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>
