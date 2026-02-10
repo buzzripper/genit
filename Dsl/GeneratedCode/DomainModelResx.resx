@@ -517,6 +517,30 @@
     <value>Database</value>
     <comment>Category for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTestData.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Int Test Data</value>
+    <comment>Description for DomainProperty &apos;GenIntTestData&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTestData.DisplayName" xml:space="preserve">
+    <value>Gen Int Test Data</value>
+    <comment>DisplayName for DomainProperty &apos;GenIntTestData&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTests.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Int Tests</value>
+    <comment>Description for DomainProperty &apos;GenIntTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTests.DisplayName" xml:space="preserve">
+    <value>Gen Int Tests</value>
+    <comment>DisplayName for DomainProperty &apos;GenIntTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenUnitTests.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Unit Tests</value>
+    <comment>Description for DomainProperty &apos;GenUnitTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenUnitTests.DisplayName" xml:space="preserve">
+    <value>Gen Unit Tests</value>
+    <comment>DisplayName for DomainProperty &apos;GenUnitTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>

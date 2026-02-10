@@ -210,6 +210,21 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="2ff44f3d-873b-4608-b11b-ba218209f363" Description="Description for Dyvenix.GenIt.EntityModel.Gen Int Test Data" Name="GenIntTestData" DisplayName="Gen Int Test Data" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="053bbd9c-44d9-4f06-b00d-7ecc67cc2709" Description="Description for Dyvenix.GenIt.EntityModel.Gen Int Tests" Name="GenIntTests" DisplayName="Gen Int Tests" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f7c6255e-50fb-44a1-8918-afa953d91131" Description="Description for Dyvenix.GenIt.EntityModel.Gen Unit Tests" Name="GenUnitTests" DisplayName="Gen Unit Tests" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1270,6 +1285,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="tableName">
             <DomainPropertyMoniker Name="EntityModel/TableName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genIntTestData">
+            <DomainPropertyMoniker Name="EntityModel/GenIntTestData" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genIntTests">
+            <DomainPropertyMoniker Name="EntityModel/GenIntTests" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genUnitTests">
+            <DomainPropertyMoniker Name="EntityModel/GenUnitTests" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

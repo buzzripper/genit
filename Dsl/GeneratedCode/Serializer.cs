@@ -2392,6 +2392,57 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// GenIntTestData
+			if (!serializationContext.Result.Failed)
+			{
+				string attribGenIntTestData = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "genIntTestData");
+				if (attribGenIntTestData != null)
+				{
+					global::System.Boolean valueOfGenIntTestData;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenIntTestData, out valueOfGenIntTestData))
+					{
+						instanceOfEntityModel.GenIntTestData = valueOfGenIntTestData;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "genIntTestData", typeof(global::System.Boolean), attribGenIntTestData);
+					}
+				}
+			}
+			// GenIntTests
+			if (!serializationContext.Result.Failed)
+			{
+				string attribGenIntTests = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "genIntTests");
+				if (attribGenIntTests != null)
+				{
+					global::System.Boolean valueOfGenIntTests;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenIntTests, out valueOfGenIntTests))
+					{
+						instanceOfEntityModel.GenIntTests = valueOfGenIntTests;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "genIntTests", typeof(global::System.Boolean), attribGenIntTests);
+					}
+				}
+			}
+			// GenUnitTests
+			if (!serializationContext.Result.Failed)
+			{
+				string attribGenUnitTests = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "genUnitTests");
+				if (attribGenUnitTests != null)
+				{
+					global::System.Boolean valueOfGenUnitTests;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribGenUnitTests, out valueOfGenUnitTests))
+					{
+						instanceOfEntityModel.GenUnitTests = valueOfGenUnitTests;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "genUnitTests", typeof(global::System.Boolean), attribGenUnitTests);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3231,6 +3282,45 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "tableName", propValue);
 	
+				}
+			}
+			// GenIntTestData
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.GenIntTestData;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "genIntTestData", serializedPropValue);
+					}
+				}
+			}
+			// GenIntTests
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.GenIntTests;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "genIntTests", serializedPropValue);
+					}
+				}
+			}
+			// GenUnitTests
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.GenUnitTests;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					if (serializationContext.WriteOptionalPropertiesWithDefaultValue || string.CompareOrdinal(serializedPropValue, "true") != 0)
+					{	// No need to write the value out if it's the same as default value.
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "genUnitTests", serializedPropValue);
+					}
 				}
 			}
 		}

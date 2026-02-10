@@ -78,8 +78,8 @@
   <ItemGroup>
     <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
-    <Compile Include="CodeGen\Generators\IDataSetGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
+    <Compile Include="CodeGen\Generators\TestDataSetGenerator.cs" />
     <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\SvcCollExtGenerator.cs" />

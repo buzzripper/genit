@@ -325,6 +325,12 @@
             <xsd:documentation>Database table name for the entity</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: GenIntTestData -->
+        <xsd:attribute name="genIntTestData" type="xsd:boolean" />
+        <!-- Property: GenIntTests -->
+        <xsd:attribute name="genIntTests" type="xsd:boolean" />
+        <!-- Property: GenUnitTests -->
+        <xsd:attribute name="genUnitTests" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

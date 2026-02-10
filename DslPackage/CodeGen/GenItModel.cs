@@ -19,7 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly EndpointGenerator _endpointGenerator;
 		private readonly SvcCollExtGenerator _svcCollExtGenerator;
 		private readonly DataSetGenerator _dataSetGenerator;
-		private readonly IDataSetGenerator _iDataSetGenerator;
+		private readonly TestDataGenerator _testDataGenerator;
 		private readonly DataManagerGenerator _dataManagerGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
@@ -36,7 +36,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_endpointGenerator = new EndpointGenerator(modelRoot);
 			_svcCollExtGenerator = new SvcCollExtGenerator(modelRoot);
 			_dataSetGenerator = new DataSetGenerator(modelRoot);
-			_iDataSetGenerator = new IDataSetGenerator(modelRoot);
+			_testDataGenerator = new TestDataGenerator(modelRoot);
 			_dataManagerGenerator = new DataManagerGenerator(modelRoot);
 		}
 
@@ -89,9 +89,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_endpointGenerator.GenerateCode();
 			_svcCollExtGenerator.GenerateCode();
 
-			_dataSetGenerator.GenerateCode();
-			_iDataSetGenerator.GenerateCode();
-			_dataManagerGenerator.GenerateCode();
+			if (_modelRoot.IntTestsEnabled)
+			{
+				_dataSetGenerator.GenerateCode();
+				_testDataGenerator.GenerateCode();
+				_dataManagerGenerator.GenerateCode();
+			}
 		}
 
 		private void ValidateModules(List<string> errors)

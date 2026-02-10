@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 {
@@ -102,6 +104,48 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 
 			var firstChar = input.Substring(0, 1).ToLower();
 			return $"{firstChar}{input.Substring(1)}";
+		}
+
+		public static List<EntityModel> SortEntitiesForDeletion(List<EntityModel> entities)
+		{
+			var entityMap = entities.ToDictionary(e => e.Name, e => e);
+			var visited = new HashSet<string>();
+			var inProgress = new HashSet<string>();
+			var sorted = new List<EntityModel>();
+
+			foreach (var entity in entities)
+				SortForDeletionVisit(entity.Name, entityMap, visited, inProgress, sorted);
+
+			return sorted;
+		}
+
+		public static List<EntityModel> SortEntitiesForCreation(List<EntityModel> entities)
+		{
+			return SortEntitiesForDeletion(entities).Reverse<EntityModel>().ToList();
+		}
+
+		private static void SortForDeletionVisit(string name, Dictionary<string, EntityModel> entityMap, HashSet<string> visited, HashSet<string> inProgress, List<EntityModel> sorted)
+		{
+			if (visited.Contains(name))
+				return;
+			if (inProgress.Contains(name))
+				return;
+
+			inProgress.Add(name);
+
+			var entity = entityMap[name];
+			foreach (var navProp in entity.NavigationProperties)
+			{
+				var targetName = navProp.TargetEntityName;
+				if (string.IsNullOrEmpty(targetName) || !entityMap.ContainsKey(targetName) || targetName == name)
+					continue;
+
+				SortForDeletionVisit(targetName, entityMap, visited, inProgress, sorted);
+			}
+
+			inProgress.Remove(name);
+			visited.Add(name);
+			sorted.Add(entity);
 		}
 	}
 }
