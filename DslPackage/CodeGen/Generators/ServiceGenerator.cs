@@ -46,7 +46,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists(u);
 
 			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
-				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
 
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
 				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
@@ -69,7 +69,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 						foreach (var filterProp in method.FilterProperties)
 						{
 							if (filterProp.IsInternal && string.IsNullOrWhiteSpace(filterProp.InternalValue))
-								errors.Add($"Read method {method.Name} (v{service.Version}) on entity '{entity.Name}' has filter property for '{filterProp.PropertyModel.Name}' which is set to Internal, but no value is supplied.");
+								errors.Add($"Read method {method.Name} ({service.Version}) on entity '{entity.Name}' has filter property for '{filterProp.PropertyModel.Name}' which is set to Internal, but no value is supplied.");
 						}
 					}
 				}
@@ -219,7 +219,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.v{serviceModel.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public interface I{entity.Name}Service");
 			fileContent.AddLine(0, "{");
@@ -242,7 +242,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(module.ServicesFolder, $"v{serviceModel.Version}");
+			var outputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{serviceName}.cs");
 

@@ -18,7 +18,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.Requests");
 			usings.AddIfNotExists(entity.ModelRoot.EntitiesNamespace);
 			if (service.UpdateMethods.Any() || service.ReadMethods.Any(m => m.UseRequest))
-				usings.AddIfNotExists($"{module.RequestNamespace}.v{service.Version}");
+				usings.AddIfNotExists($"{module.RequestNamespace}.{service.Version}");
 
 			// Interface signatures
 			var interfaceOutput = new List<string>();
@@ -89,7 +89,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Shared.ApiClients.v{service.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Shared.ApiClients.{service.Version};");
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public interface I{apiClientName}");
 			fileContent.AddLine(0, "{");
@@ -146,7 +146,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(module.ApiClientsFolder, $"v{service.Version}");
+			var outputDir = Path.Combine(module.ApiClientsFolder, $"{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{apiClientName}.cs");
 
@@ -226,7 +226,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return await PatchAsync<byte[]>($\"api/v{service.Version}/{entity.Name}/{method.Name}\", request);");
+			output.AddLine(tc + 1, $"return await PatchAsync<byte[]>($\"api/{service.Version}/{entity.Name}/{method.Name}\", request);");
 			output.AddLine(tc, "}");
 		}
 

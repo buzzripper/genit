@@ -38,7 +38,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
-			_usings.Add($"{module.Namespace}.Services.v{serviceModel.Version}");
+			_usings.Add($"{module.Namespace}.Services.{serviceModel.Version}");
 			_usings.AddLine(0, $"{module.Namespace}.Api.Extensions");
 			_usings.AddLine(0, $"{entity.ModelRoot.CommonNamespace}.Api.Filters");
 			_usings.AddLine(0, $"{entity.ModelRoot.CommonNamespace}.Shared.Requests");
@@ -50,7 +50,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists(u);
 
 			if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
-				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
+				_usings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
 		}
 
 		internal void Validate(List<string> errors)
@@ -167,7 +167,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.Add(CodeGenUtils.FileHeader);
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Endpoints.v{serviceModel.Version};");
+			fileContent.AddLine(0, $"namespace {module.Namespace}.Endpoints.{serviceModel.Version};");
 			fileContent.AddLine();
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
@@ -219,7 +219,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var fileContents = fileContent.AsString();
 
-			var outputDir = Path.Combine(module.EndpointsFolder, $"v{serviceModel.Version}");
+			var outputDir = Path.Combine(module.EndpointsFolder, $"{serviceModel.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{className}.cs");
 
@@ -234,7 +234,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			lines.AddLine(0, $"public static IEndpointRouteBuilder Map{entity.Name}Endpoints(this IEndpointRouteBuilder app)");
 			lines.AddLine(0, "{");
-			lines.AddLine(1, $"var group = app.MapGroup(\"api/{module.Name.ToLower()}/v{serviceModel.Version}/{entity.Name.ToLower()}\")");
+			lines.AddLine(1, $"var group = app.MapGroup(\"api/{module.Name.ToLower()}/{serviceModel.Version}/{entity.Name.ToLower()}\")");
 			lines.AddLine(2, $".WithTags(\"{entity.Name}\");");
 			lines.AddLines(1, mapMethods);
 			lines.AddLine();

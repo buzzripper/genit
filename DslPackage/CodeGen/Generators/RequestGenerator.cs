@@ -89,7 +89,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.v{service.Version};");
+			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.{service.Version};");
 
 			// Class declaration
 			if (readMethod.InclPaging || readMethod.InclSorting)
@@ -128,7 +128,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContent.AddLine(0, "}");
 
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"v{service.Version}");
+			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 			var outputFilepath = Path.Combine(outputDir, $"{requestName}.cs");
 

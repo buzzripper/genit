@@ -90,7 +90,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private string BuildNamespace(ModuleModel module, string version)
 		{
-			return $"{module.Namespace}.Services.v{version}";
+			return $"{module.Namespace}.Services.{version}";
 		}
 
 	}

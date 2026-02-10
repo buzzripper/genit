@@ -262,7 +262,7 @@ namespace Dyvenix.GenIt
 				{
 					// Determine the version number based on existing services
 					int nextVersion = entityModel.ServiceModels.Count + 1;
-					string versionString = $"v{nextVersion}";
+					string versionString = $"{nextVersion}";
 
 					// Create the new ServiceModel
 					ServiceModel newService = new ServiceModel(entityModel.Store);

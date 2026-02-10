@@ -35,7 +35,7 @@
 //			_usings.AddLine(0, "Dyvenix.App1.Common.Api.Filters");
 //			_usings.AddLines(0, _modelRoot.UsingsList);
 //			_usings.Add(_modelRoot.EntitiesNamespace);
-//			_usings.Add($"{module.Namespace}.Services.v{serviceModel.Version}");
+//			_usings.Add($"{module.Namespace}.Services.{serviceModel.Version}");
 
 //			foreach (var u in entity.UsingsList)
 //				_usings.AddIfNotExists(u);
@@ -44,7 +44,7 @@
 //				_usings.AddIfNotExists(u);
 
 //			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
-//				_usings.AddIfNotExists($"{module.RequestNamespace}.v{serviceModel.Version}");
+//				_usings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
 //		}
 
 //		internal void Validate(List<string> errors)
@@ -72,7 +72,7 @@
 //		private void GenerateController(EntityModel entity, ServiceModel serviceModel)
 //		{
 //			var module = _modules[entity.Module];
-//			var controllerOutputDir = Path.Combine(module.ControllersFolder, $"v{serviceModel.Version}");
+//			var controllerOutputDir = Path.Combine(module.ControllersFolder, $"{serviceModel.Version}");
 //			ResetUsings(entity, serviceModel, module);
 //			Directory.CreateDirectory(controllerOutputDir);  // Ensure output dir exists
 //			var controllerName = $"{entity.Name}Controller";
@@ -157,7 +157,7 @@
 //				fileContent.Add(CodeGenUtils.FileHeader);
 //			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 //			fileContent.AddLine();
-//			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.v{serviceModel.Version};");
+//			fileContent.AddLine(0, $"namespace {module.Namespace}.Controllers.{serviceModel.Version};");
 //			fileContent.AddLine();
 //			fileContent.AddLines(0, attrs);
 //			fileContent.AddLines(0, declaration);
@@ -222,7 +222,7 @@
 
 //			var fileContents = fileContent.AsString();
 
-//			var outputDir = Path.Combine(module.ControllersFolder, $"v{serviceModel.Version}");
+//			var outputDir = Path.Combine(module.ControllersFolder, $"{serviceModel.Version}");
 //			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
 //			var outputFilepath = Path.Combine(outputDir, $"{controllerName}.cs");
 
@@ -238,7 +238,7 @@
 //			attrs.AddLine(0, "[ApiController]");
 //			attrs.AddLine(0, $"[ServiceFilter(typeof(ApiExceptionFilter<{serviceClassName}>))]");
 //			attrs.AddLine(0, $"[Asp.Versioning.ApiVersion(\"{serviceModel.Version}\")]");
-//			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/v{{version:apiVersion}}/[controller]\")]");
+//			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/{{version:apiVersion}}/[controller]\")]");
 //			attrs.AddLine(0, $"[Route(\"api/{module.Name.ToLower()}/[controller]\")]");
 
 //			foreach (var a in serviceModel.ControllerAttributesList)
