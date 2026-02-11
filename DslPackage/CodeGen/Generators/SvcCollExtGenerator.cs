@@ -39,7 +39,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLines(0, GenerateUsings(module));
 
 				fileContent.AddLine();
-				fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Config;");
+				fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
 				fileContent.AddLine();
 				fileContent.AddLine(0, "public static partial class ServiceCollectionExt");
 				fileContent.AddLine(0, "{");
@@ -50,9 +50,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(0, "}");
 
 				// Save to file
-				var outputDir = module.ApiConfigFolder;
+				var outputDir = module.ApiExtensionsFolder;
 				Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-				var outputFilepath = Path.Combine(outputDir, $"ServiceCollectionExt.part.cs");
+				var outputFilepath = Path.Combine(outputDir, $"ServiceCollectionExt.g.cs");
 				FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 				OutputHelper.Write($"Completed code gen for module: {module.Name}");

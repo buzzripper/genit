@@ -37,6 +37,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var createMethodsOutput = new List<string>();
 			if (service.InclCreate)
 			{
+				createMethodsOutput.AddLine();
 				createMethodsOutput.AddLine(0, "#region Create");
 				this.GenerateCreateMethod(entity, createMethodsOutput, interfaceOutput);
 				createMethodsOutput.AddLine();

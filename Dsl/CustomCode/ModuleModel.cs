@@ -126,6 +126,17 @@ namespace Dyvenix.GenIt
 		}
 
 		[Browsable(false)]
+		public string ApiExtensionsFolder
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(this.RootFolder))
+					return null;
+				return Path.Combine(this.RootFolder, $"{this.Name}.Api", "Extensions");
+			}
+		}
+
+		[Browsable(false)]
 		public string ApiClientsFolder
 		{
 			get
