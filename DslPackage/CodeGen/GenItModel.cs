@@ -17,7 +17,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly DtoGenerator _dtoGenerator;
 		private readonly RequestGenerator _requestGenerator;
 		private readonly EndpointGenerator _endpointGenerator;
-		private readonly SvcCollExtGenerator _svcCollExtGenerator;
+		private readonly ApiSvcCollExtGenerator _apiSvcCollExtGenerator;
+		private readonly SharedSvcCollExtGenerator _sharedSvcCollExtGenerator;
 		private readonly DataSetGenerator _dataSetGenerator;
 		private readonly TestDataGenerator _testDataGenerator;
 		private readonly DataManagerGenerator _dataManagerGenerator;
@@ -34,7 +35,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_dtoGenerator = new DtoGenerator(modelRoot);
 			_requestGenerator = new RequestGenerator(modelRoot);
 			_endpointGenerator = new EndpointGenerator(modelRoot);
-			_svcCollExtGenerator = new SvcCollExtGenerator(modelRoot);
+			_apiSvcCollExtGenerator = new ApiSvcCollExtGenerator(modelRoot);
+			_sharedSvcCollExtGenerator = new SharedSvcCollExtGenerator(modelRoot);
 			_dataSetGenerator = new DataSetGenerator(modelRoot);
 			_testDataGenerator = new TestDataGenerator(modelRoot);
 			_dataManagerGenerator = new DataManagerGenerator(modelRoot);
@@ -87,7 +89,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_dtoGenerator.GenerateCode();
 			_requestGenerator.GenerateCode();
 			_endpointGenerator.GenerateCode();
-			_svcCollExtGenerator.GenerateCode();
+			_apiSvcCollExtGenerator.GenerateCode();
+			_sharedSvcCollExtGenerator.GenerateCode();
 
 			if (_modelRoot.IntTestsEnabled)
 			{

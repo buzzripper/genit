@@ -77,12 +77,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
+    <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
     <Compile Include="CodeGen\Generators\TestDataSetGenerator.cs" />
     <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
-    <Compile Include="CodeGen\Generators\SvcCollExtGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ApiSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
     <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
     <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />

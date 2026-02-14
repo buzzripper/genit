@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-	internal class SvcCollExtGenerator
+	internal class ApiSvcCollExtGenerator
 	{
 		private readonly ModelRoot _modelRoot;
 		private readonly Dictionary<ModuleModel, List<EntityModel>> _modules = new Dictionary<ModuleModel, List<EntityModel>>();
 
-		internal SvcCollExtGenerator(ModelRoot modelRoot)
+		internal ApiSvcCollExtGenerator(ModelRoot modelRoot)
 		{
 			// Convenience vars
 			_modelRoot = modelRoot;
@@ -41,7 +41,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine();
 				fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
 				fileContent.AddLine();
-				fileContent.AddLine(0, "public static partial class ServiceCollectionExt");
+				fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
 				fileContent.AddLine(0, "{");
 				fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services)");
 				fileContent.AddLine(1, "{");
@@ -52,7 +52,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				// Save to file
 				var outputDir = module.ApiExtensionsFolder;
 				Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-				var outputFilepath = Path.Combine(outputDir, $"ServiceCollectionExt.g.cs");
+				var outputFilepath = Path.Combine(outputDir, $"{module.Name}ApiServiceCollExt.g.cs");
 				FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 				OutputHelper.Write($"Completed code gen for module: {module.Name}");
@@ -64,11 +64,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 			lines.AddLine(0, "using Microsoft.Extensions.DependencyInjection;");
 			lines.AddLine(0, "using Microsoft.Extensions.Logging;");
-			lines.AddLine(0, "using Dyvenix.App1.Common.Api.Filters;");
+			lines.AddLine(0, $"using {_modelRoot.CommonNamespace}.Api.Filters;");
 
 			var versions = _modules[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
 			foreach (var version in versions)
-				lines.AddLine(0, $"using {BuildNamespace(module, version)};");
+			{
+				lines.AddLine(0, $"using s{version} = {module.Namespace}.Api.Services.{version};");
+				lines.AddLine(0, $"using c{version} = {module.Namespace}.Shared.Contracts.{version};");
+			}
 
 			return lines;
 		}
@@ -78,20 +81,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var lines = new List<string>();
 
 			foreach (var entity in _modules[module].Where(e => e.GenerateCode))
-				foreach (var service in entity.ServiceModels)
+			{
+				lines.AddLine(0, $"// {entity.Name}Service");
+				foreach (var service in entity.ServiceModels.OrderBy(s => s.Version))
 				{
-					var ns = BuildNamespace(module, service.Version);
-					lines.AddLine(0, $"services.AddScoped<{ns}.I{entity.Name}Service, {ns}.{entity.Name}Service>();");
-					lines.AddLine(0, $"services.AddScoped<ApiExceptionFilter<{ns}.{entity.Name}Service>>();");
+					lines.AddLine(0, $"services.AddScoped<c{service.Version}.I{entity.Name}Service, s{service.Version}.{entity.Name}Service>();");
+					lines.AddLine(0, $"services.AddScoped<ApiExceptionFilter< s{service.Version}.{entity.Name}Service>>();");
 				}
+			}
 
 			return lines;
 		}
-
-		private string BuildNamespace(ModuleModel module, string version)
-		{
-			return $"{module.Namespace}.Services.{version}";
-		}
-
 	}
 }

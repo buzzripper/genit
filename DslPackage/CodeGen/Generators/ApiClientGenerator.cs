@@ -17,15 +17,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.ApiClients");
 			usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.Requests");
 			usings.AddIfNotExists(entity.ModelRoot.EntitiesNamespace);
+			usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
 			if (service.UpdateMethods.Any() || service.ReadMethods.Any(m => m.UseRequest))
 				usings.AddIfNotExists($"{module.RequestNamespace}.{service.Version}");
+			if (service.ReadMethods.Any(m => m.InclPaging))
+				usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.DTOs");
 
 			// Interface signatures
 			var interfaceOutput = new List<string>();
 
 			// Declaration
 			var declaration = new List<string>();
-			declaration.AddLine(0, $"public partial class {apiClientName} : ApiClientBase, I{apiClientName}");
+			declaration.AddLine(0, $"public partial class {apiClientName} : ApiClientBase, I{entity.Name}Service");
 
 			// Constructor
 			var constructor = new List<string>();
@@ -92,11 +95,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.Shared.ApiClients.{service.Version};");
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"public interface I{apiClientName}");
-			fileContent.AddLine(0, "{");
-			fileContent.AddLines(1, interfaceOutput.Select(i => $"{i};").ToList());
-			fileContent.AddLine(0, "}");
-			fileContent.AddLine();
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
 			fileContent.AddLines(1, constructor);
@@ -149,7 +147,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var outputDir = Path.Combine(module.ApiClientsFolder, $"{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{apiClientName}.cs");
+			var outputFilepath = Path.Combine(outputDir, $"{apiClientName}.g.cs");
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
@@ -163,7 +161,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var varName = className.ToCamelCase();
 
 			// Interface
-			var signature = $"Task<Guid> Create{className}({className} {varName})";
+			var signature = $"Task Create{className}({className} {varName})";
 			interfaceOutput.Add(signature);
 
 			output.AddLine();
@@ -171,7 +169,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
 			output.AddLine();
-			output.AddLine(tc + 1, $"return await PostAsync<Guid>(\"api/v1/{className}/Create{className}\", {varName});");
+			output.AddLine(tc + 1, $"await PostAsync(\"api/v1/{className}/Create{className}\", {varName});");
 			output.AddLine(tc, "}");
 		}
 
@@ -182,7 +180,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var varName = className.ToCamelCase();
 
 			// Interface
-			var signature = $"Task<bool> Delete{className}(Guid id)";
+			var signature = $"Task Delete{className}(Guid id)";
 			interfaceOutput.Add(signature);
 
 			output.AddLine();
@@ -192,7 +190,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, "throw new ArgumentNullException(nameof(id));");
 			output.AddLine();
 			output.AddLine(tc + 1, "var deleteReq = new DeleteReq { Id = id };	");
-			output.AddLine(tc + 1, $"return await DeleteAsync<bool>($\"api/v1/{className}/Delete{className}\", deleteReq);");
+			output.AddLine(tc + 1, $"await DeleteAsync<bool>($\"api/v1/{className}/Delete{className}\", deleteReq);");
 			output.AddLine(tc, "}");
 		}
 
@@ -201,16 +199,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var tc = 0;
 			var className = entity.Name;
 			var varName = className.ToCamelCase();
+			var returnType = entity.InclRowVersion ? "<byte[]>" : null;
+			var returnStr = entity.InclRowVersion ? "return " : null;
+			var returnContent = entity.InclRowVersion ? $" {varName}.RowVersion" : null;
+			var resultType = entity.InclRowVersion ? "<byte[]>" : null;
 
 			// Interface
-			var signature = $"Task<byte[]> Update{className}({className} {varName})";
+			var signature = $"Task{returnType} Update{className}({className} {varName})";
 			interfaceOutput.Add(signature);
 
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-			output.AddLine(tc + 1, $"return await PutAsync<byte[]>(\"api/v1/{className}/Update{className}\", {varName});");
+			output.AddLine(tc + 1, $"{returnStr}await PutAsync{returnType}(\"api/v1/{className}/Update{className}\", {varName});");
 			output.AddLine(tc, "}");
 		}
 
@@ -218,7 +220,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var tc = 0;
 
-			var signature = $"Task<byte[]> {method.Name}({method.Name}Req request)";
+			var returnType = entity.InclRowVersion ? "<byte[]>" : null;
+			var returnStr = entity.InclRowVersion ? "return " : null;
+			var signature = $"Task{returnType} {method.Name}({method.Name}Req request)";
 
 			// Interface
 			interfaceOutput.Add(signature);
@@ -227,7 +231,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return await PatchAsync<byte[]>($\"api/{service.Version}/{entity.Name}/{method.Name}\", request);");
+			output.AddLine(tc + 1, $"{returnStr}await PatchAsync{returnType}($\"api/{service.Version}/{entity.Name}/{method.Name}\", request);");
 			output.AddLine(tc, "}");
 		}
 
@@ -245,52 +249,43 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = method.IsList ? $"List<{entity.Name}>" : entity.Name;
-
 			var sbSigArgs = new StringBuilder();
 			var sbRoute = new StringBuilder();
 			var sbQry = new StringBuilder();
-			var c = 0;
-
-			// Required properties first
-			foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && !fp.IsOptional))
+			if (method.UseRequest)
 			{
-				if (c++ > 0)
-					sbSigArgs.Append(", ");
-				sbSigArgs.Append($"{filterProp.PropertyModel.CSType} {filterProp.PropertyModel.ArgName}");
+				sbSigArgs.Append($"{method.Name}Req request");
+			}
+			else
+			{
+				// Required params first, in url segments, and then optional as query params
+				string nullStr = null;
+				foreach (var reqFilterProp in method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal).ToList())
+				{
+					// Args
+					if (sbSigArgs.Length > 0)
+						sbSigArgs.Append(", ");
+					sbSigArgs.Append($"{reqFilterProp.PropertyModel.CSType}{nullStr} {reqFilterProp.PropertyModel.ArgName}");
+					// Query
+					sbRoute.Append($"/{{{reqFilterProp.PropertyModel.ArgName}}}");
+				}
 
-				sbRoute.Append($"/{{{filterProp.PropertyModel.ArgName}}}");
+				foreach (var optFilterProp in method.FilterProperties.Where(fp => fp.IsOptional && !fp.IsInternal).ToList())
+				{
+					// Args
+					if (sbSigArgs.Length > 0)
+						sbSigArgs.Append(", ");
+					sbSigArgs.Append($"{optFilterProp.PropertyModel.CSType}? {optFilterProp.PropertyModel.ArgName} = null");
+
+					if (sbQry.Length == 0)
+						sbQry.Append("?");
+					else
+						sbQry.Append("&");
+					sbQry.Append($"{optFilterProp.PropertyModel.ArgName}={{{optFilterProp.PropertyModel.ArgName}}}");
+				}
 			}
 
-			// Optional properties next
-			foreach (var filterProp in method.FilterProperties.Where(fp => !fp.IsInternal && fp.IsOptional))
-			{
-				if (c++ > 0)
-					sbSigArgs.Append(", ");
-				var nullChar = filterProp.IsOptional ? "?" : string.Empty;
-				sbSigArgs.Append($"{filterProp.PropertyModel.CSType}{nullChar} {filterProp.PropertyModel.ArgName} = null");
-
-				if (sbQry.Length == 0)
-					sbQry.Append("?");
-				else
-					sbQry.Append("&");
-				sbQry.Append($"{filterProp.PropertyModel.ArgName}={{{filterProp.PropertyModel.ArgName}}}");
-			}
-
-			// Finally paging
-			if (method.InclPaging)
-			{
-				if (sbSigArgs.Length > 0)
-					sbSigArgs.Append(", ");
-				sbSigArgs.Append("int pgSize = 0, int pgOffset = 0");
-
-				if (sbQry.Length == 0)
-					sbQry.Append("?");
-				else
-					sbQry.Append("&");
-				sbQry.Append($"pgSize={{pgSize}}&pgOffset={{pgOffset}}");
-			}
-
+			string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : method.IsList ? $"List<{entity.Name}>" : entity.Name;
 			var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
 
 			// Interface
@@ -302,31 +297,5 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 1, $"return await GetAsync<{returnType}>($\"api/v1/{className}/{method.Name}{sbRoute}{sbQry}\");");
 			output.AddLine(tc, "}");
 		}
-
-		//private void GenerateQueryMethod(EntityModel entity, ReadMethodModel queryMethod, List<string> output, List<string> interfaceOutput)
-		//{
-		//	var tc = 1;
-		//	var className = entity.Name;
-		//	var queryClassName = $"{queryMethod.Name}Query";
-
-		//	output.AddLine();
-
-		//	// Attributes
-		//	if (queryMethod.Attributes.Any())
-		//		foreach (var attr in queryMethod.Attributes)
-		//			output.AddLine(tc, $"[{attr}]");
-
-		//	// Interface
-		//	var signature = $"Task<EntityList<{className}>>{queryMethod.Name}({queryClassName} query)";
-		//	interfaceOutput.Add(signature);
-
-		//	// Method
-		//	output.AddLine(tc, $"public async {signature}");
-		//	output.AddLine(tc, "{");
-		//	output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull(query);");
-		//	output.AddLine();
-		//	output.AddLine(tc + 1, $"return await PostAsync<EntityList<{className}>>(\"api/v1/{className}/{queryMethod.Name}\", query);");
-		//	output.AddLine(tc, "}");
-		//}
 	}
 }

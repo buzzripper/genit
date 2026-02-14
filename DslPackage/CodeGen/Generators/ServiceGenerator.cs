@@ -38,6 +38,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.AddLines(0, _modelRoot.UsingsList);
 			_usings.Add(_modelRoot.EntitiesNamespace);
 			_usings.Add(_modelRoot.DbContextNamespace);
+			_usings.Add($"{_modelRoot.CommonNamespace}.Shared.Exceptions");
+			_usings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+			_usings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}");
 
 			foreach (var u in entity.UsingsList)
 				_usings.AddIfNotExists(u);
@@ -49,7 +52,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				_usings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
 
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
+			{
 				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+			}
+
+			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
 		}
 
 		internal void Validate(List<string> errors)
@@ -98,7 +108,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
 
 			// Interface contents
-			var interfaceContent = new List<string>();
+			var interfaceLines = new List<string>();
 
 			// Attributes
 			var serviceAttrs = BuildServiceAttributes(serviceModel);
@@ -125,12 +135,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Create
 			var createMethodOutput = new List<string>();
 			if (serviceModel.InclCreate)
-				serviceMethodGenerator.GenerateCreateMethod(entity, createMethodOutput, interfaceContent);
+				serviceMethodGenerator.GenerateCreateMethod(entity, createMethodOutput, interfaceLines);
 
 			// Delete
 			var deleteMethodsOutput = new List<string>();
 			if (serviceModel.InclDelete)
-				serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceContent);
+				serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
 
 			// Update 
 			var updMethodsOutput = new List<string>();
@@ -141,12 +151,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 				// Full update method
 				if (serviceModel.InclUpdate)
-					serviceMethodGenerator.GenerateFullUpdateMethod(entity, updMethodsOutput, interfaceContent);
+					serviceMethodGenerator.GenerateFullUpdateMethod(entity, updMethodsOutput, interfaceLines);
 
 				// Normal update methods
 				foreach (var updMethod in serviceModel.UpdateMethods)
 				{
-					serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceContent);
+					serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceLines);
 				}
 
 				updMethodsOutput.AddLine();
@@ -162,7 +172,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					singleMethodsOutput.AddLine();
 					singleMethodsOutput.AddLine(0, "#region Read - Single");
 				}
-				serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceContent);
+				serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceLines);
 			}
 			if (singleMethodsOutput.Count > 0)
 			{
@@ -179,30 +189,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					listMethodsOutput.AddLine();
 					listMethodsOutput.AddLine(0, "#region Read - List");
 				}
-				serviceMethodGenerator.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceContent);
+				serviceMethodGenerator.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceLines);
 			}
 			if (listMethodsOutput.Count > 0)
 			{
 				listMethodsOutput.AddLine();
 				listMethodsOutput.AddLine(0, "#endregion");
 			}
-
-			//// Search methods - query
-			//var queryMethodsOutput = new List<string>();
-			//foreach (var queryMethod in serviceModel.ReadMethods.Where(m => m.UseRequest))
-			//{
-			//	if (queryMethodsOutput.Count == 0)
-			//	{
-			//		queryMethodsOutput.AddLine();
-			//		queryMethodsOutput.AddLine(1, "#region Search Methods");
-			//	}
-			//	serviceMethodGenerator.GenerateSearchMethod(entity, queryMethod, queryMethodsOutput, interfaceContent);
-			//}
-			//if (queryMethodsOutput.Count > 0)
-			//{
-			//	queryMethodsOutput.AddLine();
-			//	queryMethodsOutput.AddLine(1, "#endregion");
-			//}
 
 			// Sorting method
 			if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
@@ -211,42 +204,52 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				listMethodsOutput.AddLine();
 			}
 
-			// Write the file
+			// Write the service file
 
-			var fileContent = new List<string>();
+			var svcFileContent = new List<string>();
 
 			if (_modelRoot.InclHeader)
-				fileContent.Add(CodeGenUtils.FileHeader);
-			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.Namespace}.Services.{serviceModel.Version};");
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"public interface I{entity.Name}Service");
-			fileContent.AddLine(0, "{");
-			fileContent.AddLines(1, interfaceContent);
-			fileContent.AddLine(0, "}");
-			fileContent.AddLine();
-			fileContent.AddLines(0, serviceAttrs);
-			fileContent.AddLines(0, declaration);
-			fileContent.AddLine(0, "{");
-			fileContent.AddLines(0, fields);
-			fileContent.AddLine();
-			fileContent.AddLines(1, constructor);
-			fileContent.AddLines(0, createMethodOutput);
-			fileContent.AddLines(0, deleteMethodsOutput);
-			fileContent.AddLines(0, updMethodsOutput);
-			fileContent.AddLines(1, singleMethodsOutput);
-			fileContent.AddLines(1, listMethodsOutput);
-			//fileContent.AddLines(0, queryMethodsOutput);
-			fileContent.AddLine(0, "}");
+				svcFileContent.Add(CodeGenUtils.FileHeader);
+			svcFileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
+			svcFileContent.AddLine();
+			svcFileContent.AddLine(0, $"namespace {module.Namespace}.Api.Services.{serviceModel.Version};");
+			svcFileContent.AddLine();
+			svcFileContent.AddLines(0, serviceAttrs);
+			svcFileContent.AddLines(0, declaration);
+			svcFileContent.AddLine(0, "{");
+			svcFileContent.AddLines(0, fields);
+			svcFileContent.AddLine();
+			svcFileContent.AddLines(1, constructor);
+			svcFileContent.AddLines(0, createMethodOutput);
+			svcFileContent.AddLines(0, deleteMethodsOutput);
+			svcFileContent.AddLines(0, updMethodsOutput);
+			svcFileContent.AddLines(1, singleMethodsOutput);
+			svcFileContent.AddLines(1, listMethodsOutput);
+			svcFileContent.AddLine(0, "}");
 
-			var fileContents = fileContent.AsString();
+			var svcOutputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
+			Directory.CreateDirectory(svcOutputDir);  // Ensure output dir exists
+			var svcOutputFilepath = Path.Combine(svcOutputDir, $"{serviceName}.g.cs");
+			FileHelper.SaveFile(svcOutputFilepath, svcFileContent.AsString());
 
-			var outputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
-			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{serviceName}.cs");
+			// Write the interface file
 
-			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+			var intFileContent = new List<string>();
+			if (_modelRoot.InclHeader)
+				intFileContent.Add(CodeGenUtils.FileHeader);
+			intFileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
+			intFileContent.AddLine();
+			intFileContent.AddLine(0, $"namespace {module.Namespace}.Shared.Contracts.{serviceModel.Version};");
+			intFileContent.AddLine();
+			intFileContent.AddLine(0, $"public interface I{entity.Name}Service");
+			intFileContent.AddLine(0, "{");
+			intFileContent.AddLines(1, interfaceLines);
+			intFileContent.AddLine(0, "}");
+
+			var intOutputDir = Path.Combine(module.RootFolder, $"{module.Name}.Shared", "Contracts", $"{serviceModel.Version}");
+			Directory.CreateDirectory(intOutputDir);  // Ensure output dir exists
+			var intOutputFilepath = Path.Combine(intOutputDir, $"I{serviceName}.g.cs");
+			FileHelper.SaveFile(intOutputFilepath, intFileContent.AsString());
 
 			OutputHelper.Write($"Completed code gen for service: {serviceName}");
 		}

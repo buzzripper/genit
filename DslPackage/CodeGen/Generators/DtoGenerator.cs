@@ -105,7 +105,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{dtoName}.cs");
+			var outputFilepath = Path.Combine(outputDir, $"{dtoName}.g.cs");
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 

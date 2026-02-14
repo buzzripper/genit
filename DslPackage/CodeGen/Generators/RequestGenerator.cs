@@ -51,9 +51,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var requestName = $"{readMethod.Name}Req";
 			string interfaceDecl = null;
 
-			// Need 'Models' namespace if using IPaging or ISorting
+			// Need 'Requests' namespace if using IPaging or ISorting
 			if (readMethod.InclPaging || readMethod.InclSorting)
-				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Models");
+				_usings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
 
 			// If any non-primitive property, add entities namespace
 			if (readMethod.FilterProperties.Any(x => !DataTypes.IsPrimitive(x.PropertyModel.DataType)))
@@ -130,7 +130,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"{service.Version}");
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{requestName}.cs");
+			var outputFilepath = Path.Combine(outputDir, $"{requestName}.g.cs");
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 

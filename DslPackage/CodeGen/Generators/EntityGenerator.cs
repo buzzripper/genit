@@ -131,7 +131,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine(1, "#endregion");
 			fileContent.AddLine(0, "}");
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.g.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");

@@ -18,7 +18,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "#region Create");
 
 			// Interface
-			var signature = $"Task<Result<Guid>> Create{className}({className} {varName})";
+			var signature = $"Task Create{className}({className} {varName})";
 			interfaceOutput.Add($"{signature};");
 
 			output.AddLine();
@@ -29,11 +29,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 1, "try {");
 			output.AddLine(tc + 2, $"_db.Add({varName});");
 			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
-			output.AddLine();
-			output.AddLine(tc + 2, $"return Result<Guid>.Ok({varName}.Id);");
-			output.AddLine();
-			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "return Result<Guid>.Conflict(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, $"return;");
+			output.AddLine(tc + 1, "}");
+			output.AddLine(tc + 1, "catch (DbUpdateConcurrencyException)");
+			output.AddLine(tc + 1, "{");
+			output.AddLine(tc + 2, "throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 
@@ -51,7 +51,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "#region Delete");
 
 			// Interface
-			var signature = $"Task<Result> Delete{className}(Guid id)";
+			var signature = $"Task Delete{className}(Guid id)";
 			interfaceOutput.Add($"{signature};");
 
 			output.AddLine();
@@ -60,9 +60,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 1, $"var rowsAffected = await _db.{className}.Where(a => a.Id == id).ExecuteDeleteAsync();");
 			output.AddLine();
 			output.AddLine(tc + 1, $"if (rowsAffected == 0)");
-			output.AddLine(tc + 2, $"return Result.NotFound($\"{className} {{id}} not found\");");
-			output.AddLine();
-			output.AddLine(tc + 1, $"return Result.Ok();");
+			output.AddLine(tc + 2, $"throw new NotFoundException($\"{className} {{id}} not found\");");
 			output.AddLine(tc, "}");
 
 			output.AddLine();
@@ -74,11 +72,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var tc = 1;
 			var className = entity.Name;
 			var varName = CodeGenUtils.ToCamelCase(className);
+			var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
+			var returnContent = entity.InclRowVersion ? $" {varName}.RowVersion" : null;
 
 			// Interface
-			var returnType = entity.InclRowVersion ? "Task<Result<byte[]>>" : "Task<Result>";
 			var signature = $"{returnType} Update{className}({className} {varName})";
 			interfaceOutput.Add($"{signature};");
+
+			// Method body
 
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
@@ -90,17 +91,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, $"_db.Entry({varName}).State = EntityState.Modified;");
 			output.AddLine(tc + 2, $"await _db.SaveChangesAsync();");
 			output.AddLine();
-			if (entity.InclRowVersion)
-			{
-				output.AddLine(tc + 2, $"return Result.Ok({varName}.RowVersion);");
-				output.AddLine();
-			}
-			else
-			{
-				output.AddLine(tc + 1, "return Result.Ok();");
-			}
+			output.AddLine(tc + 2, $"return{returnContent};");
+			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, $"return Result.Conflict(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, $"throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
@@ -116,39 +110,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			updateProps.AddRange(method.UpdateProperties.Where(p => !p.IsOptional));
 			updateProps.AddRange(method.UpdateProperties.Where(p => p.IsOptional));
 
-			// Build signature
-			var sbSigArgs = new StringBuilder();
-			sbSigArgs.Append("Guid id");
-			if (entity.InclRowVersion)
-				sbSigArgs.Append(", byte[] rowVersion");
-			var argNames = new List<string>();
-			foreach (var updProp in updateProps)
-			{
-				var argName = CodeGenUtils.ToCamelCase(updProp.PropertyModel.Name);
-				sbSigArgs.Append($", {updProp.PropertyModel.CSType} {argName}");
-			}
-
-			var returnType = entity.InclRowVersion ? "Task<Result<byte[]>>" : "Task<Result>";
-			var signature = $"{returnType} {method.Name}({sbSigArgs.ToString()})";
+			var resultType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
+			var signature = $"{resultType} {method.Name}({method.Name}Req request)";
+			var resultContent = entity.InclRowVersion ? $"{varName}.RowVersion" : null;
 
 			// Interface
 			interfaceOutput.Add($"{signature};");
 
-			// Method
+			// Method body
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			if (entity.InclRowVersion)
-				output.AddLine(tc + 1, "ArgumentNullException.ThrowIfNull(rowVersion);");
-			foreach (var updProp in updateProps.Where(p => !p.IsOptional && p.PropertyModel.DataType == DataTypes.String))
-				output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({updProp.PropertyModel.ArgName});");
+			output.AddLine(tc + 1, "ArgumentNullException.ThrowIfNull(request);");
 			output.AddLine();
 			output.AddLine(tc + 1, "try {");
 			output.AddLine(tc + 2, $"var {varName} = new {entity.Name} {{");
-			output.AddLine(tc + 3, $"Id = id,");
+			output.AddLine(tc + 3, $"Id = request.Id,");
 			if (entity.InclRowVersion)
-				output.AddLine(tc + 3, $"RowVersion = rowVersion,");
+				output.AddLine(tc + 3, $"RowVersion = request.RowVersion,");
 			foreach (var updProp in updateProps)
-				output.AddLine(tc + 3, $"{updProp.PropertyModel.Name} = {updProp.PropertyModel.ArgName},");
+				output.AddLine(tc + 3, $"{updProp.PropertyModel.Name} = request.{updProp.PropertyModel.Name},");
 			output.AddLine(tc + 2, "};");
 			output.AddLine();
 
@@ -157,14 +137,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
 			output.AddLine();
 			output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
-			output.AddLine();
 			if (entity.InclRowVersion)
-				output.AddLine(tc + 2, $"return Result.Ok({varName}.RowVersion);");
-			else
-				output.AddLine(tc + 2, $"return Result.Ok();");
+			{
+				output.AddLine();
+				output.AddLine(tc + 2, $"return {resultContent};");
+			}
 			output.AddLine();
 			output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-			output.AddLine(tc + 2, "return Result.Conflict(\"The item was modified or deleted by another user.\");");
+			output.AddLine(tc + 2, $"throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
 			output.AddLine(tc + 1, "}");
 			output.AddLine(tc, "}");
 		}
@@ -188,7 +168,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = method.IsSingle ? $"Result<{entity.Name}>" : method.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
+			string returnType = method.IsSingle ? $"{entity.Name}" : method.InclPaging ? $"ListPage<{entity.Name}>" : $"List<{entity.Name}>";
 
 			var sbSigArgs = new StringBuilder();
 			if (method.UseRequest)
@@ -270,7 +250,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (method.InclPaging)
 			{
 				output.AddLine();
-				output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
+				output.AddLine(tc + 1, $"var listPage = new ListPage<{entity.Name}>();");
 				if (method.FilterProperties.Any())
 					output.AddLine(tc + 1, "// Stable ordering for paging");
 				foreach (var filterProp in method.FilterProperties)
@@ -280,13 +260,17 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
 				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
 				output.AddLine();
-				output.AddLine(tc + 1, "// Count (only when requested)");
+				output.AddLine(tc + 1, "// Count (if requested)");
 				output.AddLine(tc + 1, $"if ({reqVarName}.RecalcRowCount || {reqVarName}.GetRowCountOnly)");
 				output.AddLine(tc + 1, "{");
-				output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
-				output.AddLine();
+				output.AddLine(tc + 2, "listPage.TotalRowCount = await dbQuery.CountAsync();");
 				output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
-				output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
+				output.AddLine(tc + 3, $"return listPage;");
+				output.AddLine(tc + 1, "}");
+				output.AddLine(tc + 1, "else if (!request.RecalcRowCount && !request.GetRowCountOnly)");
+				output.AddLine(tc + 1, "{");
+				output.AddLine(tc + 2, "// Make it clear that row count is not calculated");
+				output.AddLine(tc + 2, "listPage.TotalRowCount = -1;");
 				output.AddLine(tc + 1, "}");
 			}
 
@@ -296,9 +280,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"var data = await dbQuery.ToListAsync();");
 				output.AddLine();
 				if (method.InclPaging)
-					output.AddLine(tc + 1, $"return {returnType}.Ok(data.ToEntityList<{entity.Name}>());");
+					output.AddLine(tc + 1, $"return data.ToListPage<{entity.Name}>();");
 				else
-					output.AddLine(tc + 1, $"return {returnType}.Ok(data);");
+					output.AddLine(tc + 1, $"return data;");
 			}
 			else
 			{
@@ -306,9 +290,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, $"var {entityVarName} = await dbQuery.FirstOrDefaultAsync();");
 				output.AddLine();
 				output.AddLine(tc + 1, $"if ({entityVarName} is null)");
-				output.AddLine(tc + 2, $"return {returnType}.NotFound($\"{entity.Name} not found\");");
+				output.AddLine(tc + 2, $"throw new NotFoundException($\"{entity.Name} not found\");");
 				output.AddLine();
-				output.AddLine(tc + 1, $"return {returnType}.Ok({entityVarName});");
+				output.AddLine(tc + 1, $"return {entityVarName};");
 			}
 
 			output.AddLine(tc, "}");
@@ -364,107 +348,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		//internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, List<string> output, List<string> interfaceOutput)
-		//{
-		//	var tc = 1;
-		//	output.AddLine();
-		//	var reqClassName = $"{searchMethod.Name}Req";
-
-		//	// Attributes
-		//	if (searchMethod.Attributes.Any())
-		//		foreach (var attr in searchMethod.Attributes)
-		//			output.AddLine(tc, $"[{attr}]");
-
-		//	// Interface
-		//	string returnType = !searchMethod.IsList ? $"Result<{entity.Name}>" : searchMethod.InclPaging ? $"Result<EntityList<{entity.Name}>>" : $"Result<List<{entity.Name}>>";
-		//	var signature = $"Task<{returnType}>{searchMethod.Name}({reqClassName} request)";
-		//	interfaceOutput.Add($"{signature};");
-
-		//	// Method
-		//	output.AddLine(tc, $"public async {signature}");
-		//	output.AddLine(tc, "{");
-		//	output.AddLine(tc + 1, $"IQueryable<{entity.Name}> dbQuery = _db.{entity.Name}.AsNoTracking();");
-		//	if (searchMethod.FilterProperties.Any())
-		//		output.AddLine(tc + 1, $"// Filters");
-		//	foreach (var filterProp in searchMethod.FilterProperties)
-		//	{
-		//		if (DataTypes.IsString(filterProp.PropertyModel.DataType) && filterProp.IsPartialMatch)
-		//		{
-		//			output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.{filterProp.PropertyModel.Name}))");
-		//			output.AddLine(tc + 1, "{");
-		//			output.AddLine(tc + 2, $"var pattern = $\"%{{request.{filterProp.PropertyModel.Name}}}%\";");
-		//			output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => EF.Functions.Like(x.{filterProp.PropertyModel.Name}, pattern));");
-		//			output.AddLine(tc + 1, "}");
-		//		}
-		//		else if (filterProp.PropertyModel.DataType == DataTypes.Int32 || filterProp.PropertyModel.DataType == DataTypes.Boolean || filterProp.PropertyModel.DataType == DataTypes.Guid)
-		//		{
-		//			output.AddLine(tc + 1, $"if (request.{filterProp.PropertyModel.Name}.HasValue)");
-		//			output.AddLine(tc + 2, $"dbQuery = dbQuery.Where(x => x.{filterProp.PropertyModel.Name} == request.{filterProp.PropertyModel.Name});");
-		//		}
-		//	}
-
-		//	if (searchMethod.InclSorting)
-		//	{
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, "// Sorting");
-		//		output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace(request.SortBy))");
-		//		output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, request);");
-		//	}
-		//	if (searchMethod.InclPaging)
-		//	{
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, $"var entityList = new EntityList<{entity.Name}>();");
-		//		if (searchMethod.FilterProperties.Any())
-		//			output.AddLine(tc + 1, "// Stable ordering for paging");
-		//		foreach (var filterProp in searchMethod.FilterProperties)
-		//			output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
-
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, "// Count (only when requested)");
-		//		output.AddLine(tc + 1, "if (request.RecalcRowCount || request.GetRowCountOnly)");
-		//		output.AddLine(tc + 1, "{");
-		//		output.AddLine(tc + 2, "entityList.TotalRowCount = await dbQuery.CountAsync();");
-		//		output.AddLine();
-		//		output.AddLine(tc + 2, "if (request.GetRowCountOnly)");
-		//		output.AddLine(tc + 3, $"return {returnType}.Ok(entityList);");
-		//		output.AddLine(tc + 1, "}");
-		//	}
-
-		//	if (searchMethod.InclPaging)
-		//	{
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, "// Paging");
-		//		output.AddLine(tc + 1, "if (request.PageSize > 0)");
-		//		output.AddLine(tc + 2, "dbQuery = dbQuery.Skip(request.PageOffset * request.PageSize).Take(request.PageSize);");
-		//	}
-
-		//	output.AddLine();
-		//	output.AddLine(tc + 1, "// Data");
-
-		//	if (!searchMethod.IsList)
-		//	{
-		//		output.AddLine(tc + 1, $"var {entity.Name.ToCamelCase()}= await dbQuery.FirstOrDefaultAsync();");
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, $"return {returnType}.Ok({entity.Name.ToCamelCase()});");
-		//	}
-		//	else if (searchMethod.InclPaging)
-		//	{
-		//		output.AddLine(tc + 1, "entityList.Items = await dbQuery.ToListAsync();");
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, $"return {returnType}.Ok(entityList);");
-		//	}
-		//	else
-		//	{
-		//		output.AddLine(tc + 1, "var items = await dbQuery.ToListAsync();");
-		//		output.AddLine();
-		//		output.AddLine(tc + 1, $"return {returnType}.Ok(items);");
-		//	}
-		//	output.AddLine(tc, "}");
-		//}
-
 		internal void GenerateSortingMethod(EntityModel entity, List<string> output)
 		{
-			var tc = 1;
+			var tc = 0;
 			output.AddLine();
 
 			// Method
@@ -486,5 +372,4 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "}");
 		}
 	}
-
 }
