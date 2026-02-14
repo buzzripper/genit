@@ -257,9 +257,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
 
 				output.AddLine();
-				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
-				output.AddLine();
 				output.AddLine(tc + 1, "// Count (if requested)");
 				output.AddLine(tc + 1, $"if ({reqVarName}.RecalcRowCount || {reqVarName}.GetRowCountOnly)");
 				output.AddLine(tc + 1, "{");
@@ -269,20 +266,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, "}");
 				output.AddLine(tc + 1, "else if (!request.RecalcRowCount && !request.GetRowCountOnly)");
 				output.AddLine(tc + 1, "{");
-				output.AddLine(tc + 2, "// Make it clear that row count is not calculated");
-				output.AddLine(tc + 2, "listPage.TotalRowCount = -1;");
+				output.AddLine(tc + 2, "listPage.TotalRowCount = -1;  // Make it clear that row count was not calculated");
 				output.AddLine(tc + 1, "}");
+				output.AddLine();
+				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
+				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
 			}
 
-			if (method.IsList)
+			if (method.InclPaging)
 			{
 				output.AddLine();
-				output.AddLine(tc + 1, $"var data = await dbQuery.ToListAsync();");
+				output.AddLine(tc + 1, $"listPage.Items = await dbQuery.ToListAsync();");
 				output.AddLine();
-				if (method.InclPaging)
-					output.AddLine(tc + 1, $"return data.ToListPage<{entity.Name}>();");
-				else
-					output.AddLine(tc + 1, $"return data;");
+				output.AddLine(tc + 1, $"return listPage;");
+			}
+			else if (method.IsList)
+			{
+				output.AddLine();
+				output.AddLine(tc + 1, $"return await dbQuery.ToListAsync();");
 			}
 			else
 			{
