@@ -64,6 +64,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var lines = new List<string>();
 			lines.AddLine(0, "using Microsoft.Extensions.DependencyInjection;");
+			lines.AddLine(0, $"using {_modelRoot.CommonNamespace}.Shared.ApiClients;");
 			lines.AddLine(0, $"using {module.Namespace}.Shared.ApiClients;");
 			lines.AddLine(0, $"using {module.Namespace}.Shared.Contracts;");
 			var versions = _modules[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
@@ -80,7 +81,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var lines = new List<string>();
 
-			lines.AddLine(0, $"services.AddHttpClient<I{module.Name}SystemService, SystemApiClient>();");
+			lines.AddLine(0, $"services.AddHttpClient<I{module.Name}SystemService, {module.Name}SystemApiClient>();");
 			lines.AddLine();
 
 			foreach (var entity in _modules[module].Where(e => e.GenerateCode))

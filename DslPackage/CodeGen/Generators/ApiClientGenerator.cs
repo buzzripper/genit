@@ -42,7 +42,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				createMethodsOutput.AddLine();
 				createMethodsOutput.AddLine(0, "#region Create");
-				this.GenerateCreateMethod(entity, createMethodsOutput, interfaceOutput);
+				this.GenerateCreateMethod(module, entity, service, createMethodsOutput, interfaceOutput);
 				createMethodsOutput.AddLine();
 				createMethodsOutput.AddLine(0, "#endregion");
 			}
@@ -53,7 +53,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				deleteMethodsOutput.AddLine();
 				deleteMethodsOutput.AddLine(0, "#region Delete");
-				this.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceOutput);
+				this.GenerateDeleteMethod(module, entity, service, deleteMethodsOutput, interfaceOutput);
 				deleteMethodsOutput.AddLine();
 				deleteMethodsOutput.AddLine(0, "#endregion");
 			}
@@ -64,10 +64,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			{
 				// Full udpate
 				if (service.InclUpdate)
-					this.GenerateFullUpdateMethod(entity, updMethodsOutput, interfaceOutput);
+					this.GenerateFullUpdateMethod(module, entity, service, updMethodsOutput, interfaceOutput);
 				// Normal updates
 				foreach (UpdateMethodModel method in service.UpdateMethods)
-					this.GenerateUpdateMethod(entity, method, service, updMethodsOutput, interfaceOutput);
+					this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
 			}
 
 			// Read methods - single
@@ -75,7 +75,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (service.ReadMethods.Where(m => !m.IsList).Any())
 			{
 				foreach (ReadMethodModel singleMethod in service.ReadMethods.Where(m => !m.IsList))
-					this.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceOutput);
+					this.GenerateReadMethod(module, entity, service, singleMethod, singleMethodsOutput, interfaceOutput);
 			}
 
 			// Read methods - list
@@ -83,7 +83,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (service.ReadMethods.Where(m => m.IsList).Any())
 			{
 				foreach (ReadMethodModel listMethod in service.ReadMethods.Where(m => m.IsList))
-					this.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceOutput);
+					this.GenerateReadMethod(module, entity, service, listMethod, listMethodsOutput, interfaceOutput);
 			}
 
 			// Write the file
@@ -154,7 +154,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			OutputHelper.Write($"Completed code gen for controller: {apiClientName}");
 		}
 
-		private void GenerateCreateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
+		private void GenerateCreateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 0;
 			var className = entity.Name;
@@ -169,11 +169,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
 			output.AddLine();
-			output.AddLine(tc + 1, $"await PostAsync(\"api/v1/{className}/Create{className}\", {varName});");
+			output.AddLine(tc + 1, $"await PostAsync(\"api/{module.Name}/{service.Version}/{className}/Create{className}\", {varName});");
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateDeleteMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
+		private void GenerateDeleteMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 0;
 			var className = entity.Name;
@@ -190,11 +190,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, "throw new ArgumentNullException(nameof(id));");
 			output.AddLine();
 			output.AddLine(tc + 1, "var deleteReq = new DeleteReq { Id = id };	");
-			output.AddLine(tc + 1, $"await DeleteAsync<bool>($\"api/v1/{className}/Delete{className}\", deleteReq);");
+			output.AddLine(tc + 1, $"await DeleteAsync<bool>($\"api/{module.Name}/{service.Version}/{className}/Delete{className}\", deleteReq);");
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateFullUpdateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
+		private void GenerateFullUpdateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 0;
 			var className = entity.Name;
@@ -212,11 +212,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-			output.AddLine(tc + 1, $"{returnStr}await PutAsync{returnType}(\"api/v1/{className}/Update{className}\", {varName});");
+			output.AddLine(tc + 1, $"{returnStr}await PutAsync{returnType}(\"api/{module.Name}/{service.Version}/{className}/Update{className}\", {varName});");
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateUpdateMethod(EntityModel entity, UpdateMethodModel method, ServiceModel service, List<string> output, List<string> interfaceOutput)
+		private void GenerateUpdateMethod(ModuleModel module, EntityModel entity, UpdateMethodModel method, ServiceModel service, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 0;
 
@@ -231,11 +231,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"{returnStr}await PatchAsync{returnType}($\"api/{service.Version}/{entity.Name}/{method.Name}\", request);");
+			output.AddLine(tc + 1, $"{returnStr}await PatchAsync{returnType}($\"api/{module.Name}/{service.Version}/{entity.Name}/{method.Name}\", request);");
 			output.AddLine(tc, "}");
 		}
 
-		private void GenerateReadMethod(EntityModel entity, ReadMethodModel method, List<string> output, List<string> interfaceOutput)
+		private void GenerateReadMethod(ModuleModel module, EntityModel entity, ServiceModel service, ReadMethodModel method, List<string> output, List<string> interfaceOutput)
 		{
 			var tc = 0;
 			var className = entity.Name;
@@ -252,9 +252,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var sbSigArgs = new StringBuilder();
 			var sbRoute = new StringBuilder();
 			var sbQry = new StringBuilder();
+			string restVerb = null;
+			string payload = null;
 			if (method.UseRequest)
 			{
 				sbSigArgs.Append($"{method.Name}Req request");
+				restVerb = "Post";
+				payload = ", request";
 			}
 			else
 			{
@@ -283,18 +287,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 						sbQry.Append("&");
 					sbQry.Append($"{optFilterProp.PropertyModel.ArgName}={{{optFilterProp.PropertyModel.ArgName}}}");
 				}
+				restVerb = "Get";
 			}
 
 			string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : method.IsList ? $"List<{entity.Name}>" : entity.Name;
 			var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
-
 			// Interface
 			interfaceOutput.Add(signature);
 
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return await GetAsync<{returnType}>($\"api/v1/{className}/{method.Name}{sbRoute}{sbQry}\");");
+			output.AddLine(tc + 1, $"return await {restVerb}Async<{returnType}>($\"api/{module.Name}/{service.Version}/{className}/{method.Name}{sbRoute}{sbQry}\"{payload});");
 			output.AddLine(tc, "}");
 		}
 	}
