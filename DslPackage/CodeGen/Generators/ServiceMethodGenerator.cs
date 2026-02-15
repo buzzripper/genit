@@ -239,22 +239,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				}
 			}
 
-			if (method.InclSorting)
-			{
-				output.AddLine();
-				output.AddLine(tc + 1, "// Sorting");
-				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({reqVarName}.SortBy))");
-				output.AddLine(tc + 2, $"this.AddSorting(ref dbQuery, {reqVarName});");
-			}
-
 			if (method.InclPaging)
 			{
 				output.AddLine();
 				output.AddLine(tc + 1, $"var listPage = new ListPage<{entity.Name}>();");
-				if (method.FilterProperties.Any())
-					output.AddLine(tc + 1, "// Stable ordering for paging");
-				foreach (var filterProp in method.FilterProperties)
-					output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.{filterProp.PropertyModel.Name}).ThenBy(x => x.Id);");
 
 				output.AddLine();
 				output.AddLine(tc + 1, "// Count (if requested)");
@@ -268,13 +256,25 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				output.AddLine(tc + 1, "{");
 				output.AddLine(tc + 2, "listPage.TotalRowCount = -1;  // Make it clear that row count was not calculated");
 				output.AddLine(tc + 1, "}");
+			}
+
+			if (method.InclSorting)
+			{
 				output.AddLine();
-				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
-				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
+				output.AddLine(tc + 1, "// Sorting");
+				output.AddLine(tc + 1, $"if (!string.IsNullOrWhiteSpace({reqVarName}.SortBy))");
+				output.AddLine(tc + 2, $"dbQuery = this.AddSorting(ref dbQuery, {reqVarName});");
+			}
+			else if (method.InclPaging)
+			{
+				output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.Id);  // Stable ordering for paging");
 			}
 
 			if (method.InclPaging)
 			{
+				output.AddLine();
+				output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
+				output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
 				output.AddLine();
 				output.AddLine(tc + 1, $"listPage.Items = await dbQuery.ToListAsync();");
 				output.AddLine();
@@ -288,12 +288,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			else
 			{
 				output.AddLine();
-				output.AddLine(tc + 1, $"var {entityVarName} = await dbQuery.FirstOrDefaultAsync();");
-				output.AddLine();
-				output.AddLine(tc + 1, $"if ({entityVarName} is null)");
-				output.AddLine(tc + 2, $"throw new NotFoundException($\"{entity.Name} not found\");");
-				output.AddLine();
-				output.AddLine(tc + 1, $"return {entityVarName};");
+				output.AddLine(tc + 1, $"return await dbQuery.FirstOrDefaultAsync();");
 			}
 
 			output.AddLine(tc, "}");
@@ -355,7 +350,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 
 			// Method
-			output.AddLine(tc, $"private void AddSorting(ref IQueryable<{entity.Name}> dbQuery, ISortingRequest sortingRequest)");
+			output.AddLine(tc, $"private IQueryable<{entity.Name}> AddSorting(ref IQueryable<{entity.Name}> dbQuery, ISortingRequest sortingRequest)");
 			output.AddLine(tc, "{");
 
 			var c = 0;
@@ -366,10 +361,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 				output.AddLine(tc + 1, $"if (string.Equals(sortingRequest.SortBy, {entity.Name}.PropNames.{prop.Name}, StringComparison.OrdinalIgnoreCase))");
 				output.AddLine(tc + 2, "if (sortingRequest.SortDesc)");
-				output.AddLine(tc + 3, $"dbQuery.OrderByDescending(x => x.{prop.Name});");
+				output.AddLine(tc + 3, $"return dbQuery.OrderByDescending(x => x.{prop.Name});");
 				output.AddLine(tc + 2, "else");
-				output.AddLine(tc + 3, $"dbQuery.OrderBy(x => x.{prop.Name});");
+				output.AddLine(tc + 3, $"return dbQuery.OrderBy(x => x.{prop.Name});");
 			}
+			output.AddLine(tc + 1, "return dbQuery;");
 			output.AddLine(tc, "}");
 		}
 	}

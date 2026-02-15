@@ -3,6 +3,9 @@
     <File Path=".SolutionItems/App1.gmdl" />
     <File Path=".SolutionItems/App1.gmdl.diagram" />
   </Folder>
+  <Folder Name="/.SolutionItems/Samples/">
+    <File Path=".SolutionItems/Samples/PatientReadTests.g.cs" />
+  </Folder>
   <Folder Name="/.SolutionItems/Scripts/">
     <File Path=".SolutionItems/Scripts/GmdlUpdate.ps1" />
     <File Path=".SolutionItems/Scripts/UpdateGmdl.bat" />
