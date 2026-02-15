@@ -149,7 +149,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			fileContents.AddLine(0, "}");
 
-			var filepath = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsOutputFolder), "Data", "DataManager.cs");
+			var filepath = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsRootFolder), "Data", "DataManager.cs");
 			FileHelper.SaveFile(filepath, fileContents.AsString());
 		}
 	}

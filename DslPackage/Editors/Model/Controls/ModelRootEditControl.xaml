@@ -410,14 +410,14 @@
                               Checked="chkIntTestsEnabled_Changed" Unchecked="chkIntTestsEnabled_Changed"/>
 
                     <!-- Output Folder -->
-                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Root Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
                     <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" x:Name="txtIntTestsOutputFolder" VerticalAlignment="Center"
-                                 TextChanged="txtIntTestsOutputFolder_TextChanged"/>
+                        <TextBox Grid.Column="0" x:Name="txtIntTestsRootFolder" VerticalAlignment="Center"
+                                 TextChanged="txtIntTestsRootFolder_TextChanged"/>
                         <Button Grid.Column="1" x:Name="btnBrowseIntTestsFolder" Content="..." 
                                 Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
                                 Click="btnBrowseIntTestsFolder_Click" ToolTip="Browse for folder"/>
@@ -449,15 +449,15 @@
                               HorizontalAlignment="Right" VerticalAlignment="Center"
                               Checked="chkUnitTestsEnabled_Changed" Unchecked="chkUnitTestsEnabled_Changed"/>
 
-                    <!-- Output Folder -->
-                    <Label Grid.Row="1" Grid.Column="0" Content="Output Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <!-- Root Folder -->
+					<Label Grid.Row="1" Grid.Column="0" Content="Root Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
                     <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" x:Name="txtUnitTestsOutputFolder" VerticalAlignment="Center"
-                                 TextChanged="txtUnitTestsOutputFolder_TextChanged"/>
+						<TextBox Grid.Column="0" x:Name="txtUnitTestsRootFolder" VerticalAlignment="Center"
+                                 TextChanged="txtUnitTestsRootFolder_TextChanged"/>
                         <Button Grid.Column="1" x:Name="btnBrowseUnitTestsFolder" Content="..." 
                                 Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
                                 Click="btnBrowseUnitTestsFolder_Click" ToolTip="Browse for folder"/>

@@ -126,7 +126,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// Serialize all entity lists into a single JSON file matching the TestDataSet structure
-			var outputFolder = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsOutputFolder), "TestData");
+			var outputFolder = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsRootFolder), "TestData");
 			Directory.CreateDirectory(outputFolder);
 
 			var json = SerializeDataSet(entityData);

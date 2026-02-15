@@ -1842,59 +1842,59 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region IntTestsOutputFolder domain property code
+		#region IntTestsRootFolder domain property code
 		
 		/// <summary>
-		/// IntTestsOutputFolder domain property Id.
+		/// IntTestsRootFolder domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid IntTestsOutputFolderDomainPropertyId = new global::System.Guid(0xe1cc2d7f, 0x3a85, 0x41b2, 0x84, 0x71, 0x86, 0x9c, 0x36, 0xcb, 0xb4, 0x40);
+		public static readonly global::System.Guid IntTestsRootFolderDomainPropertyId = new global::System.Guid(0xe1cc2d7f, 0x3a85, 0x41b2, 0x84, 0x71, 0x86, 0x9c, 0x36, 0xcb, 0xb4, 0x40);
 		
 		/// <summary>
-		/// Storage for IntTestsOutputFolder
+		/// Storage for IntTestsRootFolder
 		/// </summary>
-		private global::System.String intTestsOutputFolderPropertyStorage = string.Empty;
+		private global::System.String intTestsRootFolderPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of IntTestsOutputFolder domain property.
-		/// Description for Dyvenix.GenIt.ModelRoot.Int Tests Output Folder
+		/// Gets or sets the value of IntTestsRootFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Int Tests Root Folder
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/IntTestsOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/IntTestsOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/IntTestsRootFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/IntTestsRootFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("e1cc2d7f-3a85-41b2-8471-869c36cbb440")]
-		public global::System.String IntTestsOutputFolder
+		public global::System.String IntTestsRootFolder
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return intTestsOutputFolderPropertyStorage;
+				return intTestsRootFolderPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				IntTestsOutputFolderPropertyHandler.Instance.SetValue(this, value);
+				IntTestsRootFolderPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelRoot.IntTestsOutputFolder domain property.
+		/// Value handler for the ModelRoot.IntTestsRootFolder domain property.
 		/// </summary>
-		internal sealed partial class IntTestsOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		internal sealed partial class IntTestsRootFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
 		{
-			private IntTestsOutputFolderPropertyHandler() { }
+			private IntTestsRootFolderPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.IntTestsOutputFolder domain property value handler.
+			/// Gets the singleton instance of the ModelRoot.IntTestsRootFolder domain property value handler.
 			/// </summary>
-			public static readonly IntTestsOutputFolderPropertyHandler Instance = new IntTestsOutputFolderPropertyHandler();
+			public static readonly IntTestsRootFolderPropertyHandler Instance = new IntTestsRootFolderPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelRoot.IntTestsOutputFolder domain property.
+			/// Gets the Id of the ModelRoot.IntTestsRootFolder domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return IntTestsOutputFolderDomainPropertyId;
+					return IntTestsRootFolderDomainPropertyId;
 				}
 			}
 			
@@ -1906,7 +1906,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.intTestsOutputFolderPropertyStorage;
+				return element.intTestsRootFolderPropertyStorage;
 			}
 		
 			/// <summary>
@@ -1922,7 +1922,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.intTestsOutputFolderPropertyStorage = newValue;
+					element.intTestsRootFolderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -2016,59 +2016,59 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
-		#region UnitTestsOutputFolder domain property code
+		#region UnitTestsRootFolder domain property code
 		
 		/// <summary>
-		/// UnitTestsOutputFolder domain property Id.
+		/// UnitTestsRootFolder domain property Id.
 		/// </summary>
-		public static readonly global::System.Guid UnitTestsOutputFolderDomainPropertyId = new global::System.Guid(0x4d5b8979, 0x532d, 0x4b83, 0x90, 0x9d, 0xb9, 0x0c, 0xce, 0xa8, 0x84, 0x6d);
+		public static readonly global::System.Guid UnitTestsRootFolderDomainPropertyId = new global::System.Guid(0x4d5b8979, 0x532d, 0x4b83, 0x90, 0x9d, 0xb9, 0x0c, 0xce, 0xa8, 0x84, 0x6d);
 		
 		/// <summary>
-		/// Storage for UnitTestsOutputFolder
+		/// Storage for UnitTestsRootFolder
 		/// </summary>
-		private global::System.String unitTestsOutputFolderPropertyStorage = string.Empty;
+		private global::System.String unitTestsRootFolderPropertyStorage = string.Empty;
 		
 		/// <summary>
-		/// Gets or sets the value of UnitTestsOutputFolder domain property.
-		/// Description for Dyvenix.GenIt.ModelRoot.Unit Tests Output Folder
+		/// Gets or sets the value of UnitTestsRootFolder domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Unit Tests Root Folder
 		/// </summary>
-		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/UnitTestsOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/UnitTestsOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/UnitTestsRootFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/UnitTestsRootFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslModeling::DomainObjectId("4d5b8979-532d-4b83-909d-b90ccea8846d")]
-		public global::System.String UnitTestsOutputFolder
+		public global::System.String UnitTestsRootFolder
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return unitTestsOutputFolderPropertyStorage;
+				return unitTestsRootFolderPropertyStorage;
 			}
 			[global::System.Diagnostics.DebuggerStepThrough]
 			set
 			{
-				UnitTestsOutputFolderPropertyHandler.Instance.SetValue(this, value);
+				UnitTestsRootFolderPropertyHandler.Instance.SetValue(this, value);
 			}
 		}
 		/// <summary>
-		/// Value handler for the ModelRoot.UnitTestsOutputFolder domain property.
+		/// Value handler for the ModelRoot.UnitTestsRootFolder domain property.
 		/// </summary>
-		internal sealed partial class UnitTestsOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		internal sealed partial class UnitTestsRootFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
 		{
-			private UnitTestsOutputFolderPropertyHandler() { }
+			private UnitTestsRootFolderPropertyHandler() { }
 		
 			/// <summary>
-			/// Gets the singleton instance of the ModelRoot.UnitTestsOutputFolder domain property value handler.
+			/// Gets the singleton instance of the ModelRoot.UnitTestsRootFolder domain property value handler.
 			/// </summary>
-			public static readonly UnitTestsOutputFolderPropertyHandler Instance = new UnitTestsOutputFolderPropertyHandler();
+			public static readonly UnitTestsRootFolderPropertyHandler Instance = new UnitTestsRootFolderPropertyHandler();
 		
 			/// <summary>
-			/// Gets the Id of the ModelRoot.UnitTestsOutputFolder domain property.
+			/// Gets the Id of the ModelRoot.UnitTestsRootFolder domain property.
 			/// </summary>
 			public sealed override global::System.Guid DomainPropertyId
 			{
 				[global::System.Diagnostics.DebuggerStepThrough]
 				get
 				{
-					return UnitTestsOutputFolderDomainPropertyId;
+					return UnitTestsRootFolderDomainPropertyId;
 				}
 			}
 			
@@ -2080,7 +2080,7 @@ namespace Dyvenix.GenIt
 			public override sealed global::System.String GetValue(ModelRoot element)
 			{
 				if (element == null) throw new global::System.ArgumentNullException("element");
-				return element.unitTestsOutputFolderPropertyStorage;
+				return element.unitTestsRootFolderPropertyStorage;
 			}
 		
 			/// <summary>
@@ -2096,7 +2096,7 @@ namespace Dyvenix.GenIt
 				if (newValue != oldValue)
 				{
 					ValueChanging(element, oldValue, newValue);
-					element.unitTestsOutputFolderPropertyStorage = newValue;
+					element.unitTestsRootFolderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

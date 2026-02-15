@@ -60,26 +60,26 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				txtEntitiesOutputFolder.Text = _modelRoot.EntitiesOutputFolder ?? string.Empty;
 				txtEntitiesNamespace.Text = _modelRoot.EntitiesNamespace ?? string.Empty;
 
-			// DbContext tab
-			chkDbContextEnabled.IsChecked = _modelRoot.DbContextEnabled;
-			txtDbContextName.Text = _modelRoot.DbContextName ?? string.Empty;
-			txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
-			txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
-			dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
+				// DbContext tab
+				chkDbContextEnabled.IsChecked = _modelRoot.DbContextEnabled;
+				txtDbContextName.Text = _modelRoot.DbContextName ?? string.Empty;
+				txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
+				txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
+				dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
 
 				// Enums tab
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
-		txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+				txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
 
 				// Int Tests tab
 				chkIntTestsEnabled.IsChecked = _modelRoot.IntTestsEnabled;
-				txtIntTestsOutputFolder.Text = _modelRoot.IntTestsOutputFolder ?? string.Empty;
+				txtIntTestsRootFolder.Text = _modelRoot.IntTestsRootFolder ?? string.Empty;
 				txtIntTestsNamespace.Text = _modelRoot.IntTestsNamespace ?? string.Empty;
 
 				// Unit Tests tab
 				chkUnitTestsEnabled.IsChecked = _modelRoot.UnitTestsEnabled;
-				txtUnitTestsOutputFolder.Text = _modelRoot.UnitTestsOutputFolder ?? string.Empty;
+				txtUnitTestsRootFolder.Text = _modelRoot.UnitTestsRootFolder ?? string.Empty;
 				txtUnitTestsNamespace.Text = _modelRoot.UnitTestsNamespace ?? string.Empty;
 
 				// Permissions tab
@@ -89,10 +89,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Restore splitter position
 				if (_modelRoot.EditorSplitterPosition > 0)
 				{
-				leftColumn.Width = new GridLength(_modelRoot.EditorSplitterPosition, GridUnitType.Pixel);
+					leftColumn.Width = new GridLength(_modelRoot.EditorSplitterPosition, GridUnitType.Pixel);
 				}
-				}
-				finally
+			}
+			finally
 			{
 				_isUpdating = false;
 			}
@@ -445,12 +445,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			UpdateModelProperty(ModelRoot.IntTestsEnabledDomainPropertyId, chkIntTestsEnabled.IsChecked ?? false);
 		}
 
-		private void txtIntTestsOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		private void txtIntTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
 			if (_isUpdating || _modelRoot == null)
 				return;
 
-			UpdateModelProperty(ModelRoot.IntTestsOutputFolderDomainPropertyId, txtIntTestsOutputFolder.Text);
+			UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, txtIntTestsRootFolder.Text);
 		}
 
 		private void btnBrowseIntTestsFolder_Click(object sender, RoutedEventArgs e)
@@ -458,19 +458,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			if (_modelRoot == null)
 				return;
 
-			if (FolderBrowserHelper.BrowseForFolder(txtIntTestsOutputFolder.Text, "Select Int Tests Output Folder", out string selectedPath))
+			if (FolderBrowserHelper.BrowseForFolder(txtIntTestsRootFolder.Text, "Select Int Tests Root Folder", out string selectedPath))
 			{
 				_isUpdating = true;
 				try
 				{
-					txtIntTestsOutputFolder.Text = selectedPath;
+					txtIntTestsRootFolder.Text = selectedPath;
 				}
 				finally
 				{
 					_isUpdating = false;
 				}
 
-				UpdateModelProperty(ModelRoot.IntTestsOutputFolderDomainPropertyId, selectedPath);
+				UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, selectedPath);
 			}
 		}
 
@@ -494,12 +494,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			UpdateModelProperty(ModelRoot.UnitTestsEnabledDomainPropertyId, chkUnitTestsEnabled.IsChecked ?? false);
 		}
 
-		private void txtUnitTestsOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		private void txtUnitTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
 			if (_isUpdating || _modelRoot == null)
 				return;
 
-			UpdateModelProperty(ModelRoot.UnitTestsOutputFolderDomainPropertyId, txtUnitTestsOutputFolder.Text);
+			UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, txtUnitTestsRootFolder.Text);
 		}
 
 		private void btnBrowseUnitTestsFolder_Click(object sender, RoutedEventArgs e)
@@ -507,19 +507,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			if (_modelRoot == null)
 				return;
 
-			if (FolderBrowserHelper.BrowseForFolder(txtUnitTestsOutputFolder.Text, "Select Unit Tests Output Folder", out string selectedPath))
+			if (FolderBrowserHelper.BrowseForFolder(txtUnitTestsRootFolder.Text, "Select Unit Tests Root Folder", out string selectedPath))
 			{
 				_isUpdating = true;
 				try
 				{
-					txtUnitTestsOutputFolder.Text = selectedPath;
+					txtUnitTestsRootFolder.Text = selectedPath;
 				}
 				finally
 				{
 					_isUpdating = false;
 				}
 
-				UpdateModelProperty(ModelRoot.UnitTestsOutputFolderDomainPropertyId, selectedPath);
+				UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, selectedPath);
 			}
 		}
 

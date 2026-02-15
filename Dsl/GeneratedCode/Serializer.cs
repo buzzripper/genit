@@ -977,20 +977,20 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// IntTestsOutputFolder
+			// IntTestsRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				string attribIntTestsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "intTestsOutputFolder");
-				if (attribIntTestsOutputFolder != null)
+				string attribIntTestsRootFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "intTestsRootFolder");
+				if (attribIntTestsRootFolder != null)
 				{
-					global::System.String valueOfIntTestsOutputFolder;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribIntTestsOutputFolder, out valueOfIntTestsOutputFolder))
+					global::System.String valueOfIntTestsRootFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribIntTestsRootFolder, out valueOfIntTestsRootFolder))
 					{
-						instanceOfModelRoot.IntTestsOutputFolder = valueOfIntTestsOutputFolder;
+						instanceOfModelRoot.IntTestsRootFolder = valueOfIntTestsRootFolder;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "intTestsOutputFolder", typeof(global::System.String), attribIntTestsOutputFolder);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "intTestsRootFolder", typeof(global::System.String), attribIntTestsRootFolder);
 					}
 				}
 			}
@@ -1011,20 +1011,20 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
-			// UnitTestsOutputFolder
+			// UnitTestsRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				string attribUnitTestsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "unitTestsOutputFolder");
-				if (attribUnitTestsOutputFolder != null)
+				string attribUnitTestsRootFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "unitTestsRootFolder");
+				if (attribUnitTestsRootFolder != null)
 				{
-					global::System.String valueOfUnitTestsOutputFolder;
-					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUnitTestsOutputFolder, out valueOfUnitTestsOutputFolder))
+					global::System.String valueOfUnitTestsRootFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribUnitTestsRootFolder, out valueOfUnitTestsRootFolder))
 					{
-						instanceOfModelRoot.UnitTestsOutputFolder = valueOfUnitTestsOutputFolder;
+						instanceOfModelRoot.UnitTestsRootFolder = valueOfUnitTestsRootFolder;
 					}
 					else
 					{	// Invalid property value, ignored.
-						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "unitTestsOutputFolder", typeof(global::System.String), attribUnitTestsOutputFolder);
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "unitTestsRootFolder", typeof(global::System.String), attribUnitTestsRootFolder);
 					}
 				}
 			}
@@ -1867,14 +1867,14 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
-			// IntTestsOutputFolder
+			// IntTestsRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelRoot.IntTestsOutputFolder;
+				global::System.String propValue = instanceOfModelRoot.IntTestsRootFolder;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "intTestsOutputFolder", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "intTestsRootFolder", propValue);
 	
 				}
 			}
@@ -1889,14 +1889,14 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
-			// UnitTestsOutputFolder
+			// UnitTestsRootFolder
 			if (!serializationContext.Result.Failed)
 			{
-				global::System.String propValue = instanceOfModelRoot.UnitTestsOutputFolder;
+				global::System.String propValue = instanceOfModelRoot.UnitTestsRootFolder;
 				if (!serializationContext.Result.Failed)
 				{
 					if (!string.IsNullOrEmpty(propValue))
-						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsOutputFolder", propValue);
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsRootFolder", propValue);
 	
 				}
 			}

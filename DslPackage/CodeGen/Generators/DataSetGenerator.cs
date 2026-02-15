@@ -46,7 +46,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContents.AddLine(1, $"public List<{entity.Name}> {entity.Name}List {{ get; set; }} = null!;");
 			fileContents.AddLine(0, "}");
 
-			var filepath = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsOutputFolder), "Data", "TestDataSet.cs");
+			var filepath = Path.Combine(FileHelper.GetAbsolutePath(_modelRoot.IntTestsRootFolder), "Data", "TestDataSet.cs");
 
 			FileHelper.SaveFile(filepath, fileContents.AsString());
 		}

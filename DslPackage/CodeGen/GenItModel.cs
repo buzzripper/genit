@@ -22,6 +22,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly DataSetGenerator _dataSetGenerator;
 		private readonly TestDataGenerator _testDataGenerator;
 		private readonly DataManagerGenerator _dataManagerGenerator;
+		private readonly IntTestGenerator _intTestGenerator;
 
 		internal GenItModel(ModelRoot modelRoot)
 		{
@@ -40,6 +41,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_dataSetGenerator = new DataSetGenerator(modelRoot);
 			_testDataGenerator = new TestDataGenerator(modelRoot);
 			_dataManagerGenerator = new DataManagerGenerator(modelRoot);
+			_intTestGenerator = new IntTestGenerator(modelRoot);
 		}
 
 		internal bool Validate(out List<string> errors)
@@ -55,17 +57,22 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			if (_entityGenerator.Enabled)
 				_entityGenerator.Validate(errors);
 			else
-				OutputHelper.Write("Entity generation is disabled; skipping entity validation.");
+				OutputHelper.Write("Entity generation is disabled, skipping validation.");
 
 			if (_enumGenerator.Enabled)
 				_enumGenerator.Validate(errors);
 			else
-				OutputHelper.Write("Enum  generation is disabled; skipping enum validation.");
+				OutputHelper.Write("Enum  generation is disabled, skipping validation.");
 
 			if (_modelRoot.DbContextEnabled)
 				_dbContextGenerator.Validate(errors);
 			else
-				OutputHelper.Write("DbContext  generation is disabled; skipping DbContext validation.");
+				OutputHelper.Write("DbContext  generation is disabled, skipping validation.");
+
+			if (_modelRoot.IntTestsEnabled)
+				_intTestGenerator.Validate(errors);
+			else
+				OutputHelper.Write("Integration test generation is disabled, skipping validation.");
 
 			_serviceGenerator.Validate(errors);
 
@@ -97,6 +104,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 				_dataSetGenerator.GenerateCode();
 				_testDataGenerator.GenerateCode();
 				_dataManagerGenerator.GenerateCode();
+				_intTestGenerator.GenerateCode();
 			}
 		}
 

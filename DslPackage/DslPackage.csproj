@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
+    <Compile Include="CodeGen\Generators\IntTestGenerator.cs" />
     <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />

@@ -157,12 +157,12 @@
         </xsd:attribute>
         <!-- Property: CommonNamespace -->
         <xsd:attribute name="commonNamespace" type="xsd:string" />
-        <!-- Property: IntTestsOutputFolder -->
-        <xsd:attribute name="intTestsOutputFolder" type="xsd:string" />
+        <!-- Property: IntTestsRootFolder -->
+        <xsd:attribute name="intTestsRootFolder" type="xsd:string" />
         <!-- Property: IntTestsNamespace -->
         <xsd:attribute name="intTestsNamespace" type="xsd:string" />
-        <!-- Property: UnitTestsOutputFolder -->
-        <xsd:attribute name="unitTestsOutputFolder" type="xsd:string" />
+        <!-- Property: UnitTestsRootFolder -->
+        <xsd:attribute name="unitTestsRootFolder" type="xsd:string" />
         <!-- Property: UnitTestsNamespace -->
         <xsd:attribute name="unitTestsNamespace" type="xsd:string" />
         <!-- Property: IntTestsEnabled -->

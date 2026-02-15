@@ -110,7 +110,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="e1cc2d7f-3a85-41b2-8471-869c36cbb440" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Output Folder" Name="IntTestsOutputFolder" DisplayName="Int Tests Output Folder">
+        <DomainProperty Id="e1cc2d7f-3a85-41b2-8471-869c36cbb440" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Root Folder" Name="IntTestsRootFolder" DisplayName="Int Tests Root Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -120,7 +120,7 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="4d5b8979-532d-4b83-909d-b90ccea8846d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Output Folder" Name="UnitTestsOutputFolder" DisplayName="Unit Tests Output Folder">
+        <DomainProperty Id="4d5b8979-532d-4b83-909d-b90ccea8846d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Root Folder" Name="UnitTestsRootFolder" DisplayName="Unit Tests Root Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -1221,14 +1221,14 @@
           <XmlPropertyData XmlName="commonNamespace">
             <DomainPropertyMoniker Name="ModelRoot/CommonNamespace" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="intTestsOutputFolder">
-            <DomainPropertyMoniker Name="ModelRoot/IntTestsOutputFolder" />
+          <XmlPropertyData XmlName="intTestsRootFolder">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsRootFolder" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="intTestsNamespace">
             <DomainPropertyMoniker Name="ModelRoot/IntTestsNamespace" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="unitTestsOutputFolder">
-            <DomainPropertyMoniker Name="ModelRoot/UnitTestsOutputFolder" />
+          <XmlPropertyData XmlName="unitTestsRootFolder">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsRootFolder" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="unitTestsNamespace">
             <DomainPropertyMoniker Name="ModelRoot/UnitTestsNamespace" />
