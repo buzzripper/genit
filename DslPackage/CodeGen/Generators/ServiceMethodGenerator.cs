@@ -267,6 +267,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 			else if (method.InclPaging)
 			{
+				output.AddLine();
 				output.AddLine(tc + 1, $"dbQuery = dbQuery.OrderBy(x => x.Id);  // Stable ordering for paging");
 			}
 

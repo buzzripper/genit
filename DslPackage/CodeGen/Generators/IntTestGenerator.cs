@@ -427,8 +427,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var predicate = BuildExpectedPredicate(expectedFilterProps, filterVars);
 			var baseListExpr = string.IsNullOrWhiteSpace(predicate)
-				? entityListExpr
-				: $"{entityListExpr}.Where({predicate})";
+				? $"{entityListExpr}.ToList()"
+				: $"{entityListExpr}.Where({predicate}).ToList()";
 			testMethods.AddLine(2, $"var expectedAsc = {baseListExpr}.OrderBy(x => x.{sortProp.Name}).ToList();");
 			testMethods.AddLine(2, $"var expectedDesc = {baseListExpr}.OrderByDescending(x => x.{sortProp.Name}).ToList();");
 
@@ -457,7 +457,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private static string GetEntityListExpression(EntityModel entity)
 		{
-			return $"_fixture.DataSet.{entity.Name}List";
+			return $"_db.{entity.Name}";
 		}
 
 		private static PropertyModel GetSortingProperty(EntityModel entity)
@@ -542,7 +542,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var predicate = BuildExpectedPredicate(filterProps, filterVars);
 			if (string.IsNullOrWhiteSpace(predicate))
-				testMethods.AddLine(2, $"var expectedList = {entityListExpr};");
+				testMethods.AddLine(2, $"var expectedList = {entityListExpr}.ToList();");
 			else
 				testMethods.AddLine(2, $"var expectedList = {entityListExpr}.Where({predicate}).ToList();");
 		}
