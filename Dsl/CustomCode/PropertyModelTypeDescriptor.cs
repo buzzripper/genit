@@ -31,6 +31,23 @@ namespace Dyvenix.GenIt
 	public class PropertyModelTypeDescriptor : ElementTypeDescriptor
 	{
 		private readonly PropertyModel _propertyModel;
+		private static readonly System.Collections.Generic.HashSet<string> ReadOnlyPropertiesForRowVersion =
+			new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase)
+			{
+				"Name",
+				"DataType",
+				"Length",
+				"InitialValue",
+				"Attributes",
+				"Usings",
+				"IsPrimaryKey",
+				"IsIdentity",
+				"IsIndexed",
+				"IsIndexUnique",
+				"IsIndexClustered",
+				"IsForeignKey",
+				"DisplayOrder"
+			};
 
 		public PropertyModelTypeDescriptor(ICustomTypeDescriptor parent, PropertyModel element)
 			: base(parent, element)
@@ -79,8 +96,8 @@ namespace Dyvenix.GenIt
 				return TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(property);
 			}
 
-			// Make all properties read-only for RowVersion property (except Description)
-			if (_propertyModel.IsRowVersion && !property.Name.Equals("Description", StringComparison.OrdinalIgnoreCase))
+			// Make specific properties read-only for RowVersion (avoid read-only for editable properties like IsNullable)
+			if (_propertyModel.IsRowVersion && ReadOnlyPropertiesForRowVersion.Contains(property.Name))
 			{
 				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
 			}
