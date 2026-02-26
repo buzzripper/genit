@@ -43,6 +43,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			{
 				_suspendUpdates = false;
 			}
+
+			// Manually trigger property updates for programmatic selection
+			if (readMethods?.Count > 0)
+			{
+				var selectedMethod = grdMethods.SelectedItem as ReadMethodModel;
+				if (selectedMethod != null)
+				{
+					filterPropsCtl.SetFilterProperties(selectedMethod.FilterProperties, selectedMethod);
+					filterPropsCtl.Readonly = false;
+					inclNavPropEditCtl.SetInclNavProperties(selectedMethod);
+					inclNavPropEditCtl.Readonly = false;
+				}
+			}
 		}
 
 		private void btnAdd_Click(object sender, RoutedEventArgs e)

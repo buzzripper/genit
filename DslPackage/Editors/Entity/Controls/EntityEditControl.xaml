@@ -174,6 +174,7 @@
         
         <!-- Converter for Max Len column visibility -->
         <local:DataTypeLengthEnabledConverter x:Key="DataTypeLengthEnabledConverter"/>
+        <local:IsNotIdPropertyConverter x:Key="IsNotIdPropertyConverter"/>
         
         <!-- Style for DataGrid ComboBox with darker dropdown -->
         <Style x:Key="DataGridComboBoxStyle" TargetType="ComboBox">
@@ -265,14 +266,16 @@
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="Entity" 
+            <TextBlock Grid.Column="0" Text="Entity:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock Grid.Column="1" x:Name="txtEntityName" Text="Entity" 
                        FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
             
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
                 <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,16,0"
                           Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
                 <CheckBox x:Name="chkInclRowVersion" Content="Incl RowVersion" Margin="0,0,16,0"
@@ -350,12 +353,16 @@
                   SelectionMode="Single" SelectionUnit="FullRow"
                   HeadersVisibility="Column" RowHeaderWidth="0"
                   AllowDrop="True"
+                  SelectedCellsChanged="dgProperties_SelectedCellsChanged"
+                  PreviewKeyDown="dgProperties_PreviewKeyDown"
                   PreviewMouseLeftButtonDown="dgProperties_PreviewMouseLeftButtonDown"
                   PreviewMouseMove="dgProperties_PreviewMouseMove"
                   DragOver="dgProperties_DragOver"
                   Drop="dgProperties_Drop"
                   BeginningEdit="dgProperties_BeginningEdit"
-                  CellEditEnding="dgProperties_CellEditEnding" SelectionChanged="dgProperties_SelectionChanged">
+                  CellEditEnding="dgProperties_CellEditEnding"
+                  RowEditEnding="dgProperties_RowEditEnding"
+                  SelectionChanged="dgProperties_SelectionChanged">
             <DataGrid.Columns>
                 <!-- Handle column for drag - blank header, drag handle icon -->
                 <DataGridTemplateColumn Width="24" CanUserResize="False">
@@ -420,7 +427,8 @@
                 <DataGridTemplateColumn Header="PK" Width="35">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsPrimaryKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsPrimaryKey, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsEnabled="{Binding Name, Converter={StaticResource IsNotIdPropertyConverter}}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -430,7 +438,7 @@
                 <DataGridTemplateColumn Header="Index" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsIndexed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsIndexed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -450,7 +458,8 @@
                 <DataGridTemplateColumn Header="Unique Idx" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsIndexUnique, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsIndexUnique, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsEnabled="{Binding Name, Converter={StaticResource IsNotIdPropertyConverter}}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -460,7 +469,7 @@
                 <DataGridTemplateColumn Header="Clustered Idx" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsIndexClustered, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsIndexClustered, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -470,7 +479,7 @@
                 <DataGridTemplateColumn Header="Identity" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsIdentity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsIdentity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -55,6 +55,8 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
+
+  
   -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.*-*" ExcludeAssets="runtime" />
@@ -76,12 +78,26 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
+    <Compile Include="CodeGen\Generators\IntTestGenerator.cs" />
+    <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
+    <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
+    <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
+    <Compile Include="CodeGen\Generators\TestDataSetGenerator.cs" />
+    <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ApiSvcCollExtGenerator.cs" />
+    <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
+    <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\EnumGenerator.cs" />
     <Compile Include="CodeGen\Generators\EntityGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ServiceMethodGenerator.cs" />
     <Compile Include="CodeGen\GenItModel.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils_new.cs" />
+    <Compile Include="CodeGen\Misc\DataTypes.cs" />
     <Compile Include="CodeGen\Misc\FileHelper.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
@@ -103,6 +119,7 @@
     <Compile Include="Editors\Controls\StringListControl.xaml.cs">
       <DependentUpon>StringListControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Converters\UseRequestMultiConverter.cs" />
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
@@ -130,9 +147,6 @@
       <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Permissions\PermissionsManager.cs" />
-    <Compile Include="Editors\Property\Controls\PropertyEditControl.xaml.cs">
-      <DependentUpon>PropertyEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\SelectionTracker.cs" />
     <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
       <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
@@ -332,6 +346,7 @@
   <ItemGroup>
     <Folder Include="CustomCode\ModelView\" />
     <Folder Include="CustomCode\MultiDiagram\" />
+    <Folder Include="Editors\Property\Controls\" />
     <Folder Include="Editors\Services\Helpers\" />
     <Folder Include="Editors\Services\ViewModels\" />
     <Folder Include="Resources\Images\" />
@@ -365,9 +380,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Property\Controls\PropertyEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">

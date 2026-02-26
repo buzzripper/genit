@@ -37,6 +37,7 @@
                   RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
                   AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
             <DataGrid.Resources>
+                <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
                 <!-- Centered column header style with theme colors -->
                 <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -82,6 +83,15 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding IsOptional, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Partial" Width="55">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsPartialMatch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                      Visibility="{Binding IsStringType, Converter={StaticResource BoolToVisConverter}}"
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

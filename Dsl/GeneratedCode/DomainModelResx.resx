@@ -333,6 +333,82 @@
     <value>Security</value>
     <comment>Category for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.Description" xml:space="preserve">
+    <value>Name for Db Context</value>
+    <comment>Description for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.DisplayName" xml:space="preserve">
+    <value>Db Context Name</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextName.Category" xml:space="preserve">
+    <value>DbContext</value>
+    <comment>Category for DomainProperty &apos;DbContextName&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Usings.Description" xml:space="preserve">
+    <value>Global usings</value>
+    <comment>Description for DomainProperty &apos;Usings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/Usings.DisplayName" xml:space="preserve">
+    <value>Usings</value>
+    <comment>DisplayName for DomainProperty &apos;Usings&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/CommonNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Common Namespace</value>
+    <comment>Description for DomainProperty &apos;CommonNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/CommonNamespace.DisplayName" xml:space="preserve">
+    <value>Common Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;CommonNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsRootFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Root Folder</value>
+    <comment>Description for DomainProperty &apos;IntTestsRootFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsRootFolder.DisplayName" xml:space="preserve">
+    <value>Int Tests Root Folder</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsRootFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Namespace</value>
+    <comment>Description for DomainProperty &apos;IntTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsNamespace.DisplayName" xml:space="preserve">
+    <value>Int Tests Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsRootFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Root Folder</value>
+    <comment>Description for DomainProperty &apos;UnitTestsRootFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsRootFolder.DisplayName" xml:space="preserve">
+    <value>Unit Tests Root Folder</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsRootFolder&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Namespace</value>
+    <comment>Description for DomainProperty &apos;UnitTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsNamespace.DisplayName" xml:space="preserve">
+    <value>Unit Tests Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsNamespace&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Int Tests Enabled</value>
+    <comment>Description for DomainProperty &apos;IntTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/IntTestsEnabled.DisplayName" xml:space="preserve">
+    <value>Int Tests Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;IntTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsEnabled.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Unit Tests Enabled</value>
+    <comment>Description for DomainProperty &apos;UnitTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/UnitTestsEnabled.DisplayName" xml:space="preserve">
+    <value>Unit Tests Enabled</value>
+    <comment>DisplayName for DomainProperty &apos;UnitTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>
@@ -440,6 +516,30 @@
   <data name="Dyvenix.GenIt.EntityModel/TableName.Category" xml:space="preserve">
     <value>Database</value>
     <comment>Category for DomainProperty &apos;TableName&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTestData.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Int Test Data</value>
+    <comment>Description for DomainProperty &apos;GenIntTestData&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTestData.DisplayName" xml:space="preserve">
+    <value>Gen Int Test Data</value>
+    <comment>DisplayName for DomainProperty &apos;GenIntTestData&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTests.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Int Tests</value>
+    <comment>Description for DomainProperty &apos;GenIntTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenIntTests.DisplayName" xml:space="preserve">
+    <value>Gen Int Tests</value>
+    <comment>DisplayName for DomainProperty &apos;GenIntTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenUnitTests.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Gen Unit Tests</value>
+    <comment>Description for DomainProperty &apos;GenUnitTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/GenUnitTests.DisplayName" xml:space="preserve">
+    <value>Gen Unit Tests</value>
+    <comment>DisplayName for DomainProperty &apos;GenUnitTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
@@ -813,6 +913,14 @@
     <value>Internal Value</value>
     <comment>DisplayName for DomainProperty &apos;InternalValue&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.FilterPropertyModel.Is Partial Match</value>
+    <comment>Description for DomainProperty &apos;IsPartialMatch&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.FilterPropertyModel/IsPartialMatch.DisplayName" xml:space="preserve">
+    <value>Is Partial Match</value>
+    <comment>DisplayName for DomainProperty &apos;IsPartialMatch&apos; on DomainClass &apos;FilterPropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ReadMethodModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ReadMethodModel</value>
     <comment>Description for DomainClass &apos;ReadMethodModel&apos;</comment>
@@ -837,13 +945,13 @@
     <value>Incl Paging</value>
     <comment>DisplayName for DomainProperty &apos;InclPaging&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ReadMethodModel/UseQuery.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ReadMethodModel.Use Query</value>
-    <comment>Description for DomainProperty &apos;UseQuery&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModel/UseRequest.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModel.Use Request</value>
+    <comment>Description for DomainProperty &apos;UseRequest&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ReadMethodModel/UseQuery.DisplayName" xml:space="preserve">
-    <value>Use Query</value>
-    <comment>DisplayName for DomainProperty &apos;UseQuery&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ReadMethodModel/UseRequest.DisplayName" xml:space="preserve">
+    <value>Use Request</value>
+    <comment>DisplayName for DomainProperty &apos;UseRequest&apos; on DomainClass &apos;ReadMethodModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ReadMethodModel/InclSorting.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ReadMethodModel.Incl Sorting</value>
@@ -917,14 +1025,6 @@
     <value>Item Id</value>
     <comment>DisplayName for DomainProperty &apos;ItemId&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto</value>
-    <comment>Description for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
-  </data>
-  <data name="Dyvenix.GenIt.UpdateMethodModel/UseDto.DisplayName" xml:space="preserve">
-    <value>Use Dto</value>
-    <comment>DisplayName for DomainProperty &apos;UseDto&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
-  </data>
   <data name="Dyvenix.GenIt.UpdateMethodModel/DisplayOrder.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.UpdateMethodModel.Display Order</value>
     <comment>Description for DomainProperty &apos;DisplayOrder&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
@@ -993,17 +1093,17 @@
     <value>ServiceModel</value>
     <comment>Category for DomainProperty &apos;InclDelete&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Controller</value>
-    <comment>Description for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Endpoints</value>
+    <comment>Description for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.DisplayName" xml:space="preserve">
-    <value>Incl Controller</value>
-    <comment>DisplayName for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.DisplayName" xml:space="preserve">
+    <value>Incl Endpoints</value>
+    <comment>DisplayName for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/InclController.Category" xml:space="preserve">
+  <data name="Dyvenix.GenIt.ServiceModel/InclEndpoints.Category" xml:space="preserve">
     <value>ServiceModel</value>
-    <comment>Category for DomainProperty &apos;InclController&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+    <comment>Category for DomainProperty &apos;InclEndpoints&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/Version.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel.Version</value>
@@ -1029,21 +1129,21 @@
     <value>Service Attributes</value>
     <comment>DisplayName for DomainProperty &apos;ServiceAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Usings</value>
-    <comment>Description for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsUsings.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Endpoints Usings</value>
+    <comment>Description for DomainProperty &apos;EndpointsUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerUsings.DisplayName" xml:space="preserve">
-    <value>Controller Usings</value>
-    <comment>DisplayName for DomainProperty &apos;ControllerUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsUsings.DisplayName" xml:space="preserve">
+    <value>Endpoints Usings</value>
+    <comment>DisplayName for DomainProperty &apos;EndpointsUsings&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.Description" xml:space="preserve">
-    <value>Description for Dyvenix.GenIt.ServiceModel.Controller Attributes</value>
-    <comment>Description for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsAttributes.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Endpoints Attributes</value>
+    <comment>Description for DomainProperty &apos;EndpointsAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
-  <data name="Dyvenix.GenIt.ServiceModel/ControllerAttributes.DisplayName" xml:space="preserve">
-    <value>Controller Attributes</value>
-    <comment>DisplayName for DomainProperty &apos;ControllerAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  <data name="Dyvenix.GenIt.ServiceModel/EndpointsAttributes.DisplayName" xml:space="preserve">
+    <value>Endpoints Attributes</value>
+    <comment>DisplayName for DomainProperty &apos;EndpointsAttributes&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ServiceModel/CreatePermissions.Description" xml:space="preserve">
     <value>Comma-separated list of required permissions for create method</value>
@@ -1081,6 +1181,14 @@
     <value>ServiceModel</value>
     <comment>Category for DomainProperty &apos;DeletePermissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Permissions.Description" xml:space="preserve">
+    <value>Comma-separated list of required permissions for the service</value>
+    <comment>Description for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/Permissions.DisplayName" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModuleModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel</value>
     <comment>Description for DomainClass &apos;ModuleModel&apos;</comment>
@@ -1116,6 +1224,22 @@
   <data name="Dyvenix.GenIt.ModuleModel/PermissionsStorage.Category" xml:space="preserve">
     <value>Security</value>
     <comment>Category for DomainProperty &apos;PermissionsStorage&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Dto Namespace</value>
+    <comment>Description for DomainProperty &apos;DtoNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoNamespace.DisplayName" xml:space="preserve">
+    <value>Dto Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;DtoNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/RequestNamespace.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Request Namespace</value>
+    <comment>Description for DomainProperty &apos;RequestNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/RequestNamespace.DisplayName" xml:space="preserve">
+    <value>Request Namespace</value>
+    <comment>DisplayName for DomainProperty &apos;RequestNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.Association.Description" xml:space="preserve">
     <value>Associations between Classes.</value>
@@ -1586,7 +1710,7 @@
     <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.FilterPropertyModelHasProperty/PropertyModel.PropertyDisplayName" xml:space="preserve">
-    <value>Filter Property Model</value>
+    <value>Filter Property Models</value>
     <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;FilterPropertyModelHasProperty&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.ReadMethodModelHasFilterProperties.Description" xml:space="preserve">

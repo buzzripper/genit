@@ -19,6 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
         private readonly IVsMonitorSelection _monitorSelection;
         private uint _selectionEventsCookie;
         private bool _isDisposed;
+        private bool _inSelectionChanged;
 
         public SelectionTracker(GenItPackage package)
         {
@@ -38,18 +39,34 @@ namespace Dyvenix.GenIt.DslPackage.Editors
             IVsHierarchy pHierNew, uint itemidNew, IVsMultiItemSelect pMISNew, ISelectionContainer pSCNew)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            GenItEditorWindow toolWindow = GetToolWindow();
-            
-            // Use the NEW selection container to detect current selection
-            var selectionContainer = pSCNew;
-            
+
+            // Guard against reentrancy – showing/hiding tool windows can fire
+            // additional selection-changed events while the document is still loading.
+            if (_inSelectionChanged)
+                return VSConstants.S_OK;
+
+            _inSelectionChanged = true;
             try
             {
-                // Try to get a ServiceModel from the selection
-                var selectedServiceModel = GetSelectedServiceModel(selectionContainer);
-                if (selectedServiceModel != null)
+                // Only act when the active selection container is a fully-loaded
+                // GenItDocView.  During tab restoration the selection container is
+                // NOT a GenItDocView yet, so we skip out early — avoiding the
+                // reentrant COM deadlock that FindToolWindow(create:true) would cause.
+                if (!(pSCNew is GenItDocView))
+                    return VSConstants.S_OK;
+
+                GenItEditorWindow toolWindow = GetToolWindow();
+                if (toolWindow?.Control == null)
+                    return VSConstants.S_OK;
+
+                // Use the NEW selection container to detect current selection
+                var selectionContainer = pSCNew;
+
+                try
                 {
-                    if (toolWindow?.Control != null)
+                    // Try to get a ServiceModel from the selection
+                    var selectedServiceModel = GetSelectedServiceModel(selectionContainer);
+                    if (selectedServiceModel != null)
                     {
                         var entityModel = selectedServiceModel.EntityModeled;
                         if (entityModel != null)
@@ -59,88 +76,74 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                             return VSConstants.S_OK;
                         }
                     }
-                }
 
-                // Try to get PropertyModel from the selection
-                var selectedPropertyModel = GetSelectedPropertyModel(selectionContainer);
-                if (selectedPropertyModel != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get PropertyModel from the selection
+                    var selectedPropertyModel = GetSelectedPropertyModel(selectionContainer);
+                    if (selectedPropertyModel != null)
                     {
-                        toolWindow.Control.ShowPropertyEditor(selectedPropertyModel);
+                        toolWindow.Control.ShowEntityEditor(ClassHasProperties.GetEntityModel(selectedPropertyModel), selectedPropertyModel);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
-                }
 
-                // Try to get Association from the selection
-                var selectedAssociation = GetSelectedAssociation(selectionContainer);
-                if (selectedAssociation != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get Association from the selection
+                    var selectedAssociation = GetSelectedAssociation(selectionContainer);
+                    if (selectedAssociation != null)
                     {
                         toolWindow.Control.ShowAssociationEditor(selectedAssociation);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
-                }
 
-                // Try to get EntityModel from the selection (ClassShape)
-                var selectedEntityModel = GetSelectedEntityModel(selectionContainer);
-                if (selectedEntityModel != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get EntityModel from the selection (ClassShape)
+                    var selectedEntityModel = GetSelectedEntityModel(selectionContainer);
+                    if (selectedEntityModel != null)
                     {
                         toolWindow.Control.ShowEntityEditor(selectedEntityModel);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
-                }
 
-                // Try to get ModuleModel from the selection (ModuleShape)
-                var selectedModuleModel = GetSelectedModuleModel(selectionContainer);
-                if (selectedModuleModel != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get ModuleModel from the selection (ModuleShape)
+                    var selectedModuleModel = GetSelectedModuleModel(selectionContainer);
+                    if (selectedModuleModel != null)
                     {
                         toolWindow.Control.ShowModuleEditor(selectedModuleModel);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
-                }
 
-                // Try to get EnumModel from the selection (EnumShape)
-                var selectedEnumModel = GetSelectedEnumModel(selectionContainer);
-                if (selectedEnumModel != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get EnumModel from the selection (EnumShape)
+                    var selectedEnumModel = GetSelectedEnumModel(selectionContainer);
+                    if (selectedEnumModel != null)
                     {
                         toolWindow.Control.ShowEnumEditor(selectedEnumModel);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
-                }
 
-                // Try to get ModelRoot from the selection (diagram surface clicked)
-                var selectedModelRoot = GetSelectedModelRoot(selectionContainer);
-                if (selectedModelRoot != null)
-                {
-                    if (toolWindow?.Control != null)
+                    // Try to get ModelRoot from the selection (diagram surface clicked)
+                    var selectedModelRoot = GetSelectedModelRoot(selectionContainer);
+                    if (selectedModelRoot != null)
                     {
                         toolWindow.Control.ShowModelRootEditor(selectedModelRoot);
                         ShowToolWindow(toolWindow);
                         return VSConstants.S_OK;
                     }
                 }
+                catch (Exception ex)
+                {
+                    OutputHelper.WriteError($"SelectionTracker.OnSelectionChanged error: {ex.Message}");
+                }
+
+                toolWindow.Control.HideEditor();
+
+                return VSConstants.S_OK;
             }
-            catch (Exception ex)
+            finally
             {
-                OutputHelper.WriteError($"SelectionTracker.OnSelectionChanged error: {ex.Message}");
+                _inSelectionChanged = false;
             }
-
-            toolWindow?.Control.HideEditor();
-
-            return VSConstants.S_OK;
         }
 
         private void ShowToolWindow(GenItEditorWindow toolWindow)

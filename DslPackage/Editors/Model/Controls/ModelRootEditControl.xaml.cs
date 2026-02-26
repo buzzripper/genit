@@ -19,6 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 		private ModelRoot _modelRoot;
 		private bool _isUpdating;
 		private ObservableCollection<PermissionModel> _permissions;
+		private ObservableCollection<EditableString> _usings;
 
 		public ModelRootEditControl()
 		{
@@ -44,13 +45,15 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			try
 			{
 				// General settings
-				txtName.Text = _modelRoot.Name ?? string.Empty;
 				chkInclHeader.IsChecked = _modelRoot.InclHeader;
 				txtTemplatesFolder.Text = _modelRoot.TemplatesFolder ?? string.Empty;
+				txtCommonNamespace.Text = _modelRoot.CommonNamespace ?? string.Empty;
 
 				// Color buttons
 				UpdateColorButton(btnDiagramBackgroundColor, _modelRoot.DiagramBackgroundColor);
 				UpdateColorButton(btnAssociationLineColor, _modelRoot.AssociationLineColor);
+				_usings = new ObservableCollection<EditableString>(ParseMultilineString(_modelRoot.Usings).Select(u => new EditableString(u)));
+				grdModelUsings.ItemsSource = _usings;
 
 				// Entities tab
 				chkEntitiesEnabled.IsChecked = _modelRoot.EntitiesEnabled;
@@ -59,6 +62,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 
 				// DbContext tab
 				chkDbContextEnabled.IsChecked = _modelRoot.DbContextEnabled;
+				txtDbContextName.Text = _modelRoot.DbContextName ?? string.Empty;
 				txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
 				txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
 				dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
@@ -66,7 +70,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Enums tab
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
-			txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+				txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
+
+				// Int Tests tab
+				chkIntTestsEnabled.IsChecked = _modelRoot.IntTestsEnabled;
+				txtIntTestsRootFolder.Text = _modelRoot.IntTestsRootFolder ?? string.Empty;
+				txtIntTestsNamespace.Text = _modelRoot.IntTestsNamespace ?? string.Empty;
+
+				// Unit Tests tab
+				chkUnitTestsEnabled.IsChecked = _modelRoot.UnitTestsEnabled;
+				txtUnitTestsRootFolder.Text = _modelRoot.UnitTestsRootFolder ?? string.Empty;
+				txtUnitTestsNamespace.Text = _modelRoot.UnitTestsNamespace ?? string.Empty;
 
 				// Permissions tab
 				_permissions = new ObservableCollection<PermissionModel>(ParsePermissions(_modelRoot.Permissions));
@@ -75,10 +89,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				// Restore splitter position
 				if (_modelRoot.EditorSplitterPosition > 0)
 				{
-				leftColumn.Width = new GridLength(_modelRoot.EditorSplitterPosition, GridUnitType.Pixel);
+					leftColumn.Width = new GridLength(_modelRoot.EditorSplitterPosition, GridUnitType.Pixel);
 				}
-				}
-				finally
+			}
+			finally
 			{
 				_isUpdating = false;
 			}
@@ -107,15 +121,69 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			return string.Join("\n", items);
 		}
 
-		#region General Settings Event Handlers
+		private void btnAddUsing_Click(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
 
-		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+			var newItem = new EditableString($"Using{_usings.Count + 1}");
+			_usings.Add(newItem);
+			SaveUsings();
+			grdModelUsings.SelectedItem = newItem;
+			grdModelUsings.ScrollIntoView(newItem);
+			grdModelUsings.Dispatcher.BeginInvoke(new Action(() =>
+			{
+				grdModelUsings.Focus();
+				grdModelUsings.CurrentCell = new DataGridCellInfo(newItem, grdModelUsings.Columns[0]);
+				grdModelUsings.BeginEdit();
+			}), System.Windows.Threading.DispatcherPriority.Background);
+		}
+
+		private void btnDeleteUsing_Click(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
+
+			if (grdModelUsings.SelectedItem is EditableString selected)
+			{
+				_usings.Remove(selected);
+				SaveUsings();
+			}
+		}
+
+		private void grdUsings_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
 		{
 			if (_isUpdating || _modelRoot == null)
 				return;
 
-			UpdateModelProperty(NamedElement.NameDomainPropertyId, txtName.Text);
+			Dispatcher.BeginInvoke(new Action(() => SaveUsings()), System.Windows.Threading.DispatcherPriority.Background);
 		}
+
+		private void grdUsings_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+		{
+			if (_isUpdating)
+				return;
+
+			if (e.OriginalSource is DataGridCell cell && !cell.IsEditing)
+			{
+				grdModelUsings.Dispatcher.BeginInvoke(new Action(() =>
+				{
+					if (!cell.IsEditing)
+						grdModelUsings.BeginEdit();
+				}), System.Windows.Threading.DispatcherPriority.Background);
+			}
+		}
+
+		private void SaveUsings()
+		{
+			if (_isUpdating || _modelRoot == null || _usings == null)
+				return;
+
+			var value = JoinToMultilineString(_usings.Select(u => u.Value).Where(v => !string.IsNullOrWhiteSpace(v)).Select(v => v.Trim()));
+			UpdateModelProperty(ModelRoot.UsingsDomainPropertyId, value);
+		}
+
+		#region General Settings Event Handlers
 
 		private void chkInclHeader_Changed(object sender, RoutedEventArgs e)
 		{
@@ -131,6 +199,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.TemplatesFolderDomainPropertyId, txtTemplatesFolder.Text);
+		}
+
+		private void txtCommonNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.CommonNamespaceDomainPropertyId, txtCommonNamespace.Text);
 		}
 
 		private void btnBrowseTemplates_Click(object sender, RoutedEventArgs e)
@@ -194,6 +270,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 
 		#endregion
 
+
 		#region Entities Tab Event Handlers
 
 		private void chkEntitiesEnabled_Changed(object sender, RoutedEventArgs e)
@@ -251,6 +328,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.DbContextEnabledDomainPropertyId, chkDbContextEnabled.IsChecked ?? false);
+		}
+
+		private void txtDbContextName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.DbContextNameDomainPropertyId, txtDbContextName.Text);
 		}
 
 		private void txtDbContextOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -346,6 +431,104 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.EnumsNamespaceDomainPropertyId, txtEnumsNamespace.Text);
+		}
+
+		#endregion
+
+		#region Int Tests Tab Event Handlers
+
+		private void chkIntTestsEnabled_Changed(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsEnabledDomainPropertyId, chkIntTestsEnabled.IsChecked ?? false);
+		}
+
+		private void txtIntTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, txtIntTestsRootFolder.Text);
+		}
+
+		private void btnBrowseIntTestsFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtIntTestsRootFolder.Text, "Select Int Tests Root Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtIntTestsRootFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtIntTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.IntTestsNamespaceDomainPropertyId, txtIntTestsNamespace.Text);
+		}
+
+		#endregion
+
+		#region Unit Tests Tab Event Handlers
+
+		private void chkUnitTestsEnabled_Changed(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsEnabledDomainPropertyId, chkUnitTestsEnabled.IsChecked ?? false);
+		}
+
+		private void txtUnitTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, txtUnitTestsRootFolder.Text);
+		}
+
+		private void btnBrowseUnitTestsFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_modelRoot == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtUnitTestsRootFolder.Text, "Select Unit Tests Root Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtUnitTestsRootFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtUnitTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.UnitTestsNamespaceDomainPropertyId, txtUnitTestsNamespace.Text);
 		}
 
 		#endregion

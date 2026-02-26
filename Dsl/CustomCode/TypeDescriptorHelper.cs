@@ -339,7 +339,7 @@ namespace Dyvenix.GenIt
                 }
 
                 // Get all data types (primitives + enum names)
-                var dataTypes = DataTypeHelper.GetAllDataTypes(store);
+                var dataTypes = DataTypes.GetAllDataTypes(store);
 
                 // Create and show the listbox
                 var listBox = new ListBox();

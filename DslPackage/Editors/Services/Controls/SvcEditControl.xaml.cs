@@ -1,4 +1,3 @@
-using Dyvenix.GenIt.DslPackage.Editors;
 using Dyvenix.GenIt.DslPackage.Editors.Services.Adapters;
 using System.Linq;
 using System.Windows;
@@ -36,13 +35,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
 			// Set entity name and version
 			txtEntityName.Text = _entity.Name;
-			txtVersion.Text = _serviceAdapter.Version ?? "v1";
+			txtVersion.Text = _serviceAdapter.Version ?? "1.0";
 
 			ckbEnabled.IsChecked = _serviceAdapter.Enabled;
 			ckbInclCreate.IsChecked = _serviceAdapter.InclCreate;
 			ckbInclUpdate.IsChecked = _serviceAdapter.InclUpdate;
 			ckbInclDelete.IsChecked = _serviceAdapter.InclDelete;
-			ckbInclController.IsChecked = _serviceAdapter.InclController;
+			ckbInclEndpoints.IsChecked = _serviceAdapter.InclEndpoints;
 
 			readMethodsEditCtl.SetData(serviceModel, _serviceAdapter.ReadMethods, _entity.Properties, _entity.NavigationProperties);
 			updMethodsEditCtl.SetData(serviceModel, _serviceAdapter.Model.UpdateMethods, _entity.Properties);
@@ -54,27 +53,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			grdServiceUsings.ItemsSource = _serviceAdapter.ServiceUsingsList;
 			grdServiceAttributes.ItemsSource = _serviceAdapter.ServiceAttributesList;
 
-			// Bind Controller tab grids
-			grdControllerUsings.ItemsSource = _serviceAdapter.ControllerUsingsList;
-			grdControllerAttributes.ItemsSource = _serviceAdapter.ControllerAttributesList;
+			// Bind Endpoints tab grids
+			grdEndpointsUsings.ItemsSource = _serviceAdapter.EndpointsUsingsList;
+			grdEndpointsAttributes.ItemsSource = _serviceAdapter.EndpointsAttributesList;
 
-			// Update Controller tab visibility
-			UpdateControllerTabVisibility();
+			// Update Endpoints tab visibility
+			UpdateEndpointsTabVisibility();
 
 			_suspendUpdates = false;
 		}
 
-		private void UpdateControllerTabVisibility()
+		private void txtVersion_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			bool showController = ckbInclController.IsChecked ?? false;
+			if (_suspendUpdates || _serviceAdapter == null)
+				return;
 
-			// If hiding the Controller tab and it's currently selected, switch to Service tab first
-			if (!showController && tabControl.SelectedItem == tabController)
+			_serviceAdapter.Version = txtVersion.Text;
+		}
+
+		private void UpdateEndpointsTabVisibility()
+		{
+			bool showEndpoints = ckbInclEndpoints.IsChecked ?? false;
+
+			// If hiding the Endpoints tab and it's currently selected, switch to Service tab first
+			if (!showEndpoints && tabControl.SelectedItem == tabEndpoints)
 			{
 				tabControl.SelectedItem = tabService;
 			}
 
-			tabController.Visibility = showController
+			tabEndpoints.Visibility = showEndpoints
 				? Visibility.Visible
 				: Visibility.Collapsed;
 		}
@@ -141,12 +148,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			}
 		}
 
-		private void ckbInclController_Changed(object sender, RoutedEventArgs e)
+		private void ckbInclEndpoints_Changed(object sender, RoutedEventArgs e)
 		{
 			if (!_suspendUpdates && _serviceAdapter != null)
 			{
-				_serviceAdapter.InclController = ckbInclController.IsChecked ?? false;
-				UpdateControllerTabVisibility();
+				_serviceAdapter.InclEndpoints = ckbInclEndpoints.IsChecked ?? false;
+				UpdateEndpointsTabVisibility();
 			}
 		}
 
@@ -181,34 +188,55 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			}
 		}
 
-		// Controller tab event handlers
-		private void btnAddControllerUsing_Click(object sender, RoutedEventArgs e)
+		// Endpoints tab event handlers
+		private void btnAddEndpointsUsing_Click(object sender, RoutedEventArgs e)
 		{
 			if (_serviceAdapter == null) return;
-			int nextNum = _serviceAdapter.ControllerUsingsList.Count + 1;
-			_serviceAdapter.ControllerUsingsList.Add(new EditableString($"Using{nextNum}"));
+			int nextNum = _serviceAdapter.EndpointsUsingsList.Count + 1;
+			_serviceAdapter.EndpointsUsingsList.Add(new EditableString($"Using{nextNum}"));
 		}
 
-		private void btnDeleteControllerUsing_Click(object sender, RoutedEventArgs e)
+		private void btnDeleteEndpointsUsing_Click(object sender, RoutedEventArgs e)
 		{
 			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_serviceAdapter.ControllerUsingsList.Remove(item);
+				_serviceAdapter.EndpointsUsingsList.Remove(item);
 			}
 		}
 
-		private void btnAddControllerAttribute_Click(object sender, RoutedEventArgs e)
+		private void btnAddEndpointsAttribute_Click(object sender, RoutedEventArgs e)
 		{
 			if (_serviceAdapter == null) return;
-			int nextNum = _serviceAdapter.ControllerAttributesList.Count + 1;
-			_serviceAdapter.ControllerAttributesList.Add(new EditableString($"Attribute{nextNum}"));
+			int nextNum = _serviceAdapter.EndpointsAttributesList.Count + 1;
+			_serviceAdapter.EndpointsAttributesList.Add(new EditableString($"Attribute{nextNum}"));
 		}
 
-		private void btnDeleteControllerAttribute_Click(object sender, RoutedEventArgs e)
+		private void btnDeleteEndpointsAttribute_Click(object sender, RoutedEventArgs e)
 		{
 			if (sender is Button btn && btn.DataContext is EditableString item && _serviceAdapter != null)
 			{
-				_serviceAdapter.ControllerAttributesList.Remove(item);
+				_serviceAdapter.EndpointsAttributesList.Remove(item);
+			}
+		}
+
+		// Service Permissions popup handler
+		private void btnPermissions_Click(object sender, RoutedEventArgs e)
+		{
+			if (_serviceAdapter == null) return;
+
+			var modelRoot = GetModelRoot();
+			if (modelRoot == null) return;
+
+			var ownerWindow = Window.GetWindow(this);
+			var newPermissions = Permissions.PermissionsEditorDialog.ShowDialog(ownerWindow, modelRoot, _serviceAdapter.Model.Permissions);
+
+			if (newPermissions != null)
+			{
+				DslTransactionHelper.ExecuteInTransaction(_serviceAdapter.Model, "Update Service Permissions", () =>
+				{
+					_serviceAdapter.Model.Permissions = newPermissions;
+				});
+				UpdatePermissionsCounts();
 			}
 		}
 
@@ -276,7 +304,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 		private ModelRoot GetModelRoot()
 		{
 			if (_serviceAdapter?.Model?.Store == null) return null;
-			
+
 			foreach (var element in _serviceAdapter.Model.Store.ElementDirectory.AllElements)
 			{
 				if (element is ModelRoot modelRoot)
@@ -290,6 +318,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			btnCreatePerms.Content = CountPermissions(_serviceAdapter.Model.CreatePermissions).ToString();
 			btnUpdatePerms.Content = CountPermissions(_serviceAdapter.Model.UpdatePermissions).ToString();
 			btnDeletePerms.Content = CountPermissions(_serviceAdapter.Model.DeletePermissions).ToString();
+
+			// Update service permissions button text
+			var permsCount = CountPermissions(_serviceAdapter.Model.Permissions);
+			btnPermissions.Content = $"Permissions ({permsCount})";
 
 			// Update button enabled states based on checkbox states
 			btnCreatePerms.IsEnabled = ckbInclCreate.IsChecked ?? false;

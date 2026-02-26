@@ -66,12 +66,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var updProp = updateProperties.FirstOrDefault(up => up.Name == vm.Property.Name);
+                    var updProp = updateProperties.FirstOrDefault(up => up.PropertyModel == vm.Property);
                     if (updProp != null)
                     {
                         vm.IsIncluded = true;
                         vm.IsOptional = updProp.IsOptional;
                         vm.UpdatePropertyModel = updProp;
+
+                        // If a model loads with missing links, it should be migrated; do not clear links globally.
                     }
                 }
             }
@@ -100,15 +102,42 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
             if (e.PropertyName == nameof(UpdatePropertyDisplayViewModel.IsIncluded))
             {
-                if (vm.IsIncluded && vm.UpdatePropertyModel == null)
+                if (vm.IsIncluded)
                 {
+                    // If the VM has no model, or has a stale model that is not linked to this property,
+                    // normalize to the existing model element if one is already present.
+                    if (vm.UpdatePropertyModel == null || vm.UpdatePropertyModel.PropertyModel != vm.Property)
+                    {
+                        var existing = _updateProps?.FirstOrDefault(up => up.PropertyModel == vm.Property);
+                        if (existing != null)
+                        {
+                            vm.UpdatePropertyModel = existing;
+                            vm.IsOptional = existing.IsOptional;
+                        }
+                    }
+
+                    if (vm.UpdatePropertyModel != null)
+                        return;
+
                     // Add new UpdatePropertyModel
                     DslTransactionHelper.ExecuteInTransaction(_updateMethod, "Add Update Property", () =>
                     {
+                        // The DSL relationship `UpdatePropertyModelHasPropertyModel` has multiplicity 0..1 on
+                        // the `PropertyModel` end, so a PropertyModel can be linked to at most one UpdatePropertyModel.
+                        // If one already exists, reuse it instead of creating a duplicate.
+                        var existingUpdProp = _updateProps.FirstOrDefault(up => up.PropertyModel == vm.Property);
+                        if (existingUpdProp != null)
+                        {
+                            existingUpdProp.IsOptional = vm.IsOptional;
+                            vm.UpdatePropertyModel = existingUpdProp;
+                            return;
+                        }
+
                         var newUpdProp = new UpdatePropertyModel(_updateMethod.Store);
-                        newUpdProp.Name = vm.Property.Name;
                         newUpdProp.IsOptional = vm.IsOptional;
+                        // Add to collection first to establish the UpdateMethodModel link
                         _updateProps.Add(newUpdProp);
+                        newUpdProp.PropertyModel = vm.Property;
                         vm.UpdatePropertyModel = newUpdProp;
                     });
                 }

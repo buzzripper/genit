@@ -8,6 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 {
@@ -35,6 +37,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		}
 	}
 
+	public class IsNotIdPropertyConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return (value as string) != "Id";
+		}
+
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	public partial class EntityEditControl : UserControlBase
 	{
 		private const string PropertyModelDragFormat = "GenIt.PropertyModel";
@@ -42,7 +57,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private bool _isUpdating;
 		private ObservableCollection<PropertyModel> _properties;
 		private Point _dragStartPoint;
-		private bool _isDragging;
 		private PropertyModel _draggedProperty;
 		private string _popupEditingField; // "Usings" or "Attributes"
 		private string[] _dataTypes;
@@ -57,6 +71,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		{
 			_entityModel = entityModel;
 			LoadFromModel();
+		}
+
+		public void SelectProperty(PropertyModel propertyModel)
+		{
+			if (propertyModel == null)
+				return;
+			if (_properties == null)
+				return;
+			if (!_properties.Contains(propertyModel))
+				return;
+
+			dgProperties.SelectedItem = propertyModel;
+			dgProperties.ScrollIntoView(propertyModel);
 		}
 
 		private void LoadFromModel()
@@ -122,7 +149,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private void LoadDataTypes()
 		{
 			// Load primitive types + enum names from the model
-			_dataTypes = DataTypeHelper.GetAllDataTypes(_entityModel.Store).ToArray();
+			_dataTypes = GenIt.DataTypes.GetAllDataTypes(_entityModel.Store).ToArray();
 		}
 
 		/// <summary>
@@ -297,6 +324,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			if (selectedProperty == null)
 				return;
 
+			if (selectedProperty.Name == "Id")
+				return;
+
 			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Delete Property"))
 			{
 				selectedProperty.Delete();
@@ -321,13 +351,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			if (e.RemovedItems.Count == 0)
 				return;
 
-			// Commit edit and refresh the row to update Max Len visibility
+			// Commit edit; view refresh is deferred to RowEditEnding to avoid refreshing during an active edit transaction.
 			if (dgProperties.SelectedItem != null)
 			{
 				dgProperties.CommitEdit(DataGridEditingUnit.Cell, true);
 				dgProperties.CommitEdit(DataGridEditingUnit.Row, true);
-				dgProperties.Items.Refresh();
 			}
+		}
+
+		private void dgProperties_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+		{
+			// Ensure dependent templates (e.g., Max Len visibility/enabled state based on DataType) re-evaluate
+			// AFTER the DataGrid has completed its edit transaction.
+			if (dgProperties.ItemsSource == null)
+				return;
+
+			void RefreshViewSafely()
+			{
+				var view = CollectionViewSource.GetDefaultView(dgProperties.ItemsSource);
+				if (view is IEditableCollectionView iecv && (iecv.IsAddingNew || iecv.IsEditingItem))
+				{
+					Dispatcher.BeginInvoke((Action)RefreshViewSafely, DispatcherPriority.ContextIdle);
+					return;
+				}
+
+				view?.Refresh();
+			}
+
+			// RowEditEnding occurs before the underlying view exits its edit transaction.
+			Dispatcher.BeginInvoke((Action)RefreshViewSafely, DispatcherPriority.ContextIdle);
 		}
 
 		private void dgProperties_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -359,6 +411,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 			var property = e.Row.Item as PropertyModel;
 			if (property == null)
 				return;
+
+			if (property.Name == "Id" && GetEditedPropertyName(e.Column) == "Name")
+			{
+				e.Cancel = true;
+				return;
+			}
 
 			// Start a transaction for this edit operation
 			string propertyName = GetEditedPropertyName(e.Column);
@@ -423,11 +481,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				var row = FindVisualParent<DataGridRow>(e.OriginalSource as DependencyObject);
 				if (row != null && row.Item is PropertyModel property)
 				{
-					_isDragging = true;
 					_draggedProperty = property;
 					var dataObject = new DataObject(PropertyModelDragFormat, true);
 					DragDrop.DoDragDrop(row, dataObject, DragDropEffects.Move);
-					_isDragging = false;
 					_draggedProperty = null;
 					_dragStartPoint = new Point(0, 0);
 				}
@@ -558,6 +614,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private void dgProperties_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 
+		}
+
+		private void dgProperties_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+		{
+			if (_isUpdating)
+				return;
+
+			if (sender is DataGrid grid && grid.CurrentCell != null && grid.CurrentCell.Column != null)
+			{
+				grid.Dispatcher.BeginInvoke(new Action(() =>
+				{
+					if (grid.CurrentCell.IsValid && !grid.IsReadOnly)
+					{
+						grid.BeginEdit();
+					}
+				}));
+			}
+		}
+
+		private void dgProperties_PreviewKeyDown(object sender, KeyEventArgs e)
+		{
+			if (_isUpdating || _entityModel == null)
+				return;
+
+			if (e.Key == Key.Insert)
+			{
+				btnAddProperty_Click(btnAddProperty, new RoutedEventArgs());
+				e.Handled = true;
+			}
 		}
 	}
 }

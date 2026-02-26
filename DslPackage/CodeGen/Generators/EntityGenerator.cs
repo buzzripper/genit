@@ -131,7 +131,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine(1, "#endregion");
 			fileContent.AddLine(0, "}");
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.g.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
@@ -143,11 +143,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var attr in prop.AttributesList)
 					fileContent.AddLine(1, $"[{attr}]");
 
-			var dataTypeName = CodeGenUtils.GetCSharpType(prop.DataType);
-			var nullTypeSuffix = prop.IsNullable && prop.DataType == "String" ? "?" : string.Empty;
-			var nullInit = prop.IsRowVersion || (!prop.IsNullable && prop.DataType == "String" && !prop.IsPrimaryKey && !prop.IsForeignKey) ? " = null!;" : string.Empty;
-
-			fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
+			string nullSuffix = prop.IsNullable ? "?" : null;
+			string nullInit = prop.RequiresInit ? " = null!;" : null;
+			fileContent.AddLine(1, $"public {prop.CSType}{nullSuffix} {prop.Name} {{ get; set; }}{nullInit}");
 		}
 	}
 }

@@ -553,7 +553,6 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.FilterPropertyModel sourceFilterPropertyModel = (global::Dyvenix.GenIt.FilterPropertyModel)candidateSource;
 						global::Dyvenix.GenIt.PropertyModel targetPropertyModel = (global::Dyvenix.GenIt.PropertyModel)candidateTarget;
-						if(targetPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinkToFilterPropertyModel(targetPropertyModel) != null) return false;
 						if(sourceFilterPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinkToPropertyModel(sourceFilterPropertyModel) != null) return false;
 						if(targetPropertyModel == null || sourceFilterPropertyModel == null || global::Dyvenix.GenIt.FilterPropertyModelHasProperty.GetLinks(sourceFilterPropertyModel, targetPropertyModel).Count > 0) return false;
 						return true;

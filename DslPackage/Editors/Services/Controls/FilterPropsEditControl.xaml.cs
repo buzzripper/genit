@@ -62,11 +62,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
                 foreach (var vm in _viewModels)
                 {
-                    var filterProp = filterProps.FirstOrDefault(fp => fp.Name == vm.Property.Name);
+                    var filterProp = filterProps.FirstOrDefault(fp => fp.PropertyModel == vm.Property);
                     if (filterProp != null)
                     {
                         vm.IsIncluded = true;
                         vm.IsOptional = filterProp.IsOptional;
+                        vm.IsPartialMatch = filterProp.IsPartialMatch;
                         vm.IsInternal = filterProp.IsInternal;
                         vm.InternalValue = filterProp.InternalValue;
                         vm.FilterPropertyModel = filterProp;
@@ -99,11 +100,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     DslTransactionHelper.ExecuteInTransaction(_readMethod, "Add Filter Property", () =>
                     {
                         var newFilterProp = new FilterPropertyModel(_readMethod.Store);
-                        newFilterProp.Name = vm.Property.Name;
                         newFilterProp.IsOptional = vm.IsOptional;
+                        newFilterProp.IsPartialMatch = vm.IsPartialMatch;
                         newFilterProp.IsInternal = vm.IsInternal;
                         newFilterProp.InternalValue = vm.InternalValue;
+                        // Add to collection first to establish the ReadMethodModel link
                         _filterProps.Add(newFilterProp);
+                        newFilterProp.PropertyModel = vm.Property;
                         vm.FilterPropertyModel = newFilterProp;
                     });
                 }
@@ -114,11 +117,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     DslTransactionHelper.ExecuteInTransaction(_readMethod, "Remove Filter Property", () =>
                     {
                         filterPropToRemove.Delete();
+                        vm.FilterPropertyModel = null;
+                        vm.IsOptional = false;
+                        vm.IsPartialMatch = false;
+                        vm.IsInternal = false;
+                        vm.InternalValue = string.Empty;
                     });
-                    vm.FilterPropertyModel = null;
-                    vm.IsOptional = false;
-                    vm.IsInternal = false;
-                    vm.InternalValue = string.Empty;
                 }
             }
             else if (vm.FilterPropertyModel != null)
@@ -128,6 +132,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                 {
                     DslTransactionHelper.SetPropertyIfChanged(filterProp, nameof(FilterPropertyModel.IsOptional),
                         filterProp.IsOptional, vm.IsOptional, () => filterProp.IsOptional = vm.IsOptional);
+                }
+                else if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.IsPartialMatch))
+                {
+                    DslTransactionHelper.SetPropertyIfChanged(filterProp, nameof(FilterPropertyModel.IsPartialMatch),
+                        filterProp.IsPartialMatch, vm.IsPartialMatch, () => filterProp.IsPartialMatch = vm.IsPartialMatch);
                 }
                 else if (e.PropertyName == nameof(FilterPropertyDisplayViewModel.IsInternal))
                 {
@@ -147,6 +156,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
     {
         private bool _isIncluded;
         private bool _isOptional;
+        private bool _isPartialMatch;
         private bool _isInternal;
         private string _internalValue = string.Empty;
 
@@ -171,6 +181,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
             set { _isOptional = value; OnPropertyChanged(nameof(IsOptional)); }
         }
 
+        public bool IsPartialMatch
+        {
+            get { return _isPartialMatch; }
+            set { _isPartialMatch = value; OnPropertyChanged(nameof(IsPartialMatch)); }
+        }
+
+        public bool IsStringType
+        {
+            get { return Property != null && Property.DataType == "String"; }
+        }
+
         public bool IsInternal
         {
             get { return _isInternal; }
@@ -187,6 +208,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
         {
             _isIncluded = false;
             _isOptional = false;
+            _isPartialMatch = false;
             _isInternal = false;
             _internalValue = string.Empty;
             FilterPropertyModel = null;

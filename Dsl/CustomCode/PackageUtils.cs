@@ -9,5 +9,6 @@ namespace Dyvenix.GenIt
 		/// Gets or sets the root path of the current solution.
 		/// </summary>
 		public static string SolutionRootPath { get; set; }
+
 	}
 }

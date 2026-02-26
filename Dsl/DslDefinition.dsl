@@ -95,6 +95,51 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="712df36a-37d0-45e2-bb6a-5c557deb7c24" Description="Name for Db Context" Name="DbContextName" DisplayName="Db Context Name" Category="DbContext">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="7b4d8ffa-0d67-4efd-8c65-23cd20c39e90" Description="Global usings" Name="Usings" DisplayName="Usings">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="51ebdbed-3b62-41bf-a4ee-9c8709645987" Description="Description for Dyvenix.GenIt.ModelRoot.Common Namespace" Name="CommonNamespace" DisplayName="Common Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="e1cc2d7f-3a85-41b2-8471-869c36cbb440" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Root Folder" Name="IntTestsRootFolder" DisplayName="Int Tests Root Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8ba48f4a-a393-4c11-a2ae-4760b07b9511" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Namespace" Name="IntTestsNamespace" DisplayName="Int Tests Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="4d5b8979-532d-4b83-909d-b90ccea8846d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Root Folder" Name="UnitTestsRootFolder" DisplayName="Unit Tests Root Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="09fd5edc-dd7b-41ff-9e77-17d3b6946d8d" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Namespace" Name="UnitTestsNamespace" DisplayName="Unit Tests Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2f457050-ccee-46f4-84dc-2a7c1b3aa46d" Description="Description for Dyvenix.GenIt.ModelRoot.Int Tests Enabled" Name="IntTestsEnabled" DisplayName="Int Tests Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f69d2148-1f21-46be-a554-d9e7f1111b64" Description="Description for Dyvenix.GenIt.ModelRoot.Unit Tests Enabled" Name="UnitTestsEnabled" DisplayName="Unit Tests Enabled">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -163,6 +208,21 @@
         <DomainProperty Id="8fb79ab2-ec55-423f-a795-2d82cbe99c10" Description="Database table name for the entity" Name="TableName" DisplayName="Table Name" Category="Database">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="2ff44f3d-873b-4608-b11b-ba218209f363" Description="Description for Dyvenix.GenIt.EntityModel.Gen Int Test Data" Name="GenIntTestData" DisplayName="Gen Int Test Data" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="053bbd9c-44d9-4f06-b00d-7ecc67cc2709" Description="Description for Dyvenix.GenIt.EntityModel.Gen Int Tests" Name="GenIntTests" DisplayName="Gen Int Tests" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="f7c6255e-50fb-44a1-8918-afa953d91131" Description="Description for Dyvenix.GenIt.EntityModel.Gen Unit Tests" Name="GenUnitTests" DisplayName="Gen Unit Tests" DefaultValue="true">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -418,9 +478,6 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="e97460a8-b0c2-4ad1-8647-ea4e27d2a20d" Description="Description for Dyvenix.GenIt.FilterPropertyModel" Name="FilterPropertyModel" DisplayName="Filter Property Model" Namespace="Dyvenix.GenIt">
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
       <Properties>
         <DomainProperty Id="a62c7c1d-5ab4-4917-bd52-a13a77f94d63" Description="" Name="IsOptional" DisplayName="Is Optional">
           <Type>
@@ -435,6 +492,11 @@
         <DomainProperty Id="fc2d5cff-abd9-4d0f-a208-dd028b12a0b3" Description="" Name="InternalValue" DisplayName="Internal Value">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="c8718e01-5b33-48d8-9b58-b7139b5be913" Description="Description for Dyvenix.GenIt.FilterPropertyModel.Is Partial Match" Name="IsPartialMatch" DisplayName="Is Partial Match">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -454,7 +516,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="14903356-51d9-4bdc-9d67-4cecc1d5236d" Description="Description for Dyvenix.GenIt.ReadMethodModel.Use Query" Name="UseQuery" DisplayName="Use Query">
+        <DomainProperty Id="14903356-51d9-4bdc-9d67-4cecc1d5236d" Description="Description for Dyvenix.GenIt.ReadMethodModel.Use Request" Name="UseRequest" DisplayName="Use Request">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -487,9 +549,6 @@
       </Properties>
     </DomainClass>
     <DomainClass Id="dfb40532-a576-4b0e-bebe-90c3c47c3ae3" Description="Description for Dyvenix.GenIt.UpdatePropertyModel" Name="UpdatePropertyModel" DisplayName="Update Property Model" Namespace="Dyvenix.GenIt">
-      <BaseClass>
-        <DomainClassMoniker Name="NamedElement" />
-      </BaseClass>
       <Properties>
         <DomainProperty Id="f5660c8b-88ae-4d6d-8304-0d0800788262" Description="Description for Dyvenix.GenIt.UpdatePropertyModel.Is Optional" Name="IsOptional" DisplayName="Is Optional">
           <Type>
@@ -506,11 +565,6 @@
         <DomainProperty Id="880bb24a-b5b9-4816-9f0a-d95d5d7f210c" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Item Id" Name="ItemId" DisplayName="Item Id">
           <Type>
             <ExternalTypeMoniker Name="/System/Guid" />
-          </Type>
-        </DomainProperty>
-        <DomainProperty Id="e5e99a5a-7ed8-4c53-86b0-6cf9f4415a97" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Use Dto" Name="UseDto" DisplayName="Use Dto">
-          <Type>
-            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
         <DomainProperty Id="2d1897ce-b2a7-4cfb-af36-b5f0c6c1cd13" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Display Order" Name="DisplayOrder" DisplayName="Display Order" DefaultValue="0">
@@ -550,7 +604,7 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f91b7374-a09f-48e5-8d9c-2f756727a568" Description="Description for Dyvenix.GenIt.ServiceModel.Incl Controller" Name="InclController" DisplayName="Incl Controller" DefaultValue="true" Category="ServiceModel">
+        <DomainProperty Id="f91b7374-a09f-48e5-8d9c-2f756727a568" Description="Description for Dyvenix.GenIt.ServiceModel.Incl Endpoints" Name="InclEndpoints" DisplayName="Incl Endpoints" DefaultValue="true" Category="ServiceModel">
           <Type>
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
@@ -570,12 +624,12 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f56f4698-6675-4600-bfe4-baa46bdb88d9" Description="Description for Dyvenix.GenIt.ServiceModel.Controller Usings" Name="ControllerUsings" DisplayName="Controller Usings">
+        <DomainProperty Id="f56f4698-6675-4600-bfe4-baa46bdb88d9" Description="Description for Dyvenix.GenIt.ServiceModel.Endpoints Usings" Name="EndpointsUsings" DisplayName="Endpoints Usings">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
-        <DomainProperty Id="f06cdc0d-c358-4d2d-bcaa-498226202c8f" Description="Description for Dyvenix.GenIt.ServiceModel.Controller Attributes" Name="ControllerAttributes" DisplayName="Controller Attributes">
+        <DomainProperty Id="f06cdc0d-c358-4d2d-bcaa-498226202c8f" Description="Description for Dyvenix.GenIt.ServiceModel.Endpoints Attributes" Name="EndpointsAttributes" DisplayName="Endpoints Attributes">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -591,6 +645,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f" Description="Comma-separated list of required permissions for delete method" Name="DeletePermissions" DisplayName="Delete Permissions" Category="ServiceModel">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a" Description="Comma-separated list of required permissions for the service" Name="Permissions" DisplayName="Permissions">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -613,6 +672,16 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="7f8a9b0c-1d2e-3f4a-5b6c-7d8e9f0a1b2c" Description="Permissions for this module (newline-separated)" Name="PermissionsStorage" DisplayName="Permissions" Category="Security" IsBrowsable="false">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="33b84685-eda8-47b3-89b9-9d22d86f34bc" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Namespace" Name="DtoNamespace" DisplayName="Dto Namespace">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="ce0eea41-a4ee-4ed8-b1cd-9a44f9ee8a6d" Description="Description for Dyvenix.GenIt.ModuleModel.Request Namespace" Name="RequestNamespace" DisplayName="Request Namespace">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -854,7 +923,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModel" Multiplicity="ZeroOne" PropertyDisplayName="Filter Property Model">
+        <DomainRole Id="0b288384-2de6-4188-b81d-dd343d2c541a" Description="Description for Dyvenix.GenIt.FilterPropertyModelHasProperty.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="FilterPropertyModels" PropertyDisplayName="Filter Property Models">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
@@ -1140,6 +1209,36 @@
           <XmlPropertyData XmlName="editorSplitterPosition">
             <DomainPropertyMoniker Name="ModelRoot/EditorSplitterPosition" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="ModelRoot/Permissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextName">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="usings">
+            <DomainPropertyMoniker Name="ModelRoot/Usings" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="commonNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/CommonNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsRootFolder">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsRootFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsRootFolder">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsRootFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsNamespace">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="intTestsEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/IntTestsEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="unitTestsEnabled">
+            <DomainPropertyMoniker Name="ModelRoot/UnitTestsEnabled" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="EntityModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelMoniker" ElementName="entityModel" MonikerTypeName="EntityModelMoniker">
@@ -1186,6 +1285,15 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="tableName">
             <DomainPropertyMoniker Name="EntityModel/TableName" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genIntTestData">
+            <DomainPropertyMoniker Name="EntityModel/GenIntTestData" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genIntTests">
+            <DomainPropertyMoniker Name="EntityModel/GenIntTests" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="genUnitTests">
+            <DomainPropertyMoniker Name="EntityModel/GenUnitTests" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>
@@ -1373,6 +1481,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModel">
             <DomainRelationshipMoniker Name="FilterPropertyModelHasProperty" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="isPartialMatch">
+            <DomainPropertyMoniker Name="FilterPropertyModel/IsPartialMatch" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ReadMethodModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelMoniker" ElementName="readMethodModel" MonikerTypeName="ReadMethodModelMoniker">
@@ -1384,8 +1495,8 @@
           <XmlPropertyData XmlName="inclPaging">
             <DomainPropertyMoniker Name="ReadMethodModel/InclPaging" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="useQuery">
-            <DomainPropertyMoniker Name="ReadMethodModel/UseQuery" />
+          <XmlPropertyData XmlName="useRequest">
+            <DomainPropertyMoniker Name="ReadMethodModel/UseRequest" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="inclSorting">
             <DomainPropertyMoniker Name="ReadMethodModel/InclSorting" />
@@ -1424,9 +1535,6 @@
           <XmlPropertyData XmlName="itemId">
             <DomainPropertyMoniker Name="UpdateMethodModel/ItemId" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="useDto">
-            <DomainPropertyMoniker Name="UpdateMethodModel/UseDto" />
-          </XmlPropertyData>
           <XmlPropertyData XmlName="displayOrder">
             <DomainPropertyMoniker Name="UpdateMethodModel/DisplayOrder" />
           </XmlPropertyData>
@@ -1453,8 +1561,8 @@
           <XmlPropertyData XmlName="inclDelete">
             <DomainPropertyMoniker Name="ServiceModel/InclDelete" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="inclController">
-            <DomainPropertyMoniker Name="ServiceModel/InclController" />
+          <XmlPropertyData XmlName="inclEndpoints">
+            <DomainPropertyMoniker Name="ServiceModel/InclEndpoints" />
           </XmlPropertyData>
           <XmlPropertyData XmlName="version">
             <DomainPropertyMoniker Name="ServiceModel/Version" />
@@ -1465,11 +1573,11 @@
           <XmlPropertyData XmlName="serviceAttributes">
             <DomainPropertyMoniker Name="ServiceModel/ServiceAttributes" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="controllerUsings">
-            <DomainPropertyMoniker Name="ServiceModel/ControllerUsings" />
+          <XmlPropertyData XmlName="endpointsUsings">
+            <DomainPropertyMoniker Name="ServiceModel/EndpointsUsings" />
           </XmlPropertyData>
-          <XmlPropertyData XmlName="controllerAttributes">
-            <DomainPropertyMoniker Name="ServiceModel/ControllerAttributes" />
+          <XmlPropertyData XmlName="endpointsAttributes">
+            <DomainPropertyMoniker Name="ServiceModel/EndpointsAttributes" />
           </XmlPropertyData>
           <XmlRelationshipData UseFullForm="true" RoleElementName="readMethods">
             <DomainRelationshipMoniker Name="ServiceModelHasReadMethodModels" />
@@ -1477,6 +1585,18 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="updateMethods">
             <DomainRelationshipMoniker Name="ServiceModelHasUpdateMethods" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="createPermissions">
+            <DomainPropertyMoniker Name="ServiceModel/CreatePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="updatePermissions">
+            <DomainPropertyMoniker Name="ServiceModel/UpdatePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="deletePermissions">
+            <DomainPropertyMoniker Name="ServiceModel/DeletePermissions" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="permissions">
+            <DomainPropertyMoniker Name="ServiceModel/Permissions" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
@@ -1490,6 +1610,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="permissionsStorage">
             <DomainPropertyMoniker Name="ModuleModel/PermissionsStorage" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dtoNamespace">
+            <DomainPropertyMoniker Name="ModuleModel/DtoNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="requestNamespace">
+            <DomainPropertyMoniker Name="ModuleModel/RequestNamespace" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

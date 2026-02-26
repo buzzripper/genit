@@ -143,6 +143,32 @@
             <xsd:documentation>Available permissions for the model (newline-separated)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DbContextName -->
+        <xsd:attribute name="dbContextName" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Name for Db Context</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Usings -->
+        <xsd:attribute name="usings" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Global usings</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: CommonNamespace -->
+        <xsd:attribute name="commonNamespace" type="xsd:string" />
+        <!-- Property: IntTestsRootFolder -->
+        <xsd:attribute name="intTestsRootFolder" type="xsd:string" />
+        <!-- Property: IntTestsNamespace -->
+        <xsd:attribute name="intTestsNamespace" type="xsd:string" />
+        <!-- Property: UnitTestsRootFolder -->
+        <xsd:attribute name="unitTestsRootFolder" type="xsd:string" />
+        <!-- Property: UnitTestsNamespace -->
+        <xsd:attribute name="unitTestsNamespace" type="xsd:string" />
+        <!-- Property: IntTestsEnabled -->
+        <xsd:attribute name="intTestsEnabled" type="xsd:boolean" />
+        <!-- Property: UnitTestsEnabled -->
+        <xsd:attribute name="unitTestsEnabled" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -299,6 +325,12 @@
             <xsd:documentation>Database table name for the entity</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: GenIntTestData -->
+        <xsd:attribute name="genIntTestData" type="xsd:boolean" />
+        <!-- Property: GenIntTests -->
+        <xsd:attribute name="genIntTests" type="xsd:boolean" />
+        <!-- Property: GenUnitTests -->
+        <xsd:attribute name="genUnitTests" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -793,10 +825,10 @@
   </xsd:complexType>
   
   <!-- FilterPropertyModel -->
-  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="namedElement" />
+  <xsd:element name="filterPropertyModel" type="FilterPropertyModel" substitutionGroup="core:modelElement" />
   <xsd:complexType name="FilterPropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="NamedElement">
+      <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: FilterPropertyModelHasProperty -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -826,18 +858,25 @@
         <xsd:attribute name="isInternal" type="xsd:boolean" />
         <!-- Property: InternalValue -->
         <xsd:attribute name="internalValue" type="xsd:string" />
+        <!-- Property: IsPartialMatch -->
+        <xsd:attribute name="isPartialMatch" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
   
   <!-- FilterPropertyModel Moniker -->
-  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="namedElementMoniker" />
+  <xsd:element name="filterPropertyModelMoniker" type="FilterPropertyModelMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="FilterPropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for FilterPropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="NamedElementMoniker">
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -874,8 +913,8 @@
         <xsd:attribute name="itemId" type="xsd:string" />
         <!-- Property: InclPaging -->
         <xsd:attribute name="inclPaging" type="xsd:boolean" />
-        <!-- Property: UseQuery -->
-        <xsd:attribute name="useQuery" type="xsd:boolean" />
+        <!-- Property: UseRequest -->
+        <xsd:attribute name="useRequest" type="xsd:boolean" />
         <!-- Property: InclSorting -->
         <xsd:attribute name="inclSorting" type="xsd:boolean" />
         <!-- Property: DisplayOrder -->
@@ -911,10 +950,10 @@
   </xsd:complexType>
   
   <!-- UpdatePropertyModel -->
-  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="namedElement" />
+  <xsd:element name="updatePropertyModel" type="UpdatePropertyModel" substitutionGroup="core:modelElement" />
   <xsd:complexType name="UpdatePropertyModel">
     <xsd:complexContent>
-      <xsd:extension base="NamedElement">
+      <xsd:extension base="core:ModelElement">
         <xsd:sequence minOccurs="0" maxOccurs="1">
           <!-- Relationship: UpdatePropertyModelHasPropertyModel -->
           <xsd:element name="propertyModel" minOccurs="1" maxOccurs="1">
@@ -945,13 +984,18 @@
   </xsd:complexType>
   
   <!-- UpdatePropertyModel Moniker -->
-  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="namedElementMoniker" />
+  <xsd:element name="updatePropertyModelMoniker" type="UpdatePropertyModelMoniker" substitutionGroup="core:modelElementMoniker" />
   <xsd:complexType name="UpdatePropertyModelMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for UpdatePropertyModel instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
-      <xsd:extension base="NamedElementMoniker">
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -986,8 +1030,6 @@
         </xsd:attribute>
         <!-- Property: ItemId -->
         <xsd:attribute name="itemId" type="xsd:string" />
-        <!-- Property: UseDto -->
-        <xsd:attribute name="useDto" type="xsd:boolean" />
         <!-- Property: DisplayOrder -->
         <xsd:attribute name="displayOrder" type="xsd:integer" />
         <!-- Property: Permissions -->
@@ -1063,18 +1105,18 @@
         <xsd:attribute name="inclUpdate" type="xsd:boolean" />
         <!-- Property: InclDelete -->
         <xsd:attribute name="inclDelete" type="xsd:boolean" />
-        <!-- Property: InclController -->
-        <xsd:attribute name="inclController" type="xsd:boolean" />
+        <!-- Property: InclEndpoints -->
+        <xsd:attribute name="inclEndpoints" type="xsd:boolean" />
         <!-- Property: Version -->
         <xsd:attribute name="version" type="xsd:string" />
         <!-- Property: ServiceUsings -->
         <xsd:attribute name="serviceUsings" type="xsd:string" />
         <!-- Property: ServiceAttributes -->
         <xsd:attribute name="serviceAttributes" type="xsd:string" />
-        <!-- Property: ControllerUsings -->
-        <xsd:attribute name="controllerUsings" type="xsd:string" />
-        <!-- Property: ControllerAttributes -->
-        <xsd:attribute name="controllerAttributes" type="xsd:string" />
+        <!-- Property: EndpointsUsings -->
+        <xsd:attribute name="endpointsUsings" type="xsd:string" />
+        <!-- Property: EndpointsAttributes -->
+        <xsd:attribute name="endpointsAttributes" type="xsd:string" />
         <!-- Property: CreatePermissions -->
         <xsd:attribute name="createPermissions" type="xsd:string" >
           <xsd:annotation>
@@ -1091,6 +1133,12 @@
         <xsd:attribute name="deletePermissions" type="xsd:string" >
           <xsd:annotation>
             <xsd:documentation>Comma-separated list of required permissions for delete method</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Permissions -->
+        <xsd:attribute name="permissions" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Comma-separated list of required permissions for the service</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
       </xsd:extension>
@@ -1130,6 +1178,10 @@
             <xsd:documentation>Permissions for this module (newline-separated)</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: DtoNamespace -->
+        <xsd:attribute name="dtoNamespace" type="xsd:string" />
+        <!-- Property: RequestNamespace -->
+        <xsd:attribute name="requestNamespace" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

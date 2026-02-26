@@ -22,6 +22,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 
             // Create the content
             _control = new GenItEditorWindowControl();
+			_control.CaptionRequested += (s, caption) =>
+			{
+				if (!string.IsNullOrWhiteSpace(caption))
+					this.Caption = caption;
+			};
             this.Content = _control;
         }
 

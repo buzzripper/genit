@@ -39,6 +39,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtName.Text = _moduleModel.Name ?? string.Empty;
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
 				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
+				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
+				txtRequestNamespace.Text = _moduleModel.RequestNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
 			}
@@ -46,6 +48,22 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 			{
 				_isUpdating = false;
 			}
+		}
+
+		private void txtDtoNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.DtoNamespaceDomainPropertyId, txtDtoNamespace.Text);
+		}
+
+		private void txtRequestNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.RequestNamespaceDomainPropertyId, txtRequestNamespace.Text);
 		}
 
 		private void txtName_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

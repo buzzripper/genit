@@ -62,6 +62,9 @@ namespace Dyvenix.GenIt
                 // ModuleModel rules (sync EntityModel.Module property)
                 typeof(ModuleModelNameChangeRule),
                 typeof(ModuleModelDeleteRule),
+                
+                // ReadMethodModel UseRequest sync rule
+                typeof(ReadMethodModelChangeRule),
 			};
 		}
 	}
