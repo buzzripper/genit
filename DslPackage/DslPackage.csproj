@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
     <Compile Include="CodeGen\Generators\IntTestGenerator.cs" />
+    <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
     <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\ApiSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
-    <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ServiceDtoGenerator.cs" />
     <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
     <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\EnumGenerator.cs" />
@@ -130,6 +131,9 @@
     </Compile>
     <Compile Include="Editors\Entity\Controls\EntityDtosEditControl.xaml.cs">
       <DependentUpon>EntityDtosEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Entity\Controls\EntityNavDtosEditControl.xaml.cs">
+      <DependentUpon>EntityNavDtosEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
       <DependentUpon>EnumEditControl.xaml</DependentUpon>
@@ -383,6 +387,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Entity\Controls\EntityDtosEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Entity\Controls\EntityNavDtosEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">

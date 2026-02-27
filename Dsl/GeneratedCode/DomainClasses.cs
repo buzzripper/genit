@@ -10609,6 +10609,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DtoOuputFolder domain property code
+		
+		/// <summary>
+		/// DtoOuputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoOuputFolderDomainPropertyId = new global::System.Guid(0x9e3a7db3, 0xcb5a, 0x4e31, 0x9d, 0x70, 0x09, 0xae, 0x79, 0x99, 0x14, 0x8a);
+		
+		/// <summary>
+		/// Storage for DtoOuputFolder
+		/// </summary>
+		private global::System.String dtoOuputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DtoOuputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Dto Ouput Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/DtoOuputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/DtoOuputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("9e3a7db3-cb5a-4e31-9d70-09ae7999148a")]
+		public global::System.String DtoOuputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dtoOuputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DtoOuputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.DtoOuputFolder domain property.
+		/// </summary>
+		internal sealed partial class DtoOuputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private DtoOuputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.DtoOuputFolder domain property value handler.
+			/// </summary>
+			public static readonly DtoOuputFolderPropertyHandler Instance = new DtoOuputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.DtoOuputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DtoOuputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dtoOuputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dtoOuputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt

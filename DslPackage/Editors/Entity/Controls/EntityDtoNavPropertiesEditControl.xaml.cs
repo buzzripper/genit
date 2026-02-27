@@ -1,8 +1,10 @@
 using Microsoft.VisualStudio.Modeling;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 {
@@ -12,10 +14,20 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		private LinkedElementCollection<NavigationProperty> _navProperties;
 		private ObservableCollection<EntityDtoNavPropertyDisplayViewModel> _viewModels = new ObservableCollection<EntityDtoNavPropertyDisplayViewModel>();
 
+		public Action<NavigationProperty> NavPropertySelected { get; set; }
+
 		public EntityDtoNavPropertiesEditControl()
 		{
 			InitializeComponent();
 			grdDtoNavProperties.ItemsSource = _viewModels;
+		}
+
+		private void grdDtoNavProperties_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (_suspendUpdates) return;
+
+			var vm = grdDtoNavProperties.SelectedItem as EntityDtoNavPropertyDisplayViewModel;
+			NavPropertySelected?.Invoke(vm?.NavProperty);
 		}
 
 		public void SetNavProperties(LinkedElementCollection<NavigationProperty> navProperties)

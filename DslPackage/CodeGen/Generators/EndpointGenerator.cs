@@ -66,7 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 foreach (var serviceModel in entity.ServiceModels)
                 {
                     GenerateEndpoints(entity, serviceModel);
-                    _apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module]);
+                    _apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module], _modelRoot.EnumsNamespace);
                 }
             }
         }

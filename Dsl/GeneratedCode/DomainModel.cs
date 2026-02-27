@@ -235,6 +235,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModuleModel), "PermissionsStorage", ModuleModel.PermissionsStorageDomainPropertyId, typeof(ModuleModel.PermissionsStoragePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "DtoNamespace", ModuleModel.DtoNamespaceDomainPropertyId, typeof(ModuleModel.DtoNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "RequestNamespace", ModuleModel.RequestNamespaceDomainPropertyId, typeof(ModuleModel.RequestNamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(ModuleModel), "DtoOuputFolder", ModuleModel.DtoOuputFolderDomainPropertyId, typeof(ModuleModel.DtoOuputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(DtoModel), "Name", DtoModel.NameDomainPropertyId, typeof(DtoModel.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceRoleName", Association.SourceRoleNameDomainPropertyId, typeof(Association.SourceRoleNamePropertyHandler)),

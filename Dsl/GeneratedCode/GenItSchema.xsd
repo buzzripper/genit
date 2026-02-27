@@ -1212,6 +1212,8 @@
         <xsd:attribute name="dtoNamespace" type="xsd:string" />
         <!-- Property: RequestNamespace -->
         <xsd:attribute name="requestNamespace" type="xsd:string" />
+        <!-- Property: DtoOuputFolder -->
+        <xsd:attribute name="dtoOuputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

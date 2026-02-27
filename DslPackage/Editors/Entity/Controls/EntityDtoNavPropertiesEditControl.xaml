@@ -34,15 +34,20 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
                   CanUserResizeRows="False"
-                  HeadersVisibility="Column"
+                  HeadersVisibility="None"
                   GridLinesVisibility="None"
                   SelectionMode="Single"
-                  SelectionUnit="Cell"
+                  SelectionUnit="FullRow"
                   BorderThickness="0"
                   Background="{DynamicResource Theme.DataGrid.Background}"
                   RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
-                  AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
+                  AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}"
+                  SelectionChanged="grdDtoNavProperties_SelectionChanged">
             <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" 
+                                 Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" 
+                                 Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
                 <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
                     <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
@@ -70,6 +75,30 @@
                     <Setter Property="Padding" Value="4,2"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{DynamicResource Theme.DataGrid.RowBackground}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="" Width="40">
                     <DataGridTemplateColumn.CellTemplate>

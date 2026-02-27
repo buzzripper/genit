@@ -686,6 +686,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="9e3a7db3-cb5a-4e31-9d70-09ae7999148a" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Ouput Folder" Name="DtoOuputFolder" DisplayName="Dto Ouput Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="477c8d37-2fe7-4a42-bb3c-e0992e8bacef" Description="Description for Dyvenix.GenIt.DtoModel" Name="DtoModel" DisplayName="Dto Model" Namespace="Dyvenix.GenIt">
@@ -1695,6 +1700,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="requestNamespace">
             <DomainPropertyMoniker Name="ModuleModel/RequestNamespace" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dtoOuputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/DtoOuputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

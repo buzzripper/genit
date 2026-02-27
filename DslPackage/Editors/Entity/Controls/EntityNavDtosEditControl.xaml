@@ -1,4 +1,4 @@
-<editors:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Editors.Entity.Controls.EntityDtoPropertiesEditControl"
+<editors:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Editors.Entity.Controls.EntityNavDtosEditControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,30 +6,24 @@
              xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Entity.Controls"
              xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="350">
+             d:DesignHeight="300" d:DesignWidth="250">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Title Bar with Select All -->
+        <!-- Title Bar -->
         <Border Grid.Row="0" Background="{DynamicResource Theme.Background.Header}" 
                 BorderBrush="{DynamicResource Theme.Border}" 
                 BorderThickness="0,0,0,1" Padding="8,4">
-            <Grid>
-                <TextBlock Text="DTO Properties" FontWeight="SemiBold" FontSize="12"
-                           Foreground="{DynamicResource Theme.Foreground}" VerticalAlignment="Center"/>
-                <Button x:Name="btnSelectAll" Content="Select All" HorizontalAlignment="Right"
-                        Click="btnSelectAll_Click" Cursor="Hand"
-                        Background="Transparent" BorderThickness="0" Padding="4,2"
-                        Foreground="{DynamicResource Theme.Foreground}" FontSize="11"/>
-            </Grid>
+            <TextBlock Text="Navigation DTOs" FontWeight="SemiBold" FontSize="12"
+                       Foreground="{DynamicResource Theme.Foreground}" VerticalAlignment="Center"/>
         </Border>
 
         <!-- DataGrid -->
         <DataGrid Grid.Row="1" 
-                  x:Name="grdDtoProperties"
+                  x:Name="grdNavDtos"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
@@ -37,20 +31,12 @@
                   HeadersVisibility="None"
                   GridLinesVisibility="None"
                   SelectionMode="Single"
-                  SelectionUnit="Cell"
+                  SelectionUnit="FullRow"
                   BorderThickness="0"
                   Background="{DynamicResource Theme.DataGrid.Background}"
                   RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
                   AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}">
             <DataGrid.Resources>
-                <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
-                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
-                    <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                    <Setter Property="Padding" Value="4,2"/>
-                </Style>
                 <Style x:Key="LeftColumnHeaderStyle" TargetType="DataGridColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
                     <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
@@ -62,7 +48,7 @@
             </DataGrid.Resources>
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
                     <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
                     <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
                     <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
@@ -70,16 +56,29 @@
                     <Setter Property="Padding" Value="4,2"/>
                 </Style>
             </DataGrid.ColumnHeaderStyle>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{DynamicResource Theme.DataGrid.RowBackground}"/>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="" Width="40">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding IsIncluded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Property" Width="*" Binding="{Binding PropertyName}" IsReadOnly="True"
+                <DataGridTextColumn Header="DTO Name" Width="*" Binding="{Binding Name}" IsReadOnly="True"
                                     HeaderStyle="{StaticResource LeftColumnHeaderStyle}"/>
             </DataGrid.Columns>
         </DataGrid>

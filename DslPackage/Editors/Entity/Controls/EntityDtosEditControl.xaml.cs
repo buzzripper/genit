@@ -14,6 +14,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		public EntityDtosEditControl()
 		{
 			InitializeComponent();
+			dtoNavPropertiesCtl.NavPropertySelected = OnNavPropertySelected;
+		}
+
+		private void OnNavPropertySelected(NavigationProperty navProp)
+		{
+			navDtosCtl.SetSelectedNavProperty(navProp);
 		}
 
 		public void SetData(EntityModel entityModel)
@@ -24,6 +30,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				grdDtos.ItemsSource = null;
 				dtoPropertiesCtl.SetSelectedDto(null);
 				dtoNavPropertiesCtl.SetSelectedDto(null);
+				navDtosCtl.Clear();
 
 				_entityModel = entityModel;
 
@@ -196,6 +203,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				dtoNavPropertiesCtl.SetSelectedDto(null);
 				dtoNavPropertiesCtl.Readonly = true;
 			}
+			navDtosCtl.Clear();
 		}
 	}
 }

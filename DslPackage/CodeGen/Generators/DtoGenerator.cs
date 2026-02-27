@@ -5,111 +5,84 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-	internal class DtoGenerator
-	{
-		private readonly ModelRoot _modelRoot;
-		private readonly List<EntityModel> _entities;
-		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
-		private readonly List<string> _usings = new List<string>();
-		private readonly List<string> _modelUsings;
+    internal class DtoGenerator
+    {
+        private readonly ModelRoot _modelRoot;
+        private readonly List<EntityModel> _entities;
+        private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
+        private readonly List<string> _usings = new List<string>();
+        private readonly List<string> _modelUsings;
 
-		internal DtoGenerator(ModelRoot modelRoot)
-		{
-			// Convenience vars
-			_modelRoot = modelRoot;
-			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
-			foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
-			{
-				if (!_modules.ContainsKey(module.Name))
-					_modules.Add(module.Name, module);
-			}
-			_modelUsings = modelRoot.UsingsList;
-		}
+        internal DtoGenerator(ModelRoot modelRoot)
+        {
+            // Convenience vars
+            _modelRoot = modelRoot;
+            _entities = modelRoot.Types.OfType<EntityModel>().ToList();
+            foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
+            {
+                if (!_modules.ContainsKey(module.Name))
+                    _modules.Add(module.Name, module);
+            }
+            _modelUsings = modelRoot.UsingsList;
+        }
 
-		internal void GenerateCode()
-		{
-			foreach (var entity in _entities.Where(e => e.GenerateCode))
-			{
-				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
-				{
-					foreach (var updateMethod in service.UpdateMethods)
-					{
-						GenerateDto(_modules[entity.Module], entity, service, updateMethod);
-					}
-				}
-			}
-		}
+        internal void GenerateCode()
+        {
+            foreach (var entity in _entities.Where(e => e.GenerateCode))
+            {
+                foreach (var dto in entity.DtoModels)
+                {
+                    GenerateDto(_modules[entity.Module], entity, dto);
+                }
+            }
+        }
 
-		private void ResetUsings()
-		{
-			_usings.Clear();
-			_usings.AddLines(0, _modelUsings);
-		}
+        private void ResetUsings()
+        {
+            _usings.Clear();
+            _usings.AddLines(0, _modelUsings);
+        }
 
-		private void GenerateDto(ModuleModel module, EntityModel entity, ServiceModel service, UpdateMethodModel updateMethod)
-		{
-			var dtoName = $"{updateMethod.Name}Req";
+        private void GenerateDto(ModuleModel module, EntityModel entity, DtoModel dto)
+        {
+            this.ResetUsings();
 
-			this.ResetUsings();
+            //// If any non-primitive property, add DTOs namespace
+            //if (dto.PropertyModels.Any(p => !DataTypes.IsPrimitive(p.DataType)))
+            //	_usings.AddIfNotExists(module.DtoNamespace);
 
-			// If any non-primitive property, add entities namespace
-			if (updateMethod.UpdateProperties.Any(x => !DataTypes.IsPrimitive(x.PropertyModel.DataType)))
-				_usings.AddIfNotExists(_modelRoot.EntitiesNamespace);
+            // DateTime needs System namespace
+            if (dto.PropertyModels.Any(p => p.DataType == DataTypes.DateTime))
+                _usings.AddIfNotExists("System");
 
-			// DateTime needs System namespace
-			if (updateMethod.UpdateProperties.Any(x => x.PropertyModel.DataType == DataTypes.DateTime))
-				_usings.AddIfNotExists("System");
+            var fileContent = new List<string>();
 
-			var fileContent = new List<string>();
+            if (_modelRoot.InclHeader)
+                fileContent.Add(CodeGenUtils.FileHeader);
 
-			if (_modelRoot.InclHeader)
-				fileContent.Add(CodeGenUtils.FileHeader);
+            // Usings
+            fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 
-			// Usings
-			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
+            // Namespace
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"namespace {module.DtoNamespace};");
 
-			// Namespace
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.{service.Version};");
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"public class {dto.Name}");
+            fileContent.AddLine(0, "{");
 
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"public class {dtoName}");
-			fileContent.AddLine(0, "{");
+            foreach (var prop in dto.PropertyModels)
+                fileContent.AddLine(1, $"public {prop.CSType} {prop.Name} {{ get; set; }}");
 
-			// Always include Id and RowVersion if applicable
-			fileContent.AddLine(1, "public Guid Id { get; set; }");
-			if (entity.InclRowVersion)
-				fileContent.AddLine(1, "public byte[] RowVersion { get; set; }");
+            fileContent.AddLine(0, "}");
 
-			// Required properties first
-			var requiredUpdateProps = updateMethod.UpdateProperties.Where(x => !x.IsOptional);
-			if (requiredUpdateProps.Any())
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(1, "// Required properties");
-				foreach (var requiredUpdateProp in requiredUpdateProps)
-					fileContent.AddLine(1, $"public {requiredUpdateProp.PropertyModel.CSType} {requiredUpdateProp.PropertyModel.Name} {{ get; set; }}");
-			}
+            var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.DtoOuputFolder);
+            Directory.CreateDirectory(outputDir);  // Ensure output dir exists
+            var outputFilepath = Path.Combine(outputDir, $"{dto.Name}.g.cs");
 
-			// Optional properties last
-			var optionalUpdateProps = updateMethod.UpdateProperties.Where(x => x.IsOptional);
-			if (optionalUpdateProps.Any())
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(1, "// Required properties");
-				foreach (var optionalUpdateProp in optionalUpdateProps)
-					fileContent.AddLine(1, $"public {optionalUpdateProp.PropertyModel.CSType} {optionalUpdateProp.PropertyModel.Name} {{ get; set; }}");
-			}
+            FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			fileContent.AddLine(0, "}");
-
-			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.RequestOutputFolder, $"{service.Version}");
-			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{dtoName}.g.cs");
-
-			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
-
-			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
-		}
-	}
+            OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+        }
+    }
 }

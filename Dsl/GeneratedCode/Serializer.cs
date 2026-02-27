@@ -15676,6 +15676,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DtoOuputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDtoOuputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dtoOuputFolder");
+				if (attribDtoOuputFolder != null)
+				{
+					global::System.String valueOfDtoOuputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDtoOuputFolder, out valueOfDtoOuputFolder))
+					{
+						instanceOfModuleModel.DtoOuputFolder = valueOfDtoOuputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dtoOuputFolder", typeof(global::System.String), attribDtoOuputFolder);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -16117,6 +16134,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "requestNamespace", propValue);
+	
+				}
+			}
+			// DtoOuputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModuleModel.DtoOuputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dtoOuputFolder", propValue);
 	
 				}
 			}

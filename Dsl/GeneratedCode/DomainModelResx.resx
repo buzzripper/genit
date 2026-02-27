@@ -1241,6 +1241,14 @@
     <value>Request Namespace</value>
     <comment>DisplayName for DomainProperty &apos;RequestNamespace&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoOuputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Dto Ouput Folder</value>
+    <comment>Description for DomainProperty &apos;DtoOuputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/DtoOuputFolder.DisplayName" xml:space="preserve">
+    <value>Dto Ouput Folder</value>
+    <comment>DisplayName for DomainProperty &apos;DtoOuputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.DtoModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.DtoModel</value>
     <comment>Description for DomainClass &apos;DtoModel&apos;</comment>

@@ -40,6 +40,8 @@ d:DesignHeight="450" d:DesignWidth="900">
             <ColumnDefinition Width="*" MinWidth="200"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left Panel - DTOs Grid -->
@@ -155,7 +157,14 @@ d:DesignHeight="450" d:DesignWidth="900">
         <GridSplitter Grid.Column="3" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
                       Background="{DynamicResource Theme.Splitter}"/>
 
-        <!-- Right Panel - DTO Navigation Properties -->
+        <!-- DTO Navigation Properties -->
         <local:EntityDtoNavPropertiesEditControl Grid.Column="4" x:Name="dtoNavPropertiesCtl"/>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="5" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource Theme.Splitter}"/>
+
+        <!-- Right Panel - Navigation DTOs -->
+        <local:EntityNavDtosEditControl Grid.Column="6" x:Name="navDtosCtl"/>
     </Grid>
 </editors:UserControlBase>
