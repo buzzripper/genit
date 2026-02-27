@@ -39,16 +39,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             constructor.AddLine(0, "{");
             constructor.AddLine(0, "}");
 
-            // Create
-            var createMethodsOutput = new List<string>();
-            if (service.InclCreate)
-            {
-                createMethodsOutput.AddLine();
-                createMethodsOutput.AddLine(0, "#region Create");
-                this.GenerateCreateMethod(module, entity, service, createMethodsOutput, interfaceOutput);
-                createMethodsOutput.AddLine();
-                createMethodsOutput.AddLine(0, "#endregion");
-            }
+            //// Create
+            //var createMethodsOutput = new List<string>();
+            //if (service.InclCreate)
+            //{
+            //    createMethodsOutput.AddLine();
+            //    createMethodsOutput.AddLine(0, "#region Create");
+            //    this.GenerateCreateMethod(module, entity, service, createMethodsOutput, interfaceOutput);
+            //    createMethodsOutput.AddLine();
+            //    createMethodsOutput.AddLine(0, "#endregion");
+            //}
 
             // Delete
             var deleteMethodsOutput = new List<string>();
@@ -65,9 +65,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var updMethodsOutput = new List<string>();
             if (service.InclUpdate || service.UpdateMethods.Any())
             {
-                // Full udpate
-                if (service.InclUpdate)
-                    this.GenerateFullUpdateMethod(module, entity, service, updMethodsOutput, interfaceOutput);
+                //// Full udpate
+                //if (service.InclUpdate)
+                //    this.GenerateFullUpdateMethod(module, entity, service, updMethodsOutput, interfaceOutput);
                 // Normal updates
                 foreach (UpdateMethodModel method in service.UpdateMethods)
                     this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
@@ -102,8 +102,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLine(0, "{");
             fileContent.AddLines(1, constructor);
 
-            if (createMethodsOutput.Count > 0)
-                fileContent.AddLines(1, createMethodsOutput);
+            //if (createMethodsOutput.Count > 0)
+            //    fileContent.AddLines(1, createMethodsOutput);
 
             if (deleteMethodsOutput.Count > 0)
                 fileContent.AddLines(1, deleteMethodsOutput);
@@ -298,7 +298,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 restVerb = "Get";
             }
 
-            string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : method.IsList ? $"List<{entity.Name}>" : entity.Name;
+            string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"IReadOnlyList<{method.ReturnDto.Name}>" : method.ReturnDto.Name;
+
             var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
             // Interface
             interfaceOutput.Add(signature);

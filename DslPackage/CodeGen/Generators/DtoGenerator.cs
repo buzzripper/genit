@@ -1,4 +1,5 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
+using Microsoft.VisualStudio.Shell;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,24 +27,19 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _modelUsings = modelRoot.UsingsList;
         }
 
-        internal void GenerateCode()
-        {
-            foreach (var entity in _entities.Where(e => e.GenerateCode))
-            {
-                foreach (var dto in entity.DtoModels)
-                {
-                    GenerateDto(_modules[entity.Module], entity, dto);
-                }
-            }
-        }
-
         private void ResetUsings()
         {
             _usings.Clear();
             _usings.AddLines(0, _modelUsings);
         }
 
-        private void GenerateDto(ModuleModel module, EntityModel entity, DtoModel dto)
+        internal void GenerateCode()
+        {
+            foreach (var entity in _entities.Where(e => e.GenerateCode))
+                GenerateDtos(_modules[entity.Module], entity);
+        }
+
+        private void GenerateDtos(ModuleModel module, EntityModel entity)
         {
             this.ResetUsings();
 
@@ -52,7 +48,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             //	_usings.AddIfNotExists(module.DtoNamespace);
 
             // DateTime needs System namespace
-            if (dto.PropertyModels.Any(p => p.DataType == DataTypes.DateTime))
+            if (entity.DtoModels.Any(dto => dto.PropertyModels.Any(p => p.DataType == DataTypes.DateTime)))
                 _usings.AddIfNotExists("System");
 
             var fileContent = new List<string>();
@@ -67,22 +63,38 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLine();
             fileContent.AddLine(0, $"namespace {module.DtoNamespace};");
 
-            fileContent.AddLine();
-            fileContent.AddLine(0, $"public class {dto.Name}");
-            fileContent.AddLine(0, "{");
-
-            foreach (var prop in dto.PropertyModels)
-                fileContent.AddLine(1, $"public {prop.CSType} {prop.Name} {{ get; set; }}");
-
-            fileContent.AddLine(0, "}");
+            foreach (var dto in entity.DtoModels)
+                fileContent.AddLines(0, GenerateDto(_modules[entity.Module], entity, dto));
 
             var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.DtoOuputFolder);
             Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-            var outputFilepath = Path.Combine(outputDir, $"{dto.Name}.g.cs");
+            var outputFilepath = Path.Combine(outputDir, $"{entity.Name}Dtos.g.cs");
 
             FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
             OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+        }
+
+        private List<string> GenerateDto(ModuleModel module, EntityModel entity, DtoModel dto)
+        {
+            var dtoLines = new List<string>();
+
+            dtoLines.AddLine();
+            dtoLines.AddLine(0, $"public record {dto.Name} (");
+
+            foreach (var prop in dto.PropertyModels)
+                dtoLines.AddLine(1, $"{prop.CSType} {prop.Name},");
+
+            foreach (var navProp in dto.NavigationProperties)
+            {
+                if (navProp.IsCollection)
+                    dtoLines.AddLine(1, $"IReadOnlyList<{navProp.EntityModel.Name}> {navProp.Name},");
+            }
+            dtoLines[dtoLines.Count - 1] = dtoLines[dtoLines.Count - 1].TrimSuffix(",");
+
+            dtoLines.AddLine(0, ");");
+
+            return dtoLines;
         }
     }
 }
