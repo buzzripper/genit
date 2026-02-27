@@ -280,6 +280,21 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
+          <!-- Relationship: EntityModelReferencesDtoModels -->
+          <xsd:element name="dtoModels" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of EntityModelReferencesDtoModels</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="entityModelReferencesDtoModels" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of EntityModelReferencesDtoModels needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -1090,6 +1105,21 @@
               </xsd:sequence>
             </xsd:complexType>
           </xsd:element>
+          <!-- Relationship: ServiceModelHasDtoModels -->
+          <xsd:element name="dtoModels" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of ServiceModelHasDtoModels</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="serviceModelHasDtoModels" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of ServiceModelHasDtoModels needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
         </xsd:sequence>
         <!-- Id -->
         <xsd:attribute name="Id" type="xsd:string">
@@ -1194,6 +1224,72 @@
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="ModelTypeMoniker">
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModel -->
+  <xsd:element name="dtoModel" type="DtoModel" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DtoModel">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Relationship: DtoModelReferencesPropertyModels -->
+          <xsd:element name="propertyModels" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of DtoModelReferencesPropertyModels</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="dtoModelReferencesPropertyModels" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of DtoModelReferencesPropertyModels needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <!-- Relationship: DtoModelReferencesNavigationProperties -->
+          <xsd:element name="navigationProperties" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>Instances of DtoModelReferencesNavigationProperties</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element ref="dtoModelReferencesNavigationProperties" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:documentation>[Instance of DtoModelReferencesNavigationProperties needs to be serialized in full-form]</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <!-- Property: Name -->
+        <xsd:attribute name="name" type="xsd:string" />
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModel Moniker -->
+  <xsd:element name="dtoModelMoniker" type="DtoModelMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DtoModelMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DtoModel instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1900,6 +1996,166 @@
   <xsd:complexType name="ServiceModelHasUpdateMethodsMoniker">
     <xsd:annotation>
       <xsd:documentation>Moniker for ServiceModelHasUpdateMethods instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- ServiceModelHasDtoModels -->
+  <xsd:element name="serviceModelHasDtoModels" type="ServiceModelHasDtoModels" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="ServiceModelHasDtoModels">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end DtoModel -->
+          <xsd:element ref="dtoModel" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- ServiceModelHasDtoModels Moniker -->
+  <xsd:element name="serviceModelHasDtoModelsMoniker" type="ServiceModelHasDtoModelsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="ServiceModelHasDtoModelsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for ServiceModelHasDtoModels instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModelReferencesPropertyModels -->
+  <xsd:element name="dtoModelReferencesPropertyModels" type="DtoModelReferencesPropertyModels" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DtoModelReferencesPropertyModels">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end PropertyModel -->
+          <xsd:element ref="propertyModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModelReferencesPropertyModels Moniker -->
+  <xsd:element name="dtoModelReferencesPropertyModelsMoniker" type="DtoModelReferencesPropertyModelsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DtoModelReferencesPropertyModelsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DtoModelReferencesPropertyModels instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModelReferencesNavigationProperties -->
+  <xsd:element name="dtoModelReferencesNavigationProperties" type="DtoModelReferencesNavigationProperties" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="DtoModelReferencesNavigationProperties">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end NavigationProperty -->
+          <xsd:element ref="navigationPropertyMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- DtoModelReferencesNavigationProperties Moniker -->
+  <xsd:element name="dtoModelReferencesNavigationPropertiesMoniker" type="DtoModelReferencesNavigationPropertiesMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="DtoModelReferencesNavigationPropertiesMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for DtoModelReferencesNavigationProperties instance.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElementMoniker">
+        <xsd:attribute name="Id" type="xsd:string" >
+          <xsd:annotation>
+            <xsd:documentation>Attribute to store the moniker string.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EntityModelReferencesDtoModels -->
+  <xsd:element name="entityModelReferencesDtoModels" type="EntityModelReferencesDtoModels" substitutionGroup="core:modelElement" />
+  <xsd:complexType name="EntityModelReferencesDtoModels">
+    <xsd:complexContent>
+      <xsd:extension base="core:ModelElement">
+        <xsd:sequence minOccurs="0" maxOccurs="1">
+          <!-- Target end DtoModel -->
+          <xsd:element ref="dtoModelMoniker" minOccurs="1" maxOccurs="1">
+            <xsd:annotation>
+              <xsd:documentation>[Target role-player]</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <!-- Id -->
+        <xsd:attribute name="Id" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Instance Guid of this element, needed because SerializeId is set to true.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  
+  <!-- EntityModelReferencesDtoModels Moniker -->
+  <xsd:element name="entityModelReferencesDtoModelsMoniker" type="EntityModelReferencesDtoModelsMoniker" substitutionGroup="core:modelElementMoniker" />
+  <xsd:complexType name="EntityModelReferencesDtoModelsMoniker">
+    <xsd:annotation>
+      <xsd:documentation>Moniker for EntityModelReferencesDtoModels instance.</xsd:documentation>
     </xsd:annotation>
     <xsd:complexContent>
       <xsd:extension base="core:ModelElementMoniker">

@@ -86,6 +86,7 @@ namespace Dyvenix.GenIt
 				typeof(UpdateMethodModel),
 				typeof(ServiceModel),
 				typeof(ModuleModel),
+				typeof(DtoModel),
 				typeof(Association),
 				typeof(ClassHasProperties),
 				typeof(ModelRootHasComments),
@@ -103,6 +104,10 @@ namespace Dyvenix.GenIt
 				typeof(UpdateMethodModelHasUpdateProperties),
 				typeof(ServiceModelHasReadMethodModels),
 				typeof(ServiceModelHasUpdateMethods),
+				typeof(ServiceModelHasDtoModels),
+				typeof(DtoModelReferencesPropertyModels),
+				typeof(DtoModelReferencesNavigationProperties),
+				typeof(EntityModelReferencesDtoModels),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
 				typeof(GeneralizationConnector),
@@ -230,6 +235,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModuleModel), "PermissionsStorage", ModuleModel.PermissionsStorageDomainPropertyId, typeof(ModuleModel.PermissionsStoragePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "DtoNamespace", ModuleModel.DtoNamespaceDomainPropertyId, typeof(ModuleModel.DtoNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "RequestNamespace", ModuleModel.RequestNamespaceDomainPropertyId, typeof(ModuleModel.RequestNamespacePropertyHandler)),
+				new DomainMemberInfo(typeof(DtoModel), "Name", DtoModel.NameDomainPropertyId, typeof(DtoModel.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceRoleName", Association.SourceRoleNameDomainPropertyId, typeof(Association.SourceRoleNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "GenSourceNavProperty", Association.GenSourceNavPropertyDomainPropertyId, typeof(Association.GenSourceNavPropertyPropertyHandler)),
@@ -282,6 +288,14 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(ServiceModelHasReadMethodModels), "ReadMethodModel", ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ServiceModelHasUpdateMethods), "ServiceModel", ServiceModelHasUpdateMethods.ServiceModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ServiceModelHasUpdateMethods), "UpdateMethodModel", ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ServiceModelHasDtoModels), "ServiceModel", ServiceModelHasDtoModels.ServiceModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ServiceModelHasDtoModels), "DtoModel", ServiceModelHasDtoModels.DtoModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(DtoModelReferencesPropertyModels), "DtoModel", DtoModelReferencesPropertyModels.DtoModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(DtoModelReferencesPropertyModels), "PropertyModel", DtoModelReferencesPropertyModels.PropertyModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(DtoModelReferencesNavigationProperties), "DtoModel", DtoModelReferencesNavigationProperties.DtoModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(DtoModelReferencesNavigationProperties), "NavigationProperty", DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "EntityModel", EntityModelReferencesDtoModels.EntityModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "DtoModel", EntityModelReferencesDtoModels.DtoModelDomainRoleId),
 			};
 		}
 		#endregion
@@ -303,7 +317,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(29);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(30);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(EntityModel), 1);
 				createElementMap.Add(typeof(PropertyModel), 2);
@@ -319,16 +333,17 @@ namespace Dyvenix.GenIt
 				createElementMap.Add(typeof(UpdateMethodModel), 12);
 				createElementMap.Add(typeof(ServiceModel), 13);
 				createElementMap.Add(typeof(ModuleModel), 14);
-				createElementMap.Add(typeof(GenItDiagram), 15);
-				createElementMap.Add(typeof(AssociationConnector), 16);
-				createElementMap.Add(typeof(GeneralizationConnector), 17);
-				createElementMap.Add(typeof(ImplementationConnector), 18);
-				createElementMap.Add(typeof(CommentConnector), 19);
-				createElementMap.Add(typeof(CommentBoxShape), 20);
-				createElementMap.Add(typeof(ModuleShape), 21);
-				createElementMap.Add(typeof(ClassShape), 22);
-				createElementMap.Add(typeof(InterfaceShape), 23);
-				createElementMap.Add(typeof(EnumShape), 24);
+				createElementMap.Add(typeof(DtoModel), 15);
+				createElementMap.Add(typeof(GenItDiagram), 16);
+				createElementMap.Add(typeof(AssociationConnector), 17);
+				createElementMap.Add(typeof(GeneralizationConnector), 18);
+				createElementMap.Add(typeof(ImplementationConnector), 19);
+				createElementMap.Add(typeof(CommentConnector), 20);
+				createElementMap.Add(typeof(CommentBoxShape), 21);
+				createElementMap.Add(typeof(ModuleShape), 22);
+				createElementMap.Add(typeof(ClassShape), 23);
+				createElementMap.Add(typeof(InterfaceShape), 24);
+				createElementMap.Add(typeof(EnumShape), 25);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -357,16 +372,17 @@ namespace Dyvenix.GenIt
 				case 12: return new UpdateMethodModel(partition, propertyAssignments);
 				case 13: return new ServiceModel(partition, propertyAssignments);
 				case 14: return new ModuleModel(partition, propertyAssignments);
-				case 15: return new GenItDiagram(partition, propertyAssignments);
-				case 16: return new AssociationConnector(partition, propertyAssignments);
-				case 17: return new GeneralizationConnector(partition, propertyAssignments);
-				case 18: return new ImplementationConnector(partition, propertyAssignments);
-				case 19: return new CommentConnector(partition, propertyAssignments);
-				case 20: return new CommentBoxShape(partition, propertyAssignments);
-				case 21: return new ModuleShape(partition, propertyAssignments);
-				case 22: return new ClassShape(partition, propertyAssignments);
-				case 23: return new InterfaceShape(partition, propertyAssignments);
-				case 24: return new EnumShape(partition, propertyAssignments);
+				case 15: return new DtoModel(partition, propertyAssignments);
+				case 16: return new GenItDiagram(partition, propertyAssignments);
+				case 17: return new AssociationConnector(partition, propertyAssignments);
+				case 18: return new GeneralizationConnector(partition, propertyAssignments);
+				case 19: return new ImplementationConnector(partition, propertyAssignments);
+				case 20: return new CommentConnector(partition, propertyAssignments);
+				case 21: return new CommentBoxShape(partition, propertyAssignments);
+				case 22: return new ModuleShape(partition, propertyAssignments);
+				case 23: return new ClassShape(partition, propertyAssignments);
+				case 24: return new InterfaceShape(partition, propertyAssignments);
+				case 25: return new EnumShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -389,7 +405,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(17);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(21);
 				createElementLinkMap.Add(typeof(Association), 0);
 				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -407,6 +423,10 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(UpdateMethodModelHasUpdateProperties), 14);
 				createElementLinkMap.Add(typeof(ServiceModelHasReadMethodModels), 15);
 				createElementLinkMap.Add(typeof(ServiceModelHasUpdateMethods), 16);
+				createElementLinkMap.Add(typeof(ServiceModelHasDtoModels), 17);
+				createElementLinkMap.Add(typeof(DtoModelReferencesPropertyModels), 18);
+				createElementLinkMap.Add(typeof(DtoModelReferencesNavigationProperties), 19);
+				createElementLinkMap.Add(typeof(EntityModelReferencesDtoModels), 20);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -438,6 +458,10 @@ namespace Dyvenix.GenIt
 				case 14: return new UpdateMethodModelHasUpdateProperties(partition, roleAssignments, propertyAssignments);
 				case 15: return new ServiceModelHasReadMethodModels(partition, roleAssignments, propertyAssignments);
 				case 16: return new ServiceModelHasUpdateMethods(partition, roleAssignments, propertyAssignments);
+				case 17: return new ServiceModelHasDtoModels(partition, roleAssignments, propertyAssignments);
+				case 18: return new DtoModelReferencesPropertyModels(partition, roleAssignments, propertyAssignments);
+				case 19: return new DtoModelReferencesNavigationProperties(partition, roleAssignments, propertyAssignments);
+				case 20: return new EntityModelReferencesDtoModels(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -627,6 +651,7 @@ namespace Dyvenix.GenIt
 			DomainRoles.Add(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, true);
+			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId, true);
 			#endregion
 		}
 		/// <summary>

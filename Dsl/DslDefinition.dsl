@@ -688,6 +688,15 @@
         </DomainProperty>
       </Properties>
     </DomainClass>
+    <DomainClass Id="477c8d37-2fe7-4a42-bb3c-e0992e8bacef" Description="Description for Dyvenix.GenIt.DtoModel" Name="DtoModel" DisplayName="Dto Model" Namespace="Dyvenix.GenIt">
+      <Properties>
+        <DomainProperty Id="b6c40abf-c524-488c-a53a-1a91dba7788f" Description="Description for Dyvenix.GenIt.DtoModel.Name" Name="Name" DisplayName="Name">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+      </Properties>
+    </DomainClass>
   </Classes>
   <Relationships>
     <DomainRelationship Id="4a55a93f-ffed-423c-ad69-a1b5c9c85a1e" Description="Associations between Classes." Name="Association" DisplayName="Association" Namespace="Dyvenix.GenIt" AllowsDuplicates="true">
@@ -1010,6 +1019,70 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
+    <DomainRelationship Id="77cfbcfd-3fcc-448c-a90d-641bdef1ee39" Description="Description for Dyvenix.GenIt.ServiceModelHasDtoModels" Name="ServiceModelHasDtoModels" DisplayName="Service Model Has Dto Models" Namespace="Dyvenix.GenIt" IsEmbedding="true">
+      <Source>
+        <DomainRole Id="e0020045-4de4-4eaf-8648-2a900e9a1ffc" Description="Description for Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModel" Name="ServiceModel" DisplayName="Service Model" PropertyName="DtoModels" PropagatesCopy="PropagatesCopyToLinkAndOppositeRolePlayer" PropertyDisplayName="Dto Models">
+          <RolePlayer>
+            <DomainClassMoniker Name="ServiceModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="4abe1c19-7ed4-40cc-a1d5-bc5c8910e674" Description="Description for Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModel" Name="DtoModel" DisplayName="Dto Model" PropertyName="ServiceModel" Multiplicity="ZeroOne" PropagatesDelete="true" PropertyDisplayName="Service Model">
+          <RolePlayer>
+            <DomainClassMoniker Name="DtoModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="9a863ef7-4f4b-4a84-8a3a-0abb73675774" Description="Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels" Name="DtoModelReferencesPropertyModels" DisplayName="Dto Model References Property Models" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="35d67e79-e4f4-47b6-8703-375e3cbe27b7" Description="Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModel" Name="DtoModel" DisplayName="Dto Model" PropertyName="PropertyModels" PropertyDisplayName="Property Models">
+          <RolePlayer>
+            <DomainClassMoniker Name="DtoModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="8c35d8a2-df05-42dc-af96-2c1ad3bbe375" Description="Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="DtoModeled" PropertyDisplayName="Dto Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="PropertyModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="127a2b48-4ef3-4b10-aa70-af8584d89862" Description="Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties" Name="DtoModelReferencesNavigationProperties" DisplayName="Dto Model References Navigation Properties" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="8164b681-3dff-46ec-9e77-d87c7d183ca1" Description="Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModel" Name="DtoModel" DisplayName="Dto Model" PropertyName="NavigationProperties" PropertyDisplayName="Navigation Properties">
+          <RolePlayer>
+            <DomainClassMoniker Name="DtoModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="1f0f1aee-0bdc-4557-8f4f-084c84b7e60d" Description="Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationProperty" Name="NavigationProperty" DisplayName="Navigation Property" PropertyName="DtoModeled" PropertyDisplayName="Dto Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="NavigationProperty" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
+    <DomainRelationship Id="e1dbedb8-6443-446e-bc59-6d15ad63d193" Description="Description for Dyvenix.GenIt.EntityModelReferencesDtoModels" Name="EntityModelReferencesDtoModels" DisplayName="Entity Model References Dto Models" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="ea6581e2-4a62-43bc-9dea-2df2b2acb75c" Description="Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModel" Name="EntityModel" DisplayName="Entity Model" PropertyName="DtoModels" PropertyDisplayName="Dto Models">
+          <RolePlayer>
+            <DomainClassMoniker Name="EntityModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="21ad1d33-7709-4b2f-9401-1aba97a53f1a" Description="Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModel" Name="DtoModel" DisplayName="Dto Model" PropertyName="EntityModeled" PropertyDisplayName="Entity Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="DtoModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -1295,6 +1368,9 @@
           <XmlPropertyData XmlName="genUnitTests">
             <DomainPropertyMoniker Name="EntityModel/GenUnitTests" />
           </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="dtoModels">
+            <DomainRelationshipMoniker Name="EntityModelReferencesDtoModels" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1597,6 +1673,9 @@
           <XmlPropertyData XmlName="permissions">
             <DomainPropertyMoniker Name="ServiceModel/Permissions" />
           </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="dtoModels">
+            <DomainRelationshipMoniker Name="ServiceModelHasDtoModels" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
@@ -1651,6 +1730,32 @@
       </XmlClassData>
       <XmlClassData TypeName="GenItDiagram" MonikerAttributeName="" SerializeId="true" MonikerElementName="genItDiagramMoniker" ElementName="genItDiagram" MonikerTypeName="GenItDiagramMoniker">
         <DiagramMoniker Name="GenItDiagram" />
+      </XmlClassData>
+      <XmlClassData TypeName="DtoModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="dtoModelMoniker" ElementName="dtoModel" MonikerTypeName="DtoModelMoniker">
+        <DomainClassMoniker Name="DtoModel" />
+        <ElementData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="propertyModels">
+            <DomainRelationshipMoniker Name="DtoModelReferencesPropertyModels" />
+          </XmlRelationshipData>
+          <XmlPropertyData XmlName="name">
+            <DomainPropertyMoniker Name="DtoModel/Name" />
+          </XmlPropertyData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="navigationProperties">
+            <DomainRelationshipMoniker Name="DtoModelReferencesNavigationProperties" />
+          </XmlRelationshipData>
+        </ElementData>
+      </XmlClassData>
+      <XmlClassData TypeName="ServiceModelHasDtoModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelHasDtoModelsMoniker" ElementName="serviceModelHasDtoModels" MonikerTypeName="ServiceModelHasDtoModelsMoniker">
+        <DomainRelationshipMoniker Name="ServiceModelHasDtoModels" />
+      </XmlClassData>
+      <XmlClassData TypeName="DtoModelReferencesPropertyModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="dtoModelReferencesPropertyModelsMoniker" ElementName="dtoModelReferencesPropertyModels" MonikerTypeName="DtoModelReferencesPropertyModelsMoniker">
+        <DomainRelationshipMoniker Name="DtoModelReferencesPropertyModels" />
+      </XmlClassData>
+      <XmlClassData TypeName="DtoModelReferencesNavigationProperties" MonikerAttributeName="" SerializeId="true" MonikerElementName="dtoModelReferencesNavigationPropertiesMoniker" ElementName="dtoModelReferencesNavigationProperties" MonikerTypeName="DtoModelReferencesNavigationPropertiesMoniker">
+        <DomainRelationshipMoniker Name="DtoModelReferencesNavigationProperties" />
+      </XmlClassData>
+      <XmlClassData TypeName="EntityModelReferencesDtoModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelReferencesDtoModelsMoniker" ElementName="entityModelReferencesDtoModels" MonikerTypeName="EntityModelReferencesDtoModelsMoniker">
+        <DomainRelationshipMoniker Name="EntityModelReferencesDtoModels" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -1868,6 +1973,82 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="ServiceModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="ServiceModelHasDtoModelsBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="ServiceModelHasDtoModels" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ServiceModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="DtoModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="DtoModelReferencesPropertyModelsBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="DtoModelReferencesPropertyModels" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="DtoModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="PropertyModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="DtoModelReferencesNavigationPropertiesBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="DtoModelReferencesNavigationProperties" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="DtoModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="NavigationProperty" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="EntityModelReferencesDtoModelsBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="EntityModelReferencesDtoModels" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="EntityModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="DtoModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </TargetDirectives>

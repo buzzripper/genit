@@ -122,6 +122,15 @@
     <Compile Include="Editors\Converters\UseRequestMultiConverter.cs" />
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
+    <Compile Include="Editors\Entity\Controls\EntityDtoNavPropertiesEditControl.xaml.cs">
+      <DependentUpon>EntityDtoNavPropertiesEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Entity\Controls\EntityDtoPropertiesEditControl.xaml.cs">
+      <DependentUpon>EntityDtoPropertiesEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Entity\Controls\EntityDtosEditControl.xaml.cs">
+      <DependentUpon>EntityDtosEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
       <DependentUpon>EnumEditControl.xaml</DependentUpon>
     </Compile>
@@ -148,6 +157,12 @@
     </Compile>
     <Compile Include="Editors\Permissions\PermissionsManager.cs" />
     <Compile Include="Editors\SelectionTracker.cs" />
+    <Compile Include="Editors\Services\Controls\DtoPropertiesEditControl.xaml.cs">
+      <DependentUpon>DtoPropertiesEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Services\Controls\DtosEditControl.xaml.cs">
+      <DependentUpon>DtosEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
       <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
     </Compile>
@@ -361,6 +376,15 @@
     <Page Include="Editors\Controls\StringListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Editors\Entity\Controls\EntityDtoNavPropertiesEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Entity\Controls\EntityDtoPropertiesEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Entity\Controls\EntityDtosEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -380,6 +404,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Services\Controls\DtoPropertiesEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Services\Controls\DtosEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">

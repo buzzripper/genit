@@ -223,7 +223,7 @@
         <!-- Tab Control with themed panel background -->
         <Border Grid.Row="1" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
             <TabControl x:Name="tabControl">
-                <!-- Standard Methods Tab (first position) -->
+                <!-- Standard Methods Tab -->
                 <TabItem Header="Standard Methods">
                     <Grid Margin="12">
                         <Grid.RowDefinitions>

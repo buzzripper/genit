@@ -3714,6 +3714,21 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region DtoModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModelDomainRoleId);
+			}
+		}
+		#endregion
 		#region ElementGroupPrototype Merge methods
 		/// <summary>
 		/// Returns a value indicating whether the source element represented by the
@@ -5183,6 +5198,21 @@ namespace Dyvenix.GenIt
 			set
 			{
 				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region DtoModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -7049,6 +7079,22 @@ namespace Dyvenix.GenIt
 			set
 			{
 				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region DtoModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// Description for
+		/// Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationProperty
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId);
 			}
 		}
 		#endregion
@@ -10070,6 +10116,21 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region DtoModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModelDomainRoleId);
+			}
+		}
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt
@@ -10547,6 +10608,198 @@ namespace Dyvenix.GenIt
 			}
 		}
 		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass DtoModel
+	/// Description for Dyvenix.GenIt.DtoModel
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("477c8d37-2fe7-4a42-bb3c-e0992e8bacef")]
+	public partial class DtoModel : DslModeling::ModelElement
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// DtoModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x477c8d37, 0x2fe7, 0x4a42, 0xbb, 0x3c, 0xe0, 0x99, 0x2e, 0x8b, 0xac, 0xef);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public DtoModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public DtoModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Name domain property code
+		
+		/// <summary>
+		/// Name domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0xb6c40abf, 0xc524, 0x488c, 0xa5, 0x3a, 0x1a, 0x91, 0xdb, 0xa7, 0x78, 0x8f);
+		
+		/// <summary>
+		/// Storage for Name
+		/// </summary>
+		private global::System.String namePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Name domain property.
+		/// Description for Dyvenix.GenIt.DtoModel.Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModel/Name.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModel/Name.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b6c40abf-c524-488c-a53a-1a91dba7788f")]
+		public global::System.String Name
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return namePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the DtoModel.Name domain property.
+		/// </summary>
+		internal sealed partial class NamePropertyHandler : DslModeling::DomainPropertyValueHandler<DtoModel, global::System.String>
+		{
+			private NamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the DtoModel.Name domain property value handler.
+			/// </summary>
+			public static readonly NamePropertyHandler Instance = new NamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the DtoModel.Name domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(DtoModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.namePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(DtoModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.namePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ServiceModel opposite domain role accessor
+		/// <summary>
+		/// Gets or sets ServiceModel.
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModel
+		/// </summary>
+		public virtual ServiceModel ServiceModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId) as ServiceModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region PropertyModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of PropertyModels.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<PropertyModel> PropertyModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region NavigationProperties opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of NavigationProperties.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<NavigationProperty> NavigationProperties
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<NavigationProperty>, NavigationProperty>(global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region EntityModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of EntityModeled.
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EntityModel> EntityModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModelDomainRoleId);
+			}
+		}
 		#endregion
 	}
 }

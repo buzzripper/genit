@@ -116,8 +116,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				// Load DataType values (primitives + enum names from model)
 				LoadDataTypes();
 
-				// Load properties grid
+			// Load properties grid
 				LoadProperties();
+
+				// Load DTOs tab
+				dtosEditCtl.SetData(_entityModel);
 			}
 			finally
 			{
