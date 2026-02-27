@@ -1088,6 +1088,22 @@
         </DomainRole>
       </Target>
     </DomainRelationship>
+    <DomainRelationship Id="b3c05ee8-f06e-452b-ad64-b8f0e5facf89" Description="Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto" Name="ReadMethodModelReferencesReturnDto" DisplayName="Read Method Model References Return Dto" Namespace="Dyvenix.GenIt">
+      <Source>
+        <DomainRole Id="dd7ee948-77b4-4d52-bcea-51a586f973c0" Description="Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel" Name="ReadMethodModel" DisplayName="Read Method Model" PropertyName="ReturnDto" Multiplicity="One" PropertyDisplayName="Return Dto">
+          <RolePlayer>
+            <DomainClassMoniker Name="ReadMethodModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Source>
+      <Target>
+        <DomainRole Id="94c16cd7-a955-4f21-9a79-eb9914127a2f" Description="Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel" Name="DtoModel" DisplayName="Dto Model" PropertyName="ReadMethodModeled" PropertyDisplayName="Read Method Modeled">
+          <RolePlayer>
+            <DomainClassMoniker Name="DtoModel" />
+          </RolePlayer>
+        </DomainRole>
+      </Target>
+    </DomainRelationship>
   </Relationships>
   <Types>
     <ExternalType Name="DateTime" Namespace="System" />
@@ -1597,6 +1613,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="filterProperties">
             <DomainRelationshipMoniker Name="ReadMethodModelHasFilterProperties" />
           </XmlRelationshipData>
+          <XmlRelationshipData UseFullForm="true" RoleElementName="returnDto">
+            <DomainRelationshipMoniker Name="ReadMethodModelReferencesReturnDto" />
+          </XmlRelationshipData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="UpdatePropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="updatePropertyModelMoniker" ElementName="updatePropertyModel" MonikerTypeName="UpdatePropertyModelMoniker">
@@ -1764,6 +1783,9 @@
       </XmlClassData>
       <XmlClassData TypeName="EntityModelReferencesDtoModels" MonikerAttributeName="" SerializeId="true" MonikerElementName="entityModelReferencesDtoModelsMoniker" ElementName="entityModelReferencesDtoModels" MonikerTypeName="EntityModelReferencesDtoModelsMoniker">
         <DomainRelationshipMoniker Name="EntityModelReferencesDtoModels" />
+      </XmlClassData>
+      <XmlClassData TypeName="ReadMethodModelReferencesReturnDto" MonikerAttributeName="" SerializeId="true" MonikerElementName="readMethodModelReferencesReturnDtoMoniker" ElementName="readMethodModelReferencesReturnDto" MonikerTypeName="ReadMethodModelReferencesReturnDtoMoniker">
+        <DomainRelationshipMoniker Name="ReadMethodModelReferencesReturnDto" />
       </XmlClassData>
     </ClassData>
   </XmlSerializationBehavior>
@@ -2050,6 +2072,25 @@
           <RolePlayerConnectDirective>
             <AcceptingClass>
               <DomainClassMoniker Name="EntityModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </SourceDirectives>
+        <TargetDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="DtoModel" />
+            </AcceptingClass>
+          </RolePlayerConnectDirective>
+        </TargetDirectives>
+      </LinkConnectDirective>
+    </ConnectionBuilder>
+    <ConnectionBuilder Name="ReadMethodModelReferencesReturnDtoBuilder">
+      <LinkConnectDirective>
+        <DomainRelationshipMoniker Name="ReadMethodModelReferencesReturnDto" />
+        <SourceDirectives>
+          <RolePlayerConnectDirective>
+            <AcceptingClass>
+              <DomainClassMoniker Name="ReadMethodModel" />
             </AcceptingClass>
           </RolePlayerConnectDirective>
         </SourceDirectives>

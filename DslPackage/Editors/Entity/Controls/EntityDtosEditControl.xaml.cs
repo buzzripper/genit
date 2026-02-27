@@ -1,6 +1,7 @@
 using Dyvenix.GenIt.DslPackage.Editors;
 using Microsoft.VisualStudio.Modeling;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -100,8 +101,31 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 		{
 			if (sender is Button btn && btn.DataContext is DtoModel dto && _entityModel != null)
 			{
-				var result = MessageBox.Show("Delete this DTO?", "Confirm Delete",
-					MessageBoxButton.OKCancel, MessageBoxImage.Question);
+				// Check if this DTO is used as a return type by any ReadMethodModels
+				var usingMethods = new List<string>();
+				foreach (var svc in _entityModel.ServiceModels)
+				{
+					foreach (var rm in svc.ReadMethods)
+					{
+						if (rm.ReturnDto == dto)
+							usingMethods.Add($"{svc.Name}.{rm.Name}");
+					}
+				}
+
+				MessageBoxResult result;
+				if (usingMethods.Count > 0)
+				{
+					var methodList = string.Join("\n", usingMethods);
+					result = MessageBox.Show(
+						$"The '{dto.Name}' DTO is currently being used by these methods:\n\n{methodList}\n\nDelete anyway?",
+						"DTO In Use",
+						MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+				}
+				else
+				{
+					result = MessageBox.Show("Delete this DTO?", "Confirm Delete",
+						MessageBoxButton.OKCancel, MessageBoxImage.Question);
+				}
 
 				if (result == MessageBoxResult.OK)
 				{

@@ -108,6 +108,7 @@ namespace Dyvenix.GenIt
 				typeof(DtoModelReferencesPropertyModels),
 				typeof(DtoModelReferencesNavigationProperties),
 				typeof(EntityModelReferencesDtoModels),
+				typeof(ReadMethodModelReferencesReturnDto),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
 				typeof(GeneralizationConnector),
@@ -297,6 +298,8 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(DtoModelReferencesNavigationProperties), "NavigationProperty", DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "EntityModel", EntityModelReferencesDtoModels.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "DtoModel", EntityModelReferencesDtoModels.DtoModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ReadMethodModelReferencesReturnDto), "ReadMethodModel", ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId),
+				new DomainRolePlayerInfo(typeof(ReadMethodModelReferencesReturnDto), "DtoModel", ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId),
 			};
 		}
 		#endregion
@@ -406,7 +409,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(21);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(22);
 				createElementLinkMap.Add(typeof(Association), 0);
 				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -428,6 +431,7 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(DtoModelReferencesPropertyModels), 18);
 				createElementLinkMap.Add(typeof(DtoModelReferencesNavigationProperties), 19);
 				createElementLinkMap.Add(typeof(EntityModelReferencesDtoModels), 20);
+				createElementLinkMap.Add(typeof(ReadMethodModelReferencesReturnDto), 21);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -463,6 +467,7 @@ namespace Dyvenix.GenIt
 				case 18: return new DtoModelReferencesPropertyModels(partition, roleAssignments, propertyAssignments);
 				case 19: return new DtoModelReferencesNavigationProperties(partition, roleAssignments, propertyAssignments);
 				case 20: return new EntityModelReferencesDtoModels(partition, roleAssignments, propertyAssignments);
+				case 21: return new ReadMethodModelReferencesReturnDto(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}

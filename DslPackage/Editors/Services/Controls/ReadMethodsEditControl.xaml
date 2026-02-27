@@ -39,6 +39,10 @@ d:DesignHeight="450" d:DesignWidth="1100">
             <ColumnDefinition Width="2*" MinWidth="300"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="150"/>
         </Grid.ColumnDefinitions>
 
         <!-- Left Panel - Methods Grid -->
@@ -231,5 +235,19 @@ d:DesignHeight="450" d:DesignWidth="1100">
 
             <local:InclNavPropEditControl Grid.Row="2" x:Name="inclNavPropEditCtl"/>
         </Grid>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="3" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource Theme.Splitter}"/>
+
+        <!-- Right Panel - Return DTO -->
+        <local:ReturnDtoEditControl Grid.Column="4" x:Name="returnDtoCtl"/>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="5" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource Theme.Splitter}"/>
+
+        <!-- Right Panel - Return Properties -->
+        <local:ReturnPropertiesEditControl Grid.Column="6" x:Name="returnPropsCtl"/>
     </Grid>
 </editors:UserControlBase>

@@ -170,6 +170,12 @@
     <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
       <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\Services\Controls\ReturnDtoEditControl.xaml.cs">
+      <DependentUpon>ReturnDtoEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\Services\Controls\ReturnPropertiesEditControl.xaml.cs">
+      <DependentUpon>ReturnPropertiesEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
       <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
     </Compile>
@@ -426,6 +432,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\ReadMethodsEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Services\Controls\ReturnDtoEditControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\Services\Controls\ReturnPropertiesEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\Services\Controls\SvcEditControl.xaml">

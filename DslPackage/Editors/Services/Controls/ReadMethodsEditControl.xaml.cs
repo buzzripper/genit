@@ -21,7 +21,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			ServiceModel serviceModel,
 			LinkedElementCollection<ReadMethodModel> readMethods,
 			LinkedElementCollection<PropertyModel> properties,
-			LinkedElementCollection<NavigationProperty> navProperties)
+			LinkedElementCollection<NavigationProperty> navProperties,
+			LinkedElementCollection<DtoModel> dtos)
 		{
 			_suspendUpdates = true;
 			try
@@ -33,6 +34,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
 				filterPropsCtl.SetProperties(properties);
 				inclNavPropEditCtl.SetNavProperties(navProperties);
+				returnDtoCtl.SetDtos(dtos);
+				returnPropsCtl.SetProperties(properties);
+
+				returnDtoCtl.DtoSelectionChanged = (dto) =>
+				{
+					returnPropsCtl.HighlightDtoProperties(dto);
+				};
 
 				if (readMethods?.Count > 0)
 				{
@@ -54,6 +62,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 					filterPropsCtl.Readonly = false;
 					inclNavPropEditCtl.SetInclNavProperties(selectedMethod);
 					inclNavPropEditCtl.Readonly = false;
+					returnDtoCtl.SetSelectedMethod(selectedMethod);
+					returnDtoCtl.Readonly = false;
+					returnPropsCtl.HighlightDtoProperties(selectedMethod.ReturnDto);
 				}
 			}
 		}
@@ -240,6 +251,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 				filterPropsCtl.Readonly = false;
 				inclNavPropEditCtl.SetInclNavProperties(selectedMethod);
 				inclNavPropEditCtl.Readonly = false;
+				returnDtoCtl.SetSelectedMethod(selectedMethod);
+				returnDtoCtl.Readonly = false;
+				returnPropsCtl.HighlightDtoProperties(selectedMethod.ReturnDto);
 			}
 			else
 			{
@@ -247,6 +261,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 				filterPropsCtl.Readonly = true;
 				inclNavPropEditCtl.SetInclNavProperties(null);
 				inclNavPropEditCtl.Readonly = true;
+				returnDtoCtl.SetSelectedMethod(null);
+				returnDtoCtl.Readonly = true;
+				returnPropsCtl.HighlightDtoProperties(null);
 			}
 		}
 	}

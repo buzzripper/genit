@@ -5597,3 +5597,242 @@ namespace Dyvenix.GenIt
 		#endregion
 	}
 }
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship ReadMethodModelReferencesReturnDto
+	/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("b3c05ee8-f06e-452b-ad64-b8f0e5facf89")]
+	public partial class ReadMethodModelReferencesReturnDto : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// ReadMethodModelReferencesReturnDto domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb3c05ee8, 0xf06e, 0x452b, 0xad, 0x64, 0xb8, 0xf0, 0xe5, 0xfa, 0xcf, 0x89);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a ReadMethodModelReferencesReturnDto link in the same Partition as the given ReadMethodModel
+		/// </summary>
+		/// <param name="source">ReadMethodModel to use as the source of the relationship.</param>
+		/// <param name="target">DtoModel to use as the target of the relationship.</param>
+		public ReadMethodModelReferencesReturnDto(ReadMethodModel source, DtoModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId, source), new DslModeling::RoleAssignment(ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region ReadMethodModel domain role code
+		
+		/// <summary>
+		/// ReadMethodModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ReadMethodModelDomainRoleId = new global::System.Guid(0xdd7ee948, 0x77b4, 0x4d52, 0xbc, 0xea, 0x51, 0xa5, 0x86, 0xf9, 0x73, 0xc0);
+		
+		/// <summary>
+		/// DomainRole ReadMethodModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ReturnDto", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("dd7ee948-77b4-4d52-bcea-51a586f973c0")]
+		public virtual ReadMethodModel ReadMethodModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ReadMethodModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, ReadMethodModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ReadMethodModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ReadMethodModeled of a DtoModel
+		/// <summary>
+		/// Gets a list of ReadMethodModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<ReadMethodModel> GetReadMethodModeled(DtoModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(element, DtoModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x94c16cd7, 0xa955, 0x4f21, 0x9a, 0x79, 0xeb, 0x99, 0x14, 0x12, 0x7a, 0x2f);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("94c16cd7-a955-4f21-9a79-eb9914127a2f")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ReturnDto of a ReadMethodModel
+		/// <summary>
+		/// Gets ReturnDto.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DtoModel GetReturnDto(ReadMethodModel element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ReadMethodModelDomainRoleId) as DtoModel;
+		}
+		
+		/// <summary>
+		/// Sets ReturnDto.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetReturnDto(ReadMethodModel element, DtoModel newDtoModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ReadMethodModelDomainRoleId, newDtoModel);
+		}
+		#endregion
+		#region ReadMethodModel link accessor
+		/// <summary>
+		/// Get the ReadMethodModelReferencesReturnDto link to a ReadMethodModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto GetLinkToReturnDto (global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(readMethodModelInstance, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ReadMethodModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the list of ReadMethodModelReferencesReturnDto links to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> GetLinksToReadMethodModeled ( global::Dyvenix.GenIt.DtoModel dtoModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(dtoModelInstance, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId);
+		}
+		#endregion
+		#region ReadMethodModelReferencesReturnDto instance accessors
+		
+		/// <summary>
+		/// Get any ReadMethodModelReferencesReturnDto links between a given ReadMethodModel and a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> GetLinks( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(source, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one ReadMethodModelReferencesReturnDto link between a given ReadMethodModeland a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto GetLink( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(source, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}

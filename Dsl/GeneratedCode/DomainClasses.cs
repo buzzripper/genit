@@ -8294,6 +8294,25 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region ReturnDto opposite domain role accessor
+		/// <summary>
+		/// Gets or sets ReturnDto.
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel
+		/// </summary>
+		public virtual DtoModel ReturnDto
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId) as DtoModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId, value);
+			}
+		}
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt
@@ -10885,6 +10904,21 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region ReadMethodModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of ReadMethodModeled.
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<ReadMethodModel> ReadMethodModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId);
 			}
 		}
 		#endregion

@@ -2025,6 +2025,38 @@
     <value>Entity Modeled</value>
     <comment>PropertyDisplayName for DomainRole &apos;DtoModel&apos; on DomainRelationship &apos;EntityModelReferencesDtoModels&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto</value>
+    <comment>Description for DomainClass &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DisplayName" xml:space="preserve">
+    <value>Read Method Model References Return Dto</value>
+    <comment>DisplayName for DomainClass &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel</value>
+    <comment>Description for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.DisplayName" xml:space="preserve">
+    <value>Read Method Model</value>
+    <comment>DisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.PropertyDisplayName" xml:space="preserve">
+    <value>Return Dto</value>
+    <comment>PropertyDisplayName for DomainRole &apos;ReadMethodModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel</value>
+    <comment>Description for DomainRole &apos;DtoModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.DisplayName" xml:space="preserve">
+    <value>Dto Model</value>
+    <comment>DisplayName for DomainRole &apos;DtoModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.PropertyDisplayName" xml:space="preserve">
+    <value>Read Method Modeled</value>
+    <comment>PropertyDisplayName for DomainRole &apos;DtoModel&apos; on DomainRelationship &apos;ReadMethodModelReferencesReturnDto&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Multiplicity/ZeroOne.DisplayName" xml:space="preserve">
     <value>ZeroOne</value>
     <comment>Display name for EnumerationLiteral &apos;ZeroOne&apos; on DomainEnumeration &apos;Multiplicity&apos;</comment>
