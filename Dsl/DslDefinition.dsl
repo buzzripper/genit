@@ -140,6 +140,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="3d2d2ef7-215a-445d-9941-63c043c7e9c5" Description="Description for Dyvenix.GenIt.ModelRoot.Db Context Base Class" Name="DbContextBaseClass" DisplayName="Db Context Base Class">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -1332,6 +1337,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="unitTestsEnabled">
             <DomainPropertyMoniker Name="ModelRoot/UnitTestsEnabled" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="dbContextBaseClass">
+            <DomainPropertyMoniker Name="ModelRoot/DbContextBaseClass" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

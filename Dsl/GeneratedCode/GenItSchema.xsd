@@ -169,6 +169,8 @@
         <xsd:attribute name="intTestsEnabled" type="xsd:boolean" />
         <!-- Property: UnitTestsEnabled -->
         <xsd:attribute name="unitTestsEnabled" type="xsd:boolean" />
+        <!-- Property: DbContextBaseClass -->
+        <xsd:attribute name="dbContextBaseClass" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

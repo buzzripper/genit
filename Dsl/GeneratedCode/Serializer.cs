@@ -1079,6 +1079,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// DbContextBaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				string attribDbContextBaseClass = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "dbContextBaseClass");
+				if (attribDbContextBaseClass != null)
+				{
+					global::System.String valueOfDbContextBaseClass;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribDbContextBaseClass, out valueOfDbContextBaseClass))
+					{
+						instanceOfModelRoot.DbContextBaseClass = valueOfDbContextBaseClass;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dbContextBaseClass", typeof(global::System.String), attribDbContextBaseClass);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -1929,6 +1946,17 @@ namespace Dyvenix.GenIt
 				if (!serializationContext.Result.Failed)
 				{
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "unitTestsEnabled", serializedPropValue);
+				}
+			}
+			// DbContextBaseClass
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModelRoot.DbContextBaseClass;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dbContextBaseClass", propValue);
+	
 				}
 			}
 		}

@@ -409,6 +409,14 @@
     <value>Unit Tests Enabled</value>
     <comment>DisplayName for DomainProperty &apos;UnitTestsEnabled&apos; on DomainClass &apos;ModelRoot&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextBaseClass.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModelRoot.Db Context Base Class</value>
+    <comment>Description for DomainProperty &apos;DbContextBaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModelRoot/DbContextBaseClass.DisplayName" xml:space="preserve">
+    <value>Db Context Base Class</value>
+    <comment>DisplayName for DomainProperty &apos;DbContextBaseClass&apos; on DomainClass &apos;ModelRoot&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.EntityModel.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;EntityModel&apos;</comment>

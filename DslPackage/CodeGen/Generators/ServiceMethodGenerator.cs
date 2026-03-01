@@ -1,4 +1,5 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -287,12 +288,22 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             else if (method.IsList)
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"return await dbQuery.ToListAsync();");
+                output.AddLine(tc + 1, $"return await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".ToListAsync();");
             }
             else
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"return await dbQuery.FirstOrDefaultAsync();");
+                output.AddLine(tc + 1, $"return await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".SingleOrDefaultAsync();");
             }
 
             output.AddLine(tc, "}");

@@ -2364,6 +2364,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DbContextBaseClass domain property code
+		
+		/// <summary>
+		/// DbContextBaseClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextBaseClassDomainPropertyId = new global::System.Guid(0x3d2d2ef7, 0x215a, 0x445d, 0x99, 0x41, 0x63, 0xc0, 0x43, 0xc7, 0xe9, 0xc5);
+		
+		/// <summary>
+		/// Storage for DbContextBaseClass
+		/// </summary>
+		private global::System.String dbContextBaseClassPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextBaseClass domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Base Class
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextBaseClass.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextBaseClass.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("3d2d2ef7-215a-445d-9941-63c043c7e9c5")]
+		public global::System.String DbContextBaseClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextBaseClassPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextBaseClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextBaseClass domain property.
+		/// </summary>
+		internal sealed partial class DbContextBaseClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextBaseClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextBaseClass domain property value handler.
+			/// </summary>
+			public static readonly DbContextBaseClassPropertyHandler Instance = new DbContextBaseClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextBaseClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextBaseClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextBaseClassPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextBaseClassPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>

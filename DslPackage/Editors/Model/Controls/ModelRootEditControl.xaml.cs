@@ -65,6 +65,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				txtDbContextName.Text = _modelRoot.DbContextName ?? string.Empty;
 				txtDbContextOutputFolder.Text = _modelRoot.DbContextOutputFolder ?? string.Empty;
 				txtDbContextNamespace.Text = _modelRoot.DbContextNamespace ?? string.Empty;
+				txtDbContextBaseClass.Text = _modelRoot.DbContextBaseClass ?? string.Empty;
 				dbContextUsingsControl.SetItems(ParseMultilineString(_modelRoot.DbContextUsings));
 
 				// Enums tab
@@ -207,6 +208,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.CommonNamespaceDomainPropertyId, txtCommonNamespace.Text);
+		}
+
+		private void txtDbContextBaseClass_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _modelRoot == null)
+				return;
+
+			UpdateModelProperty(ModelRoot.DbContextBaseClassDomainPropertyId, txtDbContextBaseClass.Text);
 		}
 
 		private void btnBrowseTemplates_Click(object sender, RoutedEventArgs e)

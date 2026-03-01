@@ -44,6 +44,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.Requests");
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.DTOs");
             _usings.AddLine(0, $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+            _usings.AddLine(0, $"{module.Namespace}.Shared.DTOs");
 
             foreach (var u in entity.UsingsList)
                 _usings.AddIfNotExists(u);
@@ -89,15 +90,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             // Maps method
             var mapMethods = new List<string>();
 
-            // Create
-            var createMethodsOutput = new List<string>();
-            if (serviceModel.InclCreate)
-            {
-                // Map
-                mapMethods.AddLines(0, GenerateCreateMapMethod(entity, serviceModel));
-                // Method
-                this.GenerateCreateEndpointsMethod(entity, serviceModel, serviceVarName, createMethodsOutput);
-            }
+            //// Create
+            //var createMethodsOutput = new List<string>();
+            //if (serviceModel.InclCreate)
+            //{
+            //    // Map
+            //    mapMethods.AddLines(0, GenerateCreateMapMethod(entity, serviceModel));
+            //    // Method
+            //    this.GenerateCreateEndpointsMethod(entity, serviceModel, serviceVarName, createMethodsOutput);
+            //}
 
             // Delete
             var deleteMethodsOutput = new List<string>();
@@ -113,14 +114,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var updMethodsOutput = new List<string>();
             if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
             {
-                // Full update method
-                if (serviceModel.InclUpdate)
-                {
-                    // Map
-                    mapMethods.AddLines(0, GenerateFullUpdateMapMethod(entity, serviceModel));
-                    // Method
-                    this.GenerateFullUpdateMethod(entity, serviceModel, serviceVarName, updMethodsOutput);
-                }
+                //// Full update method
+                //if (serviceModel.InclUpdate)
+                //{
+                //    // Map
+                //    mapMethods.AddLines(0, GenerateFullUpdateMapMethod(entity, serviceModel));
+                //    // Method
+                //    this.GenerateFullUpdateMethod(entity, serviceModel, serviceVarName, updMethodsOutput);
+                //}
 
                 // Normal update methods
                 if (serviceModel.UpdateMethods.Any())
@@ -175,8 +176,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLine(0, "{");
             fileContent.AddLines(1, GenerateMapEndpointsMethod(mapMethods, module, entity, serviceModel));
 
-            if (createMethodsOutput.Count > 0)
-                fileContent.AddLines(1, createMethodsOutput);
+            //if (createMethodsOutput.Count > 0)
+            //    fileContent.AddLines(1, createMethodsOutput);
 
             if (deleteMethodsOutput.Count > 0)
                 fileContent.AddLines(1, deleteMethodsOutput);
@@ -266,19 +267,19 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             return lines;
         }
 
-        internal void GenerateCreateEndpointsMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
-        {
-            output.AddLine();
-            output.AddLine(0, "#region Create");
-            output.AddLine();
-            output.AddLine(0, $"public static async Task<IResult> Create{entity.Name}(I{entity.Name}Service {svcVarName}, {entity.Name} {entity.Name.ToCamelCase()})");
-            output.AddLine(0, "{");
-            output.AddLine(0 + 1, $"await {svcVarName}.Create{entity.Name}({entity.Name.ToCamelCase()});");
-            output.AddLine(0 + 1, $"return Results.Ok();");
-            output.AddLine(0, "}");
-            output.AddLine();
-            output.AddLine(0, "#endregion");
-        }
+        //internal void GenerateCreateEndpointsMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
+        //{
+        //    output.AddLine();
+        //    output.AddLine(0, "#region Create");
+        //    output.AddLine();
+        //    output.AddLine(0, $"public static async Task<IResult> Create{entity.Name}(I{entity.Name}Service {svcVarName}, {entity.Name} {entity.Name.ToCamelCase()})");
+        //    output.AddLine(0, "{");
+        //    output.AddLine(0 + 1, $"await {svcVarName}.Create{entity.Name}({entity.Name.ToCamelCase()});");
+        //    output.AddLine(0 + 1, $"return Results.Ok();");
+        //    output.AddLine(0, "}");
+        //    output.AddLine();
+        //    output.AddLine(0, "#endregion");
+        //}
 
         // Delete
 
@@ -417,7 +418,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         internal void GenerateReadSingleMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output, List<string> mapMethods)
         {
             var tc = 0;
-            var entityVarName = entity.Name.ToCamelCase();
+            var returnDtoVarName = method.ReturnDto.Name.ToCamelCase();
 
             // Args and map path
 
@@ -447,10 +448,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                     output.AddLine(tc, $"[{attr}]");
 
             output.AddLine();
-            output.AddLine(tc, $"public static async Task<Result<{entity.Name}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
+            output.AddLine(tc, $"public static async Task<Result<{method.ReturnDto.Name}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
             output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"var {entityVarName} = await {svcVarName}.{method.Name}({sbOutArgs});");
-            output.AddLine(tc + 1, $"return Result<{entity.Name}>.Ok({entityVarName});");
+            output.AddLine(tc + 1, $"var {returnDtoVarName} = await {svcVarName}.{method.Name}({sbOutArgs});");
+            output.AddLine(tc + 1, $"return Result<{method.ReturnDto.Name}>.Ok({returnDtoVarName});");
             output.AddLine(tc, "}");
 
             mapMethods.AddLines(0, this.GenerateReadSingleMapMethod(entity, method.Name, sbMapUrl.ToString(), method));
@@ -523,7 +524,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 ;
             }
 
-            string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : $"List<{entity.Name}>";
+            string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
 
             output.AddLine();
             output.AddLine(tc, $"public static async Task<Result<{returnType}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");

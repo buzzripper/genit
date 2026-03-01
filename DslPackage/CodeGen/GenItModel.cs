@@ -83,6 +83,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
         internal void GenerateCode()
         {
+
             ThreadHelper.ThrowIfNotOnUIThread();
 
             if (_entityGenerator.Enabled)

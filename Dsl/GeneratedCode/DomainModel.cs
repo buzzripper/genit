@@ -163,6 +163,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "UnitTestsNamespace", ModelRoot.UnitTestsNamespaceDomainPropertyId, typeof(ModelRoot.UnitTestsNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "IntTestsEnabled", ModelRoot.IntTestsEnabledDomainPropertyId, typeof(ModelRoot.IntTestsEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "UnitTestsEnabled", ModelRoot.UnitTestsEnabledDomainPropertyId, typeof(ModelRoot.UnitTestsEnabledPropertyHandler)),
+				new DomainMemberInfo(typeof(ModelRoot), "DbContextBaseClass", ModelRoot.DbContextBaseClassDomainPropertyId, typeof(ModelRoot.DbContextBaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),
