@@ -8,7 +8,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
     internal class ApiClientGenerator
     {
-        internal void GenerateCode(EntityModel entity, ServiceModel service, ModuleModel module, string enumsNamespace)
+        internal void GenerateCode(EntityModel entity, ServiceModel service, ModuleModel module)
         {
             var apiClientName = $"{entity.Name}ApiClient";
 
@@ -17,14 +17,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.ApiClients");
             usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.Requests");
             usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
+            usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
             if (service.UpdateMethods.Any() || service.ReadMethods.Any(m => m.UseRequest))
                 usings.AddIfNotExists($"{module.RequestNamespace}.{service.Version}");
             if (service.ReadMethods.Any(m => m.InclPaging))
                 usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.DTOs");
-
-            // If any properties are enums, include the namespace
-            if (entity.Properties.Any(p => !DataTypes.IsEnumType(p.DataType)))
-                usings.AddLine(0, enumsNamespace);
+            usings.AddIfNotExists(module.DtoNamespace);
 
             // Interface signatures
             var interfaceOutput = new List<string>();
@@ -38,17 +36,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             constructor.AddLine(0, $"public {apiClientName}(HttpClient httpClient) : base(httpClient)");
             constructor.AddLine(0, "{");
             constructor.AddLine(0, "}");
-
-            //// Create
-            //var createMethodsOutput = new List<string>();
-            //if (service.InclCreate)
-            //{
-            //    createMethodsOutput.AddLine();
-            //    createMethodsOutput.AddLine(0, "#region Create");
-            //    this.GenerateCreateMethod(module, entity, service, createMethodsOutput, interfaceOutput);
-            //    createMethodsOutput.AddLine();
-            //    createMethodsOutput.AddLine(0, "#endregion");
-            //}
 
             // Delete
             var deleteMethodsOutput = new List<string>();
@@ -65,10 +52,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var updMethodsOutput = new List<string>();
             if (service.InclUpdate || service.UpdateMethods.Any())
             {
-                //// Full udpate
-                //if (service.InclUpdate)
-                //    this.GenerateFullUpdateMethod(module, entity, service, updMethodsOutput, interfaceOutput);
-                // Normal updates
                 foreach (UpdateMethodModel method in service.UpdateMethods)
                     this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
             }
@@ -188,7 +171,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var varName = className.ToCamelCase();
 
             // Interface
-            var signature = $"Task Delete{className}(Guid id)";
+            var signature = $"Task Delete(Guid id)";
             interfaceOutput.Add(signature);
 
             output.AddLine();

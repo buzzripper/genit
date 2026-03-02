@@ -8870,6 +8870,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region IsCreate domain property code
+		
+		/// <summary>
+		/// IsCreate domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsCreateDomainPropertyId = new global::System.Guid(0xc2db922b, 0x19b4, 0x42b9, 0x88, 0x76, 0xe4, 0xe9, 0x24, 0xc5, 0xfb, 0x45);
+		
+		/// <summary>
+		/// Storage for IsCreate
+		/// </summary>
+		private global::System.Boolean isCreatePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsCreate domain property.
+		/// Description for Dyvenix.GenIt.UpdateMethodModel.Is Create
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/IsCreate.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/IsCreate.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c2db922b-19b4-42b9-8876-e4e924c5fb45")]
+		public global::System.Boolean IsCreate
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isCreatePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsCreatePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.IsCreate domain property.
+		/// </summary>
+		internal sealed partial class IsCreatePropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.Boolean>
+		{
+			private IsCreatePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.IsCreate domain property value handler.
+			/// </summary>
+			public static readonly IsCreatePropertyHandler Instance = new IsCreatePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.IsCreate domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsCreateDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isCreatePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isCreatePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region UpdateProperties opposite domain role accessor
 		
 		/// <summary>

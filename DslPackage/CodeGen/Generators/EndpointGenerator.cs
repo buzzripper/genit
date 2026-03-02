@@ -44,7 +44,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.Requests");
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.DTOs");
             _usings.AddLine(0, $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
-            _usings.AddLine(0, $"{module.Namespace}.Shared.DTOs");
+            _usings.AddLine(0, module.DtoNamespace);
 
             foreach (var u in entity.UsingsList)
                 _usings.AddIfNotExists(u);
@@ -66,8 +66,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             {
                 foreach (var serviceModel in entity.ServiceModels)
                 {
+
                     GenerateEndpoints(entity, serviceModel);
-                    _apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module], _modelRoot.EnumsNamespace);
+                    _apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module]);
                 }
             }
         }
@@ -90,16 +91,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             // Maps method
             var mapMethods = new List<string>();
 
-            //// Create
-            //var createMethodsOutput = new List<string>();
-            //if (serviceModel.InclCreate)
-            //{
-            //    // Map
-            //    mapMethods.AddLines(0, GenerateCreateMapMethod(entity, serviceModel));
-            //    // Method
-            //    this.GenerateCreateEndpointsMethod(entity, serviceModel, serviceVarName, createMethodsOutput);
-            //}
-
             // Delete
             var deleteMethodsOutput = new List<string>();
             if (serviceModel.InclDelete)
@@ -114,15 +105,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var updMethodsOutput = new List<string>();
             if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
             {
-                //// Full update method
-                //if (serviceModel.InclUpdate)
-                //{
-                //    // Map
-                //    mapMethods.AddLines(0, GenerateFullUpdateMapMethod(entity, serviceModel));
-                //    // Method
-                //    this.GenerateFullUpdateMethod(entity, serviceModel, serviceVarName, updMethodsOutput);
-                //}
-
                 // Normal update methods
                 if (serviceModel.UpdateMethods.Any())
                 {
@@ -290,7 +272,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine();
             lines.AddLine(0, "// Delete");
             lines.AddLine();
-            lines.AddLine(0, $"group.MapDelete(\"Delete{entity.Name}\", Delete{entity.Name})");
+            lines.AddLine(0, $"group.MapDelete(\"Delete\", Delete)");
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (serviceModel.DeletePermissionsList.Count > 0)
@@ -306,9 +288,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine();
             output.AddLine(0, "#region Delete");
             output.AddLine();
-            output.AddLine(0, $"public static async Task<Result> Delete{entity.Name}(I{entity.Name}Service {svcVarName}, [FromBody] DeleteReq deleteReq)");
+            output.AddLine(0, $"public static async Task<Result> Delete(I{entity.Name}Service {svcVarName}, [FromBody] DeleteReq deleteReq)");
             output.AddLine(0, "{");
-            output.AddLine(0 + 1, $"await {svcVarName}.Delete{entity.Name}(deleteReq.Id);");
+            output.AddLine(0 + 1, $"await {svcVarName}.Delete(deleteReq.Id);");
             output.AddLine(0 + 1, $"return Result.Ok();");
             output.AddLine(0, "}");
             output.AddLine();
@@ -403,7 +385,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var lines = new List<string>();
 
             lines.AddLine();
-            lines.AddLine(0, $"group.MapPatch(\"{methodName}\", {methodName})");
+            if (updMethodModel.IsCreate)
+                lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
+            else
+                lines.AddLine(0, $"group.MapPatch(\"{methodName}\", {methodName})");
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (updMethodModel.PermissionsList.Count > 0)

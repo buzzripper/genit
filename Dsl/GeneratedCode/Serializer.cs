@@ -13561,6 +13561,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsCreate
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsCreate = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isCreate");
+				if (attribIsCreate != null)
+				{
+					global::System.Boolean valueOfIsCreate;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsCreate, out valueOfIsCreate))
+					{
+						instanceOfUpdateMethodModel.IsCreate = valueOfIsCreate;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isCreate", typeof(global::System.Boolean), attribIsCreate);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -14092,6 +14109,16 @@ namespace Dyvenix.GenIt
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "permissions", propValue);
 	
+				}
+			}
+			// IsCreate
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfUpdateMethodModel.IsCreate;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isCreate", serializedPropValue);
 				}
 			}
 		}

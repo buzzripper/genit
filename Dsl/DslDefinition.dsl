@@ -582,6 +582,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="c2db922b-19b4-42b9-8876-e4e924c5fb45" Description="Description for Dyvenix.GenIt.UpdateMethodModel.Is Create" Name="IsCreate" DisplayName="Is Create">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="2d802e08-f549-40a0-8cd2-80ca5f72acbc" Description="Description for Dyvenix.GenIt.ServiceModel" Name="ServiceModel" DisplayName="Service Model" Namespace="Dyvenix.GenIt">
@@ -1652,6 +1657,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="updateProperties">
             <DomainRelationshipMoniker Name="UpdateMethodModelHasUpdateProperties" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="isCreate">
+            <DomainPropertyMoniker Name="UpdateMethodModel/IsCreate" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ServiceModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="serviceModelMoniker" ElementName="serviceModel" MonikerTypeName="ServiceModelMoniker">

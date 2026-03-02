@@ -1070,6 +1070,8 @@
             <xsd:documentation>Comma-separated list of required permissions for this method</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsCreate -->
+        <xsd:attribute name="isCreate" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

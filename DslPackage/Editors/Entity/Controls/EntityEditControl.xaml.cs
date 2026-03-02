@@ -455,14 +455,82 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
 		private void dgProperties_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
+			var originalSource = e.OriginalSource as DependencyObject;
+			if (originalSource == null)
+				return;
+
+			// Handle single-click checkbox toggling
+			var checkbox = FindVisualParent<CheckBox>(originalSource);
+			if (checkbox != null && checkbox.IsEnabled)
+			{
+				var cell = FindVisualParent<DataGridCell>(checkbox);
+				var row = FindVisualParent<DataGridRow>(checkbox);
+				if (cell != null && row != null && row.Item is PropertyModel property)
+				{
+					dgProperties.CommitEdit(DataGridEditingUnit.Row, true);
+
+					_isUpdating = true;
+					try
+					{
+						dgProperties.SelectedItem = property;
+					}
+					finally
+					{
+						_isUpdating = false;
+					}
+
+					ToggleCheckboxProperty(property, cell);
+					_dragStartPoint = new Point(0, 0);
+					e.Handled = true;
+					return;
+				}
+			}
+
 			// Only start drag from the handle column
-			if (IsOverDragHandle(e.OriginalSource as DependencyObject))
+			if (IsOverDragHandle(originalSource))
 			{
 				_dragStartPoint = e.GetPosition(null);
 			}
 			else
 			{
 				_dragStartPoint = new Point(0, 0);
+			}
+		}
+
+		private void ToggleCheckboxProperty(PropertyModel property, DataGridCell cell)
+		{
+			var column = cell.Column;
+			if (column?.Header == null)
+				return;
+
+			var header = column.Header.ToString();
+			using (var transaction = property.Store.TransactionManager.BeginTransaction("Toggle " + header))
+			{
+				switch (header)
+				{
+					case "PK":
+						property.IsPrimaryKey = !property.IsPrimaryKey;
+						break;
+					case "Index":
+						property.IsIndexed = !property.IsIndexed;
+						break;
+					case "Nullable":
+						property.IsNullable = !property.IsNullable;
+						break;
+					case "Unique Idx":
+						property.IsIndexUnique = !property.IsIndexUnique;
+						break;
+					case "Clustered Idx":
+						property.IsIndexClustered = !property.IsIndexClustered;
+						break;
+					case "Identity":
+						property.IsIdentity = !property.IsIdentity;
+						break;
+					default:
+						transaction.Rollback();
+						return;
+				}
+				transaction.Commit();
 			}
 		}
 

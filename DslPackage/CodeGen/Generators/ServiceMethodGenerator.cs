@@ -56,7 +56,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc, "#region Delete");
 
             // Interface
-            var signature = $"Task Delete{className}(Guid id)";
+            var signature = $"Task Delete(Guid id)";
             interfaceOutput.Add($"{signature};");
 
             output.AddLine();
@@ -70,38 +70,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
             output.AddLine();
             output.AddLine(tc, "#endregion");
-        }
-
-        internal void GenerateFullUpdateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 1;
-            var className = entity.Name;
-            var varName = CodeGenUtils.ToCamelCase(className);
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Update{className}({className} {varName})";
-
-            // Interface
-            interfaceOutput.Add($"{signature};");
-
-            // Method body
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            output.AddLine(tc + 1, "try {");
-            output.AddLine(tc + 2, $"_db.Attach({varName});");
-            output.AddLine(tc + 2, $"_db.Entry({varName}).State = EntityState.Modified;");
-            output.AddLine(tc + 2, $"await _db.SaveChangesAsync();");
-            output.AddLine();
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 2, $"return {varName}.RowVersion;");
-            output.AddLine();
-            output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-            output.AddLine(tc + 2, $"throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc, "}");
         }
 
         internal void GenerateUpdateMethod(EntityModel entity, UpdateMethodModel method, List<string> output, List<string> interfaceOutput)
@@ -136,10 +104,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc + 2, "};");
             output.AddLine();
 
-            output.AddLine(tc + 2, $"_db.Attach({varName});");
-            foreach (var updProp in updateProps)
-                output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
-            output.AddLine();
+            if (method.IsCreate)
+            {
+                output.AddLine(tc + 2, $"_db.Add({varName});");
+            }
+            else
+            {
+                output.AddLine(tc + 2, $"_db.Attach({varName});");
+                foreach (var updProp in updateProps)
+                    output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
+                output.AddLine();
+            }
+
             output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
             if (entity.InclRowVersion)
             {

@@ -1049,6 +1049,14 @@
     <value>Permissions</value>
     <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/IsCreate.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.UpdateMethodModel.Is Create</value>
+    <comment>Description for DomainProperty &apos;IsCreate&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.UpdateMethodModel/IsCreate.DisplayName" xml:space="preserve">
+    <value>Is Create</value>
+    <comment>DisplayName for DomainProperty &apos;IsCreate&apos; on DomainClass &apos;UpdateMethodModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ServiceModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ServiceModel</value>
     <comment>Description for DomainClass &apos;ServiceModel&apos;</comment>

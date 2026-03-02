@@ -218,6 +218,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(UpdateMethodModel), "ItemId", UpdateMethodModel.ItemIdDomainPropertyId, typeof(UpdateMethodModel.ItemIdPropertyHandler)),
 				new DomainMemberInfo(typeof(UpdateMethodModel), "DisplayOrder", UpdateMethodModel.DisplayOrderDomainPropertyId, typeof(UpdateMethodModel.DisplayOrderPropertyHandler)),
 				new DomainMemberInfo(typeof(UpdateMethodModel), "Permissions", UpdateMethodModel.PermissionsDomainPropertyId, typeof(UpdateMethodModel.PermissionsPropertyHandler)),
+				new DomainMemberInfo(typeof(UpdateMethodModel), "IsCreate", UpdateMethodModel.IsCreateDomainPropertyId, typeof(UpdateMethodModel.IsCreatePropertyHandler)),
 				new DomainMemberInfo(typeof(ServiceModel), "Enabled", ServiceModel.EnabledDomainPropertyId, typeof(ServiceModel.EnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ServiceModel), "InclCreate", ServiceModel.InclCreateDomainPropertyId, typeof(ServiceModel.InclCreatePropertyHandler)),
 				new DomainMemberInfo(typeof(ServiceModel), "InclUpdate", ServiceModel.InclUpdateDomainPropertyId, typeof(ServiceModel.InclUpdatePropertyHandler)),
