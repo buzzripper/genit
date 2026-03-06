@@ -130,9 +130,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
         internal void GenerateCode()
         {
-            foreach (var entity in _entities.Where(e => e.GenerateCode))
+            foreach (var entity in _entities)
             {
-                foreach (var serviceModel in entity.ServiceModels)
+                foreach (var serviceModel in entity.ServiceModels.Where(s => s.Enabled))
                 {
                     GenerateService(entity, serviceModel);
                 }

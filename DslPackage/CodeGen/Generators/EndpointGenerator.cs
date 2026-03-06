@@ -44,6 +44,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.Requests");
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.DTOs");
             _usings.AddLine(0, $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+            _usings.AddLine(0, $"{module.Namespace}.Shared.Authorization");
             _usings.AddLine(0, module.DtoNamespace);
 
             foreach (var u in entity.UsingsList)
@@ -62,7 +63,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
         internal void GenerateCode()
         {
-            foreach (var entity in _entities.Where(e => e.GenerateCode))
+            foreach (var entity in _entities)
             {
                 foreach (var serviceModel in entity.ServiceModels)
                 {
@@ -242,7 +243,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (serviceModel.CreatePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.CreatePermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(serviceModel.CreatePermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -276,7 +277,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (serviceModel.DeletePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.DeletePermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(serviceModel.DeletePermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -310,7 +311,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (serviceModel.UpdatePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.UpdatePermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(serviceModel.UpdatePermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -392,7 +393,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (updMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", updMethodModel.PermissionsList)}\")");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(updMethodModel.PermissionsList)})");
             lines.AppendToLast(";");
 
             return lines;
@@ -453,7 +454,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (entity.InclRowVersion)
                 lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (readMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(readMethodModel.PermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -531,53 +532,28 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (entity.InclRowVersion)
                 lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (readMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(readMethodModel.PermissionsList)});");
             else
                 lines.AppendToLast(";");
 
             return lines;
         }
 
-        // Searches
+        private string FormatPermList(List<string> permList)
+        {
+            var sb = new StringBuilder();
 
-        //internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, string svcVarName, List<string> output, List<string> mapMethods)
-        //{
-        //	var tc = 1;
-        //	output.AddLine();
-        //	var requestClassName = $"{searchMethod.Name}Req";
-        //	var searchVarName = requestClassName.ToCamelCase();
+            sb.Append("[");
 
-        //	// Attributes
-        //	if (searchMethod.Attributes.Any())
-        //		foreach (var attr in searchMethod.Attributes)
-        //			output.AddLine(tc, $"[{attr}]");
+            foreach (var perm in permList)
+            {
+                if (sb.Length > 1)
+                    sb.Append(", ");
+                sb.Append(perm);
+            }
+            sb.Append("]");
 
-        //	// Method
-        //	output.AddLine(tc, $"public static async Task<IResult> {searchMethod.Name}(I{entity.Name}Service {svcVarName}, {requestClassName} {searchVarName})");
-        //	output.AddLine(tc, "{");
-        //	output.AddLine(tc + 1, $"var result = await {svcVarName}.{searchMethod.Name}({searchVarName});");
-        //	output.AddLine(tc + 1, $"return result.ToHttpResult();");
-        //	output.AddLine(tc, "}");
-
-        //	mapMethods.AddLines(0, GenerateSearchMapMethod(entity, searchMethod.Name, searchMethod));
-        //}
-
-        //private List<string> GenerateSearchMapMethod(EntityModel entity, string methodName, ReadMethodModel searchMethod)
-        //{
-        //	var lines = new List<string>();
-        //	string className = entity.Name;
-
-        //	lines.AddLine();
-        //	lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
-        //	lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
-        //	if (entity.InclRowVersion)
-        //		lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
-        //	if (searchMethod.PermissionsList.Count > 0)
-        //		lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", searchMethod.PermissionsList)}\");");
-        //	else
-        //		lines.AppendToLast(";");
-
-        //	return lines;
-        //}
+            return sb.ToString();
+        }
     }
 }
