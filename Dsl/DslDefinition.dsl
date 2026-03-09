@@ -979,7 +979,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModel" Multiplicity="ZeroOne" PropertyDisplayName="Update Property Model">
+        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModels" Multiplicity="Many" PropertyDisplayName="Update Property Models">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>

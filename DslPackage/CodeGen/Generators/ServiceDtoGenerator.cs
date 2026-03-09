@@ -82,7 +82,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 fileContent.AddLine(1, "public byte[] RowVersion { get; set; }");
 
             // Required properties first
-            var requiredUpdateProps = updateMethod.UpdateProperties.Where(x => !x.IsOptional);
+            var requiredUpdateProps = updateMethod.UpdateProperties.Where(x => !x.IsOptional && !x.PropertyModel.IsRowVersion);
             if (requiredUpdateProps.Any())
             {
                 fileContent.AddLine();
@@ -92,7 +92,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             }
 
             // Optional properties last
-            var optionalUpdateProps = updateMethod.UpdateProperties.Where(x => x.IsOptional);
+            var optionalUpdateProps = updateMethod.UpdateProperties.Where(x => x.IsOptional && !x.PropertyModel.IsRowVersion);
             if (optionalUpdateProps.Any())
             {
                 fileContent.AddLine();

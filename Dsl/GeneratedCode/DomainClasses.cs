@@ -5269,22 +5269,18 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region UpdatePropertyModel opposite domain role accessor
+		#region UpdatePropertyModels opposite domain role accessor
+		
 		/// <summary>
-		/// Gets or sets UpdatePropertyModel.
+		/// Gets a list of UpdatePropertyModels.
 		/// Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel
 		/// </summary>
-		public virtual UpdatePropertyModel UpdatePropertyModel
+		public virtual DslModeling::LinkedElementCollection<UpdatePropertyModel> UpdatePropertyModels
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId) as UpdatePropertyModel;
-			}
-			[global::System.Diagnostics.DebuggerStepThrough]
-			set
-			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId, value);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdatePropertyModel>, UpdatePropertyModel>(global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId);
 			}
 		}
 		#endregion

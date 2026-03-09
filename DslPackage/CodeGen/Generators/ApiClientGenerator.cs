@@ -37,6 +37,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             constructor.AddLine(0, "{");
             constructor.AddLine(0, "}");
 
+            // Update methods
+            var updMethodsOutput = new List<string>();
+            if (service.InclUpdate || service.UpdateMethods.Any())
+            {
+                foreach (UpdateMethodModel method in service.UpdateMethods)
+                    this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
+            }
+
             // Delete
             var deleteMethodsOutput = new List<string>();
             if (service.InclDelete)
@@ -46,14 +54,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 this.GenerateDeleteMethod(module, entity, service, deleteMethodsOutput, interfaceOutput);
                 deleteMethodsOutput.AddLine();
                 deleteMethodsOutput.AddLine(0, "#endregion");
-            }
-
-            // Update methods
-            var updMethodsOutput = new List<string>();
-            if (service.InclUpdate || service.UpdateMethods.Any())
-            {
-                foreach (UpdateMethodModel method in service.UpdateMethods)
-                    this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
             }
 
             // Read methods - single
@@ -84,9 +84,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLines(0, declaration);
             fileContent.AddLine(0, "{");
             fileContent.AddLines(1, constructor);
-
-            //if (createMethodsOutput.Count > 0)
-            //    fileContent.AddLines(1, createMethodsOutput);
 
             if (deleteMethodsOutput.Count > 0)
                 fileContent.AddLines(1, deleteMethodsOutput);
@@ -140,30 +137,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             OutputHelper.Write($"Completed code gen for controller: {apiClientName}");
         }
 
-        private void GenerateCreateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 0;
-            var className = entity.Name;
-            var varName = className.ToCamelCase();
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Create{className}({className} {varName})";
-            var url = $"api/{module.Name}/{service.Version}/{className}/Create{className}";
-
-            // Interface
-            interfaceOutput.Add(signature);
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 1, $"return await PostAsyncWithReturn<byte[]>(\"{url}\", {varName});");
-            else
-                output.AddLine(tc + 1, $"await PostAsync(\"{url}\", {varName});");
-            output.AddLine(tc, "}");
-        }
-
         private void GenerateDeleteMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
         {
             var tc = 0;
@@ -171,7 +144,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var varName = className.ToCamelCase();
 
             // Interface
-            var signature = $"Task Delete(Guid id)";
+            var signature = $"Task Delete{entity.Name}(Guid id)";
             interfaceOutput.Add(signature);
 
             output.AddLine();

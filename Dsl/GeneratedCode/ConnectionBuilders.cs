@@ -815,7 +815,6 @@ namespace Dyvenix.GenIt
 					{
 						global::Dyvenix.GenIt.UpdatePropertyModel sourceUpdatePropertyModel = (global::Dyvenix.GenIt.UpdatePropertyModel)candidateSource;
 						global::Dyvenix.GenIt.PropertyModel targetPropertyModel = (global::Dyvenix.GenIt.PropertyModel)candidateTarget;
-						if(targetPropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinkToUpdatePropertyModel(targetPropertyModel) != null) return false;
 						if(sourceUpdatePropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinkToPropertyModel(sourceUpdatePropertyModel) != null) return false;
 						if(targetPropertyModel == null || sourceUpdatePropertyModel == null || global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.GetLinks(sourceUpdatePropertyModel, targetPropertyModel).Count > 0) return false;
 						return true;

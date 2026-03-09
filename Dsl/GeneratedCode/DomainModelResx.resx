@@ -1814,7 +1814,7 @@
     <comment>DisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.PropertyDisplayName" xml:space="preserve">
-    <value>Update Property Model</value>
+    <value>Update Property Models</value>
     <comment>PropertyDisplayName for DomainRole &apos;PropertyModel&apos; on DomainRelationship &apos;UpdatePropertyModelHasPropertyModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.Description" xml:space="preserve">

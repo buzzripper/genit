@@ -175,26 +175,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
             var serviceMethodGenerator = new ServiceMethodGenerator();
 
-            //// Create
-            //var createMethodOutput = new List<string>();
-            //if (serviceModel.InclCreate)
-            //    serviceMethodGenerator.GenerateCreateMethod(entity, createMethodOutput, interfaceLines);
-
-            // Delete
-            var deleteMethodsOutput = new List<string>();
-            if (serviceModel.InclDelete)
-                serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
-
             // Update 
             var updMethodsOutput = new List<string>();
             if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
             {
                 updMethodsOutput.AddLine();
                 updMethodsOutput.AddLine(1, "#region Update");
-
-                //// Full update method
-                //if (serviceModel.InclUpdate)
-                //    serviceMethodGenerator.GenerateFullUpdateMethod(entity, updMethodsOutput, interfaceLines);
 
                 // Normal update methods
                 foreach (var updMethod in serviceModel.UpdateMethods)
@@ -205,6 +191,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 updMethodsOutput.AddLine();
                 updMethodsOutput.AddLine(1, "#endregion");
             }
+
+            // Delete
+            var deleteMethodsOutput = new List<string>();
+            if (serviceModel.InclDelete)
+                serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
 
             // Read methods - single
             var singleMethodsOutput = new List<string>();

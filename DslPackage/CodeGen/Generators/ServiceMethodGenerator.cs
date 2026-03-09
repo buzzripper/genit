@@ -9,43 +9,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
     internal class ServiceMethodGenerator
     {
-        internal void GenerateCreateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 1;
-            var className = entity.Name;
-            var varName = CodeGenUtils.ToCamelCase(className);
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Create{className}({className} {varName})";
-
-            output.AddLine();
-            output.AddLine(tc, "#region Create");
-
-            // Interface
-            interfaceOutput.Add($"{signature};");
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            output.AddLine(tc + 1, "try {");
-            output.AddLine(tc + 2, $"_db.Add({varName});");
-            output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
-
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 2, $"return {varName}.RowVersion;");
-
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc + 1, "catch (DbUpdateConcurrencyException)");
-            output.AddLine(tc + 1, "{");
-            output.AddLine(tc + 2, "throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc, "}");
-
-            output.AddLine();
-            output.AddLine(tc, "#endregion");
-        }
-
         internal void GenerateDeleteMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
         {
             var tc = 1;
@@ -56,7 +19,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc, "#region Delete");
 
             // Interface
-            var signature = $"Task Delete(Guid id)";
+            var signature = $"Task Delete{className}(Guid id)";
             interfaceOutput.Add($"{signature};");
 
             output.AddLine();
@@ -99,7 +62,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc + 3, $"Id = request.Id,");
             if (entity.InclRowVersion)
                 output.AddLine(tc + 3, $"RowVersion = request.RowVersion,");
-            foreach (var updProp in updateProps)
+            foreach (var updProp in updateProps.Where(p => !p.PropertyModel.IsRowVersion))
                 output.AddLine(tc + 3, $"{updProp.PropertyModel.Name} = request.{updProp.PropertyModel.Name},");
             output.AddLine(tc + 2, "};");
             output.AddLine();
