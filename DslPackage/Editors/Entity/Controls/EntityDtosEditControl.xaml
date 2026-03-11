@@ -1,18 +1,17 @@
-<editors:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Editors.Services.Controls.UpdateMethodsEditControl"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Services.Controls"
-             xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1000">
-    <UserControl.Resources>
-        <!-- Toolbar button style - subtle hover effect -->
-        <Style x:Key="ToolbarButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="4"/>
+<editors:UserControlBase x:Class="Dyvenix.GenIt.DslPackage.Editors.Entity.Controls.EntityDtosEditControl"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+xmlns:local="clr-namespace:Dyvenix.GenIt.DslPackage.Editors.Entity.Controls"
+xmlns:editors="clr-namespace:Dyvenix.GenIt.DslPackage.Editors"
+mc:Ignorable="d" 
+d:DesignHeight="450" d:DesignWidth="900">
+<UserControl.Resources>
+    <Style x:Key="ToolbarButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="4"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -36,12 +35,16 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" MinWidth="300"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*" MinWidth="200"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Left Panel - Methods Grid -->
+        <!-- Left Panel - DTOs Grid -->
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -52,7 +55,7 @@
             <Border Grid.Row="0" Background="{DynamicResource Theme.Background.ToolBar}" Padding="2">
                 <Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button x:Name="btnAdd" ToolTip="Add Method" Click="btnAdd_Click" Style="{StaticResource ToolbarButtonStyle}">
+                        <Button x:Name="btnAdd" ToolTip="Add DTO" Click="btnAdd_Click" Style="{StaticResource ToolbarButtonStyle}">
                             <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
                         </Button>
                     </StackPanel>
@@ -69,9 +72,9 @@
                 </Grid>
             </Border>
 
-            <!-- Methods DataGrid -->
+            <!-- DTOs DataGrid -->
             <DataGrid Grid.Row="1" 
-                      x:Name="grdMethods"
+                      x:Name="grdDtos"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
@@ -84,24 +87,13 @@
                       Background="{DynamicResource Theme.DataGrid.Background}"
                       RowBackground="{DynamicResource Theme.DataGrid.RowBackground}"
                       AlternatingRowBackground="{DynamicResource Theme.DataGrid.AlternatingRowBackground}"
-                      SelectionChanged="grdMethods_SelectionChanged">
+                      SelectionChanged="grdDtos_SelectionChanged">
                 <DataGrid.Resources>
-                    <!-- Keep selection highlighting when DataGrid loses focus -->
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" 
                                      Color="{DynamicResource {x:Static SystemColors.HighlightColorKey}}"/>
                     <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" 
                                      Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
-                    <!-- Centered column header style with theme colors -->
-                    <Style x:Key="CenteredColumnHeaderStyle" TargetType="DataGridColumnHeader">
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
-                        <Setter Property="Foreground" Value="{DynamicResource Theme.Foreground}"/>
-                        <Setter Property="BorderBrush" Value="{DynamicResource Theme.Border}"/>
-                        <Setter Property="BorderThickness" Value="0,1,1,1"/>
-                        <Setter Property="Padding" Value="4,2"/>
-                    </Style>
                 </DataGrid.Resources>
-                <!-- Default column header style for all columns -->
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="{DynamicResource Theme.Background}"/>
@@ -111,7 +103,6 @@
                         <Setter Property="Padding" Value="4,2"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
-                <!-- Row style with selection highlighting -->
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Setter Property="Background" Value="{DynamicResource Theme.DataGrid.RowBackground}"/>
@@ -122,7 +113,6 @@
                         </Style.Triggers>
                     </Style>
                 </DataGrid.RowStyle>
-                <!-- Cell style with selection highlighting -->
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
                         <Setter Property="Background" Value="Transparent"/>
@@ -139,23 +129,6 @@
                 </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="100"/>
-                    <DataGridTemplateColumn Header="Is Create" Width="60" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsCreate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                          HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Perms" Width="60" HeaderStyle="{StaticResource CenteredColumnHeaderStyle}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding PermsCount}" Click="btnPerms_Click" 
-                                        Background="Transparent" BorderThickness="0" Cursor="Hand"
-                                        Foreground="{DynamicResource Theme.HotTrack}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
                     <DataGridTemplateColumn Header="" Width="40">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -177,7 +150,21 @@
         <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
                       Background="{DynamicResource Theme.Splitter}"/>
 
-        <!-- Right Panel - Update Properties -->
-        <local:UpdPropsEditControl Grid.Column="2" x:Name="updPropsEditCtl"/>
+        <!-- Middle Panel - DTO Properties -->
+        <local:EntityDtoPropertiesEditControl Grid.Column="2" x:Name="dtoPropertiesCtl"/>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="3" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource Theme.Splitter}"/>
+
+        <!-- DTO Navigation Properties -->
+        <local:EntityDtoNavPropertiesEditControl Grid.Column="4" x:Name="dtoNavPropertiesCtl"/>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="5" Width="6" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                      Background="{DynamicResource Theme.Splitter}"/>
+
+        <!-- Right Panel - Navigation DTOs -->
+        <local:EntityNavDtosEditControl Grid.Column="6" x:Name="navDtosCtl"/>
     </Grid>
 </editors:UserControlBase>

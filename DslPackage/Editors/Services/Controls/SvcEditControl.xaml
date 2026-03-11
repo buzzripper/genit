@@ -196,6 +196,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" x:Name="txtEntityName" Text="" VerticalAlignment="Center" Margin="4,0,16,0" FontSize="16" FontWeight="SemiBold"/>
@@ -211,11 +212,15 @@
                     VerticalAlignment="Center" Margin="0,0,16,0"
                     ToolTip="Edit Service Permissions"/>
 
-			<CheckBox Grid.Column="4" x:Name="ckbInclEndpoints" Content="Include Endpoints" 
+			<CheckBox Grid.Column="4" x:Name="ckbInclAngService" Content="Incl Ang Service" 
+                      VerticalAlignment="Center" Margin="0,0,16,0"
+                      Checked="ckbInclAngService_Changed" Unchecked="ckbInclAngService_Changed"/>
+
+			<CheckBox Grid.Column="5" x:Name="ckbInclEndpoints" Content="Include Endpoints" 
                       VerticalAlignment="Center" Margin="0,0,16,0"
                       Checked="ckbInclEndpoints_Changed" Unchecked="ckbInclEndpoints_Changed"/>
 
-            <CheckBox Grid.Column="5" x:Name="ckbEnabled" Content="Enabled" 
+            <CheckBox Grid.Column="6" x:Name="ckbEnabled" Content="Enabled" 
                       VerticalAlignment="Center" HorizontalAlignment="Right"
                       Checked="ckbEnabled_Changed" Unchecked="ckbEnabled_Changed"/>
         </Grid>
@@ -223,7 +228,7 @@
         <!-- Tab Control with themed panel background -->
         <Border Grid.Row="1" Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}">
             <TabControl x:Name="tabControl">
-                <!-- Standard Methods Tab (first position) -->
+                <!-- Standard Methods Tab -->
                 <TabItem Header="Standard Methods">
                     <Grid Margin="12">
                         <Grid.RowDefinitions>

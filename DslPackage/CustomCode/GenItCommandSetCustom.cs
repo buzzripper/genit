@@ -16,6 +16,7 @@ namespace Dyvenix.GenIt
 		private CommandID _generateCodeCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0100);
 		private CommandID _addServiceCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0101);
 		private CommandID _removeFromViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0102);
+		private CommandID _validateModelCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0103);
 
 		/// <summary>
 		/// Provide the menu commands that this command set handles
@@ -45,6 +46,13 @@ namespace Dyvenix.GenIt
 				new EventHandler(OnMenuRemoveFromView),
 				_removeFromViewCommandId);
 			commands.Add(removeFromViewCommand);
+
+			// Add the "Validate Model" command
+			DynamicStatusMenuCommand validateModelCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusGenerateCode),
+				new EventHandler(OnMenuValidateModel),
+				_validateModelCommandId);
+			commands.Add(validateModelCommand);
 
 			return commands;
 		}
@@ -98,41 +106,9 @@ namespace Dyvenix.GenIt
 				OutputHelper.Write("=".PadRight(80, '='));
 				OutputHelper.WriteAndActivate("Reading model file...");
 
-				GenItDocData docData = this.CurrentGenItDocData;
-				if (docData == null || docData.Store == null)
-				{
-					OutputHelper.WriteError("No active document found.");
+				GenItModel model = CreateAndValidateModel();
+				if (model == null)
 					return;
-				}
-
-				var modelRoots = docData.Store.ElementDirectory.FindElements<ModelRoot>();
-				if (modelRoots == null || modelRoots.Count == 0)
-				{
-					OutputHelper.WriteError("No model root found in the document.");
-					return;
-				}
-
-				ModelRoot modelRoot = modelRoots[0];
-
-				// Create the code gen model and validate
-				GenItModel model = new GenItModel(modelRoot);
-				OutputHelper.Write("Validating model...");
-				if (!model.Validate(out var errors))
-				{
-					OutputHelper.WriteError("Model validation failed with the following errors:");
-					foreach (var error in errors)
-						OutputHelper.Write($"•  {error}");
-					OutputHelper.ShowOutputToolWindow();
-					VsShellUtilities.ShowMessageBox(
-						this.ServiceProvider,
-						"Model validation failed. Check the output window for details.",
-						"Validation Error",
-						OLEMSGICON.OLEMSGICON_CRITICAL,
-						OLEMSGBUTTON.OLEMSGBUTTON_OK,
-						OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-					return;
-				}
-				OutputHelper.Write("Model validated.");
 
 				OutputHelper.Write("Starting code generation...");
 
@@ -165,6 +141,100 @@ namespace Dyvenix.GenIt
 			{
 				OutputHelper.Write("=".PadRight(80, '='));
 			}
+		}
+
+		#endregion
+
+		#region Validate Model Command
+
+		/// <summary>
+		/// Event handler to validate the model without generating code
+		/// </summary>
+		private void OnMenuValidateModel(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			try
+			{
+				OutputHelper.Write("=".PadRight(80, '='));
+				OutputHelper.WriteAndActivate("Reading model file...");
+
+				GenItModel model = CreateAndValidateModel();
+				if (model == null)
+					return;
+
+				VsShellUtilities.ShowMessageBox(
+					this.ServiceProvider,
+					"Model validation passed.",
+					"Validate Model",
+					OLEMSGICON.OLEMSGICON_INFO,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+			}
+			catch (Exception ex)
+			{
+				VsShellUtilities.ShowMessageBox(
+					this.ServiceProvider,
+					ex.Message,
+					"Validation Error",
+					OLEMSGICON.OLEMSGICON_CRITICAL,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+				OutputHelper.WriteError($"Model validation failed: {ex.Message}");
+				OutputHelper.WriteError(ex.StackTrace);
+			}
+			finally
+			{
+				OutputHelper.Write("=".PadRight(80, '='));
+			}
+		}
+
+		#endregion
+
+		#region Shared Helpers
+
+		/// <summary>
+		/// Creates a GenItModel from the current document and validates it.
+		/// Returns the model if valid, or null if validation fails (with errors shown).
+		/// </summary>
+		private GenItModel CreateAndValidateModel()
+		{
+			GenItDocData docData = this.CurrentGenItDocData;
+			if (docData == null || docData.Store == null)
+			{
+				OutputHelper.WriteError("No active document found.");
+				return null;
+			}
+
+			var modelRoots = docData.Store.ElementDirectory.FindElements<ModelRoot>();
+			if (modelRoots == null || modelRoots.Count == 0)
+			{
+				OutputHelper.WriteError("No model root found in the document.");
+				return null;
+			}
+
+			ModelRoot modelRoot = modelRoots[0];
+
+			GenItModel model = new GenItModel(modelRoot);
+			OutputHelper.Write("Validating model...");
+			if (!model.Validate(out var errors))
+			{
+				OutputHelper.WriteError("Model validation failed with the following errors:");
+				foreach (var error in errors)
+					OutputHelper.Write($"\u2022  {error}");
+				OutputHelper.ShowOutputToolWindow();
+				VsShellUtilities.ShowMessageBox(
+					this.ServiceProvider,
+					"Model validation failed. Check the output window for details.",
+					"Validation Error",
+					OLEMSGICON.OLEMSGICON_CRITICAL,
+					OLEMSGBUTTON.OLEMSGBUTTON_OK,
+					OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+				return null;
+			}
+			OutputHelper.Write("Model validated.");
+
+			return model;
 		}
 
 		#endregion

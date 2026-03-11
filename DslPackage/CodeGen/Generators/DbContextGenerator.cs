@@ -5,239 +5,248 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-	internal class DbContextGenerator
-	{
-		private readonly List<EntityModel> _entities;
-		private readonly string _dbContextName;
-		private readonly string _dbContextNamespace;
-		private readonly List<string> _dbContextUsings;
-		private readonly string _entitiesNamespace;
-		private readonly string _outputFolderpath;
-		private readonly bool _inclHeader;
+    internal class DbContextGenerator
+    {
+        private readonly List<EntityModel> _entities;
+        private readonly string _dbContextName;
+        private readonly string _dbContextNamespace;
+        private readonly List<string> _dbContextUsings;
+        private readonly string _entitiesNamespace;
+        private readonly string _outputFolderpath;
+        private readonly string _baseClass;
+        private readonly bool _inclHeader;
 
-		internal DbContextGenerator(ModelRoot modelRoot)
-		{
-			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
-			_dbContextName = modelRoot.DbContextName;
-			_dbContextNamespace = modelRoot.DbContextNamespace;
-			_entitiesNamespace = modelRoot.EntitiesNamespace;
-			_outputFolderpath = FileHelper.GetAbsolutePath(modelRoot.DbContextOutputFolder);
-			_inclHeader = modelRoot.InclHeader;
-			_dbContextUsings = modelRoot.DbContextUsingsList;
-		}
+        internal DbContextGenerator(ModelRoot modelRoot)
+        {
+            _entities = modelRoot.Types.OfType<EntityModel>().ToList();
+            _dbContextName = modelRoot.DbContextName;
+            _dbContextNamespace = modelRoot.DbContextNamespace;
+            _entitiesNamespace = modelRoot.EntitiesNamespace;
+            _outputFolderpath = FileHelper.GetAbsolutePath(modelRoot.DbContextOutputFolder);
+            _inclHeader = modelRoot.InclHeader;
+            _dbContextUsings = modelRoot.DbContextUsingsList;
+            _baseClass = modelRoot.DbContextBaseClass;
+        }
 
-		internal void Validate(List<string> errors)
-		{
-			if (_entities == null || _entities.Count == 0)
-				errors.Add("No entities found in the model. Add some entities first.");
+        internal void Validate(List<string> errors)
+        {
+            if (_entities == null || _entities.Count == 0)
+                errors.Add("No entities found in the model. Add some entities first.");
 
-			if (string.IsNullOrEmpty(_dbContextName))
-				errors.Add("DbContextNames is not set. Please set it in the ModelRoot properties.");
+            if (string.IsNullOrEmpty(_dbContextName))
+                errors.Add("DbContextNames is not set. Please set it in the DbContext properties.");
 
-			if (string.IsNullOrEmpty(_dbContextNamespace))
-				errors.Add("DbContextNamespace is not set. Please set it in the ModelRoot properties.");
+            if (string.IsNullOrEmpty(_dbContextNamespace))
+                errors.Add("DbContextNamespace is not set. Please set it in the DbContext properties.");
 
-			if (string.IsNullOrEmpty(_entitiesNamespace))
-				errors.Add("EntitiesNamespace is not set. Please set it in the ModelRoot properties.");
+            if (string.IsNullOrEmpty(_entitiesNamespace))
+                errors.Add("EntitiesNamespace is not set. Please set it in the DbContext properties.");
 
-			if (string.IsNullOrEmpty(_outputFolderpath))
-				errors.Add("DbContextOutputFolder is not set. Please set it in the ModelRoot properties.");
-			else if (!Directory.Exists(_outputFolderpath))
-				errors.Add("DbContextOutputFolder does not exist. Please select a valid folder.");
-		}
+            if (string.IsNullOrEmpty(_outputFolderpath))
+                errors.Add("DbContextOutputFolder is not set. Please set it in the DbContext properties.");
+            else if (!Directory.Exists(_outputFolderpath))
+                errors.Add("DbContextOutputFolder does not exist. Please select a valid folder.");
 
-		internal void GenerateCode()
-		{
-			var className = $"{_dbContextName}";
+            if (string.IsNullOrEmpty(_baseClass))
+                errors.Add("DbContext BaseClass is not set. Please set it in the DbContext properties.");
+        }
 
-			var fileContent = new List<string>();
+        internal void GenerateCode()
+        {
+            var className = $"{_dbContextName}";
 
-			if (_inclHeader)
-				fileContent.Add(CodeGenUtils.FileHeader);
+            var fileContent = new List<string>();
 
-			// Usings
-			fileContent.AddLine(0, "using Microsoft.EntityFrameworkCore;");
-			foreach (var u in _dbContextUsings)
-				fileContent.AddLine(0, $"using {u};");
-			fileContent.AddLine(0, $"using {_entitiesNamespace};");
+            if (_inclHeader)
+                fileContent.Add(CodeGenUtils.FileHeader);
 
-			// Namespace 		
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {_dbContextNamespace};");
+            // Usings
+            fileContent.AddLine(0, "using Microsoft.EntityFrameworkCore;");
+            foreach (var u in _dbContextUsings)
+                fileContent.AddLine(0, $"using {u};");
+            fileContent.AddLine(0, $"using {_entitiesNamespace};");
 
-			// Declaration
-			fileContent.AddLine();
-			fileContent.AddLine(0, $"public partial class {className} : DbContext");
-			fileContent.AddLine(0, "{");
-			fileContent.AddLine(1, $"public {className}(DbContextOptions<{className}> options)");
-			fileContent.AddLine(2, ": base(options)");
-			fileContent.AddLine(1, "{");
-			fileContent.AddLine(1, "}");
-			fileContent.AddLine();
-			fileContent.AddLine(1, "# region Properties");
-			fileContent.AddLine();
+            // Namespace 		
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"namespace {_dbContextNamespace};");
 
-			foreach (var entity in _entities.Where(e => e.GenerateCode))
-				fileContent.AddLine(1, $"public DbSet<{entity.Name}> {entity.Name} {{ get; set; }}");
+            // Declaration
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"public partial class {className} : {_baseClass}");
+            fileContent.AddLine(0, "{");
+            fileContent.AddLine(1, $"partial void OnModelCreatingExt(ModelBuilder builder);");
+            fileContent.AddLine();
+            fileContent.AddLine(1, $"public {className}(DbContextOptions<{className}> options)");
+            fileContent.AddLine(2, ": base(options)");
+            fileContent.AddLine(1, "{");
+            fileContent.AddLine(1, "}");
+            fileContent.AddLine();
+            fileContent.AddLine(1, "# region Properties");
+            fileContent.AddLine();
 
-			fileContent.AddLine();
-			fileContent.AddLine(1, "# endregion");
-			fileContent.AddLine();
-			fileContent.AddLine(1, "protected override void OnModelCreating(ModelBuilder modelBuilder)");
-			fileContent.AddLine(1, "{");
-			fileContent.AddLine(2, "base.OnModelCreating(modelBuilder);");
+            foreach (var entity in _entities.Where(e => e.GenerateCode))
+                fileContent.AddLine(1, $"public DbSet<{entity.Name}> {entity.Name} {{ get; set; }}");
 
-			foreach (var entity in _entities.Where(e => e.GenerateCode))
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(2, $"#region {entity.Name}");
-				fileContent.AddLine();
+            fileContent.AddLine();
+            fileContent.AddLine(1, "# endregion");
+            fileContent.AddLine();
+            fileContent.AddLine(1, "protected override void OnModelCreating(ModelBuilder modelBuilder)");
+            fileContent.AddLine(1, "{");
+            fileContent.AddLine(2, "base.OnModelCreating(modelBuilder);");
+            fileContent.AddLine(2, "this.OnModelCreatingExt(modelBuilder);");
 
-				fileContent.AddLine(2, $"modelBuilder.Entity<{entity.Name}>(entity =>");
-				fileContent.AddLine(2, "{");
-				fileContent.AddLine(3, $"entity.ToTable(\"{entity.Name}\");");
+            foreach (var entity in _entities.Where(e => e.GenerateCode))
+            {
+                fileContent.AddLine();
+                fileContent.AddLine(2, $"#region {entity.Name}");
+                fileContent.AddLine();
 
-				// PK
-				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey))
-					fileContent.AddLine(3, $"entity.HasKey(e => e.{prop.Name});");
+                fileContent.AddLine(2, $"modelBuilder.Entity<{entity.Name}>(entity =>");
+                fileContent.AddLine(2, "{");
+                fileContent.AddLine(3, $"entity.ToTable(\"{entity.Name}\");");
 
-				// RowVersion
-				if (entity.InclRowVersion)
-					fileContent.AddLine(3, $"entity.Property(e => e.RowVersion).IsRowVersion();");
+                // PK
+                foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey))
+                    fileContent.AddLine(3, $"entity.HasKey(e => e.{prop.Name});");
 
-				// FKs
-				foreach (var prop in entity.Properties.Where(p => p.IsForeignKey))
-				{
-					var line = $"entity.Property(e => e.{prop.Name})";
-					if (!prop.IsNullable)
-						line += ".IsRequired()";
-					line += ";";
-					fileContent.AddLine(3, line);
-				}
+                // RowVersion
+                if (entity.InclRowVersion)
+                    fileContent.AddLine(3, $"entity.Property(e => e.RowVersion).IsRowVersion();");
 
-				// Properties
-				foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion))
-				{
-					var line = $"entity.Property(e => e.{prop.Name})";
-					if (!prop.IsNullable)
-						line += ".IsRequired()";
-					if (prop.DataType == DataTypes.String && prop.Length > 0)
-						line += $".HasMaxLength({prop.Length})";
-					line += ";";
-					fileContent.AddLine(3, line);
-				}
+                // FKs
+                foreach (var prop in entity.Properties.Where(p => p.IsForeignKey))
+                {
+                    var line = $"entity.Property(e => e.{prop.Name})";
+                    if (!prop.IsNullable)
+                        line += ".IsRequired()";
+                    line += ";";
+                    fileContent.AddLine(3, line);
+                }
 
-				// Indexes
-				fileContent.AddLine();
-				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey || p.IsForeignKey || p.IsIndexed))
-				{
-					var line = $"entity.HasIndex(e => e.{prop.Name}, \"IX_{entity.Name}_{prop.Name}\")";
-					if (prop.IsIndexUnique)
-						line += ".IsUnique()";
-					if (prop.IsIndexClustered)
-						line += ".IsClustered()";
-					line += ";";
-					fileContent.AddLine(3, line);
-				}
+                // Properties
+                foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion))
+                {
+                    var line = $"entity.Property(e => e.{prop.Name})";
+                    if (!prop.IsNullable)
+                        line += ".IsRequired()";
+                    if (prop.DataType == DataTypes.String && prop.Length > 0)
+                        line += $".HasMaxLength({prop.Length})";
+                    line += ";";
+                    fileContent.AddLine(3, line);
+                }
 
-				fileContent.AddLine(2, "});");
-				fileContent.AddLine();
-				fileContent.AddLine(2, $"#endregion");
-			}
+                // Indexes
+                fileContent.AddLine();
+                foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey || p.IsForeignKey || p.IsIndexed))
+                {
+                    var line = $"entity.HasIndex(e => e.{prop.Name}, \"IX_{entity.Name}_{prop.Name}\")";
+                    if (prop.IsIndexUnique)
+                        line += ".IsUnique()";
+                    if (prop.IsIndexClustered)
+                        line += ".IsClustered()";
+                    line += ";";
+                    fileContent.AddLine(3, line);
+                }
 
-			fileContent.AddLine();
-			fileContent.AddLine(2, "OnModelCreatingPartial(modelBuilder);");
-			fileContent.AddLine(1, "}");
+                fileContent.AddLine(2, "});");
+                fileContent.AddLine();
+                fileContent.AddLine(2, $"#endregion");
+            }
 
-			fileContent.AddLine();
-			fileContent.AddLine(1, "partial void OnModelCreatingPartial(ModelBuilder modelBuilder);");
+            fileContent.AddLine();
+            fileContent.AddLine(2, "OnModelCreatingPartial(modelBuilder);");
+            fileContent.AddLine(1, "}");
 
-			fileContent.AddLine(0, "}");
+            fileContent.AddLine();
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"{className}.cs");
-			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
-		}
+            fileContent.AddLine(1, "partial void OnModelCreatingPartial(ModelBuilder modelBuilder);");
 
-		//private void GenerateEntity(EntityModel entity, List<string> fileContent)
-		//{
+            fileContent.AddLine(0, "}");
 
-		//	// Declaration
-		//	fileContent.AddLine();
-		//	fileContent.AddLine(0, $"public partial class {entity.Name}");
-		//	fileContent.AddLine(0, "{");
+            var outputFilepath = Path.Combine(_outputFolderpath, $"{className}.cs");
+            FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+        }
 
-		//	// PK
-		//	fileContent.AddLine(1, "// PK");
-		//	foreach (var property in entity.Properties.Where(p => p.IsPrimaryKey))
-		//		this.GenerateProperty(property, fileContent);
+        //private void GenerateEntity(EntityModel entity, List<string> fileContent)
+        //{
 
-		//	// FK
-		//	if (entity.Properties.Any(p => p.IsForeignKey))
-		//	{
-		//		fileContent.AddLine();
-		//		fileContent.AddLine(1, "// FKs");
-		//		foreach (var property in entity.Properties.Where(p => p.IsForeignKey))
-		//			this.GenerateProperty(property, fileContent);
-		//	}
+        //	// Declaration
+        //	fileContent.AddLine();
+        //	fileContent.AddLine(0, $"public partial class {entity.Name}");
+        //	fileContent.AddLine(0, "{");
 
-		//	// RowVersion
-		//	if (entity.Properties.Any(p => p.IsRowVersion))
-		//	{
-		//		fileContent.AddLine();
-		//		fileContent.AddLine(1, "// Rowversion");
-		//		foreach (var property in entity.Properties.Where(p => p.IsRowVersion))
-		//			this.GenerateProperty(property, fileContent);
-		//	}
+        //	// PK
+        //	fileContent.AddLine(1, "// PK");
+        //	foreach (var property in entity.Properties.Where(p => p.IsPrimaryKey))
+        //		this.GenerateProperty(property, fileContent);
 
-		//	// Properties
-		//	if (entity.Properties.Count > 0)
-		//	{
-		//		fileContent.AddLine();
-		//		fileContent.AddLine(1, $"// Properties");
-		//		foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion))
-		//			GenerateProperty(property, fileContent);
-		//	}
+        //	// FK
+        //	if (entity.Properties.Any(p => p.IsForeignKey))
+        //	{
+        //		fileContent.AddLine();
+        //		fileContent.AddLine(1, "// FKs");
+        //		foreach (var property in entity.Properties.Where(p => p.IsForeignKey))
+        //			this.GenerateProperty(property, fileContent);
+        //	}
 
-		//	if (entity.NavigationProperties.Count > 0)
-		//	{
-		//		fileContent.AddLine();
-		//		fileContent.AddLine(1, $"// Navigation Properties");
-		//		foreach (var navProperty in entity.NavigationProperties)
-		//		{
-		//			var dataType = navProperty.IsCollection ? $"List<{navProperty.TargetEntityName}>" : navProperty.TargetEntityName;
-		//			fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}");
-		//		}
-		//	}
+        //	// RowVersion
+        //	if (entity.Properties.Any(p => p.IsRowVersion))
+        //	{
+        //		fileContent.AddLine();
+        //		fileContent.AddLine(1, "// Rowversion");
+        //		foreach (var property in entity.Properties.Where(p => p.IsRowVersion))
+        //			this.GenerateProperty(property, fileContent);
+        //	}
 
-		//	// Property names
-		//	fileContent.AddLine();
-		//	fileContent.AddLine(1, "public static class PropNames");
-		//	fileContent.AddLine(1, "{");
-		//	foreach (var prop in entity.Properties)
-		//	{
-		//		fileContent.AddLine(2, $"public const string {prop.Name} = \"{prop.Name}\";");
-		//	}
-		//	fileContent.AddLine(1, "}");
+        //	// Properties
+        //	if (entity.Properties.Count > 0)
+        //	{
+        //		fileContent.AddLine();
+        //		fileContent.AddLine(1, $"// Properties");
+        //		foreach (var property in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey & !p.IsRowVersion))
+        //			GenerateProperty(property, fileContent);
+        //	}
 
-		//	fileContent.AddLine(0, "}");
+        //	if (entity.NavigationProperties.Count > 0)
+        //	{
+        //		fileContent.AddLine();
+        //		fileContent.AddLine(1, $"// Navigation Properties");
+        //		foreach (var navProperty in entity.NavigationProperties)
+        //		{
+        //			var dataType = navProperty.IsCollection ? $"List<{navProperty.TargetEntityName}>" : navProperty.TargetEntityName;
+        //			fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}");
+        //		}
+        //	}
 
-		//	var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
-		//	FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+        //	// Property names
+        //	fileContent.AddLine();
+        //	fileContent.AddLine(1, "public static class PropNames");
+        //	fileContent.AddLine(1, "{");
+        //	foreach (var prop in entity.Properties)
+        //	{
+        //		fileContent.AddLine(2, $"public const string {prop.Name} = \"{prop.Name}\";");
+        //	}
+        //	fileContent.AddLine(1, "}");
 
-		//	OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
-		//}
+        //	fileContent.AddLine(0, "}");
 
-		//private void GenerateProperty(PropertyModel prop, List<string> fileContent)
-		//{
-		//	if (prop.Attributes.Any())
-		//		foreach (var attr in prop.AttributesList)
-		//			fileContent.AddLine(1, $"[{attr}]");
+        //	var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
+        //	FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-		//	var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
-		//	var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
-		//	var nullInit = !prop.IsNullable ? " = null!;" : string.Empty;
+        //	OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
+        //}
 
-		//	fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
-		//}
-	}
+        //private void GenerateProperty(PropertyModel prop, List<string> fileContent)
+        //{
+        //	if (prop.Attributes.Any())
+        //		foreach (var attr in prop.AttributesList)
+        //			fileContent.AddLine(1, $"[{attr}]");
+
+        //	var dataTypeName = (prop.DataType == DataType.Enum) ? prop.EnumTypeName : CodeGenUtils.GetCSharpType(prop.DataType);
+        //	var nullTypeSuffix = prop.IsNullable && prop.DataType == DataType.String ? "?" : string.Empty;
+        //	var nullInit = !prop.IsNullable ? " = null!;" : string.Empty;
+
+        //	fileContent.AddLine(1, $"public {dataTypeName}{nullTypeSuffix} {prop.Name} {{ get; set; }}{nullInit}");
+        //}
+    }
 }

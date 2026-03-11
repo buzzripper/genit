@@ -37,6 +37,30 @@ namespace Dyvenix.GenIt
 namespace Dyvenix.GenIt
 {
 	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
+	public partial class ReadMethodModel
+	{
+		/// <summary>
+		/// Checks that the relationships that have a multiplicity of One or OneMany do actually have a link.
+		/// </summary>
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Generated code.")]
+		[DslValidation::ValidationMethod(DslValidation::ValidationCategories.Open | DslValidation::ValidationCategories.Save | DslValidation::ValidationCategories.Menu)]
+		private void ValidateReadMethodModelMultiplicity (DslValidation::ValidationContext context)
+		{
+			if (this.ReturnDto == null)
+			{
+				context.LogViolation(DslValidation::ViolationType.Error,
+					string.Format(global::System.Globalization.CultureInfo.CurrentCulture, 
+						Dyvenix.GenIt.GenItDomainModel.SingletonResourceManager.GetString("MinimumMultiplicityMissingLink"), 
+						"ReadMethodModel", this.Name, "ReturnDto"),
+						"DSL0001", this);
+			}
+		} // ValidateReadMethodModelMultiplicity
+	} // class ReadMethodModel
+} // Dyvenix.GenIt
+
+namespace Dyvenix.GenIt
+{
+	[DslValidation::ValidationState(DslValidation::ValidationState.Enabled)]
 	public partial class UpdatePropertyModel
 	{
 		/// <summary>

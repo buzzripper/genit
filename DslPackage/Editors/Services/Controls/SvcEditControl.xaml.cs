@@ -42,8 +42,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			ckbInclUpdate.IsChecked = _serviceAdapter.InclUpdate;
 			ckbInclDelete.IsChecked = _serviceAdapter.InclDelete;
 			ckbInclEndpoints.IsChecked = _serviceAdapter.InclEndpoints;
+			ckbInclAngService.IsChecked = _serviceAdapter.InclAngService;
 
-			readMethodsEditCtl.SetData(serviceModel, _serviceAdapter.ReadMethods, _entity.Properties, _entity.NavigationProperties);
+			readMethodsEditCtl.SetData(serviceModel, _serviceAdapter.ReadMethods, _entity.Properties, _entity.NavigationProperties, _entity.DtoModels);
 			updMethodsEditCtl.SetData(serviceModel, _serviceAdapter.Model.UpdateMethods, _entity.Properties);
 
 			// Update permission counts for standard methods
@@ -154,6 +155,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			{
 				_serviceAdapter.InclEndpoints = ckbInclEndpoints.IsChecked ?? false;
 				UpdateEndpointsTabVisibility();
+			}
+		}
+
+		private void ckbInclAngService_Changed(object sender, RoutedEventArgs e)
+		{
+			if (!_suspendUpdates && _serviceAdapter != null)
+			{
+				_serviceAdapter.InclAngService = ckbInclAngService.IsChecked ?? false;
 			}
 		}
 

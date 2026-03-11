@@ -3825,25 +3825,15 @@ namespace Dyvenix.GenIt
 		}
 				
 		#endregion
-		#region Static methods to access UpdatePropertyModel of a PropertyModel
+		#region Static methods to access UpdatePropertyModels of a PropertyModel
 		/// <summary>
-		/// Gets UpdatePropertyModel.
+		/// Gets a list of UpdatePropertyModels.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static UpdatePropertyModel GetUpdatePropertyModel(PropertyModel element)
+		public static DslModeling::LinkedElementCollection<UpdatePropertyModel> GetUpdatePropertyModels(PropertyModel element)
 		{
-			return DslModeling::DomainRoleInfo.GetLinkedElement(element, PropertyModelDomainRoleId) as UpdatePropertyModel;
-		}
-		
-		/// <summary>
-		/// Sets UpdatePropertyModel.
-		/// </summary>
-		[global::System.Diagnostics.DebuggerStepThrough]
-		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static void SetUpdatePropertyModel(PropertyModel element, UpdatePropertyModel newUpdatePropertyModel)
-		{
-			DslModeling::DomainRoleInfo.SetLinkedElement(element, PropertyModelDomainRoleId, newUpdatePropertyModel);
+			return GetRoleCollection<DslModeling::LinkedElementCollection<UpdatePropertyModel>, UpdatePropertyModel>(element, PropertyModelDomainRoleId);
 		}
 		#endregion
 		#region PropertyModel domain role code
@@ -3859,7 +3849,7 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
 		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
-		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdatePropertyModel", PropertyDisplayNameKey="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "UpdatePropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
 		[DslModeling::DomainObjectId("201fa5a7-23e9-4b3c-8be8-3aea92dc11e6")]
 		public virtual PropertyModel PropertyModel
 		{
@@ -3919,22 +3909,13 @@ namespace Dyvenix.GenIt
 		#endregion
 		#region PropertyModel link accessor
 		/// <summary>
-		/// Get the UpdatePropertyModelHasPropertyModel link to a PropertyModel.
+		/// Get the list of UpdatePropertyModelHasPropertyModel links to a PropertyModel.
 		/// </summary>
 		[global::System.Diagnostics.DebuggerStepThrough]
 		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
-		public static global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel GetLinkToUpdatePropertyModel (global::Dyvenix.GenIt.PropertyModel propertyModelInstance)
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> GetLinksToUpdatePropertyModels ( global::Dyvenix.GenIt.PropertyModel propertyModelInstance )
 		{
-			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(propertyModelInstance, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId);
-			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of PropertyModel not obeyed.");
-			if ( links.Count == 0 )
-			{
-				return null;
-			}
-			else
-			{
-				return links[0];
-			}
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel>(propertyModelInstance, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId);
 		}
 		#endregion
 		#region UpdatePropertyModelHasPropertyModel instance accessors
@@ -4687,6 +4668,1145 @@ namespace Dyvenix.GenIt
 			foreach ( global::Dyvenix.GenIt.ServiceModelHasUpdateMethods link in links )
 			{
 				if ( target.Equals(link.UpdateMethodModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship ServiceModelHasDtoModels
+	/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasDtoModels.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasDtoModels.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship(IsEmbedding=true)]
+	[DslModeling::DomainObjectId("77cfbcfd-3fcc-448c-a90d-641bdef1ee39")]
+	public partial class ServiceModelHasDtoModels : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// ServiceModelHasDtoModels domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x77cfbcfd, 0x3fcc, 0x448c, 0xa9, 0x0d, 0x64, 0x1b, 0xde, 0xf1, 0xee, 0x39);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a ServiceModelHasDtoModels link in the same Partition as the given ServiceModel
+		/// </summary>
+		/// <param name="source">ServiceModel to use as the source of the relationship.</param>
+		/// <param name="target">DtoModel to use as the target of the relationship.</param>
+		public ServiceModelHasDtoModels(ServiceModel source, DtoModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ServiceModelHasDtoModels.ServiceModelDomainRoleId, source), new DslModeling::RoleAssignment(ServiceModelHasDtoModels.DtoModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ServiceModelHasDtoModels(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ServiceModelHasDtoModels(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ServiceModelHasDtoModels(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ServiceModelHasDtoModels(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region ServiceModel domain role code
+		
+		/// <summary>
+		/// ServiceModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ServiceModelDomainRoleId = new global::System.Guid(0xe0020045, 0x4de4, 0x4eaf, 0x86, 0x48, 0x2a, 0x90, 0x0e, 0x9a, 0x1f, 0xfc);
+		
+		/// <summary>
+		/// DomainRole ServiceModel
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasDtoModels/ServiceModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasDtoModels/ServiceModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "DtoModels", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasDtoModels/ServiceModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.PropagatesCopyToLinkAndOppositeRolePlayer, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("e0020045-4de4-4eaf-8648-2a900e9a1ffc")]
+		public virtual ServiceModel ServiceModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ServiceModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, ServiceModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ServiceModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ServiceModel of a DtoModel
+		/// <summary>
+		/// Gets ServiceModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static ServiceModel GetServiceModel(DtoModel element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, DtoModelDomainRoleId) as ServiceModel;
+		}
+		
+		/// <summary>
+		/// Sets ServiceModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetServiceModel(DtoModel element, ServiceModel newServiceModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, DtoModelDomainRoleId, newServiceModel);
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x4abe1c19, 0x7ed4, 0x40cc, 0xa1, 0xd5, 0xbc, 0x5c, 0x89, 0x10, 0xe6, 0x74);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModelHasDtoModels/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModelHasDtoModels/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ServiceModel", PropertyDisplayNameKey="Dyvenix.GenIt.ServiceModelHasDtoModels/DtoModel.PropertyDisplayName", PropagatesDelete = true,  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroOne)]
+		[DslModeling::DomainObjectId("4abe1c19-7ed4-40cc-a1d5-bc5c8910e674")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access DtoModels of a ServiceModel
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<DtoModel> GetDtoModels(ServiceModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(element, ServiceModelDomainRoleId);
+		}
+		#endregion
+		#region ServiceModel link accessor
+		/// <summary>
+		/// Get the list of ServiceModelHasDtoModels links to a ServiceModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ServiceModelHasDtoModels> GetLinksToDtoModels ( global::Dyvenix.GenIt.ServiceModel serviceModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasDtoModels>(serviceModelInstance, global::Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the ServiceModelHasDtoModels link to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ServiceModelHasDtoModels GetLinkToServiceModel (global::Dyvenix.GenIt.DtoModel dtoModelInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ServiceModelHasDtoModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasDtoModels>(dtoModelInstance, global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of DtoModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region ServiceModelHasDtoModels instance accessors
+		
+		/// <summary>
+		/// Get any ServiceModelHasDtoModels links between a given ServiceModel and a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ServiceModelHasDtoModels> GetLinks( global::Dyvenix.GenIt.ServiceModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ServiceModelHasDtoModels> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ServiceModelHasDtoModels>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ServiceModelHasDtoModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasDtoModels>(source, global::Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ServiceModelHasDtoModels link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one ServiceModelHasDtoModels link between a given ServiceModeland a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ServiceModelHasDtoModels GetLink( global::Dyvenix.GenIt.ServiceModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ServiceModelHasDtoModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ServiceModelHasDtoModels>(source, global::Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ServiceModelHasDtoModels link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship DtoModelReferencesPropertyModels
+	/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("9a863ef7-4f4b-4a84-8a3a-0abb73675774")]
+	public partial class DtoModelReferencesPropertyModels : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// DtoModelReferencesPropertyModels domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x9a863ef7, 0x4f4b, 0x4a84, 0x8a, 0x3a, 0x0a, 0xbb, 0x73, 0x67, 0x57, 0x74);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a DtoModelReferencesPropertyModels link in the same Partition as the given DtoModel
+		/// </summary>
+		/// <param name="source">DtoModel to use as the source of the relationship.</param>
+		/// <param name="target">PropertyModel to use as the target of the relationship.</param>
+		public DtoModelReferencesPropertyModels(DtoModel source, PropertyModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(DtoModelReferencesPropertyModels.DtoModelDomainRoleId, source), new DslModeling::RoleAssignment(DtoModelReferencesPropertyModels.PropertyModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public DtoModelReferencesPropertyModels(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public DtoModelReferencesPropertyModels(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public DtoModelReferencesPropertyModels(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public DtoModelReferencesPropertyModels(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x35d67e79, 0xe4f4, 0x47b6, 0x87, 0x03, 0x37, 0x5e, 0x3c, 0xbe, 0x27, 0xb7);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "PropertyModels", PropertyDisplayNameKey="Dyvenix.GenIt.DtoModelReferencesPropertyModels/DtoModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("35d67e79-e4f4-47b6-8703-375e3cbe27b7")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access DtoModeled of a PropertyModel
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<DtoModel> GetDtoModeled(PropertyModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(element, PropertyModelDomainRoleId);
+		}
+		#endregion
+		#region PropertyModel domain role code
+		
+		/// <summary>
+		/// PropertyModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid PropertyModelDomainRoleId = new global::System.Guid(0x8c35d8a2, 0xdf05, 0x42dc, 0xaf, 0x96, 0x2c, 0x1a, 0xd3, 0xbb, 0xe3, 0x75);
+		
+		/// <summary>
+		/// DomainRole PropertyModel
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels/PropertyModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesPropertyModels/PropertyModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "DtoModeled", PropertyDisplayNameKey="Dyvenix.GenIt.DtoModelReferencesPropertyModels/PropertyModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("8c35d8a2-df05-42dc-af96-2c1ad3bbe375")]
+		public virtual PropertyModel PropertyModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (PropertyModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, PropertyModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, PropertyModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access PropertyModels of a DtoModel
+		/// <summary>
+		/// Gets a list of PropertyModels.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<PropertyModel> GetPropertyModels(DtoModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(element, DtoModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the list of DtoModelReferencesPropertyModels links to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> GetLinksToPropertyModels ( global::Dyvenix.GenIt.DtoModel dtoModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels>(dtoModelInstance, global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModelDomainRoleId);
+		}
+		#endregion
+		#region PropertyModel link accessor
+		/// <summary>
+		/// Get the list of DtoModelReferencesPropertyModels links to a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> GetLinksToDtoModeled ( global::Dyvenix.GenIt.PropertyModel propertyModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels>(propertyModelInstance, global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModelReferencesPropertyModels instance accessors
+		
+		/// <summary>
+		/// Get any DtoModelReferencesPropertyModels links between a given DtoModel and a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> GetLinks( global::Dyvenix.GenIt.DtoModel source, global::Dyvenix.GenIt.PropertyModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels>(source, global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.DtoModelReferencesPropertyModels link in links )
+			{
+				if ( target.Equals(link.PropertyModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one DtoModelReferencesPropertyModels link between a given DtoModeland a PropertyModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.DtoModelReferencesPropertyModels GetLink( global::Dyvenix.GenIt.DtoModel source, global::Dyvenix.GenIt.PropertyModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesPropertyModels>(source, global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.DtoModelReferencesPropertyModels link in links )
+			{
+				if ( target.Equals(link.PropertyModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship DtoModelReferencesNavigationProperties
+	/// Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("127a2b48-4ef3-4b10-aa70-af8584d89862")]
+	public partial class DtoModelReferencesNavigationProperties : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// DtoModelReferencesNavigationProperties domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x127a2b48, 0x4ef3, 0x4b10, 0xaa, 0x70, 0xaf, 0x85, 0x84, 0xd8, 0x98, 0x62);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a DtoModelReferencesNavigationProperties link in the same Partition as the given DtoModel
+		/// </summary>
+		/// <param name="source">DtoModel to use as the source of the relationship.</param>
+		/// <param name="target">NavigationProperty to use as the target of the relationship.</param>
+		public DtoModelReferencesNavigationProperties(DtoModel source, NavigationProperty target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(DtoModelReferencesNavigationProperties.DtoModelDomainRoleId, source), new DslModeling::RoleAssignment(DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public DtoModelReferencesNavigationProperties(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public DtoModelReferencesNavigationProperties(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public DtoModelReferencesNavigationProperties(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public DtoModelReferencesNavigationProperties(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x8164b681, 0x3dff, 0x46ec, 0x9e, 0x77, 0xd8, 0x7c, 0x7d, 0x18, 0x3c, 0xa1);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "NavigationProperties", PropertyDisplayNameKey="Dyvenix.GenIt.DtoModelReferencesNavigationProperties/DtoModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("8164b681-3dff-46ec-9e77-d87c7d183ca1")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access DtoModeled of a NavigationProperty
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<DtoModel> GetDtoModeled(NavigationProperty element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(element, NavigationPropertyDomainRoleId);
+		}
+		#endregion
+		#region NavigationProperty domain role code
+		
+		/// <summary>
+		/// NavigationProperty domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid NavigationPropertyDomainRoleId = new global::System.Guid(0x1f0f1aee, 0x0bdc, 0x4557, 0x8f, 0x4f, 0x08, 0x4c, 0x84, 0xb7, 0xe6, 0x0d);
+		
+		/// <summary>
+		/// DomainRole NavigationProperty
+		/// Description for
+		/// Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationProperty
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties/NavigationProperty.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModelReferencesNavigationProperties/NavigationProperty.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "DtoModeled", PropertyDisplayNameKey="Dyvenix.GenIt.DtoModelReferencesNavigationProperties/NavigationProperty.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("1f0f1aee-0bdc-4557-8f4f-084c84b7e60d")]
+		public virtual NavigationProperty NavigationProperty
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (NavigationProperty)DslModeling::DomainRoleInfo.GetRolePlayer(this, NavigationPropertyDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, NavigationPropertyDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access NavigationProperties of a DtoModel
+		/// <summary>
+		/// Gets a list of NavigationProperties.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<NavigationProperty> GetNavigationProperties(DtoModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<NavigationProperty>, NavigationProperty>(element, DtoModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the list of DtoModelReferencesNavigationProperties links to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> GetLinksToNavigationProperties ( global::Dyvenix.GenIt.DtoModel dtoModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties>(dtoModelInstance, global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModelDomainRoleId);
+		}
+		#endregion
+		#region NavigationProperty link accessor
+		/// <summary>
+		/// Get the list of DtoModelReferencesNavigationProperties links to a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> GetLinksToDtoModeled ( global::Dyvenix.GenIt.NavigationProperty navigationPropertyInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties>(navigationPropertyInstance, global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId);
+		}
+		#endregion
+		#region DtoModelReferencesNavigationProperties instance accessors
+		
+		/// <summary>
+		/// Get any DtoModelReferencesNavigationProperties links between a given DtoModel and a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> GetLinks( global::Dyvenix.GenIt.DtoModel source, global::Dyvenix.GenIt.NavigationProperty target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties>(source, global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties link in links )
+			{
+				if ( target.Equals(link.NavigationProperty) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one DtoModelReferencesNavigationProperties link between a given DtoModeland a NavigationProperty.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties GetLink( global::Dyvenix.GenIt.DtoModel source, global::Dyvenix.GenIt.NavigationProperty target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties>(source, global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties link in links )
+			{
+				if ( target.Equals(link.NavigationProperty) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship EntityModelReferencesDtoModels
+	/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelReferencesDtoModels.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelReferencesDtoModels.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("e1dbedb8-6443-446e-bc59-6d15ad63d193")]
+	public partial class EntityModelReferencesDtoModels : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// EntityModelReferencesDtoModels domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xe1dbedb8, 0x6443, 0x446e, 0xbc, 0x59, 0x6d, 0x15, 0xad, 0x63, 0xd1, 0x93);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a EntityModelReferencesDtoModels link in the same Partition as the given EntityModel
+		/// </summary>
+		/// <param name="source">EntityModel to use as the source of the relationship.</param>
+		/// <param name="target">DtoModel to use as the target of the relationship.</param>
+		public EntityModelReferencesDtoModels(EntityModel source, DtoModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(EntityModelReferencesDtoModels.EntityModelDomainRoleId, source), new DslModeling::RoleAssignment(EntityModelReferencesDtoModels.DtoModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EntityModelReferencesDtoModels(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EntityModelReferencesDtoModels(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public EntityModelReferencesDtoModels(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public EntityModelReferencesDtoModels(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region EntityModel domain role code
+		
+		/// <summary>
+		/// EntityModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid EntityModelDomainRoleId = new global::System.Guid(0xea6581e2, 0x4a62, 0x43bc, 0x9d, 0xea, 0x2d, 0xf2, 0xb2, 0xac, 0xb7, 0x5c);
+		
+		/// <summary>
+		/// DomainRole EntityModel
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelReferencesDtoModels/EntityModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelReferencesDtoModels/EntityModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "DtoModels", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelReferencesDtoModels/EntityModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("ea6581e2-4a62-43bc-9dea-2df2b2acb75c")]
+		public virtual EntityModel EntityModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (EntityModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, EntityModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, EntityModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access EntityModeled of a DtoModel
+		/// <summary>
+		/// Gets a list of EntityModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<EntityModel> GetEntityModeled(DtoModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(element, DtoModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x21ad1d33, 0x7709, 0x4b2f, 0x94, 0x01, 0x1a, 0xba, 0x97, 0xa5, 0x3f, 0x1a);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModelReferencesDtoModels/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModelReferencesDtoModels/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "EntityModeled", PropertyDisplayNameKey="Dyvenix.GenIt.EntityModelReferencesDtoModels/DtoModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("21ad1d33-7709-4b2f-9401-1aba97a53f1a")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access DtoModels of a EntityModel
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<DtoModel> GetDtoModels(EntityModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(element, EntityModelDomainRoleId);
+		}
+		#endregion
+		#region EntityModel link accessor
+		/// <summary>
+		/// Get the list of EntityModelReferencesDtoModels links to a EntityModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> GetLinksToDtoModels ( global::Dyvenix.GenIt.EntityModel entityModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelReferencesDtoModels>(entityModelInstance, global::Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the list of EntityModelReferencesDtoModels links to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> GetLinksToEntityModeled ( global::Dyvenix.GenIt.DtoModel dtoModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelReferencesDtoModels>(dtoModelInstance, global::Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModelDomainRoleId);
+		}
+		#endregion
+		#region EntityModelReferencesDtoModels instance accessors
+		
+		/// <summary>
+		/// Get any EntityModelReferencesDtoModels links between a given EntityModel and a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> GetLinks( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.EntityModelReferencesDtoModels>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelReferencesDtoModels>(source, global::Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EntityModelReferencesDtoModels link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one EntityModelReferencesDtoModels link between a given EntityModeland a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.EntityModelReferencesDtoModels GetLink( global::Dyvenix.GenIt.EntityModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.EntityModelReferencesDtoModels> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.EntityModelReferencesDtoModels>(source, global::Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.EntityModelReferencesDtoModels link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					return link;
+				}
+			}
+			return null;
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainRelationship ReadMethodModelReferencesReturnDto
+	/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainRelationship()]
+	[DslModeling::DomainObjectId("b3c05ee8-f06e-452b-ad64-b8f0e5facf89")]
+	public partial class ReadMethodModelReferencesReturnDto : DslModeling::ElementLink
+	{
+		#region Constructors, domain class Id
+		
+		/// <summary>
+		/// ReadMethodModelReferencesReturnDto domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0xb3c05ee8, 0xf06e, 0x452b, 0xad, 0x64, 0xb8, 0xf0, 0xe5, 0xfa, 0xcf, 0x89);
+	
+				
+		/// <summary>
+		/// Constructor
+		/// Creates a ReadMethodModelReferencesReturnDto link in the same Partition as the given ReadMethodModel
+		/// </summary>
+		/// <param name="source">ReadMethodModel to use as the source of the relationship.</param>
+		/// <param name="target">DtoModel to use as the target of the relationship.</param>
+		public ReadMethodModelReferencesReturnDto(ReadMethodModel source, DtoModel target)
+			: base((source != null ? source.Partition : null), new DslModeling::RoleAssignment[]{new DslModeling::RoleAssignment(ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId, source), new DslModeling::RoleAssignment(ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId, target)}, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Store store, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Store store, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, roleAssignments, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Partition partition, params DslModeling::RoleAssignment[] roleAssignments)
+			: base(partition, roleAssignments, null)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new link is to be created.</param>
+		/// <param name="roleAssignments">List of relationship role assignments.</param>
+		/// <param name="propertyAssignments">List of properties assignments to set on the new link.</param>
+		public ReadMethodModelReferencesReturnDto(DslModeling::Partition partition, DslModeling::RoleAssignment[] roleAssignments, DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, roleAssignments, propertyAssignments)
+		{
+		}
+		#endregion
+		#region ReadMethodModel domain role code
+		
+		/// <summary>
+		/// ReadMethodModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid ReadMethodModelDomainRoleId = new global::System.Guid(0xdd7ee948, 0x77b4, 0x4d52, 0xbc, 0xea, 0x51, 0xa5, 0x86, 0xf9, 0x73, 0xc0);
+		
+		/// <summary>
+		/// DomainRole ReadMethodModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Source, PropertyName = "ReturnDto", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/ReadMethodModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.One)]
+		[DslModeling::DomainObjectId("dd7ee948-77b4-4d52-bcea-51a586f973c0")]
+		public virtual ReadMethodModel ReadMethodModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (ReadMethodModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, ReadMethodModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, ReadMethodModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ReadMethodModeled of a DtoModel
+		/// <summary>
+		/// Gets a list of ReadMethodModeled.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DslModeling::LinkedElementCollection<ReadMethodModel> GetReadMethodModeled(DtoModel element)
+		{
+			return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(element, DtoModelDomainRoleId);
+		}
+		#endregion
+		#region DtoModel domain role code
+		
+		/// <summary>
+		/// DtoModel domain role Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoModelDomainRoleId = new global::System.Guid(0x94c16cd7, 0xa955, 0x4f21, 0x9a, 0x79, 0xeb, 0x99, 0x14, 0x12, 0x7a, 0x2f);
+		
+		/// <summary>
+		/// DomainRole DtoModel
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainRole(DslModeling::DomainRoleOrder.Target, PropertyName = "ReadMethodModeled", PropertyDisplayNameKey="Dyvenix.GenIt.ReadMethodModelReferencesReturnDto/DtoModel.PropertyDisplayName",  PropagatesCopy = DslModeling::PropagatesCopyOption.DoNotPropagateCopy, Multiplicity = DslModeling::Multiplicity.ZeroMany)]
+		[DslModeling::DomainObjectId("94c16cd7-a955-4f21-9a79-eb9914127a2f")]
+		public virtual DtoModel DtoModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return (DtoModel)DslModeling::DomainRoleInfo.GetRolePlayer(this, DtoModelDomainRoleId);
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetRolePlayer(this, DtoModelDomainRoleId, value);
+			}
+		}
+				
+		#endregion
+		#region Static methods to access ReturnDto of a ReadMethodModel
+		/// <summary>
+		/// Gets ReturnDto.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static DtoModel GetReturnDto(ReadMethodModel element)
+		{
+			return DslModeling::DomainRoleInfo.GetLinkedElement(element, ReadMethodModelDomainRoleId) as DtoModel;
+		}
+		
+		/// <summary>
+		/// Sets ReturnDto.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static void SetReturnDto(ReadMethodModel element, DtoModel newDtoModel)
+		{
+			DslModeling::DomainRoleInfo.SetLinkedElement(element, ReadMethodModelDomainRoleId, newDtoModel);
+		}
+		#endregion
+		#region ReadMethodModel link accessor
+		/// <summary>
+		/// Get the ReadMethodModelReferencesReturnDto link to a ReadMethodModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto GetLinkToReturnDto (global::Dyvenix.GenIt.ReadMethodModel readMethodModelInstance)
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(readMethodModelInstance, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			global::System.Diagnostics.Debug.Assert(links.Count <= 1, "Multiplicity of ReadMethodModel not obeyed.");
+			if ( links.Count == 0 )
+			{
+				return null;
+			}
+			else
+			{
+				return links[0];
+			}
+		}
+		#endregion
+		#region DtoModel link accessor
+		/// <summary>
+		/// Get the list of ReadMethodModelReferencesReturnDto links to a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> GetLinksToReadMethodModeled ( global::Dyvenix.GenIt.DtoModel dtoModelInstance )
+		{
+			return DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(dtoModelInstance, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId);
+		}
+		#endregion
+		#region ReadMethodModelReferencesReturnDto instance accessors
+		
+		/// <summary>
+		/// Get any ReadMethodModelReferencesReturnDto links between a given ReadMethodModel and a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::System.Collections.ObjectModel.ReadOnlyCollection<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> GetLinks( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> outLinks = new global::System.Collections.Generic.List<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>();
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(source, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
+				{
+					outLinks.Add(link);
+				}
+			}
+			return outLinks.AsReadOnly();
+		}
+		/// <summary>
+		/// Get the one ReadMethodModelReferencesReturnDto link between a given ReadMethodModeland a DtoModel.
+		/// </summary>
+		[global::System.Diagnostics.DebuggerStepThrough]
+		[global::System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011")]
+		public static global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto GetLink( global::Dyvenix.GenIt.ReadMethodModel source, global::Dyvenix.GenIt.DtoModel target )
+		{
+			global::System.Collections.Generic.IList<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto> links = DslModeling::DomainRoleInfo.GetElementLinks<global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto>(source, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId);
+			foreach ( global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto link in links )
+			{
+				if ( target.Equals(link.DtoModel) )
 				{
 					return link;
 				}

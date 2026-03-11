@@ -1,4 +1,5 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,43 +9,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
     internal class ServiceMethodGenerator
     {
-        internal void GenerateCreateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 1;
-            var className = entity.Name;
-            var varName = CodeGenUtils.ToCamelCase(className);
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Create{className}({className} {varName})";
-
-            output.AddLine();
-            output.AddLine(tc, "#region Create");
-
-            // Interface
-            interfaceOutput.Add($"{signature};");
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            output.AddLine(tc + 1, "try {");
-            output.AddLine(tc + 2, $"_db.Add({varName});");
-            output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
-
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 2, $"return {varName}.RowVersion;");
-
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc + 1, "catch (DbUpdateConcurrencyException)");
-            output.AddLine(tc + 1, "{");
-            output.AddLine(tc + 2, "throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc, "}");
-
-            output.AddLine();
-            output.AddLine(tc, "#endregion");
-        }
-
         internal void GenerateDeleteMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
         {
             var tc = 1;
@@ -69,38 +33,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
             output.AddLine();
             output.AddLine(tc, "#endregion");
-        }
-
-        internal void GenerateFullUpdateMethod(EntityModel entity, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 1;
-            var className = entity.Name;
-            var varName = CodeGenUtils.ToCamelCase(className);
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Update{className}({className} {varName})";
-
-            // Interface
-            interfaceOutput.Add($"{signature};");
-
-            // Method body
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            output.AddLine(tc + 1, "try {");
-            output.AddLine(tc + 2, $"_db.Attach({varName});");
-            output.AddLine(tc + 2, $"_db.Entry({varName}).State = EntityState.Modified;");
-            output.AddLine(tc + 2, $"await _db.SaveChangesAsync();");
-            output.AddLine();
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 2, $"return {varName}.RowVersion;");
-            output.AddLine();
-            output.AddLine(tc + 1, "} catch (DbUpdateConcurrencyException) {");
-            output.AddLine(tc + 2, $"throw new ConcurrencyException(\"The item was modified or deleted by another user.\");");
-            output.AddLine(tc + 1, "}");
-            output.AddLine(tc, "}");
         }
 
         internal void GenerateUpdateMethod(EntityModel entity, UpdateMethodModel method, List<string> output, List<string> interfaceOutput)
@@ -130,15 +62,23 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc + 3, $"Id = request.Id,");
             if (entity.InclRowVersion)
                 output.AddLine(tc + 3, $"RowVersion = request.RowVersion,");
-            foreach (var updProp in updateProps)
+            foreach (var updProp in updateProps.Where(p => !p.PropertyModel.IsRowVersion))
                 output.AddLine(tc + 3, $"{updProp.PropertyModel.Name} = request.{updProp.PropertyModel.Name},");
             output.AddLine(tc + 2, "};");
             output.AddLine();
 
-            output.AddLine(tc + 2, $"_db.Attach({varName});");
-            foreach (var updProp in updateProps)
-                output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
-            output.AddLine();
+            if (method.IsCreate)
+            {
+                output.AddLine(tc + 2, $"_db.Add({varName});");
+            }
+            else
+            {
+                output.AddLine(tc + 2, $"_db.Attach({varName});");
+                foreach (var updProp in updateProps)
+                    output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
+                output.AddLine();
+            }
+
             output.AddLine(tc + 2, "await _db.SaveChangesAsync();");
             if (entity.InclRowVersion)
             {
@@ -171,7 +111,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                     output.AddLine(tc, $"[{attr}]");
 
             // Build signature
-            string returnType = method.IsSingle ? $"{entity.Name}" : method.InclPaging ? $"ListPage<{entity.Name}>" : $"List<{entity.Name}>";
+            string returnType = method.IsSingle ? $"{method.ReturnDto.Name}" : method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
 
             var sbSigArgs = new StringBuilder();
             if (method.UseRequest)
@@ -245,7 +185,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (method.InclPaging)
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"var listPage = new ListPage<{entity.Name}>();");
+                output.AddLine(tc + 1, $"var listPage = new ListPage<{method.ReturnDto.Name}>();");
 
                 output.AddLine();
                 output.AddLine(tc + 1, "// Count (if requested)");
@@ -280,19 +220,34 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
                 output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
                 output.AddLine();
-                output.AddLine(tc + 1, $"listPage.Items = await dbQuery.ToListAsync();");
+                output.AddLine(tc + 1, $"listPage.Items = await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".ToListAsync();");
                 output.AddLine();
                 output.AddLine(tc + 1, $"return listPage;");
             }
             else if (method.IsList)
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"return await dbQuery.ToListAsync();");
+                output.AddLine(tc + 1, $"return await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".ToListAsync();");
             }
             else
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"return await dbQuery.FirstOrDefaultAsync();");
+                output.AddLine(tc + 1, $"return await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".SingleOrDefaultAsync();");
             }
 
             output.AddLine(tc, "}");

@@ -40,6 +40,14 @@
           <ButtonText>Remove from View</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCmdSet" id="cmdidValidateModel" priority="0x0103" type="Button">
+        <Parent guid="guidCmdSet" id="grpidContextMain"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Validate Model</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
   
@@ -49,6 +57,7 @@
       <IDSymbol name="cmdidGenerateCode" value="0x0100"/>
       <IDSymbol name="cmdidAddNewService" value="0x0101"/>
       <IDSymbol name="cmdidRemoveFromView" value="0x0102"/>
+      <IDSymbol name="cmdidValidateModel" value="0x0103"/>
     </GuidSymbol>
   </Symbols>
 </CommandTable>

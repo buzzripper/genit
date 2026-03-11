@@ -16,12 +16,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var usings = new List<string>();
             usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.ApiClients");
             usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.Requests");
-            usings.AddIfNotExists(entity.ModelRoot.EntitiesNamespace);
+            usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
             usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
             if (service.UpdateMethods.Any() || service.ReadMethods.Any(m => m.UseRequest))
                 usings.AddIfNotExists($"{module.RequestNamespace}.{service.Version}");
             if (service.ReadMethods.Any(m => m.InclPaging))
                 usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Shared.DTOs");
+            usings.AddIfNotExists(module.DtoNamespace);
 
             // Interface signatures
             var interfaceOutput = new List<string>();
@@ -36,15 +37,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             constructor.AddLine(0, "{");
             constructor.AddLine(0, "}");
 
-            // Create
-            var createMethodsOutput = new List<string>();
-            if (service.InclCreate)
+            // Update methods
+            var updMethodsOutput = new List<string>();
+            if (service.InclUpdate || service.UpdateMethods.Any())
             {
-                createMethodsOutput.AddLine();
-                createMethodsOutput.AddLine(0, "#region Create");
-                this.GenerateCreateMethod(module, entity, service, createMethodsOutput, interfaceOutput);
-                createMethodsOutput.AddLine();
-                createMethodsOutput.AddLine(0, "#endregion");
+                foreach (UpdateMethodModel method in service.UpdateMethods)
+                    this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
             }
 
             // Delete
@@ -56,18 +54,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 this.GenerateDeleteMethod(module, entity, service, deleteMethodsOutput, interfaceOutput);
                 deleteMethodsOutput.AddLine();
                 deleteMethodsOutput.AddLine(0, "#endregion");
-            }
-
-            // Update methods
-            var updMethodsOutput = new List<string>();
-            if (service.InclUpdate || service.UpdateMethods.Any())
-            {
-                // Full udpate
-                if (service.InclUpdate)
-                    this.GenerateFullUpdateMethod(module, entity, service, updMethodsOutput, interfaceOutput);
-                // Normal updates
-                foreach (UpdateMethodModel method in service.UpdateMethods)
-                    this.GenerateUpdateMethod(module, entity, method, service, updMethodsOutput, interfaceOutput);
             }
 
             // Read methods - single
@@ -98,9 +84,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLines(0, declaration);
             fileContent.AddLine(0, "{");
             fileContent.AddLines(1, constructor);
-
-            if (createMethodsOutput.Count > 0)
-                fileContent.AddLines(1, createMethodsOutput);
 
             if (deleteMethodsOutput.Count > 0)
                 fileContent.AddLines(1, deleteMethodsOutput);
@@ -154,30 +137,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             OutputHelper.Write($"Completed code gen for controller: {apiClientName}");
         }
 
-        private void GenerateCreateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 0;
-            var className = entity.Name;
-            var varName = className.ToCamelCase();
-            var returnType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
-            var signature = $"{returnType} Create{className}({className} {varName})";
-            var url = $"api/{module.Name}/{service.Version}/{className}/Create{className}";
-
-            // Interface
-            interfaceOutput.Add(signature);
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine();
-            if (entity.InclRowVersion)
-                output.AddLine(tc + 1, $"return await PostAsyncWithReturn<byte[]>(\"{url}\", {varName});");
-            else
-                output.AddLine(tc + 1, $"await PostAsync(\"{url}\", {varName});");
-            output.AddLine(tc, "}");
-        }
-
         private void GenerateDeleteMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
         {
             var tc = 0;
@@ -185,7 +144,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var varName = className.ToCamelCase();
 
             // Interface
-            var signature = $"Task Delete{className}(Guid id)";
+            var signature = $"Task Delete{entity.Name}(Guid id)";
             interfaceOutput.Add(signature);
 
             output.AddLine();
@@ -196,28 +155,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine();
             output.AddLine(tc + 1, "var deleteReq = new DeleteReq { Id = id };	");
             output.AddLine(tc + 1, $"await DeleteAsync<bool>($\"api/{module.Name}/{service.Version}/{className}/Delete{className}\", deleteReq);");
-            output.AddLine(tc, "}");
-        }
-
-        private void GenerateFullUpdateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 0;
-            var className = entity.Name;
-            var varName = className.ToCamelCase();
-            var returnType = entity.InclRowVersion ? "<byte[]>" : null;
-            var returnStr = entity.InclRowVersion ? "return " : null;
-            var returnContent = entity.InclRowVersion ? $" {varName}.RowVersion" : null;
-            var resultType = entity.InclRowVersion ? "<byte[]>" : null;
-
-            // Interface
-            var signature = $"Task{returnType} Update{className}({className} {varName})";
-            interfaceOutput.Add(signature);
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine(tc + 1, $"{returnStr}await PutAsync{returnType}(\"api/{module.Name}/{service.Version}/{className}/Update{className}\", {varName});");
             output.AddLine(tc, "}");
         }
 
@@ -268,13 +205,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             else
             {
                 // Required params first, in url segments, and then optional as query params
-                string nullStr = null;
                 foreach (var reqFilterProp in method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal).ToList())
                 {
                     // Args
                     if (sbSigArgs.Length > 0)
                         sbSigArgs.Append(", ");
-                    sbSigArgs.Append($"{reqFilterProp.PropertyModel.CSType}{nullStr} {reqFilterProp.PropertyModel.ArgName}");
+                    sbSigArgs.Append($"{reqFilterProp.PropertyModel.CSType} {reqFilterProp.PropertyModel.ArgName}");
                     // Query
                     sbRoute.Append($"/{{{reqFilterProp.PropertyModel.ArgName}}}");
                 }
@@ -295,8 +231,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 restVerb = "Get";
             }
 
-            string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : method.IsList ? $"List<{entity.Name}>" : entity.Name;
+            string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"IReadOnlyList<{method.ReturnDto.Name}>" : method.ReturnDto.Name;
+
             var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
+
             // Interface
             interfaceOutput.Add(signature);
 

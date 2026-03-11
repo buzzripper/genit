@@ -271,6 +271,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -303,8 +304,13 @@
                     <TextBox Grid.Row="3" Grid.Column="1" x:Name="txtDbContextNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
                              TextChanged="txtDbContextNamespace_TextChanged"/>
 
+                    <!-- Base Class -->
+                    <Label Grid.Row="4" Grid.Column="0" Content="Base Class:" VerticalAlignment="Center" Margin="0,0,8,8"/>
+                    <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtDbContextBaseClass" VerticalAlignment="Center" Margin="0,0,0,8"
+                             TextChanged="txtDbContextBaseClass_TextChanged"/>
+
                     <!-- Usings -->
-                    <controls:StringListControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dbContextUsingsControl"
+                    <controls:StringListControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" x:Name="dbContextUsingsControl"
                                                 Title="Usings" DialogTitle="Add Using" DialogLabel="Using:"
                                                 ItemsChanged="dbContextUsingsControl_ItemsChanged"/>
                 </Grid>

@@ -65,6 +65,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Adapters
 			set => SetDslProperty(nameof(ServiceModel.InclEndpoints), _serviceModel.InclEndpoints, value, () => _serviceModel.InclEndpoints = value);
 		}
 
+		public bool InclAngService
+		{
+			get => _serviceModel.InclAngService;
+			set => SetDslProperty(nameof(ServiceModel.InclAngService), _serviceModel.InclAngService, value, () => _serviceModel.InclAngService = value);
+		}
+
 		public string Version
 		{
 			get => _serviceModel.Version;

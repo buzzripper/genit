@@ -2364,6 +2364,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region DbContextBaseClass domain property code
+		
+		/// <summary>
+		/// DbContextBaseClass domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DbContextBaseClassDomainPropertyId = new global::System.Guid(0x3d2d2ef7, 0x215a, 0x445d, 0x99, 0x41, 0x63, 0xc0, 0x43, 0xc7, 0xe9, 0xc5);
+		
+		/// <summary>
+		/// Storage for DbContextBaseClass
+		/// </summary>
+		private global::System.String dbContextBaseClassPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DbContextBaseClass domain property.
+		/// Description for Dyvenix.GenIt.ModelRoot.Db Context Base Class
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModelRoot/DbContextBaseClass.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModelRoot/DbContextBaseClass.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("3d2d2ef7-215a-445d-9941-63c043c7e9c5")]
+		public global::System.String DbContextBaseClass
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dbContextBaseClassPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DbContextBaseClassPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModelRoot.DbContextBaseClass domain property.
+		/// </summary>
+		internal sealed partial class DbContextBaseClassPropertyHandler : DslModeling::DomainPropertyValueHandler<ModelRoot, global::System.String>
+		{
+			private DbContextBaseClassPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModelRoot.DbContextBaseClass domain property value handler.
+			/// </summary>
+			public static readonly DbContextBaseClassPropertyHandler Instance = new DbContextBaseClassPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModelRoot.DbContextBaseClass domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DbContextBaseClassDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModelRoot element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dbContextBaseClassPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModelRoot element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dbContextBaseClassPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Comments opposite domain role accessor
 		
 		/// <summary>
@@ -3611,6 +3698,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region InclAngDtos domain property code
+		
+		/// <summary>
+		/// InclAngDtos domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InclAngDtosDomainPropertyId = new global::System.Guid(0x6ce53b77, 0x6fe2, 0x41d5, 0x92, 0x59, 0x0e, 0x58, 0x67, 0x9d, 0xe6, 0x5f);
+		
+		/// <summary>
+		/// Storage for InclAngDtos
+		/// </summary>
+		private global::System.Boolean inclAngDtosPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of InclAngDtos domain property.
+		/// Description for Dyvenix.GenIt.EntityModel.Incl Ang Dtos
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/InclAngDtos.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/InclAngDtos.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6ce53b77-6fe2-41d5-9259-0e58679de65f")]
+		public global::System.Boolean InclAngDtos
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return inclAngDtosPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InclAngDtosPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.InclAngDtos domain property.
+		/// </summary>
+		internal sealed partial class InclAngDtosPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Boolean>
+		{
+			private InclAngDtosPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.InclAngDtos domain property value handler.
+			/// </summary>
+			public static readonly InclAngDtosPropertyHandler Instance = new InclAngDtosPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.InclAngDtos domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InclAngDtosDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.inclAngDtosPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.inclAngDtosPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -3711,6 +3885,21 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<ServiceModel>, ServiceModel>(global::Dyvenix.GenIt.EntityModelHasServiceModels.EntityModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region DtoModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.EntityModelReferencesDtoModels.EntityModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -5167,22 +5356,33 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
-		#region UpdatePropertyModel opposite domain role accessor
+		#region UpdatePropertyModels opposite domain role accessor
+		
 		/// <summary>
-		/// Gets or sets UpdatePropertyModel.
+		/// Gets a list of UpdatePropertyModels.
 		/// Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel
 		/// </summary>
-		public virtual UpdatePropertyModel UpdatePropertyModel
+		public virtual DslModeling::LinkedElementCollection<UpdatePropertyModel> UpdatePropertyModels
 		{
 			[global::System.Diagnostics.DebuggerStepThrough]
 			get
 			{
-				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId) as UpdatePropertyModel;
+				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdatePropertyModel>, UpdatePropertyModel>(global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId);
 			}
+		}
+		#endregion
+		#region DtoModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModeled
+		{
 			[global::System.Diagnostics.DebuggerStepThrough]
-			set
+			get
 			{
-				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId, value);
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.PropertyModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -7052,6 +7252,22 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region DtoModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModeled.
+		/// Description for
+		/// Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationProperty
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId);
+			}
+		}
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt
@@ -8248,6 +8464,25 @@ namespace Dyvenix.GenIt
 			}
 		}
 		#endregion
+		#region ReturnDto opposite domain role accessor
+		/// <summary>
+		/// Gets or sets ReturnDto.
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModel
+		/// </summary>
+		public virtual DtoModel ReturnDto
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId) as DtoModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId, value);
+			}
+		}
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt
@@ -8712,6 +8947,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.permissionsPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsCreate domain property code
+		
+		/// <summary>
+		/// IsCreate domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsCreateDomainPropertyId = new global::System.Guid(0xc2db922b, 0x19b4, 0x42b9, 0x88, 0x76, 0xe4, 0xe9, 0x24, 0xc5, 0xfb, 0x45);
+		
+		/// <summary>
+		/// Storage for IsCreate
+		/// </summary>
+		private global::System.Boolean isCreatePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsCreate domain property.
+		/// Description for Dyvenix.GenIt.UpdateMethodModel.Is Create
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.UpdateMethodModel/IsCreate.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.UpdateMethodModel/IsCreate.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("c2db922b-19b4-42b9-8876-e4e924c5fb45")]
+		public global::System.Boolean IsCreate
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isCreatePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsCreatePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the UpdateMethodModel.IsCreate domain property.
+		/// </summary>
+		internal sealed partial class IsCreatePropertyHandler : DslModeling::DomainPropertyValueHandler<UpdateMethodModel, global::System.Boolean>
+		{
+			private IsCreatePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the UpdateMethodModel.IsCreate domain property value handler.
+			/// </summary>
+			public static readonly IsCreatePropertyHandler Instance = new IsCreatePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the UpdateMethodModel.IsCreate domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsCreateDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(UpdateMethodModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isCreatePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(UpdateMethodModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isCreatePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}
@@ -10021,6 +10343,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region InclAngService domain property code
+		
+		/// <summary>
+		/// InclAngService domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InclAngServiceDomainPropertyId = new global::System.Guid(0x8ce9ecc8, 0x8e91, 0x4480, 0x92, 0x40, 0xe1, 0xe9, 0x42, 0xe8, 0x01, 0x79);
+		
+		/// <summary>
+		/// Storage for InclAngService
+		/// </summary>
+		private global::System.Boolean inclAngServicePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of InclAngService domain property.
+		/// Description for Dyvenix.GenIt.ServiceModel.Incl Ang Service
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclAngService.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclAngService.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8ce9ecc8-8e91-4480-9240-e1e942e80179")]
+		public global::System.Boolean InclAngService
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return inclAngServicePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InclAngServicePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.InclAngService domain property.
+		/// </summary>
+		internal sealed partial class InclAngServicePropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.Boolean>
+		{
+			private InclAngServicePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.InclAngService domain property value handler.
+			/// </summary>
+			public static readonly InclAngServicePropertyHandler Instance = new InclAngServicePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.InclAngService domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InclAngServiceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.inclAngServicePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.inclAngServicePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModeled opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModeled.
@@ -10067,6 +10476,21 @@ namespace Dyvenix.GenIt
 			get
 			{
 				return GetRoleCollection<DslModeling::LinkedElementCollection<UpdateMethodModel>, UpdateMethodModel>(global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.ServiceModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region DtoModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of DtoModels.
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<DtoModel> DtoModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<DtoModel>, DtoModel>(global::Dyvenix.GenIt.ServiceModelHasDtoModels.ServiceModelDomainRoleId);
 			}
 		}
 		#endregion
@@ -10547,6 +10971,387 @@ namespace Dyvenix.GenIt
 			}
 		}
 		
+		#endregion
+		#region DtoOuputFolder domain property code
+		
+		/// <summary>
+		/// DtoOuputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid DtoOuputFolderDomainPropertyId = new global::System.Guid(0x9e3a7db3, 0xcb5a, 0x4e31, 0x9d, 0x70, 0x09, 0xae, 0x79, 0x99, 0x14, 0x8a);
+		
+		/// <summary>
+		/// Storage for DtoOuputFolder
+		/// </summary>
+		private global::System.String dtoOuputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of DtoOuputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Dto Ouput Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/DtoOuputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/DtoOuputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("9e3a7db3-cb5a-4e31-9d70-09ae7999148a")]
+		public global::System.String DtoOuputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return dtoOuputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DtoOuputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.DtoOuputFolder domain property.
+		/// </summary>
+		internal sealed partial class DtoOuputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private DtoOuputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.DtoOuputFolder domain property value handler.
+			/// </summary>
+			public static readonly DtoOuputFolderPropertyHandler Instance = new DtoOuputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.DtoOuputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return DtoOuputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.dtoOuputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.dtoOuputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region NgServiceOutputFolder domain property code
+		
+		/// <summary>
+		/// NgServiceOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NgServiceOutputFolderDomainPropertyId = new global::System.Guid(0xb7f09537, 0x441d, 0x4afc, 0xb9, 0x69, 0x4f, 0x19, 0x21, 0x22, 0xba, 0xd8);
+		
+		/// <summary>
+		/// Storage for NgServiceOutputFolder
+		/// </summary>
+		private global::System.String ngServiceOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of NgServiceOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Ng Service Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b7f09537-441d-4afc-b969-4f192122bad8")]
+		public global::System.String NgServiceOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ngServiceOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NgServiceOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.NgServiceOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class NgServiceOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private NgServiceOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.NgServiceOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly NgServiceOutputFolderPropertyHandler Instance = new NgServiceOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.NgServiceOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NgServiceOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.ngServiceOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.ngServiceOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+	}
+}
+namespace Dyvenix.GenIt
+{
+	/// <summary>
+	/// DomainClass DtoModel
+	/// Description for Dyvenix.GenIt.DtoModel
+	/// </summary>
+	[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModel.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModel.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+	[DslModeling::DomainModelOwner(typeof(global::Dyvenix.GenIt.GenItDomainModel))]
+	[global::System.CLSCompliant(true)]
+	[DslModeling::DomainObjectId("477c8d37-2fe7-4a42-bb3c-e0992e8bacef")]
+	public partial class DtoModel : DslModeling::ModelElement
+	{
+		#region Constructors, domain class Id
+	
+		/// <summary>
+		/// DtoModel domain class Id.
+		/// </summary>
+		public static readonly new global::System.Guid DomainClassId = new global::System.Guid(0x477c8d37, 0x2fe7, 0x4a42, 0xbb, 0x3c, 0xe0, 0x99, 0x2e, 0x8b, 0xac, 0xef);
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="store">Store where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public DtoModel(DslModeling::Store store, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: this(store != null ? store.DefaultPartitionForClass(DomainClassId) : null, propertyAssignments)
+		{
+		}
+		
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="partition">Partition where new element is to be created.</param>
+		/// <param name="propertyAssignments">List of domain property id/value pairs to set once the element is created.</param>
+		public DtoModel(DslModeling::Partition partition, params DslModeling::PropertyAssignment[] propertyAssignments)
+			: base(partition, propertyAssignments)
+		{
+		}
+		#endregion
+		#region Name domain property code
+		
+		/// <summary>
+		/// Name domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NameDomainPropertyId = new global::System.Guid(0xb6c40abf, 0xc524, 0x488c, 0xa5, 0x3a, 0x1a, 0x91, 0xdb, 0xa7, 0x78, 0x8f);
+		
+		/// <summary>
+		/// Storage for Name
+		/// </summary>
+		private global::System.String namePropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of Name domain property.
+		/// Description for Dyvenix.GenIt.DtoModel.Name
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.DtoModel/Name.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.DtoModel/Name.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b6c40abf-c524-488c-a53a-1a91dba7788f")]
+		public global::System.String Name
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return namePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NamePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the DtoModel.Name domain property.
+		/// </summary>
+		internal sealed partial class NamePropertyHandler : DslModeling::DomainPropertyValueHandler<DtoModel, global::System.String>
+		{
+			private NamePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the DtoModel.Name domain property value handler.
+			/// </summary>
+			public static readonly NamePropertyHandler Instance = new NamePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the DtoModel.Name domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NameDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(DtoModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.namePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(DtoModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.namePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region ServiceModel opposite domain role accessor
+		/// <summary>
+		/// Gets or sets ServiceModel.
+		/// Description for Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModel
+		/// </summary>
+		public virtual ServiceModel ServiceModel
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return DslModeling::DomainRoleInfo.GetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId) as ServiceModel;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				DslModeling::DomainRoleInfo.SetLinkedElement(this, global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId, value);
+			}
+		}
+		#endregion
+		#region PropertyModels opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of PropertyModels.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<PropertyModel> PropertyModels
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<PropertyModel>, PropertyModel>(global::Dyvenix.GenIt.DtoModelReferencesPropertyModels.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region NavigationProperties opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of NavigationProperties.
+		/// Description for Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<NavigationProperty> NavigationProperties
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<NavigationProperty>, NavigationProperty>(global::Dyvenix.GenIt.DtoModelReferencesNavigationProperties.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region EntityModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of EntityModeled.
+		/// Description for Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<EntityModel> EntityModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<EntityModel>, EntityModel>(global::Dyvenix.GenIt.EntityModelReferencesDtoModels.DtoModelDomainRoleId);
+			}
+		}
+		#endregion
+		#region ReadMethodModeled opposite domain role accessor
+		
+		/// <summary>
+		/// Gets a list of ReadMethodModeled.
+		/// Description for Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModel
+		/// </summary>
+		public virtual DslModeling::LinkedElementCollection<ReadMethodModel> ReadMethodModeled
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return GetRoleCollection<DslModeling::LinkedElementCollection<ReadMethodModel>, ReadMethodModel>(global::Dyvenix.GenIt.ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId);
+			}
+		}
 		#endregion
 	}
 }

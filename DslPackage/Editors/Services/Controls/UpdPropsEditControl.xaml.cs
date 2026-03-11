@@ -105,10 +105,10 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                 if (vm.IsIncluded)
                 {
                     // If the VM has no model, or has a stale model that is not linked to this property,
-                    // normalize to the existing model element if one is already present.
+                    // normalize to an existing model element that belongs to THIS method's collection.
                     if (vm.UpdatePropertyModel == null || vm.UpdatePropertyModel.PropertyModel != vm.Property)
                     {
-                        var existing = _updateProps?.FirstOrDefault(up => up.PropertyModel == vm.Property);
+                        var existing = _updateProps.FirstOrDefault(up => up.PropertyModel == vm.Property);
                         if (existing != null)
                         {
                             vm.UpdatePropertyModel = existing;
@@ -122,9 +122,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
                     // Add new UpdatePropertyModel
                     DslTransactionHelper.ExecuteInTransaction(_updateMethod, "Add Update Property", () =>
                     {
-                        // The DSL relationship `UpdatePropertyModelHasPropertyModel` has multiplicity 0..1 on
-                        // the `PropertyModel` end, so a PropertyModel can be linked to at most one UpdatePropertyModel.
-                        // If one already exists, reuse it instead of creating a duplicate.
                         var existingUpdProp = _updateProps.FirstOrDefault(up => up.PropertyModel == vm.Property);
                         if (existingUpdProp != null)
                         {

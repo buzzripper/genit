@@ -43,12 +43,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 fileContent.AddLine();
                 fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
                 fileContent.AddLine(0, "{");
-                fileContent.AddLine(1, "public static partial void AddGeneratedServices(IServiceCollection services)");
+                fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services)");
                 fileContent.AddLine(1, "{");
                 fileContent.AddLines(2, GenerateRegistrations(module));
                 fileContent.AddLine(1, "}");
                 fileContent.AddLine();
-                fileContent.AddLine(1, "public static partial void MapGeneratedEndpoints(IEndpointRouteBuilder app)");
+                fileContent.AddLine(1, "static partial void MapGeneratedEndpoints(IEndpointRouteBuilder app)");
                 fileContent.AddLine(1, "{");
                 fileContent.AddLines(2, GenerateEndpointMappings(module));
                 fileContent.AddLine(1, "}");

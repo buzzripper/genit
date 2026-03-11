@@ -44,6 +44,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.Requests");
             _usings.AddLine(0, $"{_modelRoot.CommonNamespace}.Shared.DTOs");
             _usings.AddLine(0, $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+            _usings.AddLine(0, $"{module.Namespace}.Shared.Authorization");
+            _usings.AddLine(0, module.DtoNamespace);
 
             foreach (var u in entity.UsingsList)
                 _usings.AddIfNotExists(u);
@@ -61,10 +63,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
         internal void GenerateCode()
         {
-            foreach (var entity in _entities.Where(e => e.GenerateCode))
+            foreach (var entity in _entities)
             {
                 foreach (var serviceModel in entity.ServiceModels)
                 {
+
                     GenerateEndpoints(entity, serviceModel);
                     _apiClientGenerator.GenerateCode(entity, serviceModel, _modules[entity.Module]);
                 }
@@ -89,39 +92,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             // Maps method
             var mapMethods = new List<string>();
 
-            // Create
-            var createMethodsOutput = new List<string>();
-            if (serviceModel.InclCreate)
-            {
-                // Map
-                mapMethods.AddLines(0, GenerateCreateMapMethod(entity, serviceModel));
-                // Method
-                this.GenerateCreateEndpointsMethod(entity, serviceModel, serviceVarName, createMethodsOutput);
-            }
-
-            // Delete
-            var deleteMethodsOutput = new List<string>();
-            if (serviceModel.InclDelete)
-            {
-                // Map
-                mapMethods.AddLines(0, GenerateDeleteMapMethod(entity, serviceModel));
-                // Method
-                this.GenerateDeleteMethod(entity, serviceModel, serviceVarName, deleteMethodsOutput);
-            }
-
             // Update methods
             var updMethodsOutput = new List<string>();
             if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
             {
-                // Full update method
-                if (serviceModel.InclUpdate)
-                {
-                    // Map
-                    mapMethods.AddLines(0, GenerateFullUpdateMapMethod(entity, serviceModel));
-                    // Method
-                    this.GenerateFullUpdateMethod(entity, serviceModel, serviceVarName, updMethodsOutput);
-                }
-
                 // Normal update methods
                 if (serviceModel.UpdateMethods.Any())
                 {
@@ -137,7 +111,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 }
             }
 
+            // Delete
+            var deleteMethodsOutput = new List<string>();
+            if (serviceModel.InclDelete)
+            {
+                // Map
+                mapMethods.AddLines(0, GenerateDeleteMapMethod(entity, serviceModel));
+                // Method
+                this.GenerateDeleteMethod(entity, serviceModel, serviceVarName, deleteMethodsOutput);
+            }
+
             // Read methods - single
+
             var singleReadMethodsOutput = new List<string>();
             foreach (ReadMethodModel singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
             {
@@ -174,9 +159,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLines(0, declaration);
             fileContent.AddLine(0, "{");
             fileContent.AddLines(1, GenerateMapEndpointsMethod(mapMethods, module, entity, serviceModel));
-
-            if (createMethodsOutput.Count > 0)
-                fileContent.AddLines(1, createMethodsOutput);
 
             if (deleteMethodsOutput.Count > 0)
                 fileContent.AddLines(1, deleteMethodsOutput);
@@ -246,42 +228,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             return lines;
         }
 
-        // Create
-
-        internal List<string> GenerateCreateMapMethod(EntityModel entity, ServiceModel serviceModel)
-        {
-            var lines = new List<string>();
-
-            lines.AddLine();
-            lines.AddLine(0, "// Create");
-            lines.AddLine();
-            lines.AddLine(0, $"group.MapPost(\"Create{entity.Name}\", Create{entity.Name})");
-            lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
-            lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
-            if (serviceModel.CreatePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.CreatePermissionsList)}\");");
-            else
-                lines.AppendToLast(";");
-
-            return lines;
-        }
-
-        internal void GenerateCreateEndpointsMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
-        {
-            output.AddLine();
-            output.AddLine(0, "#region Create");
-            output.AddLine();
-            output.AddLine(0, $"public static async Task<IResult> Create{entity.Name}(I{entity.Name}Service {svcVarName}, {entity.Name} {entity.Name.ToCamelCase()})");
-            output.AddLine(0, "{");
-            output.AddLine(0 + 1, $"await {svcVarName}.Create{entity.Name}({entity.Name.ToCamelCase()});");
-            output.AddLine(0 + 1, $"return Results.Ok();");
-            output.AddLine(0, "}");
-            output.AddLine();
-            output.AddLine(0, "#endregion");
-        }
-
-        // Delete
-
         internal List<string> GenerateDeleteMapMethod(EntityModel entity, ServiceModel serviceModel)
         {
             var lines = new List<string>();
@@ -291,9 +237,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine();
             lines.AddLine(0, $"group.MapDelete(\"Delete{entity.Name}\", Delete{entity.Name})");
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
-            lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (serviceModel.DeletePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.DeletePermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(serviceModel.DeletePermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -314,46 +259,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(0, "#endregion");
         }
 
-        // Full Update
-
-        private List<string> GenerateFullUpdateMapMethod(EntityModel entity, ServiceModel serviceModel)
-        {
-            var lines = new List<string>();
-
-            lines.AddLine();
-            lines.AddLine(0, "// Full Update");
-            lines.AddLine();
-            lines.AddLine(0, $"group.MapPatch(\"Update{entity.Name}\", Update{entity.Name})");
-            lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
-            lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
-            if (serviceModel.UpdatePermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", serviceModel.UpdatePermissionsList)}\");");
-            else
-                lines.AppendToLast(";");
-
-            return lines;
-        }
-
-        private void GenerateFullUpdateMethod(EntityModel entity, ServiceModel serviceModel, string svcVarName, List<string> output)
-        {
-            var resultType = entity.InclRowVersion ? "<byte[]>" : null;
-
-            output.AddLine();
-            output.AddLine(0, $"public static async Task<Result{resultType}> Update{entity.Name}(I{entity.Name}Service {svcVarName}, {entity.Name} {entity.Name.ToCamelCase()})");
-            output.AddLine(0, "{");
-            if (entity.InclRowVersion)
-            {
-                output.AddLine(1, $"var rowVersion = await {svcVarName}.Update{entity.Name}({entity.Name.ToCamelCase()});");
-                output.AddLine(1, $"return Result<byte[]>.Ok(rowVersion);");
-            }
-            else
-            {
-                output.AddLine(1, $"await {svcVarName}.Update{entity.Name}({entity.Name.ToCamelCase()});");
-                output.AddLine(1, $"return Result.Ok();");
-            }
-            output.AddLine(0, "}");
-        }
-
         // Updates
 
         internal void GenerateUpdateMethod(EntityModel entity, UpdateMethodModel method, string svcVarName, List<string> output, List<string> mapMethods)
@@ -365,17 +270,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 updateProps.Add(updProp);
             foreach (var updProp in method.UpdateProperties.Where(p => p.IsOptional))
                 updateProps.Add(updProp);
-
-            //var inputArgs = new StringBuilder();
-            //var args = new StringBuilder();
-
-            //inputArgs.Append($", [FromBody] {method.Name}Req request");
-
-            //args.Append("request.Id");
-            //if (entity.InclRowVersion)
-            //	args.Append(", request.RowVersion");
-            //foreach (var updProp in updateProps)
-            //	args.Append($", request.{updProp.PropertyModel.Name}");
 
             var resultType = entity.InclRowVersion ? "<byte[]>" : null;
 
@@ -402,11 +296,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             var lines = new List<string>();
 
             lines.AddLine();
-            lines.AddLine(0, $"group.MapPatch(\"{methodName}\", {methodName})");
+            if (updMethodModel.IsCreate)
+                lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
+            else
+                lines.AddLine(0, $"group.MapPatch(\"{methodName}\", {methodName})");
             lines.AddLine(1, $".Produces<Guid>(StatusCodes.Status200OK)");
             lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (updMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", updMethodModel.PermissionsList)}\")");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(updMethodModel.PermissionsList)})");
             lines.AppendToLast(";");
 
             return lines;
@@ -417,7 +314,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         internal void GenerateReadSingleMethod(EntityModel entity, ReadMethodModel method, string svcVarName, List<string> output, List<string> mapMethods)
         {
             var tc = 0;
-            var entityVarName = entity.Name.ToCamelCase();
+            var returnDtoVarName = method.ReturnDto.Name.ToCamelCase();
 
             // Args and map path
 
@@ -447,10 +344,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                     output.AddLine(tc, $"[{attr}]");
 
             output.AddLine();
-            output.AddLine(tc, $"public static async Task<Result<{entity.Name}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
+            output.AddLine(tc, $"public static async Task<Result<{method.ReturnDto.Name}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
             output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"var {entityVarName} = await {svcVarName}.{method.Name}({sbOutArgs});");
-            output.AddLine(tc + 1, $"return Result<{entity.Name}>.Ok({entityVarName});");
+            output.AddLine(tc + 1, $"var {returnDtoVarName} = await {svcVarName}.{method.Name}({sbOutArgs});");
+            output.AddLine(tc + 1, $"return Result<{method.ReturnDto.Name}>.Ok({returnDtoVarName});");
             output.AddLine(tc, "}");
 
             mapMethods.AddLines(0, this.GenerateReadSingleMapMethod(entity, method.Name, sbMapUrl.ToString(), method));
@@ -467,7 +364,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (entity.InclRowVersion)
                 lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (readMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(readMethodModel.PermissionsList)});");
             else
                 lines.AppendToLast(";");
 
@@ -523,7 +420,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 ;
             }
 
-            string returnType = method.InclPaging ? $"ListPage<{entity.Name}>" : $"List<{entity.Name}>";
+            string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
 
             output.AddLine();
             output.AddLine(tc, $"public static async Task<Result<{returnType}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
@@ -545,53 +442,28 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (entity.InclRowVersion)
                 lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
             if (readMethodModel.PermissionsList.Count > 0)
-                lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", readMethodModel.PermissionsList)}\");");
+                lines.AddLine(1, $".RequireAuthorization({FormatPermList(readMethodModel.PermissionsList)});");
             else
                 lines.AppendToLast(";");
 
             return lines;
         }
 
-        // Searches
+        private string FormatPermList(List<string> permList)
+        {
+            var sb = new StringBuilder();
 
-        //internal void GenerateSearchMethod(EntityModel entity, ReadMethodModel searchMethod, string svcVarName, List<string> output, List<string> mapMethods)
-        //{
-        //	var tc = 1;
-        //	output.AddLine();
-        //	var requestClassName = $"{searchMethod.Name}Req";
-        //	var searchVarName = requestClassName.ToCamelCase();
+            sb.Append("[");
 
-        //	// Attributes
-        //	if (searchMethod.Attributes.Any())
-        //		foreach (var attr in searchMethod.Attributes)
-        //			output.AddLine(tc, $"[{attr}]");
+            foreach (var perm in permList)
+            {
+                if (sb.Length > 1)
+                    sb.Append(", ");
+                sb.Append(perm);
+            }
+            sb.Append("]");
 
-        //	// Method
-        //	output.AddLine(tc, $"public static async Task<IResult> {searchMethod.Name}(I{entity.Name}Service {svcVarName}, {requestClassName} {searchVarName})");
-        //	output.AddLine(tc, "{");
-        //	output.AddLine(tc + 1, $"var result = await {svcVarName}.{searchMethod.Name}({searchVarName});");
-        //	output.AddLine(tc + 1, $"return result.ToHttpResult();");
-        //	output.AddLine(tc, "}");
-
-        //	mapMethods.AddLines(0, GenerateSearchMapMethod(entity, searchMethod.Name, searchMethod));
-        //}
-
-        //private List<string> GenerateSearchMapMethod(EntityModel entity, string methodName, ReadMethodModel searchMethod)
-        //{
-        //	var lines = new List<string>();
-        //	string className = entity.Name;
-
-        //	lines.AddLine();
-        //	lines.AddLine(0, $"group.MapPost(\"{methodName}\", {methodName})");
-        //	lines.AddLine(1, $".Produces<EntityList<{className}>>(StatusCodes.Status200OK)");
-        //	if (entity.InclRowVersion)
-        //		lines.AddLine(1, $".Produces(StatusCodes.Status409Conflict)");
-        //	if (searchMethod.PermissionsList.Count > 0)
-        //		lines.AddLine(1, $".RequireAuthorization(\"{string.Join(",", searchMethod.PermissionsList)}\");");
-        //	else
-        //		lines.AppendToLast(";");
-
-        //	return lines;
-        //}
+            return sb.ToString();
+        }
     }
 }
