@@ -15,7 +15,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
         private readonly DbContextGenerator _dbContextGenerator;
         private readonly ServiceGenerator _serviceGenerator;
         private readonly DtoGenerator _dtoGenerator;
-        private readonly ServiceDtoGenerator _serviceDtoGenerator;
+        private readonly ServiceReqGenerator _serviceReqGenerator;
         private readonly RequestGenerator _requestGenerator;
         private readonly EndpointGenerator _endpointGenerator;
         private readonly ApiSvcCollExtGenerator _apiSvcCollExtGenerator;
@@ -23,6 +23,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
         private readonly DataSetGenerator _dataSetGenerator;
         private readonly TestDataGenerator _testDataGenerator;
         private readonly DataManagerGenerator _dataManagerGenerator;
+        private readonly AngServiceGenerator _angServiceGenerator;
+        private readonly AngDtoGenerator _angDtoGenerator;
+        private readonly AngReqGenerator _angReqGenerator;
+
         private readonly IntTestGenerator _intTestGenerator;
 
         internal GenItModel(ModelRoot modelRoot)
@@ -33,14 +37,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
             _entityGenerator = new EntityGenerator(modelRoot);
             _enumGenerator = new EnumGenerator(modelRoot.Types.OfType<EnumModel>().ToList(), modelRoot.EnumsNamespace, modelRoot.EnumsOutputFolder, modelRoot.EnumsEnabled, modelRoot.InclHeader);
             _dbContextGenerator = new DbContextGenerator(modelRoot);
+
             _serviceGenerator = new ServiceGenerator(modelRoot);
             _dtoGenerator = new DtoGenerator(modelRoot);
-            _serviceDtoGenerator = new ServiceDtoGenerator(modelRoot);
+            _serviceReqGenerator = new ServiceReqGenerator(modelRoot);
             _requestGenerator = new RequestGenerator(modelRoot);
             _endpointGenerator = new EndpointGenerator(modelRoot);
             _apiSvcCollExtGenerator = new ApiSvcCollExtGenerator(modelRoot);
             _sharedSvcCollExtGenerator = new SharedSvcCollExtGenerator(modelRoot);
             _dataSetGenerator = new DataSetGenerator(modelRoot);
+
+            _angServiceGenerator = new AngServiceGenerator(modelRoot);
+            _angDtoGenerator = new AngDtoGenerator(modelRoot);
+            _angReqGenerator = new AngReqGenerator(modelRoot);
+
             _testDataGenerator = new TestDataGenerator(modelRoot);
             _dataManagerGenerator = new DataManagerGenerator(modelRoot);
             _intTestGenerator = new IntTestGenerator(modelRoot);
@@ -76,6 +86,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
             else
                 OutputHelper.Write("Integration test generation is disabled, skipping validation.");
 
+            _angServiceGenerator.Validate(errors);
+
             _serviceGenerator.Validate(errors);
 
             return errors.Count == 0;
@@ -97,11 +109,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
             _serviceGenerator.GenerateCode();
             _dtoGenerator.GenerateCode();
-            _serviceDtoGenerator.GenerateCode();
+            _serviceReqGenerator.GenerateCode();
             _requestGenerator.GenerateCode();
             _endpointGenerator.GenerateCode();
             _apiSvcCollExtGenerator.GenerateCode();
             _sharedSvcCollExtGenerator.GenerateCode();
+
+            _angServiceGenerator.GenerateCode();
+            _angDtoGenerator.GenerateCode();
+            _angReqGenerator.GenerateCode();
 
             if (_modelRoot.IntTestsEnabled)
             {

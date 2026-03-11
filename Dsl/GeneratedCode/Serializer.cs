@@ -2471,6 +2471,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// InclAngDtos
+			if (!serializationContext.Result.Failed)
+			{
+				string attribInclAngDtos = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "inclAngDtos");
+				if (attribInclAngDtos != null)
+				{
+					global::System.Boolean valueOfInclAngDtos;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribInclAngDtos, out valueOfInclAngDtos))
+					{
+						instanceOfEntityModel.InclAngDtos = valueOfInclAngDtos;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclAngDtos", typeof(global::System.Boolean), attribInclAngDtos);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3406,6 +3423,16 @@ namespace Dyvenix.GenIt
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "genUnitTests", serializedPropValue);
 					}
+				}
+			}
+			// InclAngDtos
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.InclAngDtos;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclAngDtos", serializedPropValue);
 				}
 			}
 		}
@@ -14639,6 +14666,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// InclAngService
+			if (!serializationContext.Result.Failed)
+			{
+				string attribInclAngService = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "inclAngService");
+				if (attribInclAngService != null)
+				{
+					global::System.Boolean valueOfInclAngService;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribInclAngService, out valueOfInclAngService))
+					{
+						instanceOfServiceModel.InclAngService = valueOfInclAngService;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "inclAngService", typeof(global::System.Boolean), attribInclAngService);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -15413,6 +15457,16 @@ namespace Dyvenix.GenIt
 	
 				}
 			}
+			// InclAngService
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfServiceModel.InclAngService;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclAngService", serializedPropValue);
+				}
+			}
 		}
 	
 		/// <summary>
@@ -15826,6 +15880,23 @@ namespace Dyvenix.GenIt
 					else
 					{	// Invalid property value, ignored.
 						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "dtoOuputFolder", typeof(global::System.String), attribDtoOuputFolder);
+					}
+				}
+			}
+			// NgServiceOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribNgServiceOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "ngServiceOutputFolder");
+				if (attribNgServiceOutputFolder != null)
+				{
+					global::System.String valueOfNgServiceOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribNgServiceOutputFolder, out valueOfNgServiceOutputFolder))
+					{
+						instanceOfModuleModel.NgServiceOutputFolder = valueOfNgServiceOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "ngServiceOutputFolder", typeof(global::System.String), attribNgServiceOutputFolder);
 					}
 				}
 			}
@@ -16281,6 +16352,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "dtoOuputFolder", propValue);
+	
+				}
+			}
+			// NgServiceOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModuleModel.NgServiceOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "ngServiceOutputFolder", propValue);
 	
 				}
 			}

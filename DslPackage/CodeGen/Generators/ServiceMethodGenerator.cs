@@ -185,7 +185,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (method.InclPaging)
             {
                 output.AddLine();
-                output.AddLine(tc + 1, $"var listPage = new ListPage<{entity.Name}>();");
+                output.AddLine(tc + 1, $"var listPage = new ListPage<{method.ReturnDto.Name}>();");
 
                 output.AddLine();
                 output.AddLine(tc + 1, "// Count (if requested)");
@@ -220,7 +220,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 output.AddLine(tc + 1, $"if ({reqVarName}.PageSize > 0)");
                 output.AddLine(tc + 2, $"dbQuery = dbQuery.Skip({reqVarName}.PageOffset * {reqVarName}.PageSize).Take({reqVarName}.PageSize);");
                 output.AddLine();
-                output.AddLine(tc + 1, $"listPage.Items = await dbQuery.ToListAsync();");
+                output.AddLine(tc + 1, $"listPage.Items = await dbQuery.Select(e => new {method.ReturnDto.Name}(");
+                foreach (var prop in method.ReturnDto.PropertyModels)
+                    output.AddLine(tc + 2, $"e.{prop.Name},");
+                output[output.Count - 1] = output[output.Count - 1].TrimSuffix(",");
+                output.AddLine(tc + 1, "))");
+                output.AddLine(tc + 1, $".ToListAsync();");
                 output.AddLine();
                 output.AddLine(tc + 1, $"return listPage;");
             }

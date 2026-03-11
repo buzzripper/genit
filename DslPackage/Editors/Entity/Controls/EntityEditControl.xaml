@@ -335,6 +335,8 @@
                           Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
                 <CheckBox x:Name="chkInclRowVersion" Content="Incl RowVersion" Margin="0,0,16,0"
                           Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
+                <CheckBox x:Name="chkInclAngDtos" Content="Incl Ang DTOs" Margin="0,0,16,0"
+                          Checked="chkInclAngDtos_Changed" Unchecked="chkInclAngDtos_Changed"/>
                 <CheckBox x:Name="chkGenerateCode" Content="Gen Code"
                           Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
             </StackPanel>

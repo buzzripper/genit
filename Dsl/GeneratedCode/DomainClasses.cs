@@ -3698,6 +3698,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region InclAngDtos domain property code
+		
+		/// <summary>
+		/// InclAngDtos domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InclAngDtosDomainPropertyId = new global::System.Guid(0x6ce53b77, 0x6fe2, 0x41d5, 0x92, 0x59, 0x0e, 0x58, 0x67, 0x9d, 0xe6, 0x5f);
+		
+		/// <summary>
+		/// Storage for InclAngDtos
+		/// </summary>
+		private global::System.Boolean inclAngDtosPropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of InclAngDtos domain property.
+		/// Description for Dyvenix.GenIt.EntityModel.Incl Ang Dtos
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/InclAngDtos.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/InclAngDtos.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6ce53b77-6fe2-41d5-9259-0e58679de65f")]
+		public global::System.Boolean InclAngDtos
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return inclAngDtosPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InclAngDtosPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.InclAngDtos domain property.
+		/// </summary>
+		internal sealed partial class InclAngDtosPropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Boolean>
+		{
+			private InclAngDtosPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.InclAngDtos domain property value handler.
+			/// </summary>
+			public static readonly InclAngDtosPropertyHandler Instance = new InclAngDtosPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.InclAngDtos domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InclAngDtosDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.inclAngDtosPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.inclAngDtosPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -10256,6 +10343,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region InclAngService domain property code
+		
+		/// <summary>
+		/// InclAngService domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid InclAngServiceDomainPropertyId = new global::System.Guid(0x8ce9ecc8, 0x8e91, 0x4480, 0x92, 0x40, 0xe1, 0xe9, 0x42, 0xe8, 0x01, 0x79);
+		
+		/// <summary>
+		/// Storage for InclAngService
+		/// </summary>
+		private global::System.Boolean inclAngServicePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of InclAngService domain property.
+		/// Description for Dyvenix.GenIt.ServiceModel.Incl Ang Service
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ServiceModel/InclAngService.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ServiceModel/InclAngService.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("8ce9ecc8-8e91-4480-9240-e1e942e80179")]
+		public global::System.Boolean InclAngService
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return inclAngServicePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				InclAngServicePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ServiceModel.InclAngService domain property.
+		/// </summary>
+		internal sealed partial class InclAngServicePropertyHandler : DslModeling::DomainPropertyValueHandler<ServiceModel, global::System.Boolean>
+		{
+			private InclAngServicePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ServiceModel.InclAngService domain property value handler.
+			/// </summary>
+			public static readonly InclAngServicePropertyHandler Instance = new InclAngServicePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ServiceModel.InclAngService domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return InclAngServiceDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(ServiceModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.inclAngServicePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ServiceModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.inclAngServicePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModeled opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModeled.
@@ -10879,6 +11053,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.dtoOuputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region NgServiceOutputFolder domain property code
+		
+		/// <summary>
+		/// NgServiceOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NgServiceOutputFolderDomainPropertyId = new global::System.Guid(0xb7f09537, 0x441d, 0x4afc, 0xb9, 0x69, 0x4f, 0x19, 0x21, 0x22, 0xba, 0xd8);
+		
+		/// <summary>
+		/// Storage for NgServiceOutputFolder
+		/// </summary>
+		private global::System.String ngServiceOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of NgServiceOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Ng Service Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("b7f09537-441d-4afc-b969-4f192122bad8")]
+		public global::System.String NgServiceOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ngServiceOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NgServiceOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.NgServiceOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class NgServiceOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private NgServiceOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.NgServiceOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly NgServiceOutputFolderPropertyHandler Instance = new NgServiceOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.NgServiceOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NgServiceOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.ngServiceOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.ngServiceOutputFolderPropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

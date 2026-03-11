@@ -107,6 +107,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				// Checkboxes
 				chkAuditable.IsChecked = _entityModel.Auditable;
 				chkInclRowVersion.IsChecked = _entityModel.InclRowVersion;
+				chkInclAngDtos.IsChecked = _entityModel.InclAngDtos;
 				chkGenerateCode.IsChecked = _entityModel.GenerateCode;
 
 				// Link buttons
@@ -232,6 +233,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 				return;
 
 			UpdateModelProperty(EntityModel.InclRowVersionDomainPropertyId, chkInclRowVersion.IsChecked ?? false);
+		}
+
+		private void chkInclAngDtos_Changed(object sender, RoutedEventArgs e)
+		{
+			if (_isUpdating || _entityModel == null)
+				return;
+
+			UpdateModelProperty(EntityModel.InclAngDtosDomainPropertyId, chkInclAngDtos.IsChecked ?? false);
 		}
 
 		private void chkGenerateCode_Changed(object sender, RoutedEventArgs e)

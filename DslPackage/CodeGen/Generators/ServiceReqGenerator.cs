@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-    internal class ServiceDtoGenerator
+    internal class ServiceReqGenerator
     {
         private readonly ModelRoot _modelRoot;
         private readonly List<EntityModel> _entities;
@@ -13,7 +13,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         private readonly List<string> _usings = new List<string>();
         private readonly List<string> _modelUsings;
 
-        internal ServiceDtoGenerator(ModelRoot modelRoot)
+        internal ServiceReqGenerator(ModelRoot modelRoot)
         {
             // Convenience vars
             _modelRoot = modelRoot;
@@ -34,7 +34,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 {
                     foreach (var updateMethod in service.UpdateMethods)
                     {
-                        GenerateDto(_modules[entity.Module], entity, service, updateMethod);
+                        GenerateReq(_modules[entity.Module], entity, service, updateMethod);
                     }
                 }
             }
@@ -46,7 +46,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             _usings.AddLines(0, _modelUsings);
         }
 
-        private void GenerateDto(ModuleModel module, EntityModel entity, ServiceModel service, UpdateMethodModel updateMethod)
+        private void GenerateReq(ModuleModel module, EntityModel entity, ServiceModel service, UpdateMethodModel updateMethod)
         {
             var dtoName = $"{updateMethod.Name}Req";
 
@@ -96,7 +96,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             if (optionalUpdateProps.Any())
             {
                 fileContent.AddLine();
-                fileContent.AddLine(1, "// Required properties");
+                fileContent.AddLine(1, "// Optional properties");
                 foreach (var optionalUpdateProp in optionalUpdateProps)
                     fileContent.AddLine(1, $"public {optionalUpdateProp.PropertyModel.CSType} {optionalUpdateProp.PropertyModel.Name} {{ get; set; }}");
             }

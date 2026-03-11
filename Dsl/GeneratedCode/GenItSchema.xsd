@@ -348,6 +348,8 @@
         <xsd:attribute name="genIntTests" type="xsd:boolean" />
         <!-- Property: GenUnitTests -->
         <xsd:attribute name="genUnitTests" type="xsd:boolean" />
+        <!-- Property: InclAngDtos -->
+        <xsd:attribute name="inclAngDtos" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1190,6 +1192,8 @@
             <xsd:documentation>Comma-separated list of required permissions for the service</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: InclAngService -->
+        <xsd:attribute name="inclAngService" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -1233,6 +1237,8 @@
         <xsd:attribute name="requestNamespace" type="xsd:string" />
         <!-- Property: DtoOuputFolder -->
         <xsd:attribute name="dtoOuputFolder" type="xsd:string" />
+        <!-- Property: NgServiceOutputFolder -->
+        <xsd:attribute name="ngServiceOutputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

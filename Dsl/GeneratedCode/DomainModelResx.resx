@@ -549,6 +549,14 @@
     <value>Gen Unit Tests</value>
     <comment>DisplayName for DomainProperty &apos;GenUnitTests&apos; on DomainClass &apos;EntityModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.EntityModel/InclAngDtos.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.EntityModel.Incl Ang Dtos</value>
+    <comment>Description for DomainProperty &apos;InclAngDtos&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.EntityModel/InclAngDtos.DisplayName" xml:space="preserve">
+    <value>Incl Ang Dtos</value>
+    <comment>DisplayName for DomainProperty &apos;InclAngDtos&apos; on DomainClass &apos;EntityModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.PropertyModel.Description" xml:space="preserve">
     <value>A property of a class.</value>
     <comment>Description for DomainClass &apos;PropertyModel&apos;</comment>
@@ -1205,6 +1213,14 @@
     <value>Permissions</value>
     <comment>DisplayName for DomainProperty &apos;Permissions&apos; on DomainClass &apos;ServiceModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclAngService.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ServiceModel.Incl Ang Service</value>
+    <comment>Description for DomainProperty &apos;InclAngService&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ServiceModel/InclAngService.DisplayName" xml:space="preserve">
+    <value>Incl Ang Service</value>
+    <comment>DisplayName for DomainProperty &apos;InclAngService&apos; on DomainClass &apos;ServiceModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.ModuleModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.ModuleModel</value>
     <comment>Description for DomainClass &apos;ModuleModel&apos;</comment>
@@ -1264,6 +1280,14 @@
   <data name="Dyvenix.GenIt.ModuleModel/DtoOuputFolder.DisplayName" xml:space="preserve">
     <value>Dto Ouput Folder</value>
     <comment>DisplayName for DomainProperty &apos;DtoOuputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Ng Service Output Folder</value>
+    <comment>Description for DomainProperty &apos;NgServiceOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/NgServiceOutputFolder.DisplayName" xml:space="preserve">
+    <value>Ng Service Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;NgServiceOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
   <data name="Dyvenix.GenIt.DtoModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.DtoModel</value>

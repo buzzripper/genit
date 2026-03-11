@@ -78,9 +78,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGen\Generators\AngServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
     <Compile Include="CodeGen\Generators\IntTestGenerator.cs" />
     <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\AngDtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\AngReqGenerator.cs" />
     <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
     <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
@@ -89,7 +92,7 @@
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
     <Compile Include="CodeGen\Generators\ApiSvcCollExtGenerator.cs" />
     <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ServiceDtoGenerator.cs" />
+    <Compile Include="CodeGen\Generators\ServiceReqGenerator.cs" />
     <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
     <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\EnumGenerator.cs" />

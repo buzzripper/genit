@@ -40,7 +40,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
 				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
 				txtDtoOutputFolder.Text = _moduleModel.DtoOuputFolder ?? string.Empty;
-				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
+			txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
+				txtNgServiceOutputFolder.Text = _moduleModel.NgServiceOutputFolder ?? string.Empty;
 				txtRequestNamespace.Text = _moduleModel.RequestNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
@@ -137,7 +138,36 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 					_isUpdating = false;
 				}
 
-				UpdateModelProperty(ModuleModel.DtoOuputFolderDomainPropertyId, selectedPath);
+			UpdateModelProperty(ModuleModel.DtoOuputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void txtNgServiceOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.NgServiceOutputFolderDomainPropertyId, txtNgServiceOutputFolder.Text);
+		}
+
+		private void btnBrowseNgServiceOutputFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_moduleModel == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtNgServiceOutputFolder.Text, "Select Angular Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtNgServiceOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModuleModel.NgServiceOutputFolderDomainPropertyId, selectedPath);
 			}
 		}
 

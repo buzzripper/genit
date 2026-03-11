@@ -230,6 +230,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="6ce53b77-6fe2-41d5-9259-0e58679de65f" Description="Description for Dyvenix.GenIt.EntityModel.Incl Ang Dtos" Name="InclAngDtos" DisplayName="Incl Ang Dtos">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -664,6 +669,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="8ce9ecc8-8e91-4480-9240-e1e942e80179" Description="Description for Dyvenix.GenIt.ServiceModel.Incl Ang Service" Name="InclAngService" DisplayName="Incl Ang Service">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="9bb79222-91f7-40de-bd0c-2286c1c84644" Description="Description for Dyvenix.GenIt.ModuleModel" Name="ModuleModel" DisplayName="Module Model" Namespace="Dyvenix.GenIt">
@@ -697,6 +707,11 @@
           </Type>
         </DomainProperty>
         <DomainProperty Id="9e3a7db3-cb5a-4e31-9d70-09ae7999148a" Description="Description for Dyvenix.GenIt.ModuleModel.Dto Ouput Folder" Name="DtoOuputFolder" DisplayName="Dto Ouput Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="b7f09537-441d-4afc-b969-4f192122bad8" Description="Description for Dyvenix.GenIt.ModuleModel.Ng Service Output Folder" Name="NgServiceOutputFolder" DisplayName="Ng Service Output Folder">
           <Type>
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
@@ -979,7 +994,7 @@
         </DomainRole>
       </Source>
       <Target>
-        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModels" Multiplicity="Many" PropertyDisplayName="Update Property Models">
+        <DomainRole Id="201fa5a7-23e9-4b3c-8be8-3aea92dc11e6" Description="Description for Dyvenix.GenIt.UpdatePropertyModelHasPropertyModel.PropertyModel" Name="PropertyModel" DisplayName="Property Model" PropertyName="UpdatePropertyModels" PropertyDisplayName="Update Property Models">
           <RolePlayer>
             <DomainClassMoniker Name="PropertyModel" />
           </RolePlayer>
@@ -1405,6 +1420,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="dtoModels">
             <DomainRelationshipMoniker Name="EntityModelReferencesDtoModels" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="inclAngDtos">
+            <DomainPropertyMoniker Name="EntityModel/InclAngDtos" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1716,6 +1734,9 @@
           <XmlRelationshipData UseFullForm="true" RoleElementName="dtoModels">
             <DomainRelationshipMoniker Name="ServiceModelHasDtoModels" />
           </XmlRelationshipData>
+          <XmlPropertyData XmlName="inclAngService">
+            <DomainPropertyMoniker Name="ServiceModel/InclAngService" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="ModuleModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="moduleModelMoniker" ElementName="moduleModel" MonikerTypeName="ModuleModelMoniker">
@@ -1738,6 +1759,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="dtoOuputFolder">
             <DomainPropertyMoniker Name="ModuleModel/DtoOuputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="ngServiceOutputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/NgServiceOutputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

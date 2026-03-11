@@ -158,28 +158,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             output.AddLine(tc, "}");
         }
 
-        private void GenerateFullUpdateMethod(ModuleModel module, EntityModel entity, ServiceModel service, List<string> output, List<string> interfaceOutput)
-        {
-            var tc = 0;
-            var className = entity.Name;
-            var varName = className.ToCamelCase();
-            var returnType = entity.InclRowVersion ? "<byte[]>" : null;
-            var returnStr = entity.InclRowVersion ? "return " : null;
-            var returnContent = entity.InclRowVersion ? $" {varName}.RowVersion" : null;
-            var resultType = entity.InclRowVersion ? "<byte[]>" : null;
-
-            // Interface
-            var signature = $"Task{returnType} Update{className}({className} {varName})";
-            interfaceOutput.Add(signature);
-
-            output.AddLine();
-            output.AddLine(tc, $"public async {signature}");
-            output.AddLine(tc, "{");
-            output.AddLine(tc + 1, $"ArgumentNullException.ThrowIfNull({varName});");
-            output.AddLine(tc + 1, $"{returnStr}await PutAsync{returnType}(\"api/{module.Name}/{service.Version}/{className}/Update{className}\", {varName});");
-            output.AddLine(tc, "}");
-        }
-
         private void GenerateUpdateMethod(ModuleModel module, EntityModel entity, UpdateMethodModel method, ServiceModel service, List<string> output, List<string> interfaceOutput)
         {
             var tc = 0;
@@ -227,13 +205,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             else
             {
                 // Required params first, in url segments, and then optional as query params
-                string nullStr = null;
                 foreach (var reqFilterProp in method.FilterProperties.Where(fp => !fp.IsOptional && !fp.IsInternal).ToList())
                 {
                     // Args
                     if (sbSigArgs.Length > 0)
                         sbSigArgs.Append(", ");
-                    sbSigArgs.Append($"{reqFilterProp.PropertyModel.CSType}{nullStr} {reqFilterProp.PropertyModel.ArgName}");
+                    sbSigArgs.Append($"{reqFilterProp.PropertyModel.CSType} {reqFilterProp.PropertyModel.ArgName}");
                     // Query
                     sbRoute.Append($"/{{{reqFilterProp.PropertyModel.ArgName}}}");
                 }
@@ -257,6 +234,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"IReadOnlyList<{method.ReturnDto.Name}>" : method.ReturnDto.Name;
 
             var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
+
             // Interface
             interfaceOutput.Add(signature);
 
