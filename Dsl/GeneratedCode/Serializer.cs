@@ -4104,6 +4104,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsSoftDelete
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsSoftDelete = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isSoftDelete");
+				if (attribIsSoftDelete != null)
+				{
+					global::System.Boolean valueOfIsSoftDelete;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsSoftDelete, out valueOfIsSoftDelete))
+					{
+						instanceOfPropertyModel.IsSoftDelete = valueOfIsSoftDelete;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isSoftDelete", typeof(global::System.Boolean), attribIsSoftDelete);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -4674,6 +4691,16 @@ namespace Dyvenix.GenIt
 				if (!serializationContext.Result.Failed)
 				{
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAuditable", serializedPropValue);
+				}
+			}
+			// IsSoftDelete
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfPropertyModel.IsSoftDelete;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isSoftDelete", serializedPropValue);
 				}
 			}
 		}

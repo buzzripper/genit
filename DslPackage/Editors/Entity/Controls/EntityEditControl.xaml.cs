@@ -258,8 +258,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
             if (_isUpdating || _entityModel == null)
                 return;
 
-            UpdateModelProperty(EntityModel.SoftDeleteDomainPropertyId, chkSoftDelete.IsChecked ?? false);
-        }
+			UpdateModelProperty(EntityModel.SoftDeleteDomainPropertyId, chkSoftDelete.IsChecked ?? false);
+			LoadProperties();
+		}
 
         #endregion
 
@@ -349,10 +350,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
             if (selectedProperty.Name == "Id")
                 return;
 
-            if (selectedProperty.IsAuditable)
-                return;
+			if (selectedProperty.IsAuditable)
+				return;
 
-            using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Delete Property"))
+			if (selectedProperty.IsSoftDelete)
+				return;
+
+			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Delete Property"))
             {
                 selectedProperty.Delete();
                 transaction.Commit();
@@ -443,13 +447,19 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
                 return;
             }
 
-            if (property.IsAuditable)
-            {
-                e.Cancel = true;
-                return;
-            }
+			if (property.IsAuditable)
+			{
+				e.Cancel = true;
+				return;
+			}
 
-            // Start a transaction for this edit operation
+			if (property.IsSoftDelete)
+			{
+				e.Cancel = true;
+				return;
+			}
+
+			// Start a transaction for this edit operation
             string propertyName = GetEditedPropertyName(e.Column);
             _currentEditTransaction = property.Store.TransactionManager.BeginTransaction("Update " + propertyName);
         }
@@ -504,6 +514,17 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
                     // Block checkbox toggles for Auditable properties, except Index
                     if (property.IsAuditable)
+                    {
+                        var header = cell.Column?.Header?.ToString();
+                        if (header != "Index")
+                        {
+                            e.Handled = true;
+                            return;
+                        }
+                    }
+
+                    // Block checkbox toggles for SoftDelete properties, except Index
+                    if (property.IsSoftDelete)
                     {
                         var header = cell.Column?.Header?.ToString();
                         if (header != "Index")

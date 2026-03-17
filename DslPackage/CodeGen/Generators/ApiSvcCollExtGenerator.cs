@@ -31,39 +31,84 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         {
             foreach (var module in _modules.Keys)
             {
-                var fileContent = new List<string>();
-
-                if (_modelRoot.InclHeader)
-                    fileContent.Add(CodeGenUtils.FileHeader);
-
-                fileContent.AddLines(0, GenerateUsings(module));
-
-                fileContent.AddLine();
-                fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
-                fileContent.AddLine();
-                fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
-                fileContent.AddLine(0, "{");
-                fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services)");
-                fileContent.AddLine(1, "{");
-                fileContent.AddLines(2, GenerateRegistrations(module));
-                fileContent.AddLine(1, "}");
-                fileContent.AddLine();
-                fileContent.AddLine(1, "static partial void MapGeneratedEndpoints(IEndpointRouteBuilder app)");
-                fileContent.AddLine(1, "{");
-                fileContent.AddLines(2, GenerateEndpointMappings(module));
-                fileContent.AddLine(1, "}");
-
-
-                fileContent.AddLine(0, "}");
-
-                // Save to file
-                var outputDir = module.ApiExtensionsFolder;
-                Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-                var outputFilepath = Path.Combine(outputDir, $"{module.Name}ApiServiceCollExt.g.cs");
-                FileHelper.SaveFile(outputFilepath, fileContent.AsString());
-
-                OutputHelper.Write($"Completed code gen for module: {module.Name}");
+                GenerateApiServiceCollExtCode(module);
+                if (_modelRoot.DbContextEnabled)
+                    GenerateDataServicesCollExt(module);
             }
+        }
+
+        private void GenerateApiServiceCollExtCode(ModuleModel module)
+        {
+            var fileContent = new List<string>();
+
+            if (_modelRoot.InclHeader)
+                fileContent.Add(CodeGenUtils.FileHeader);
+
+            fileContent.AddLines(0, GenerateUsings(module));
+
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
+            fileContent.AddLine(0, "{");
+            fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services)");
+            fileContent.AddLine(1, "{");
+            fileContent.AddLines(2, GenerateRegistrations(module));
+            fileContent.AddLine(1, "}");
+            fileContent.AddLine();
+            fileContent.AddLine(1, "static partial void MapGeneratedEndpoints(IEndpointRouteBuilder app)");
+            fileContent.AddLine(1, "{");
+            fileContent.AddLines(2, GenerateEndpointMappings(module));
+            fileContent.AddLine(1, "}");
+            fileContent.AddLine(0, "}");
+
+            // Save to file
+            var outputDir = module.ApiExtensionsFolder;
+            Directory.CreateDirectory(outputDir);  // Ensure output dir exists
+            var outputFilepath = Path.Combine(outputDir, $"{module.Name}ApiServiceCollExt.g.cs");
+            FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+
+            OutputHelper.Write($"Completed code gen for module: {module.Name}");
+        }
+
+        private void GenerateDataServicesCollExt(ModuleModel module)
+        {
+            var fileContent = new List<string>();
+
+            if (_modelRoot.InclHeader)
+                fileContent.Add(CodeGenUtils.FileHeader);
+
+            fileContent.AddLine(0, $"using {module.Namespace}.Api.Config;");
+            fileContent.AddLine(0, $"using {module.Namespace}.Api.Context;");
+            fileContent.AddLine(0, $"using Microsoft.EntityFrameworkCore;");
+            fileContent.AddLine(0, $"using Microsoft.Extensions.Configuration;");
+            fileContent.AddLine(0, $"using Microsoft.Extensions.DependencyInjection;");
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
+            fileContent.AddLine();
+            fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
+            fileContent.AddLine(0, "{");
+            fileContent.AddLine(1, "static partial void AddDataServices(IServiceCollection services, IConfiguration configuration)");
+            fileContent.AddLine(1, "{");
+            fileContent.AddLine(2, "var dataConfig = DataConfigBuilder.Build(configuration);");
+            fileContent.AddLine(2, "services.AddSingleton(dataConfig);");
+            fileContent.AddLine();
+            fileContent.AddLine(2, "services.AddSingleton(sp =>");
+            fileContent.AddLine(2, "{");
+            fileContent.AddLine(3, $"var b = new DbContextOptionsBuilder<{_modelRoot.DbContextName}>();");
+            fileContent.AddLine(3, "b.UseSqlServer(dataConfig.ConnectionString);");
+            fileContent.AddLine(3, "return b.Options;");
+            fileContent.AddLine(2, "});");
+            fileContent.AddLine(1, "}");
+            fileContent.AddLine(0, "}");
+
+            // Save to file
+            var outputDir = module.ApiExtensionsFolder;
+            Directory.CreateDirectory(outputDir);  // Ensure output dir exists
+            var outputFilepath = Path.Combine(outputDir, $"{module.Name}DataServiceCollExt.g.cs");
+            FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+
+            OutputHelper.Write($"Completed code gen for module: {module.Name}");
         }
 
         private List<string> GenerateUsings(ModuleModel module)

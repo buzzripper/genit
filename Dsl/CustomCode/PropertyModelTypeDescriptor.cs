@@ -69,6 +69,24 @@ namespace Dyvenix.GenIt
 				"DisplayOrder"
 			};
 
+		private static readonly System.Collections.Generic.HashSet<string> ReadOnlyPropertiesForSoftDelete =
+			new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase)
+			{
+				"Name",
+				"DataType",
+				"Length",
+				"InitialValue",
+				"Attributes",
+				"Usings",
+				"IsPrimaryKey",
+				"IsNullable",
+				"IsIdentity",
+				"IsIndexUnique",
+				"IsIndexClustered",
+				"IsForeignKey",
+				"DisplayOrder"
+			};
+
 		public PropertyModelTypeDescriptor(ICustomTypeDescriptor parent, PropertyModel element)
 			: base(parent, element)
 		{
@@ -124,6 +142,12 @@ namespace Dyvenix.GenIt
 
 			// Make specific properties read-only for Auditable (IsIndexed remains editable)
 			if (_propertyModel.IsAuditable && ReadOnlyPropertiesForAuditable.Contains(property.Name))
+			{
+				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+			}
+
+			// Make specific properties read-only for SoftDelete (IsIndexed remains editable)
+			if (_propertyModel.IsSoftDelete && ReadOnlyPropertiesForSoftDelete.Contains(property.Name))
 			{
 				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
 			}

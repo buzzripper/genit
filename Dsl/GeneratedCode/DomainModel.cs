@@ -193,6 +193,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(PropertyModel), "IsRowVersion", PropertyModel.IsRowVersionDomainPropertyId, typeof(PropertyModel.IsRowVersionPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "DisplayOrder", PropertyModel.DisplayOrderDomainPropertyId, typeof(PropertyModel.DisplayOrderPropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "IsAuditable", PropertyModel.IsAuditableDomainPropertyId, typeof(PropertyModel.IsAuditablePropertyHandler)),
+				new DomainMemberInfo(typeof(PropertyModel), "IsSoftDelete", PropertyModel.IsSoftDeleteDomainPropertyId, typeof(PropertyModel.IsSoftDeletePropertyHandler)),
 				new DomainMemberInfo(typeof(Comment), "Text", Comment.TextDomainPropertyId, typeof(Comment.TextPropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Signature", Operation.SignatureDomainPropertyId, typeof(Operation.SignaturePropertyHandler)),
 				new DomainMemberInfo(typeof(Operation), "Concurrency", Operation.ConcurrencyDomainPropertyId, typeof(Operation.ConcurrencyPropertyHandler)),

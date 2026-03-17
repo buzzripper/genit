@@ -737,6 +737,14 @@
     <value>Is Auditable</value>
     <comment>DisplayName for DomainProperty &apos;IsAuditable&apos; on DomainClass &apos;PropertyModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsSoftDelete.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.PropertyModel.Is Soft Delete</value>
+    <comment>Description for DomainProperty &apos;IsSoftDelete&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.PropertyModel/IsSoftDelete.DisplayName" xml:space="preserve">
+    <value>Is Soft Delete</value>
+    <comment>DisplayName for DomainProperty &apos;IsSoftDelete&apos; on DomainClass &apos;PropertyModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.Comment.Description" xml:space="preserve">
     <value></value>
     <comment>Description for DomainClass &apos;Comment&apos;</comment>

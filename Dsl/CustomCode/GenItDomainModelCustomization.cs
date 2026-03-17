@@ -40,6 +40,12 @@ namespace Dyvenix.GenIt
                 // Audit property delete rule
                 typeof(AuditPropertyDeleteRule),
                 
+                // EntityModel SoftDelete rule
+                typeof(EntityModelSoftDeleteChangeRule),
+                
+                // SoftDelete property delete rule
+                typeof(SoftDeletePropertyDeleteRule),
+                
                 // Association navigation property rules
                 typeof(AssociationAddRule),
 				typeof(AssociationDeleteRule),

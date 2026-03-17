@@ -5497,6 +5497,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region IsSoftDelete domain property code
+		
+		/// <summary>
+		/// IsSoftDelete domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsSoftDeleteDomainPropertyId = new global::System.Guid(0x639afaa6, 0xad9a, 0x45a9, 0x8e, 0x37, 0x3f, 0x83, 0x0a, 0x3e, 0xe5, 0x15);
+		
+		/// <summary>
+		/// Storage for IsSoftDelete
+		/// </summary>
+		private global::System.Boolean isSoftDeletePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsSoftDelete domain property.
+		/// Description for Dyvenix.GenIt.PropertyModel.Is Soft Delete
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/IsSoftDelete.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/IsSoftDelete.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("639afaa6-ad9a-45a9-8e37-3f830a3ee515")]
+		public global::System.Boolean IsSoftDelete
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isSoftDeletePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsSoftDeletePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.IsSoftDelete domain property.
+		/// </summary>
+		internal sealed partial class IsSoftDeletePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Boolean>
+		{
+			private IsSoftDeletePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.IsSoftDelete domain property value handler.
+			/// </summary>
+			public static readonly IsSoftDeletePropertyHandler Instance = new IsSoftDeletePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.IsSoftDelete domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsSoftDeleteDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isSoftDeletePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isSoftDeletePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region EntityModel opposite domain role accessor
 		/// <summary>
 		/// Gets or sets EntityModel.

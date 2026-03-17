@@ -348,6 +348,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="639afaa6-ad9a-45a9-8e37-3f830a3ee515" Description="Description for Dyvenix.GenIt.PropertyModel.Is Soft Delete" Name="IsSoftDelete" DisplayName="Is Soft Delete">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="27906d32-ad8a-4efd-98c0-95e0c0798f7c" Description="" Name="Comment" DisplayName="Comment" Namespace="Dyvenix.GenIt">
@@ -1485,6 +1490,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="isAuditable">
             <DomainPropertyMoniker Name="PropertyModel/IsAuditable" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isSoftDelete">
+            <DomainPropertyMoniker Name="PropertyModel/IsSoftDelete" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

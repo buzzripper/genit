@@ -124,7 +124,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                 }
 
                 // Properties
-                foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion))
+                foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion && !p.IsSoftDelete && !p.IsAuditable))
                 {
                     var line = $"entity.Property(e => e.{prop.Name})";
                     if (!prop.IsNullable)
@@ -133,6 +133,41 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                         line += $".HasMaxLength({prop.Length})";
                     line += ";";
                     fileContent.AddLine(3, line);
+                }
+
+                // Auditable
+                if (entity.SoftDelete)
+                {
+                    fileContent.AddLine();
+                    fileContent.AddLine(3, "// Auditing");
+                    foreach (var prop in entity.Properties.Where(p => p.IsAuditable))
+                    {
+                        var line = $"entity.Property(e => e.{prop.Name})";
+                        if (!prop.IsNullable)
+                            line += ".IsRequired()";
+                        if (prop.DataType == DataTypes.String && prop.Length > 0)
+                            line += $".HasMaxLength({prop.Length})";
+                        line += ";";
+                        fileContent.AddLine(3, line);
+                    }
+                }
+
+                // Soft delete
+                if (entity.SoftDelete)
+                {
+                    fileContent.AddLine();
+                    fileContent.AddLine(3, "// Soft delete");
+                    fileContent.AddLine(3, $"modelBuilder.Entity<{entity.Name}>().HasQueryFilter(x => x.DeletedUtc == null);");
+                    foreach (var prop in entity.Properties.Where(p => p.IsSoftDelete))
+                    {
+                        var line = $"entity.Property(e => e.{prop.Name})";
+                        if (!prop.IsNullable)
+                            line += ".IsRequired()";
+                        if (prop.DataType == DataTypes.String && prop.Length > 0)
+                            line += $".HasMaxLength({prop.Length})";
+                        line += ";";
+                        fileContent.AddLine(3, line);
+                    }
                 }
 
                 // Indexes

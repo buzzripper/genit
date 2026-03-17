@@ -436,6 +436,8 @@
         </xsd:attribute>
         <!-- Property: IsAuditable -->
         <xsd:attribute name="isAuditable" type="xsd:boolean" />
+        <!-- Property: IsSoftDelete -->
+        <xsd:attribute name="isSoftDelete" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
