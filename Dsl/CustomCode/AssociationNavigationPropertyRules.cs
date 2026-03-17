@@ -639,6 +639,104 @@ namespace Dyvenix.GenIt
     }
 
     /// <summary>
+    /// Rule that fires when EntityModel.Auditable property changes.
+    /// Automatically creates or deletes 4 audit properties.
+    /// </summary>
+    [RuleOn(typeof(EntityModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class EntityModelAuditableChangeRule : ChangeRule
+    {
+        internal static readonly string[] AuditPropertyNames = new[]
+        {
+            "CreatedUtc",
+            "CreatedByUserId",
+            "ModifiedUtc",
+            "ModifiedByUserId"
+        };
+
+        public override void ElementPropertyChanged(ElementPropertyChangedEventArgs e)
+        {
+            if (e.DomainProperty.Id != EntityModel.AuditableDomainPropertyId)
+                return;
+
+            var entity = e.ModelElement as EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            bool newValue = (bool)e.NewValue;
+
+            if (newValue)
+                CreateAuditProperties(entity);
+            else
+                DeleteAuditProperties(entity);
+        }
+
+        private void CreateAuditProperties(EntityModel entity)
+        {
+            int maxOrder = entity.Properties.Count > 0 ? entity.Properties.Max(p => p.DisplayOrder) : 0;
+
+            CreateIfMissing(entity, "CreatedUtc", "DateTime", false, ref maxOrder);
+            CreateIfMissing(entity, "CreatedByUserId", "Guid", true, ref maxOrder);
+            CreateIfMissing(entity, "ModifiedUtc", "DateTime", false, ref maxOrder);
+            CreateIfMissing(entity, "ModifiedByUserId", "Guid", true, ref maxOrder);
+        }
+
+        private void CreateIfMissing(EntityModel entity, string name, string dataType, bool isNullable, ref int maxOrder)
+        {
+            if (entity.Properties.Any(p => p.Name == name))
+                return;
+
+			maxOrder++;
+			var prop = new PropertyModel(entity.Partition)
+			{
+				Name = name,
+				DataType = dataType,
+				IsNullable = isNullable,
+				IsAuditable = true,
+				DisplayOrder = maxOrder
+			};
+            entity.Properties.Add(prop);
+        }
+
+		private void DeleteAuditProperties(EntityModel entity)
+		{
+			var auditProps = entity.Properties.Where(p => p.IsAuditable).ToList();
+			foreach (var prop in auditProps)
+			{
+				if (!prop.IsDeleting && !prop.IsDeleted)
+					prop.Delete();
+			}
+		}
+    }
+
+    /// <summary>
+    /// Rule that fires when a PropertyModel is being deleted.
+    /// If it's an audit property, sync back to EntityModel.Auditable.
+    /// </summary>
+    [RuleOn(typeof(PropertyModel), FireTime = TimeToFire.TopLevelCommit)]
+    public class AuditPropertyDeleteRule : DeletingRule
+    {
+        public override void ElementDeleting(ElementDeletingEventArgs e)
+        {
+			var property = e.ModelElement as PropertyModel;
+			if (property == null)
+				return;
+
+			if (!property.IsAuditable)
+				return;
+
+            var entity = property.EntityModel;
+            if (entity == null || entity.IsDeleting || entity.IsDeleted)
+                return;
+
+            if (entity.Auditable)
+            {
+                entity.Auditable = false;
+            }
+        }
+    }
+
+
+    /// <summary>
     /// Rule that fires when EntityModel.Name changes.
     /// Syncs the name change to NavigationProperty.TargetEntityName for any navigation properties
     /// that reference this entity.

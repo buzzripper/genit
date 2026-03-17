@@ -3785,6 +3785,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region SoftDelete domain property code
+		
+		/// <summary>
+		/// SoftDelete domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid SoftDeleteDomainPropertyId = new global::System.Guid(0xaf7c76ed, 0x3261, 0x4dca, 0x81, 0xe5, 0x56, 0x8e, 0xd4, 0x8e, 0xad, 0xd2);
+		
+		/// <summary>
+		/// Storage for SoftDelete
+		/// </summary>
+		private global::System.Boolean softDeletePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of SoftDelete domain property.
+		/// Description for Dyvenix.GenIt.EntityModel.Soft Delete
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.EntityModel/SoftDelete.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.EntityModel/SoftDelete.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("af7c76ed-3261-4dca-81e5-568ed48eadd2")]
+		public global::System.Boolean SoftDelete
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return softDeletePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				SoftDeletePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the EntityModel.SoftDelete domain property.
+		/// </summary>
+		internal sealed partial class SoftDeletePropertyHandler : DslModeling::DomainPropertyValueHandler<EntityModel, global::System.Boolean>
+		{
+			private SoftDeletePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the EntityModel.SoftDelete domain property value handler.
+			/// </summary>
+			public static readonly SoftDeletePropertyHandler Instance = new SoftDeletePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the EntityModel.SoftDelete domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return SoftDeleteDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(EntityModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.softDeletePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(EntityModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.softDeletePropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 		#region Targets opposite domain role accessor
 		
 		/// <summary>
@@ -5317,6 +5404,93 @@ namespace Dyvenix.GenIt
 				{
 					ValueChanging(element, oldValue, newValue);
 					element.displayOrderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
+		#region IsAuditable domain property code
+		
+		/// <summary>
+		/// IsAuditable domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid IsAuditableDomainPropertyId = new global::System.Guid(0x6f7185a9, 0x347f, 0x484c, 0x9b, 0xaa, 0x92, 0x78, 0x7e, 0x77, 0xc8, 0x7e);
+		
+		/// <summary>
+		/// Storage for IsAuditable
+		/// </summary>
+		private global::System.Boolean isAuditablePropertyStorage;
+		
+		/// <summary>
+		/// Gets or sets the value of IsAuditable domain property.
+		/// Description for Dyvenix.GenIt.PropertyModel.Is Auditable
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.PropertyModel/IsAuditable.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.PropertyModel/IsAuditable.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("6f7185a9-347f-484c-9baa-92787e77c87e")]
+		public global::System.Boolean IsAuditable
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return isAuditablePropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				IsAuditablePropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the PropertyModel.IsAuditable domain property.
+		/// </summary>
+		internal sealed partial class IsAuditablePropertyHandler : DslModeling::DomainPropertyValueHandler<PropertyModel, global::System.Boolean>
+		{
+			private IsAuditablePropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the PropertyModel.IsAuditable domain property value handler.
+			/// </summary>
+			public static readonly IsAuditablePropertyHandler Instance = new IsAuditablePropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the PropertyModel.IsAuditable domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return IsAuditableDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.Boolean GetValue(PropertyModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.isAuditablePropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(PropertyModel element, global::System.Boolean newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.Boolean oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.isAuditablePropertyStorage = newValue;
 					ValueChanged(element, oldValue, newValue);
 				}
 			}

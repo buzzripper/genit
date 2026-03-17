@@ -2488,6 +2488,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// SoftDelete
+			if (!serializationContext.Result.Failed)
+			{
+				string attribSoftDelete = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "softDelete");
+				if (attribSoftDelete != null)
+				{
+					global::System.Boolean valueOfSoftDelete;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribSoftDelete, out valueOfSoftDelete))
+					{
+						instanceOfEntityModel.SoftDelete = valueOfSoftDelete;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "softDelete", typeof(global::System.Boolean), attribSoftDelete);
+					}
+				}
+			}
 		}
 	
 		/// <summary>
@@ -3435,6 +3452,16 @@ namespace Dyvenix.GenIt
 					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "inclAngDtos", serializedPropValue);
 				}
 			}
+			// SoftDelete
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfEntityModel.SoftDelete;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "softDelete", serializedPropValue);
+				}
+			}
 		}
 	
 		/// <summary>
@@ -4060,6 +4087,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// IsAuditable
+			if (!serializationContext.Result.Failed)
+			{
+				string attribIsAuditable = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "isAuditable");
+				if (attribIsAuditable != null)
+				{
+					global::System.Boolean valueOfIsAuditable;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.Boolean>(serializationContext, attribIsAuditable, out valueOfIsAuditable))
+					{
+						instanceOfPropertyModel.IsAuditable = valueOfIsAuditable;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "isAuditable", typeof(global::System.Boolean), attribIsAuditable);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -4620,6 +4664,16 @@ namespace Dyvenix.GenIt
 					{	// No need to write the value out if it's the same as default value.
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "displayOrder", serializedPropValue);
 					}
+				}
+			}
+			// IsAuditable
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.Boolean propValue = instanceOfPropertyModel.IsAuditable;
+				string serializedPropValue = DslModeling::SerializationUtilities.GetString<global::System.Boolean>(serializationContext, propValue);
+				if (!serializationContext.Result.Failed)
+				{
+					GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "isAuditable", serializedPropValue);
 				}
 			}
 		}

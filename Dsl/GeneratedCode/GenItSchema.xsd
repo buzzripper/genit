@@ -350,6 +350,8 @@
         <xsd:attribute name="genUnitTests" type="xsd:boolean" />
         <!-- Property: InclAngDtos -->
         <xsd:attribute name="inclAngDtos" type="xsd:boolean" />
+        <!-- Property: SoftDelete -->
+        <xsd:attribute name="softDelete" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
@@ -432,6 +434,8 @@
             <xsd:documentation>Display order for property in the editor grid</xsd:documentation>
           </xsd:annotation>
         </xsd:attribute>
+        <!-- Property: IsAuditable -->
+        <xsd:attribute name="isAuditable" type="xsd:boolean" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>
