@@ -8,7 +8,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
     internal class ApiSvcCollExtGenerator
     {
         private readonly ModelRoot _modelRoot;
-        private readonly Dictionary<ModuleModel, List<EntityModel>> _modules = new Dictionary<ModuleModel, List<EntityModel>>();
+        private readonly Dictionary<ModuleModel, List<EntityModel>> _moduleEntities = new Dictionary<ModuleModel, List<EntityModel>>();
 
         internal ApiSvcCollExtGenerator(ModelRoot modelRoot)
         {
@@ -23,17 +23,20 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
                     .Where(e => e.GenerateCode && e.Module == module.Name && e.ServiceModels.Count > 0)
                     .ToList();
                 if (entities.Any())
-                    _modules.Add(module, entities);
+                    _moduleEntities.Add(module, entities);
             }
         }
 
         internal void GenerateCode()
         {
-            foreach (var module in _modules.Keys)
+            foreach (var module in _moduleEntities.Keys)
             {
                 GenerateApiServiceCollExtCode(module);
                 if (_modelRoot.DbContextEnabled)
-                    GenerateDataServicesCollExt(module);
+                {
+                    var inclAuditing = _moduleEntities[module].Any(e => e.Auditable);
+                    GenerateDataServicesCollExt(module, inclAuditing);
+                }
             }
         }
 
@@ -71,34 +74,51 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             OutputHelper.Write($"Completed code gen for module: {module.Name}");
         }
 
-        private void GenerateDataServicesCollExt(ModuleModel module)
+        private void GenerateDataServicesCollExt(ModuleModel module, bool inclAuditing)
         {
             var fileContent = new List<string>();
 
             if (_modelRoot.InclHeader)
                 fileContent.Add(CodeGenUtils.FileHeader);
 
-            fileContent.AddLine(0, $"using {module.Namespace}.Api.Config;");
-            fileContent.AddLine(0, $"using {module.Namespace}.Api.Context;");
             fileContent.AddLine(0, $"using Microsoft.EntityFrameworkCore;");
             fileContent.AddLine(0, $"using Microsoft.Extensions.Configuration;");
             fileContent.AddLine(0, $"using Microsoft.Extensions.DependencyInjection;");
+            fileContent.AddLine(0, $"using {module.Namespace}.Api.Config;");
+            fileContent.AddLine(0, $"using {module.Namespace}.Api.Context;");
+            if (inclAuditing)
+                fileContent.AddLine(0, $"using {_modelRoot.CommonNamespace}.Data;");
+
             fileContent.AddLine();
             fileContent.AddLine(0, $"namespace {module.Namespace}.Api.Extensions;");
             fileContent.AddLine();
             fileContent.AddLine(0, $"public static partial class {module.Name}ApiServiceCollExt");
             fileContent.AddLine(0, "{");
+            fileContent.AddLine(1, "private static DbContextOptions<App1Db> _options;");
+            fileContent.AddLine();
             fileContent.AddLine(1, "static partial void AddDataServices(IServiceCollection services, IConfiguration configuration)");
             fileContent.AddLine(1, "{");
             fileContent.AddLine(2, "var dataConfig = DataConfigBuilder.Build(configuration);");
             fileContent.AddLine(2, "services.AddSingleton(dataConfig);");
             fileContent.AddLine();
-            fileContent.AddLine(2, "services.AddSingleton(sp =>");
+            fileContent.AddLine(2, "services.AddScoped(sp =>");
             fileContent.AddLine(2, "{");
-            fileContent.AddLine(3, $"var b = new DbContextOptionsBuilder<{_modelRoot.DbContextName}>();");
-            fileContent.AddLine(3, "b.UseSqlServer(dataConfig.ConnectionString);");
-            fileContent.AddLine(3, "return b.Options;");
+            fileContent.AddLine(3, "if (_options != null)");
+            fileContent.AddLine(3, "{");
+            fileContent.AddLine(4, $"var optionsBuilder = new DbContextOptionsBuilder<{_modelRoot.DbContextName}>();");
+            fileContent.AddLine(4, "optionsBuilder.UseSqlServer(dataConfig.ConnectionString);");
+            if (inclAuditing)
+                fileContent.AddLine(4, "optionsBuilder.AddInterceptors(sp.GetRequiredService<AuditingInterceptor>());");
+            fileContent.AddLine(4, "_options = optionsBuilder.Options;");
+            fileContent.AddLine(3, "}");
+            fileContent.AddLine(3, "return _options;");
             fileContent.AddLine(2, "});");
+
+            fileContent.AddLine();
+            fileContent.AddLine(2, $"services.AddScoped<{_modelRoot.DbContextName}>();");
+            if (inclAuditing)
+                fileContent.AddLine(2, "services.AddScoped<AuditingInterceptor>();");
+
             fileContent.AddLine(1, "}");
             fileContent.AddLine(0, "}");
 
@@ -119,7 +139,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             lines.AddLine(0, "using Microsoft.AspNetCore.Routing;");
             lines.AddLine(0, $"using {_modelRoot.CommonNamespace}.Api.Filters;");
 
-            var versions = _modules[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
+            var versions = _moduleEntities[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
             foreach (var version in versions)
             {
                 lines.AddLine(0, $"using s{version} = {module.Namespace}.Api.Services.{version};");
@@ -134,7 +154,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         {
             var lines = new List<string>();
 
-            foreach (var entity in _modules[module].Where(e => e.GenerateCode))
+            foreach (var entity in _moduleEntities[module].Where(e => e.GenerateCode))
             {
                 lines.AddLine(0, $"// {entity.Name}Service");
                 foreach (var service in entity.ServiceModels.OrderBy(s => s.Version))
@@ -151,7 +171,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
         {
             var lines = new List<string>();
 
-            foreach (var entity in _modules[module].Where(e => e.GenerateCode))
+            foreach (var entity in _moduleEntities[module].Where(e => e.GenerateCode))
             {
                 lines.AddLine(0, $"app.Map{entity.Name}Endpoints();");
             }

@@ -69,6 +69,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             // If any properties are enums, include the namespace
             if (entity.Properties.Any(p => !DataTypes.IsEnumType(p.DataType)))
                 fileContent.AddLine(0, $"using {_modelRoot.EnumsNamespace};");
+            // If it's an auditable entity, include the namespace for the IAuditable interface
+            if (entity.Auditable)
+                fileContent.AddLine(0, $"using {_modelRoot.CommonNamespace}.Shared.Contracts;");
 
             // Namespace 		
             fileContent.AddLine();
@@ -76,7 +79,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
             // Declaration
             fileContent.AddLine();
-            fileContent.AddLine(0, $"public partial class {entity.Name}");
+            var auditableInterface = entity.Auditable ? " : IAuditable" : null;
+            fileContent.AddLine(0, $"public partial class {entity.Name}{auditableInterface}");
             fileContent.AddLine(0, "{");
 
             // PK
