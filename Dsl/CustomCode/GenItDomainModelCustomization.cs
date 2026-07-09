@@ -34,6 +34,18 @@ namespace Dyvenix.GenIt
                 // RowVersion property delete rule
                 typeof(RowVersionPropertyDeleteRule),
                 
+                // EntityModel Auditable rule
+                typeof(EntityModelAuditableChangeRule),
+                
+                // Audit property delete rule
+                typeof(AuditPropertyDeleteRule),
+                
+                // EntityModel SoftDelete rule
+                typeof(EntityModelSoftDeleteChangeRule),
+                
+                // SoftDelete property delete rule
+                typeof(SoftDeletePropertyDeleteRule),
+                
                 // Association navigation property rules
                 typeof(AssociationAddRule),
 				typeof(AssociationDeleteRule),

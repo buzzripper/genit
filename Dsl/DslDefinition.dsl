@@ -235,6 +235,11 @@
             <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="af7c76ed-3261-4dca-81e5-568ed48eadd2" Description="Description for Dyvenix.GenIt.EntityModel.Soft Delete" Name="SoftDelete" DisplayName="Soft Delete">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
       </Properties>
       <ElementMergeDirectives>
         <ElementMergeDirective>
@@ -336,6 +341,16 @@
         <DomainProperty Id="c0c0c0c0-0000-0000-0000-000000000000" Description="Display order for property in the editor grid" Name="DisplayOrder" DisplayName="Display Order" DefaultValue="0" IsBrowsable="false">
           <Type>
             <ExternalTypeMoniker Name="/System/Int32" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="6f7185a9-347f-484c-9baa-92787e77c87e" Description="Description for Dyvenix.GenIt.PropertyModel.Is Auditable" Name="IsAuditable" DisplayName="Is Auditable">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
+          </Type>
+        </DomainProperty>
+        <DomainProperty Id="639afaa6-ad9a-45a9-8e37-3f830a3ee515" Description="Description for Dyvenix.GenIt.PropertyModel.Is Soft Delete" Name="IsSoftDelete" DisplayName="Is Soft Delete">
+          <Type>
+            <ExternalTypeMoniker Name="/System/Boolean" />
           </Type>
         </DomainProperty>
       </Properties>
@@ -1423,6 +1438,9 @@
           <XmlPropertyData XmlName="inclAngDtos">
             <DomainPropertyMoniker Name="EntityModel/InclAngDtos" />
           </XmlPropertyData>
+          <XmlPropertyData XmlName="softDelete">
+            <DomainPropertyMoniker Name="EntityModel/SoftDelete" />
+          </XmlPropertyData>
         </ElementData>
       </XmlClassData>
       <XmlClassData TypeName="PropertyModel" MonikerAttributeName="" SerializeId="true" MonikerElementName="propertyModelMoniker" ElementName="propertyModel" MonikerTypeName="PropertyModelMoniker">
@@ -1469,6 +1487,12 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="displayOrder">
             <DomainPropertyMoniker Name="PropertyModel/DisplayOrder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isAuditable">
+            <DomainPropertyMoniker Name="PropertyModel/IsAuditable" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="isSoftDelete">
+            <DomainPropertyMoniker Name="PropertyModel/IsSoftDelete" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

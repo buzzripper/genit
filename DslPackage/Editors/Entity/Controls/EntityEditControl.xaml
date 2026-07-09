@@ -139,12 +139,13 @@
             <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
         </Style>
         <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"/>
+            <Setter Property="Background" Value="#3D3D3D"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
             <Setter Property="BorderThickness" Value="0,0,1,1"/>
             <Setter Property="Padding" Value="6,4"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
         </Style>
         <Style TargetType="DataGridCell">
@@ -317,29 +318,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Row 0: Entity name (left), checkboxes (right) -->
+        <!-- Row 0: Entity name -->
         <Grid Grid.Row="0" Margin="0,0,0,8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Column="0" Text="Entity:" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,8,0"/>
             <TextBlock Grid.Column="1" x:Name="txtEntityName" Text="Entity" 
                        FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
-            
-            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,16,0"
-                          Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
-                <CheckBox x:Name="chkInclRowVersion" Content="Incl RowVersion" Margin="0,0,16,0"
-                          Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
-                <CheckBox x:Name="chkInclAngDtos" Content="Incl Ang DTOs" Margin="0,0,16,0"
-                          Checked="chkInclAngDtos_Changed" Unchecked="chkInclAngDtos_Changed"/>
-                <CheckBox x:Name="chkGenerateCode" Content="Gen Code"
-                          Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
-            </StackPanel>
         </Grid>
         
         <!-- Row 1: Name, Module, TableName, Attributes link (right-aligned), Usings link -->
@@ -380,13 +368,21 @@
             <!-- Properties Tab -->
             <TabItem Header="Properties">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="160"/>
+                    </Grid.ColumnDefinitions>
                     
-                    <!-- Properties header with add/delete buttons -->
-                    <Grid Grid.Row="0" Margin="0,4,0,4">
+                    <!-- Left: Properties grid -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                    
+                        <!-- Properties header with add/delete buttons -->
+                        <Grid Grid.Row="0" Margin="0,4,0,4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
@@ -426,10 +422,11 @@
                               PreviewMouseMove="dgProperties_PreviewMouseMove"
                               DragOver="dgProperties_DragOver"
                               Drop="dgProperties_Drop"
-                              BeginningEdit="dgProperties_BeginningEdit"
+                               BeginningEdit="dgProperties_BeginningEdit"
                               CellEditEnding="dgProperties_CellEditEnding"
                               RowEditEnding="dgProperties_RowEditEnding"
-                              SelectionChanged="dgProperties_SelectionChanged">
+                              SelectionChanged="dgProperties_SelectionChanged"
+                              GotKeyboardFocus="dgProperties_GotKeyboardFocus">
                         <DataGrid.Columns>
                             <!-- Handle column for drag - blank header, drag handle icon -->
                             <DataGridTemplateColumn Width="24" CanUserResize="False">
@@ -515,8 +512,8 @@
                             <DataGridTemplateColumn Header="Nullable" Width="100">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsNullable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox IsChecked="{Binding IsNullable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
+                                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -552,7 +549,26 @@
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
-                    </DataGrid>
+                        </DataGrid>
+                    </Grid>
+                    
+                    <!-- GridSplitter -->
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Center" VerticalAlignment="Stretch"
+                                  Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}"/>
+                    
+                    <!-- Right: Entity options -->
+                    <StackPanel Grid.Column="2" Margin="8,4,0,0">
+                        <CheckBox x:Name="chkGenerateCode" Content="Generate Code" Margin="0,0,0,8"
+                                  Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
+                        <CheckBox x:Name="chkInclRowVersion" Content="Include Row Version" Margin="0,0,0,8"
+                                  Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
+                        <CheckBox x:Name="chkInclAngDtos" Content="Include Angular DTOs" Margin="0,0,0,8"
+                                  Checked="chkInclAngDtos_Changed" Unchecked="chkInclAngDtos_Changed"/>
+                        <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,0,8"
+                                  Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
+                        <CheckBox x:Name="chkSoftDelete" Content="Soft Delete" Margin="0,0,0,8"
+                                  Checked="chkSoftDelete_Changed" Unchecked="chkSoftDelete_Changed"/>
+                    </StackPanel>
                     
                     <!-- Popup for multiline text editing (Usings/Attributes) -->
                     <Popup x:Name="popupEditor" Placement="Center" StaysOpen="False" 

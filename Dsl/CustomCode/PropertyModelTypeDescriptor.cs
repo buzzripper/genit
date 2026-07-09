@@ -41,8 +41,46 @@ namespace Dyvenix.GenIt
 				"Attributes",
 				"Usings",
 				"IsPrimaryKey",
+				"IsNullable",
 				"IsIdentity",
 				"IsIndexed",
+				"IsIndexUnique",
+				"IsIndexClustered",
+				"IsForeignKey",
+				"DisplayOrder"
+			};
+
+		private static readonly System.Collections.Generic.HashSet<string> ReadOnlyPropertiesForAuditable =
+			new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase)
+			{
+				"Name",
+				"DataType",
+				"Length",
+				"InitialValue",
+				"Attributes",
+				"Usings",
+				"IsPrimaryKey",
+				"IsNullable",
+				"IsIdentity",
+				"IsIndexUnique",
+				"IsIndexClustered",
+				"IsForeignKey",
+				"IsNullable",
+				"DisplayOrder"
+			};
+
+		private static readonly System.Collections.Generic.HashSet<string> ReadOnlyPropertiesForSoftDelete =
+			new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase)
+			{
+				"Name",
+				"DataType",
+				"Length",
+				"InitialValue",
+				"Attributes",
+				"Usings",
+				"IsPrimaryKey",
+				"IsNullable",
+				"IsIdentity",
 				"IsIndexUnique",
 				"IsIndexClustered",
 				"IsForeignKey",
@@ -98,6 +136,18 @@ namespace Dyvenix.GenIt
 
 			// Make specific properties read-only for RowVersion (avoid read-only for editable properties like IsNullable)
 			if (_propertyModel.IsRowVersion && ReadOnlyPropertiesForRowVersion.Contains(property.Name))
+			{
+				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+			}
+
+			// Make specific properties read-only for Auditable (IsIndexed remains editable)
+			if (_propertyModel.IsAuditable && ReadOnlyPropertiesForAuditable.Contains(property.Name))
+			{
+				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
+			}
+
+			// Make specific properties read-only for SoftDelete (IsIndexed remains editable)
+			if (_propertyModel.IsSoftDelete && ReadOnlyPropertiesForSoftDelete.Contains(property.Name))
 			{
 				return TypeDescriptorHelper.CreateReadOnlyPropertyDescriptor(property);
 			}
