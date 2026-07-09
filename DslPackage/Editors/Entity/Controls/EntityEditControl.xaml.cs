@@ -322,6 +322,13 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
                 _properties.Add(newProperty);
                 dgProperties.SelectedItem = newProperty;
+                dgProperties.ScrollIntoView(newProperty);
+
+                dgProperties.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    dgProperties.CurrentCell = new DataGridCellInfo(newProperty, dgProperties.Columns[0]);
+                    dgProperties.BeginEdit();
+                }), DispatcherPriority.Background);
             }
         }
 
@@ -782,15 +789,52 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
             }
         }
 
+        private void dgProperties_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (e.NewFocus is TextBox tb)
+            {
+                tb.SelectAll();
+            }
+        }
+
         private void dgProperties_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (_isUpdating || _entityModel == null)
                 return;
 
-            if (e.Key == Key.Insert)
+            if (e.Key == Key.Insert && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 btnAddProperty_Click(btnAddProperty, new RoutedEventArgs());
                 e.Handled = true;
+                return;
+            }
+
+            if (e.Key == Key.Space)
+            {
+                var focusedElement = Keyboard.FocusedElement as DependencyObject;
+                if (focusedElement == null)
+                    return;
+
+                var cell = focusedElement as DataGridCell ?? FindVisualParent<DataGridCell>(focusedElement);
+                if (cell == null)
+                    return;
+
+                var row = FindVisualParent<DataGridRow>(cell);
+                if (row?.Item is PropertyModel property)
+                {
+                    var header = cell.Column?.Header?.ToString();
+                    var checkboxHeaders = new[] { "PK", "Index", "Nullable", "Unique Idx", "Clustered Idx", "Identity" };
+                    if (!checkboxHeaders.Contains(header))
+                        return;
+
+                    if (property.IsRowVersion) { e.Handled = true; return; }
+                    if (property.IsAuditable && header != "Index") { e.Handled = true; return; }
+                    if (property.IsSoftDelete && header != "Index") { e.Handled = true; return; }
+
+                    dgProperties.CommitEdit(DataGridEditingUnit.Row, true);
+                    ToggleCheckboxProperty(property, cell);
+                    e.Handled = true;
+                }
             }
         }
     }

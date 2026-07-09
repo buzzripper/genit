@@ -103,7 +103,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
             fileContent.AddLine();
             fileContent.AddLine(2, "services.AddScoped(sp =>");
             fileContent.AddLine(2, "{");
-            fileContent.AddLine(3, "if (_options != null)");
+            fileContent.AddLine(3, "if (_options == null)");
             fileContent.AddLine(3, "{");
             fileContent.AddLine(4, $"var optionsBuilder = new DbContextOptionsBuilder<{_modelRoot.DbContextName}>();");
             fileContent.AddLine(4, "optionsBuilder.UseSqlServer(dataConfig.ConnectionString);");
