@@ -68,13 +68,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Modeling" Version="17.0.*-*" />
-  </ItemGroup>
+  <Reference Include="Microsoft.VisualStudio.Modeling.Sdk">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Modeling.Sdk.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PrivateAssemblies\Microsoft.VisualStudio.Modeling.Sdk.Diagrams.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Microsoft.VisualStudio.TextTemplating">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.Interfaces.11.0.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+  <Reference Include="Microsoft.VisualStudio.TextTemplating.Modeling">
+    <HintPath>$(VSINSTALLDIR)Common7\IDE\PublicAssemblies\Microsoft.VisualStudio.TextTemplating.Modeling.dll</HintPath>
+    <Private>False</Private>
+  </Reference>
+</ItemGroup>
   <ItemGroup>
     <None Include="..\Key.snk">
       <Link>Key.snk</Link>
@@ -97,7 +115,10 @@
     <Compile Include="CustomCode\FilterPropertyModelPartial.cs" />
     <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
+    <Compile Include="CustomCode\GenItDiagramFixupMultiView.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
+    <Compile Include="CustomCode\GenItSerializationHelperMultiView.cs" />
+    <Compile Include="CustomCode\GenItViewTargeting.cs" />
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
     <Compile Include="CustomCode\ModelRootPartial.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />

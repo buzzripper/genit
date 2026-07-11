@@ -13,8 +13,37 @@
   <Extern href="virtkeys.h"/>
   <Extern href="DSLToolsCmdID.h"/>
   <Include href="GeneratedCode\GeneratedVsct.vsct"/>
-  
+
   <Commands package="guidPkg">
+    <Menus>
+      <!-- Document toolbar hosted on the GenIt diagram window (see GenItDocView.EnsureToolbarAttached). -->
+      <Menu guid="guidCmdSet" id="menuidViewToolbar" priority="0x0000" type="Toolbar">
+        <CommandFlag>DefaultDocked</CommandFlag>
+        <Strings>
+          <ButtonText>GenIt Views</ButtonText>
+          <CommandName>GenIt Views</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+    <Groups>
+      <Group guid="guidCmdSet" id="grpidViewToolbarGroup" priority="0x0000">
+        <Parent guid="guidCmdSet" id="menuidViewToolbar"/>
+      </Group>
+    </Groups>
+    <Combos>
+      <!-- View-selector dropdown. Its items are supplied by cmdidViewSelectorComboGetList. -->
+      <Combo guid="guidCmdSet" id="cmdidViewSelectorCombo" priority="0x0100" type="DropDownCombo" defaultWidth="160" idCommandList="cmdidViewSelectorComboGetList">
+        <Parent guid="guidCmdSet" id="grpidViewToolbarGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>StretchHorizontally</CommandFlag>
+        <Strings>
+          <ButtonText>View</ButtonText>
+          <MenuText>View</MenuText>
+          <ToolTipText>Select the active diagram view</ToolTipText>
+          <CanonicalName>GenIt View Selector</CanonicalName>
+        </Strings>
+      </Combo>
+    </Combos>
     <Buttons>
       <Button guid="guidCmdSet" id="cmdidGenerateCode" priority="0x0100" type="Button">
         <Parent guid="guidCmdSet" id="grpidContextMain"/>
@@ -48,9 +77,47 @@
           <ButtonText>Validate Model</ButtonText>
         </Strings>
       </Button>
+      <!-- Model Explorer command: add the selected element to the active diagram view. -->
+      <Button guid="guidCmdSet" id="cmdidAddToCurrentView" priority="0x0104" type="Button">
+        <Parent guid="guidCmdSet" id="grpidExplorerCopyPaste"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Current View</ButtonText>
+          <ToolTipText>Add this element to the current diagram view</ToolTipText>
+        </Strings>
+      </Button>
+      <!-- View management commands hosted on the document toolbar. -->
+      <Button guid="guidCmdSet" id="cmdidNewView" priority="0x0110" type="Button">
+        <Parent guid="guidCmdSet" id="grpidViewToolbarGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextOnly</CommandFlag>
+        <Strings>
+          <ButtonText>New View</ButtonText>
+          <ToolTipText>Create a new diagram view</ToolTipText>
+        </Strings>
+      </Button>
+      <Button guid="guidCmdSet" id="cmdidRenameView" priority="0x0111" type="Button">
+        <Parent guid="guidCmdSet" id="grpidViewToolbarGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextOnly</CommandFlag>
+        <Strings>
+          <ButtonText>Rename View</ButtonText>
+          <ToolTipText>Rename the current diagram view</ToolTipText>
+        </Strings>
+      </Button>
+      <Button guid="guidCmdSet" id="cmdidDeleteView" priority="0x0112" type="Button">
+        <Parent guid="guidCmdSet" id="grpidViewToolbarGroup"/>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <CommandFlag>TextOnly</CommandFlag>
+        <Strings>
+          <ButtonText>Delete View</ButtonText>
+          <ToolTipText>Delete the current diagram view</ToolTipText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
-  
+
   <Symbols>
     <GuidSymbol name="guidCmdSet" value="{94fe6316-0e08-4ace-9bb9-f1c3774d3a14}">
       <IDSymbol name="grpidContextMain" value="0x20000"/>
@@ -58,6 +125,15 @@
       <IDSymbol name="cmdidAddNewService" value="0x0101"/>
       <IDSymbol name="cmdidRemoveFromView" value="0x0102"/>
       <IDSymbol name="cmdidValidateModel" value="0x0103"/>
+      <IDSymbol name="cmdidAddToCurrentView" value="0x0104"/>
+      <!-- Multi-view document toolbar -->
+      <IDSymbol name="menuidViewToolbar" value="0x11000"/>
+      <IDSymbol name="grpidViewToolbarGroup" value="0x21000"/>
+      <IDSymbol name="cmdidViewSelectorCombo" value="0x0200"/>
+      <IDSymbol name="cmdidViewSelectorComboGetList" value="0x0201"/>
+      <IDSymbol name="cmdidNewView" value="0x0202"/>
+      <IDSymbol name="cmdidRenameView" value="0x0203"/>
+      <IDSymbol name="cmdidDeleteView" value="0x0204"/>
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -1,13 +1,5 @@
 using Dyvenix.GenIt.DslPackage.CustomCode;
 using Dyvenix.GenIt.DslPackage.Editors;
-using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.Threading;
-using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using VSShell = Microsoft.VisualStudio.Shell;
 
 namespace Dyvenix.GenIt
@@ -39,7 +31,7 @@ namespace Dyvenix.GenIt
 			{
 				_solution.AdviseSolutionEvents(this, out _solutionEventsCookie);
 
-			// Check if a solution is already open
+				// Check if a solution is already open
 				if (_solution.GetSolutionInfo(out string solutionDirectory, out string solutionFile, out string userOptsFile) == VSConstants.S_OK
 					&& !string.IsNullOrEmpty(solutionDirectory))
 				{

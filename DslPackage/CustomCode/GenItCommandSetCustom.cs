@@ -6,7 +6,9 @@ using Microsoft.VisualStudio.Modeling.Shell;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
@@ -17,6 +19,7 @@ namespace Dyvenix.GenIt
 		private CommandID _addServiceCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0101);
 		private CommandID _removeFromViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0102);
 		private CommandID _validateModelCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0103);
+		private CommandID _addToCurrentViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0104);
 
 		/// <summary>
 		/// Provide the menu commands that this command set handles
@@ -47,6 +50,13 @@ namespace Dyvenix.GenIt
 				_removeFromViewCommandId);
 			commands.Add(removeFromViewCommand);
 
+			// Add the "Add to Current View" command (Model Explorer)
+			DynamicStatusMenuCommand addToCurrentViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusAddToCurrentView),
+				new EventHandler(OnMenuAddToCurrentView),
+				_addToCurrentViewCommandId);
+			commands.Add(addToCurrentViewCommand);
+
 			// Add the "Validate Model" command
 			DynamicStatusMenuCommand validateModelCommand = new DynamicStatusMenuCommand(
 				new EventHandler(OnStatusGenerateCode),
@@ -54,8 +64,314 @@ namespace Dyvenix.GenIt
 				_validateModelCommandId);
 			commands.Add(validateModelCommand);
 
+			// Multi-view document toolbar commands.
+
+			// The view-selector combo. A single command handles both display (args is null/empty)
+			// and selection (args carries the picked text); a companion "get list" command supplies
+			// the item list.
+			OleMenuCommand viewSelectorCombo = new OleMenuCommand(
+				new EventHandler(OnMenuViewSelectorCombo),
+				GenItMultiViewCommands.ViewSelectorCombo);
+			viewSelectorCombo.BeforeQueryStatus += OnStatusViewSelectorCombo;
+			commands.Add(viewSelectorCombo);
+
+			OleMenuCommand viewSelectorComboGetList = new OleMenuCommand(
+				new EventHandler(OnMenuViewSelectorComboGetList),
+				GenItMultiViewCommands.ViewSelectorComboGetList);
+			commands.Add(viewSelectorComboGetList);
+
+			DynamicStatusMenuCommand newViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusViewCommand),
+				new EventHandler(OnMenuNewView),
+				GenItMultiViewCommands.NewView);
+			commands.Add(newViewCommand);
+
+			DynamicStatusMenuCommand renameViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusViewCommand),
+				new EventHandler(OnMenuRenameView),
+				GenItMultiViewCommands.RenameView);
+			commands.Add(renameViewCommand);
+
+			DynamicStatusMenuCommand deleteViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusDeleteView),
+				new EventHandler(OnMenuDeleteView),
+				GenItMultiViewCommands.DeleteView);
+			commands.Add(deleteViewCommand);
+
 			return commands;
 		}
+
+		#region Multi-view toolbar commands
+
+		/// <summary>
+		/// Returns the currently focused GenIt document view, or null.
+		/// </summary>
+		private GenItDocView CurrentView
+		{
+			get { return this.MonitorSelection.CurrentDocumentView as GenItDocView; }
+		}
+
+		/// <summary>
+		/// Enables the combo whenever a GenIt document with at least one view is active.
+		/// </summary>
+		private void OnStatusViewSelectorCombo(object sender, EventArgs args)
+		{
+			if (!(sender is OleMenuCommand command))
+				return;
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			bool available = docData != null && docData.Views != null && docData.Views.Count > 0;
+			command.Visible = true;
+			command.Enabled = available;
+		}
+
+		/// <summary>
+		/// Handles both display and selection for the view-selector combo. When
+		/// <see cref="OleMenuCmdEventArgs.InValue"/> carries text, that view becomes active; when
+		/// <see cref="OleMenuCmdEventArgs.OutValue"/> is set, the current view name is returned for
+		/// display.
+		/// </summary>
+		private void OnMenuViewSelectorCombo(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			if (!(args is OleMenuCmdEventArgs eventArgs))
+				return;
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			GenItDocView docView = this.CurrentView;
+			if (docData == null || docView == null)
+				return;
+
+			string input = eventArgs.InValue as string;
+			IntPtr outPtr = eventArgs.OutValue;
+
+			if (outPtr != IntPtr.Zero)
+			{
+				// VS is asking for the current display text.
+				GenItDiagram current = docView.CurrentView;
+				string currentName = GenItSerializationHelper.GetViewName(current);
+				Marshal.GetNativeVariantForObject(currentName, outPtr);
+				return;
+			}
+
+			if (!string.IsNullOrEmpty(input))
+			{
+				// User picked (or typed) a view name.
+				GenItDiagram target = docData.GetViewByName(input.Trim());
+				if (target != null)
+				{
+					docView.SwitchToView(target);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Supplies the list of view names shown in the combo dropdown.
+		/// </summary>
+		private void OnMenuViewSelectorComboGetList(object sender, EventArgs args)
+		{
+			if (!(args is OleMenuCmdEventArgs eventArgs))
+				return;
+
+			IntPtr outPtr = eventArgs.OutValue;
+			if (outPtr == IntPtr.Zero)
+				return;
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			List<string> names = new List<string>();
+			if (docData != null && docData.Views != null)
+			{
+				foreach (GenItDiagram view in docData.Views)
+				{
+					names.Add(GenItSerializationHelper.GetViewName(view));
+				}
+			}
+
+			Marshal.GetNativeVariantForObject(names.ToArray(), outPtr);
+		}
+
+		/// <summary>
+		/// Enables New/Rename when a GenIt document is active.
+		/// </summary>
+		private void OnStatusViewCommand(object sender, EventArgs args)
+		{
+			if (!(sender is MenuCommand command))
+				return;
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			command.Visible = true;
+			command.Enabled = docData != null && docData.Views != null && docData.Views.Count > 0;
+		}
+
+		/// <summary>
+		/// Enables Delete only when more than one view exists.
+		/// </summary>
+		private void OnStatusDeleteView(object sender, EventArgs args)
+		{
+			if (!(sender is MenuCommand command))
+				return;
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			command.Visible = true;
+			command.Enabled = docData != null && docData.Views != null && docData.Views.Count > 1;
+		}
+
+		/// <summary>
+		/// Creates a new view (prompting for a name) and switches to it.
+		/// </summary>
+		private void OnMenuNewView(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			GenItDocView docView = this.CurrentView;
+			if (docData == null || docView == null)
+				return;
+
+			string name = PromptForViewName("New View", "Enter a name for the new view:", SuggestViewName(docData));
+			if (string.IsNullOrEmpty(name))
+				return;
+
+			if (docData.ViewNameExists(name))
+			{
+				ShowError($"A view named '{name}' already exists.");
+				return;
+			}
+
+			try
+			{
+				GenItDiagram view = docData.CreateView(name);
+				docView.SwitchToView(view);
+			}
+			catch (Exception ex)
+			{
+				ShowError(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Renames the current view.
+		/// </summary>
+		private void OnMenuRenameView(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			GenItDocView docView = this.CurrentView;
+			if (docData == null || docView == null)
+				return;
+
+			GenItDiagram current = docView.CurrentView;
+			if (current == null)
+				return;
+
+			string oldName = GenItSerializationHelper.GetViewName(current);
+			string name = PromptForViewName("Rename View", "Enter a new name for the view:", oldName);
+			if (string.IsNullOrEmpty(name) || string.Equals(name, oldName, StringComparison.Ordinal))
+				return;
+
+			if (docData.ViewNameExists(name))
+			{
+				ShowError($"A view named '{name}' already exists.");
+				return;
+			}
+
+			try
+			{
+				docData.RenameView(current, name);
+			}
+			catch (Exception ex)
+			{
+				ShowError(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Deletes the current view after confirmation and switches to a neighbouring view.
+		/// </summary>
+		private void OnMenuDeleteView(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			GenItDocData docData = this.CurrentGenItDocData;
+			GenItDocView docView = this.CurrentView;
+			if (docData == null || docView == null)
+				return;
+
+			GenItDiagram current = docView.CurrentView;
+			if (current == null)
+				return;
+
+			if (docData.Views.Count <= 1)
+			{
+				ShowError("The last remaining view cannot be deleted.");
+				return;
+			}
+
+			string name = GenItSerializationHelper.GetViewName(current);
+			int result = VsShellUtilities.ShowMessageBox(
+				this.ServiceProvider,
+				$"Delete view '{name}'? Shapes on other views are not affected.",
+				"Delete View",
+				OLEMSGICON.OLEMSGICON_QUERY,
+				OLEMSGBUTTON.OLEMSGBUTTON_YESNO,
+				OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND);
+			if (result != (int)DialogResult.Yes)
+				return;
+
+			try
+			{
+				GenItDiagram next = docData.DeleteView(current);
+				docView.SwitchToView(next);
+			}
+			catch (Exception ex)
+			{
+				ShowError(ex.Message);
+			}
+		}
+
+		/// <summary>
+		/// Suggests a unique default name like "View 2".
+		/// </summary>
+		private static string SuggestViewName(GenItDocData docData)
+		{
+			int n = (docData.Views?.Count ?? 0) + 1;
+			string candidate;
+			do
+			{
+				candidate = "View " + n;
+				n++;
+			}
+			while (docData.ViewNameExists(candidate));
+			return candidate;
+		}
+
+		/// <summary>
+		/// Prompts the user for a view name using a simple modal input dialog.
+		/// </summary>
+		private string PromptForViewName(string title, string prompt, string defaultValue)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			return ViewNamePrompt.Show(title, prompt, defaultValue);
+		}
+
+		/// <summary>
+		/// Shows an error message box.
+		/// </summary>
+		private void ShowError(string message)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+			VsShellUtilities.ShowMessageBox(
+				this.ServiceProvider,
+				message,
+				"View",
+				OLEMSGICON.OLEMSGICON_CRITICAL,
+				OLEMSGBUTTON.OLEMSGBUTTON_OK,
+				OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+		}
+
+		#endregion
 
 		#region Generate Code Command
 
@@ -517,6 +833,102 @@ namespace Dyvenix.GenIt
 					MessageBoxButtons.OK,
 					MessageBoxIcon.Error);
 			}
+		}
+
+		#endregion
+
+		#region Add to Current View Command
+
+		/// <summary>
+		/// Shows "Add to Current View" on the Model Explorer context menu when the selected model
+		/// element can be shown as a shape and is not already present on the active view.
+		/// </summary>
+		private void OnStatusAddToCurrentView(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			if (!(sender is MenuCommand command))
+				return;
+
+			command.Visible = false;
+			command.Enabled = false;
+
+			GenItDocView docView = this.CurrentView;
+			GenItDiagram currentView = docView?.CurrentView;
+			if (currentView == null)
+				return;
+
+			ModelElement element = GetShapeableExplorerSelection();
+			if (element == null)
+				return;
+
+			command.Visible = true;
+			command.Enabled = !HasShapeOnDiagram(element, currentView);
+		}
+
+		/// <summary>
+		/// Adds a shape for the selected model element to the active view only, leaving other views
+		/// unchanged. Uses a targeting scope so view fix-up is routed to the current diagram.
+		/// </summary>
+		private void OnMenuAddToCurrentView(object sender, EventArgs args)
+		{
+			ThreadHelper.ThrowIfNotOnUIThread();
+
+			try
+			{
+				GenItDocView docView = this.CurrentView;
+				GenItDocData docData = this.CurrentGenItDocData;
+				GenItDiagram currentView = docView?.CurrentView;
+				ModelElement element = GetShapeableExplorerSelection();
+				ModelRoot modelRoot = docData?.RootElement as ModelRoot;
+
+				if (currentView == null || element == null || modelRoot == null)
+					return;
+
+				if (HasShapeOnDiagram(element, currentView))
+					return;
+
+				using (GenItViewTargeting.BeginTargetScope(currentView))
+				using (Transaction transaction = element.Store.TransactionManager.BeginTransaction("Add to View"))
+				{
+					Diagram.FixUpDiagram(modelRoot, element);
+					transaction.Commit();
+				}
+
+				docData.MarkDocumentChangedForBackup();
+			}
+			catch (Exception ex)
+			{
+				ShowError($"Error adding element to view: {ex.Message}");
+			}
+		}
+
+		/// <summary>
+		/// Returns the Model Explorer's selected element when it can be shown as a top-level shape
+		/// (entity, enum, module, interface or comment); otherwise null.
+		/// </summary>
+		private ModelElement GetShapeableExplorerSelection()
+		{
+			ModelElement element = this.ExplorerSelection as ModelElement;
+			if (element is EntityModel || element is EnumModel || element is ModuleModel ||
+				element is ModelInterface || element is Comment)
+			{
+				return element;
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// True when the given element already has a shape on the specified diagram.
+		/// </summary>
+		private static bool HasShapeOnDiagram(ModelElement element, Diagram diagram)
+		{
+			foreach (PresentationElement presentation in PresentationViewsSubject.GetPresentation(element))
+			{
+				if (presentation is ShapeElement shape && shape.Diagram == diagram)
+					return true;
+			}
+			return false;
 		}
 
 		#endregion
