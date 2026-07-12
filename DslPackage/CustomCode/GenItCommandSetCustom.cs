@@ -17,6 +17,7 @@ namespace Dyvenix.GenIt
 		private CommandID _addServiceCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0101);
 		private CommandID _removeFromViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0102);
 		private CommandID _validateModelCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0103);
+		private CommandID _addToCurrentViewCommandId = new CommandID(new Guid(Constants.GenItCommandSetId), 0x0104);
 
 		/// <summary>
 		/// Provide the menu commands that this command set handles
@@ -53,6 +54,12 @@ namespace Dyvenix.GenIt
 				new EventHandler(OnMenuValidateModel),
 				_validateModelCommandId);
 			commands.Add(validateModelCommand);
+
+			DynamicStatusMenuCommand addToCurrentViewCommand = new DynamicStatusMenuCommand(
+				new EventHandler(OnStatusAddToCurrentView),
+				new EventHandler(OnMenuAddToCurrentView),
+				_addToCurrentViewCommandId);
+			commands.Add(addToCurrentViewCommand);
 
 			return commands;
 		}
@@ -235,6 +242,93 @@ namespace Dyvenix.GenIt
 			OutputHelper.Write("Model validated.");
 
 			return model;
+		}
+
+		#endregion
+
+		#region Add To Current View Command
+
+		private void OnStatusAddToCurrentView(object sender, EventArgs args)
+		{
+			var command = sender as MenuCommand;
+			if (command == null)
+			{
+				return;
+			}
+
+			command.Visible = false;
+			command.Enabled = false;
+
+			var docData = this.CurrentGenItDocData;
+			var diagramViews = docData?.EnsureDiagramViews();
+			if (diagramViews == null)
+			{
+				return;
+			}
+
+			var entityModel = GetEntityModelForAddToCurrentView();
+			if (entityModel == null)
+			{
+				return;
+			}
+
+			command.Visible = true;
+			command.Enabled = !diagramViews.ContainsElement(entityModel);
+		}
+
+		private void OnMenuAddToCurrentView(object sender, EventArgs args)
+		{
+			try
+			{
+				var docData = this.CurrentGenItDocData;
+				var docView = this.CurrentGenItDocView;
+				var entityModel = GetEntityModelForAddToCurrentView();
+				var diagramViews = docData?.EnsureDiagramViews();
+				if (diagramViews == null || docView?.Diagram == null || entityModel == null)
+				{
+					return;
+				}
+
+				diagramViews.AddElement(entityModel, docView.Diagram);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(
+					$"Error adding element to current view: {ex.Message}",
+					"Add to Current View Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error);
+			}
+		}
+
+		private EntityModel GetEntityModelForAddToCurrentView()
+		{
+			var explorerSelection = this.ExplorerSelection as EntityModel;
+			if (explorerSelection != null)
+			{
+				return explorerSelection;
+			}
+
+			var selection = this.CurrentSelection;
+			if (selection == null)
+			{
+				return null;
+			}
+
+			foreach (object selectedObject in selection)
+			{
+				if (selectedObject is ClassShape classShape && classShape.ModelElement is EntityModel entityModel)
+				{
+					return entityModel;
+				}
+
+				if (selectedObject is EntityModel selectedEntity)
+				{
+					return selectedEntity;
+				}
+			}
+
+			return null;
 		}
 
 		#endregion
@@ -422,43 +516,46 @@ namespace Dyvenix.GenIt
 				if (selection == null || selection.Count == 0)
 					return;
 
-				// Collect all shapes to remove
-				var shapesToRemove = new System.Collections.Generic.List<NodeShape>();
+				var docData = this.CurrentGenItDocData;
+				var docView = this.CurrentGenItDocView;
+
+				// Collect all elements to remove
+				var elementsToRemove = new System.Collections.Generic.List<ModelElement>();
 				string elementName = null;
 
 				foreach (object selectedObject in selection)
 				{
-					NodeShape shapeToRemove = null;
+					ModelElement elementToRemove = null;
 
 					if (selectedObject is ClassShape classShape && classShape.ModelElement is EntityModel entityModel)
 					{
-						shapeToRemove = classShape;
+						elementToRemove = entityModel;
 						elementName = entityModel.Name;
 					}
 					else if (selectedObject is EnumShape enumShape && enumShape.ModelElement is EnumModel enumModel)
 					{
-						shapeToRemove = enumShape;
+						elementToRemove = enumModel;
 						elementName = enumModel.Name;
 					}
 					else if (selectedObject is ModuleShape moduleShape && moduleShape.ModelElement is ModuleModel moduleModel)
 					{
-						shapeToRemove = moduleShape;
+						elementToRemove = moduleModel;
 						elementName = moduleModel.Name;
 					}
 
-					if (shapeToRemove != null && !shapesToRemove.Contains(shapeToRemove))
+					if (elementToRemove != null && !elementsToRemove.Contains(elementToRemove))
 					{
-						shapesToRemove.Add(shapeToRemove);
+						elementsToRemove.Add(elementToRemove);
 					}
 				}
 
-				if (shapesToRemove.Count == 0)
+				if (elementsToRemove.Count == 0)
 					return;
 
 				// Show confirmation dialog
-				string message = shapesToRemove.Count == 1
+				string message = elementsToRemove.Count == 1
 					? $"Remove '{elementName}' from this view?\n\nThe element will remain in the model and can be added back to this view later."
-					: $"Remove {shapesToRemove.Count} elements from this view?\n\nThe elements will remain in the model and can be added back to this view later.";
+					: $"Remove {elementsToRemove.Count} elements from this view?\n\nThe elements will remain in the model and can be added back to this view later.";
 
 				DialogResult result = MessageBox.Show(
 					message,
@@ -470,15 +567,30 @@ namespace Dyvenix.GenIt
 				if (result != DialogResult.Yes)
 					return;
 
-				// Get the document data to mark it dirty
-				GenItDocData docData = this.CurrentGenItDocData;
+				var diagramViews = docData?.EnsureDiagramViews();
+				if (diagramViews != null && docView?.Diagram is GenItDiagram diagram)
+				{
+					foreach (var element in elementsToRemove)
+					{
+						diagramViews.RemoveElement(element, diagram);
+					}
+					return;
+				}
 
-				// Remove shapes within a transaction
+				// Remove shapes within a transaction when view state is unavailable.
+				var shapesToRemove = new System.Collections.Generic.List<NodeShape>();
+				foreach (object selectedObject in selection)
+				{
+					if (selectedObject is NodeShape nodeShape && !shapesToRemove.Contains(nodeShape))
+					{
+						shapesToRemove.Add(nodeShape);
+					}
+				}
+
 				using (Transaction transaction = shapesToRemove[0].Store.TransactionManager.BeginTransaction("Remove from View"))
 				{
 					foreach (var shape in shapesToRemove)
 					{
-						// Also remove any connectors connected to this shape
 						var connectorsToRemove = new System.Collections.Generic.List<LinkShape>();
 						foreach (LinkShape ls in shape.FromRoleLinkShapes)
 						{
@@ -496,17 +608,10 @@ namespace Dyvenix.GenIt
 							}
 						}
 
-						// Delete only the shape, not the model element
 						shape.Delete();
 					}
 
 					transaction.Commit();
-				}
-
-				// Mark the document as changed so it will be saved
-				if (docData != null)
-				{
-					docData.MarkDocumentChangedForBackup();
 				}
 			}
 			catch (Exception ex)

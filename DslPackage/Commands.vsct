@@ -15,6 +15,11 @@
   <Include href="GeneratedCode\GeneratedVsct.vsct"/>
   
   <Commands package="guidPkg">
+    <Groups>
+      <Group guid="guidCmdSet" id="grpidExplorerMain" priority="0x0005">
+        <Parent guid="guidCmdSet" id="menuidExplorer"/>
+      </Group>
+    </Groups>
     <Buttons>
       <Button guid="guidCmdSet" id="cmdidGenerateCode" priority="0x0100" type="Button">
         <Parent guid="guidCmdSet" id="grpidContextMain"/>
@@ -48,16 +53,31 @@
           <ButtonText>Validate Model</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidCmdSet" id="cmdidAddToCurrentView" priority="0x0104" type="Button">
+        <Parent guid="guidCmdSet" id="grpidContextMain"/>
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Add to Current View</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
   </Commands>
+  <CommandPlacements>
+    <CommandPlacement guid="guidCmdSet" id="cmdidAddToCurrentView" priority="0x0100">
+      <Parent guid="guidCmdSet" id="grpidExplorerMain"/>
+    </CommandPlacement>
+  </CommandPlacements>
   
   <Symbols>
     <GuidSymbol name="guidCmdSet" value="{94fe6316-0e08-4ace-9bb9-f1c3774d3a14}">
+      <IDSymbol name="grpidExplorerMain" value="0x20001"/>
       <IDSymbol name="grpidContextMain" value="0x20000"/>
       <IDSymbol name="cmdidGenerateCode" value="0x0100"/>
       <IDSymbol name="cmdidAddNewService" value="0x0101"/>
       <IDSymbol name="cmdidRemoveFromView" value="0x0102"/>
       <IDSymbol name="cmdidValidateModel" value="0x0103"/>
+      <IDSymbol name="cmdidAddToCurrentView" value="0x0104"/>
     </GuidSymbol>
   </Symbols>
 </CommandTable>

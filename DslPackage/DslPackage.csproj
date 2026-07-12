@@ -49,15 +49,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)'!=''" />
   <Import Project="$(DslTargetsPath)\Microsoft.DSLTools.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-
   
-  -->
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.*-*" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.0.*-*" />
@@ -105,6 +97,7 @@
     <Compile Include="CodeGen\Misc\FileHelper.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
     <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
+    <Compile Include="CustomCode\DiagramViewState.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
     <Compile Include="CustomCode\GenItDocDataCustom.cs" />
     <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
