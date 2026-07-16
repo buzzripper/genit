@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="18.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
   <PropertyGroup>
@@ -59,10 +59,12 @@
   
   -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.*-*" ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Shell" Version="17.0.*-*" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.14.40265" ExcludeAssets="runtime">
+      <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.10.40171" />
+    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams" Version="17.10.40171" />
+    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Shell" Version="17.10.40171" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -29,8 +29,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (string.IsNullOrEmpty(_outputFolderpath))
 				errors.Add("EnumsOutputFolder is not set. Please set it in the ModelRoot properties.");
-			else if (!Directory.Exists(_outputFolderpath))
-				errors.Add("EnumsOutputFolder does not exist. Please select a valid folder.");
 		}
 
 		#region Properties
@@ -41,6 +39,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal void GenerateCode()
 		{
+			if (!_enums.Any(e => e.GenerateCode))
+				return;
+
+			if (!Directory.Exists(_outputFolderpath))
+				Directory.CreateDirectory(_outputFolderpath);
+
 			foreach (var enm in _enums.Where(e => e.GenerateCode))
 				GenerateEnum(enm);
 		}

@@ -1,7 +1,6 @@
 using Microsoft.VisualStudio.Modeling;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 {
@@ -29,7 +28,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 			if (dtoModel == null)
 				return;
 
-			var linkedProperties = dtoModel.PropertyModels;
+			var linkedProperties = dtoModel.PropertyModelsOrdered;
 			foreach (var vm in _viewModels)
 			{
 				vm.IsHighlighted = linkedProperties.Contains(vm.Property);
