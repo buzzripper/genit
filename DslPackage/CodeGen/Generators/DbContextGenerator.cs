@@ -110,32 +110,48 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 				// PK
 				foreach (var prop in entity.Properties.Where(p => p.IsPrimaryKey))
+				{
+					fileContent.AddLine(3, "// PK");
 					fileContent.AddLine(3, $"entity.HasKey(e => e.{prop.Name});");
+				}
 
 				// RowVersion
 				if (entity.InclRowVersion)
+				{
+					fileContent.AddLine(3, "// RowVersion");
 					fileContent.AddLine(3, $"entity.Property(e => e.RowVersion).IsRowVersion();");
+				}
 
 				// FK properties
-				foreach (var prop in entity.Properties.Where(p => p.IsForeignKey))
+				var fkProps = entity.Properties.Where(p => p.IsForeignKey);
+				if (fkProps.Count() > 0)
 				{
-					var line = $"entity.Property(e => e.{prop.Name})";
-					if (!prop.IsNullable)
-						line += ".IsRequired()";
-					line += ";";
-					fileContent.AddLine(3, line);
+					fileContent.AddLine(3, "// FKs");
+					foreach (var prop in fkProps)
+					{
+						var line = $"entity.Property(e => e.{prop.Name})";
+						if (!prop.IsNullable)
+							line += ".IsRequired()";
+						line += ";";
+						fileContent.AddLine(3, line);
+					}
 				}
 
 				// Properties
-				foreach (var prop in entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion && !p.IsSoftDelete && !p.IsAuditable))
+				var otherProps = entity.Properties.Where(p => !p.IsPrimaryKey && !p.IsForeignKey && !p.IsRowVersion && !p.IsSoftDelete && !p.IsAuditable);
+				if (otherProps.Count() > 0)
 				{
-					var line = $"entity.Property(e => e.{prop.Name})";
-					if (!prop.IsNullable)
-						line += ".IsRequired()";
-					if (prop.DataType == DataTypes.String && prop.Length > 0)
-						line += $".HasMaxLength({prop.Length})";
-					line += ";";
-					fileContent.AddLine(3, line);
+					fileContent.AddLine(3, "// Other Properties");
+					foreach (var otherProp in otherProps)
+					{
+						var line = $"entity.Property(e => e.{otherProp.Name})";
+						if (!otherProp.IsNullable)
+							line += ".IsRequired()";
+						if (otherProp.DataType == DataTypes.String && otherProp.Length > 0)
+							line += $".HasMaxLength({otherProp.Length})";
+						line += ";";
+						fileContent.AddLine(3, line);
+					}
 				}
 
 				// Auditable
@@ -173,28 +189,98 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					}
 				}
 
-				if (entity.Name == "Notification")
+				// Foreign keys
+				if (fkProps.Count() > 0)
 				{
-					// Foreign keys
 					fileContent.AddLine();
 					fileContent.AddLine(3, "// Foreign Keys");
-					foreach (var prop in entity.Properties.Where(p => p.IsForeignKey))
+					foreach (var prop in fkProps)
 					{
+						fileContent.AddLine();
+
 						var assoc = _associations.FirstOrDefault(a => a.Target.Name == entity.Name && a.FkPropertyName == prop.Name);
 						if (assoc == null)
 							throw new ApplicationException($"No association found for foreign key '{prop.Name}' in entity '{entity.Name}'.");
 
 						var sourceEntityName = assoc.Source.Name;
 						var sourceNavPropName = assoc.SourceRoleName;
+						var targetEntityName = assoc.Target.Name;
+						var targetNavPropName = assoc.TargetRoleName;
 
-						//fileContent.AddLine(3, $"entity.HasOne(e => e.{fkEntity.Name})");
-						//fileContent.AddLine(4, $".WithMany(e => e.{assoc.Source.});
+						// One-to-many
+						if ((assoc.SourceMultiplicity == Multiplicity.One || assoc.SourceMultiplicity == Multiplicity.ZeroOne) && assoc.TargetMultiplicity == Multiplicity.Many)
+						{
+							if (string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// No nav properties on either end
+								fileContent.AddLine(3, $"entity.HasOne<{sourceEntityName}>()");
+								fileContent.AddLine(4, $".WithMany()");
+								fileContent.AddLine(4, $".HasForeignKey(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on target
+								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetEntityName})");
+								fileContent.AddLine(4, $".WithMany()");
+								fileContent.AddLine(4, $".HasForeignKey(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on source
+								fileContent.AddLine(3, $"entity.HasOne<{sourceEntityName}>()");
+								fileContent.AddLine(4, $".WithMany(se => se.{sourceNavPropName})");
+								fileContent.AddLine(4, $".HasForeignKey(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on both sides
+								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetEntityName})");
+								fileContent.AddLine(4, $".WithMany(se => se.{sourceNavPropName})");
+								fileContent.AddLine(4, $".HasForeignKey(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+						}
+						// One-to-one
+						else if ((assoc.SourceMultiplicity == Multiplicity.One || assoc.SourceMultiplicity == Multiplicity.ZeroOne) && (assoc.TargetMultiplicity == Multiplicity.One || assoc.TargetMultiplicity == Multiplicity.ZeroOne))
+						{
+							if (string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// No nav properties on either end
+								fileContent.AddLine(3, $"entity.HasOne<{sourceEntityName}>()");
+								fileContent.AddLine(4, $".WithOne()");
+								fileContent.AddLine(4, $".HasForeignKey<{targetEntityName}>(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on target
+								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetNavPropName})");
+								fileContent.AddLine(4, $".WithOne()");
+								fileContent.AddLine(4, $".HasForeignKey<{targetEntityName}>(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on source
+								fileContent.AddLine(3, $"entity.HasOne<{sourceEntityName}>()");
+								fileContent.AddLine(4, $".WithOne(se => se.{sourceNavPropName})");
+								fileContent.AddLine(4, $".HasForeignKey<{targetEntityName}>(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+							else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+							{
+								// Navigation property only on both sides
+								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetNavPropName})");
+								fileContent.AddLine(4, $".WithOne(se => se.{sourceNavPropName})");
+								fileContent.AddLine(4, $".HasForeignKey<{targetEntityName}>(te => te.{prop.Name})");
+								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
+							}
+						}
 
-						//	line += ".IsUnique()";
-						//if (prop.IsIndexClustered)
-						//	line += ".IsClustered()";
-						//line += ";";
-						//fileContent.AddLine(3, line);
+						// NOTE: Do NOT do many-to-many here, they need their own loop, which is done below
 					}
 				}
 
@@ -215,6 +301,46 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(2, "});");
 				fileContent.AddLine();
 				fileContent.AddLine(2, $"#endregion");
+			}
+
+			// Foreign key many-to-many relationships
+			var manyToManyAssocs = _associations.Where(a => a.SourceMultiplicity == Multiplicity.Many && a.TargetMultiplicity == Multiplicity.Many).ToList();
+			if (manyToManyAssocs.Count > 0)
+			{
+				fileContent.AddLine();
+				fileContent.AddLine(2, "#region Many-to-many relationships");
+				foreach (var assoc in manyToManyAssocs)
+				{
+					var sourceEntityName = assoc.Source.Name;
+					var sourceNavPropName = assoc.SourceRoleName;
+					var targetEntityName = assoc.Target.Name;
+					var targetNavPropName = assoc.TargetRoleName;
+
+					fileContent.AddLine();
+					if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+					{
+						// Navigation property on both source and target
+						fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
+						fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
+						fileContent.AddLine(3, $".WithMany(te => te.{targetNavPropName});");
+					}
+					else if (string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+					{
+						// Navigation property only on target
+						fileContent.AddLine(2, $"modelBuilder.Entity<{targetEntityName}>()");
+						fileContent.AddLine(3, $".HasMany(te => te.{targetNavPropName})");
+						fileContent.AddLine(3, $".WithMany();");
+					}
+					else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+					{
+						// Navigation property only on source
+						fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
+						fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
+						fileContent.AddLine(3, $".WithMany();");
+					}
+				}
+				fileContent.AddLine();
+				fileContent.AddLine(2, "#endregion");
 			}
 
 			fileContent.AddLine();

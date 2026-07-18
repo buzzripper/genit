@@ -171,28 +171,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var serviceMethodGenerator = new ServiceMethodGenerator();
 
-			// Update 
-			var updMethodsOutput = new List<string>();
-			if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
-			{
-				updMethodsOutput.AddLine();
-				updMethodsOutput.AddLine(1, "#region Update");
-
-				// Normal update methods
-				foreach (var updMethod in serviceModel.UpdateMethods)
-				{
-					serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceLines);
-				}
-
-				updMethodsOutput.AddLine();
-				updMethodsOutput.AddLine(1, "#endregion");
-			}
-
-			// Delete
-			var deleteMethodsOutput = new List<string>();
-			if (serviceModel.InclDelete)
-				serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
-
 			// Read methods - single
 			var singleMethodsOutput = new List<string>();
 			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
@@ -227,6 +205,28 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				listMethodsOutput.AddLine(0, "#endregion");
 			}
 
+			// Update 
+			var updMethodsOutput = new List<string>();
+			if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
+			{
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#region Update");
+
+				// Normal update methods
+				foreach (var updMethod in serviceModel.UpdateMethods)
+				{
+					serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceLines);
+				}
+
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#endregion");
+			}
+
+			// Delete
+			var deleteMethodsOutput = new List<string>();
+			if (serviceModel.InclDelete)
+				serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
+
 			// Sorting method
 			if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
 			{
@@ -250,11 +250,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			svcFileContent.AddLines(0, fields);
 			svcFileContent.AddLine();
 			svcFileContent.AddLines(1, constructor);
-			//svcFileContent.AddLines(0, createMethodOutput);
-			svcFileContent.AddLines(0, deleteMethodsOutput);
-			svcFileContent.AddLines(0, updMethodsOutput);
 			svcFileContent.AddLines(1, singleMethodsOutput);
 			svcFileContent.AddLines(1, listMethodsOutput);
+			svcFileContent.AddLines(0, updMethodsOutput);
+			svcFileContent.AddLines(0, deleteMethodsOutput);
 			svcFileContent.AddLine(0, "}");
 
 			var svcOutputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
