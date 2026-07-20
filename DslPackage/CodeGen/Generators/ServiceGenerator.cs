@@ -5,297 +5,296 @@ using System.Linq;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
-    internal class ServiceGenerator
-    {
-        private readonly ModelRoot _modelRoot;
-        private readonly List<EntityModel> _entities;
-        private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
-        private readonly List<string> _serviceUsings = new List<string>();
-        private readonly List<string> _interfaceUsings = new List<string>();
+	internal class ServiceGenerator
+	{
+		private readonly ModelRoot _modelRoot;
+		private readonly List<EntityModel> _entities;
+		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
+		private readonly List<string> _serviceUsings = new List<string>();
+		private readonly List<string> _interfaceUsings = new List<string>();
 
-        internal ServiceGenerator(ModelRoot modelRoot)
-        {
-            // Convenience vars
-            _modelRoot = modelRoot;
-            _entities = modelRoot.Types.OfType<EntityModel>().ToList();
-            foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
-            {
-                if (!_modules.ContainsKey(module.Name))
-                    _modules.Add(module.Name, module);
-            }
-        }
+		internal ServiceGenerator(ModelRoot modelRoot, Dictionary<string, ModuleModel> modules)
+		{
+			// Convenience vars
+			_modelRoot = modelRoot;
+			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
+			_modules = modules;
+		}
 
-        private void ResetServiceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
-        {
-            _serviceUsings.Clear();
+		private void ResetServiceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
+		{
+			_serviceUsings.Clear();
 
-            // Default usings
-            _serviceUsings.Add("System");
-            _serviceUsings.Add("System.Collections.Generic");
-            _serviceUsings.Add("System.Linq");
-            _serviceUsings.Add("System.Threading.Tasks");
-            _serviceUsings.Add("Microsoft.Extensions.Logging");
-            _serviceUsings.Add("Microsoft.EntityFrameworkCore");
-            _serviceUsings.AddLines(0, _modelRoot.UsingsList);
-            _serviceUsings.Add(_modelRoot.DbContextNamespace);
-            _serviceUsings.Add(module.DtoNamespace);
-            _serviceUsings.Add(_modelRoot.EntitiesNamespace);
-            _serviceUsings.Add($"{_modelRoot.CommonNamespace}.Shared.Exceptions");
-            _serviceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
-            _serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}");
+			// Default usings
+			_serviceUsings.Add("System");
+			_serviceUsings.Add("System.Collections.Generic");
+			_serviceUsings.Add("System.Linq");
+			_serviceUsings.Add("System.Threading.Tasks");
+			_serviceUsings.Add("Microsoft.Extensions.Logging");
+			_serviceUsings.Add("Microsoft.EntityFrameworkCore");
+			_serviceUsings.AddLines(0, _modelRoot.UsingsList);
+			_serviceUsings.Add(_modelRoot.DbContextNamespace);
+			_serviceUsings.Add(module.DtoNamespace);
+			_serviceUsings.Add(_modelRoot.EntitiesNamespace);
+			_serviceUsings.Add($"{_modelRoot.CommonNamespace}.Exceptions");
+			_serviceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+			_serviceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
+			_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
 
-            foreach (var u in entity.UsingsList)
-                _serviceUsings.AddIfNotExists(u);
+			foreach (var u in entity.UsingsList)
+				_serviceUsings.AddIfNotExists(u);
 
-            foreach (var u in serviceModel.ServiceUsingsList)
-                _serviceUsings.AddIfNotExists(u);
+			foreach (var u in serviceModel.ServiceUsingsList)
+				_serviceUsings.AddIfNotExists(u);
 
-            if (serviceModel.ReadMethods.Any(m => m.UseRequest))
-                _serviceUsings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				_serviceUsings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
 
-            if (serviceModel.ReadMethods.Any(m => m.InclPaging))
-            {
-                _serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
-                _serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
-                _serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
-            }
+			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
+			{
+				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
+				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
+				//_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+			}
 
-            if (serviceModel.ReadMethods.Any(m => m.InclSorting))
-                _serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
-        }
+			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
+				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+		}
 
-        private void ResetInterfaceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
-        {
-            _interfaceUsings.Clear();
+		private void ResetInterfaceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
+		{
+			_interfaceUsings.Clear();
 
-            // Default usings
-            _interfaceUsings.Add("System");
-            _interfaceUsings.Add("System.Collections.Generic");
-            _interfaceUsings.Add("System.Linq");
-            _interfaceUsings.Add("System.Threading.Tasks");
-            _interfaceUsings.Add("Microsoft.Extensions.Logging");
-            _interfaceUsings.AddLines(0, _modelRoot.UsingsList);
-            _interfaceUsings.Add(module.DtoNamespace);
-            _interfaceUsings.Add($"{_modelRoot.CommonNamespace}.Shared.Exceptions");
-            _interfaceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
-            _interfaceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}");
+			// Default usings
+			_interfaceUsings.Add("System");
+			_interfaceUsings.Add("System.Collections.Generic");
+			_interfaceUsings.Add("System.Linq");
+			_interfaceUsings.Add("System.Threading.Tasks");
+			_interfaceUsings.Add("Microsoft.Extensions.Logging");
+			_interfaceUsings.AddLines(0, _modelRoot.UsingsList);
+			_interfaceUsings.Add(module.DtoNamespace);
+			_interfaceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
+			_interfaceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
 
-            foreach (var u in entity.UsingsList)
-                _interfaceUsings.AddIfNotExists(u);
+			foreach (var u in entity.UsingsList)
+				_interfaceUsings.AddIfNotExists(u);
 
-            foreach (var u in serviceModel.ServiceUsingsList)
-                _interfaceUsings.AddIfNotExists(u);
+			foreach (var u in serviceModel.ServiceUsingsList)
+				_interfaceUsings.AddIfNotExists(u);
 
-            if (serviceModel.ReadMethods.Any(m => m.UseRequest))
-                _interfaceUsings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}");
+			if (serviceModel.ReadMethods.Any(m => m.UseRequest))
+				_interfaceUsings.AddIfNotExists($"{module.RequestNamespace}.{serviceModel.Version}.{entity.Name}");
 
-            if (serviceModel.ReadMethods.Any(m => m.InclPaging))
-            {
-                _interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
-                _interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
-                _interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
-            }
+			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
+			{
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+			}
 
-            if (serviceModel.ReadMethods.Any(m => m.InclSorting))
-                _interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
-        }
+			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+		}
 
-        internal void Validate(List<string> errors)
-        {
-            foreach (var entity in _entities)
-            {
-                if (!entity.GenerateCode || entity.ServiceModels.Count == 0)
-                    continue;
+		internal void Validate(List<string> errors)
+		{
+			foreach (var entity in _entities)
+			{
+				if (!entity.GenerateCode || entity.ServiceModels.Count == 0)
+					continue;
 
-                if (string.IsNullOrEmpty(entity.Module))
-                    errors.Add($"Entity '{entity.Name}' does not have a Module assigned. Please set it in the Entity properties.");
+				if (string.IsNullOrEmpty(entity.Module))
+					errors.Add($"Entity '{entity.Name}' does not have a Module assigned. Please set it in the Entity properties.");
 
-                foreach (var service in entity.ServiceModels)
-                {
-                    foreach (var method in service.ReadMethods)
-                    {
-                        if (method.ReturnDto == null)
-                        {
-                            errors.Add($"Read method {entity.Name}.{method.Name}() [{service.Version}] has no return DTO defined.");
-                        }
-                        foreach (var filterProp in method.FilterProperties)
-                        {
-                            if (filterProp.IsInternal && string.IsNullOrWhiteSpace(filterProp.InternalValue))
-                                errors.Add($"Read method {method.Name} ({service.Version}) on entity '{entity.Name}' has filter property for '{filterProp.PropertyModel.Name}' which is set to Internal, but no value is supplied.");
-                        }
-                    }
-                }
-            }
-        }
+				foreach (var service in entity.ServiceModels)
+				{
+					foreach (var method in service.ReadMethods)
+					{
+						if (method.ReturnDto == null)
+						{
+							errors.Add($"Read method {entity.Name}.{method.Name}() [{service.Version}] has no return DTO defined.");
+						}
+						foreach (var filterProp in method.FilterProperties)
+						{
+							if (filterProp.IsInternal && string.IsNullOrWhiteSpace(filterProp.InternalValue))
+								errors.Add($"Read method {method.Name} ({service.Version}) on entity '{entity.Name}' has filter property for '{filterProp.PropertyModel.Name}' which is set to Internal, but no value is supplied.");
+						}
+					}
+				}
+			}
+		}
 
-        internal void GenerateCode()
-        {
-            foreach (var entity in _entities)
-            {
-                foreach (var serviceModel in entity.ServiceModels.Where(s => s.Enabled))
-                {
-                    GenerateService(entity, serviceModel);
-                }
-            }
-        }
+		internal void GenerateCode()
+		{
+			foreach (var entity in _entities)
+			{
+				foreach (var serviceModel in entity.ServiceModels.Where(s => s.Enabled))
+				{
+					GenerateService(entity, serviceModel);
+				}
+			}
+		}
 
-        private void GenerateService(EntityModel entity, ServiceModel serviceModel)
-        {
-            var serviceName = $"{entity.Name}Service";
+		private void GenerateService(EntityModel entity, ServiceModel serviceModel)
+		{
+			var serviceName = $"{entity.Name}Service";
 
-            var module = _modules[entity.Module];
-            var serviceOutputDir = Path.Combine(module.ServicesFolder, serviceModel.Version);
-            ResetServiceUsings(entity, serviceModel, module);
-            ResetInterfaceUsings(entity, serviceModel, module);
+			var module = _modules[entity.Module];
+			var serviceOutputDir = Path.Combine(module.ServicesFolder, serviceModel.Version);
+			ResetServiceUsings(entity, serviceModel, module);
+			ResetInterfaceUsings(entity, serviceModel, module);
 
-            Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
+			Directory.CreateDirectory(serviceOutputDir);  // Ensure output dir exists
 
-            // Interface contents
-            var interfaceLines = new List<string>();
+			// Interface contents
+			var interfaceLines = new List<string>();
 
-            // Attributes
-            var serviceAttrs = BuildServiceAttributes(serviceModel);
+			// Attributes
+			var serviceAttrs = BuildServiceAttributes(serviceModel);
 
-            // Declaration
-            var declaration = new List<string>();
-            declaration.AddLine(0, $"public partial class {serviceName} : I{serviceName}");
+			// Declaration
+			var declaration = new List<string>();
+			declaration.AddLine(0, $"public partial class {serviceName} : I{serviceName}");
 
-            // Fields
-            var fields = new List<string>();
-            fields.AddLine(1, $"private readonly ILogger<{serviceName}> _logger;");
-            fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
+			// Fields
+			var fields = new List<string>();
+			fields.AddLine(1, $"private readonly ILogger<{serviceName}> _logger;");
+			fields.AddLine(1, $"private readonly {_modelRoot.DbContextName} _db;");
 
-            // Constructor
-            var constructor = new List<string>();
-            constructor.AddLine(0, $"public {serviceName}({_modelRoot.DbContextName} db, ILogger<{serviceName}> logger)");
-            constructor.AddLine(0, "{");
-            constructor.AddLine(1, $"_db = db;");
-            constructor.AddLine(1, $"_logger = logger;");
-            constructor.AddLine(0, "}");
+			// Constructor
+			var constructor = new List<string>();
+			constructor.AddLine(0, $"public {serviceName}({_modelRoot.DbContextName} db, ILogger<{serviceName}> logger)");
+			constructor.AddLine(0, "{");
+			constructor.AddLine(1, $"_db = db;");
+			constructor.AddLine(1, $"_logger = logger;");
+			constructor.AddLine(0, "}");
 
-            var serviceMethodGenerator = new ServiceMethodGenerator();
+			var serviceMethodGenerator = new ServiceMethodGenerator();
 
-            // Update 
-            var updMethodsOutput = new List<string>();
-            if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
-            {
-                updMethodsOutput.AddLine();
-                updMethodsOutput.AddLine(1, "#region Update");
+			// Read methods - single
+			var singleMethodsOutput = new List<string>();
+			foreach (var singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
+			{
+				if (singleMethodsOutput.Count == 0)
+				{
+					singleMethodsOutput.AddLine();
+					singleMethodsOutput.AddLine(0, "#region Read - Single");
+				}
+				serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceLines);
+			}
+			if (singleMethodsOutput.Count > 0)
+			{
+				singleMethodsOutput.AddLine();
+				singleMethodsOutput.AddLine(0, "#endregion");
+			}
 
-                // Normal update methods
-                foreach (var updMethod in serviceModel.UpdateMethods)
-                {
-                    serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceLines);
-                }
+			// Read methods - list
+			var listMethodsOutput = new List<string>();
+			foreach (var listMethod in serviceModel.ReadMethods.Where(m => m.IsList))
+			{
+				if (listMethodsOutput.Count == 0)
+				{
+					listMethodsOutput.AddLine();
+					listMethodsOutput.AddLine(0, "#region Read - List");
+				}
+				serviceMethodGenerator.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceLines);
+			}
+			if (listMethodsOutput.Count > 0)
+			{
+				listMethodsOutput.AddLine();
+				listMethodsOutput.AddLine(0, "#endregion");
+			}
 
-                updMethodsOutput.AddLine();
-                updMethodsOutput.AddLine(1, "#endregion");
-            }
+			// Update 
+			var updMethodsOutput = new List<string>();
+			if (serviceModel.InclUpdate || serviceModel.UpdateMethods.Any())
+			{
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#region Update");
 
-            // Delete
-            var deleteMethodsOutput = new List<string>();
-            if (serviceModel.InclDelete)
-                serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
+				// Normal update methods
+				foreach (var updMethod in serviceModel.UpdateMethods)
+				{
+					serviceMethodGenerator.GenerateUpdateMethod(entity, updMethod, updMethodsOutput, interfaceLines);
+				}
 
-            // Read methods - single
-            var singleMethodsOutput = new List<string>();
-            foreach (var singleMethod in serviceModel.ReadMethods.Where(m => m.IsSingle))
-            {
-                if (singleMethodsOutput.Count == 0)
-                {
-                    singleMethodsOutput.AddLine();
-                    singleMethodsOutput.AddLine(0, "#region Read - Single");
-                }
-                serviceMethodGenerator.GenerateReadMethod(entity, singleMethod, singleMethodsOutput, interfaceLines);
-            }
-            if (singleMethodsOutput.Count > 0)
-            {
-                singleMethodsOutput.AddLine();
-                singleMethodsOutput.AddLine(0, "#endregion");
-            }
+				updMethodsOutput.AddLine();
+				updMethodsOutput.AddLine(1, "#endregion");
+			}
 
-            // Read methods - list
-            var listMethodsOutput = new List<string>();
-            foreach (var listMethod in serviceModel.ReadMethods.Where(m => m.IsList))
-            {
-                if (listMethodsOutput.Count == 0)
-                {
-                    listMethodsOutput.AddLine();
-                    listMethodsOutput.AddLine(0, "#region Read - List");
-                }
-                serviceMethodGenerator.GenerateReadMethod(entity, listMethod, listMethodsOutput, interfaceLines);
-            }
-            if (listMethodsOutput.Count > 0)
-            {
-                listMethodsOutput.AddLine();
-                listMethodsOutput.AddLine(0, "#endregion");
-            }
+			// Delete
+			var deleteMethodsOutput = new List<string>();
+			if (serviceModel.InclDelete)
+				serviceMethodGenerator.GenerateDeleteMethod(entity, deleteMethodsOutput, interfaceLines);
 
-            // Sorting method
-            if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
-            {
-                serviceMethodGenerator.GenerateSortingMethod(entity, listMethodsOutput);
-                listMethodsOutput.AddLine();
-            }
+			// Sorting method
+			if (serviceModel.ReadMethods.Where(m => m.UseRequest && m.InclSorting).Any())
+			{
+				serviceMethodGenerator.GenerateSortingMethod(entity, listMethodsOutput);
+				listMethodsOutput.AddLine();
+			}
 
-            // Write the service file
+			// Write the service file
 
-            var svcFileContent = new List<string>();
+			var svcFileContent = new List<string>();
 
-            if (_modelRoot.InclHeader)
-                svcFileContent.Add(CodeGenUtils.FileHeader);
-            svcFileContent.AddLines(0, _serviceUsings.Select(u => $"using {u};").ToList());
-            svcFileContent.AddLine();
-            svcFileContent.AddLine(0, $"namespace {module.Namespace}.Api.Services.{serviceModel.Version};");
-            svcFileContent.AddLine();
-            svcFileContent.AddLines(0, serviceAttrs);
-            svcFileContent.AddLines(0, declaration);
-            svcFileContent.AddLine(0, "{");
-            svcFileContent.AddLines(0, fields);
-            svcFileContent.AddLine();
-            svcFileContent.AddLines(1, constructor);
-            //svcFileContent.AddLines(0, createMethodOutput);
-            svcFileContent.AddLines(0, deleteMethodsOutput);
-            svcFileContent.AddLines(0, updMethodsOutput);
-            svcFileContent.AddLines(1, singleMethodsOutput);
-            svcFileContent.AddLines(1, listMethodsOutput);
-            svcFileContent.AddLine(0, "}");
+			if (_modelRoot.InclHeader)
+				svcFileContent.Add(CodeGenUtils.FileHeader);
+			svcFileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
-            var svcOutputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
-            Directory.CreateDirectory(svcOutputDir);  // Ensure output dir exists
-            var svcOutputFilepath = Path.Combine(svcOutputDir, $"{serviceName}.g.cs");
-            FileHelper.SaveFile(svcOutputFilepath, svcFileContent.AsString());
+			svcFileContent.AddLines(0, _serviceUsings.Select(u => $"using {u};").ToList());
+			svcFileContent.AddLine();
+			svcFileContent.AddLine(0, $"namespace {module.Namespace}.Api.Services.{serviceModel.Version};");
+			svcFileContent.AddLine();
+			svcFileContent.AddLines(0, serviceAttrs);
+			svcFileContent.AddLines(0, declaration);
+			svcFileContent.AddLine(0, "{");
+			svcFileContent.AddLines(0, fields);
+			svcFileContent.AddLine();
+			svcFileContent.AddLines(1, constructor);
+			svcFileContent.AddLines(1, singleMethodsOutput);
+			svcFileContent.AddLines(1, listMethodsOutput);
+			svcFileContent.AddLines(0, updMethodsOutput);
+			svcFileContent.AddLines(0, deleteMethodsOutput);
+			svcFileContent.AddLine(0, "}");
 
-            // Write the interface file
+			var svcOutputDir = Path.Combine(module.ServicesFolder, $"{serviceModel.Version}");
+			Directory.CreateDirectory(svcOutputDir);  // Ensure output dir exists
+			var svcOutputFilepath = Path.Combine(svcOutputDir, $"{serviceName}.g.cs");
+			FileHelper.SaveFile(svcOutputFilepath, svcFileContent.AsString());
 
-            var intFileContent = new List<string>();
-            if (_modelRoot.InclHeader)
-                intFileContent.Add(CodeGenUtils.FileHeader);
-            intFileContent.AddLines(0, _interfaceUsings.Select(u => $"using {u};").ToList());
-            intFileContent.AddLine();
-            intFileContent.AddLine(0, $"namespace {module.Namespace}.Shared.Contracts.{serviceModel.Version};");
-            intFileContent.AddLine();
-            intFileContent.AddLine(0, $"public interface I{entity.Name}Service");
-            intFileContent.AddLine(0, "{");
-            intFileContent.AddLines(1, interfaceLines);
-            intFileContent.AddLine(0, "}");
+			// Write the interface file
 
-            var intOutputDir = Path.Combine(module.RootFolder, $"{module.Name}.Shared", "Contracts", $"{serviceModel.Version}");
-            Directory.CreateDirectory(intOutputDir);  // Ensure output dir exists
-            var intOutputFilepath = Path.Combine(intOutputDir, $"I{serviceName}.g.cs");
-            FileHelper.SaveFile(intOutputFilepath, intFileContent.AsString());
+			var intFileContent = new List<string>();
+			if (_modelRoot.InclHeader)
+				intFileContent.Add(CodeGenUtils.FileHeader);
+			intFileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
-            OutputHelper.Write($"Completed code gen for service: {serviceName}");
-        }
+			intFileContent.AddLines(0, _interfaceUsings.Select(u => $"using {u};").ToList());
+			intFileContent.AddLine();
+			intFileContent.AddLine(0, $"namespace {module.Namespace}.Shared.Contracts.{serviceModel.Version};");
+			intFileContent.AddLine();
+			intFileContent.AddLine(0, $"public interface I{entity.Name}Service");
+			intFileContent.AddLine(0, "{");
+			intFileContent.AddLines(1, interfaceLines);
+			intFileContent.AddLine(0, "}");
 
-        private List<string> BuildServiceAttributes(ServiceModel serviceModel)
-        {
-            var attrs = new List<string>();
+			var intOutputDir = Path.Combine(module.RootFolder, $"{module.Name}.Shared", "Contracts", $"{serviceModel.Version}");
+			Directory.CreateDirectory(intOutputDir);  // Ensure output dir exists
+			var intOutputFilepath = Path.Combine(intOutputDir, $"I{serviceName}.g.cs");
+			FileHelper.SaveFile(intOutputFilepath, intFileContent.AsString());
 
-            foreach (var a in serviceModel.ServiceAttributesList)
-                attrs.AddIfNotExists(a);
+			OutputHelper.Write($"Completed code gen for service: {serviceName}");
+		}
 
-            return attrs.Select(a => $"[{a}]").ToList();
-        }
-    }
+		private List<string> BuildServiceAttributes(ServiceModel serviceModel)
+		{
+			var attrs = new List<string>();
+
+			foreach (var a in serviceModel.ServiceAttributesList)
+				attrs.AddIfNotExists(a);
+
+			return attrs.Select(a => $"[{a}]").ToList();
+		}
+	}
 }

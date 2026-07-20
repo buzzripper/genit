@@ -34,6 +34,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_inclHeader)
 				fileContents.Add(CodeGenUtils.FileHeader);
+			fileContents.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
 			// Usings
 			fileContents.AddLine(0, $"using System.Text.Json;");

@@ -68,12 +68,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating" Version="17.0.*-*" />
+    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk" Version="17.10.40171" />
+    <PackageReference Include="Microsoft.VisualStudio.Modeling.Sdk.Diagrams" Version="17.10.40171" />
+    <PackageReference Include="Microsoft.VisualStudio.TextTemplating" Version="17.10.40170" />
     <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0" Version="17.0.*-*" />
     <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0" Version="17.0.*-*" />
-    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Modeling" Version="17.0.*-*" />
+    <PackageReference Include="Microsoft.VisualStudio.TextTemplating.Modeling" Version="17.10.40171" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Key.snk">
@@ -91,6 +91,7 @@
     <Compile Include="CustomCode\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\ClassShapeCustom.cs" />
     <Compile Include="CustomCode\DataTypes.cs" />
+    <Compile Include="CustomCode\DtoModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\EnumModelRules.cs" />

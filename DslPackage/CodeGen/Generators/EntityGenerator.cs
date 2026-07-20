@@ -14,13 +14,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		private readonly string _outputFolderpath;
 		private readonly bool _inclHeader;
 
-		internal EntityGenerator(ModelRoot modelRoot)
+		internal EntityGenerator(ModelRoot modelRoot, Dictionary<string, ModuleModel> modules)
 		{
 			// Convenience vars
 			_modelRoot = modelRoot;
-			foreach (var module in _modelRoot.Types.OfType<ModuleModel>().ToList())
-				if (!_modules.ContainsKey(module.Name))
-					_modules.Add(module.Name, module);
+			_modules = modules;
 			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			_entitiesNamespace = modelRoot.EntitiesNamespace;
 			_outputFolderpath = FileHelper.GetAbsolutePath(modelRoot.EntitiesOutputFolder);
@@ -68,6 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_inclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
 			// Usings
 			if (entity.UsingsList?.Count > 0)
@@ -77,7 +76,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine(0, $"using {_modelRoot.EnumsNamespace};");
 			// If it's an auditable entity, include the namespace for the IAuditable interface
 			if (entity.Auditable)
-				fileContent.AddLine(0, $"using {_modelRoot.CommonNamespace}.Shared.Contracts;");
+				fileContent.AddLine(0, $"using {_modelRoot.CommonNamespace}.Contracts;");
 
 			// Namespace 		
 			fileContent.AddLine();
@@ -129,7 +128,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var navProperty in entity.NavigationProperties)
 				{
 					var dataType = navProperty.IsCollection ? $"List<{navProperty.TargetEntityName}>" : navProperty.TargetEntityName;
-					var initValue = navProperty.IsCollection ? $" = new();" : string.Empty;
+					var initValue = navProperty.IsCollection ? $" = new();" : " = null!;";
 					fileContent.AddLine(1, $"public {dataType} {navProperty.Name} {{ get; set; }}{initValue}");
 				}
 			}
