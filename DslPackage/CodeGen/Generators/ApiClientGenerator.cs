@@ -76,6 +76,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (entity.ModelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 			fileContent.AddLines(0, usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.Shared.ApiClients.{service.Version};");
@@ -230,7 +232,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				restVerb = "Get";
 			}
 
-			string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"IReadOnlyList<{method.ReturnDto.Name}>" : method.ReturnDto.Name;
+			string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"IReadOnlyList<{method.ReturnDto.Name}>" : $"{method.ReturnDto.Name}?";
 
 			var signature = $"Task<{returnType}> {method.Name}({sbSigArgs})";
 

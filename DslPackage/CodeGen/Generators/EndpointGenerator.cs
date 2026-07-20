@@ -147,6 +147,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"namespace {module.Namespace}.Endpoints.{serviceModel.Version};");
@@ -340,10 +342,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			output.AddLine();
-			output.AddLine(tc, $"public static async Task<Result<{method.ReturnDto.Name}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
+			output.AddLine(tc, $"public static async Task<Result<{method.ReturnDto.Name}?>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"var {returnDtoVarName} = await {svcVarName}.{method.Name}({sbOutArgs});");
-			output.AddLine(tc + 1, $"return Result<{method.ReturnDto.Name}>.Ok({returnDtoVarName});");
+			output.AddLine(tc + 1, $"return Result<{method.ReturnDto.Name}?>.Ok({returnDtoVarName});");
 			output.AddLine(tc, "}");
 
 			mapMethods.AddLines(0, this.GenerateReadSingleMapMethod(entity, method.Name, sbMapUrl.ToString(), method));

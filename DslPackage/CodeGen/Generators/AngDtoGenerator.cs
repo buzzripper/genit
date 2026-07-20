@@ -51,6 +51,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
 
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 			foreach (var dto in entity.DtoModels)
 			{
 				fileContent.AddLine();

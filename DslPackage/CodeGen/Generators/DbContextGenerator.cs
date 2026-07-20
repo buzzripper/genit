@@ -312,9 +312,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var assoc in manyToManyAssocs)
 				{
 					var sourceEntityName = assoc.Source.Name;
-					var sourceNavPropName = assoc.SourceRoleName;
+					var sourceNavPropName = assoc.GenSourceNavProperty ? assoc.SourceRoleName : "";
 					var targetEntityName = assoc.Target.Name;
-					var targetNavPropName = assoc.TargetRoleName;
+					var targetNavPropName = assoc.GenTargetNavProperty ? assoc.TargetRoleName : "";
 
 					fileContent.AddLine();
 					if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))

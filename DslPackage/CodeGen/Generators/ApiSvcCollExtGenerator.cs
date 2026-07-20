@@ -96,7 +96,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine(0, "{");
 			fileContent.AddLine(1, "private static DbContextOptions<App1Db> _options;");
 			fileContent.AddLine();
-			fileContent.AddLine(1, "static partial void AddDataServices(IServiceCollection services, IConfiguration configuration)");
+			fileContent.AddLine(1, "public static partial void AddDataServices(IServiceCollection services, IConfiguration configuration)");
 			fileContent.AddLine(1, "{");
 			fileContent.AddLine(2, "var dataConfig = DataConfigBuilder.Build(configuration);");
 			fileContent.AddLine(2, "services.AddSingleton(dataConfig);");

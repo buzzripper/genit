@@ -36,7 +36,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_usings.Clear();
 			_usings.Add("System");
 			_usings.Add("System.Linq");
-			_usings.Add($"{_modelRoot.CommonNamespace}.Shared.Exceptions");
+			_usings.Add($"{_modelRoot.CommonNamespace}.Exceptions");
 			_usings.Add($"{_modelRoot.IntTestsNamespace}.Data");
 			_usings.Add($"{_modelRoot.IntTestsNamespace}.DataSets");
 			_usings.Add($"{_modelRoot.IntTestsNamespace}.Fixtures");
@@ -70,11 +70,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
 			// Usings
 			ResetUsings(entity, module);
 			_usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
-			_usings.AddIfNotExists($"{module.Namespace}.Shared.Requests.{service.Version}");
+			_usings.AddIfNotExists($"{module.Namespace}.Shared.Dtos.Enums");
+			if (service.UpdateMethods.Any(m => m.IsCreate))
+				_usings.Add($"{module.Namespace}.Shared.Requests.{service.Version}.{entity.Name}");
 			fileContent.AddLines(0, _usings.Select(u => $"using {u};").ToList());
 
 			// Namespace

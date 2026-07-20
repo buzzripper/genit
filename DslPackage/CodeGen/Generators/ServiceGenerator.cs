@@ -240,6 +240,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_modelRoot.InclHeader)
 				svcFileContent.Add(CodeGenUtils.FileHeader);
+			svcFileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 			svcFileContent.AddLines(0, _serviceUsings.Select(u => $"using {u};").ToList());
 			svcFileContent.AddLine();
 			svcFileContent.AddLine(0, $"namespace {module.Namespace}.Api.Services.{serviceModel.Version};");
@@ -266,6 +268,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var intFileContent = new List<string>();
 			if (_modelRoot.InclHeader)
 				intFileContent.Add(CodeGenUtils.FileHeader);
+			intFileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 			intFileContent.AddLines(0, _interfaceUsings.Select(u => $"using {u};").ToList());
 			intFileContent.AddLine();
 			intFileContent.AddLine(0, $"namespace {module.Namespace}.Shared.Contracts.{serviceModel.Version};");

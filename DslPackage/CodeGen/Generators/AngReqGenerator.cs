@@ -39,6 +39,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					indexEntities.Add(entity.Name.ToLower());
 					var lines = new List<string>();
 
+					lines.AddLine(0, CodeGenUtils.NullableEnableDirective);
+
 					foreach (var service in entity.ServiceModels.Where(s => s.InclAngService))
 					{
 						lines.AddLines(0, GenerateReadMethodReqs(module, entity, service));

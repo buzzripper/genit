@@ -55,6 +55,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_inclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
 			// Namespace 		 
 			fileContent.AddLine();

@@ -111,7 +111,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					output.AddLine(tc, $"[{attr}]");
 
 			// Build signature
-			string returnType = method.IsSingle ? $"{method.ReturnDto.Name}" : method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
+			string returnType = method.IsSingle ? $"{method.ReturnDto.Name}?" : method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
 
 			var sbSigArgs = new StringBuilder();
 			if (method.UseRequest)

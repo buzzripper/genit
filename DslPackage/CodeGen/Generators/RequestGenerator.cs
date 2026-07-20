@@ -81,6 +81,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
+			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
 
 			// Usings
 			fileContent.AddLines(0, _readMethodUsings.Select(u => $"using {u};").ToList());
