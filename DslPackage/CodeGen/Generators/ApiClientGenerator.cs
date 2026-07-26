@@ -15,7 +15,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Usings
 			var usings = new List<string>();
 			usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.ApiClients");
-			//usings.AddIfNotExists($"{module.ModelRoot.CommonNamespace}.Requests");
+			usings.AddIfNotExists("Dyvenix.Core.DTOs");
 			usings.AddIfNotExists($"{module.Namespace}.Shared.Contracts.{service.Version}");
 			//usings.AddIfNotExists($"{module.Namespace}.Shared.{service.Version}");
 			if (service.UpdateMethods.Any() || service.ReadMethods.Any(m => m.UseRequest))
@@ -174,7 +174,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine();
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"{returnStr}await PatchAsync{returnType}($\"api/{module.Name}/{service.Version}/{entity.Name}/{method.Name}\", request);");
+			var restVerb = method.IsCreate ? "Post" : "Patch";
+			output.AddLine(tc + 1, $"{returnStr}await {restVerb}Async{returnType}($\"api/{module.Name}/{service.Version}/{entity.Name}/{method.Name}\", request);");
 			output.AddLine(tc, "}");
 		}
 

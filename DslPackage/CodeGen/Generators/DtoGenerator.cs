@@ -58,7 +58,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.DtoNamespace}.{entity.Name};");
+			var ns = $"{module.DtoNamespace}.{entity.Name}";
+			fileContent.AddLine(0, $"namespace {ns};");
 
 			foreach (var dto in entity.DtoModels)
 				fileContent.AddLines(0, GenerateDto(_modules[entity.Module], entity, dto));
@@ -69,7 +70,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			module.DtoGlobalUsings.AddIfNotExists(entity.Name);
+			module.DtoGlobalUsings.AddIfNotExists(ns);
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}

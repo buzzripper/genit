@@ -474,4 +474,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <Target Name="AddShellFrameworkToPkgDefReferencePath" BeforeTargets="GeneratePkgDef">
+    <ItemGroup>
+      <ReferencePath Remove="@(ReferencePath)" Condition="'%(Filename)' == 'Microsoft.VisualStudio.Shell.Framework'" />
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="'%(Filename)' == 'Microsoft.VisualStudio.Shell.Framework'" />
+      <ReferencePath Include="$(DevEnvDir)PublicAssemblies\Microsoft.VisualStudio.Shell.Framework.dll" Condition="Exists('$(DevEnvDir)PublicAssemblies\Microsoft.VisualStudio.Shell.Framework.dll')" />
+    </ItemGroup>
+  </Target>
 </Project>

@@ -180,15 +180,37 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 
 		private void GenerateGlobalUsings(ModuleModel module)
 		{
+			if (string.IsNullOrWhiteSpace(module.RootFolder))
+				return;
+
 			var lines = new List<string>();
 
-			foreach (var entityName in module.DtoGlobalUsings)
-				lines.Add($"global using {module.DtoNamespace};");
+			lines.Add("// DTOs");
+			foreach (var u in module.DtoGlobalUsings)
+				lines.Add($"global using {u};");
+			lines.AddLine();
 
-			foreach (var entityName in module.RequestGlobalUsings)
-				lines.Add($"global using {module.RequestNamespace};");
+			lines.Add("// Requests");
+			foreach (var u in module.RequestGlobalUsings)
+				lines.Add($"global using {u};");
+			lines.AddLine();
 
-			var filepath = Path.Combine(module.GlobalUsingsFolder, "GlobalUsings.cs");
+			lines.Add("// Contracts");
+			foreach (var u in module.ContrtactsGlobalUsings)
+				lines.Add($"global using {u};");
+
+			const string fileName = "GlobalUsings.cs";
+
+			// API project
+			var filepath = Path.Combine(module.RootFolder, $"{module.Name}.Shared", fileName);
+			File.WriteAllLines(filepath, lines);
+
+			// Shared project
+			filepath = Path.Combine(module.RootFolder, $"{module.Name}.Api", fileName);
+			File.WriteAllLines(filepath, lines);
+
+			// Integration tests project
+			filepath = Path.Combine(_modelRoot.IntTestsRootFolder, fileName);
 			File.WriteAllLines(filepath, lines);
 		}
 	}
