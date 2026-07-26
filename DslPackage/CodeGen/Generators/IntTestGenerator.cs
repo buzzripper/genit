@@ -1,4 +1,5 @@
 ﻿using Dyvenix.GenIt.DslPackage.CodeGen.Misc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 {
 	internal class IntTestGenerator
 	{
+		private static readonly int MasterStrLen = 30 * 36;
+		private static readonly string MasterTestString = string.Concat(Enumerable.Range(0, 30).Select(_ => Guid.NewGuid().ToString().Replace("-", "M")));
+		private static readonly Random Rnd = new Random();
+
 		private readonly ModelRoot _modelRoot;
 		private readonly List<EntityModel> _entities;
 		private readonly string _entitiesNamespace;
@@ -49,13 +54,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			foreach (var entity in _entities.Where(e => e.GenerateCode))
 			{
 				var module = _modules[entity.Module];
-				foreach (var service in entity.ServiceModels.Where(s => s.Enabled))
+				var enabledServices = entity.ServiceModels.Where(s => s.Enabled);
+				foreach (var service in enabledServices)
 				{
 					GenerateReadTestsClass(module, entity, service);
 					GenerateWriteTestsClass(module, entity, service);
 				}
 			}
 		}
+
+		#region Write
 
 		private void GenerateWriteTestsClass(ModuleModel module, EntityModel entity, ServiceModel service)
 		{
@@ -130,94 +138,77 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private List<string> GenerateWriteTestMethods(EntityModel entity, ServiceModel service)
 		{
-			var testMethods = new List<string>();
+			var testLines = new List<string>();
 
-			// Create tests
-			if (service.InclCreate)
+			// Create
+			foreach (var createMethod in service.UpdateMethods.Where(m => m.IsCreate))
 			{
-				AddCreateSuccessTest(testMethods, entity);
-				AddCreateValidationErrorTest(testMethods, entity);
-				AddCreateDuplicateTest(testMethods, entity);
+				AddCreateSuccessTest(entity, createMethod, testLines);
+				AddCreateValidationErrorTest(entity, createMethod, testLines);
+				AddCreateDuplicateTest(entity, createMethod, testLines);
 			}
 
-			// Update tests
-			if (service.InclUpdate)
+			// Update
+			foreach (var updateMethod in service.UpdateMethods.Where(m => !m.IsCreate))
 			{
-				AddUpdateSuccessTest(testMethods, entity);
-				AddUpdateNotFoundTest(testMethods, entity);
-				AddUpdateValidationErrorTest(testMethods, entity);
-				if (entity.InclRowVersion)
-				{
-					AddUpdateRowVersionConflictTest(testMethods, entity);
-					AddUpdateRowVersionSuccessTest(testMethods, entity);
-				}
-			}
-
-			// Custom update method tests
-			foreach (var updateMethod in service.UpdateMethods)
-			{
-				AddCustomUpdateSuccessTest(testMethods, entity, updateMethod);
-				AddCustomUpdateNotFoundTest(testMethods, entity, updateMethod);
+				AddUpdateSuccessTest(entity, updateMethod, testLines);
+				AddUpdateNotFoundTest(entity, updateMethod, testLines);
 				if (updateMethod.UpdateProperties.Any(p => !p.IsOptional))
-					AddCustomUpdateValidationErrorTest(testMethods, entity, updateMethod);
+					AddUpdateValidationErrorTest(entity, updateMethod, testLines);
 			}
 
-			// Delete tests
+			// Delete
 			if (service.InclDelete)
 			{
-				AddDeleteSuccessTest(testMethods, entity);
-				AddDeleteNotFoundTest(testMethods, entity);
+				AddDeleteSuccessTest(entity, testLines);
+				AddDeleteNotFoundTest(entity, testLines);
 			}
 
-			return testMethods;
+			return testLines;
 		}
 
-		private void AddCreateSuccessTest(List<string> testMethods, EntityModel entity)
+		#endregion
+
+		#region Create
+
+		private void AddCreateSuccessTest(EntityModel entity, UpdateMethodModel createMethod, List<string> testLines)
 		{
 			var entityListExpr = GetEntityListExpression(entity);
-			var createProps = GetCreateProperties(entity);
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Create_Success()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var newEntity = new {entity.Name}();");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {createMethod.Name}_Success()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var request = new {createMethod.Name}Req();");
+			testLines.AddLine(2, $"request.Id = Guid.NewGuid();");
 
-			foreach (var prop in createProps)
+			foreach (var updateProp in createMethod.UpdateProperties)
 			{
+				var prop = updateProp.PropertyModel;
+				if (prop == null) continue;
 				var value = GetTestValueExpression(prop, entity);
-				testMethods.AddLine(2, $"newEntity.{prop.Name} = {value};");
+				testLines.AddLine(2, $"request.{prop.Name} = {value};");
 			}
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act");
 			if (entity.InclRowVersion)
-				testMethods.AddLine(2, $"var rowVersion = await _{entity.Name.ToCamelCase()}Service.Create{entity.Name}(newEntity);");
+				testLines.AddLine(2, $"var rowVersion = await _{entity.Name.ToCamelCase()}Service.{createMethod.Name}(request);");
 			else
-				testMethods.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.Create{entity.Name}(newEntity);");
+				testLines.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.{createMethod.Name}(request);");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Assert");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Assert");
 			if (entity.InclRowVersion)
 			{
-				testMethods.AddLine(2, "Assert.NotNull(rowVersion);");
-				testMethods.AddLine(2, "Assert.NotEmpty(rowVersion);");
+				testLines.AddLine(2, "Assert.NotNull(rowVersion);");
+				testLines.AddLine(2, "Assert.NotEmpty(rowVersion);");
 			}
-
-			var pkProp = entity.Properties.FirstOrDefault(p => p.IsPrimaryKey);
-			if (pkProp != null)
-			{
-				if (pkProp.DataType == DataTypes.Guid)
-					testMethods.AddLine(2, $"Assert.NotEqual(Guid.Empty, newEntity.{pkProp.Name});");
-				else if (pkProp.DataType == DataTypes.Int32 || pkProp.DataType == DataTypes.Int64)
-					testMethods.AddLine(2, $"Assert.True(newEntity.{pkProp.Name} > 0);");
-			}
-
-			testMethods.AddLine(1, "}");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddCreateValidationErrorTest(List<string> testMethods, EntityModel entity)
+		private void AddCreateValidationErrorTest(EntityModel entity, UpdateMethodModel createMethod, List<string> testLines)
 		{
 			var requiredStringProp = entity.Properties.FirstOrDefault(p =>
 				!p.IsPrimaryKey && !p.IsNullable && p.DataType == DataTypes.String && !p.IsRowVersion);
@@ -225,21 +216,21 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (requiredStringProp == null)
 				return;
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Create_ValidationError_MissingRequired()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var newEntity = new {entity.Name}();");
-			testMethods.AddLine(2, $"newEntity.{requiredStringProp.Name} = string.Empty; // Required field left empty");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {createMethod.Name}_ValidationError_MissingRequired()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var request = new {createMethod.Name}Req();");
+			testLines.AddLine(2, $"request.{requiredStringProp.Name} = string.Empty; // Required field left empty");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Create{entity.Name}(newEntity));");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act & Assert");
+			testLines.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{createMethod.Name}(request));");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddCreateDuplicateTest(List<string> testMethods, EntityModel entity)
+		private void AddCreateDuplicateTest(EntityModel entity, UpdateMethodModel createMethod, List<string> testLines)
 		{
 			var uniqueProp = entity.Properties.FirstOrDefault(p => p.IsIndexed && p.IsIndexUnique && !p.IsPrimaryKey);
 			if (uniqueProp == null)
@@ -247,143 +238,63 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var entityListExpr = GetEntityListExpression(entity);
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Create_DuplicateKey_Fails()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, $"var newEntity = new {entity.Name}();");
-			testMethods.AddLine(2, $"newEntity.{uniqueProp.Name} = existing.{uniqueProp.Name}; // Duplicate unique value");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {createMethod.Name}_DuplicateKey_Fails()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var existing = {entityListExpr}.First();");
+			testLines.AddLine(2, $"var request = new {createMethod.Name}Req();");
+			testLines.AddLine(2, $"request.{uniqueProp.Name} = existing.{uniqueProp.Name}; // Duplicate unique value");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Create{entity.Name}(newEntity));");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act & Assert");
+			testLines.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{createMethod.Name}(request));");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddUpdateSuccessTest(List<string> testMethods, EntityModel entity)
+		#endregion
+
+		#region Update
+
+		private void AddUpdateSuccessTest(EntityModel entity, UpdateMethodModel updateMethod, List<string> testLines)
 		{
 			var entityListExpr = GetEntityListExpression(entity);
-			var updateableProp = GetUpdateableProperty(entity);
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Update_Success()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, $"var entityToUpdate = await _{entity.Name.ToCamelCase()}Service.GetById(existing.Id);");
-			testMethods.AddLine(2, "Assert.NotNull(entityToUpdate);");
-
-			if (updateableProp != null)
-			{
-				testMethods.AddLine(2, $"var originalValue = entityToUpdate.{updateableProp.Name};");
-				testMethods.AddLine(2, $"entityToUpdate.{updateableProp.Name} = {GetTestValueExpression(updateableProp, entity)};");
-			}
-
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {updateMethod.Name}_Success()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var existing = {entityListExpr}.First();");
+			testLines.AddLine(2, $"var request = new {updateMethod.Name}Req();");
+			testLines.AddLine(2, "request.Id = existing.Id;");
 			if (entity.InclRowVersion)
-				testMethods.AddLine(2, $"var rowVersion = await _{entity.Name.ToCamelCase()}Service.Update{entity.Name}(entityToUpdate);");
-			else
-				testMethods.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.Update{entity.Name}(entityToUpdate);");
+				testLines.AddLine(2, $"request.RowVersion = existing.RowVersion;");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Assert");
-			if (entity.InclRowVersion)
-			{
-				testMethods.AddLine(2, "Assert.NotNull(rowVersion);");
-				testMethods.AddLine(2, "Assert.NotEmpty(rowVersion);");
-			}
-			testMethods.AddLine(2, $"var updated = _db.{entity.Name}.First(x => x.Id == entityToUpdate.Id);");
-			testMethods.AddLine(2, "Assert.NotNull(updated);");
-			if (updateableProp != null)
-				testMethods.AddLine(2, $"Assert.NotEqual(originalValue, updated.{updateableProp.Name});");
-			testMethods.AddLine(1, "}");
-		}
-
-		private void AddUpdateNotFoundTest(List<string> testMethods, EntityModel entity)
-		{
-			var pkProp = entity.Properties.FirstOrDefault(p => p.IsPrimaryKey);
-			if (pkProp == null)
-				return;
-
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Update_NotFound()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var entityToUpdate = new {entity.Name}();");
-			testMethods.AddLine(2, $"entityToUpdate.{pkProp.Name} = {GetInvalidPkValue(pkProp)};");
-
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Update{entity.Name}(entityToUpdate));");
-			testMethods.AddLine(1, "}");
-		}
-
-		private void AddUpdateValidationErrorTest(List<string> testMethods, EntityModel entity)
-		{
-			var entityListExpr = GetEntityListExpression(entity);
-			var requiredStringProp = entity.Properties.FirstOrDefault(p =>
-				!p.IsPrimaryKey && !p.IsNullable && p.DataType == DataTypes.String && !p.IsRowVersion);
-
-			if (requiredStringProp == null)
-				return;
-
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Update_ValidationError()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, $"var entityToUpdate = await _{entity.Name.ToCamelCase()}Service.GetById(existing.Id);");
-			testMethods.AddLine(2, "Assert.NotNull(entityToUpdate);");
-			testMethods.AddLine(2, $"entityToUpdate.{requiredStringProp.Name} = string.Empty; // Clear required field");
-
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Update{entity.Name}(entityToUpdate));");
-			testMethods.AddLine(1, "}");
-		}
-
-		private void AddCustomUpdateSuccessTest(List<string> testMethods, EntityModel entity, UpdateMethodModel updateMethod)
-		{
-			var entityListExpr = GetEntityListExpression(entity);
-
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task {updateMethod.Name}_Success()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, $"var request = new {updateMethod.Name}Req();");
-			testMethods.AddLine(2, "request.Id = existing.Id;");
-
-			foreach (var updateProp in updateMethod.UpdateProperties)
+			foreach (var updateProp in updateMethod.UpdateProperties.Where(p => !p.PropertyModel.IsRowVersion))
 			{
 				var prop = updateProp.PropertyModel;
 				if (prop == null) continue;
 				var value = GetTestValueExpression(prop, entity);
-				testMethods.AddLine(2, $"request.{prop.Name} = {value};");
+				testLines.AddLine(2, $"request.{prop.Name} = {value};");
 			}
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act");
 			if (entity.InclRowVersion)
-				testMethods.AddLine(2, $"var rowVersion = await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request);");
+				testLines.AddLine(2, $"var rowVersion = await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request);");
 			else
-				testMethods.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request);");
+				testLines.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request);");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Assert");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Assert");
 			if (entity.InclRowVersion)
 			{
-				testMethods.AddLine(2, "Assert.NotNull(rowVersion);");
-				testMethods.AddLine(2, "Assert.NotEmpty(rowVersion);");
+				testLines.AddLine(2, "Assert.NotNull(rowVersion);");
+				testLines.AddLine(2, "Assert.NotEmpty(rowVersion);");
 			}
-			testMethods.AddLine(1, "}");
+			testLines.AddLine(1, "}");
 		}
 
 		private void AddUpdateRowVersionConflictTest(List<string> testMethods, EntityModel entity)
@@ -457,35 +368,35 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			testMethods.AddLine(1, "}");
 		}
 
-		private void AddCustomUpdateNotFoundTest(List<string> testMethods, EntityModel entity, UpdateMethodModel updateMethod)
+		private void AddUpdateNotFoundTest(EntityModel entity, UpdateMethodModel updateMethod, List<string> testLines)
 		{
 			var pkProp = entity.Properties.FirstOrDefault(p => p.IsPrimaryKey);
 			if (pkProp == null)
 				return;
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task {updateMethod.Name}_NotFound()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var request = new {updateMethod.Name}Req();");
-			testMethods.AddLine(2, $"request.Id = {GetInvalidPkValue(pkProp)};");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {updateMethod.Name}_NotFound()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var request = new {updateMethod.Name}Req();");
+			testLines.AddLine(2, $"request.Id = {GetInvalidPkValue(pkProp)};");
 
 			foreach (var updateProp in updateMethod.UpdateProperties.Where(p => !p.IsOptional))
 			{
 				var prop = updateProp.PropertyModel;
 				if (prop == null) continue;
 				var value = GetTestValueExpression(prop, entity);
-				testMethods.AddLine(2, $"request.{prop.Name} = {value};");
+				testLines.AddLine(2, $"request.{prop.Name} = {value};");
 			}
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request));");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act & Assert");
+			testLines.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request));");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddCustomUpdateValidationErrorTest(List<string> testMethods, EntityModel entity, UpdateMethodModel updateMethod)
+		private void AddUpdateValidationErrorTest(EntityModel entity, UpdateMethodModel updateMethod, List<string> testLines)
 		{
 			var entityListExpr = GetEntityListExpression(entity);
 			var requiredProp = updateMethod.UpdateProperties.FirstOrDefault(p =>
@@ -494,70 +405,69 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (requiredProp == null)
 				return;
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task {updateMethod.Name}_ValidationError()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, $"var request = new {updateMethod.Name}Req();");
-			testMethods.AddLine(2, "request.Id = existing.Id;");
-			testMethods.AddLine(2, $"request.{requiredProp.PropertyModel.Name} = string.Empty; // Required field empty");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task {updateMethod.Name}_ValidationError()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var existing = {entityListExpr}.First();");
+			testLines.AddLine(2, $"var request = new {updateMethod.Name}Req();");
+			testLines.AddLine(2, "request.Id = existing.Id;");
+			testLines.AddLine(2, $"request.{requiredProp.PropertyModel.Name} = string.Empty; // Required field empty");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request));");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act & Assert");
+			testLines.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.{updateMethod.Name}(request));");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddDeleteSuccessTest(List<string> testMethods, EntityModel entity)
+		#endregion
+
+		#region Delete
+
+		private void AddDeleteSuccessTest(EntityModel entity, List<string> testLines)
 		{
 			var entityListExpr = GetEntityListExpression(entity);
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Delete_Success()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var existing = {entityListExpr}.First();");
-			testMethods.AddLine(2, "var idToDelete = existing.Id;");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task Delete_Success()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var existing = {entityListExpr}.First();");
+			testLines.AddLine(2, "var idToDelete = existing.Id;");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act");
-			testMethods.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.Delete{entity.Name}(idToDelete);");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act");
+			testLines.AddLine(2, $"await _{entity.Name.ToCamelCase()}Service.Delete{entity.Name}(idToDelete);");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Assert");
-			testMethods.AddLine(2, $"var deleted = await _{entity.Name.ToCamelCase()}Service.GetById(idToDelete);");
-			testMethods.AddLine(2, "Assert.Null(deleted);");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Assert");
+			testLines.AddLine(2, $"var deleted = await _{entity.Name.ToCamelCase()}Service.GetById(idToDelete);");
+			testLines.AddLine(2, "Assert.Null(deleted);");
+			testLines.AddLine(1, "}");
 		}
 
-		private void AddDeleteNotFoundTest(List<string> testMethods, EntityModel entity)
+		private void AddDeleteNotFoundTest(EntityModel entity, List<string> testLines)
 		{
 			var pkProp = entity.Properties.FirstOrDefault(p => p.IsPrimaryKey);
 			if (pkProp == null)
 				return;
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task Delete_NotFound()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
-			testMethods.AddLine(2, $"var invalidId = {GetInvalidPkValue(pkProp)};");
+			testLines.AddLine();
+			testLines.AddLine(1, "[Fact]");
+			testLines.AddLine(1, $"public async Task Delete_NotFound()");
+			testLines.AddLine(1, "{");
+			testLines.AddLine(2, "// Arrange");
+			testLines.AddLine(2, $"var invalidId = {GetInvalidPkValue(pkProp)};");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act & Assert");
-			testMethods.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Delete{entity.Name}(invalidId));");
-			testMethods.AddLine(1, "}");
+			testLines.AddLine();
+			testLines.AddLine(2, "// Act & Assert");
+			testLines.AddLine(2, $"await Assert.ThrowsAnyAsync<Exception>(async () => await _{entity.Name.ToCamelCase()}Service.Delete{entity.Name}(invalidId));");
+			testLines.AddLine(1, "}");
 		}
 
-		private static List<PropertyModel> GetCreateProperties(EntityModel entity)
-		{
-			return entity.Properties
-				.Where(p => !p.IsPrimaryKey && !p.IsRowVersion && !p.IsIdentity)
-				.ToList();
-		}
+		#endregion
 
 		private static PropertyModel GetUpdateableProperty(EntityModel entity)
 		{
@@ -569,7 +479,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			switch (prop.DataType)
 			{
 				case "String":
-					return $"\"Test_{prop.Name}_\" + Guid.NewGuid().ToString().Substring(0, 8)";
+					var str = GenerateRandomString(prop.Length) ?? "null";
+					return $"\"{str}\"";
 				case "Guid":
 					return "Guid.NewGuid()";
 				case "DateTime":
@@ -612,6 +523,19 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					// Likely an enum
 					return $"default({prop.DataType})";
 			}
+		}
+
+		private static string GenerateRandomString(int length, int nullPct = 0, int emptyPct = 0)
+		{
+			if (nullPct > 0 && Rnd.Next(0, 100) < nullPct)
+				return null;
+			if (nullPct > 0 && Rnd.Next(0, 100) < emptyPct)
+				return "";
+
+			var begin = Rnd.Next(0, MasterStrLen - length);
+			var len = Rnd.Next(1, length);
+
+			return MasterTestString.Substring(begin, length);
 		}
 
 		private static string GetInvalidPkValue(PropertyModel pkProp)
@@ -733,7 +657,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			return testMethods;
 		}
 
-		private void AddReadSuccessTest(List<string> testMethods, EntityModel entity, ReadMethodModel readMethod)
+		private void AddReadSuccessTest(List<string> testMethodLines, EntityModel entity, ReadMethodModel readMethod)
 		{
 			var entityListExpr = GetEntityListExpression(entity);
 			var sampleVarName = GetSampleVarName(entity);
@@ -741,55 +665,56 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var filterPropsToAssign = GetFilterPropsToAssign(readMethod, includeOptional);
 			var expectedFilterProps = GetExpectedFilterProps(readMethod, includeOptional);
 
-			testMethods.AddLine();
-			testMethods.AddLine(1, "[Fact]");
-			testMethods.AddLine(1, $"public async Task {readMethod.Name}_Success()");
-			testMethods.AddLine(1, "{");
-			testMethods.AddLine(2, "// Arrange");
+			testMethodLines.AddLine();
+			testMethodLines.AddLine(1, "[Fact]");
+			testMethodLines.AddLine(1, $"public async Task {readMethod.Name}_Success()");
+			testMethodLines.AddLine(1, "{");
+			testMethodLines.AddLine(2, "// Arrange");
 
-			AddSampleSelection(testMethods, entityListExpr, sampleVarName, expectedFilterProps);
-			var filterVars = AddFilterValueDeclarations(testMethods, filterPropsToAssign, sampleVarName, false);
+			AddSampleSelection(testMethodLines, entityListExpr, sampleVarName, expectedFilterProps);
+			var filterVars = AddFilterValueDeclarations(testMethodLines, filterPropsToAssign, sampleVarName, false);
+			testMethodLines.AddLine();
+			if (!readMethod.IsSingle)
+			{
+				AddExpectedList(testMethodLines, entityListExpr, expectedFilterProps, filterVars);
+			}
+			testMethodLines.AddLine();
 
 			if (readMethod.UseRequest)
 			{
-				testMethods.AddLine(2, $"var request = new {readMethod.Name}Req();");
+				testMethodLines.AddLine(2, $"var request = new {readMethod.Name}Req();");
 				if (readMethod.InclPaging)
 				{
-					testMethods.AddLine(2, "request.PageSize = 0;");
-					testMethods.AddLine(2, "request.PageOffset = 0;");
-					testMethods.AddLine(2, "request.RecalcRowCount = true;");
-					testMethods.AddLine(2, "request.GetRowCountOnly = false;");
+					testMethodLines.AddLine(2, "request.PageSize = 0;");
+					testMethodLines.AddLine(2, "request.PageOffset = 0;");
+					testMethodLines.AddLine(2, "request.RecalcRowCount = true;");
+					testMethodLines.AddLine(2, "request.GetRowCountOnly = false;");
 				}
-				AddRequestAssignments(testMethods, filterVars);
+				AddRequestAssignments(testMethodLines, filterVars);
 			}
 
-			if (!readMethod.IsSingle)
-			{
-				AddExpectedList(testMethods, entityListExpr, expectedFilterProps, filterVars);
-			}
-
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Act");
+			testMethodLines.AddLine();
+			testMethodLines.AddLine(2, "// Act");
 			var serviceVarName = $"_{entity.Name.ToCamelCase()}Service";
 			var methodArgs = readMethod.UseRequest ? "request" : BuildMethodCallArgs(readMethod, filterVars, includeOptional);
-			testMethods.AddLine(2, $"var result = await {serviceVarName}.{readMethod.Name}({methodArgs});");
+			testMethodLines.AddLine(2, $"var result = await {serviceVarName}.{readMethod.Name}({methodArgs});");
 
-			testMethods.AddLine();
-			testMethods.AddLine(2, "// Assert");
+			testMethodLines.AddLine();
+			testMethodLines.AddLine(2, "// Assert");
 			if (readMethod.IsSingle)
 			{
-				testMethods.AddLine(2, $"Assert.Equal({sampleVarName}.Id, result.Id);");
+				testMethodLines.AddLine(2, $"Assert.Equal({sampleVarName}.Id, result.Id);");
 			}
 			else if (readMethod.InclPaging)
 			{
-				testMethods.AddLine(2, "Assert.Equal(expectedList.Count, result.Items.Count);");
-				testMethods.AddLine(2, "Assert.Equal(expectedList.Count, result.TotalRowCount);");
+				testMethodLines.AddLine(2, "Assert.Equal(expectedList.Count, result.Items.Count);");
+				testMethodLines.AddLine(2, "Assert.Equal(expectedList.Count, result.TotalRowCount);");
 			}
 			else
 			{
-				testMethods.AddLine(2, "Assert.Equal(expectedList.Count, result.Count);");
+				testMethodLines.AddLine(2, "Assert.Equal(expectedList.Count, result.Count);");
 			}
-			testMethods.AddLine(1, "}");
+			testMethodLines.AddLine(1, "}");
 		}
 
 		private void AddReadOptionalOmittedTest(List<string> testMethods, EntityModel entity, ReadMethodModel readMethod)
@@ -1080,9 +1005,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var predicate = BuildSamplePredicate(filterProps);
 			if (string.IsNullOrWhiteSpace(predicate))
-				testMethods.AddLine(2, $"var {sampleVarName} = {entityListExpr}.First();");
+				testMethods.AddLine(2, $"var {sampleVarName} = {entityListExpr}.FirstOrDefault();");
 			else
-				testMethods.AddLine(2, $"var {sampleVarName} = {entityListExpr}.First({predicate});");
+				testMethods.AddLine(2, $"var {sampleVarName} = {entityListExpr}.FirstOrDefault({predicate});");
+			testMethods.AddLine(2, $"if ({sampleVarName} == null)");
+			testMethods.AddLine(3, $"throw new ApplicationException(\"Sample data not found.\");");
 		}
 
 		private static Dictionary<FilterPropertyModel, string> AddFilterValueDeclarations(List<string> testMethods, IEnumerable<FilterPropertyModel> filterProps, string sampleVarName, bool usePartialMatchShortValue)

@@ -49,7 +49,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Need 'Requests' namespace if using IPaging or ISorting
 			if (readMethod.InclPaging || readMethod.InclSorting)
-				_readMethodUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+				_readMethodUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Requests");
 
 			// If any non-primitive property, add DTOs namespace
 			if (readMethod.FilterProperties.Any(x => !DataTypes.IsPrimitive(x.PropertyModel.DataType)))
@@ -88,7 +88,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.{service.Version};");
+			var ns = $"{module.RequestNamespace}.{service.Version}.{entity.Name}";
+			fileContent.AddLine(0, $"namespace {ns};");
 
 			// Class declaration
 			if (readMethod.InclPaging || readMethod.InclSorting)
@@ -111,15 +112,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				string initStr = null;
 				foreach (var filterProp in filterProps)
 				{
-					if (filterProp.IsOptional)
-					{
-						nullStr = "?";
-						initStr = "";
-					}
-					else
+					if (filterProp.IsOptional || filterProp.PropertyModel.IsNullable)
 					{
 						nullStr = null;
 						initStr = " = null!;";
+					}
+					else
+					{
+						nullStr = "?";
+						initStr = "";
 					}
 					fileContent.AddLine(1, $"public {filterProp.PropertyModel.CSType}{nullStr} {filterProp.PropertyModel.Name} {{ get; set; }}{initStr}");
 				}
@@ -133,7 +134,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			module.DtoGlobalUsings.AddIfNotExists($"{service.Version}.{entity.Name}");
+			module.RequestGlobalUsings.AddIfNotExists(ns);
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}
@@ -176,7 +177,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Namespace
 			fileContent.AddLine();
-			fileContent.AddLine(0, $"namespace {module.RequestNamespace}.{service.Version}.{entity.Name};");
+			var ns = $"{module.RequestNamespace}.{service.Version}.{entity.Name}";
+			fileContent.AddLine(0, $"namespace {ns};");
 
 			fileContent.AddLine();
 			fileContent.AddLine(0, $"public class {dtoName}");
@@ -215,7 +217,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
-			module.RequestGlobalUsings.AddIfNotExists($"{service.Version}.{entity.Name}");
+			module.RequestGlobalUsings.AddIfNotExists(ns);
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");
 		}

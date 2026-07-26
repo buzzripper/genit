@@ -147,18 +147,19 @@ namespace Dyvenix.GenIt
 			}
 		}
 
-		[Browsable(false)]
-		public string GlobalUsingsFolder
-		{
-			get
-			{
-				if (string.IsNullOrWhiteSpace(this.RootFolder))
-					return null;
-				return Path.Combine(this.RootFolder, $"{this.Name}.Shared");
-			}
-		}
+		//[Browsable(false)]
+		//public string GlobalUsingsFolder
+		//{
+		//	get
+		//	{
+		//		if (string.IsNullOrWhiteSpace(this.RootFolder))
+		//			return null;
+		//		return Path.Combine(this.RootFolder, $"{this.Name}.Shared");
+		//	}
+		//}
 
 		public List<string> DtoGlobalUsings { get; set; } = new List<string>();
 		public List<string> RequestGlobalUsings { get; set; } = new List<string>();
+		public List<string> ContrtactsGlobalUsings { get; set; } = new List<string>();
 	}
 }

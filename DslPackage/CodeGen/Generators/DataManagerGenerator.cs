@@ -121,8 +121,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContents.AddLine(1, " {");
 			fileContents.AddLine(2, "var dataSet = this.DataSets[dataSetName];");
 			fileContents.AddLine();
-			fileContents.AddLine(2, "await DeleteAllData();");
-			fileContents.AddLine(2, "await InsertAllData(dataSet);");
+			//fileContents.AddLine(2, "await DeleteAllData();");
+			//fileContents.AddLine(2, "await InsertAllData(dataSet);");
 			fileContents.AddLine();
 			fileContents.AddLine(2, "return dataSet;");
 			fileContents.AddLine(1, "}");

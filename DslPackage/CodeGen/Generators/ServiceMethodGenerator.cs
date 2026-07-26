@@ -74,8 +74,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			else
 			{
 				output.AddLine(tc + 2, $"_db.Attach({varName});");
+				output.AddLine(tc + 2, $"var entry = _db.Entry({varName});");
 				foreach (var updProp in updateProps)
-					output.AddLine(tc + 2, $"_db.Entry({varName}).Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
+					output.AddLine(tc + 2, $"entry.Property(u => u.{updProp.PropertyModel.Name}).IsModified = true;");
 				output.AddLine();
 			}
 

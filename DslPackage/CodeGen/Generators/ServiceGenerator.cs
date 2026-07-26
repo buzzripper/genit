@@ -37,9 +37,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_serviceUsings.Add(module.DtoNamespace);
 			_serviceUsings.Add(_modelRoot.EntitiesNamespace);
 			_serviceUsings.Add($"{_modelRoot.CommonNamespace}.Exceptions");
-			_serviceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
-			_serviceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
-			_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
+			//_serviceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
+			//_serviceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
+			//if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
+			//	_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
 
 			foreach (var u in entity.UsingsList)
 				_serviceUsings.AddIfNotExists(u);
@@ -52,13 +53,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
 			{
-				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
-				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
+				//_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
+				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.DTOs");
 				//_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
 			}
 
 			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
-				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Requests");
 		}
 
 		private void ResetInterfaceUsings(EntityModel entity, ServiceModel serviceModel, ModuleModel module)
@@ -72,9 +73,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_interfaceUsings.Add("System.Threading.Tasks");
 			_interfaceUsings.Add("Microsoft.Extensions.Logging");
 			_interfaceUsings.AddLines(0, _modelRoot.UsingsList);
-			_interfaceUsings.Add(module.DtoNamespace);
-			_interfaceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
-			_interfaceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
+			//_interfaceUsings.Add(module.DtoNamespace);
+			//if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
+			//	_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
+			//_interfaceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
+			//_interfaceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
 
 			foreach (var u in entity.UsingsList)
 				_interfaceUsings.AddIfNotExists(u);
@@ -87,13 +90,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
 			{
-				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
-				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.DTOs");
-				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Extensions");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.DTOs");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Requests");
 			}
 
 			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
-				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
+				_interfaceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Requests");
 		}
 
 		internal void Validate(List<string> errors)
@@ -272,7 +275,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			intFileContent.AddLines(0, _interfaceUsings.Select(u => $"using {u};").ToList());
 			intFileContent.AddLine();
-			intFileContent.AddLine(0, $"namespace {module.Namespace}.Shared.Contracts.{serviceModel.Version};");
+			var ns = $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}";
+			intFileContent.AddLine(0, $"namespace {ns};");
 			intFileContent.AddLine();
 			intFileContent.AddLine(0, $"public interface I{entity.Name}Service");
 			intFileContent.AddLine(0, "{");
@@ -283,6 +287,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			Directory.CreateDirectory(intOutputDir);  // Ensure output dir exists
 			var intOutputFilepath = Path.Combine(intOutputDir, $"I{serviceName}.g.cs");
 			FileHelper.SaveFile(intOutputFilepath, intFileContent.AsString());
+
+			module.ContrtactsGlobalUsings.AddIfNotExists(ns);
 
 			OutputHelper.Write($"Completed code gen for service: {serviceName}");
 		}
