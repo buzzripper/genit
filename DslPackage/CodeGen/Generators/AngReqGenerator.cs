@@ -20,21 +20,31 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_modules = modules;
 		}
 
+		private bool HasReqs(ModuleModel module, EntityModel entity)
+		{
+			return
+				entity.Module == module.Name &&
+				entity.InclAngDtos &&
+				entity.ServiceModels.Any(s => s.InclAngService) &&
+				(
+					entity.ServiceModels.Any(s => s.ReadMethods.Any(m => m.UseRequest)) ||
+					entity.ServiceModels.Any(s => s.UpdateMethods.Any())
+				);
+		}
+
 		internal void GenerateCode()
 		{
 			foreach (var module in _modules.Values)
 			{
-				var entitiesWithDtos = _entities.Where(e => e.Module == module.Name && e.InclAngDtos);
-
-				// Make sure we have any entities that need request objects
-				if (!entitiesWithDtos.Any(e => e.InclAngDtos && e.ServiceModels.Any(s => s.InclAngService)))
+				var entitiesWithReqs = _entities.Where(e => HasReqs(module, e)).ToList();
+				if (!entitiesWithReqs.Any())
 					return;
 
 				var indexEntities = new List<string>();
 				var reqFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "req");
 				Directory.CreateDirectory(reqFolderPath);
 
-				foreach (var entity in entitiesWithDtos)
+				foreach (var entity in entitiesWithReqs)
 				{
 					indexEntities.Add(entity.Name.ToLower());
 					var lines = new List<string>();
@@ -54,18 +64,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 						lines.Insert(0, $"{CodeGenUtils.FileHeader}");
 
 					// Write the file
-					var outputFilepath = Path.Combine(reqFolderPath, $"{entity.Name}.reqs.ts");
+					var outputFilepath = Path.Combine(reqFolderPath, $"{entity.Name.ToLower()}.req.g.ts");
 					FileHelper.SaveFile(outputFilepath, lines.AsString());
 					OutputHelper.Write($"Completed code gen for angular reqs: {entity.Name}");
 				}
 
 				if (indexEntities.Any())
 				{
-					var indexFileContent = new List<string>();
+					var newLines = new List<string>();
 					foreach (var indexEntity in indexEntities)
-						indexFileContent.AddLine(0, $"export * from './{indexEntity.ToLower()}.reqs';");
+						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.req.g';");
 					var indexFilePath = Path.Combine(reqFolderPath, "index.ts");
-					FileHelper.SaveFile(indexFilePath, indexFileContent.AsString());
+					FileHelper.PreserveCustomContentAndWriteFile(newLines, indexFilePath);
 					OutputHelper.Write($"Completed code gen for angular req index file for module: {module.Name}");
 				}
 			}

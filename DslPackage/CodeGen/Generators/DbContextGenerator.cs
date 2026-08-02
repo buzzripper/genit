@@ -52,6 +52,14 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (string.IsNullOrEmpty(_baseClass))
 				errors.Add("DbContext BaseClass is not set. Please set it in the DbContext properties.");
+
+			foreach (var assoc in _associations)
+			{
+				if (assoc.GenSourceNavProperty && string.IsNullOrWhiteSpace(assoc.SourceRoleName))
+					errors.Add($"Association {assoc.Source.Name} - {assoc.Target.Name} has GenSourceNavProperty = true, but there is no SourceRoleName set.");
+				if (assoc.GenTargetNavProperty && string.IsNullOrWhiteSpace(assoc.TargetRoleName))
+					errors.Add($"Association {assoc.Target.Name} - {assoc.Source.Name} has GenTargetNavProperty = true, but there is no TargetRoleName set.");
+			}
 		}
 
 		internal void GenerateCode()
@@ -236,8 +244,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 							}
 							else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
 							{
-								// Navigation property only on both sides
-								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetEntityName})");
+								// Navigation property on both sides
+								fileContent.AddLine(3, $"entity.HasOne(te => te.{targetNavPropName})");
 								fileContent.AddLine(4, $".WithMany(se => se.{sourceNavPropName})");
 								fileContent.AddLine(4, $".HasForeignKey(te => te.{prop.Name})");
 								fileContent.AddLine(4, $".OnDelete(DeleteBehavior.NoAction);");
@@ -304,44 +312,44 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			// Foreign key many-to-many relationships
-			var manyToManyAssocs = _associations.Where(a => a.SourceMultiplicity == Multiplicity.Many && a.TargetMultiplicity == Multiplicity.Many).ToList();
-			if (manyToManyAssocs.Count > 0)
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(2, "#region Many-to-many relationships");
-				foreach (var assoc in manyToManyAssocs)
-				{
-					var sourceEntityName = assoc.Source.Name;
-					var sourceNavPropName = assoc.GenSourceNavProperty ? assoc.SourceRoleName : "";
-					var targetEntityName = assoc.Target.Name;
-					var targetNavPropName = assoc.GenTargetNavProperty ? assoc.TargetRoleName : "";
+			//var manyToManyAssocs = _associations.Where(a => a.SourceMultiplicity == Multiplicity.Many && a.TargetMultiplicity == Multiplicity.Many).ToList();
+			//if (manyToManyAssocs.Count > 0)
+			//{
+			//	fileContent.AddLine();
+			//	fileContent.AddLine(2, "#region Many-to-many relationships");
+			//	foreach (var assoc in manyToManyAssocs)
+			//	{
+			//		var sourceEntityName = assoc.Source.Name;
+			//		var sourceNavPropName = assoc.GenSourceNavProperty ? assoc.SourceRoleName : "";
+			//		var targetEntityName = assoc.Target.Name;
+			//		var targetNavPropName = assoc.GenTargetNavProperty ? assoc.TargetRoleName : "";
 
-					fileContent.AddLine();
-					if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
-					{
-						// Navigation property on both source and target
-						fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
-						fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
-						fileContent.AddLine(3, $".WithMany(te => te.{targetNavPropName});");
-					}
-					else if (string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
-					{
-						// Navigation property only on target
-						fileContent.AddLine(2, $"modelBuilder.Entity<{targetEntityName}>()");
-						fileContent.AddLine(3, $".HasMany(te => te.{targetNavPropName})");
-						fileContent.AddLine(3, $".WithMany();");
-					}
-					else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
-					{
-						// Navigation property only on source
-						fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
-						fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
-						fileContent.AddLine(3, $".WithMany();");
-					}
-				}
-				fileContent.AddLine();
-				fileContent.AddLine(2, "#endregion");
-			}
+			//		fileContent.AddLine();
+			//		if (!string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+			//		{
+			//			// Navigation property on both source and target
+			//			fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
+			//			fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
+			//			fileContent.AddLine(3, $".WithMany(te => te.{targetNavPropName});");
+			//		}
+			//		else if (string.IsNullOrWhiteSpace(sourceNavPropName) && !string.IsNullOrWhiteSpace(targetNavPropName))
+			//		{
+			//			// Navigation property only on target
+			//			fileContent.AddLine(2, $"modelBuilder.Entity<{targetEntityName}>()");
+			//			fileContent.AddLine(3, $".HasMany(te => te.{targetNavPropName})");
+			//			fileContent.AddLine(3, $".WithMany();");
+			//		}
+			//		else if (!string.IsNullOrWhiteSpace(sourceNavPropName) && string.IsNullOrWhiteSpace(targetNavPropName))
+			//		{
+			//			// Navigation property only on source
+			//			fileContent.AddLine(2, $"modelBuilder.Entity<{sourceEntityName}>()");
+			//			fileContent.AddLine(3, $".HasMany(se => se.{sourceNavPropName})");
+			//			fileContent.AddLine(3, $".WithMany();");
+			//		}
+			//	}
+			//	fileContent.AddLine();
+			//	fileContent.AddLine(2, "#endregion");
+			//}
 
 			fileContent.AddLine();
 			fileContent.AddLine(2, "OnModelCreatingPartial(modelBuilder);");

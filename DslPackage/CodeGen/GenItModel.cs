@@ -26,6 +26,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 		private readonly AngServiceGenerator _angServiceGenerator;
 		private readonly AngDtoGenerator _angDtoGenerator;
 		private readonly AngReqGenerator _angReqGenerator;
+		private readonly AngEnumGenerator _angEnumGenerator;
 		private readonly IntTestGenerator _intTestGenerator;
 		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 
@@ -54,6 +55,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_angServiceGenerator = new AngServiceGenerator(modelRoot, _modules);
 			_angDtoGenerator = new AngDtoGenerator(modelRoot, _modules);
 			_angReqGenerator = new AngReqGenerator(modelRoot, _modules);
+			_angEnumGenerator = new AngEnumGenerator(modelRoot, _modules);
 
 			_testDataGenerator = new TestDataGenerator(modelRoot);
 			_dataManagerGenerator = new DataManagerGenerator(modelRoot);
@@ -120,6 +122,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 			_angServiceGenerator.GenerateCode();
 			_angDtoGenerator.GenerateCode();
 			_angReqGenerator.GenerateCode();
+			_angEnumGenerator.GenerateCode();
 
 			foreach (var module in _modules.Values)
 			{

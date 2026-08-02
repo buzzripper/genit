@@ -82,7 +82,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			// Declaration
 			var declaration = new List<string>();
-			declaration.AddLine(0, $"public static class {className}");
+			declaration.AddLine(0, $"public static partial class {className}");
 
 			// Maps method
 			var mapMethods = new List<string>();
@@ -155,6 +155,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine();
 			fileContent.AddLines(0, declaration);
 			fileContent.AddLine(0, "{");
+			fileContent.AddLine(1, "static partial void MapCustomEndpoints(RouteGroupBuilder group);");
+			fileContent.AddLine();
 			fileContent.AddLines(1, GenerateMapEndpointsMethod(mapMethods, module, entity, serviceModel));
 
 			if (deleteMethodsOutput.Count > 0)
@@ -215,9 +217,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			lines.AddLine(0, $"public static IEndpointRouteBuilder Map{entity.Name}Endpoints(this IEndpointRouteBuilder app)");
 			lines.AddLine(0, "{");
-			lines.AddLine(1, $"var group = app.MapGroup(\"api/{module.Name.ToLower()}/{serviceModel.Version}/{entity.Name.ToLower()}\")");
+			lines.AddLine(1, $"var group = app.MapGroup(\"{serviceModel.Version}/{entity.Name.ToLower()}\")");
 			lines.AddLine(2, $".WithTags(\"{entity.Name}\");");
 			lines.AddLines(1, mapMethods);
+			lines.AddLine();
+			lines.AddLine(1, "// Partial method for custom endpoints (if any)");
+			lines.AddLine(1, "MapCustomEndpoints(group);");
 			lines.AddLine();
 			lines.AddLine(1, "return app;");
 			lines.AddLine(0, "}");
@@ -272,7 +277,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var resultType = entity.InclRowVersion ? "<byte[]>" : null;
 
 			output.AddLine();
-			output.AddLine(tc, $"public static async Task<Result{resultType}> {method.Name}(I{entity.Name}Service {svcVarName}, [FromBody] {method.Name}Req request)");
+			output.AddLine(tc, $"public static async Task<Result{resultType}> {method.Name}([FromBody] {method.Name}Req request, I{entity.Name}Service {svcVarName})");
 			output.AddLine(tc, "{");
 			if (entity.InclRowVersion)
 			{
@@ -386,7 +391,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var sbOutArgs = new StringBuilder();
 			if (method.UseRequest)
 			{
-				sbInArgs.Append($", {method.Name}Req {method.Name.ToCamelCase()}Req");
+				sbInArgs.Append($"{method.Name}Req {method.Name.ToCamelCase()}Req, ");
 				sbOutArgs.Append($"{method.Name.ToCamelCase()}Req");
 			}
 			else
@@ -403,12 +408,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 						sbMapUrl.Append(fp.PropertyModel.Name.ToCamelCase());
 						sbMapUrl.Append("}");
 						// Input arg
-						sbInArgs.Append($", [FromRoute] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}");
+						sbInArgs.Append($"[FromRoute] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}, ");
 					}
 					else
 					{
 						// Input arg
-						sbInArgs.Append($", [FromQuery] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}");
+						sbInArgs.Append($"[FromQuery] {fp.PropertyModel.CSType} {fp.PropertyModel.ArgName}, ");
 					}
 					// Output arguments
 					if (sbOutArgs.Length > 0)
@@ -421,7 +426,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : $"IReadOnlyList<{method.ReturnDto.Name}>";
 
 			output.AddLine();
-			output.AddLine(tc, $"public static async Task<Result<{returnType}>> {method.Name}(I{entity.Name}Service {svcVarName}{sbInArgs})");
+			output.AddLine(tc, $"public static async Task<Result<{returnType}>> {method.Name}({sbInArgs}I{entity.Name}Service {svcVarName})");
 			output.AddLine(tc, "{");
 			output.AddLine(tc + 1, $"var data = await {svcVarName}.{method.Name}({sbOutArgs});");
 			output.AddLine(tc + 1, $"return Result<{returnType}>.Ok(data);");

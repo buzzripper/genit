@@ -57,7 +57,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			imports.AddLine(0, "import { HttpClient } from '@angular/common/http';");
 			imports.AddLine(0, "import { Injectable, inject } from '@angular/core';");
 			imports.AddLine(0, "import { Observable } from 'rxjs';");
-			imports.AddLine(0, "import { environment } from 'environments/environment';");
+			imports.AddLine(0, "import { environment } from 'src/environments/environment';");
 			imports.AddLine(0, "import { ListPage } from '../common/dtos';");
 
 			var dtoClassNames = BuildDtoClassNames(entity);
@@ -112,9 +112,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLines(0, imports);
 			fileContent.AddLine();
 			fileContent.AddLine(0, @"@Injectable({ providedIn: 'root' })");
-			fileContent.AddLine(0, $"export class {className} {{");
-			fileContent.AddLine(1, $"private _httpClient = inject(HttpClient);");
-			fileContent.AddLine(1, $"private readonly _baseUrl = `${{environment.apiBaseUrl}}/api/{module.Name.ToLower()}/v1/{entity.Name.ToLower()}`;");
+			fileContent.AddLine(0, $"export class {className}Generated {{");
+			fileContent.AddLine(1, $"protected _httpClient = inject(HttpClient);");
+			fileContent.AddLine(1, $"protected readonly _baseUrl = `${{environment.apiBaseUrl}}/api/{module.Name.ToLower()}/v1/{entity.Name.ToLower()}`;");
 
 			if (updMethodsOutput.Count > 0)
 			{
@@ -149,9 +149,18 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			var outputDir = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder);
 			Directory.CreateDirectory(outputDir);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(outputDir, $"{entity.Name.ToLower()}.service.ts");
 
-			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
+			// Gen'd file
+			var genOutputFilepath = Path.Combine(outputDir, $"{entity.Name.ToLower()}.service.g.ts");
+			FileHelper.SaveFile(genOutputFilepath, fileContent.AsString());
+
+			// Create subclass/file for customizations if it doesn't exist already
+			var stdOutputFilepath = Path.Combine(outputDir, $"{entity.Name.ToLower()}.service.ts");
+			if (!File.Exists(stdOutputFilepath))
+			{
+				var stdFileContent = CreateStdFileContent(className);
+				FileHelper.SaveFile(stdOutputFilepath, stdFileContent);
+			}
 
 			OutputHelper.Write($"Completed code gen for Angular service: {className}");
 		}
@@ -274,6 +283,24 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			return sb.ToString();
+		}
+
+		private string CreateStdFileContent(string className)
+		{
+			var baseClassName = $"{className}Generated";
+
+			var lines = new List<string>();
+			lines.AddLine(0, $"import {{ Injectable }} from '@angular/core';");
+			lines.AddLine(0, $"import {{ {baseClassName} }} from './appuser.service.g';");
+			lines.AddLine();
+			lines.AddLine(0, $"@Injectable({{");
+			lines.AddLine(1, $"providedIn: 'root',");
+			lines.AddLine(0, $"}})");
+			lines.AddLine(0, $"export class {className} extends {baseClassName} {{");
+			lines.AddLine(1, $"// Add custom methods or override generated methods here.");
+			lines.AddLine(0, $"}}");
+
+			return lines.AsString();
 		}
 	}
 }

@@ -3,13 +3,17 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 {
 	internal static class FileHelper
 	{
+		private const string CustomContentDivLine = "// ----------  Generated - do not modify beyond this line  ----------";
+
 		internal static string GetAbsolutePath(string relativePath)
 		{
 			if (string.IsNullOrWhiteSpace(relativePath))
@@ -62,6 +66,38 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Misc
 				if (pText != IntPtr.Zero)
 					Marshal.FreeCoTaskMem(pText);
 			}
+		}
+
+		internal static void PreserveCustomContentAndWriteFile(List<string> lines, string filepath)
+		{
+			var fileContent = new List<string>();
+
+			// See if the file exists
+			if (File.Exists(filepath))
+				fileContent.AddRange(GetExistingCustomLines(filepath));
+
+			fileContent.AddLine();
+			fileContent.AddLine(0, CustomContentDivLine);
+			fileContent.AddLine();
+			fileContent.AddLines(0, lines);
+
+			FileHelper.SaveFile(filepath, fileContent.AsString());
+		}
+
+		private static List<string> GetExistingCustomLines(string filepath)
+		{
+			List<string> allFileLines = File.ReadAllLines(filepath).ToList();
+
+			var customLines = new List<string>();
+
+			foreach (var line in allFileLines)
+			{
+				if (line == CustomContentDivLine)
+					break;
+				customLines.Add(line);
+			}
+
+			return customLines;
 		}
 	}
 }

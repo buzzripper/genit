@@ -155,7 +155,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 2, "throw new ArgumentNullException(nameof(id));");
 			output.AddLine();
 			//output.AddLine(tc + 1, "var deleteReq = new DeleteReq { Id = id };	");
-			output.AddLine(tc + 1, $"await DeleteAsync($\"api/{module.Name}/{service.Version}/{className}/Delete{className}/{{id}}\");");
+			output.AddLine(tc + 1, $"await DeleteAsync($\"{service.Version}/{className}/Delete{className}/{{id}}\");");
 			output.AddLine(tc, "}");
 		}
 
@@ -175,7 +175,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
 			var restVerb = method.IsCreate ? "Post" : "Patch";
-			output.AddLine(tc + 1, $"{returnStr}await {restVerb}Async{returnType}($\"api/{module.Name}/{service.Version}/{entity.Name}/{method.Name}\", request);");
+			output.AddLine(tc + 1, $"{returnStr}await {restVerb}Async{returnType}($\"{service.Version}/{entity.Name}/{method.Name}\", request);");
 			output.AddLine(tc, "}");
 		}
 
@@ -243,7 +243,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// Method
 			output.AddLine(tc, $"public async {signature}");
 			output.AddLine(tc, "{");
-			output.AddLine(tc + 1, $"return await {restVerb}Async<{returnType}>($\"api/{module.Name}/{service.Version}/{className}/{method.Name}{sbRoute}{sbQry}\"{payload});");
+			output.AddLine(tc + 1, $"return await {restVerb}Async<{returnType}>($\"{service.Version}/{className}/{method.Name}{sbRoute}{sbQry}\"{payload});");
 			output.AddLine(tc, "}");
 		}
 	}

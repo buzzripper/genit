@@ -37,10 +37,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_serviceUsings.Add(module.DtoNamespace);
 			_serviceUsings.Add(_modelRoot.EntitiesNamespace);
 			_serviceUsings.Add($"{_modelRoot.CommonNamespace}.Exceptions");
-			//_serviceUsings.Add($"{module.Namespace}.Shared.Contracts.{serviceModel.Version}");
-			//_serviceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
-			//if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
-			//	_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
 
 			foreach (var u in entity.UsingsList)
 				_serviceUsings.AddIfNotExists(u);
@@ -53,9 +49,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			if (serviceModel.ReadMethods.Any(m => m.InclPaging))
 			{
-				//_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Extensions");
 				_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.DTOs");
-				//_serviceUsings.AddIfNotExists($"{_modelRoot.CommonNamespace}.Shared.Requests");
 			}
 
 			if (serviceModel.ReadMethods.Any(m => m.InclSorting))
@@ -73,11 +67,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			_interfaceUsings.Add("System.Threading.Tasks");
 			_interfaceUsings.Add("Microsoft.Extensions.Logging");
 			_interfaceUsings.AddLines(0, _modelRoot.UsingsList);
-			//_interfaceUsings.Add(module.DtoNamespace);
-			//if (serviceModel.UpdateMethods.Any() || serviceModel.ReadMethods.Any(m => m.UseRequest))
-			//	_serviceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
-			//_interfaceUsings.Add($"{module.Namespace}.Shared.Requests.{serviceModel.Version}.{entity.Name}");
-			//_interfaceUsings.Add($"{module.Namespace}.Shared.Dtos.{entity.Name}");
 
 			foreach (var u in entity.UsingsList)
 				_interfaceUsings.AddIfNotExists(u);
@@ -278,7 +267,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var ns = $"{module.Namespace}.Shared.Contracts.{serviceModel.Version}";
 			intFileContent.AddLine(0, $"namespace {ns};");
 			intFileContent.AddLine();
-			intFileContent.AddLine(0, $"public interface I{entity.Name}Service");
+			intFileContent.AddLine(0, $"public partial interface I{entity.Name}Service");
 			intFileContent.AddLine(0, "{");
 			intFileContent.AddLines(1, interfaceLines);
 			intFileContent.AddLine(0, "}");

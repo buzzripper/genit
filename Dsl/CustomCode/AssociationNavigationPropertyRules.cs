@@ -251,6 +251,12 @@ namespace Dyvenix.GenIt
 			if (association == null || association.IsDeleting || association.IsDeleted)
 				return;
 
+			// Don't run create/delete side effects while deserializing from file - the model
+			// as saved is already authoritative and re-running these rules causes duplicate
+			// NavigationProperty elements to be created (see AssociationAddRule for the same guard).
+			if (association.Store.InSerializationTransaction)
+				return;
+
 			var source = association.Source;
 			var target = association.Target;
 
@@ -354,6 +360,12 @@ namespace Dyvenix.GenIt
 				association.SourceRoleName = navPropName;
 			}
 
+			// Guard against duplicates - if a NavigationProperty with this name already exists
+			// (e.g. left over from an earlier bug or a rapid toggle), reuse it instead of
+			// creating a second one that the SDK would otherwise rename with a numeric suffix.
+			if (source.NavigationProperties.Any(np => np.Name == navPropName))
+				return;
+
 			bool isCollection = association.TargetMultiplicity == Multiplicity.Many;
 
 			var navProp = new NavigationProperty(source.Partition)
@@ -377,6 +389,10 @@ namespace Dyvenix.GenIt
 			{
 				association.TargetRoleName = navPropName;
 			}
+
+			// Guard against duplicates - see CreateSourceNavigationProperty for rationale.
+			if (target.NavigationProperties.Any(np => np.Name == navPropName))
+				return;
 
 			bool isCollection = association.SourceMultiplicity == Multiplicity.Many;
 

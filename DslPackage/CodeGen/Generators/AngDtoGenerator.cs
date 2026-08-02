@@ -23,22 +23,22 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			foreach (var module in _modules.Values)
 			{
+				var dtoFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "dto")?.ToLower();
 				var indexEntities = new List<string>();
-				var dtoFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "dto");
 
-				foreach (var entity in _entities.Where(e => e.Module == module.Name && e.InclAngDtos))
+				foreach (var entity in _entities.Where(e => e.Module == module.Name && e.DtoModels.Any()))
 				{
-					indexEntities.Add(entity.Name.ToLower());
 					GenerateDtos(module, entity, dtoFolderPath);
+					indexEntities.Add(entity.Name.ToLower());
 				}
 
 				if (indexEntities.Any())
 				{
-					var indexFileContent = new List<string>();
+					var newLines = new List<string>();
 					foreach (var indexEntity in indexEntities)
-						indexFileContent.AddLine(0, $"export * from './{indexEntity.ToLower()}.dto';");
-					var indexFilePath = Path.Combine(dtoFolderPath, "index.ts");
-					FileHelper.SaveFile(indexFilePath, indexFileContent.AsString());
+						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.dto.g';");
+					var indexFilepath = Path.Combine(dtoFolderPath, "index.ts");
+					FileHelper.PreserveCustomContentAndWriteFile(newLines, indexFilepath);
 					OutputHelper.Write($"Completed code gen for angular dto index file for module: {module.Name}");
 				}
 			}
@@ -51,21 +51,21 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
 
-			fileContent.AddLine(0, CodeGenUtils.NullableEnableDirective);
-
 			foreach (var dto in entity.DtoModels)
 			{
 				fileContent.AddLine();
-				fileContent.AddLine(0, $"export interface {dto.Name} {{");
+				fileContent.AddLine(0, $"export class {dto.Name} {{");
 				foreach (var dtoProp in dto.PropertyModels)
-					fileContent.AddLine(1, $"{dtoProp.Name.ToCamelCase()}: {dtoProp.TSType};");
+					fileContent.AddLine(1, $"{dtoProp.Name.ToCamelCase()}!: {dtoProp.TSType};");
 				fileContent.AddLine(0, $"}}");
 			}
 
 			Directory.CreateDirectory(dtoFolderPath);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(dtoFolderPath, $"{entity.Name}.dto.ts");
+			var outputFilepath = Path.Combine(dtoFolderPath, $"{entity.Name.ToLower()}.dto.g.ts");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 			OutputHelper.Write($"Completed code gen for angular dtos: {entity.Name}");
 		}
+
+
 	}
 }
