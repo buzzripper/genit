@@ -12,7 +12,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		internal SharedSvcCollExtGenerator(ModelRoot modelRoot)
 		{
-			// Convenience vars
+			// Convenience var
 			_modelRoot = modelRoot;
 
 			var modules = modelRoot.Types.OfType<ModuleModel>().ToList();
@@ -43,7 +43,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				fileContent.AddLine();
 				fileContent.AddLine(0, $"public static partial class {module.Name}SharedServiceCollExt");
 				fileContent.AddLine(0, "{");
-				fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services)");
+				fileContent.AddLine(1, "static partial void AddGeneratedServices(IServiceCollection services, Dictionary<Type, ApiClientConfig> typeConfigMap, ApiClientsConfig apiClientsConfig)");
 				fileContent.AddLine(1, "{");
 				fileContent.AddLines(2, GenerateRegistrations(module));
 				fileContent.AddLine(1, "}");
@@ -68,6 +68,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			lines.AddLine(0, $"using {_modelRoot.CommonNamespace}.Contracts;");
 			lines.AddLine(0, $"using {module.Namespace}.Shared.ApiClients;");
 			lines.AddLine(0, $"using {module.Namespace}.Shared.Contracts;");
+			lines.AddLine(0, $"using Dyvenix.Core.Config;");
+
 			var versions = _modules[module].SelectMany(e => e.ServiceModels).Select(e => e.Version).Distinct().OrderBy(v => v);
 			foreach (var version in versions)
 			{
@@ -82,16 +84,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			var lines = new List<string>();
 
-			//lines.AddLine(0, $"services.AddHttpClient<ISystemService, {module.Name}SystemApiClient>();");
-			//lines.AddLine();
-
 			foreach (var entity in _modules[module].Where(e => e.GenerateCode))
 			{
-				lines.AddLine(0, $"// {entity.Name}Service");
 				foreach (var service in entity.ServiceModels.OrderBy(s => s.Version))
-				{
-					lines.AddLine(0, $"services.AddHttpClient<c{service.Version}.I{entity.Name}Service, s{service.Version}.{entity.Name}ApiClient>();");
-				}
+					lines.AddLine(0, $"RegisterClient<c{service.Version}.I{entity.Name}Service, s{service.Version}.{entity.Name}ApiClient>(services, typeConfigMap, apiClientsConfig, \"{module.Name.ToLower()}\");");
 			}
 
 			return lines;

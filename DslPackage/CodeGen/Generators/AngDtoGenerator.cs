@@ -32,11 +32,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					indexEntities.Add(entity.Name.ToLower());
 				}
 
+				// Write the Angular 'barrel' (index.ts) file
 				if (indexEntities.Any())
 				{
 					var newLines = new List<string>();
 					foreach (var indexEntity in indexEntities)
-						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.dto.g';");
+						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.dtos.g';");
 					var indexFilepath = Path.Combine(dtoFolderPath, "index.ts");
 					FileHelper.PreserveCustomContentAndWriteFile(newLines, indexFilepath);
 					OutputHelper.Write($"Completed code gen for angular dto index file for module: {module.Name}");
@@ -46,22 +47,35 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateDtos(ModuleModel module, EntityModel entity, string dtoFolderPath)
 		{
+			var dtoLines = new List<string>();
+			var impEnums = new List<string>();
+
+			foreach (var dto in entity.DtoModels)
+			{
+				dtoLines.AddLine();
+				dtoLines.AddLine(0, $"export class {dto.Name} {{");
+				foreach (var dtoProp in dto.PropertyModels)
+				{
+					dtoLines.AddLine(1, $"{dtoProp.Name.ToCamelCase()}!: {dtoProp.TSType};");
+					if (DataTypes.IsEnumType(dtoProp.DataType))
+						impEnums.Add(dtoProp.TSType);
+				}
+				dtoLines.AddLine(0, $"}}");
+			}
+
 			var fileContent = new List<string>();
 
 			if (_modelRoot.InclHeader)
 				fileContent.Add(CodeGenUtils.FileHeader);
 
-			foreach (var dto in entity.DtoModels)
-			{
-				fileContent.AddLine();
-				fileContent.AddLine(0, $"export class {dto.Name} {{");
-				foreach (var dtoProp in dto.PropertyModels)
-					fileContent.AddLine(1, $"{dtoProp.Name.ToCamelCase()}!: {dtoProp.TSType};");
-				fileContent.AddLine(0, $"}}");
-			}
+			if (impEnums.Any())
+				fileContent.AddLine(0, $"import {{{string.Join(", ", impEnums)}}} from '../enum';");
+
+			fileContent.AddLine();
+			fileContent.AddLines(0, dtoLines);
 
 			Directory.CreateDirectory(dtoFolderPath);  // Ensure output dir exists
-			var outputFilepath = Path.Combine(dtoFolderPath, $"{entity.Name.ToLower()}.dto.g.ts");
+			var outputFilepath = Path.Combine(dtoFolderPath, $"{entity.Name.ToLower()}.dtos.g.ts");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 			OutputHelper.Write($"Completed code gen for angular dtos: {entity.Name}");
 		}

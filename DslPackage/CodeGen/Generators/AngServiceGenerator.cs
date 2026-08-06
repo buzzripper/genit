@@ -56,9 +56,9 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var imports = new List<string>();
 			imports.AddLine(0, "import { HttpClient } from '@angular/common/http';");
 			imports.AddLine(0, "import { Injectable, inject } from '@angular/core';");
-			imports.AddLine(0, "import { Observable } from 'rxjs';");
 			imports.AddLine(0, "import { environment } from 'src/environments/environment';");
 			imports.AddLine(0, "import { ListPage } from '../common/dtos';");
+			imports.AddLine(0, "import { AppApiService } from './app.apiService';");
 
 			var dtoClassNames = BuildDtoClassNames(entity);
 			if (!string.IsNullOrWhiteSpace(dtoClassNames))
@@ -114,7 +114,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine(0, @"@Injectable({ providedIn: 'root' })");
 			fileContent.AddLine(0, $"export class {className}Generated {{");
 			fileContent.AddLine(1, $"protected _httpClient = inject(HttpClient);");
-			fileContent.AddLine(1, $"protected readonly _baseUrl = `${{environment.apiBaseUrl}}/api/{module.Name.ToLower()}/v1/{entity.Name.ToLower()}`;");
+			fileContent.AddLine(1, $"protected _apiService = inject(AppApiService);");
+			fileContent.AddLine(1, $"protected readonly _baseUrl = `${{environment.apiBaseUrl}}/api/{module.Name.ToLower()}/{entity.Name.ToLower()}/v1`;");
 
 			if (updMethodsOutput.Count > 0)
 			{
@@ -170,11 +171,12 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var tc = 0;
 			var lines = new List<string>();
 			var methodName = method.Name;
+			var requestType = $"{methodName}Req";
 			var returnType = entity.InclRowVersion ? "Uint8Array" : "void";
 
 			lines.AddLine();
-			lines.AddLine(tc, $" {methodName.ToCamelCase()}(request: {methodName}Req): Observable<{returnType}> {{");
-			lines.AddLine(tc + 1, $"return this._httpClient.patch<{returnType}>(`${{this._baseUrl}}/{methodName}`, request);");
+			lines.AddLine(tc, $"public async {methodName.ToCamelCase()}(request: {requestType}): Promise<{returnType}> {{");
+			lines.AddLine(tc + 1, $"return await this._apiService.patch<{requestType}, {returnType}>(`${{this._baseUrl}}/{methodName.ToLower()}`, request);");
 			lines.AddLine(tc, "}");
 
 			return lines;
@@ -189,8 +191,8 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var returnType = entity.InclRowVersion ? "Uint8Array" : "void";
 
 			lines.AddLine();
-			lines.AddLine(tc, $"delete(id: string): Observable<{returnType}> {{");
-			lines.AddLine(tc + 1, $"return this._httpClient.delete<{returnType}>(`${{this._baseUrl}}/Delete{className}`, {{ body: {{ id }} }});");
+			lines.AddLine(tc, $"public async delete(id: string): Promise<{returnType}> {{");
+			lines.AddLine(tc + 1, $"return await this._apiService.delete<{returnType}>(`${{this._baseUrl}}/delete{className.ToLower()}/${{id}}`);");
 			lines.AddLine(tc, "}");
 
 			return lines;
@@ -203,6 +205,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			var sbSigArgs = new StringBuilder();
 			var sbRoute = new StringBuilder();
 			var sbQry = new StringBuilder();
+			var generics = new StringBuilder();
 			string restVerb = null;
 			string payload = null;
 
@@ -211,6 +214,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				sbSigArgs.Append($"request: {method.Name}Req");
 				restVerb = "post";
 				payload = ", request";
+				generics.Append($"{method.Name}Req, ");
 			}
 			else
 			{
@@ -242,12 +246,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 
 			string returnType = method.InclPaging ? $"ListPage<{method.ReturnDto.Name}>" : method.IsList ? $"{method.ReturnDto.Name}[]" : method.ReturnDto.Name;
+			generics.Append(returnType);
 
 			// Write lines
 			var lines = new List<string>();
 			lines.AddLine();
-			lines.AddLine(tc, $"{method.Name.ToCamelCase()}({sbSigArgs}): Observable<{returnType}> {{");
-			lines.AddLine(tc + 1, $"return this._httpClient.{restVerb}<{returnType}>(`${{this._baseUrl}}/{method.Name}{sbRoute}{sbQry}`{payload});");
+			lines.AddLine(tc, $"public async {method.Name.ToCamelCase()}({sbSigArgs}): Promise<{returnType}> {{");
+			lines.AddLine(tc + 1, $"return await this._apiService.{restVerb}<{generics}>(`${{this._baseUrl}}/{method.Name.ToLower()}{sbRoute}{sbQry}`{payload});");
 			lines.AddLine(tc, "}");
 
 			return lines;

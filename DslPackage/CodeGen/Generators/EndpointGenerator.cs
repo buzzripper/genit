@@ -217,7 +217,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 			lines.AddLine(0, $"public static IEndpointRouteBuilder Map{entity.Name}Endpoints(this IEndpointRouteBuilder app)");
 			lines.AddLine(0, "{");
-			lines.AddLine(1, $"var group = app.MapGroup(\"{serviceModel.Version}/{entity.Name.ToLower()}\")");
+			lines.AddLine(1, $"var group = app.MapGroup(\"{entity.Name.ToLower()}/{serviceModel.Version}\")");
 			lines.AddLine(2, $".WithTags(\"{entity.Name}\");");
 			lines.AddLines(1, mapMethods);
 			lines.AddLine();
