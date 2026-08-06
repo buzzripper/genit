@@ -47,23 +47,32 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				foreach (var entity in entitiesWithReqs)
 				{
 					indexEntities.Add(entity.Name.ToLower());
-					var lines = new List<string>();
+
+					var reqLines = new List<string>();
+					var impEnums = new List<string>();
 
 					foreach (var service in entity.ServiceModels.Where(s => s.InclAngService))
 					{
-						lines.AddLines(0, GenerateReadMethodReqs(module, entity, service));
-						lines.AddLines(0, GenerateUpdateMethodReqs(module, entity, service));
+						reqLines.AddLines(0, GenerateReadMethodReqs(module, entity, service, impEnums));
+						reqLines.AddLines(0, GenerateUpdateMethodReqs(module, entity, service, impEnums));
 					}
-
-					if (lines.Count == 0)
+					if (reqLines.Count == 0)
 						continue;
 
+					var fileContent = new List<string>();
+
 					if (_modelRoot.InclHeader)
-						lines.Insert(0, $"{CodeGenUtils.FileHeader}");
+						fileContent.Insert(0, $"{CodeGenUtils.FileHeader}");
+
+					if (impEnums.Any())
+						fileContent.AddLine(0, $"import {{{string.Join(", ", impEnums)}}} from '../enum';");
+
+					fileContent.AddLine();
+					fileContent.AddLines(0, reqLines);
 
 					// Write the file
-					var outputFilepath = Path.Combine(reqFolderPath, $"{entity.Name.ToLower()}.req.g.ts");
-					FileHelper.SaveFile(outputFilepath, lines.AsString());
+					var outputFilepath = Path.Combine(reqFolderPath, $"{entity.Name.ToLower()}.reqs.g.ts");
+					FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 					OutputHelper.Write($"Completed code gen for angular reqs: {entity.Name}");
 				}
 
@@ -71,7 +80,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					var newLines = new List<string>();
 					foreach (var indexEntity in indexEntities)
-						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.req.g';");
+						newLines.AddLine(0, $"export * from './{indexEntity.ToLower()}.reqs.g';");
 					var indexFilePath = Path.Combine(reqFolderPath, "index.ts");
 					FileHelper.PreserveCustomContentAndWriteFile(newLines, indexFilePath);
 					OutputHelper.Write($"Completed code gen for angular req index file for module: {module.Name}");
@@ -79,7 +88,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			}
 		}
 
-		private List<string> GenerateReadMethodReqs(ModuleModel module, EntityModel entity, ServiceModel service)
+		private List<string> GenerateReadMethodReqs(ModuleModel module, EntityModel entity, ServiceModel service, List<string> impEnums)
 		{
 			var lines = new List<string>();
 			var tc = 0;
@@ -90,7 +99,11 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				lines.AddLine(0, $"export interface {readMethod.Name}Req {{");
 
 				foreach (var filterProp in readMethod.FilterProperties)
+				{
 					lines.AddLine(tc + 1, $"{filterProp.PropertyModel.Name.ToCamelCase()} : {filterProp.PropertyModel.TSType};");
+					if (DataTypes.IsEnumType(filterProp.PropertyModel.DataType))
+						impEnums.AddIfNotExists(filterProp.PropertyModel.DataType);
+				}
 
 				if (readMethod.InclPaging)
 				{
@@ -117,7 +130,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			return lines;
 		}
 
-		private List<string> GenerateUpdateMethodReqs(ModuleModel module, EntityModel entity, ServiceModel service)
+		private List<string> GenerateUpdateMethodReqs(ModuleModel module, EntityModel entity, ServiceModel service, List<string> impEnums)
 		{
 			var lines = new List<string>();
 			var tc = 0;
@@ -138,7 +151,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					lines.AddLine();
 					lines.AddLine(tc + 1, "// Required properties");
 					foreach (var requiredUpdateProp in requiredUpdateProps)
+					{
 						lines.AddLine(tc + 1, $"{requiredUpdateProp.PropertyModel.Name.ToCamelCase()} : {requiredUpdateProp.PropertyModel.TSType};");
+
+						var x = requiredUpdateProp.PropertyModel.DataType;
+						Console.Write(x);
+
+						if (DataTypes.IsEnumType(requiredUpdateProp.PropertyModel.DataType))
+							impEnums.AddIfNotExists(requiredUpdateProp.PropertyModel.TSType);
+					}
 				}
 
 				// Optional properties last
@@ -153,9 +174,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 				lines.AddLine(tc, "}");
 			}
-
-			if (lines.Count > 0)
-				lines.Insert(tc, $"{Environment.NewLine}// Update methods");
 
 			return lines;
 		}
