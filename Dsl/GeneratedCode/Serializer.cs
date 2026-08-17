@@ -15981,6 +15981,23 @@ namespace Dyvenix.GenIt
 					}
 				}
 			}
+			// NgModelsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				string attribNgModelsOutputFolder = GenItSerializationHelper.Instance.ReadAttribute(serializationContext, element, reader, "ngModelsOutputFolder");
+				if (attribNgModelsOutputFolder != null)
+				{
+					global::System.String valueOfNgModelsOutputFolder;
+					if (DslModeling::SerializationUtilities.TryGetValue<global::System.String>(serializationContext, attribNgModelsOutputFolder, out valueOfNgModelsOutputFolder))
+					{
+						instanceOfModuleModel.NgModelsOutputFolder = valueOfNgModelsOutputFolder;
+					}
+					else
+					{	// Invalid property value, ignored.
+						GenItSerializationBehaviorSerializationMessages.IgnoredPropertyValue(serializationContext, reader, "ngModelsOutputFolder", typeof(global::System.String), attribNgModelsOutputFolder);
+					}
+				}
+			}
 		}
 	
 		#region TryCreateInstance
@@ -16444,6 +16461,17 @@ namespace Dyvenix.GenIt
 				{
 					if (!string.IsNullOrEmpty(propValue))
 						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "ngServiceOutputFolder", propValue);
+	
+				}
+			}
+			// NgModelsOutputFolder
+			if (!serializationContext.Result.Failed)
+			{
+				global::System.String propValue = instanceOfModuleModel.NgModelsOutputFolder;
+				if (!serializationContext.Result.Failed)
+				{
+					if (!string.IsNullOrEmpty(propValue))
+						GenItSerializationHelper.Instance.WriteAttributeString(serializationContext, element, writer, "ngModelsOutputFolder", propValue);
 	
 				}
 			}

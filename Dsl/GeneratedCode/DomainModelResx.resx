@@ -1313,6 +1313,14 @@
     <value>Ng Service Output Folder</value>
     <comment>DisplayName for DomainProperty &apos;NgServiceOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
   </data>
+  <data name="Dyvenix.GenIt.ModuleModel/NgModelsOutputFolder.Description" xml:space="preserve">
+    <value>Description for Dyvenix.GenIt.ModuleModel.Ng Models Output Folder</value>
+    <comment>Description for DomainProperty &apos;NgModelsOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
+  <data name="Dyvenix.GenIt.ModuleModel/NgModelsOutputFolder.DisplayName" xml:space="preserve">
+    <value>Ng Models Output Folder</value>
+    <comment>DisplayName for DomainProperty &apos;NgModelsOutputFolder&apos; on DomainClass &apos;ModuleModel&apos;</comment>
+  </data>
   <data name="Dyvenix.GenIt.DtoModel.Description" xml:space="preserve">
     <value>Description for Dyvenix.GenIt.DtoModel</value>
     <comment>Description for DomainClass &apos;DtoModel&apos;</comment>

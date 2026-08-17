@@ -731,6 +731,11 @@
             <ExternalTypeMoniker Name="/System/String" />
           </Type>
         </DomainProperty>
+        <DomainProperty Id="808fdb24-a582-41a5-b28d-2ea665642664" Description="Description for Dyvenix.GenIt.ModuleModel.Ng Models Output Folder" Name="NgModelsOutputFolder" DisplayName="Ng Models Output Folder">
+          <Type>
+            <ExternalTypeMoniker Name="/System/String" />
+          </Type>
+        </DomainProperty>
       </Properties>
     </DomainClass>
     <DomainClass Id="477c8d37-2fe7-4a42-bb3c-e0992e8bacef" Description="Description for Dyvenix.GenIt.DtoModel" Name="DtoModel" DisplayName="Dto Model" Namespace="Dyvenix.GenIt">
@@ -1786,6 +1791,9 @@
           </XmlPropertyData>
           <XmlPropertyData XmlName="ngServiceOutputFolder">
             <DomainPropertyMoniker Name="ModuleModel/NgServiceOutputFolder" />
+          </XmlPropertyData>
+          <XmlPropertyData XmlName="ngModelsOutputFolder">
+            <DomainPropertyMoniker Name="ModuleModel/NgModelsOutputFolder" />
           </XmlPropertyData>
         </ElementData>
       </XmlClassData>

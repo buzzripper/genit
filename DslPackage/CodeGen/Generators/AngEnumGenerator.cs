@@ -25,7 +25,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				return;
 
 			var module = _modules.Values.First();
-			var enumFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "enum")?.ToLower();
+			var enumFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgModelsOutputFolder, "enum")?.ToLower();
 
 			foreach (var enumModel in _enums)
 				GenerateEnum(module, enumModel, enumFolderPath);

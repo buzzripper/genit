@@ -41,7 +41,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 					return;
 
 				var indexEntities = new List<string>();
-				var reqFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "req");
+				var reqFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgModelsOutputFolder, "req");
 				Directory.CreateDirectory(reqFolderPath);
 
 				foreach (var entity in entitiesWithReqs)
