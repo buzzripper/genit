@@ -57,16 +57,16 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			imports.AddLine(0, "import { HttpClient } from '@angular/common/http';");
 			imports.AddLine(0, "import { Injectable, inject } from '@angular/core';");
 			imports.AddLine(0, "import { environment } from 'src/environments/environment';");
-			imports.AddLine(0, "import { ListPage } from '../common/dtos';");
+			imports.AddLine(0, "import { ListPage } from '../models/common/dtos';");
 			imports.AddLine(0, "import { AppApiService } from './app.apiService';");
 
 			var dtoClassNames = BuildDtoClassNames(entity);
 			if (!string.IsNullOrWhiteSpace(dtoClassNames))
-				imports.AddLine(0, $"import {{ {dtoClassNames} }} from './dto';");
+				imports.AddLine(0, $"import {{ {dtoClassNames} }} from '../models/dto';");
 
 			var dtoReqNames = BuildReqClassNames(service);
 			if (!string.IsNullOrWhiteSpace(dtoClassNames))
-				imports.AddLine(0, $"import {{ {dtoReqNames} }} from './req';");
+				imports.AddLine(0, $"import {{ {dtoReqNames} }} from '../models/req';");
 
 			// Declaration
 			var declaration = new List<string>();

@@ -11407,6 +11407,93 @@ namespace Dyvenix.GenIt
 		}
 		
 		#endregion
+		#region NgModelsOutputFolder domain property code
+		
+		/// <summary>
+		/// NgModelsOutputFolder domain property Id.
+		/// </summary>
+		public static readonly global::System.Guid NgModelsOutputFolderDomainPropertyId = new global::System.Guid(0x808fdb24, 0xa582, 0x41a5, 0xb2, 0x8d, 0x2e, 0xa6, 0x65, 0x64, 0x26, 0x64);
+		
+		/// <summary>
+		/// Storage for NgModelsOutputFolder
+		/// </summary>
+		private global::System.String ngModelsOutputFolderPropertyStorage = string.Empty;
+		
+		/// <summary>
+		/// Gets or sets the value of NgModelsOutputFolder domain property.
+		/// Description for Dyvenix.GenIt.ModuleModel.Ng Models Output Folder
+		/// </summary>
+		[DslDesign::DisplayNameResource("Dyvenix.GenIt.ModuleModel/NgModelsOutputFolder.DisplayName", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslDesign::DescriptionResource("Dyvenix.GenIt.ModuleModel/NgModelsOutputFolder.Description", typeof(global::Dyvenix.GenIt.GenItDomainModel), "Dyvenix.GenIt.GeneratedCode.DomainModelResx")]
+		[DslModeling::DomainObjectId("808fdb24-a582-41a5-b28d-2ea665642664")]
+		public global::System.String NgModelsOutputFolder
+		{
+			[global::System.Diagnostics.DebuggerStepThrough]
+			get
+			{
+				return ngModelsOutputFolderPropertyStorage;
+			}
+			[global::System.Diagnostics.DebuggerStepThrough]
+			set
+			{
+				NgModelsOutputFolderPropertyHandler.Instance.SetValue(this, value);
+			}
+		}
+		/// <summary>
+		/// Value handler for the ModuleModel.NgModelsOutputFolder domain property.
+		/// </summary>
+		internal sealed partial class NgModelsOutputFolderPropertyHandler : DslModeling::DomainPropertyValueHandler<ModuleModel, global::System.String>
+		{
+			private NgModelsOutputFolderPropertyHandler() { }
+		
+			/// <summary>
+			/// Gets the singleton instance of the ModuleModel.NgModelsOutputFolder domain property value handler.
+			/// </summary>
+			public static readonly NgModelsOutputFolderPropertyHandler Instance = new NgModelsOutputFolderPropertyHandler();
+		
+			/// <summary>
+			/// Gets the Id of the ModuleModel.NgModelsOutputFolder domain property.
+			/// </summary>
+			public sealed override global::System.Guid DomainPropertyId
+			{
+				[global::System.Diagnostics.DebuggerStepThrough]
+				get
+				{
+					return NgModelsOutputFolderDomainPropertyId;
+				}
+			}
+			
+			/// <summary>
+			/// Gets a strongly-typed value of the property on specified element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <returns>Property value.</returns>
+			public override sealed global::System.String GetValue(ModuleModel element)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+				return element.ngModelsOutputFolderPropertyStorage;
+			}
+		
+			/// <summary>
+			/// Sets property value on an element.
+			/// </summary>
+			/// <param name="element">Element which owns the property.</param>
+			/// <param name="newValue">New property value.</param>
+			public override sealed void SetValue(ModuleModel element, global::System.String newValue)
+			{
+				if (element == null) throw new global::System.ArgumentNullException("element");
+		
+				global::System.String oldValue = GetValue(element);
+				if (newValue != oldValue)
+				{
+					ValueChanging(element, oldValue, newValue);
+					element.ngModelsOutputFolderPropertyStorage = newValue;
+					ValueChanged(element, oldValue, newValue);
+				}
+			}
+		}
+		
+		#endregion
 	}
 }
 namespace Dyvenix.GenIt

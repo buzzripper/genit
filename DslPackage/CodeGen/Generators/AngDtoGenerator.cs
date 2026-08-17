@@ -23,7 +23,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 		{
 			foreach (var module in _modules.Values)
 			{
-				var dtoFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgServiceOutputFolder, "dto")?.ToLower();
+				var dtoFolderPath = Path.Combine(PackageUtils.SolutionRootPath, module.NgModelsOutputFolder, "dto")?.ToLower();
 				var indexEntities = new List<string>();
 
 				foreach (var entity in _entities.Where(e => e.Module == module.Name && e.DtoModels.Any()))
@@ -58,7 +58,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				{
 					dtoLines.AddLine(1, $"{dtoProp.Name.ToCamelCase()}!: {dtoProp.TSType};");
 					if (DataTypes.IsEnumType(dtoProp.DataType))
-						impEnums.Add(dtoProp.TSType);
+						impEnums.AddIfNotExists(dtoProp.TSType);
 				}
 				dtoLines.AddLine(0, $"}}");
 			}
@@ -71,7 +71,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			if (impEnums.Any())
 				fileContent.AddLine(0, $"import {{{string.Join(", ", impEnums)}}} from '../enum';");
 
-			fileContent.AddLine();
 			fileContent.AddLines(0, dtoLines);
 
 			Directory.CreateDirectory(dtoFolderPath);  // Ensure output dir exists

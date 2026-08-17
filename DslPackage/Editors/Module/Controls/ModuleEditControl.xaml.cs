@@ -40,8 +40,9 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				txtNamespace.Text = _moduleModel.Namespace ?? string.Empty;
 				txtRootFolder.Text = _moduleModel.RootFolder ?? string.Empty;
 				txtDtoOutputFolder.Text = _moduleModel.DtoOuputFolder ?? string.Empty;
-			txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
+				txtDtoNamespace.Text = _moduleModel.DtoNamespace ?? string.Empty;
 				txtNgServiceOutputFolder.Text = _moduleModel.NgServiceOutputFolder ?? string.Empty;
+				txtNgModelsOutputFolder.Text = _moduleModel.NgModelsOutputFolder ?? string.Empty;
 				txtRequestNamespace.Text = _moduleModel.RequestNamespace ?? string.Empty;
 
 				permissionsControl.SetItems(_moduleModel.Permissions);
@@ -138,7 +139,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 					_isUpdating = false;
 				}
 
-			UpdateModelProperty(ModuleModel.DtoOuputFolderDomainPropertyId, selectedPath);
+				UpdateModelProperty(ModuleModel.DtoOuputFolderDomainPropertyId, selectedPath);
 			}
 		}
 
@@ -148,6 +149,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				return;
 
 			UpdateModelProperty(ModuleModel.NgServiceOutputFolderDomainPropertyId, txtNgServiceOutputFolder.Text);
+		}
+
+		private void txtNgModelsOutputFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			if (_isUpdating || _moduleModel == null)
+				return;
+
+			UpdateModelProperty(ModuleModel.NgModelsOutputFolderDomainPropertyId, txtNgModelsOutputFolder.Text);
 		}
 
 		private void btnBrowseNgServiceOutputFolder_Click(object sender, RoutedEventArgs e)
@@ -168,6 +177,27 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Module.Controls
 				}
 
 				UpdateModelProperty(ModuleModel.NgServiceOutputFolderDomainPropertyId, selectedPath);
+			}
+		}
+
+		private void btnBrowseNgModelsOutputFolder_Click(object sender, RoutedEventArgs e)
+		{
+			if (_moduleModel == null)
+				return;
+
+			if (FolderBrowserHelper.BrowseForFolder(txtNgModelsOutputFolder.Text, "Select Angular Models Output Folder", out string selectedPath))
+			{
+				_isUpdating = true;
+				try
+				{
+					txtNgModelsOutputFolder.Text = selectedPath;
+				}
+				finally
+				{
+					_isUpdating = false;
+				}
+
+				UpdateModelProperty(ModuleModel.NgModelsOutputFolderDomainPropertyId, selectedPath);
 			}
 		}
 

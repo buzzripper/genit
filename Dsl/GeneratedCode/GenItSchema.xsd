@@ -1245,6 +1245,8 @@
         <xsd:attribute name="dtoOuputFolder" type="xsd:string" />
         <!-- Property: NgServiceOutputFolder -->
         <xsd:attribute name="ngServiceOutputFolder" type="xsd:string" />
+        <!-- Property: NgModelsOutputFolder -->
+        <xsd:attribute name="ngModelsOutputFolder" type="xsd:string" />
       </xsd:extension>
     </xsd:complexContent>
   </xsd:complexType>

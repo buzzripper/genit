@@ -130,13 +130,13 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen
 					GenerateGlobalUsings(module);
 			}
 
-			if (_modelRoot.IntTestsEnabled)
-			{
-				_dataSetGenerator.GenerateCode();
-				_testDataGenerator.GenerateCode();
-				_dataManagerGenerator.GenerateCode();
-				_intTestGenerator.GenerateCode();
-			}
+			//if (_modelRoot.IntTestsEnabled)
+			//{
+			//	_dataSetGenerator.GenerateCode();
+			//	_testDataGenerator.GenerateCode();
+			//	_dataManagerGenerator.GenerateCode();
+			//	_intTestGenerator.GenerateCode();
+			//}
 		}
 
 		private void ValidateModules(List<string> errors)

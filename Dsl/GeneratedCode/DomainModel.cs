@@ -245,6 +245,7 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModuleModel), "RequestNamespace", ModuleModel.RequestNamespaceDomainPropertyId, typeof(ModuleModel.RequestNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "DtoOuputFolder", ModuleModel.DtoOuputFolderDomainPropertyId, typeof(ModuleModel.DtoOuputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModuleModel), "NgServiceOutputFolder", ModuleModel.NgServiceOutputFolderDomainPropertyId, typeof(ModuleModel.NgServiceOutputFolderPropertyHandler)),
+				new DomainMemberInfo(typeof(ModuleModel), "NgModelsOutputFolder", ModuleModel.NgModelsOutputFolderDomainPropertyId, typeof(ModuleModel.NgModelsOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(DtoModel), "Name", DtoModel.NameDomainPropertyId, typeof(DtoModel.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceRoleName", Association.SourceRoleNameDomainPropertyId, typeof(Association.SourceRoleNamePropertyHandler)),
