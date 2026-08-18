@@ -30,7 +30,10 @@ namespace Dyvenix.GenIt
                 // PropertyModel nullability rules (IsPrimaryKey and IsForeignKey)
                 typeof(PropertyModelIsPrimaryKeyChangeRule),
                 typeof(PropertyModelIsForeignKeyChangeRule),
-                
+
+                // PropertyModel DisplayOrder change rule (re-sorts diagram compartment)
+                typeof(PropertyModelDisplayOrderChangeRule),
+
                 // RowVersion property delete rule
                 typeof(RowVersionPropertyDeleteRule),
                 
