@@ -50,6 +50,30 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
         }
     }
 
+    /// <summary>
+    /// Hides the per-row delete button for properties that must not be deleted
+    /// (Id, auditable, soft-delete and row-version properties).
+    /// </summary>
+    public class PropertyDeletableToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var property = value as PropertyModel;
+            if (property == null)
+                return Visibility.Collapsed;
+
+            if (property.Name == "Id" || property.IsAuditable || property.IsSoftDelete || property.IsRowVersion)
+                return Visibility.Collapsed;
+
+            return Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public partial class EntityEditControl : UserControlBase
     {
         private const string PropertyModelDragFormat = "GenIt.PropertyModel";
@@ -326,10 +350,36 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
                 dgProperties.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    dgProperties.CurrentCell = new DataGridCellInfo(newProperty, dgProperties.Columns[0]);
+                    var nameColumn = GetColumnByHeader("Name") ?? dgProperties.Columns.FirstOrDefault();
+                    if (nameColumn == null)
+                        return;
+
+                    dgProperties.CurrentCell = new DataGridCellInfo(newProperty, nameColumn);
                     dgProperties.BeginEdit();
+                    SelectCurrentCellText();
                 }), DispatcherPriority.Background);
             }
+        }
+
+        private DataGridColumn GetColumnByHeader(string header)
+        {
+            return dgProperties.Columns.FirstOrDefault(c => (c.Header as string) == header);
+        }
+
+        /// <summary>
+        /// Selects all text in the TextBox of the cell that is currently being edited,
+        /// so the user can start typing immediately.
+        /// </summary>
+        private void SelectCurrentCellText()
+        {
+            dgProperties.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (Keyboard.FocusedElement is TextBox tb)
+                {
+                    tb.Focus();
+                    tb.SelectAll();
+                }
+            }), DispatcherPriority.Input);
         }
 
         private string GenerateNewPropertyName()
@@ -345,32 +395,35 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
             return name;
         }
 
-        private void btnDeleteProperty_Click(object sender, RoutedEventArgs e)
-        {
-            if (_entityModel == null || dgProperties.SelectedItem == null)
-                return;
-
-            var selectedProperty = dgProperties.SelectedItem as PropertyModel;
-            if (selectedProperty == null)
-                return;
-
-            if (selectedProperty.Name == "Id")
-                return;
-
-			if (selectedProperty.IsAuditable)
+		private void btnDeletePropertyRow_Click(object sender, RoutedEventArgs e)
+		{
+			if (_entityModel == null)
 				return;
 
-			if (selectedProperty.IsSoftDelete)
+			var property = (sender as FrameworkElement)?.DataContext as PropertyModel;
+			if (property == null)
+				return;
+
+			if (property.Name == "Id" || property.IsAuditable || property.IsSoftDelete || property.IsRowVersion)
+				return;
+
+			var result = MessageBox.Show(
+				$"Delete property '{property.Name}'?",
+				"Delete Property",
+				MessageBoxButton.YesNo,
+				MessageBoxImage.Warning);
+
+			if (result != MessageBoxResult.Yes)
 				return;
 
 			using (var transaction = _entityModel.Store.TransactionManager.BeginTransaction("Delete Property"))
-            {
-                selectedProperty.Delete();
-                transaction.Commit();
+			{
+				property.Delete();
+				transaction.Commit();
 
-                _properties.Remove(selectedProperty);
-            }
-        }
+				_properties.Remove(property);
+			}
+		}
 
         private void DataTypeComboBox_Loaded(object sender, RoutedEventArgs e)
         {

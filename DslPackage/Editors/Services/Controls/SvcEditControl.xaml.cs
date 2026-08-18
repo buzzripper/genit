@@ -35,7 +35,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Services.Controls
 
 			// Set entity name and version
 			txtEntityName.Text = _entity.Name;
-			txtVersion.Text = _serviceAdapter.Version ?? "1.0";
+			txtVersion.Text = _serviceAdapter.Version ?? "v1";
 
 			ckbEnabled.IsChecked = _serviceAdapter.Enabled;
 			ckbInclCreate.IsChecked = _serviceAdapter.InclCreate;

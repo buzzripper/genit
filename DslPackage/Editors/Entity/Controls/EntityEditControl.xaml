@@ -232,6 +232,7 @@
         <!-- Converter for Max Len column visibility -->
         <local:DataTypeLengthEnabledConverter x:Key="DataTypeLengthEnabledConverter"/>
         <local:IsNotIdPropertyConverter x:Key="IsNotIdPropertyConverter"/>
+        <local:PropertyDeletableToVisibilityConverter x:Key="PropertyDeletableToVisibilityConverter"/>
         
         <!-- Style for DataGrid ComboBox with darker dropdown -->
         <Style x:Key="DataGridComboBoxStyle" TargetType="ComboBox">
@@ -387,25 +388,16 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        
+
                         <TextBlock Grid.Column="0" Text="Properties" FontSize="12" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                        
+
                         <Button Grid.Column="2" x:Name="btnAddProperty" Width="28" Height="28" 
                                 Margin="0,0,8,0" Click="btnAddProperty_Click" ToolTip="Add Property"
                                 Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
                                 Foreground="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}"
                                 BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}">
                             <TextBlock Text="+" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Button>
-                        <Button Grid.Column="3" x:Name="btnDeleteProperty" Width="24" Height="24"
-                                Click="btnDeleteProperty_Click" ToolTip="Delete Selected Property"
-                                Background="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBackgroundKey}}"
-                                BorderBrush="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowBorderKey}}">
-                            <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
-                                  Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
-                                  Width="14" Height="14" Stretch="Uniform"/>
                         </Button>
                     </Grid>
                     
@@ -545,6 +537,23 @@
                                     <DataTemplate>
                                         <CheckBox IsChecked="{Binding IsIdentity, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" 
                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <!-- Delete (trashcan) -->
+                            <DataGridTemplateColumn Header="" Width="34" CanUserResize="False">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Width="22" Height="22" Padding="0" Cursor="Hand"
+                                                Click="btnDeletePropertyRow_Click" ToolTip="Delete Property"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                Background="Transparent" BorderThickness="0"
+                                                Visibility="{Binding Converter={StaticResource PropertyDeletableToVisibilityConverter}}">
+                                            <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
+                                                  Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
+                                                  Width="14" Height="14" Stretch="Uniform"/>
+                                        </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

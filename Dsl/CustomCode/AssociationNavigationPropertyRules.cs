@@ -936,11 +936,12 @@ namespace Dyvenix.GenIt
 						nextMajor = major + 1;
 				}
 
-				serviceModel.Version = nextMajor.ToString(System.Globalization.CultureInfo.InvariantCulture) + ".0";
+				serviceModel.Version = "v" + nextMajor.ToString(System.Globalization.CultureInfo.InvariantCulture);
 			}
 
 			// Set default values for new service
 			serviceModel.Enabled = true;
+			serviceModel.InclAngService = true;
 		}
 
 		private static bool TryGetMajor(string version, out int major)
