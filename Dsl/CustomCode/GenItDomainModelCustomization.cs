@@ -34,6 +34,9 @@ namespace Dyvenix.GenIt
                 // PropertyModel DisplayOrder change rule (re-sorts diagram compartment)
                 typeof(PropertyModelDisplayOrderChangeRule),
 
+                // PropertyModel delete propagation rule (removes orphaned Update/Filter property references)
+                typeof(PropertyModelDeletePropagationRule),
+
                 // RowVersion property delete rule
                 typeof(RowVersionPropertyDeleteRule),
                 

@@ -46,6 +46,10 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			updateProps.AddRange(method.UpdateProperties.Where(p => !p.IsOptional));
 			updateProps.AddRange(method.UpdateProperties.Where(p => p.IsOptional));
 
+			var invalidUpdateProp = updateProps.FirstOrDefault(p => p.PropertyModel == null);
+			if (invalidUpdateProp != null)
+				throw new InvalidOperationException($"Update method '{method.Name}' has an update property with no linked PropertyModel. Fix the DSL model (select a Property for the update, or remove the stale entry) and try again.");
+
 			var resultType = entity.InclRowVersion ? "Task<byte[]>" : "Task";
 			var signature = $"{resultType} {method.Name}({method.Name}Req request)";
 
@@ -62,7 +66,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			output.AddLine(tc + 3, $"Id = request.Id,");
 			if (entity.InclRowVersion)
 				output.AddLine(tc + 3, $"RowVersion = request.RowVersion,");
-			foreach (var updProp in updateProps.Where(p => !p.PropertyModel.IsRowVersion))
+			foreach (var updProp in updateProps.Where(p => p.PropertyModel != null && !p.PropertyModel.IsRowVersion))
 				output.AddLine(tc + 3, $"{updProp.PropertyModel.Name} = request.{updProp.PropertyModel.Name},");
 			output.AddLine(tc + 2, "};");
 			output.AddLine();

@@ -109,6 +109,7 @@
     <Compile Include="CustomCode\NavigationPropertyTypeDescriptor.cs" />
     <Compile Include="CustomCode\PackageUtils.cs" />
     <Compile Include="CustomCode\PropertyModelCustomization.cs" />
+    <Compile Include="CustomCode\PropertyModelDeletePropagationRules.cs" />
     <Compile Include="CustomCode\PropertyModelDisplayOrderRules.cs" />
     <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
