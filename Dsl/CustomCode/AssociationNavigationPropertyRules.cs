@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.Modeling;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Dyvenix.GenIt
 {
@@ -43,7 +44,7 @@ namespace Dyvenix.GenIt
 	/// <summary>
 	/// Rule that fires when an Association relationship is created.
 	/// Creates NavigationProperties based on GenSourceNavProperty and GenTargetNavProperty settings.
-	/// Also creates an FK property on the target entity.
+	/// Also creates an FK property on the target entity, if it's not a many-many
 	/// </summary>
 	[RuleOn(typeof(Association), FireTime = TimeToFire.TopLevelCommit)]
 	public class AssociationAddRule : AddRule
@@ -76,8 +77,33 @@ namespace Dyvenix.GenIt
 				CreateTargetNavigationProperty(association, target, source);
 			}
 
-			// Create FK property on target entity
-			CreateFkProperty(association, target, source);
+			// Create FK property on target entity if it's not a many-to-many association (both sides many)
+			if (MessageBox.Show("Is this a many-to-many association?", "Multiplicity", MessageBoxButtons.YesNo) == DialogResult.Yes)
+			{
+				association.SourceMultiplicity = Multiplicity.Many;
+				association.TargetMultiplicity = Multiplicity.Many;
+				association.TargetRoleName = Pluralize(association.Source.Name);
+				association.GenTargetNavProperty = true;
+			}
+			else
+			{
+				CreateFkProperty(association, target, source);
+			}
+		}
+
+		private string Pluralize(string word)
+		{
+			if (word.EndsWith("y"))
+				return word.Substring(0, word.Length - 1) + "ies";
+
+			if (word.EndsWith("s") ||
+				word.EndsWith("x") ||
+				word.EndsWith("z") ||
+				word.EndsWith("ch") ||
+				word.EndsWith("sh"))
+				return word + "es";
+
+			return word + "s";
 		}
 
 		private void CreateSourceNavigationProperty(Association association, EntityModel source, EntityModel target)
