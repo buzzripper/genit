@@ -142,8 +142,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -159,28 +157,8 @@
                           Checked="chkInclHeader_Changed" Unchecked="chkInclHeader_Changed"/>
             </Grid>
 
-            <!-- Templates Folder -->
-            <Grid Grid.Row="1" Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Templates Folder:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="txtTemplatesFolder" VerticalAlignment="Center"
-                         TextChanged="txtTemplatesFolder_TextChanged"/>
-                <Button Grid.Column="1" x:Name="btnBrowseTemplates" Content="..." 
-                        Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
-                        Click="btnBrowseTemplates_Click" ToolTip="Browse for folder"/>
-                </Grid>
-            </Grid>
-
             <!-- Colors row: Background + Line (aligned horizontally) -->
-            <Grid Grid.Row="2" Margin="0,0,0,8" HorizontalAlignment="Left">
+            <Grid Grid.Row="1" Margin="0,0,0,8" HorizontalAlignment="Left">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -199,19 +177,8 @@
                         Click="btnAssociationLineColor_Click" ToolTip="Click to change color"/>
             </Grid>
 
-            <!-- Common Namespace -->
-            <Grid Grid.Row="3" Margin="0,0,0,8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Common Namespace:" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                <TextBox Grid.Column="1" x:Name="txtCommonNamespace" VerticalAlignment="Center"
-                         TextChanged="txtCommonNamespace_TextChanged"/>
-            </Grid>
-
             <!-- Usings (grid) -->
-            <Grid Grid.Row="4">
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -396,131 +363,6 @@
                 </Grid>
             </TabItem>
 
-            <!-- Int Tests Tab -->
-            <TabItem Header="Int Tests">
-                <Grid Margin="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="36"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Enabled checkbox at top-right -->
-                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkIntTestsEnabled" Content="Enabled"
-                              HorizontalAlignment="Right" VerticalAlignment="Center"
-                              Checked="chkIntTestsEnabled_Changed" Unchecked="chkIntTestsEnabled_Changed"/>
-
-                    <!-- Output Folder -->
-                    <Label Grid.Row="1" Grid.Column="0" Content="Root Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" x:Name="txtIntTestsRootFolder" VerticalAlignment="Center"
-                                 TextChanged="txtIntTestsRootFolder_TextChanged"/>
-                        <Button Grid.Column="1" x:Name="btnBrowseIntTestsFolder" Content="..." 
-                                Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
-                                Click="btnBrowseIntTestsFolder_Click" ToolTip="Browse for folder"/>
-                    </Grid>
-
-                    <!-- Namespace -->
-                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtIntTestsNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
-                             TextChanged="txtIntTestsNamespace_TextChanged"/>
-                </Grid>
-            </TabItem>
-
-            <!-- Unit Tests Tab -->
-            <TabItem Header="Unit Tests">
-                <Grid Margin="8">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="36"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <!-- Enabled checkbox at top-right -->
-                    <CheckBox Grid.Row="0" Grid.Column="1" x:Name="chkUnitTestsEnabled" Content="Enabled"
-                              HorizontalAlignment="Right" VerticalAlignment="Center"
-                              Checked="chkUnitTestsEnabled_Changed" Unchecked="chkUnitTestsEnabled_Changed"/>
-
-                    <!-- Root Folder -->
-					<Label Grid.Row="1" Grid.Column="0" Content="Root Folder:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-						<TextBox Grid.Column="0" x:Name="txtUnitTestsRootFolder" VerticalAlignment="Center"
-                                 TextChanged="txtUnitTestsRootFolder_TextChanged"/>
-                        <Button Grid.Column="1" x:Name="btnBrowseUnitTestsFolder" Content="..." 
-                                Style="{StaticResource SmallButtonStyle}" Margin="4,0,0,0"
-                                Click="btnBrowseUnitTestsFolder_Click" ToolTip="Browse for folder"/>
-                    </Grid>
-
-                    <!-- Namespace -->
-                    <Label Grid.Row="2" Grid.Column="0" Content="Namespace:" VerticalAlignment="Center" Margin="0,0,8,8"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtUnitTestsNamespace" VerticalAlignment="Center" Margin="0,0,0,8"
-                             TextChanged="txtUnitTestsNamespace_TextChanged"/>
-                </Grid>
-            </TabItem>
-
-            <!-- Permissions Tab -->
-            <TabItem Header="Permissions">
-                <Grid Margin="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <!-- Header with buttons -->
-                    <DockPanel Grid.Row="0" Margin="0,0,0,4">
-                        <TextBlock Text="Permissions" VerticalAlignment="Center" FontWeight="SemiBold" DockPanel.Dock="Left"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                            <Button x:Name="btnAddPermission" ToolTip="Add Permission" Click="btnAddPermission_Click" 
-                                    Style="{StaticResource SmallButtonStyle}" Padding="4">
-                                <TextBlock Text="+" FontSize="16" FontWeight="Bold"/>
-                            </Button>
-                            <Button x:Name="btnDeletePermission" ToolTip="Delete Permission" Click="btnDeletePermission_Click" 
-                                    Style="{StaticResource SmallButtonStyle}" Padding="4" Margin="2,0,0,0">
-                                <Path Data="M2,4 L5,4 L5,2 C5,1.45 5.45,1 6,1 L11,1 C11.55,1 12,1.45 12,2 L12,4 L15,4 L15,5 L14,5 L14,15 C14,15.55 13.55,16 13,16 L4,16 C3.45,16 3,15.55 3,15 L3,5 L2,5 L2,4 Z M6,4 L11,4 L11,2.5 L6,2.5 L6,4 Z M4,5 L4,15 L13,15 L13,5 L4,5 Z M5.5,7 L6.5,7 L6.5,13 L5.5,13 L5.5,7 Z M8,7 L9,7 L9,13 L8,13 L8,7 Z M10.5,7 L11.5,7 L11.5,13 L10.5,13 L10.5,7 Z" 
-                                      Fill="{DynamicResource {x:Static vsshell:VsBrushes.ToolWindowTextKey}}" 
-                                      Width="15" Height="15" Stretch="Uniform"/>
-                            </Button>
-                        </StackPanel>
-                    </DockPanel>
-                    
-                    <!-- Permissions DataGrid -->
-                    <DataGrid Grid.Row="1" x:Name="grdPermissions"
-                              AutoGenerateColumns="False"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              CanUserReorderColumns="False"
-                              CanUserSortColumns="False"
-                              CanUserResizeRows="False"
-                              HeadersVisibility="Column"
-                              RowHeaderWidth="0"
-                              SelectionMode="Single"
-                              SelectionUnit="FullRow"
-                              CellEditEnding="grdPermissions_CellEditEnding">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </TabItem>
         </TabControl>
     </Grid>
 </editors:UserControlBase>

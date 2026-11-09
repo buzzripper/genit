@@ -8,17 +8,15 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 	internal class EntityGenerator
 	{
 		private readonly ModelRoot _modelRoot;
-		private readonly Dictionary<string, ModuleModel> _modules = new Dictionary<string, ModuleModel>();
 		private readonly List<EntityModel> _entities;
 		private readonly string _entitiesNamespace;
 		private readonly string _outputFolderpath;
 		private readonly bool _inclHeader;
 
-		internal EntityGenerator(ModelRoot modelRoot, Dictionary<string, ModuleModel> modules)
+		internal EntityGenerator(ModelRoot modelRoot)
 		{
 			// Convenience vars
 			_modelRoot = modelRoot;
-			_modules = modules;
 			_entities = modelRoot.Types.OfType<EntityModel>().ToList();
 			_entitiesNamespace = modelRoot.EntitiesNamespace;
 			_outputFolderpath = FileHelper.GetAbsolutePath(modelRoot.EntitiesOutputFolder);
@@ -38,12 +36,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 				errors.Add("EntitiesOutputFolder is not set. Please set it in the ModelRoot properties.");
 			else if (!Directory.Exists(_outputFolderpath))
 				errors.Add("EntitiesOutputFolder does not exist. Please select a valid folder.");
-
-			foreach (var entity in _entities)
-			{
-				if (string.IsNullOrEmpty(entity.Module))
-					errors.Add($"Entity '{entity.Name} does is not assigned to a module. Select one.");
-			}
 		}
 
 		#region Properties
@@ -60,7 +52,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 
 		private void GenerateEntity(EntityModel entity)
 		{
-			var module = _modules[entity.Module];
 
 			var fileContent = new List<string>();
 
@@ -74,9 +65,6 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			// If any properties are enums, include the namespace
 			if (entity.Properties.Any(p => !DataTypes.IsEnumType(p.DataType)))
 				fileContent.AddLine(0, $"using {_modelRoot.EnumsNamespace};");
-			// If it's an auditable entity, include the namespace for the IAuditable interface
-			if (entity.Auditable)
-				fileContent.AddLine(0, $"using {_modelRoot.CommonNamespace}.Contracts;");
 
 			// Namespace 		
 			fileContent.AddLine();
@@ -149,7 +137,7 @@ namespace Dyvenix.GenIt.DslPackage.CodeGen.Generators
 			fileContent.AddLine(1, "#endregion");
 			fileContent.AddLine(0, "}");
 
-			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.g.cs");
+			var outputFilepath = Path.Combine(_outputFolderpath, $"{entity.Name}.cs");
 			FileHelper.SaveFile(outputFilepath, fileContent.AsString());
 
 			OutputHelper.Write($"Completed code gen for entity: {entity.Name}");

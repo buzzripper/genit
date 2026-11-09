@@ -40,7 +40,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 		{
 			ThreadHelper.ThrowIfNotOnUIThread();
 
-			// Guard against reentrancy – showing/hiding tool windows can fire
+			// Guard against reentrancy ï¿½ showing/hiding tool windows can fire
 			// additional selection-changed events while the document is still loading.
 			if (_inSelectionChanged)
 				return VSConstants.S_OK;
@@ -50,7 +50,7 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 			{
 				// Only act when the active selection container is a fully-loaded
 				// GenItDocView.  During tab restoration the selection container is
-				// NOT a GenItDocView yet, so we skip out early — avoiding the
+				// NOT a GenItDocView yet, so we skip out early ï¿½ avoiding the
 				// reentrant COM deadlock that FindToolWindow(create:true) would cause.
 				if (!(pSCNew is GenItDocView))
 					return VSConstants.S_OK;
@@ -64,19 +64,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 
 				try
 				{
-					// Try to get a ServiceModel from the selection
-					var selectedServiceModel = GetSelectedServiceModel(selectionContainer);
-					if (selectedServiceModel != null)
-					{
-						var entityModel = selectedServiceModel.EntityModeled;
-						if (entityModel != null)
-						{
-							toolWindow.Control.ShowServiceEditor(entityModel, selectedServiceModel.Version);
-							ShowToolWindow(toolWindow);
-							return VSConstants.S_OK;
-						}
-					}
-
 					// Try to get PropertyModel from the selection
 					var selectedPropertyModel = GetSelectedPropertyModel(selectionContainer);
 					if (selectedPropertyModel != null)
@@ -100,15 +87,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 					if (selectedEntityModel != null)
 					{
 						toolWindow.Control.ShowEntityEditor(selectedEntityModel);
-						ShowToolWindow(toolWindow);
-						return VSConstants.S_OK;
-					}
-
-					// Try to get ModuleModel from the selection (ModuleShape)
-					var selectedModuleModel = GetSelectedModuleModel(selectionContainer);
-					if (selectedModuleModel != null)
-					{
-						toolWindow.Control.ShowModuleEditor(selectedModuleModel);
 						ShowToolWindow(toolWindow);
 						return VSConstants.S_OK;
 					}
@@ -160,12 +138,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 			}
 		}
 
-		private ServiceModel GetSelectedServiceModel(ISelectionContainer selectionContainer)
-		{
-			var selectedElement = GetSingleSelectedElement(selectionContainer);
-			return selectedElement as ServiceModel;
-		}
-
 		private PropertyModel GetSelectedPropertyModel(ISelectionContainer selectionContainer)
 		{
 			var selectedElement = GetSingleSelectedElement(selectionContainer);
@@ -201,23 +173,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors
 			if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is EntityModel entity)
 			{
 				return entity;
-			}
-
-			return null;
-		}
-
-		private ModuleModel GetSelectedModuleModel(ISelectionContainer selectionContainer)
-		{
-			var selectedElement = GetSingleSelectedElement(selectionContainer);
-
-			// Check if it's directly a ModuleModel
-			if (selectedElement is ModuleModel moduleModel)
-				return moduleModel;
-
-			// Check if it's a ModuleShape
-			if (selectedElement is NodeShape nodeShape && nodeShape.ModelElement is ModuleModel module)
-			{
-				return module;
 			}
 
 			return null;

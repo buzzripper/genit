@@ -99,34 +99,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGen\Generators\AngEnumGenerator.cs" />
-    <Compile Include="CodeGen\Generators\AngServiceGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ApiClientGenerator.cs" />
-    <Compile Include="CodeGen\Generators\IntTestGenerator.cs" />
-    <Compile Include="CodeGen\Generators\DtoGenerator.cs" />
-    <Compile Include="CodeGen\Generators\AngDtoGenerator.cs" />
-    <Compile Include="CodeGen\Generators\AngReqGenerator.cs" />
-    <Compile Include="CodeGen\Generators\SharedSvcCollExtGenerator.cs" />
-    <Compile Include="CodeGen\Generators\DataManagerGenerator.cs" />
-    <Compile Include="CodeGen\Generators\DataSetGenerator.cs" />
-    <Compile Include="CodeGen\Generators\TestDataSetGenerator.cs" />
-    <Compile Include="CodeGen\Generators\EndpointGenerator.cs" />
     <Compile Include="CodeGen\Generators\DbContextGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ApiSvcCollExtGenerator.cs" />
-    <Compile Include="CodeGen\Generators\RequestGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ServiceReqGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ControllerGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ServiceGenerator.cs" />
     <Compile Include="CodeGen\Generators\EnumGenerator.cs" />
     <Compile Include="CodeGen\Generators\EntityGenerator.cs" />
-    <Compile Include="CodeGen\Generators\ServiceMethodGenerator.cs" />
     <Compile Include="CodeGen\GenItModel.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils.cs" />
     <Compile Include="CodeGen\Misc\CodeGenUtils_new.cs" />
     <Compile Include="CodeGen\Misc\DataTypes.cs" />
     <Compile Include="CodeGen\Misc\FileHelper.cs" />
     <Compile Include="CodeGen\Misc\StringListExt.cs" />
-    <Compile Include="CodeGen\Templates\TemplatesManager.cs" />
     <Compile Include="CustomCode\GenItCommandSetCustom.cs" />
     <Compile Include="CustomCode\GenItDocDataCustom.cs" />
     <Compile Include="CustomCode\GenItEditorWindowPackageAttributes.cs" />
@@ -145,21 +126,8 @@
     <Compile Include="Editors\Controls\StringListControl.xaml.cs">
       <DependentUpon>StringListControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Converters\UseRequestMultiConverter.cs" />
     <Compile Include="Editors\DslTransactionHelper.cs" />
     <Compile Include="Editors\EditableString.cs" />
-    <Compile Include="Editors\Entity\Controls\EntityDtoNavPropertiesEditControl.xaml.cs">
-      <DependentUpon>EntityDtoNavPropertiesEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Entity\Controls\EntityDtoPropertiesEditControl.xaml.cs">
-      <DependentUpon>EntityDtoPropertiesEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Entity\Controls\EntityDtosEditControl.xaml.cs">
-      <DependentUpon>EntityDtosEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Entity\Controls\EntityNavDtosEditControl.xaml.cs">
-      <DependentUpon>EntityNavDtosEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\Enum\Controls\EnumEditControl.xaml.cs">
       <DependentUpon>EnumEditControl.xaml</DependentUpon>
     </Compile>
@@ -171,70 +139,19 @@
       <DependentUpon>GenItEditorWindowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\Helpers\FolderBrowserHelper.cs" />
-    <Compile Include="Editors\Module\Controls\AddPermissionDialog.xaml.cs">
-      <DependentUpon>AddPermissionDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\Model\Controls\ModelRootEditControl.xaml.cs">
       <DependentUpon>ModelRootEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Module\Controls\ModuleEditControl.xaml.cs">
-      <DependentUpon>ModuleEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\PermissionModel.cs" />
-    <Compile Include="Editors\Permissions\PermissionsEditorDialog.xaml.cs">
-      <DependentUpon>PermissionsEditorDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Permissions\PermissionsManager.cs" />
     <Compile Include="Editors\SelectionTracker.cs" />
-    <Compile Include="Editors\Services\Controls\DtoPropertiesEditControl.xaml.cs">
-      <DependentUpon>DtoPropertiesEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\DtosEditControl.xaml.cs">
-      <DependentUpon>DtosEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\ReadMethodsEditControl.xaml.cs">
-      <DependentUpon>ReadMethodsEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\ReturnDtoEditControl.xaml.cs">
-      <DependentUpon>ReturnDtoEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\ReturnPropertiesEditControl.xaml.cs">
-      <DependentUpon>ReturnPropertiesEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml.cs">
-      <DependentUpon>UpdateMethodsEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Editors\UserControlBase.cs" />
     <Compile Include="GeneratedCode\CommandSet.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandSet.tt</DependentUpon>
     </Compile>
-    <Compile Include="Editors\Services\Adapters\ServiceModelAdapter.cs" />
-    <Compile Include="Editors\Services\Controls\FilterPropsEditControl.xaml.cs">
-      <DependentUpon>FilterPropsEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\InclNavPropEditControl.xaml.cs">
-      <DependentUpon>InclNavPropEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\SvcEditControl.xaml.cs">
-      <DependentUpon>SvcEditControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\Services\Controls\UpdPropsEditControl.xaml.cs">
-      <DependentUpon>UpdPropsEditControl.xaml</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Resources\Templates\ApiClientCollExt.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\ApiClients.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\Controllers.tmpl" />
     <EmbeddedResource Include="Resources\Templates\DbContext.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\DTO.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Entity.tmpl" />
     <EmbeddedResource Include="Resources\Templates\Enums.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Read.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\IntTests_ApiClients_Update.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\Query.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\ServiceCollExt.tmpl" />
-    <EmbeddedResource Include="Resources\Templates\Services.tmpl" />
     <None Include="source.extension.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>source.extension.vsixmanifest</LastGenOutput>
@@ -397,8 +314,6 @@
     <Folder Include="CustomCode\ModelView\" />
     <Folder Include="CustomCode\MultiDiagram\" />
     <Folder Include="Editors\Property\Controls\" />
-    <Folder Include="Editors\Services\Helpers\" />
-    <Folder Include="Editors\Services\ViewModels\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
@@ -411,18 +326,6 @@
     <Page Include="Editors\Controls\StringListControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Editors\Entity\Controls\EntityDtoNavPropertiesEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Entity\Controls\EntityDtoPropertiesEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Entity\Controls\EntityDtosEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Entity\Controls\EntityNavDtosEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Editors\Enum\Controls\EnumEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -432,46 +335,7 @@
     <Page Include="Editors\GenItEditorWindowControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Editors\Module\Controls\AddPermissionDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Module\Controls\ModuleEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Editors\Model\Controls\ModelRootEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Permissions\PermissionsEditorDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\DtoPropertiesEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\DtosEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\FilterPropsEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\InclNavPropEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\ReadMethodsEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\ReturnDtoEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\ReturnPropertiesEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\SvcEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\UpdateMethodsEditControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\Services\Controls\UpdPropsEditControl.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

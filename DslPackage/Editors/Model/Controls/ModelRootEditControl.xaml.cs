@@ -18,7 +18,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 	{
 		private ModelRoot _modelRoot;
 		private bool _isUpdating;
-		private ObservableCollection<PermissionModel> _permissions;
 		private ObservableCollection<EditableString> _usings;
 
 		public ModelRootEditControl()
@@ -46,8 +45,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			{
 				// General settings
 				chkInclHeader.IsChecked = _modelRoot.InclHeader;
-				txtTemplatesFolder.Text = _modelRoot.TemplatesFolder ?? string.Empty;
-				txtCommonNamespace.Text = _modelRoot.CommonNamespace ?? string.Empty;
 
 				// Color buttons
 				UpdateColorButton(btnDiagramBackgroundColor, _modelRoot.DiagramBackgroundColor);
@@ -72,20 +69,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				chkEnumsEnabled.IsChecked = _modelRoot.EnumsEnabled;
 				txtEnumsOutputFolder.Text = _modelRoot.EnumsOutputFolder ?? string.Empty;
 				txtEnumsNamespace.Text = _modelRoot.EnumsNamespace ?? string.Empty;
-
-				// Int Tests tab
-				chkIntTestsEnabled.IsChecked = _modelRoot.IntTestsEnabled;
-				txtIntTestsRootFolder.Text = _modelRoot.IntTestsRootFolder ?? string.Empty;
-				txtIntTestsNamespace.Text = _modelRoot.IntTestsNamespace ?? string.Empty;
-
-				// Unit Tests tab
-				chkUnitTestsEnabled.IsChecked = _modelRoot.UnitTestsEnabled;
-				txtUnitTestsRootFolder.Text = _modelRoot.UnitTestsRootFolder ?? string.Empty;
-				txtUnitTestsNamespace.Text = _modelRoot.UnitTestsNamespace ?? string.Empty;
-
-				// Permissions tab
-				_permissions = new ObservableCollection<PermissionModel>(ParsePermissions(_modelRoot.Permissions));
-				grdPermissions.ItemsSource = _permissions;
 
 				// Restore splitter position
 				if (_modelRoot.EditorSplitterPosition > 0)
@@ -194,49 +177,12 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 			UpdateModelProperty(ModelRoot.InclHeaderDomainPropertyId, chkInclHeader.IsChecked ?? false);
 		}
 
-		private void txtTemplatesFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.TemplatesFolderDomainPropertyId, txtTemplatesFolder.Text);
-		}
-
-		private void txtCommonNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.CommonNamespaceDomainPropertyId, txtCommonNamespace.Text);
-		}
-
 		private void txtDbContextBaseClass_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
 			if (_isUpdating || _modelRoot == null)
 				return;
 
 			UpdateModelProperty(ModelRoot.DbContextBaseClassDomainPropertyId, txtDbContextBaseClass.Text);
-		}
-
-		private void btnBrowseTemplates_Click(object sender, RoutedEventArgs e)
-		{
-			if (_modelRoot == null)
-				return;
-
-			if (FolderBrowserHelper.BrowseForFolder(txtTemplatesFolder.Text, "Select Templates Folder", out string selectedPath))
-			{
-				_isUpdating = true;
-				try
-				{
-					txtTemplatesFolder.Text = selectedPath;
-				}
-				finally
-				{
-					_isUpdating = false;
-				}
-
-				UpdateModelProperty(ModelRoot.TemplatesFolderDomainPropertyId, selectedPath);
-			}
 		}
 
 		private void btnDiagramBackgroundColor_Click(object sender, RoutedEventArgs e)
@@ -440,169 +386,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Model.Controls
 				return;
 
 			UpdateModelProperty(ModelRoot.EnumsNamespaceDomainPropertyId, txtEnumsNamespace.Text);
-		}
-
-		#endregion
-
-		#region Int Tests Tab Event Handlers
-
-		private void chkIntTestsEnabled_Changed(object sender, RoutedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.IntTestsEnabledDomainPropertyId, chkIntTestsEnabled.IsChecked ?? false);
-		}
-
-		private void txtIntTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, txtIntTestsRootFolder.Text);
-		}
-
-		private void btnBrowseIntTestsFolder_Click(object sender, RoutedEventArgs e)
-		{
-			if (_modelRoot == null)
-				return;
-
-			if (FolderBrowserHelper.BrowseForFolder(txtIntTestsRootFolder.Text, "Select Int Tests Root Folder", out string selectedPath))
-			{
-				_isUpdating = true;
-				try
-				{
-					txtIntTestsRootFolder.Text = selectedPath;
-				}
-				finally
-				{
-					_isUpdating = false;
-				}
-
-				UpdateModelProperty(ModelRoot.IntTestsRootFolderDomainPropertyId, selectedPath);
-			}
-		}
-
-		private void txtIntTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.IntTestsNamespaceDomainPropertyId, txtIntTestsNamespace.Text);
-		}
-
-		#endregion
-
-		#region Unit Tests Tab Event Handlers
-
-		private void chkUnitTestsEnabled_Changed(object sender, RoutedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.UnitTestsEnabledDomainPropertyId, chkUnitTestsEnabled.IsChecked ?? false);
-		}
-
-		private void txtUnitTestsRootFolder_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, txtUnitTestsRootFolder.Text);
-		}
-
-		private void btnBrowseUnitTestsFolder_Click(object sender, RoutedEventArgs e)
-		{
-			if (_modelRoot == null)
-				return;
-
-			if (FolderBrowserHelper.BrowseForFolder(txtUnitTestsRootFolder.Text, "Select Unit Tests Root Folder", out string selectedPath))
-			{
-				_isUpdating = true;
-				try
-				{
-					txtUnitTestsRootFolder.Text = selectedPath;
-				}
-				finally
-				{
-					_isUpdating = false;
-				}
-
-				UpdateModelProperty(ModelRoot.UnitTestsRootFolderDomainPropertyId, selectedPath);
-			}
-		}
-
-		private void txtUnitTestsNamespace_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			UpdateModelProperty(ModelRoot.UnitTestsNamespaceDomainPropertyId, txtUnitTestsNamespace.Text);
-		}
-
-		#endregion
-
-		#region Permissions Tab Event Handlers
-
-		private void btnAddPermission_Click(object sender, RoutedEventArgs e)
-		{
-			if (_modelRoot == null || _permissions == null)
-				return;
-
-			var newPermission = new PermissionModel($"Permission{_permissions.Count + 1}", string.Empty);
-			_permissions.Add(newPermission);
-			SavePermissions();
-			grdPermissions.SelectedItem = newPermission;
-		}
-
-		private void btnDeletePermission_Click(object sender, RoutedEventArgs e)
-		{
-			if (_modelRoot == null || _permissions == null || grdPermissions.SelectedItem == null)
-				return;
-
-			var selectedPermission = grdPermissions.SelectedItem as PermissionModel;
-			if (selectedPermission != null)
-			{
-				_permissions.Remove(selectedPermission);
-				SavePermissions();
-			}
-		}
-
-		private void grdPermissions_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-		{
-			if (_isUpdating || _modelRoot == null)
-				return;
-
-			// Use Dispatcher to save after the edit is committed
-			Dispatcher.BeginInvoke(new Action(() => SavePermissions()), System.Windows.Threading.DispatcherPriority.Background);
-		}
-
-		private void SavePermissions()
-		{
-			if (_modelRoot == null || _permissions == null)
-				return;
-
-			var permissionsValue = SerializePermissions(_permissions);
-			UpdateModelProperty(ModelRoot.PermissionsDomainPropertyId, permissionsValue);
-		}
-
-		private IEnumerable<PermissionModel> ParsePermissions(string value)
-		{
-			if (string.IsNullOrEmpty(value))
-				return Enumerable.Empty<PermissionModel>();
-
-			return value.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-						.Select(s => s.Trim())
-						.Where(s => !string.IsNullOrEmpty(s))
-						.Select(s => PermissionModel.Deserialize(s));
-		}
-
-		private string SerializePermissions(IEnumerable<PermissionModel> permissions)
-		{
-			if (permissions == null)
-				return string.Empty;
-
-			return string.Join("\n", permissions.Select(p => p.Serialize()));
 		}
 
 		#endregion

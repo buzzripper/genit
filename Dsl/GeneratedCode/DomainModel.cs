@@ -80,13 +80,6 @@ namespace Dyvenix.GenIt
 				typeof(EnumMember),
 				typeof(EnumModel),
 				typeof(NavigationProperty),
-				typeof(FilterPropertyModel),
-				typeof(ReadMethodModel),
-				typeof(UpdatePropertyModel),
-				typeof(UpdateMethodModel),
-				typeof(ServiceModel),
-				typeof(ModuleModel),
-				typeof(DtoModel),
 				typeof(Association),
 				typeof(ClassHasProperties),
 				typeof(ModelRootHasComments),
@@ -97,25 +90,12 @@ namespace Dyvenix.GenIt
 				typeof(Implementation),
 				typeof(EnumHasMembers),
 				typeof(ClassHasNavigationProperties),
-				typeof(EntityModelHasServiceModels),
-				typeof(FilterPropertyModelHasProperty),
-				typeof(ReadMethodModelHasFilterProperties),
-				typeof(UpdatePropertyModelHasPropertyModel),
-				typeof(UpdateMethodModelHasUpdateProperties),
-				typeof(ServiceModelHasReadMethodModels),
-				typeof(ServiceModelHasUpdateMethods),
-				typeof(ServiceModelHasDtoModels),
-				typeof(DtoModelReferencesPropertyModels),
-				typeof(DtoModelReferencesNavigationProperties),
-				typeof(EntityModelReferencesDtoModels),
-				typeof(ReadMethodModelReferencesReturnDto),
 				typeof(GenItDiagram),
 				typeof(AssociationConnector),
 				typeof(GeneralizationConnector),
 				typeof(ImplementationConnector),
 				typeof(CommentConnector),
 				typeof(CommentBoxShape),
-				typeof(ModuleShape),
 				typeof(ClassShape),
 				typeof(InterfaceShape),
 				typeof(EnumShape),
@@ -140,7 +120,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(NamedElement), "Name", NamedElement.NameDomainPropertyId, typeof(NamedElement.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntitiesOutputFolder", ModelRoot.EntitiesOutputFolderDomainPropertyId, typeof(ModelRoot.EntitiesOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EntitiesNamespace", ModelRoot.EntitiesNamespaceDomainPropertyId, typeof(ModelRoot.EntitiesNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "TemplatesFolder", ModelRoot.TemplatesFolderDomainPropertyId, typeof(ModelRoot.TemplatesFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextOutputFolder", ModelRoot.DbContextOutputFolderDomainPropertyId, typeof(ModelRoot.DbContextOutputFolderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextNamespace", ModelRoot.DbContextNamespaceDomainPropertyId, typeof(ModelRoot.DbContextNamespacePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextUsings", ModelRoot.DbContextUsingsDomainPropertyId, typeof(ModelRoot.DbContextUsingsPropertyHandler)),
@@ -153,30 +132,17 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(ModelRoot), "AssociationLineColor", ModelRoot.AssociationLineColorDomainPropertyId, typeof(ModelRoot.AssociationLineColorPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "InclHeader", ModelRoot.InclHeaderDomainPropertyId, typeof(ModelRoot.InclHeaderPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "EditorSplitterPosition", ModelRoot.EditorSplitterPositionDomainPropertyId, typeof(ModelRoot.EditorSplitterPositionPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "Permissions", ModelRoot.PermissionsDomainPropertyId, typeof(ModelRoot.PermissionsPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextName", ModelRoot.DbContextNameDomainPropertyId, typeof(ModelRoot.DbContextNamePropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "Usings", ModelRoot.UsingsDomainPropertyId, typeof(ModelRoot.UsingsPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "CommonNamespace", ModelRoot.CommonNamespaceDomainPropertyId, typeof(ModelRoot.CommonNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "IntTestsRootFolder", ModelRoot.IntTestsRootFolderDomainPropertyId, typeof(ModelRoot.IntTestsRootFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "IntTestsNamespace", ModelRoot.IntTestsNamespaceDomainPropertyId, typeof(ModelRoot.IntTestsNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "UnitTestsRootFolder", ModelRoot.UnitTestsRootFolderDomainPropertyId, typeof(ModelRoot.UnitTestsRootFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "UnitTestsNamespace", ModelRoot.UnitTestsNamespaceDomainPropertyId, typeof(ModelRoot.UnitTestsNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "IntTestsEnabled", ModelRoot.IntTestsEnabledDomainPropertyId, typeof(ModelRoot.IntTestsEnabledPropertyHandler)),
-				new DomainMemberInfo(typeof(ModelRoot), "UnitTestsEnabled", ModelRoot.UnitTestsEnabledDomainPropertyId, typeof(ModelRoot.UnitTestsEnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(ModelRoot), "DbContextBaseClass", ModelRoot.DbContextBaseClassDomainPropertyId, typeof(ModelRoot.DbContextBaseClassPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Attributes", EntityModel.AttributesDomainPropertyId, typeof(EntityModel.AttributesPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Usings", EntityModel.UsingsDomainPropertyId, typeof(EntityModel.UsingsPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Auditable", EntityModel.AuditableDomainPropertyId, typeof(EntityModel.AuditablePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "GenerateCode", EntityModel.GenerateCodeDomainPropertyId, typeof(EntityModel.GenerateCodePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "InclRowVersion", EntityModel.InclRowVersionDomainPropertyId, typeof(EntityModel.InclRowVersionPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "Module", EntityModel.ModuleDomainPropertyId, typeof(EntityModel.ModulePropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "EditorSplitterPosition", EntityModel.EditorSplitterPositionDomainPropertyId, typeof(EntityModel.EditorSplitterPositionPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "Enabled", EntityModel.EnabledDomainPropertyId, typeof(EntityModel.EnabledPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "TableName", EntityModel.TableNameDomainPropertyId, typeof(EntityModel.TableNamePropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "GenIntTestData", EntityModel.GenIntTestDataDomainPropertyId, typeof(EntityModel.GenIntTestDataPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "GenIntTests", EntityModel.GenIntTestsDomainPropertyId, typeof(EntityModel.GenIntTestsPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "GenUnitTests", EntityModel.GenUnitTestsDomainPropertyId, typeof(EntityModel.GenUnitTestsPropertyHandler)),
-				new DomainMemberInfo(typeof(EntityModel), "InclAngDtos", EntityModel.InclAngDtosDomainPropertyId, typeof(EntityModel.InclAngDtosPropertyHandler)),
 				new DomainMemberInfo(typeof(EntityModel), "SoftDelete", EntityModel.SoftDeleteDomainPropertyId, typeof(EntityModel.SoftDeletePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "DataType", PropertyModel.DataTypeDomainPropertyId, typeof(PropertyModel.DataTypePropertyHandler)),
 				new DomainMemberInfo(typeof(PropertyModel), "Length", PropertyModel.LengthDomainPropertyId, typeof(PropertyModel.LengthPropertyHandler)),
@@ -206,47 +172,6 @@ namespace Dyvenix.GenIt
 				new DomainMemberInfo(typeof(EnumModel), "GenerateCode", EnumModel.GenerateCodeDomainPropertyId, typeof(EnumModel.GenerateCodePropertyHandler)),
 				new DomainMemberInfo(typeof(NavigationProperty), "TargetEntityName", NavigationProperty.TargetEntityNameDomainPropertyId, typeof(NavigationProperty.TargetEntityNamePropertyHandler)),
 				new DomainMemberInfo(typeof(NavigationProperty), "IsCollection", NavigationProperty.IsCollectionDomainPropertyId, typeof(NavigationProperty.IsCollectionPropertyHandler)),
-				new DomainMemberInfo(typeof(FilterPropertyModel), "IsOptional", FilterPropertyModel.IsOptionalDomainPropertyId, typeof(FilterPropertyModel.IsOptionalPropertyHandler)),
-				new DomainMemberInfo(typeof(FilterPropertyModel), "IsInternal", FilterPropertyModel.IsInternalDomainPropertyId, typeof(FilterPropertyModel.IsInternalPropertyHandler)),
-				new DomainMemberInfo(typeof(FilterPropertyModel), "InternalValue", FilterPropertyModel.InternalValueDomainPropertyId, typeof(FilterPropertyModel.InternalValuePropertyHandler)),
-				new DomainMemberInfo(typeof(FilterPropertyModel), "IsPartialMatch", FilterPropertyModel.IsPartialMatchDomainPropertyId, typeof(FilterPropertyModel.IsPartialMatchPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "ItemId", ReadMethodModel.ItemIdDomainPropertyId, typeof(ReadMethodModel.ItemIdPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "InclPaging", ReadMethodModel.InclPagingDomainPropertyId, typeof(ReadMethodModel.InclPagingPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "UseRequest", ReadMethodModel.UseRequestDomainPropertyId, typeof(ReadMethodModel.UseRequestPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "InclSorting", ReadMethodModel.InclSortingDomainPropertyId, typeof(ReadMethodModel.InclSortingPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "DisplayOrder", ReadMethodModel.DisplayOrderDomainPropertyId, typeof(ReadMethodModel.DisplayOrderPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "Attributes", ReadMethodModel.AttributesDomainPropertyId, typeof(ReadMethodModel.AttributesPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "InclNavProperties", ReadMethodModel.InclNavPropertiesDomainPropertyId, typeof(ReadMethodModel.InclNavPropertiesPropertyHandler)),
-				new DomainMemberInfo(typeof(ReadMethodModel), "Permissions", ReadMethodModel.PermissionsDomainPropertyId, typeof(ReadMethodModel.PermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(UpdatePropertyModel), "IsOptional", UpdatePropertyModel.IsOptionalDomainPropertyId, typeof(UpdatePropertyModel.IsOptionalPropertyHandler)),
-				new DomainMemberInfo(typeof(UpdateMethodModel), "ItemId", UpdateMethodModel.ItemIdDomainPropertyId, typeof(UpdateMethodModel.ItemIdPropertyHandler)),
-				new DomainMemberInfo(typeof(UpdateMethodModel), "DisplayOrder", UpdateMethodModel.DisplayOrderDomainPropertyId, typeof(UpdateMethodModel.DisplayOrderPropertyHandler)),
-				new DomainMemberInfo(typeof(UpdateMethodModel), "Permissions", UpdateMethodModel.PermissionsDomainPropertyId, typeof(UpdateMethodModel.PermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(UpdateMethodModel), "IsCreate", UpdateMethodModel.IsCreateDomainPropertyId, typeof(UpdateMethodModel.IsCreatePropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "Enabled", ServiceModel.EnabledDomainPropertyId, typeof(ServiceModel.EnabledPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "InclCreate", ServiceModel.InclCreateDomainPropertyId, typeof(ServiceModel.InclCreatePropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "InclUpdate", ServiceModel.InclUpdateDomainPropertyId, typeof(ServiceModel.InclUpdatePropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "InclDelete", ServiceModel.InclDeleteDomainPropertyId, typeof(ServiceModel.InclDeletePropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "InclEndpoints", ServiceModel.InclEndpointsDomainPropertyId, typeof(ServiceModel.InclEndpointsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "Version", ServiceModel.VersionDomainPropertyId, typeof(ServiceModel.VersionPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "ServiceUsings", ServiceModel.ServiceUsingsDomainPropertyId, typeof(ServiceModel.ServiceUsingsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "ServiceAttributes", ServiceModel.ServiceAttributesDomainPropertyId, typeof(ServiceModel.ServiceAttributesPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "EndpointsUsings", ServiceModel.EndpointsUsingsDomainPropertyId, typeof(ServiceModel.EndpointsUsingsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "EndpointsAttributes", ServiceModel.EndpointsAttributesDomainPropertyId, typeof(ServiceModel.EndpointsAttributesPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "CreatePermissions", ServiceModel.CreatePermissionsDomainPropertyId, typeof(ServiceModel.CreatePermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "UpdatePermissions", ServiceModel.UpdatePermissionsDomainPropertyId, typeof(ServiceModel.UpdatePermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "DeletePermissions", ServiceModel.DeletePermissionsDomainPropertyId, typeof(ServiceModel.DeletePermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "Permissions", ServiceModel.PermissionsDomainPropertyId, typeof(ServiceModel.PermissionsPropertyHandler)),
-				new DomainMemberInfo(typeof(ServiceModel), "InclAngService", ServiceModel.InclAngServiceDomainPropertyId, typeof(ServiceModel.InclAngServicePropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "RootFolder", ModuleModel.RootFolderDomainPropertyId, typeof(ModuleModel.RootFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "Namespace", ModuleModel.NamespaceDomainPropertyId, typeof(ModuleModel.NamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "PermissionsStorage", ModuleModel.PermissionsStorageDomainPropertyId, typeof(ModuleModel.PermissionsStoragePropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "DtoNamespace", ModuleModel.DtoNamespaceDomainPropertyId, typeof(ModuleModel.DtoNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "RequestNamespace", ModuleModel.RequestNamespaceDomainPropertyId, typeof(ModuleModel.RequestNamespacePropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "DtoOuputFolder", ModuleModel.DtoOuputFolderDomainPropertyId, typeof(ModuleModel.DtoOuputFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "NgServiceOutputFolder", ModuleModel.NgServiceOutputFolderDomainPropertyId, typeof(ModuleModel.NgServiceOutputFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(ModuleModel), "NgModelsOutputFolder", ModuleModel.NgModelsOutputFolderDomainPropertyId, typeof(ModuleModel.NgModelsOutputFolderPropertyHandler)),
-				new DomainMemberInfo(typeof(DtoModel), "Name", DtoModel.NameDomainPropertyId, typeof(DtoModel.NamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceMultiplicity", Association.SourceMultiplicityDomainPropertyId, typeof(Association.SourceMultiplicityPropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "SourceRoleName", Association.SourceRoleNameDomainPropertyId, typeof(Association.SourceRoleNamePropertyHandler)),
 				new DomainMemberInfo(typeof(Association), "GenSourceNavProperty", Association.GenSourceNavPropertyDomainPropertyId, typeof(Association.GenSourceNavPropertyPropertyHandler)),
@@ -285,30 +210,6 @@ namespace Dyvenix.GenIt
 				new DomainRolePlayerInfo(typeof(EnumHasMembers), "Member", EnumHasMembers.MemberDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "EntityModel", ClassHasNavigationProperties.EntityModelDomainRoleId),
 				new DomainRolePlayerInfo(typeof(ClassHasNavigationProperties), "NavigationProperty", ClassHasNavigationProperties.NavigationPropertyDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityModelHasServiceModels), "EntityModel", EntityModelHasServiceModels.EntityModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityModelHasServiceModels), "ServiceModel", EntityModelHasServiceModels.ServiceModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(FilterPropertyModelHasProperty), "FilterPropertyModel", FilterPropertyModelHasProperty.FilterPropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(FilterPropertyModelHasProperty), "PropertyModel", FilterPropertyModelHasProperty.PropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ReadMethodModelHasFilterProperties), "ReadMethodModel", ReadMethodModelHasFilterProperties.ReadMethodModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ReadMethodModelHasFilterProperties), "FilterPropertyModel", ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(UpdatePropertyModelHasPropertyModel), "UpdatePropertyModel", UpdatePropertyModelHasPropertyModel.UpdatePropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(UpdatePropertyModelHasPropertyModel), "PropertyModel", UpdatePropertyModelHasPropertyModel.PropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(UpdateMethodModelHasUpdateProperties), "UpdateMethodModel", UpdateMethodModelHasUpdateProperties.UpdateMethodModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(UpdateMethodModelHasUpdateProperties), "UpdatePropertyModel", UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasReadMethodModels), "ServiceModel", ServiceModelHasReadMethodModels.ServiceModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasReadMethodModels), "ReadMethodModel", ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasUpdateMethods), "ServiceModel", ServiceModelHasUpdateMethods.ServiceModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasUpdateMethods), "UpdateMethodModel", ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasDtoModels), "ServiceModel", ServiceModelHasDtoModels.ServiceModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ServiceModelHasDtoModels), "DtoModel", ServiceModelHasDtoModels.DtoModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(DtoModelReferencesPropertyModels), "DtoModel", DtoModelReferencesPropertyModels.DtoModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(DtoModelReferencesPropertyModels), "PropertyModel", DtoModelReferencesPropertyModels.PropertyModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(DtoModelReferencesNavigationProperties), "DtoModel", DtoModelReferencesNavigationProperties.DtoModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(DtoModelReferencesNavigationProperties), "NavigationProperty", DtoModelReferencesNavigationProperties.NavigationPropertyDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "EntityModel", EntityModelReferencesDtoModels.EntityModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(EntityModelReferencesDtoModels), "DtoModel", EntityModelReferencesDtoModels.DtoModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ReadMethodModelReferencesReturnDto), "ReadMethodModel", ReadMethodModelReferencesReturnDto.ReadMethodModelDomainRoleId),
-				new DomainRolePlayerInfo(typeof(ReadMethodModelReferencesReturnDto), "DtoModel", ReadMethodModelReferencesReturnDto.DtoModelDomainRoleId),
 			};
 		}
 		#endregion
@@ -330,7 +231,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementMap == null)
 			{
-				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(30);
+				createElementMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(22);
 				createElementMap.Add(typeof(ModelRoot), 0);
 				createElementMap.Add(typeof(EntityModel), 1);
 				createElementMap.Add(typeof(PropertyModel), 2);
@@ -340,23 +241,15 @@ namespace Dyvenix.GenIt
 				createElementMap.Add(typeof(EnumMember), 6);
 				createElementMap.Add(typeof(EnumModel), 7);
 				createElementMap.Add(typeof(NavigationProperty), 8);
-				createElementMap.Add(typeof(FilterPropertyModel), 9);
-				createElementMap.Add(typeof(ReadMethodModel), 10);
-				createElementMap.Add(typeof(UpdatePropertyModel), 11);
-				createElementMap.Add(typeof(UpdateMethodModel), 12);
-				createElementMap.Add(typeof(ServiceModel), 13);
-				createElementMap.Add(typeof(ModuleModel), 14);
-				createElementMap.Add(typeof(DtoModel), 15);
-				createElementMap.Add(typeof(GenItDiagram), 16);
-				createElementMap.Add(typeof(AssociationConnector), 17);
-				createElementMap.Add(typeof(GeneralizationConnector), 18);
-				createElementMap.Add(typeof(ImplementationConnector), 19);
-				createElementMap.Add(typeof(CommentConnector), 20);
-				createElementMap.Add(typeof(CommentBoxShape), 21);
-				createElementMap.Add(typeof(ModuleShape), 22);
-				createElementMap.Add(typeof(ClassShape), 23);
-				createElementMap.Add(typeof(InterfaceShape), 24);
-				createElementMap.Add(typeof(EnumShape), 25);
+				createElementMap.Add(typeof(GenItDiagram), 9);
+				createElementMap.Add(typeof(AssociationConnector), 10);
+				createElementMap.Add(typeof(GeneralizationConnector), 11);
+				createElementMap.Add(typeof(ImplementationConnector), 12);
+				createElementMap.Add(typeof(CommentConnector), 13);
+				createElementMap.Add(typeof(CommentBoxShape), 14);
+				createElementMap.Add(typeof(ClassShape), 15);
+				createElementMap.Add(typeof(InterfaceShape), 16);
+				createElementMap.Add(typeof(EnumShape), 17);
 			}
 			int index;
 			if (!createElementMap.TryGetValue(elementType, out index))
@@ -379,23 +272,15 @@ namespace Dyvenix.GenIt
 				case 6: return new EnumMember(partition, propertyAssignments);
 				case 7: return new EnumModel(partition, propertyAssignments);
 				case 8: return new NavigationProperty(partition, propertyAssignments);
-				case 9: return new FilterPropertyModel(partition, propertyAssignments);
-				case 10: return new ReadMethodModel(partition, propertyAssignments);
-				case 11: return new UpdatePropertyModel(partition, propertyAssignments);
-				case 12: return new UpdateMethodModel(partition, propertyAssignments);
-				case 13: return new ServiceModel(partition, propertyAssignments);
-				case 14: return new ModuleModel(partition, propertyAssignments);
-				case 15: return new DtoModel(partition, propertyAssignments);
-				case 16: return new GenItDiagram(partition, propertyAssignments);
-				case 17: return new AssociationConnector(partition, propertyAssignments);
-				case 18: return new GeneralizationConnector(partition, propertyAssignments);
-				case 19: return new ImplementationConnector(partition, propertyAssignments);
-				case 20: return new CommentConnector(partition, propertyAssignments);
-				case 21: return new CommentBoxShape(partition, propertyAssignments);
-				case 22: return new ModuleShape(partition, propertyAssignments);
-				case 23: return new ClassShape(partition, propertyAssignments);
-				case 24: return new InterfaceShape(partition, propertyAssignments);
-				case 25: return new EnumShape(partition, propertyAssignments);
+				case 9: return new GenItDiagram(partition, propertyAssignments);
+				case 10: return new AssociationConnector(partition, propertyAssignments);
+				case 11: return new GeneralizationConnector(partition, propertyAssignments);
+				case 12: return new ImplementationConnector(partition, propertyAssignments);
+				case 13: return new CommentConnector(partition, propertyAssignments);
+				case 14: return new CommentBoxShape(partition, propertyAssignments);
+				case 15: return new ClassShape(partition, propertyAssignments);
+				case 16: return new InterfaceShape(partition, propertyAssignments);
+				case 17: return new EnumShape(partition, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -418,7 +303,7 @@ namespace Dyvenix.GenIt
 	
 			if (createElementLinkMap == null)
 			{
-				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(22);
+				createElementLinkMap = new global::System.Collections.Generic.Dictionary<global::System.Type, int>(10);
 				createElementLinkMap.Add(typeof(Association), 0);
 				createElementLinkMap.Add(typeof(ClassHasProperties), 1);
 				createElementLinkMap.Add(typeof(ModelRootHasComments), 2);
@@ -429,18 +314,6 @@ namespace Dyvenix.GenIt
 				createElementLinkMap.Add(typeof(Implementation), 7);
 				createElementLinkMap.Add(typeof(EnumHasMembers), 8);
 				createElementLinkMap.Add(typeof(ClassHasNavigationProperties), 9);
-				createElementLinkMap.Add(typeof(EntityModelHasServiceModels), 10);
-				createElementLinkMap.Add(typeof(FilterPropertyModelHasProperty), 11);
-				createElementLinkMap.Add(typeof(ReadMethodModelHasFilterProperties), 12);
-				createElementLinkMap.Add(typeof(UpdatePropertyModelHasPropertyModel), 13);
-				createElementLinkMap.Add(typeof(UpdateMethodModelHasUpdateProperties), 14);
-				createElementLinkMap.Add(typeof(ServiceModelHasReadMethodModels), 15);
-				createElementLinkMap.Add(typeof(ServiceModelHasUpdateMethods), 16);
-				createElementLinkMap.Add(typeof(ServiceModelHasDtoModels), 17);
-				createElementLinkMap.Add(typeof(DtoModelReferencesPropertyModels), 18);
-				createElementLinkMap.Add(typeof(DtoModelReferencesNavigationProperties), 19);
-				createElementLinkMap.Add(typeof(EntityModelReferencesDtoModels), 20);
-				createElementLinkMap.Add(typeof(ReadMethodModelReferencesReturnDto), 21);
 			}
 			int index;
 			if (!createElementLinkMap.TryGetValue(elementLinkType, out index))
@@ -465,18 +338,6 @@ namespace Dyvenix.GenIt
 				case 7: return new Implementation(partition, roleAssignments, propertyAssignments);
 				case 8: return new EnumHasMembers(partition, roleAssignments, propertyAssignments);
 				case 9: return new ClassHasNavigationProperties(partition, roleAssignments, propertyAssignments);
-				case 10: return new EntityModelHasServiceModels(partition, roleAssignments, propertyAssignments);
-				case 11: return new FilterPropertyModelHasProperty(partition, roleAssignments, propertyAssignments);
-				case 12: return new ReadMethodModelHasFilterProperties(partition, roleAssignments, propertyAssignments);
-				case 13: return new UpdatePropertyModelHasPropertyModel(partition, roleAssignments, propertyAssignments);
-				case 14: return new UpdateMethodModelHasUpdateProperties(partition, roleAssignments, propertyAssignments);
-				case 15: return new ServiceModelHasReadMethodModels(partition, roleAssignments, propertyAssignments);
-				case 16: return new ServiceModelHasUpdateMethods(partition, roleAssignments, propertyAssignments);
-				case 17: return new ServiceModelHasDtoModels(partition, roleAssignments, propertyAssignments);
-				case 18: return new DtoModelReferencesPropertyModels(partition, roleAssignments, propertyAssignments);
-				case 19: return new DtoModelReferencesNavigationProperties(partition, roleAssignments, propertyAssignments);
-				case 20: return new EntityModelReferencesDtoModels(partition, roleAssignments, propertyAssignments);
-				case 21: return new ReadMethodModelReferencesReturnDto(partition, roleAssignments, propertyAssignments);
 				default: return null;
 			}
 		}
@@ -661,12 +522,6 @@ namespace Dyvenix.GenIt
 			DomainRoles.Add(global::Dyvenix.GenIt.InterfaceHasOperation.OperationDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.EnumHasMembers.MemberDomainRoleId, true);
 			DomainRoles.Add(global::Dyvenix.GenIt.ClassHasNavigationProperties.NavigationPropertyDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.EntityModelHasServiceModels.ServiceModelDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.ReadMethodModelHasFilterProperties.FilterPropertyModelDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.UpdateMethodModelHasUpdateProperties.UpdatePropertyModelDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasReadMethodModels.ReadMethodModelDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasUpdateMethods.UpdateMethodModelDomainRoleId, true);
-			DomainRoles.Add(global::Dyvenix.GenIt.ServiceModelHasDtoModels.DtoModelDomainRoleId, true);
 			#endregion
 		}
 		/// <summary>

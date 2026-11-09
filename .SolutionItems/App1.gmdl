@@ -2,7 +2,7 @@
 <modelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="a05f92bc-4f04-4e80-b2f9-bcdc2d98c182" name="App1" entitiesOutputFolder="src\Common\Common.Data.Shared\Entities" entitiesNamespace="Dyvenix.App1.Common.Data.Shared.Entities" dbContextOutputFolder="src\Common\Common.Data\Context" dbContextNamespace="Dyvenix.App1.Common.Data" enumsOutputFolder="src\Common\Common.Data.Shared\Entities" enumsNamespace="Dyvenix.App1.Common.Data.Shared.Entities" permissions="Permission1|&#xA;Permission2|&#xA;Permission3|" dbContextName="App1Db" usings="Dyvenix.App1.Common.Shared.Models&#xA;Dyvenix.App1.Common.Shared.Exceptions" xmlns="http://schemas.microsoft.com/dsltools/GenIt">
   <types>
     <modelRootHasTypes Id="d8efa44d-a0be-4943-8724-d41966277579">
-      <entityModel Id="7e073b5a-ca06-4e53-b407-5153b99e78fe" name="Person" auditable="false" inclRowVersion="false" module="Auth" enabled="false">
+      <entityModel Id="7e073b5a-ca06-4e53-b407-5153b99e78fe" name="Person" auditable="false" inclRowVersion="false" enabled="false">
         <properties>
           <propertyModel Id="ed0af203-8ba4-4652-b270-da257df091d9" name="Id" description="Primary key" dataType="Guid" isPrimaryKey="true" isIndexed="true" isIndexUnique="true" isForeignKey="false" />
           <propertyModel Id="448786a9-ce1a-41ee-bba5-70b4732e2408" name="FirstName" length="50" isForeignKey="false" displayOrder="1" />
@@ -120,9 +120,6 @@
           </entityModelHasServiceModels>
         </serviceModels>
       </entityModel>
-    </modelRootHasTypes>
-    <modelRootHasTypes Id="7e24eceb-adee-494e-b8b2-9b32679d2333">
-      <moduleModel Id="8bda6b6b-6510-4c24-b586-a36348a1a586" name="Auth" apiRootFolder="src\Auth\Auth.Api" namespace="Dyvenix.App1.Auth.Api" dtoNamespace="Dyvenix.App1.Auth.Shared.DTOs" dtoOutputFolder="src\Auth\Auth.Shared\DTOs" queryNamespace="Dyvenix.App1.Auth.Shared.Queries" queryOutputFolder="src\Auth\Auth.Shared\Queries" />
     </modelRootHasTypes>
   </types>
 </modelRoot>

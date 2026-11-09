@@ -121,9 +121,8 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
                 // Header
                 txtEntityName.Text = _entityModel.Name ?? "Entity";
 
-                // Row 2: Name, Module
+                // Row 2: Name
                 txtName.Text = _entityModel.Name ?? string.Empty;
-                LoadModules();
 
                 // Row 3: TableName
                 txtTableName.Text = _entityModel.TableName ?? string.Empty;
@@ -131,7 +130,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
                 // Checkboxes
                 chkAuditable.IsChecked = _entityModel.Auditable;
                 chkInclRowVersion.IsChecked = _entityModel.InclRowVersion;
-                chkInclAngDtos.IsChecked = _entityModel.InclAngDtos;
                 chkGenerateCode.IsChecked = _entityModel.GenerateCode;
                 chkSoftDelete.IsChecked = _entityModel.SoftDelete;
 
@@ -144,35 +142,11 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
 
                 // Load properties grid
                 LoadProperties();
-
-                // Load DTOs tab
-                dtosEditCtl.SetData(_entityModel);
             }
             finally
             {
                 _isUpdating = false;
             }
-        }
-
-        private void LoadModules()
-        {
-            cboModule.Items.Clear();
-            cboModule.Items.Add(string.Empty);
-
-            var modelRoot = _entityModel.ModelRoot;
-            if (modelRoot != null)
-            {
-                var modules = modelRoot.Types.OfType<ModuleModel>().OrderBy(m => m.Name);
-                foreach (var module in modules)
-                {
-                    cboModule.Items.Add(module.Name);
-                }
-            }
-
-            var currentModule = _entityModel.Module ?? string.Empty;
-            cboModule.SelectedItem = currentModule;
-            if (cboModule.SelectedItem == null)
-                cboModule.SelectedIndex = 0;
         }
 
         private void LoadDataTypes()
@@ -235,15 +209,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
             UpdateModelProperty(EntityModel.TableNameDomainPropertyId, txtTableName.Text);
         }
 
-        private void cboModule_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_isUpdating || _entityModel == null)
-                return;
-
-            var selectedModule = cboModule.SelectedItem as string ?? string.Empty;
-            UpdateModelProperty(EntityModel.ModuleDomainPropertyId, selectedModule);
-        }
-
         private void chkAuditable_Changed(object sender, RoutedEventArgs e)
         {
             if (_isUpdating || _entityModel == null)
@@ -259,14 +224,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors.Entity.Controls
                 return;
 
             UpdateModelProperty(EntityModel.InclRowVersionDomainPropertyId, chkInclRowVersion.IsChecked ?? false);
-        }
-
-        private void chkInclAngDtos_Changed(object sender, RoutedEventArgs e)
-        {
-            if (_isUpdating || _entityModel == null)
-                return;
-
-            UpdateModelProperty(EntityModel.InclAngDtosDomainPropertyId, chkInclAngDtos.IsChecked ?? false);
         }
 
         private void chkGenerateCode_Changed(object sender, RoutedEventArgs e)

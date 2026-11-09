@@ -10,8 +10,5 @@
         <elementListCompartment Id="e83085cf-72e6-48f7-862a-34cbf60072fa" absoluteBounds="2.14, 3.5605773099263507, 1.4700000000000002, 0.44803197185198473" name="ServiceMethods" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <moduleShape Id="768a9db0-6650-43bf-b5fa-8441547ec91d" absoluteBounds="0.625, 0.5, 1.5, 0.375">
-      <moduleModelMoniker name="/App1/Auth" />
-    </moduleShape>
   </nestedChildShapes>
 </genItDiagram>

@@ -34,9 +34,6 @@ namespace Dyvenix.GenIt
                 // PropertyModel DisplayOrder change rule (re-sorts diagram compartment)
                 typeof(PropertyModelDisplayOrderChangeRule),
 
-                // PropertyModel delete propagation rule (removes orphaned Update/Filter property references)
-                typeof(PropertyModelDeletePropagationRule),
-
                 // RowVersion property delete rule
                 typeof(RowVersionPropertyDeleteRule),
                 
@@ -70,19 +67,8 @@ namespace Dyvenix.GenIt
                 
                 // Association line color rule
                 typeof(AssociationLineColorChangeRule),
-                
-                // ServiceModel add rule (sets Version property)
-                typeof(ServiceModelAddRule),
-                
                 // EnumModel name change rule (syncs DataType values)
                 typeof(EnumModelNameChangeRule),
-                
-                // ModuleModel rules (sync EntityModel.Module property)
-                typeof(ModuleModelNameChangeRule),
-                typeof(ModuleModelDeleteRule),
-                
-                // ReadMethodModel UseRequest sync rule
-                typeof(ReadMethodModelChangeRule),
 			};
 		}
 	}

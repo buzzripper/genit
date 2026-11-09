@@ -2,8 +2,6 @@ using Dyvenix.GenIt.DslPackage.Editors.Association.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Entity.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Enum.Controls;
 using Dyvenix.GenIt.DslPackage.Editors.Model.Controls;
-using Dyvenix.GenIt.DslPackage.Editors.Module.Controls;
-using Dyvenix.GenIt.DslPackage.Editors.Services.Controls;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,44 +20,14 @@ namespace Dyvenix.GenIt.DslPackage.Editors
             CaptionRequested?.Invoke(this, caption);
         }
 
-        private SvcEditControl _svcEditControl;
         private ModelRootEditControl _modelRootEditControl;
         private EntityEditControl _entityEditControl;
         private AssociationEditControl _associationEditControl;
-        private ModuleEditControl _moduleEditControl;
         private EnumEditControl _enumEditControl;
 
         public GenItEditorWindowControl()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Shows the service editor with the specified entity model.
-        /// </summary>
-        /// <param name="entityModel">The EntityModel to display.</param>
-        /// <param name="serviceModelVersion">The version of the ServiceModel to display.</param>
-        public void ShowServiceEditor(EntityModel entityModel, string serviceModelVersion)
-        {
-            if (entityModel != null)
-            {
-                // Lazy-create the service edit control
-                if (_svcEditControl == null)
-                {
-                    _svcEditControl = new SvcEditControl();
-                }
-
-                _svcEditControl.Initialize(entityModel, serviceModelVersion);
-                editorContentHost.Content = _svcEditControl;
-                editorContentHost.Visibility = Visibility.Visible;
-                txtNoSelection.Visibility = Visibility.Collapsed;
-
-				RequestCaption("GenIt - Service / Controller");
-            }
-            else
-            {
-                HideEditor();
-            }
         }
 
         /// <summary>
@@ -144,33 +112,6 @@ namespace Dyvenix.GenIt.DslPackage.Editors
                 editorContentHost.Content = _associationEditControl;
                 editorContentHost.Visibility = Visibility.Visible;
                 txtNoSelection.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                HideEditor();
-            }
-        }
-
-        /// <summary>
-        /// Shows the Module editor with the specified module model.
-        /// </summary>
-        /// <param name="moduleModel">The ModuleModel to display.</param>
-        public void ShowModuleEditor(ModuleModel moduleModel)
-        {
-            if (moduleModel != null)
-            {
-                // Lazy-create the module edit control
-                if (_moduleEditControl == null)
-                {
-                    _moduleEditControl = new ModuleEditControl();
-                }
-
-                _moduleEditControl.Initialize(moduleModel);
-                editorContentHost.Content = _moduleEditControl;
-                editorContentHost.Visibility = Visibility.Visible;
-                txtNoSelection.Visibility = Visibility.Collapsed;
-
-				RequestCaption("GenIt - Module");
             }
             else
             {

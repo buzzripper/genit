@@ -290,12 +290,6 @@ namespace Dyvenix.GenIt
 				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
 				return newShape;
 			}
-			if(element is global::Dyvenix.GenIt.ModuleModel)
-			{
-				global::Dyvenix.GenIt.ModuleShape newShape = new global::Dyvenix.GenIt.ModuleShape(this.Partition);
-				if(newShape != null) newShape.Size = newShape.DefaultSize; // set default shape size
-				return newShape;
-			}
 			if(element is global::Dyvenix.GenIt.Comment)
 			{
 				global::Dyvenix.GenIt.CommentBoxShape newShape = new global::Dyvenix.GenIt.CommentBoxShape(this.Partition);
@@ -337,7 +331,6 @@ namespace Dyvenix.GenIt
 			global::Dyvenix.GenIt.InterfaceShape.DecoratorsInitialized += InterfaceShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.CommentBoxShape.DecoratorsInitialized += CommentBoxShapeDecoratorMap.OnDecoratorsInitialized;
 			global::Dyvenix.GenIt.EnumShape.DecoratorsInitialized += EnumShapeDecoratorMap.OnDecoratorsInitialized;
-			global::Dyvenix.GenIt.ModuleShape.DecoratorsInitialized += ModuleShapeDecoratorMap.OnDecoratorsInitialized;
 		}
 		
 		/// <summary>
@@ -401,24 +394,6 @@ namespace Dyvenix.GenIt
 		{
 			/// <summary>
 			/// Event handler called when decorator initialization is complete for EnumShape.  Adds decorator mappings for this shape or connector.
-			/// </summary>
-			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
-			{
-				DslDiagrams::ShapeElement shape = (DslDiagrams::ShapeElement)sender;
-				DslDiagrams::AssociatedPropertyInfo propertyInfo;
-				
-				propertyInfo = new DslDiagrams::AssociatedPropertyInfo(global::Dyvenix.GenIt.NamedElement.NameDomainPropertyId);
-				DslDiagrams::ShapeElement.FindDecorator(shape.Decorators, "Name").AssociateValueWith(shape.Store, propertyInfo);
-			}
-		}
-		
-		/// <summary>
-		/// Class containing decorator path traversal methods for ModuleShape.
-		/// </summary>
-		internal static partial class ModuleShapeDecoratorMap
-		{
-			/// <summary>
-			/// Event handler called when decorator initialization is complete for ModuleShape.  Adds decorator mappings for this shape or connector.
 			/// </summary>
 			public static void OnDecoratorsInitialized(object sender, global::System.EventArgs e)
 			{
@@ -600,7 +575,6 @@ namespace Dyvenix.GenIt
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModelInterface), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ModuleModel), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Comment), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddShapeParentExistRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Association), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.Generalization), FireTime = DslModeling::TimeToFire.TopLevelCommit, Priority = DslDiagrams::DiagramFixupConstants.AddConnectionRulePriority, InitiallyDisabled=true)]
@@ -632,10 +606,6 @@ namespace Dyvenix.GenIt
 				if(childElement is global::Dyvenix.GenIt.EnumModel)
 				{
 					parentElement = GetParentForEnumModel((global::Dyvenix.GenIt.EnumModel)childElement);
-				} else
-				if(childElement is global::Dyvenix.GenIt.ModuleModel)
-				{
-					parentElement = GetParentForModuleModel((global::Dyvenix.GenIt.ModuleModel)childElement);
 				} else
 				if(childElement is global::Dyvenix.GenIt.Comment)
 				{
@@ -672,13 +642,6 @@ namespace Dyvenix.GenIt
 				return result;
 			}
 			public static global::Dyvenix.GenIt.ModelRoot GetParentForEnumModel( global::Dyvenix.GenIt.ModelType root )
-			{
-				// Segments 0 and 1
-				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
-				if ( result == null ) return null;
-				return result;
-			}
-			public static global::Dyvenix.GenIt.ModelRoot GetParentForModuleModel( global::Dyvenix.GenIt.ModelType root )
 			{
 				// Segments 0 and 1
 				global::Dyvenix.GenIt.ModelRoot result = root.ModelRoot;
@@ -775,7 +738,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasNavigationProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemAddRule : DslModeling::AddRule
@@ -803,11 +765,6 @@ namespace Dyvenix.GenIt
 				{
 					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapeNavPropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasNavigationProperties)e.ModelElement);
 					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "NavPropertiesCompartment", repaintOnly);
-				}
-				if(e.ModelElement is global::Dyvenix.GenIt.EntityModelHasServiceModels)
-				{
-					global::System.Collections.IEnumerable elements = GetEntityModelForClassShapeServiceMethodsFromLastLink((global::Dyvenix.GenIt.EntityModelHasServiceModels)e.ModelElement);
-					UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
 				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceHasOperation)
 				{
@@ -847,20 +804,6 @@ namespace Dyvenix.GenIt
 			{
 				// Segments 1 and 0
 				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
-				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetEntityModelForClassShapeServiceMethodsFromLastLink(global::Dyvenix.GenIt.EntityModelHasServiceModels root)
-			{
-				// Segment 0
-				global::Dyvenix.GenIt.EntityModel result = root.EntityModel;
-				if ( result == null ) return new DslModeling::ModelElement[0];
-				return new DslModeling::ModelElement[] {result};
-			}
-			internal static global::System.Collections.ICollection GetEntityModelForClassShapeServiceMethods(global::Dyvenix.GenIt.ServiceModel root)
-			{
-				// Segments 1 and 0
-				global::Dyvenix.GenIt.EntityModel result = root.EntityModeled;
 				if ( result == null ) return new DslModeling::ModelElement[0];
 				return new DslModeling::ModelElement[] {result};
 			}
@@ -939,7 +882,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasNavigationProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemDeleteRule : DslModeling::DeleteRule
@@ -966,11 +908,6 @@ namespace Dyvenix.GenIt
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapeNavPropertiesCompartmentFromLastLink((global::Dyvenix.GenIt.ClassHasNavigationProperties)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "NavPropertiesCompartment", repaintOnly);
 				}
-				if(e.ModelElement is global::Dyvenix.GenIt.EntityModelHasServiceModels)
-				{
-					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethodsFromLastLink((global::Dyvenix.GenIt.EntityModelHasServiceModels)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
-				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceHasOperation)
 				{
 					global::System.Collections.ICollection elements = CompartmentItemAddRule.GetModelInterfaceForInterfaceShapeOperationsCompartmentFromLastLink((global::Dyvenix.GenIt.InterfaceHasOperation)e.ModelElement);
@@ -989,7 +926,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.PropertyModel), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.NavigationProperty), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ServiceModel), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumMember), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemChangeRule : DslModeling::ChangeRule 
@@ -1016,11 +952,6 @@ namespace Dyvenix.GenIt
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeNavPropertiesCompartment((global::Dyvenix.GenIt.NavigationProperty)e.ModelElement);
 					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "NavPropertiesCompartment", repaintOnly);
 				}
-				if(e.ModelElement is global::Dyvenix.GenIt.ServiceModel && e.DomainProperty.Id == global::Dyvenix.GenIt.ServiceModel.VersionDomainPropertyId)
-				{
-					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethods((global::Dyvenix.GenIt.ServiceModel)e.ModelElement);
-					CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
-				}
 				if(e.ModelElement is global::Dyvenix.GenIt.InterfaceOperation && e.DomainProperty.Id == global::Dyvenix.GenIt.InterfaceOperation.NameDomainPropertyId)
 				{
 					global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetModelInterfaceForInterfaceShapeOperationsCompartment((global::Dyvenix.GenIt.InterfaceOperation)e.ModelElement);
@@ -1039,7 +970,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasNavigationProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerChangeRule : DslModeling::RolePlayerChangeRule 
@@ -1110,33 +1040,6 @@ namespace Dyvenix.GenIt
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "NavPropertiesCompartment", repaintOnly);
 					}
 				}
-				if(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(e.DomainRole.IsSource)
-					{
-						//global::System.Collections.IEnumerable oldElements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethodsFromLastLink((global::Dyvenix.GenIt.ServiceModel)e.OldRolePlayer);
-						//foreach(DslModeling::ModelElement element in oldElements)
-						//{
-						//	DslModeling::LinkedElementCollection<DslDiagrams::PresentationElement> pels = DslDiagrams::PresentationViewsSubject.GetPresentation(element);
-						//	foreach(DslDiagrams::PresentationElement pel in pels)
-						//	{
-						//		global::Dyvenix.GenIt.ClassShape compartmentShape = pel as global::Dyvenix.GenIt.ClassShape;
-						//		if(compartmentShape != null)
-						//		{
-						//			compartmentShape.GetCompartmentMappings()[2].InitializeCompartmentShape(compartmentShape);
-						//		}
-						//	}
-						//}
-						
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethodsFromLastLink((global::Dyvenix.GenIt.EntityModelHasServiceModels)e.ElementLink);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
-					}
-					else 
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethods((global::Dyvenix.GenIt.ServiceModel)e.NewRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
-					}
-				}
 				if(typeof(global::Dyvenix.GenIt.InterfaceHasOperation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
 				{
 					if(e.DomainRole.IsSource)
@@ -1199,7 +1102,6 @@ namespace Dyvenix.GenIt
 		/// </summary>
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.ClassHasNavigationProperties), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
-		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.InterfaceHasOperation), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		[DslModeling::RuleOn(typeof(global::Dyvenix.GenIt.EnumHasMembers), FireTime=DslModeling::TimeToFire.TopLevelCommit, InitiallyDisabled=true)]
 		internal sealed class CompartmentItemRolePlayerPositionChangeRule : DslModeling::RolePlayerPositionChangeRule 
@@ -1230,14 +1132,6 @@ namespace Dyvenix.GenIt
 					{
 						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeNavPropertiesCompartment((global::Dyvenix.GenIt.NavigationProperty)e.CounterpartRolePlayer);
 						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "NavPropertiesCompartment", repaintOnly);
-					}
-				}
-				if(typeof(global::Dyvenix.GenIt.EntityModelHasServiceModels).IsAssignableFrom(e.DomainRelationship.ImplementationClass))
-				{
-					if(!e.CounterpartDomainRole.IsSource)
-					{
-						global::System.Collections.IEnumerable elements = CompartmentItemAddRule.GetEntityModelForClassShapeServiceMethods((global::Dyvenix.GenIt.ServiceModel)e.CounterpartRolePlayer);
-						CompartmentItemAddRule.UpdateCompartments(elements, typeof(global::Dyvenix.GenIt.ClassShape), "ServiceMethods", repaintOnly);
 					}
 				}
 				if(typeof(global::Dyvenix.GenIt.InterfaceHasOperation).IsAssignableFrom(e.DomainRelationship.ImplementationClass))

@@ -25,8 +25,7 @@ namespace Dyvenix.GenIt
     }
 
     /// <summary>
-    /// Custom TypeDescriptor that adds multiline editor to the Attributes property
-    /// and module dropdown editor to the Module property.
+    /// Custom TypeDescriptor that adds multiline editor to the Attributes and Usings properties.
     /// </summary>
     public class EntityModelTypeDescriptor : ElementTypeDescriptor
     {
@@ -36,8 +35,7 @@ namespace Dyvenix.GenIt
         }
 
         /// <summary>
-        /// Filters the properties collection to add multiline editor to Attributes and Usings,
-        /// and module dropdown editor to Module.
+        /// Filters the properties collection to add multiline editor to Attributes and Usings.
         /// </summary>
         public override PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
@@ -50,11 +48,6 @@ namespace Dyvenix.GenIt
                 {
                     // Add multiline string editor to Attributes and Usings properties
                     newProperties.Add(TypeDescriptorHelper.CreateMultilineStringPropertyDescriptor(prop));
-                }
-                else if (prop.Name == "Module")
-                {
-                    // Add module dropdown editor to Module property (dropdown-only, no manual text editing)
-                    newProperties.Add(TypeDescriptorHelper.CreateDropdownOnlyModuleNamePropertyDescriptor(prop));
                 }
                 else
                 {

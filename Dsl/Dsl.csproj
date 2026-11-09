@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="18.0">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\DSLTools\Microsoft.DslTools.settings.targets" />
@@ -91,38 +91,27 @@
     <Compile Include="CustomCode\AssociationTypeDescriptor.cs" />
     <Compile Include="CustomCode\ClassShapeCustom.cs" />
     <Compile Include="CustomCode\DataTypes.cs" />
-    <Compile Include="CustomCode\DtoModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelPartial.cs" />
     <Compile Include="CustomCode\EntityModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\EnumModelRules.cs" />
-    <Compile Include="CustomCode\FilterPropertyModelPartial.cs" />
     <Compile Include="CustomCode\FolderPathEditor.cs" />
     <Compile Include="CustomCode\GenItDiagramExtension.cs" />
     <Compile Include="CustomCode\GenItDomainModelCustomization.cs" />
     <Compile Include="CustomCode\ModelRootCustomization.cs" />
     <Compile Include="CustomCode\ModelRootPartial.cs" />
     <Compile Include="CustomCode\ModelRootTypeDescriptor.cs" />
-    <Compile Include="CustomCode\ModuleModel.cs" />
-    <Compile Include="CustomCode\ModuleModelRules.cs" />
     <Compile Include="CustomCode\MultiplicityConverter.cs" />
     <Compile Include="CustomCode\NavigationPropertyCustom.cs" />
     <Compile Include="CustomCode\NavigationPropertyTypeDescriptor.cs" />
     <Compile Include="CustomCode\PackageUtils.cs" />
     <Compile Include="CustomCode\PropertyModelCustomization.cs" />
-    <Compile Include="CustomCode\PropertyModelDeletePropagationRules.cs" />
     <Compile Include="CustomCode\PropertyModelDisplayOrderRules.cs" />
     <Compile Include="CustomCode\PropertyModelNullabilityRules.cs" />
     <Compile Include="CustomCode\PropertyModelPartial.cs" />
     <Compile Include="CustomCode\PropertyModelRenamePropagationRules.cs" />
     <Compile Include="CustomCode\PropertyModelTypeDescriptor.cs" />
-    <Compile Include="CustomCode\ReadMethodModelPartial.cs" />
-    <Compile Include="CustomCode\ReadMethodModelRules.cs" />
-    <Compile Include="CustomCode\ServiceModelCustomization.cs" />
-    <Compile Include="CustomCode\ServiceModelTypeDescriptor.cs" />
     <Compile Include="CustomCode\StringExt.cs" />
     <Compile Include="CustomCode\TypeDescriptorHelper.cs" />
-    <Compile Include="CustomCode\UpdatePropertyModelPartial.cs" />
-    <Compile Include="CustomCode\UpdateMethodModelPartial.cs" />
     <Compile Include="GeneratedCode\ConnectionBuilders.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

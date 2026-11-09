@@ -331,12 +331,9 @@
                        FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
         </Grid>
         
-        <!-- Row 1: Name, Module, TableName, Attributes link (right-aligned), Usings link -->
+        <!-- Row 1: Name, TableName, Attributes link (right-aligned), Usings link -->
         <Grid Grid.Row="1" Margin="0,0,0,12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="16"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="16"/>
@@ -351,16 +348,13 @@
             <Label Grid.Column="0" Content="Name:" Margin="0,0,8,0"/>
             <TextBox Grid.Column="1" x:Name="txtName" TextChanged="txtName_TextChanged"/>
             
-            <Label Grid.Column="3" Content="Module:" Margin="0,0,8,0"/>
-            <ComboBox Grid.Column="4" x:Name="cboModule" SelectionChanged="cboModule_SelectionChanged"/>
+            <Label Grid.Column="3" Content="Table Name:" Margin="0,0,8,0"/>
+            <TextBox Grid.Column="4" x:Name="txtTableName" TextChanged="txtTableName_TextChanged"/>
             
-            <Label Grid.Column="6" Content="Table Name:" Margin="0,0,8,0"/>
-            <TextBox Grid.Column="7" x:Name="txtTableName" TextChanged="txtTableName_TextChanged"/>
-            
-            <Button Grid.Column="9" x:Name="btnAttributes" Content="Attributes (0)" 
+            <Button Grid.Column="6" x:Name="btnAttributes" Content="Attributes (0)" 
                     Style="{StaticResource LinkButtonStyle}" Click="btnAttributes_Click"/>
             
-            <Button Grid.Column="11" x:Name="btnUsings" Content="Usings (0)" 
+            <Button Grid.Column="8" x:Name="btnUsings" Content="Usings (0)" 
                     Style="{StaticResource LinkButtonStyle}" Click="btnUsings_Click"/>
         </Grid>
         
@@ -571,8 +565,6 @@
                                   Checked="chkGenerateCode_Changed" Unchecked="chkGenerateCode_Changed"/>
                         <CheckBox x:Name="chkInclRowVersion" Content="Include Row Version" Margin="0,0,0,8"
                                   Checked="chkInclRowVersion_Changed" Unchecked="chkInclRowVersion_Changed"/>
-                        <CheckBox x:Name="chkInclAngDtos" Content="Include Angular DTOs" Margin="0,0,0,8"
-                                  Checked="chkInclAngDtos_Changed" Unchecked="chkInclAngDtos_Changed"/>
                         <CheckBox x:Name="chkAuditable" Content="Auditable" Margin="0,0,0,8"
                                   Checked="chkAuditable_Changed" Unchecked="chkAuditable_Changed"/>
                         <CheckBox x:Name="chkSoftDelete" Content="Soft Delete" Margin="0,0,0,8"
@@ -613,11 +605,6 @@
                         </Border>
                     </Popup>
                 </Grid>
-            </TabItem>
-            
-            <!-- DTOs Tab -->
-            <TabItem Header="DTOs">
-                <local:EntityDtosEditControl x:Name="dtosEditCtl"/>
             </TabItem>
         </TabControl>
     </Grid>
